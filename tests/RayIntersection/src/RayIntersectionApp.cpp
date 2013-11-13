@@ -20,7 +20,7 @@ class RayIntersectionApp : public AppNative {
     
     ci::CameraPersp mCamera;
     ci::Ray mRay;
-    std::vector<ci::Vec3f> mTriangles;
+    std::vector<ci::Vec3f> mVertices;
     
     Vec3f mIntersection;
     int   mIntersectionCount;
@@ -37,9 +37,23 @@ void RayIntersectionApp::setup()
     mIntersectionCount = 0;
     
     
-    mTriangles.push_back(ci::Vec3f( 2.0f,0.0f,0.0f));
-    mTriangles.push_back(ci::Vec3f( 0.0f,0.0f,0.0f));
-    mTriangles.push_back(ci::Vec3f( 0.0f,0.0f,2.0f));
+    mVertices.push_back(ci::Vec3f( 2.0f,  0.0f, 0.0f));
+    mVertices.push_back(ci::Vec3f( 0.0f,  0.0f, 0.0f));
+    mVertices.push_back(ci::Vec3f( 0.0f,  0.0f, 2.0f));
+    
+    mVertices.push_back(ci::Vec3f( 2.0f,  0.0f, 0.0f));
+    mVertices.push_back(ci::Vec3f( 0.0f,  0.0f, 0.0f));
+    mVertices.push_back(ci::Vec3f( 0.0f,  1.0f,-2.0f));
+    
+    mVertices.push_back(ci::Vec3f(-2.0f,  0.0f, 0.0f));
+    mVertices.push_back(ci::Vec3f( 0.0f,  0.0f, 0.0f));
+    mVertices.push_back(ci::Vec3f( 0.0f,  0.0f, 2.0f));
+    
+    mVertices.push_back(ci::Vec3f(-2.0f, 0.0f, 0.0f));
+    mVertices.push_back(ci::Vec3f( 0.0f, 0.0f, 0.0f));
+    mVertices.push_back(ci::Vec3f( 0.0f, 1.0f,-2.0f));
+    
+    
 }
 
 void RayIntersectionApp::mouseDown( MouseEvent event )
@@ -62,7 +76,9 @@ void RayIntersectionApp::update()
     mRay.setOrigin(Vec3f(cosf(mTime * 2) * pi * 0.25f,
                          1.0f,
                          sinf(mTime * 2) * pi * 0.25f));
-    mRay.setDirection(Vec3f(0.0001f,-0.75f,0.0001f));
+    mRay.setDirection(Vec3f(cosf(mTime * 2) * pi * 0.25f,
+                            -1.0f,
+                            sinf(mTime * 2) * pi * 0.25f));
 }
 
 
@@ -83,25 +99,32 @@ void RayIntersectionApp::draw()
     glColor3f(1.0f, 1.0f, 1.0f);
     glMatrixMode(GL_MODELVIEW_MATRIX);
     glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(3, GL_FLOAT, 0, &mTriangles[0].x);
-    glDrawArrays(GL_TRIANGLES, 0, mTriangles.size());
+    glVertexPointer(3, GL_FLOAT, 0, &mVertices[0].x);
+    glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
     glDisableClientState(GL_VERTEX_ARRAY);
+    
+    
+
+    float distance = 1.0f;
+    int i=0;
+    while (i < mVertices.size()) {
+        if (mRay.calcTriangleIntersection(mVertices[i  ],
+                                          mVertices[i+1],
+                                          mVertices[i+2],
+                                          &distance)) {
+            mIntersectionCount++;
+            //cout << distance << " " << mIntersectionCount << endl;
+            glColor3f(1.0f,0.0f,0.0f);
+            gl::drawSphere(mRay.calcPosition(distance), 0.075f);
+        }
+        i+=3;
+    }
     
     glColor3f(1.0f, 0.0f, 1.0f);
     gl::drawSphere(mRay.getOrigin(), 0.0125f);
-    gl::drawVector(mRay.getOrigin(), mRay.getOrigin() + mRay.getDirection());
-
-    float distance;
+    gl::drawVector(mRay.getOrigin(), mRay.calcPosition(distance - 0.25f));
     
-    if (mRay.calcTriangleIntersection(mTriangles[0],
-                                      mTriangles[2],
-                                      mTriangles[1],
-                                      &distance)) {
-        mIntersectionCount++;
-        cout << mIntersectionCount << endl;
-        //glColor3f(1.0f,0.0f,0.0f);
-        //gl::drawSphere(mIntersection, 0.25f);
-    }
+    
     
     
     mTimeLast = mTime;

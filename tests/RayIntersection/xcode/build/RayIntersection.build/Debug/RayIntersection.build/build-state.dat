@@ -4395,9 +4395,9 @@ t1384369171
 s459637
 
 N/Users/automat/Projects/next/tests/RayIntersection/src/RayIntersectionApp.cpp
-c000000005283E8EF0000000000000BB2
-t1384376559
-s2994
+c000000005283ED5F0000000000000EC4
+t1384377695
+s3780
 
 N/Users/automat/Projects/next/tests/RayIntersection/xcode/Info.plist
 c000000005283CC130000000000000462
@@ -4410,7 +4410,7 @@ t1384369171
 s301
 
 N/Users/automat/Projects/next/tests/RayIntersection/xcode/build/Debug/RayIntersection.app
-t1384376541
+t1384377685
 s102
 
 N/Users/automat/Projects/next/tests/RayIntersection/xcode/build/Debug/RayIntersection.app/Contents/Info.plist
@@ -4418,8 +4418,8 @@ t1384369213
 s1507
 
 N/Users/automat/Projects/next/tests/RayIntersection/xcode/build/Debug/RayIntersection.app/Contents/MacOS/RayIntersection
-t1384376561
-s2835808
+t1384377697
+s2838800
 
 N/Users/automat/Projects/next/tests/RayIntersection/xcode/build/Debug/RayIntersection.app/Contents/PkgInfo
 t1384369213
@@ -4435,8 +4435,8 @@ t1384369213
 s154
 
 N/Users/automat/Projects/next/tests/RayIntersection/xcode/build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersectionApp.o
-t1384376561
-s1782212
+t1384377696
+s1791372
 
 N/var/folders/6p/t6s3jjyj4998lvkc_78hjjx40000gn/C/com.apple.DeveloperTools/5.0.1-5A2053/Xcode/SharedPrecompiledHeaders/RayIntersection_Prefix-fcqryzawqrumjccfbtvfefbypolp/RayIntersection_Prefix.pch.pch
 t1384369217
@@ -4447,11 +4447,11 @@ r0
 
 CCheck dependencies
 r0
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependenciesa307ee6f2034b841^5d70ee6f2034b841^---0#1#1#--18"Check dependencies36"F2826EEC-2547-483C-8C8C-4F7F2BC5C88C-
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependencies18d299df2434b841^ca4f9adf2434b841^---0#1#1#--18"Check dependencies36"6BD5EC35-443F-405B-9195-9BDDC2B0203B-
 
 CCompileC ./build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersectionApp.o /Users/automat/Projects/next/tests/RayIntersection/src/RayIntersectionApp.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler
-s406069359.941926
-e406069361.116545
+s406070495.617555
+e406070496.862596
 r1
 xCompileC
 x./build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersectionApp.o
@@ -4463,8 +4463,8 @@ xcom.apple.compilers.llvm.clang.1_0.compiler
 d/Users/automat/Projects/next/tests/RayIntersection/src/RayIntersectionApp.cpp
 d/Users/automat/Projects/Cinder/include/cinder/app/AppNative.h
 d/Users/automat/Projects/Cinder/include/cinder/Camera.h
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection85"Compile /Users/automat/Projects/next/tests/RayIntersection/src/RayIntersectionApp.cpp245"CompileC ./build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersectionApp.o /Users/automat/Projects/next/tests/RayIntersection/src/RayIntersectionApp.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler6a34f16f2034b841^fed71d712034b841^---0#0#1#-19%DVTDocumentLocation2@84"file:///Users/automat/Projects/next/tests/RayIntersection/src/RayIntersectionApp.cpp0000000000000000^3337"CompileC ./build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersectionApp.o /Users/automat/Projects/next/tests/RayIntersection/src/RayIntersectionApp.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/automat/Projects/next/tests/RayIntersection/xcode    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch i386 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=c++11 -stdlib=libc++ -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-shorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -fasm-blocks -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -fvisibility-inlines-hidden -Wno-sign-conversion -iquote /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/RayIntersection-generated-files.hmap -I/Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/RayIntersection-own-target-headers.hmap -I/Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/RayIntersection-all-target-headers.hmap -iquote /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/RayIntersection-project-headers.hmap -iquote../../../../Cinder/include -iquote../include -I/Users/automat/Projects/next/tests/RayIntersection/xcode/build/Debug/include -I../../../../Cinder/boost -I/Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/DerivedSources/i386 -I/Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/DerivedSources -F/Users/automat/Projects/next/tests/RayIntersection/xcode/build/Debug -include /var/folders/6p/t6s3jjyj4998lvkc_78hjjx40000gn/C/com.apple.DeveloperTools/5.0.1-5A2053/Xcode/SharedPrecompiledHeaders/RayIntersection_Prefix-fcqryzawqrumjccfbtvfefbypolp/RayIntersection_Prefix.pch -MMD -MT dependencies -MF /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersectionApp.d --serialize-diagnostics /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersectionApp.dia -c /Users/automat/Projects/next/tests/RayIntersection/src/RayIntersectionApp.cpp -o /Users/automat/Projects/next/tests/RayIntersection/xcode/build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersectionApp.o36"590B1434-B544-4B0C-A7CD-8C93F38D7704-
-b278952CB-2273-4165-B79C-CBBAA51E1060
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection85"Compile /Users/automat/Projects/next/tests/RayIntersection/src/RayIntersectionApp.cpp245"CompileC ./build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersectionApp.o /Users/automat/Projects/next/tests/RayIntersection/src/RayIntersectionApp.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compilerad2f9edf2434b841^5bd3dce02434b841^---0#0#1#-19%DVTDocumentLocation2@84"file:///Users/automat/Projects/next/tests/RayIntersection/src/RayIntersectionApp.cpp0000000000000000^3337"CompileC ./build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersectionApp.o /Users/automat/Projects/next/tests/RayIntersection/src/RayIntersectionApp.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/automat/Projects/next/tests/RayIntersection/xcode    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch i386 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=c++11 -stdlib=libc++ -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-shorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -fasm-blocks -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.7 -g -fvisibility-inlines-hidden -Wno-sign-conversion -iquote /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/RayIntersection-generated-files.hmap -I/Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/RayIntersection-own-target-headers.hmap -I/Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/RayIntersection-all-target-headers.hmap -iquote /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/RayIntersection-project-headers.hmap -iquote../../../../Cinder/include -iquote../include -I/Users/automat/Projects/next/tests/RayIntersection/xcode/build/Debug/include -I../../../../Cinder/boost -I/Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/DerivedSources/i386 -I/Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/DerivedSources -F/Users/automat/Projects/next/tests/RayIntersection/xcode/build/Debug -include /var/folders/6p/t6s3jjyj4998lvkc_78hjjx40000gn/C/com.apple.DeveloperTools/5.0.1-5A2053/Xcode/SharedPrecompiledHeaders/RayIntersection_Prefix-fcqryzawqrumjccfbtvfefbypolp/RayIntersection_Prefix.pch -MMD -MT dependencies -MF /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersectionApp.d --serialize-diagnostics /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersectionApp.dia -c /Users/automat/Projects/next/tests/RayIntersection/src/RayIntersectionApp.cpp -o /Users/automat/Projects/next/tests/RayIntersection/xcode/build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersectionApp.o36"E491E24C-0BE8-463B-A614-5A887BA87B1C-
+b21694B55-516B-4572-9088-E4E61446DDB1
 
 CCpResource /Users/automat/Projects/next/tests/RayIntersection/resources/CinderApp.icns build/Debug/RayIntersection.app/Contents/Resources/CinderApp.icns
 s406062013.437520
@@ -4477,8 +4477,8 @@ lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection70"Copy bu
 b552A6E45-7392-4AB0-A620-D5E3686B4E64
 
 CLd /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/Debug/RayIntersection.app/Contents/MacOS/RayIntersection normal i386
-s406069361.118835
-e406069361.746839
+s406070496.865136
+e406070497.508692
 r1
 xLd
 x/Users/automat/Projects/next/tests/RayIntersection/xcode/./build/Debug/RayIntersection.app/Contents/MacOS/RayIntersection
@@ -4562,8 +4562,8 @@ d/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/
 d/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/AE.framework/Versions/A/AE
 d/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/LaunchServices
 d/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/DictionaryServices.framework/Versions/A/DictionaryServices
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection126"Link /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/Debug/RayIntersection.app/Contents/MacOS/RayIntersection79"Ld ./build/Debug/RayIntersection.app/Contents/MacOS/RayIntersection normal i3869e781e712034b841^d331bf712034b841^---0#0#1#--1302"Ld ./build/Debug/RayIntersection.app/Contents/MacOS/RayIntersection normal i386    cd /Users/automat/Projects/next/tests/RayIntersection/xcode    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -arch i386 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -L/Users/automat/Projects/next/tests/RayIntersection/xcode/build/Debug -F/Users/automat/Projects/next/tests/RayIntersection/xcode/build/Debug -filelist /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersection.LinkFileList -mmacosx-version-min=10.7 -dead_strip ../../../../Cinder/lib/libcinder_d.a -stdlib=libc++ -framework Cocoa -framework OpenGL -framework CoreVideo -framework QTKit -framework Accelerate -framework AudioToolbox -framework AudioUnit -framework CoreAudio -Xlinker -dependency_info -Xlinker /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersection_dependency_info.dat -o /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/Debug/RayIntersection.app/Contents/MacOS/RayIntersection36"DC25C368-091A-48C4-AD49-566269F31E04-
-b278952CB-2273-4165-B79C-CBBAA51E1060
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection126"Link /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/Debug/RayIntersection.app/Contents/MacOS/RayIntersection79"Ld ./build/Debug/RayIntersection.app/Contents/MacOS/RayIntersection normal i3867b85dde02434b841^7e3a82e12434b841^---0#0#1#--1302"Ld ./build/Debug/RayIntersection.app/Contents/MacOS/RayIntersection normal i386    cd /Users/automat/Projects/next/tests/RayIntersection/xcode    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -arch i386 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -L/Users/automat/Projects/next/tests/RayIntersection/xcode/build/Debug -F/Users/automat/Projects/next/tests/RayIntersection/xcode/build/Debug -filelist /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersection.LinkFileList -mmacosx-version-min=10.7 -dead_strip ../../../../Cinder/lib/libcinder_d.a -stdlib=libc++ -framework Cocoa -framework OpenGL -framework CoreVideo -framework QTKit -framework Accelerate -framework AudioToolbox -framework AudioUnit -framework CoreAudio -Xlinker -dependency_info -Xlinker /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/RayIntersection.build/Debug/RayIntersection.build/Objects-normal/i386/RayIntersection_dependency_info.dat -o /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/Debug/RayIntersection.app/Contents/MacOS/RayIntersection36"DB46F8E7-54F3-4DCD-9030-D6DB3509D973-
+b21694B55-516B-4572-9088-E4E61446DDB1
 
 CProcessInfoPlistFile /Users/automat/Projects/next/tests/RayIntersection/xcode/build/Debug/RayIntersection.app/Contents/Info.plist /Users/automat/Projects/next/tests/RayIntersection/xcode/Info.plist
 s406062013.434034
@@ -5385,11 +5385,11 @@ lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection37"Precomp
 b552A6E45-7392-4AB0-A620-D5E3686B4E64
 
 CTouch /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/Debug/RayIntersection.app
-s406069361.749378
-e406069361.752669
+s406070497.512181
+e406070497.515249
 r1
 xTouch
 x/Users/automat/Projects/next/tests/RayIntersection/xcode/./build/Debug/RayIntersection.app
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection96"Touch /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/Debug/RayIntersection.app39"Touch ./build/Debug/RayIntersection.app04e4bf712034b841^5bb0c0712034b841^---0#0#1#--217"Touch ./build/Debug/RayIntersection.app    cd /Users/automat/Projects/next/tests/RayIntersection/xcode    /usr/bin/touch -c /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/Debug/RayIntersection.app36"6EDA0CDC-2FE5-4A5C-9A61-24E716366CA3-
-b278952CB-2273-4165-B79C-CBBAA51E1060
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection96"Touch /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/Debug/RayIntersection.app39"Touch ./build/Debug/RayIntersection.app392683e12434b841^cde883e12434b841^---0#0#1#--217"Touch ./build/Debug/RayIntersection.app    cd /Users/automat/Projects/next/tests/RayIntersection/xcode    /usr/bin/touch -c /Users/automat/Projects/next/tests/RayIntersection/xcode/./build/Debug/RayIntersection.app36"77C074C9-185D-49E0-981E-4B229E8C62A3-
+b21694B55-516B-4572-9088-E4E61446DDB1
 
