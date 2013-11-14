@@ -22,7 +22,7 @@ class RayIntersectionApp : public AppNative {
     ci::CameraPersp mCamera;
     ci::Ray mRay;
     std::vector<ci::Vec3f>  mVertices;
-    std::vector<ci::Colorf> mColors;
+    std::vector<ci::ColorAf> mColors;
     
     Vec3f                  mIntersection;
 
@@ -35,7 +35,7 @@ class RayIntersectionApp : public AppNative {
     int                    mIntersectionMemoryActive;
     size_t                 mIntersectionMemoryMax;
     std::vector<ci::Vec3f> mIntersectionMemory;
-    std::vector<ci::Colorf>mIntersectionMemoryColor;
+    std::vector<ci::ColorAf>mIntersectionMemoryColor;
     
     float mTime;
     float mTimeLast;
@@ -58,7 +58,7 @@ void RayIntersectionApp::setup()
     int i = -1;
     while (++i < mIntersectionMemoryMax) {
         mIntersectionMemory.push_back(Vec3f::zero());
-        mIntersectionMemoryColor.push_back(Colorf());
+        mIntersectionMemoryColor.push_back(ColorAf());
     }
     
     
@@ -93,7 +93,16 @@ void RayIntersectionApp::setup()
     mColors.push_back(ci::Colorf(1.0f,1.0f,1.0f));
     mColors.push_back(ci::Colorf(1.0f,1.0f,1.0f));
     mColors.push_back(ci::Colorf(1.0f,1.0f,1.0f));
+   
+    /*
+    mVertices.push_back(ci::Vec3f( -0.5f, 1.0f, 0.0f));
+    mVertices.push_back(ci::Vec3f(  0.0f, 1.0f, 0.0f));
+    mVertices.push_back(ci::Vec3f(  0.0f, 1.0f, 0.5f));
     
+    mColors.push_back(ci::Colorf(1.0f,1.0f,1.0f));
+    mColors.push_back(ci::Colorf(1.0f,1.0f,1.0f));
+    mColors.push_back(ci::Colorf(1.0f,1.0f,1.0f));
+    */
     
 }
 
@@ -124,6 +133,43 @@ void RayIntersectionApp::update()
     mRay.setDirection(Vec3f(cosf(mTime * 2) * pi * 0.25f,
                             -1.0f,
                             sinf(mTime * 2) * pi * 0.25f));
+    
+    float distance = 1.0f;
+    
+    if (mIntersectionTick % mIntersectionTickFreq == 0) {
+        int i = 0;
+        bool intersects = false;
+        
+        while (i < mVertices.size()) {
+            if (mRay.calcTriangleIntersection(mVertices[i  ],
+                                              mVertices[i+1],
+                                              mVertices[i+2],
+                                              &distance)) {
+                
+                mIntersectionMemoryCount++;
+                if (mIntersectionMemoryCount < mIntersectionMemory.size()) {
+                    
+                    Vec3f intersection = mRay.calcPosition(distance);
+                    
+                    mIntersectionMemory[mIntersectionMemoryCount].set(intersection);
+                    mIntersectionMemoryActive = mIntersectionMemoryCount;
+                    
+                    glColor3f(1.0f, 0.0f, 0.0f);
+                    gl::drawSphere(intersection, 0.025f);
+                }
+                
+                intersects = true;
+                break;
+            }
+            i+=3;
+        }
+        
+        
+        
+        mIntersectionLastTick = intersects;
+        if(!mIntersectionLastTick)mIntersectionMemoryCount = -1;
+    }
+
 }
 
 
@@ -157,41 +203,6 @@ void RayIntersectionApp::draw()
     
     
 
-    float distance = 1.0f;
-    
-    if (mIntersectionTick % mIntersectionTickFreq == 0) {
-        int i = 0;
-        bool intersects = false;
-        
-        while (i < mVertices.size()) {
-            if (mRay.calcTriangleIntersection(mVertices[i  ],
-                                              mVertices[i+1],
-                                              mVertices[i+2],
-                                              &distance)) {
-            
-                mIntersectionMemoryCount++;
-                if (mIntersectionMemoryCount < mIntersectionMemory.size()) {
-                    
-                    Vec3f intersection = mRay.calcPosition(distance);
-                    
-                    mIntersectionMemory[mIntersectionMemoryCount].set(intersection);
-                    mIntersectionMemoryActive = mIntersectionMemoryCount;
-                    
-                    glColor3f(1.0f, 0.0f, 0.0f);
-                    gl::drawSphere(intersection, 0.025f);
-                }
-                
-                intersects = true;
-                break;
-            }
-            i+=3;
-        }
-        
-        
-        
-        mIntersectionLastTick = intersects;
-        if(!mIntersectionLastTick)mIntersectionMemoryCount = -1;
-    }
     
     if(mIntersectionLastTick){
      
@@ -200,23 +211,31 @@ void RayIntersectionApp::draw()
         while (++i < mIntersectionMemoryActive) {
             n = (float)i / (float)mIntersectionMemoryActive;
             mIntersectionMemoryColor[i].r = n;
-            mIntersectionMemoryColor[i].g = n * 0.125f;
-            mIntersectionMemoryColor[i].b = n * 0.25f;
+            mIntersectionMemoryColor[i].g = 0.125f;
+            mIntersectionMemoryColor[i].b = 0.25f;
+            mIntersectionMemoryColor[i].a = n;
         }
-        
-        glLineWidth(4.0f);
+        gl::enableAlphaBlending();
+        glLineWidth(2.0f);
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnableClientState(GL_COLOR_ARRAY);
         glVertexPointer(3, GL_FLOAT, 0, &mIntersectionMemory[0].x);
-        glColorPointer(3, GL_FLOAT, 0, &mIntersectionMemoryColor[0].r);
+        glColorPointer(4, GL_FLOAT, 0, &mIntersectionMemoryColor[0].r);
         glPushMatrix();
-       
+
         glDrawArrays(GL_LINE_STRIP, 0, mIntersectionMemoryActive);
+
+        gl::disableAlphaBlending();
         
-        glPopMatrix();
         glDisableClientState(GL_COLOR_ARRAY);
+        glPointSize(2.0f);
+        glColor3f(1.0f,1.0f,1.0f);
+        //glDrawArrays(GL_POINTS, 0, mIntersectionMemoryActive);
+        glPointSize(1.0f);
+        glPopMatrix();
         glDisableClientState(GL_VERTEX_ARRAY);
         glLineWidth(1.0f);
+        
     }
     
     
