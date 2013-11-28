@@ -1,0 +1,1299 @@
+TPRDCB
+v6
+r1
+cCheck dependencies
+cCompileC ../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/LineTriMesh.o /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC ../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/glUtil.o /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC ../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/Spline.o /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/Spline.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+cLibtool /Users/automat/Projects/next/PRDCB/xcode/../lib/Debug/libPRDCB.a normal x86_64
+cCpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/LineTriMesh.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/LineTriMesh.h
+cCpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/ITNBSequence.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/ITNBSequence.h
+cCpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/TNBFrame.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/TNBFrame.h
+cCpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/Spline.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/Spline.h
+cCpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/gl/glUtil.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/glUtil.h
+cCpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/math/PRMath.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/PRMath.h
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk
+c000000005282074500000000000000AA
+t1384253253
+s170
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/SDKSettings.plist
+c00000000526982A0000000000000044C
+t1382646432
+s1100
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/CoreServices/SystemVersion.plist
+c00000000526982A000000000000001DB
+t1382646432
+s475
+
+N/Users/automat/Projects/next/PRDCB/include/PRDCB/geom/ITNBSequence.h
+c00000000528D1398000000000000028A
+t1384977304
+s650
+
+N/Users/automat/Projects/next/PRDCB/include/PRDCB/geom/LineTriMesh.h
+c00000000528B631900000000000008BF
+t1384866585
+s2239
+
+N/Users/automat/Projects/next/PRDCB/include/PRDCB/geom/Spline.h
+c00000000528DC4C8000000000000082B
+t1385022664
+s2091
+
+N/Users/automat/Projects/next/PRDCB/include/PRDCB/geom/TNBFrame.h
+c00000000528D0D1600000000000003B1
+t1384975638
+s945
+
+N/Users/automat/Projects/next/PRDCB/include/PRDCB/gl/glUtil.h
+c00000000528D0721000000000000089C
+t1384974113
+s2204
+
+N/Users/automat/Projects/next/PRDCB/include/PRDCB/math/PRMath.h
+c00000000528CD1DB0000000000001DA7
+t1384960475
+s7591
+
+N/Users/automat/Projects/next/PRDCB/lib/Debug/libPRDCB.a
+t2
+s0
+
+N/Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/ITNBSequence.h
+t2
+s0
+
+N/Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/LineTriMesh.h
+t2
+s0
+
+N/Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/PRMath.h
+t1384776875
+s7591
+
+N/Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/Spline.h
+t1384774573
+s1459
+
+N/Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/TNBFrame.h
+t2
+s0
+
+N/Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/glUtil.h
+t1384773572
+s1950
+
+N/Users/automat/Projects/next/PRDCB/lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/LineTriMesh.o
+t1385022893
+s510820
+
+N/Users/automat/Projects/next/PRDCB/lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/PRDCB.LinkFileList
+c00000000528DC5AB0000000000000131
+t1385022891
+s305
+
+N/Users/automat/Projects/next/PRDCB/lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/Spline.o
+t1385022892
+s233172
+
+N/Users/automat/Projects/next/PRDCB/lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/glUtil.o
+t1385022892
+s217676
+
+N/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp
+c00000000528B65770000000000001F9E
+t1384867191
+s8094
+
+N/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/Spline.cpp
+c00000000528D13C60000000000001B6E
+t1384977350
+s7022
+
+N/Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp
+c00000000528D1CCB0000000000002C0E
+t1384979659
+s11278
+
+CBuild AST from /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp
+r0
+
+CBuild AST from /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/Spline.cpp
+r0
+
+CBuild AST from /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp
+r0
+
+CCheck dependencies
+r0
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependenciesc711972bfd3db841^f54b9c2bfd3db841^---0#1#1#--18"Check dependencies36"B8C649DE-25C4-447F-9438-E3A3F0F63350-
+
+CCompileC ../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/LineTriMesh.o /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+s406715691.611045
+e406715693.099453
+r1
+xCompileC
+x../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/LineTriMesh.o
+x/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+d/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp
+d/Users/automat/Projects/next/PRDCB/include/PRDCB/geom/LineTriMesh.h
+d/Users/automat/Projects/Cinder/include/cinder/TriMesh.h
+d/Users/automat/Projects/Cinder/include/cinder/Vector.h
+d/Users/automat/Projects/Cinder/include/cinder/CinderMath.h
+d/Users/automat/Projects/Cinder/include/cinder/Cinder.h
+d/Users/automat/Projects/Cinder/boost/boost/version.hpp
+d/Users/automat/Projects/Cinder/boost/boost/checked_delete.hpp
+d/Users/automat/Projects/Cinder/include/cinder/AxisAlignedBox.h
+d/Users/automat/Projects/Cinder/include/cinder/Matrix.h
+d/Users/automat/Projects/Cinder/include/cinder/Matrix22.h
+d/Users/automat/Projects/Cinder/include/cinder/MatrixAffine2.h
+d/Users/automat/Projects/Cinder/include/cinder/Matrix33.h
+d/Users/automat/Projects/Cinder/include/cinder/Matrix44.h
+d/Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h
+d/Users/automat/Projects/Cinder/include/cinder/Ray.h
+d/Users/automat/Projects/Cinder/include/cinder/DataSource.h
+d/Users/automat/Projects/Cinder/include/cinder/Url.h
+d/Users/automat/Projects/Cinder/include/cinder/Stream.h
+d/Users/automat/Projects/Cinder/include/cinder/Buffer.h
+d/Users/automat/Projects/Cinder/include/cinder/Exception.h
+d/Users/automat/Projects/Cinder/include/cinder/Filesystem.h
+d/Users/automat/Projects/Cinder/boost/boost/filesystem.hpp
+d/Users/automat/Projects/Cinder/boost/boost/filesystem/config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/user.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/select_compiler_config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/compiler/clang.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/select_stdlib_config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/no_tr1/utility.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/stdlib/libcpp.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/select_platform_config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/platform/macos.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/posix_features.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/suffix.hpp
+d/Users/automat/Projects/Cinder/boost/boost/system/api_config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/workaround.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/auto_link.hpp
+d/Users/automat/Projects/Cinder/boost/boost/filesystem/path.hpp
+d/Users/automat/Projects/Cinder/boost/boost/filesystem/path_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/utility/enable_if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_array.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/bool_trait_def.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/template_arity_spec.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/int.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/int_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/adl_barrier.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/adl.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/msvc.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/intel.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/gcc.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/workaround.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/nttp_decl.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/nttp.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/integral_wrapper.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/integral_c_tag.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/static_constant.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/static_cast.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/cat.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/config/config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/template_arity_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessor/params.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/preprocessor.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/comma_if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/punctuation/comma_if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/control/if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/control/iif.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/logical/bool.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/facilities/empty.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/punctuation/comma.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repeat.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/repeat.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/debug/error.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/detail/auto_rec.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/tuple/eat.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/inc.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/arithmetic/inc.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/lambda.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/ttp.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/ctps.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/overload_resolution.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/integral_constant.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/bool.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/bool_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/integral_c.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/integral_c_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/lambda_support.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/bool_trait_undef.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/decay.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_function.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_reference.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_lvalue_reference.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_rvalue_reference.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/ice.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/yes_no_type.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/ice_or.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/ice_and.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/ice_not.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/ice_eq.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/false_result.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/is_function_ptr_helper.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/remove_bounds.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/type_trait_def.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/type_trait_undef.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/add_pointer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/remove_reference.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/broken_compiler_spec.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/eval_if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/value_wknd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/integral.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/eti.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/na_spec.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/lambda_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/void_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/na.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/na_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/lambda_arity_param.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/arity.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/dtp.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessor/enum.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessor/def_params_tail.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/limits/arity.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/logical/and.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/logical/bitand.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/identity.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/facilities/identity.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/empty.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/arithmetic/add.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/arithmetic/dec.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/control/while.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/fold_left.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/detail/fold_left.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/control/expr_iif.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/adt.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/detail/is_binary.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/detail/check.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/logical/compl.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/fold_right.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/detail/fold_right.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/reverse.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/control/detail/while.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/tuple/elem.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/facilities/overload.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/variadic/size.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/tuple/rem.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/variadic/elem.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/arithmetic/sub.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/identity.hpp
+d/Users/automat/Projects/Cinder/boost/boost/system/error_code.hpp
+d/Users/automat/Projects/Cinder/boost/boost/system/config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/cstdint.hpp
+d/Users/automat/Projects/Cinder/boost/boost/assert.hpp
+d/Users/automat/Projects/Cinder/boost/boost/current_function.hpp
+d/Users/automat/Projects/Cinder/boost/boost/operators.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator.hpp
+d/Users/automat/Projects/Cinder/boost/boost/noncopyable.hpp
+d/Users/automat/Projects/Cinder/boost/boost/cerrno.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/abi_prefix.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/abi_suffix.hpp
+d/Users/automat/Projects/Cinder/boost/boost/system/system_error.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/iterator_facade.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/interoperable.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/or.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/use_preprocessed.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/nested_type_wknd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/include_preprocessed.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/compiler.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/stringize.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/or.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_convertible.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/intrinsics.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_same.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_volatile.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/cv_traits_impl.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_abstract.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/detail/config_def.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/detail/config_undef.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/iterator_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/iterator.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/detail/facade_iterator_category.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/iterator_categories.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/placeholders.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/arg.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/arg_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/na_assert.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/assert.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/not.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/yes_no.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/arrays.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/pp_counter.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/arity_spec.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/arg_typedef.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/arg.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/placeholders.hpp
+d/Users/automat/Projects/Cinder/boost/boost/static_assert.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/and.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/and.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_const.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/indirect_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_pointer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_member_pointer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_member_function_pointer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/remove_cv.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_class.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/remove_pointer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/detail/enable_if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/utility/addressof.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/add_const.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/remove_const.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_pod.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_void.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_scalar.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_arithmetic.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_integral.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_float.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_enum.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/always.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/apply.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/apply_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/apply_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/apply_wrap.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/has_apply.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/has_xxx.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/type_wrapper.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/has_xxx.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/msvc_typename.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/array/elem.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/array/data.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/array/size.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/enum_params.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/enum_trailing_params.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/has_apply.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/msvc_never_true.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/apply_wrap.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/lambda.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/bind.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/bind_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/bind.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/bind_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/next.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/next_prior.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/common_name_wknd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/protect.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/bind.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/full_lambda.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/quote.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/void.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/has_type.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/bcc.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/quote.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/template_arity.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/template_arity.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/full_lambda.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/apply.hpp
+d/Users/automat/Projects/Cinder/boost/boost/shared_ptr.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/shared_ptr.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/no_tr1/memory.hpp
+d/Users/automat/Projects/Cinder/boost/boost/throw_exception.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/shared_count.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/bad_weak_ptr.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/sp_counted_base.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/sp_has_sync.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/sp_typeinfo.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/sp_counted_impl.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/sp_convertible.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/sp_nullptr_t.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/spinlock_pool.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/spinlock.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/spinlock_sync.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/yield_k.hpp
+d/Users/automat/Projects/Cinder/boost/boost/memory_order.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/operator_bool.hpp
+d/Users/automat/Projects/Cinder/boost/boost/io/detail/quoted_manip.hpp
+d/Users/automat/Projects/Cinder/boost/boost/io/ios_state.hpp
+d/Users/automat/Projects/Cinder/boost/boost/io_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/functional/hash_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/functional/hash/hash_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/filesystem/operations.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/scoped_enum_emulation.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/bitmask.hpp
+d/Users/automat/Projects/Cinder/boost/boost/filesystem/convenience.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/concepts.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/categories.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/default_arg.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/ios.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/wide_streams.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/positioning.hpp
+d/Users/automat/Projects/Cinder/boost/boost/integer_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/limits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/codecvt.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/fpos.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/disable_warnings.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/enable_warnings.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/stream.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/constants.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/char_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/overload_resolution.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/gcc.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/forward.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/limits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/push_params.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/enum_binary_params.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/repeat_from_to.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/iostream.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/select.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_base_and_derived.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/stream_buffer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/streambuf/direct_streambuf.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/error.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/execute.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/iteration/local.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/slot/slot.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/slot/detail/def.hpp
+d/Users/automat/Projects/Cinder/boost/boost/utility/result_of.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/iteration/iterate.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/enum_shifted_params.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/facilities/intercept.hpp
+d/Users/automat/Projects/Cinder/boost/boost/utility/declval.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/add_rvalue_reference.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/iteration/detail/iter/forward1.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/iteration/detail/bounds/lower1.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/slot/detail/shared.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/iteration/detail/bounds/upper1.hpp
+d/Users/automat/Projects/Cinder/boost/boost/utility/detail/result_of_iterate.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/iteration/detail/local.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/functional.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/close.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/flush.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/dispatch.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/bool_trait_def.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/template_params.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/control/expr_if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/is_iterator_range.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/select_by_size.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/wrap_unwrap.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/enable_if_stream.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/traits_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/ref.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/iterator_range.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/iterator_range_core.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/functions.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/begin.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/iterator.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/mutable_iterator.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/detail/extract_optional_type.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/const_iterator.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/end.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/detail/implementation_help.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/detail/common.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/detail/sfinae.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/size.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/size_type.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/difference_type.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/make_unsigned.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_signed.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_unsigned.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/add_volatile.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/distance.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/empty.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/rbegin.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/reverse_iterator.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/reverse_iterator.hpp
+d/Users/automat/Projects/Cinder/boost/boost/next_prior.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/iterator_adaptor.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/add_reference.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/rend.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/algorithm/equal.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/concepts.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept_check.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept/assert.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept/detail/general.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept/detail/backward_compatibility.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept/detail/has_constraints.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/conversion_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept/usage.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept/detail/concept_def.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/seq/for_each_i.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/for.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/detail/for.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/seq/seq.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/seq/elem.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/seq/size.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/seq/enum.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept/detail/concept_undef.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/iterator_concepts.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/value_type.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/detail/misc_concept.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/detail/safe_bool.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/iterator_range_io.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/streambuf.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/operations_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/adapter/non_blocking_adapter.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/read.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/char_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/seek.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/write.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/optional.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/aligned_storage.hpp
+d/Users/automat/Projects/Cinder/boost/boost/aligned_storage.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/alignment_of.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/size_t_trait_def.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/size_t.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/size_t_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/size_t_trait_undef.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/type_with_alignment.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/for_each_i.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/tuple/to_list.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/transform.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/append.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/streambuf/linked_streambuf.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/operations.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/imbue.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/input_sequence.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/optimal_buffer_size.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/output_sequence.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/streambuf/indirect_streambuf.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/adapter/concept_adapter.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/call_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/unreachable_return.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/device/null.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/buffer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/checked_operations.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/get.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/put.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/double_object.hpp
+d/Users/automat/Projects/Cinder/boost/boost/call_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/call_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/push.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/adapter/range_adapter.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/pipeline.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/resolve.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/is_incrementable.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/adapter/mode_adapter.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/adapter/output_iterator_adapter.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/is_dereferenceable.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/device/array.hpp
+d/Users/automat/Projects/Cinder/boost/boost/utility/base_from_member.hpp
+d/Users/automat/Projects/Cinder/include/cinder/DataTarget.h
+d/Users/automat/Projects/Cinder/include/cinder/Color.h
+d/Users/automat/Projects/Cinder/include/cinder/ChanTraits.h
+d/Users/automat/Projects/Cinder/include/cinder/Rect.h
+d/Users/automat/Projects/Cinder/include/cinder/Area.h
+d/Users/automat/Projects/Cinder/boost/boost/function.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/iterate.hpp
+d/Users/automat/Projects/Cinder/boost/boost/function/detail/prologue.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/no_tr1/functional.hpp
+d/Users/automat/Projects/Cinder/boost/boost/function/function_base.hpp
+d/Users/automat/Projects/Cinder/boost/boost/integer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/integer_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/has_trivial_copy.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/has_trivial_destructor.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/composite_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_union.hpp
+d/Users/automat/Projects/Cinder/boost/boost/function_equal.hpp
+d/Users/automat/Projects/Cinder/boost/boost/function/function_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mem_fn.hpp
+d/Users/automat/Projects/Cinder/boost/boost/bind/mem_fn.hpp
+d/Users/automat/Projects/Cinder/boost/boost/get_pointer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/bind/mem_fn_template.hpp
+d/Users/automat/Projects/Cinder/boost/boost/bind/mem_fn_cc.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/enum.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/enum.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/enum_params.hpp
+d/Users/automat/Projects/Cinder/boost/boost/function/detail/function_iterate.hpp
+d/Users/automat/Projects/Cinder/boost/boost/function/detail/maybe_include.hpp
+d/Users/automat/Projects/Cinder/boost/boost/function/function_template.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/no_exceptions_support.hpp
+oIn file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:9:
+oIn file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/geom/LineTriMesh.h:12:
+oIn file included from ../../../Cinder/include/cinder/TriMesh.h:27:
+oIn file included from ../../../Cinder/include/cinder/AxisAlignedBox.h:25:
+oIn file included from ../../../Cinder/include/cinder/Matrix.h:32:
+o../../../Cinder/include/cinder/MatrixAlgo.h:165:39: warning: variable 'tmp1' is uninitialized when used here [-Wuninitialized]
+o        tmp1   = _mm_loadh_pi( _mm_loadl_pi( tmp1, ( __m64* )( src ) ), ( __m64* )( src + 4 ) );
+o                                             ^~~~
+o../../../Cinder/include/cinder/MatrixAlgo.h:164:2: note: variable 'tmp1' is declared here
+o        __m128 det, tmp1;
+o        ^
+o../../../Cinder/include/cinder/MatrixAlgo.h:166:39: warning: variable 'row1' is uninitialized when used here [-Wuninitialized]
+o        row1   = _mm_loadh_pi( _mm_loadl_pi( row1, ( __m64* )( src + 8 ) ), ( __m64* )( src + 12 ) );
+o                                             ^~~~
+o../../../Cinder/include/cinder/MatrixAlgo.h:163:2: note: variable 'row1' is declared here
+o        __m128 row0, row1, row2, row3;
+o        ^
+o../../../Cinder/include/cinder/MatrixAlgo.h:170:39: warning: variable 'row3' is uninitialized when used here [-Wuninitialized]
+o        row3   = _mm_loadh_pi( _mm_loadl_pi( row3, ( __m64* )( src + 10 ) ), ( __m64* )( src + 14 ) );
+o                                             ^~~~
+o../../../Cinder/include/cinder/MatrixAlgo.h:163:2: note: variable 'row3' is declared here
+o        __m128 row0, row1, row2, row3;
+o        ^
+oIn file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:9:
+oIn file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/geom/LineTriMesh.h:12:
+o../../../Cinder/include/cinder/TriMesh.h:106:24: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int') [-Wshorten-64-to-32]
+o        { mIndices.push_back( v0 ); mIndices.push_back( v1 ); mIndices.push_back( v2 ); }
+o          ~~~~~~~~            ^~
+o../../../Cinder/include/cinder/TriMesh.h:106:50: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int') [-Wshorten-64-to-32]
+o        { mIndices.push_back( v0 ); mIndices.push_back( v1 ); mIndices.push_back( v2 ); }
+o                                    ~~~~~~~~            ^~
+o../../../Cinder/include/cinder/TriMesh.h:106:76: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int') [-Wshorten-64-to-32]
+o        { mIndices.push_back( v0 ); mIndices.push_back( v1 ); mIndices.push_back( v2 ); }
+o                                                              ~~~~~~~~            ^~
+o/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:38:39: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]
+o            int offset = mNumSegments * 2;
+o                ~~~~~~   ~~~~~~~~~~~~~^~~
+o/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:49:39: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]
+o            int offset = mNumSegments * 2;
+o                ~~~~~~   ~~~~~~~~~~~~~^~~
+o/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:50:27: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]
+o            int i = index * offset;
+o                ~   ~~~~~~^~~~~~~~
+o/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:82:31: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]
+o                    index = i * mNumSegments;
+o                          ~ ~~^~~~~~~~~~~~~~
+o/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:88:54: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]
+o                        v2 = indexSeg + mNumSegments + 1;
+o                           ~ ~~~~~~~~~~~~~~~~~~~~~~~~^~~
+o/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:89:39: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]
+o                        v3 = indexSeg + mNumSegments;
+o                           ~ ~~~~~~~~~^~~~~~~~~~~~~~
+o/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:100:32: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]
+o                    v0 = index + len;
+o                       ~ ~~~~~~^~~~~
+o/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:102:38: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]
+o                    v2 = index + len + 1;
+o                       ~ ~~~~~~~~~~~~^~~
+o/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:103:47: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]
+o                    v3 = index + mNumSegments + len;
+o                       ~ ~~~~~~~~~~~~~~~~~~~~~^~~~~
+o/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:137:27: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]
+o                index = i * mNumSegments;
+o                      ~ ~~^~~~~~~~~~~~~~
+o/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:172:44: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]
+o                i = j = len - mNumSegments + 1;
+o                      ~ ~~~~~~~~~~~~~~~~~~~^~~
+o17 warnings generated.
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection73"Compile /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp209"CompileC ../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/LineTriMesh.o /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compilera1819c2bfd3db841^e678192dfd3db841^-5781"In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:9:In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/geom/LineTriMesh.h:12:In file included from ../../../Cinder/include/cinder/TriMesh.h:27:In file included from ../../../Cinder/include/cinder/AxisAlignedBox.h:25:In file included from ../../../Cinder/include/cinder/Matrix.h:32:../../../Cinder/include/cinder/MatrixAlgo.h:165:39: warning: variable 'tmp1' is uninitialized when used here [-Wuninitialized]        tmp1   = _mm_loadh_pi( _mm_loadl_pi( tmp1, ( __m64* )( src ) ), ( __m64* )( src + 4 ) );                                             ^~~~../../../Cinder/include/cinder/MatrixAlgo.h:164:2: note: variable 'tmp1' is declared here        __m128 det, tmp1;        ^../../../Cinder/include/cinder/MatrixAlgo.h:166:39: warning: variable 'row1' is uninitialized when used here [-Wuninitialized]        row1   = _mm_loadh_pi( _mm_loadl_pi( row1, ( __m64* )( src + 8 ) ), ( __m64* )( src + 12 ) );                                             ^~~~../../../Cinder/include/cinder/MatrixAlgo.h:163:2: note: variable 'row1' is declared here        __m128 row0, row1, row2, row3;        ^../../../Cinder/include/cinder/MatrixAlgo.h:170:39: warning: variable 'row3' is uninitialized when used here [-Wuninitialized]        row3   = _mm_loadh_pi( _mm_loadl_pi( row3, ( __m64* )( src + 10 ) ), ( __m64* )( src + 14 ) );                                             ^~~~../../../Cinder/include/cinder/MatrixAlgo.h:163:2: note: variable 'row3' is declared here        __m128 row0, row1, row2, row3;        ^In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:9:In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/geom/LineTriMesh.h:12:../../../Cinder/include/cinder/TriMesh.h:106:24: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int') [-Wshorten-64-to-32]        { mIndices.push_back( v0 ); mIndices.push_back( v1 ); mIndices.push_back( v2 ); }          ~~~~~~~~            ^~../../../Cinder/include/cinder/TriMesh.h:106:50: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int') [-Wshorten-64-to-32]        { mIndices.push_back( v0 ); mIndices.push_back( v1 ); mIndices.push_back( v2 ); }                                    ~~~~~~~~            ^~../../../Cinder/include/cinder/TriMesh.h:106:76: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int') [-Wshorten-64-to-32]        { mIndices.push_back( v0 ); mIndices.push_back( v1 ); mIndices.push_back( v2 ); }                                                              ~~~~~~~~            ^~/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:38:39: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]            int offset = mNumSegments * 2;                ~~~~~~   ~~~~~~~~~~~~~^~~/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:49:39: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]            int offset = mNumSegments * 2;                ~~~~~~   ~~~~~~~~~~~~~^~~/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:50:27: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]            int i = index * offset;                ~   ~~~~~~^~~~~~~~/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:82:31: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]                    index = i * mNumSegments;                          ~ ~~^~~~~~~~~~~~~~/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:88:54: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]                        v2 = indexSeg + mNumSegments + 1;                           ~ ~~~~~~~~~~~~~~~~~~~~~~~~^~~/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:89:39: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]                        v3 = indexSeg + mNumSegments;                           ~ ~~~~~~~~~^~~~~~~~~~~~~~/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:100:32: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]                    v0 = index + len;                       ~ ~~~~~~^~~~~/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:102:38: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]                    v2 = index + len + 1;                       ~ ~~~~~~~~~~~~^~~/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:103:47: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]                    v3 = index + mNumSegments + len;                       ~ ~~~~~~~~~~~~~~~~~~~~~^~~~~/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:137:27: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]                index = i * mNumSegments;                      ~ ~~^~~~~~~~~~~~~~/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:172:44: warning: implicit conversion loses integer precision: 'unsigned long' to 'int' [-Wshorten-64-to-32]                i = j = len - mNumSegments + 1;                      ~ ~~~~~~~~~~~~~~~~~~~^~~17 warnings generated.17(36%IDEClangDiagnosticActivityLogMessage2@47"Variable 'tmp1' is uninitialized when used here-406715693#18446744073709551615#0#6(2@90"In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:9:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^8#9#8#9#94#0#21"Apple LLVM 5.0 Notice--2@102"In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/geom/LineTriMesh.h:12:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@74"file:///Users/automat/Projects/next/PRDCB/include/PRDCB/geom/LineTriMesh.h0000000000000000^11#9#11#9#134#0#21"Apple LLVM 5.0 Notice--2@66"In file included from ../../../Cinder/include/cinder/TriMesh.h:27:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^26#9#26#9#1392#0#21"Apple LLVM 5.0 Notice--2@73"In file included from ../../../Cinder/include/cinder/AxisAlignedBox.h:25:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@69"file:///Users/automat/Projects/Cinder/include/cinder/AxisAlignedBox.h0000000000000000^24#9#24#9#1368#0#21"Apple LLVM 5.0 Notice--2@65"In file included from ../../../Cinder/include/cinder/Matrix.h:32:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@61"file:///Users/automat/Projects/Cinder/include/cinder/Matrix.h0000000000000000^31#9#31#9#1628#0#21"Apple LLVM 5.0 Notice--2@32"Variable 'tmp1' is declared here-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^163#1#163#1#4845#0#14"Semantic Issue--1#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^164#38#164#38#4901#0#14"Semantic Issue1(3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^164#38#164#42#4901#0#-2@47"Variable 'row1' is uninitialized when used here-406715693#18446744073709551615#0#6(2@90"In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:9:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^8#9#8#9#94#0#21"Apple LLVM 5.0 Notice--2@102"In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/geom/LineTriMesh.h:12:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@74"file:///Users/automat/Projects/next/PRDCB/include/PRDCB/geom/LineTriMesh.h0000000000000000^11#9#11#9#134#0#21"Apple LLVM 5.0 Notice--2@66"In file included from ../../../Cinder/include/cinder/TriMesh.h:27:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^26#9#26#9#1392#0#21"Apple LLVM 5.0 Notice--2@73"In file included from ../../../Cinder/include/cinder/AxisAlignedBox.h:25:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@69"file:///Users/automat/Projects/Cinder/include/cinder/AxisAlignedBox.h0000000000000000^24#9#24#9#1368#0#21"Apple LLVM 5.0 Notice--2@65"In file included from ../../../Cinder/include/cinder/Matrix.h:32:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@61"file:///Users/automat/Projects/Cinder/include/cinder/Matrix.h0000000000000000^31#9#31#9#1628#0#21"Apple LLVM 5.0 Notice--2@32"Variable 'row1' is declared here-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^162#1#162#1#4813#0#14"Semantic Issue--1#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^165#38#165#38#4991#0#14"Semantic Issue1(3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^165#38#165#42#4991#0#-2@47"Variable 'row3' is uninitialized when used here-406715693#18446744073709551615#0#6(2@90"In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:9:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^8#9#8#9#94#0#21"Apple LLVM 5.0 Notice--2@102"In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/geom/LineTriMesh.h:12:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@74"file:///Users/automat/Projects/next/PRDCB/include/PRDCB/geom/LineTriMesh.h0000000000000000^11#9#11#9#134#0#21"Apple LLVM 5.0 Notice--2@66"In file included from ../../../Cinder/include/cinder/TriMesh.h:27:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^26#9#26#9#1392#0#21"Apple LLVM 5.0 Notice--2@73"In file included from ../../../Cinder/include/cinder/AxisAlignedBox.h:25:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@69"file:///Users/automat/Projects/Cinder/include/cinder/AxisAlignedBox.h0000000000000000^24#9#24#9#1368#0#21"Apple LLVM 5.0 Notice--2@65"In file included from ../../../Cinder/include/cinder/Matrix.h:32:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@61"file:///Users/automat/Projects/Cinder/include/cinder/Matrix.h0000000000000000^31#9#31#9#1628#0#21"Apple LLVM 5.0 Notice--2@32"Variable 'row3' is declared here-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^162#1#162#1#4813#0#14"Semantic Issue--1#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^169#38#169#38#5272#0#14"Semantic Issue1(3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^169#38#169#42#5272#0#-2@112"Implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int')-406715693#18446744073709551615#0#2(2@90"In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:9:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^8#9#8#9#94#0#21"Apple LLVM 5.0 Notice--2@102"In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/geom/LineTriMesh.h:12:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@74"file:///Users/automat/Projects/next/PRDCB/include/PRDCB/geom/LineTriMesh.h0000000000000000^11#9#11#9#134#0#21"Apple LLVM 5.0 Notice--1#27"com.apple.dt.IDE.diagnostic3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#23#105#23#5671#0#22"Value Conversion Issue2(3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#23#105#25#5671#0#3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#3#105#11#5651#0#-2@112"Implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int')-406715693#18446744073709551615#0#2(2@90"In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:9:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^8#9#8#9#94#0#21"Apple LLVM 5.0 Notice--2@102"In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/geom/LineTriMesh.h:12:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@74"file:///Users/automat/Projects/next/PRDCB/include/PRDCB/geom/LineTriMesh.h0000000000000000^11#9#11#9#134#0#21"Apple LLVM 5.0 Notice--1#27"com.apple.dt.IDE.diagnostic3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#49#105#49#5697#0#22"Value Conversion Issue2(3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#49#105#51#5697#0#3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#29#105#37#5677#0#-2@112"Implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int')-406715693#18446744073709551615#0#2(2@90"In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp:9:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^8#9#8#9#94#0#21"Apple LLVM 5.0 Notice--2@102"In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/geom/LineTriMesh.h:12:-406715693#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@74"file:///Users/automat/Projects/next/PRDCB/include/PRDCB/geom/LineTriMesh.h0000000000000000^11#9#11#9#134#0#21"Apple LLVM 5.0 Notice--1#27"com.apple.dt.IDE.diagnostic3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#75#105#75#5723#0#22"Value Conversion Issue2(3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#75#105#77#5723#0#3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#55#105#63#5703#0#-2@69"Implicit conversion loses integer precision: 'unsigned long' to 'int'-406715693#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^37#38#37#38#1047#0#22"Value Conversion Issue2(3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^37#25#37#41#1034#15#3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^37#16#37#22#1025#0#-2@69"Implicit conversion loses integer precision: 'unsigned long' to 'int'-406715693#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^48#38#48#38#1405#0#22"Value Conversion Issue2(3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^48#25#48#41#1392#15#3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^48#16#48#22#1383#0#-2@69"Implicit conversion loses integer precision: 'unsigned long' to 'int'-406715693#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^49#26#49#26#1436#0#22"Value Conversion Issue2(3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^49#20#49#34#1430#8#3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^49#16#49#17#1426#0#-2@69"Implicit conversion loses integer precision: 'unsigned long' to 'int'-406715693#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^81#30#81#30#2320#0#22"Value Conversion Issue2(3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^81#28#81#44#2318#4#3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^81#26#81#27#2316#0#-2@69"Implicit conversion loses integer precision: 'unsigned long' to 'int'-406715693#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^87#53#87#53#2585#0#22"Value Conversion Issue2(3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^87#29#87#56#2561#26#3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^87#27#87#28#2559#0#-2@69"Implicit conversion loses integer precision: 'unsigned long' to 'int'-406715693#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^88#38#88#38#2628#0#22"Value Conversion Issue2(3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^88#29#88#52#2619#11#3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^88#27#88#28#2617#0#-2@69"Implicit conversion loses integer precision: 'unsigned long' to 'int'-406715693#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^99#31#99#31#3050#0#22"Value Conversion Issue2(3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^99#25#99#36#3044#8#3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^99#23#99#24#3042#0#-2@69"Implicit conversion loses integer precision: 'unsigned long' to 'int'-406715693#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^101#37#101#37#3126#0#22"Value Conversion Issue2(3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^101#25#101#40#3114#14#3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^101#23#101#24#3112#0#-2@69"Implicit conversion loses integer precision: 'unsigned long' to 'int'-406715693#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^102#46#102#46#3177#0#22"Value Conversion Issue2(3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^102#25#102#51#3156#23#3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^102#23#102#24#3154#0#-2@69"Implicit conversion loses integer precision: 'unsigned long' to 'int'-406715693#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^136#26#136#26#4277#0#22"Value Conversion Issue2(3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^136#24#136#40#4275#4#3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^136#22#136#23#4273#0#-2@69"Implicit conversion loses integer precision: 'unsigned long' to 'int'-406715693#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^171#43#171#43#5408#0#22"Value Conversion Issue2(3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^171#24#171#46#5389#21#3@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^171#22#171#23#5387#0#-0#0#1#-19%DVTDocumentLocation4@72"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp0000000000000000^2668"CompileC ../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/LineTriMesh.o /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/automat/Projects/next/PRDCB/xcode    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=gnu++11 -stdlib=libc++ -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -fasm-blocks -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.9 -g -Wno-sign-conversion -iquote /Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/PRDCB-generated-files.hmap -I/Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/PRDCB-own-target-headers.hmap -I/Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/PRDCB-all-target-headers.hmap -iquote /Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/PRDCB-project-headers.hmap -iquote../../../Cinder/include -iquote../include -I/Users/automat/Projects/next/PRDCB/xcode/../lib/Debug/include -I../../../Cinder/boost -I/Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/DerivedSources/x86_64 -I/Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/DerivedSources -F/Users/automat/Projects/next/PRDCB/xcode/../lib/Debug -MMD -MT dependencies -MF /Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/LineTriMesh.d --serialize-diagnostics /Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/LineTriMesh.dia -c /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/LineTriMesh.cpp -o /Users/automat/Projects/next/PRDCB/lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/LineTriMesh.o36"1D498B33-1699-4CCA-A957-FC184662ADEC-
+b3DEADCC7-106F-4B6F-A51F-95BFD401E364
+
+CCompileC ../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/Spline.o /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/Spline.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+s406715691.611414
+e406715692.199712
+r1
+xCompileC
+x../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/Spline.o
+x/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/Spline.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+d/Users/automat/Projects/next/PRDCB/src/PRDCB/geom/Spline.cpp
+d/Users/automat/Projects/next/PRDCB/include/PRDCB/geom/Spline.h
+d/Users/automat/Projects/Cinder/include/cinder/Vector.h
+d/Users/automat/Projects/Cinder/include/cinder/CinderMath.h
+d/Users/automat/Projects/Cinder/include/cinder/Cinder.h
+d/Users/automat/Projects/Cinder/boost/boost/version.hpp
+d/Users/automat/Projects/Cinder/boost/boost/checked_delete.hpp
+d/Users/automat/Projects/next/PRDCB/include/PRDCB/geom/ITNBSequence.h
+d/Users/automat/Projects/next/PRDCB/include/PRDCB/geom/TNBFrame.h
+d/Users/automat/Projects/Cinder/include/cinder/Matrix44.h
+d/Users/automat/Projects/Cinder/include/cinder/Matrix22.h
+d/Users/automat/Projects/Cinder/include/cinder/Matrix33.h
+d/Users/automat/Projects/Cinder/include/cinder/MatrixAffine2.h
+d/Users/automat/Projects/next/PRDCB/include/PRDCB/math/PRMath.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection68"Compile /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/Spline.cpp199"CompileC ../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/Spline.o /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/Spline.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compilerff969c2bfd3db841^da20332cfd3db841^---0#0#1#-19%DVTDocumentLocation2@67"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/geom/Spline.cpp0000000000000000^2638"CompileC ../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/Spline.o /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/Spline.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/automat/Projects/next/PRDCB/xcode    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=gnu++11 -stdlib=libc++ -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -fasm-blocks -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.9 -g -Wno-sign-conversion -iquote /Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/PRDCB-generated-files.hmap -I/Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/PRDCB-own-target-headers.hmap -I/Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/PRDCB-all-target-headers.hmap -iquote /Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/PRDCB-project-headers.hmap -iquote../../../Cinder/include -iquote../include -I/Users/automat/Projects/next/PRDCB/xcode/../lib/Debug/include -I../../../Cinder/boost -I/Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/DerivedSources/x86_64 -I/Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/DerivedSources -F/Users/automat/Projects/next/PRDCB/xcode/../lib/Debug -MMD -MT dependencies -MF /Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/Spline.d --serialize-diagnostics /Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/Spline.dia -c /Users/automat/Projects/next/PRDCB/src/PRDCB/geom/Spline.cpp -o /Users/automat/Projects/next/PRDCB/lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/Spline.o36"3B061CDE-8522-4959-9279-6B6445B06573-
+b3DEADCC7-106F-4B6F-A51F-95BFD401E364
+
+CCompileC ../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/glUtil.o /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler
+s406715691.611181
+e406715692.877814
+r1
+xCompileC
+x../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/glUtil.o
+x/Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp
+xnormal
+xx86_64
+xc++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+d/Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp
+d/Users/automat/Projects/next/PRDCB/include/PRDCB/gl/glUtil.h
+d/Users/automat/Projects/Cinder/include/cinder/Vector.h
+d/Users/automat/Projects/Cinder/include/cinder/CinderMath.h
+d/Users/automat/Projects/Cinder/include/cinder/Cinder.h
+d/Users/automat/Projects/Cinder/boost/boost/version.hpp
+d/Users/automat/Projects/Cinder/boost/boost/checked_delete.hpp
+d/Users/automat/Projects/Cinder/include/cinder/Color.h
+d/Users/automat/Projects/Cinder/include/cinder/ChanTraits.h
+d/Users/automat/Projects/Cinder/include/cinder/TriMesh.h
+d/Users/automat/Projects/Cinder/include/cinder/AxisAlignedBox.h
+d/Users/automat/Projects/Cinder/include/cinder/Matrix.h
+d/Users/automat/Projects/Cinder/include/cinder/Matrix22.h
+d/Users/automat/Projects/Cinder/include/cinder/MatrixAffine2.h
+d/Users/automat/Projects/Cinder/include/cinder/Matrix33.h
+d/Users/automat/Projects/Cinder/include/cinder/Matrix44.h
+d/Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h
+d/Users/automat/Projects/Cinder/include/cinder/Ray.h
+d/Users/automat/Projects/Cinder/include/cinder/DataSource.h
+d/Users/automat/Projects/Cinder/include/cinder/Url.h
+d/Users/automat/Projects/Cinder/include/cinder/Stream.h
+d/Users/automat/Projects/Cinder/include/cinder/Buffer.h
+d/Users/automat/Projects/Cinder/include/cinder/Exception.h
+d/Users/automat/Projects/Cinder/include/cinder/Filesystem.h
+d/Users/automat/Projects/Cinder/boost/boost/filesystem.hpp
+d/Users/automat/Projects/Cinder/boost/boost/filesystem/config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/user.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/select_compiler_config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/compiler/clang.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/select_stdlib_config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/no_tr1/utility.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/stdlib/libcpp.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/select_platform_config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/platform/macos.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/posix_features.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/suffix.hpp
+d/Users/automat/Projects/Cinder/boost/boost/system/api_config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/workaround.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/auto_link.hpp
+d/Users/automat/Projects/Cinder/boost/boost/filesystem/path.hpp
+d/Users/automat/Projects/Cinder/boost/boost/filesystem/path_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/utility/enable_if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_array.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/bool_trait_def.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/template_arity_spec.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/int.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/int_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/adl_barrier.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/adl.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/msvc.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/intel.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/gcc.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/workaround.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/nttp_decl.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/nttp.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/integral_wrapper.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/integral_c_tag.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/static_constant.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/static_cast.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/cat.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/config/config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/template_arity_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessor/params.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/preprocessor.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/comma_if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/punctuation/comma_if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/control/if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/control/iif.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/logical/bool.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/facilities/empty.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/punctuation/comma.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repeat.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/repeat.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/debug/error.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/detail/auto_rec.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/tuple/eat.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/inc.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/arithmetic/inc.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/lambda.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/ttp.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/ctps.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/overload_resolution.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/integral_constant.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/bool.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/bool_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/integral_c.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/integral_c_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/lambda_support.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/bool_trait_undef.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/decay.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_function.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_reference.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_lvalue_reference.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_rvalue_reference.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/ice.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/yes_no_type.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/ice_or.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/ice_and.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/ice_not.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/ice_eq.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/false_result.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/is_function_ptr_helper.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/remove_bounds.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/type_trait_def.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/type_trait_undef.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/add_pointer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/remove_reference.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/broken_compiler_spec.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/eval_if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/value_wknd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/integral.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/eti.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/na_spec.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/lambda_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/void_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/na.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/na_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/lambda_arity_param.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/arity.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/dtp.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessor/enum.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessor/def_params_tail.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/limits/arity.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/logical/and.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/logical/bitand.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/identity.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/facilities/identity.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/empty.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/arithmetic/add.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/arithmetic/dec.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/control/while.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/fold_left.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/detail/fold_left.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/control/expr_iif.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/adt.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/detail/is_binary.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/detail/check.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/logical/compl.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/fold_right.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/detail/fold_right.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/reverse.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/control/detail/while.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/tuple/elem.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/facilities/overload.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/variadic/size.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/tuple/rem.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/variadic/elem.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/arithmetic/sub.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/identity.hpp
+d/Users/automat/Projects/Cinder/boost/boost/system/error_code.hpp
+d/Users/automat/Projects/Cinder/boost/boost/system/config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/cstdint.hpp
+d/Users/automat/Projects/Cinder/boost/boost/assert.hpp
+d/Users/automat/Projects/Cinder/boost/boost/current_function.hpp
+d/Users/automat/Projects/Cinder/boost/boost/operators.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator.hpp
+d/Users/automat/Projects/Cinder/boost/boost/noncopyable.hpp
+d/Users/automat/Projects/Cinder/boost/boost/cerrno.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/abi_prefix.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/abi_suffix.hpp
+d/Users/automat/Projects/Cinder/boost/boost/system/system_error.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/iterator_facade.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/interoperable.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/or.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/use_preprocessed.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/nested_type_wknd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/include_preprocessed.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/compiler.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/stringize.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/or.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_convertible.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/intrinsics.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_same.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_volatile.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/cv_traits_impl.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_abstract.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/detail/config_def.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/detail/config_undef.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/iterator_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/iterator.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/detail/facade_iterator_category.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/iterator_categories.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/placeholders.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/arg.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/arg_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/na_assert.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/assert.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/not.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/yes_no.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/arrays.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/pp_counter.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/arity_spec.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/arg_typedef.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/arg.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/placeholders.hpp
+d/Users/automat/Projects/Cinder/boost/boost/static_assert.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/and.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/and.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_const.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/indirect_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_pointer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_member_pointer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_member_function_pointer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/remove_cv.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_class.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/remove_pointer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/detail/enable_if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/utility/addressof.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/add_const.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/remove_const.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_pod.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_void.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_scalar.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_arithmetic.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_integral.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_float.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_enum.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/always.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/apply.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/apply_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/apply_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/apply_wrap.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/has_apply.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/has_xxx.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/type_wrapper.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/has_xxx.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/msvc_typename.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/array/elem.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/array/data.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/array/size.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/enum_params.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/enum_trailing_params.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/has_apply.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/msvc_never_true.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/apply_wrap.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/lambda.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/bind.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/bind_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/bind.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/bind_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/next.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/next_prior.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/common_name_wknd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/protect.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/bind.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/full_lambda.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/quote.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/void.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/has_type.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/config/bcc.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/quote.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/template_arity.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/template_arity.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/full_lambda.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/aux_/preprocessed/gcc/apply.hpp
+d/Users/automat/Projects/Cinder/boost/boost/shared_ptr.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/shared_ptr.hpp
+d/Users/automat/Projects/Cinder/boost/boost/config/no_tr1/memory.hpp
+d/Users/automat/Projects/Cinder/boost/boost/throw_exception.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/shared_count.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/bad_weak_ptr.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/sp_counted_base.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/sp_has_sync.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/sp_typeinfo.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/sp_counted_impl.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/sp_convertible.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/sp_nullptr_t.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/spinlock_pool.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/spinlock.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/spinlock_sync.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/yield_k.hpp
+d/Users/automat/Projects/Cinder/boost/boost/memory_order.hpp
+d/Users/automat/Projects/Cinder/boost/boost/smart_ptr/detail/operator_bool.hpp
+d/Users/automat/Projects/Cinder/boost/boost/io/detail/quoted_manip.hpp
+d/Users/automat/Projects/Cinder/boost/boost/io/ios_state.hpp
+d/Users/automat/Projects/Cinder/boost/boost/io_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/functional/hash_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/functional/hash/hash_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/filesystem/operations.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/scoped_enum_emulation.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/bitmask.hpp
+d/Users/automat/Projects/Cinder/boost/boost/filesystem/convenience.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/concepts.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/categories.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/default_arg.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/ios.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/wide_streams.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/positioning.hpp
+d/Users/automat/Projects/Cinder/boost/boost/integer_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/limits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/codecvt.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/fpos.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/disable_warnings.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/enable_warnings.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/stream.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/constants.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/char_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/overload_resolution.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/gcc.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/forward.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/limits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/push_params.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/enum_binary_params.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/repeat_from_to.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/iostream.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/select.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_base_and_derived.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/stream_buffer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/streambuf/direct_streambuf.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/error.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/execute.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/iteration/local.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/slot/slot.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/slot/detail/def.hpp
+d/Users/automat/Projects/Cinder/boost/boost/utility/result_of.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/iteration/iterate.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/enum_shifted_params.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/facilities/intercept.hpp
+d/Users/automat/Projects/Cinder/boost/boost/utility/declval.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/add_rvalue_reference.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/iteration/detail/iter/forward1.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/iteration/detail/bounds/lower1.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/slot/detail/shared.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/iteration/detail/bounds/upper1.hpp
+d/Users/automat/Projects/Cinder/boost/boost/utility/detail/result_of_iterate.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/iteration/detail/local.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/functional.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/close.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/flush.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/dispatch.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/bool_trait_def.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/template_params.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/control/expr_if.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/is_iterator_range.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/select_by_size.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/wrap_unwrap.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/enable_if_stream.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/traits_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/ref.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/iterator_range.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/iterator_range_core.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/functions.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/begin.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/config.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/iterator.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/mutable_iterator.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/detail/extract_optional_type.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/const_iterator.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/end.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/detail/implementation_help.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/detail/common.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/detail/sfinae.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/size.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/size_type.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/difference_type.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/make_unsigned.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_signed.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/is_unsigned.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/add_volatile.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/distance.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/empty.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/rbegin.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/reverse_iterator.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/reverse_iterator.hpp
+d/Users/automat/Projects/Cinder/boost/boost/next_prior.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/iterator_adaptor.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/add_reference.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/rend.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/algorithm/equal.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/concepts.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept_check.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept/assert.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept/detail/general.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept/detail/backward_compatibility.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept/detail/has_constraints.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/conversion_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept/usage.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept/detail/concept_def.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/seq/for_each_i.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/for.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/repetition/detail/for.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/seq/seq.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/seq/elem.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/seq/size.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/seq/enum.hpp
+d/Users/automat/Projects/Cinder/boost/boost/concept/detail/concept_undef.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iterator/iterator_concepts.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/value_type.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/detail/misc_concept.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/detail/safe_bool.hpp
+d/Users/automat/Projects/Cinder/boost/boost/range/iterator_range_io.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/streambuf.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/operations_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/adapter/non_blocking_adapter.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/read.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/char_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/seek.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/write.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/optional.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/aligned_storage.hpp
+d/Users/automat/Projects/Cinder/boost/boost/aligned_storage.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/alignment_of.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/size_t_trait_def.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/size_t.hpp
+d/Users/automat/Projects/Cinder/boost/boost/mpl/size_t_fwd.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/detail/size_t_trait_undef.hpp
+d/Users/automat/Projects/Cinder/boost/boost/type_traits/type_with_alignment.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/for_each_i.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/tuple/to_list.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/transform.hpp
+d/Users/automat/Projects/Cinder/boost/boost/preprocessor/list/append.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/streambuf/linked_streambuf.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/operations.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/imbue.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/input_sequence.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/optimal_buffer_size.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/output_sequence.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/streambuf/indirect_streambuf.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/adapter/concept_adapter.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/call_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/config/unreachable_return.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/device/null.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/buffer.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/checked_operations.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/get.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/put.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/double_object.hpp
+d/Users/automat/Projects/Cinder/boost/boost/call_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/call_traits.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/push.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/adapter/range_adapter.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/pipeline.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/resolve.hpp
+d/Users/automat/Projects/Cinder/boost/boost/detail/is_incrementable.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/adapter/mode_adapter.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/adapter/output_iterator_adapter.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/detail/is_dereferenceable.hpp
+d/Users/automat/Projects/Cinder/boost/boost/iostreams/device/array.hpp
+d/Users/automat/Projects/Cinder/boost/boost/utility/base_from_member.hpp
+d/Users/automat/Projects/Cinder/include/cinder/DataTarget.h
+d/Users/automat/Projects/Cinder/include/cinder/Rect.h
+d/Users/automat/Projects/Cinder/include/cinder/Area.h
+d/Users/automat/Projects/next/PRDCB/include/PRDCB/geom/TNBFrame.h
+d/Users/automat/Projects/Cinder/include/cinder/gl/gl.h
+d/Users/automat/Projects/Cinder/include/cinder/Quaternion.h
+d/Users/automat/Projects/Cinder/include/cinder/Font.h
+d/Users/automat/Projects/Cinder/include/cinder/Shape2d.h
+d/Users/automat/Projects/Cinder/include/cinder/Path2d.h
+d/Users/automat/Projects/Cinder/include/cinder/BSpline.h
+d/Users/automat/Projects/Cinder/include/cinder/PolyLine.h
+d/Users/automat/Projects/next/PRDCB/include/PRDCB/math/PRMath.h
+oIn file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp:9:
+oIn file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/gl/glUtil.h:17:
+oIn file included from ../../../Cinder/include/cinder/TriMesh.h:27:
+oIn file included from ../../../Cinder/include/cinder/AxisAlignedBox.h:25:
+oIn file included from ../../../Cinder/include/cinder/Matrix.h:32:
+o../../../Cinder/include/cinder/MatrixAlgo.h:165:39: warning: variable 'tmp1' is uninitialized when used here [-Wuninitialized]
+o        tmp1   = _mm_loadh_pi( _mm_loadl_pi( tmp1, ( __m64* )( src ) ), ( __m64* )( src + 4 ) );
+o                                             ^~~~
+o../../../Cinder/include/cinder/MatrixAlgo.h:164:2: note: variable 'tmp1' is declared here
+o        __m128 det, tmp1;
+o        ^
+o../../../Cinder/include/cinder/MatrixAlgo.h:166:39: warning: variable 'row1' is uninitialized when used here [-Wuninitialized]
+o        row1   = _mm_loadh_pi( _mm_loadl_pi( row1, ( __m64* )( src + 8 ) ), ( __m64* )( src + 12 ) );
+o                                             ^~~~
+o../../../Cinder/include/cinder/MatrixAlgo.h:163:2: note: variable 'row1' is declared here
+o        __m128 row0, row1, row2, row3;
+o        ^
+o../../../Cinder/include/cinder/MatrixAlgo.h:170:39: warning: variable 'row3' is uninitialized when used here [-Wuninitialized]
+o        row3   = _mm_loadh_pi( _mm_loadl_pi( row3, ( __m64* )( src + 10 ) ), ( __m64* )( src + 14 ) );
+o                                             ^~~~
+o../../../Cinder/include/cinder/MatrixAlgo.h:163:2: note: variable 'row3' is declared here
+o        __m128 row0, row1, row2, row3;
+o        ^
+oIn file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp:9:
+oIn file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/gl/glUtil.h:17:
+o../../../Cinder/include/cinder/TriMesh.h:106:24: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int') [-Wshorten-64-to-32]
+o        { mIndices.push_back( v0 ); mIndices.push_back( v1 ); mIndices.push_back( v2 ); }
+o          ~~~~~~~~            ^~
+o../../../Cinder/include/cinder/TriMesh.h:106:50: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int') [-Wshorten-64-to-32]
+o        { mIndices.push_back( v0 ); mIndices.push_back( v1 ); mIndices.push_back( v2 ); }
+o                                    ~~~~~~~~            ^~
+o../../../Cinder/include/cinder/TriMesh.h:106:76: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int') [-Wshorten-64-to-32]
+o        { mIndices.push_back( v0 ); mIndices.push_back( v1 ); mIndices.push_back( v2 ); }
+o                                                              ~~~~~~~~            ^~
+o/Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp:228:26: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'GLsizei' (aka 'int') [-Wshorten-64-to-32]
+o                       0,vertices->size());
+o                         ^~~~~~~~~~~~~~~~
+o/Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp:318:40: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'GLsizei' (aka 'int') [-Wshorten-64-to-32]
+o            glDrawArrays(GL_POINTS, 0, vertices.size());
+o            ~~~~~~~~~~~~               ^~~~~~~~~~~~~~~
+o8 warnings generated.
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection66"Compile /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp197"CompileC ../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/glUtil.o /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler51849c2bfd3db841^39b8e02cfd3db841^-3449"In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp:9:In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/gl/glUtil.h:17:In file included from ../../../Cinder/include/cinder/TriMesh.h:27:In file included from ../../../Cinder/include/cinder/AxisAlignedBox.h:25:In file included from ../../../Cinder/include/cinder/Matrix.h:32:../../../Cinder/include/cinder/MatrixAlgo.h:165:39: warning: variable 'tmp1' is uninitialized when used here [-Wuninitialized]        tmp1   = _mm_loadh_pi( _mm_loadl_pi( tmp1, ( __m64* )( src ) ), ( __m64* )( src + 4 ) );                                             ^~~~../../../Cinder/include/cinder/MatrixAlgo.h:164:2: note: variable 'tmp1' is declared here        __m128 det, tmp1;        ^../../../Cinder/include/cinder/MatrixAlgo.h:166:39: warning: variable 'row1' is uninitialized when used here [-Wuninitialized]        row1   = _mm_loadh_pi( _mm_loadl_pi( row1, ( __m64* )( src + 8 ) ), ( __m64* )( src + 12 ) );                                             ^~~~../../../Cinder/include/cinder/MatrixAlgo.h:163:2: note: variable 'row1' is declared here        __m128 row0, row1, row2, row3;        ^../../../Cinder/include/cinder/MatrixAlgo.h:170:39: warning: variable 'row3' is uninitialized when used here [-Wuninitialized]        row3   = _mm_loadh_pi( _mm_loadl_pi( row3, ( __m64* )( src + 10 ) ), ( __m64* )( src + 14 ) );                                             ^~~~../../../Cinder/include/cinder/MatrixAlgo.h:163:2: note: variable 'row3' is declared here        __m128 row0, row1, row2, row3;        ^In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp:9:In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/gl/glUtil.h:17:../../../Cinder/include/cinder/TriMesh.h:106:24: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int') [-Wshorten-64-to-32]        { mIndices.push_back( v0 ); mIndices.push_back( v1 ); mIndices.push_back( v2 ); }          ~~~~~~~~            ^~../../../Cinder/include/cinder/TriMesh.h:106:50: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int') [-Wshorten-64-to-32]        { mIndices.push_back( v0 ); mIndices.push_back( v1 ); mIndices.push_back( v2 ); }                                    ~~~~~~~~            ^~../../../Cinder/include/cinder/TriMesh.h:106:76: warning: implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int') [-Wshorten-64-to-32]        { mIndices.push_back( v0 ); mIndices.push_back( v1 ); mIndices.push_back( v2 ); }                                                              ~~~~~~~~            ^~/Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp:228:26: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'GLsizei' (aka 'int') [-Wshorten-64-to-32]                       0,vertices->size());                         ^~~~~~~~~~~~~~~~/Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp:318:40: warning: implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'GLsizei' (aka 'int') [-Wshorten-64-to-32]            glDrawArrays(GL_POINTS, 0, vertices.size());            ~~~~~~~~~~~~               ^~~~~~~~~~~~~~~8 warnings generated.8(36%IDEClangDiagnosticActivityLogMessage2@47"Variable 'tmp1' is uninitialized when used here-406715692#18446744073709551615#0#6(2@83"In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp:9:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@65"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp0000000000000000^8#9#8#9#89#0#21"Apple LLVM 5.0 Notice--2@95"In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/gl/glUtil.h:17:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@67"file:///Users/automat/Projects/next/PRDCB/include/PRDCB/gl/glUtil.h0000000000000000^16#9#16#9#251#0#21"Apple LLVM 5.0 Notice--2@66"In file included from ../../../Cinder/include/cinder/TriMesh.h:27:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^26#9#26#9#1392#0#21"Apple LLVM 5.0 Notice--2@73"In file included from ../../../Cinder/include/cinder/AxisAlignedBox.h:25:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@69"file:///Users/automat/Projects/Cinder/include/cinder/AxisAlignedBox.h0000000000000000^24#9#24#9#1368#0#21"Apple LLVM 5.0 Notice--2@65"In file included from ../../../Cinder/include/cinder/Matrix.h:32:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@61"file:///Users/automat/Projects/Cinder/include/cinder/Matrix.h0000000000000000^31#9#31#9#1628#0#21"Apple LLVM 5.0 Notice--2@32"Variable 'tmp1' is declared here-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^163#1#163#1#4845#0#14"Semantic Issue--1#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^164#38#164#38#4901#0#14"Semantic Issue1(3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^164#38#164#42#4901#0#-2@47"Variable 'row1' is uninitialized when used here-406715692#18446744073709551615#0#6(2@83"In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp:9:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp0000000000000000^8#9#8#9#89#0#21"Apple LLVM 5.0 Notice--2@95"In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/gl/glUtil.h:17:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@67"file:///Users/automat/Projects/next/PRDCB/include/PRDCB/gl/glUtil.h0000000000000000^16#9#16#9#251#0#21"Apple LLVM 5.0 Notice--2@66"In file included from ../../../Cinder/include/cinder/TriMesh.h:27:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^26#9#26#9#1392#0#21"Apple LLVM 5.0 Notice--2@73"In file included from ../../../Cinder/include/cinder/AxisAlignedBox.h:25:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@69"file:///Users/automat/Projects/Cinder/include/cinder/AxisAlignedBox.h0000000000000000^24#9#24#9#1368#0#21"Apple LLVM 5.0 Notice--2@65"In file included from ../../../Cinder/include/cinder/Matrix.h:32:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@61"file:///Users/automat/Projects/Cinder/include/cinder/Matrix.h0000000000000000^31#9#31#9#1628#0#21"Apple LLVM 5.0 Notice--2@32"Variable 'row1' is declared here-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^162#1#162#1#4813#0#14"Semantic Issue--1#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^165#38#165#38#4991#0#14"Semantic Issue1(3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^165#38#165#42#4991#0#-2@47"Variable 'row3' is uninitialized when used here-406715692#18446744073709551615#0#6(2@83"In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp:9:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp0000000000000000^8#9#8#9#89#0#21"Apple LLVM 5.0 Notice--2@95"In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/gl/glUtil.h:17:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@67"file:///Users/automat/Projects/next/PRDCB/include/PRDCB/gl/glUtil.h0000000000000000^16#9#16#9#251#0#21"Apple LLVM 5.0 Notice--2@66"In file included from ../../../Cinder/include/cinder/TriMesh.h:27:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^26#9#26#9#1392#0#21"Apple LLVM 5.0 Notice--2@73"In file included from ../../../Cinder/include/cinder/AxisAlignedBox.h:25:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@69"file:///Users/automat/Projects/Cinder/include/cinder/AxisAlignedBox.h0000000000000000^24#9#24#9#1368#0#21"Apple LLVM 5.0 Notice--2@65"In file included from ../../../Cinder/include/cinder/Matrix.h:32:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@61"file:///Users/automat/Projects/Cinder/include/cinder/Matrix.h0000000000000000^31#9#31#9#1628#0#21"Apple LLVM 5.0 Notice--2@32"Variable 'row3' is declared here-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^162#1#162#1#4813#0#14"Semantic Issue--1#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^169#38#169#38#5272#0#14"Semantic Issue1(3@65"file:///Users/automat/Projects/Cinder/include/cinder/MatrixAlgo.h0000000000000000^169#38#169#42#5272#0#-2@112"Implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int')-406715692#18446744073709551615#0#2(2@83"In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp:9:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp0000000000000000^8#9#8#9#89#0#21"Apple LLVM 5.0 Notice--2@95"In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/gl/glUtil.h:17:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@67"file:///Users/automat/Projects/next/PRDCB/include/PRDCB/gl/glUtil.h0000000000000000^16#9#16#9#251#0#21"Apple LLVM 5.0 Notice--1#27"com.apple.dt.IDE.diagnostic3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#23#105#23#5671#0#22"Value Conversion Issue2(3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#23#105#25#5671#0#3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#3#105#11#5651#0#-2@112"Implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int')-406715692#18446744073709551615#0#2(2@83"In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp:9:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp0000000000000000^8#9#8#9#89#0#21"Apple LLVM 5.0 Notice--2@95"In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/gl/glUtil.h:17:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@67"file:///Users/automat/Projects/next/PRDCB/include/PRDCB/gl/glUtil.h0000000000000000^16#9#16#9#251#0#21"Apple LLVM 5.0 Notice--1#27"com.apple.dt.IDE.diagnostic3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#49#105#49#5697#0#22"Value Conversion Issue2(3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#49#105#51#5697#0#3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#29#105#37#5677#0#-2@112"Implicit conversion loses integer precision: 'size_t' (aka 'unsigned long') to 'value_type' (aka 'unsigned int')-406715692#18446744073709551615#0#2(2@83"In file included from /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp:9:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp0000000000000000^8#9#8#9#89#0#21"Apple LLVM 5.0 Notice--2@95"In file included from /Users/automat/Projects/next/PRDCB/xcode/../include/PRDCB/gl/glUtil.h:17:-406715692#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic3@67"file:///Users/automat/Projects/next/PRDCB/include/PRDCB/gl/glUtil.h0000000000000000^16#9#16#9#251#0#21"Apple LLVM 5.0 Notice--1#27"com.apple.dt.IDE.diagnostic3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#75#105#75#5723#0#22"Value Conversion Issue2(3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#75#105#77#5723#0#3@62"file:///Users/automat/Projects/Cinder/include/cinder/TriMesh.h0000000000000000^105#55#105#63#5703#0#-2@103"Implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'GLsizei' (aka 'int')-406715692#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp0000000000000000^227#25#227#25#7699#0#22"Value Conversion Issue2(3@65"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp0000000000000000^227#25#227#41#7699#15#3@65"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp0000000000000000^221#12#221#22#7497#0#-2@103"Implicit conversion loses integer precision: 'size_type' (aka 'unsigned long') to 'GLsizei' (aka 'int')-406715692#18446744073709551615#0#-1#27"com.apple.dt.IDE.diagnostic3@65"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp0000000000000000^317#39#317#39#11052#0#22"Value Conversion Issue2(3@65"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp0000000000000000^317#39#317#54#11052#14#3@65"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp0000000000000000^317#12#317#24#11025#0#-0#0#1#-19%DVTDocumentLocation4@65"file:///Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp0000000000000000^2634"CompileC ../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/glUtil.o /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp normal x86_64 c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/automat/Projects/next/PRDCB/xcode    setenv LANG en_US.US-ASCII    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -arch x86_64 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=gnu++11 -stdlib=libc++ -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -fasm-blocks -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -mmacosx-version-min=10.9 -g -Wno-sign-conversion -iquote /Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/PRDCB-generated-files.hmap -I/Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/PRDCB-own-target-headers.hmap -I/Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/PRDCB-all-target-headers.hmap -iquote /Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/PRDCB-project-headers.hmap -iquote../../../Cinder/include -iquote../include -I/Users/automat/Projects/next/PRDCB/xcode/../lib/Debug/include -I../../../Cinder/boost -I/Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/DerivedSources/x86_64 -I/Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/DerivedSources -F/Users/automat/Projects/next/PRDCB/xcode/../lib/Debug -MMD -MT dependencies -MF /Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/glUtil.d --serialize-diagnostics /Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/glUtil.dia -c /Users/automat/Projects/next/PRDCB/src/PRDCB/gl/glUtil.cpp -o /Users/automat/Projects/next/PRDCB/lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/glUtil.o36"44FEC76A-BF99-4AB7-A94E-448E6C5ED62A-
+b3DEADCC7-106F-4B6F-A51F-95BFD401E364
+
+CCpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/ITNBSequence.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/ITNBSequence.h
+s406715693.123201
+e406715693.125083
+r1
+xCpHeader
+x/Users/automat/Projects/next/PRDCB/include/PRDCB/geom/ITNBSequence.h
+x/Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/ITNBSequence.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection82"Copy /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/ITNBSequence.h155"CpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/ITNBSequence.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/ITNBSequence.h82911f2dfd3db841^2c0d202dfd3db841^---0#0#1#-19%DVTDocumentLocation2@84"file:///Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/ITNBSequence.h0034e0bdddffdf42^448"CpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/ITNBSequence.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/ITNBSequence.h    cd /Users/automat/Projects/next/PRDCB/xcode    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/ITNBSequence.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include36"B59F7EB2-B396-4FFE-81E3-736BAC5EE349-
+b3DEADCC7-106F-4B6F-A51F-95BFD401E364
+
+CCpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/LineTriMesh.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/LineTriMesh.h
+s406715693.123093
+e406715693.125056
+r1
+xCpHeader
+x/Users/automat/Projects/next/PRDCB/include/PRDCB/geom/LineTriMesh.h
+x/Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/LineTriMesh.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection81"Copy /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/LineTriMesh.h153"CpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/LineTriMesh.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/LineTriMesh.hda8c1f2dfd3db841^e605202dfd3db841^---0#0#1#-19%DVTDocumentLocation2@83"file:///Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/LineTriMesh.h0034e0bdddffdf42^445"CpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/LineTriMesh.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/LineTriMesh.h    cd /Users/automat/Projects/next/PRDCB/xcode    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/LineTriMesh.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include36"93DF0182-48FF-4319-A722-EC462685FE53-
+b3DEADCC7-106F-4B6F-A51F-95BFD401E364
+
+CCpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/Spline.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/Spline.h
+s406715693.123521
+e406715693.128486
+r1
+xCpHeader
+x/Users/automat/Projects/next/PRDCB/include/PRDCB/geom/Spline.h
+x/Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/Spline.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection76"Copy /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/Spline.h143"CpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/Spline.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/Spline.h2aa91f2dfd3db841^5ce6202dfd3db841^---0#0#1#-19%DVTDocumentLocation2@78"file:///Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/Spline.h0000000000000000^430"CpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/Spline.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/Spline.h    cd /Users/automat/Projects/next/PRDCB/xcode    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/Spline.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include36"6E7B0F9C-01D9-4040-97A5-6A2AE43B0016-
+b3DEADCC7-106F-4B6F-A51F-95BFD401E364
+
+CCpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/TNBFrame.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/TNBFrame.h
+s406715693.123290
+e406715693.125655
+r1
+xCpHeader
+x/Users/automat/Projects/next/PRDCB/include/PRDCB/geom/TNBFrame.h
+x/Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/TNBFrame.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection78"Copy /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/TNBFrame.h147"CpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/TNBFrame.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/TNBFrame.h639c1f2dfd3db841^a62b202dfd3db841^---0#0#1#-19%DVTDocumentLocation2@80"file:///Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/TNBFrame.h0034e0bdddffdf42^436"CpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/TNBFrame.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/TNBFrame.h    cd /Users/automat/Projects/next/PRDCB/xcode    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/automat/Projects/next/PRDCB/include/PRDCB/geom/TNBFrame.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include36"713B16F5-AD69-4189-BDC9-2A6D14994904-
+b3DEADCC7-106F-4B6F-A51F-95BFD401E364
+
+CCpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/gl/glUtil.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/glUtil.h
+s406715693.125147
+e406715693.128448
+r1
+xCpHeader
+x/Users/automat/Projects/next/PRDCB/include/PRDCB/gl/glUtil.h
+x/Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/glUtil.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection76"Copy /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/glUtil.h141"CpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/gl/glUtil.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/glUtil.h7713202dfd3db841^69e3202dfd3db841^---0#0#1#-19%DVTDocumentLocation2@78"file:///Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/glUtil.h0000000000000000^426"CpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/gl/glUtil.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/glUtil.h    cd /Users/automat/Projects/next/PRDCB/xcode    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/automat/Projects/next/PRDCB/include/PRDCB/gl/glUtil.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include36"7F1F746C-33A7-4944-B142-711F68B295CC-
+b3DEADCC7-106F-4B6F-A51F-95BFD401E364
+
+CCpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/math/PRMath.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/PRMath.h
+s406715693.125528
+e406715693.128541
+r1
+xCpHeader
+x/Users/automat/Projects/next/PRDCB/include/PRDCB/math/PRMath.h
+x/Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/PRMath.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection76"Copy /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/PRMath.h143"CpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/math/PRMath.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/PRMath.hf129202dfd3db841^03eb202dfd3db841^---0#0#1#-19%DVTDocumentLocation2@78"file:///Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/PRMath.h0000000000000000^430"CpHeader /Users/automat/Projects/next/PRDCB/include/PRDCB/math/PRMath.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include/PRMath.h    cd /Users/automat/Projects/next/PRDCB/xcode    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/automat/Projects/next/PRDCB/include/PRDCB/math/PRMath.h /Users/automat/Projects/next/PRDCB/lib/Debug/usr/local/include36"C4D662B5-E1D2-4742-A2D5-C231D32CB844-
+b3DEADCC7-106F-4B6F-A51F-95BFD401E364
+
+CLibtool /Users/automat/Projects/next/PRDCB/xcode/../lib/Debug/libPRDCB.a normal x86_64
+s406715693.101464
+e406715693.122662
+r1
+xLibtool
+x/Users/automat/Projects/next/PRDCB/xcode/../lib/Debug/libPRDCB.a
+xnormal
+xx86_64
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection45"Libtool ../lib/Debug/libPRDCB.a normal x86_6445"Libtool ../lib/Debug/libPRDCB.a normal x86_6492071a2dfd3db841^2c671f2dfd3db841^---0#0#1#--624"Libtool ../lib/Debug/libPRDCB.a normal x86_64    cd /Users/automat/Projects/next/PRDCB/xcode    setenv MACOSX_DEPLOYMENT_TARGET 10.9    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool -static -arch_only x86_64 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk -L/Users/automat/Projects/next/PRDCB/xcode/../lib/Debug -filelist /Users/automat/Projects/next/PRDCB/xcode/../lib/PRDCB.build/Debug/PRDCB.build/Objects-normal/x86_64/PRDCB.LinkFileList -o /Users/automat/Projects/next/PRDCB/xcode/../lib/Debug/libPRDCB.a36"B486720E-0484-41E4-8E99-3E7FB74FCBD4-
+b3DEADCC7-106F-4B6F-A51F-95BFD401E364
+

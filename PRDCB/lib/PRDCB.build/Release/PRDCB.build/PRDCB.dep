@@ -1,0 +1,10 @@
+00000000528ddb180000000000000944 816953666ba9ef25f7ca67ef640e5894 ffffffffffffffffffffffffffffffff 0 /Users/automat/Projects/next/PRDCB/lib/Release/usr/local/include/glUtil.h
+00000000528dcfe90000000000001dba cf6b29c8be41cb14506716e4978dcb13 ffffffffffffffffffffffffffffffff 0 /Users/automat/Projects/next/PRDCB/lib/Release/usr/local/include/PRMath.h
+00000000528e3373000000000000089f f76b8c30e3c47eb5a74bb41c75547a3c ffffffffffffffffffffffffffffffff 0 /Users/automat/Projects/next/PRDCB/lib/Release/usr/local/include/Spline.h
+00000000528e2ae10000000000000297 dbb243f7bcc7d190238a992bdf81ddf5 ffffffffffffffffffffffffffffffff 0 /Users/automat/Projects/next/PRDCB/lib/Release/usr/local/include/ITNBSequence.h
+00000000528e2fdc00000000000010ef acb1d800cc7b1a093a63bd657013aa6c ffffffffffffffffffffffffffffffff 0 /Users/automat/Projects/next/PRDCB/lib/Release/usr/local/include/TNBFrame.h
+00000000528b631900000000000008bf 452c429867f7b88e64aa304d8725009e ffffffffffffffffffffffffffffffff 0 /Users/automat/Projects/next/PRDCB/lib/Release/usr/local/include/LineTriMesh.h
+e8a4cdaa054afeeac8fb4335805499c5 3a4d2996b3cb0b91052b63c4e8716de0 ffffffffffffffffffffffffffffffff 0 /Users/automat/Projects/next/PRDCB/lib/Release/libPRDCB.a
+00000000528e6c45000000000000276a 2217a5b00df9620a7cf8eeb05297ae60 ffffffffffffffffffffffffffffffff 278888 /Users/automat/Projects/next/PRDCB/lib/PRDCB.build/Release/PRDCB.build/Objects-normal/x86_64/Spline.o
+00000000528de2bb0000000000003096 4b6bc4add6912bc62f5b5c5010ccb2da ffffffffffffffffffffffffffffffff 217472 /Users/automat/Projects/next/PRDCB/lib/PRDCB.build/Release/PRDCB.build/Objects-normal/x86_64/glUtil.o
+00000000528b65770000000000001a09 81d8acb78cbd52509b58f1d5c20f8917 ffffffffffffffffffffffffffffffff 425420 /Users/automat/Projects/next/PRDCB/lib/PRDCB.build/Release/PRDCB.build/Objects-normal/x86_64/LineTriMesh.o
