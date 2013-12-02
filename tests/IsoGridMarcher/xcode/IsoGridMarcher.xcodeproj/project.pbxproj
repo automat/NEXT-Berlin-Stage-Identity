@@ -16,6 +16,7 @@
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		CDF55548184CF2C000C061A4 /* nexxxt.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDF55547184CF2C000C061A4 /* nexxxt.icns */; };
 		F7B30B3E72B84DBE9F032BA1 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 39750460965347C0B0B93776 /* CinderApp.icns */; };
 /* End PBXBuildFile section */
 
@@ -36,8 +37,9 @@
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		7112DBA1AE3D478A823429DA /* IsoGridMarcherApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = IsoGridMarcherApp.cpp; path = ../src/IsoGridMarcherApp.cpp; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* IsoGridMarcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IsoGridMarcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CDBBCC9C18478637002283C2 /* GridCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridCube.h; path = ../include/GridCube.h; sourceTree = "<group>"; };
-		CDBBCC9D18478D10002283C2 /* GridEdge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridEdge.h; path = ../include/GridEdge.h; sourceTree = "<group>"; };
+		CDBBCC9C18478637002283C2 /* LightCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightCube.h; path = ../include/LightCube.h; sourceTree = "<group>"; };
+		CDBBCC9D18478D10002283C2 /* LightBulb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightBulb.h; path = ../include/LightBulb.h; sourceTree = "<group>"; };
+		CDF55547184CF2C000C061A4 /* nexxxt.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = nexxxt.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,8 +126,8 @@
 			children = (
 				4EDC098CD62E4ED38AF152EB /* Resources.h */,
 				08C885984C7E4AB6B357AC99 /* IsoGridMarcher_Prefix.pch */,
-				CDBBCC9C18478637002283C2 /* GridCube.h */,
-				CDBBCC9D18478D10002283C2 /* GridEdge.h */,
+				CDBBCC9C18478637002283C2 /* LightCube.h */,
+				CDBBCC9D18478D10002283C2 /* LightBulb.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -133,6 +135,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CDF55547184CF2C000C061A4 /* nexxxt.icns */,
 				39750460965347C0B0B93776 /* CinderApp.icns */,
 				1691BF0014564BABB44295B3 /* Info.plist */,
 			);
@@ -201,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7B30B3E72B84DBE9F032BA1 /* CinderApp.icns in Resources */,
+				CDF55548184CF2C000C061A4 /* nexxxt.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
