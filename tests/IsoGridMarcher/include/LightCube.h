@@ -44,7 +44,7 @@ public:
     void switchOn(){
         int i = -1;
         while (++i < NUM_BULBS) {
-            if(mBulbs[i])mBulbs[i]->switchOn();
+            mBulbs[i]->switchOn();
         }
     }
     
@@ -56,7 +56,7 @@ public:
     void switchOff(){
         int i = -1;
         while (++i < NUM_BULBS) {
-            if(mBulbs[i])mBulbs[i]->switchOff();
+            mBulbs[i]->switchOff();
         }
     }
     
@@ -64,15 +64,14 @@ public:
         mBulbs[index]->switchOff();
     }
     
-    void switchRandom(){
+    void switchRandom(float triggerTolerance = 0.0015f){
         int i = -1;
         while (++i < NUM_BULBS) {
-            if(ci::randFloat()<0.0015f)
-                mBulbs[i]->switchOn();
-            else
-                mBulbs[i]->switchOff();
+            mBulbs[i]->switchRandom(triggerTolerance);
         }
     }
+    
+    
     
     
     

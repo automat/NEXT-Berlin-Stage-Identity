@@ -16,6 +16,7 @@
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		CD67F29B184E419800B9C7EC /* LightCubeMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD67F299184E419800B9C7EC /* LightCubeMatrix.cpp */; };
 		CDF55548184CF2C000C061A4 /* nexxxt.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDF55547184CF2C000C061A4 /* nexxxt.icns */; };
 		F7B30B3E72B84DBE9F032BA1 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 39750460965347C0B0B93776 /* CinderApp.icns */; };
 /* End PBXBuildFile section */
@@ -39,6 +40,7 @@
 		8D1107320486CEB800E47090 /* IsoGridMarcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IsoGridMarcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD67F297184E3FB300B9C7EC /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = ../include/Utils.h; sourceTree = "<group>"; };
 		CD67F298184E412B00B9C7EC /* LightCubeMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightCubeMatrix.h; path = ../include/LightCubeMatrix.h; sourceTree = "<group>"; };
+		CD67F299184E419800B9C7EC /* LightCubeMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LightCubeMatrix.cpp; path = ../src/LightCubeMatrix.cpp; sourceTree = "<group>"; };
 		CDBBCC9C18478637002283C2 /* LightCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightCube.h; path = ../include/LightCube.h; sourceTree = "<group>"; };
 		CDBBCC9D18478D10002283C2 /* LightBulb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightBulb.h; path = ../include/LightBulb.h; sourceTree = "<group>"; };
 		CDF55547184CF2C000C061A4 /* nexxxt.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = nexxxt.icns; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				7112DBA1AE3D478A823429DA /* IsoGridMarcherApp.cpp */,
+				CD67F299184E419800B9C7EC /* LightCubeMatrix.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD67F29B184E419800B9C7EC /* LightCubeMatrix.cpp in Sources */,
 				0B0B5213A7374F9BBAA235BA /* IsoGridMarcherApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
