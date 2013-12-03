@@ -8,6 +8,8 @@
 #include <vector>
 #include "LightCube.h"
 #include "LightBulb.h"
+#include "cinder/Rand.h"
+#include "Utils.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -71,9 +73,18 @@ public:
     int mNumPointsZ;
     int mNumPoints;
     
+    int mNumCubesX;
+    int mNumCubesY;
+    int mNumCubesZ;
+    
     std::vector<ci::Vec3f> mGridPoints;
-    std::vector<LightBulb>  mLightBulbs;
-    std::vector<LightCube>  mLightCubes;
+    std::vector<LightBulb> mLightBulbsX; // X axis
+    std::vector<LightBulb> mLightBulbsY; // Y axis
+    std::vector<LightBulb> mLightBulbsZ; // Z axis
+    std::vector<LightBulb> mLightBulbsXD; // diagonal
+    std::vector<LightBulb> mLightBulbsYD; // diagonal
+    std::vector<LightBulb> mLightBulbsZD; // diagonal
+    std::vector<LightCube> mLightCubes;
 };
 
 void IsoGridMarcherApp::prepareSettings(Settings* settings){
@@ -106,7 +117,7 @@ void IsoGridMarcherApp::setupGridCube(){
     /*--------------------------------------------------------------------------------*/
     // Setup Points
     /*--------------------------------------------------------------------------------*/
-    int numPointsAxes = 3;
+    int numPointsAxes = 8;
     
     mNumPointsX = numPointsAxes;
     mNumPointsY = numPointsAxes;
@@ -115,6 +126,10 @@ void IsoGridMarcherApp::setupGridCube(){
     int numPointsX_1 = mNumPointsX - 1;
     int numPointsY_1 = mNumPointsY - 1;
     int numPointsZ_1 = mNumPointsZ - 1;
+    
+    mNumCubesX = numPointsX_1;
+    mNumCubesY = numPointsY_1;
+    mNumCubesZ = numPointsZ_1;
     
     float scale = 0.5;
     
@@ -156,14 +171,6 @@ void IsoGridMarcherApp::setupGridCube(){
     int indexCubeVertex5;
     int indexCubeVertex6;
     int indexCubeVertex7;
-  
-    int bulb0Index;
-    int bulb1Index;
-    int bulb2Index;
-    int bulb3Index;
-    int bulb4Index;
-    int bulb5Index;
-    
     
     int numEdgesZ  = mNumPointsZ - 1;
     int numEdgesY  = mNumPointsY - 1;
@@ -196,133 +203,168 @@ void IsoGridMarcherApp::setupGridCube(){
                 indexCubeVertex6 = indexCubeVertex4 + 1;
                 indexCubeVertex7 = indexCubeVertex5 + 1;
                 
-                bulb0Index = -1;
-                bulb1Index = -1;
-                bulb2Index = -1;
-                bulb3Index = -1;
-                bulb4Index = -1;
-                bulb5Index = -1;
-                
                 
                 //bulbs X axis
                 if (ix < numEdgesX){
-                    mLightBulbs.push_back(LightBulb(&mGridPoints[indexCubeVertex0],&mGridPoints[indexCubeVertex1]));
-                    bulb0Index = mLightBulbs.size() - 1;
-                }
-                
-                //bulbs Y axis
-                if (iy < numEdgesY) {
-                    mLightBulbs.push_back(LightBulb(&mGridPoints[indexCubeVertex0],&mGridPoints[indexCubeVertex4]));
-                    bulb1Index = mLightBulbs.size() - 1;
+                    mLightBulbsX.push_back(LightBulb(&mGridPoints[indexCubeVertex0],
+                                                     &mGridPoints[indexCubeVertex1]));
                 }
                 
                 //bulbs Z axis
                 if (iz < numEdgesZ) {
-                    mLightBulbs.push_back(LightBulb(&mGridPoints[indexCubeVertex0],&mGridPoints[indexCubeVertex2]));
-                    bulb2Index = mLightBulbs.size() - 1;
+                    
+                    mLightBulbsZ.push_back(LightBulb(&mGridPoints[indexCubeVertex0],
+                                                     &mGridPoints[indexCubeVertex2]));
+                }
+                
+                //bulbs Y axis
+                if (iy < numEdgesY) {
+                    mLightBulbsY.push_back(LightBulb(&mGridPoints[indexCubeVertex0],
+                                                     &mGridPoints[indexCubeVertex4]));
+                }
+              
+                //bulbs diagonal X Axis
+                if( ix < numEdgesX && iy < numEdgesY){
+                    mLightBulbsXD.push_back(LightBulb(&mGridPoints[indexCubeVertex4],
+                                                     &mGridPoints[indexCubeVertex1]));
+                }
+                
+                //bulbs diagonal TOP / BOTTOM
+                if( ix < numEdgesX && iz < numEdgesZ){
+                    mLightBulbsZD.push_back(LightBulb(&mGridPoints[indexCubeVertex0],
+                                                     &mGridPoints[indexCubeVertex3]));
                 }
                 
                 //bulbs diagonal Z axes
                 if( iz < numEdgesZ && iy < numEdgesY){
-                    mLightBulbs.push_back(LightBulb(&mGridPoints[indexCubeVertex0],&mGridPoints[indexCubeVertex6]));
-                    bulb3Index = mLightBulbs.size() - 1;
+                    mLightBulbsYD.push_back(LightBulb(&mGridPoints[indexCubeVertex0],
+                                                     &mGridPoints[indexCubeVertex6]));
                 }
-                
-                
-                //bulbs diagonal TOP / BOTTOM
-                if( ix < numEdgesX && iz < numEdgesZ){
-                    mLightBulbs.push_back(LightBulb(&mGridPoints[indexCubeVertex0],&mGridPoints[indexCubeVertex3]));
-                    bulb4Index = mLightBulbs.size() - 1;
-                }
-                
-                //bulbs diagonal X Axis
-                if( ix < numEdgesX && iy < numEdgesY){
-                    mLightBulbs.push_back(LightBulb(&mGridPoints[indexCubeVertex4],&mGridPoints[indexCubeVertex1]));
-                    bulb5Index = mLightBulbs.size() - 1;
-                }
-                
-                //Light Cubes
-                if (ix < numEdgesX && iy < numEdgesY && iz < numEdgesZ) {
-                    
-                    std::cout << "---" << std::endl;
-                    std::cout << bulb0Index << std::endl;
-                    std::cout << bulb1Index << std::endl;
-                    std::cout << bulb2Index << std::endl;
-                    std::cout << bulb3Index << std::endl;
-                    std::cout << bulb4Index << std::endl;
-                    std::cout << bulb5Index << std::endl;
-                    std::cout << "---" << std::endl;
-                    
-                    
-                    mLightCubes.push_back(LightCube());
-                    mLightCubes.back().setBottom(&(mLightBulbs[bulb0Index]),
-                                                 &(mLightBulbs[bulb1Index]),
-                                                 &(mLightBulbs[bulb2Index]),
-                                                 &(mLightBulbs[bulb3Index]));
-                    
-                }
-                
-                
                 
                 //std::cout << indexCube << " : " << indexCubeVertex0 << " " << indexCubeVertex1 << " " << indexCubeVertex2 << " " << indexCubeVertex3 <<  std::endl;
                 //std::cout << indexCube << " : " << indexCubeVertex4 << " " << indexCubeVertex5 << " " << indexCubeVertex6 << " " << indexCubeVertex7 <<  std::endl;
-
             }
         }
     }
     
-    
-    /*
-     indexZ1 = k1 * numPointsXY + j  * mNumPointsZ + i;
-     indexY1 = k  * numPointsXY + j1 * mNumPointsZ + i;
-     indexX1 = k  * numPointsXY + j  * mNumPointsZ + i1;
-     */
-    /*
-     if(i1 < mNumPointsZ){
-     mLightBulbs.push_back(LightBulb(&mGridPoints[index],&mGridPoints[indexZ1]));
-     }
-     */
-    /*
-     if(j1 < mNumPointsY){
-     mLightBulbs.push_back(LightBulb(&mGridPoints[index],&mGridPoints[indexY1]));
-     }
-     
-     if(k1 < mNumPointsX) {
-     mLightBulbs.push_back(LightBulb(&mGridPoints[index],&mGridPoints[indexX1]));
-     }
-     */
-
-    
     /*--------------------------------------------------------------------------------*/
     // Setup Light Cubes
     /*--------------------------------------------------------------------------------*/
-
-    /*
-    int numEdgesX = numPointsX_1;
-    int numEdgesY = numPointsY_1;
-    int numEdgesZ = numPointsZ_1;
+    
+    //bottom
+    int indexBulb00;
+    int indexBulb01;
+    int indexBulb02;
+    int indexBulb03;
+    
+    //top
+    int indexBulb04;
+    int indexBulb05;
+    int indexBulb06;
+    int indexBulb07;
+    
+    //sides
+    int indexBulb08;
+    int indexBulb09;
+    int indexBulb10;
+    int indexBulb11;
+    
+    //bottom/top diagonal
+    int indexBulb12;
+    int indexBulb13;
+    
+    //sides diagonal
+    int indexBulb14;
+    int indexBulb15;
+    int indexBulb16;
+    int indexBulb17;
+    
+    
+    int numPointsY_1Z_1 = numPointsY_1 * numPointsZ_1;
+    int numPointsYZ     = mNumPointsY  * mNumPointsZ;
+    int numPointsYZ_1   = mNumPointsY  * numPointsZ_1;
+    int numPointsY_1Z   = numPointsY_1 * mNumPointsZ;
+    
+    
+    
+    ix = -1;
+    while (++ix < numEdgesX) {
+        ix1 = ix + 1;
+        iy  = -1;
+        while (++iy < numEdgesY) {
+            iy1 = iy + 1;
+            iz  = -1;
+            while (++iz < numEdgesZ) {
+                //bottom trbl
+                indexBulb00 = ix * numPointsYZ   + iy * mNumPointsZ  + iz;
+                indexBulb03 = ix * numPointsYZ_1 + iy * numPointsZ_1 + iz;
+                indexBulb02 = indexBulb00 + 1;
+                indexBulb01 = indexBulb03 + numPointsYZ_1;
+                
+                //top trbl
+                indexBulb04 = ix * numPointsYZ   + iy1 * mNumPointsZ  + iz;
+                indexBulb07 = ix * numPointsYZ_1 + iy1 * numPointsZ_1 + iz;
+                indexBulb06 = indexBulb04 + 1;
+                indexBulb05 = indexBulb07 + numPointsYZ_1;
+                
+                //sides cw
+                indexBulb08 = ix  * numPointsY_1Z + iy * mNumPointsZ + iz;
+                indexBulb09 = ix1 * numPointsY_1Z + iy * mNumPointsZ + iz;
+                indexBulb10 = indexBulb09 + 1;
+                indexBulb11 = indexBulb08 + 1;
+                
+                //bottom/zop diagonal
+                indexBulb12 = ix * numPointsYZ_1 + iy  * numPointsZ_1 + iz;
+                indexBulb13 = ix * numPointsYZ_1 + iy1 * numPointsZ_1 + iz;
+                
+                //sides diagonal;
+                indexBulb14 = indexBulb08;
+                indexBulb17 = ix * numPointsY_1Z_1 + iy * numPointsZ_1 + iz;
+                indexBulb16 = indexBulb14 + 1;
+                indexBulb15 = indexBulb17 + numPointsY_1Z_1;
+                
    
-    int indexBulbZ;
-    int indexBulbX;
-    int indexBulbY;
+                /*
+                std::cout << "---" << std::endl;
+                std::cout << "- " << indexCube << std::endl;
+                std::cout << indexBulb00 << std::endl;
+                std::cout << indexBulb01 << std::endl;
+                std::cout << indexBulb02 << std::endl;
+                std::cout << indexBulb03 << std::endl;
+                std::cout << "- " << std::endl;
+                std::cout << indexBulb04 << std::endl;
+                std::cout << indexBulb05 << std::endl;
+                std::cout << indexBulb06 << std::endl;
+                std::cout << indexBulb07 << std::endl;
+                std::cout << "- " << std::endl;
+                std::cout << indexBulb08 << std::endl;
+                std::cout << indexBulb09 << std::endl;
+                std::cout << indexBulb10 << std::endl;
+                std::cout << indexBulb11 << std::endl;
+                std::cout << "- " << std::endl;
+                std::cout << indexBulb12 << std::endl;
+                std::cout << indexBulb13 << std::endl;
+                std::cout << "- " << std::endl;
+                std::cout << indexBulb14 << std::endl;
+                std::cout << indexBulb15 << std::endl;
+                std::cout << indexBulb16 << std::endl;
+                std::cout << indexBulb17 << std::endl;
+                std::cout << "---" << std::endl;
+                 */
+                
+                
+               
+                mLightCubes.push_back(LightCube());
+                mLightCubes.back().set(&( mLightBulbsX[indexBulb00]), &( mLightBulbsZ[indexBulb01]), &( mLightBulbsX[indexBulb02]), &( mLightBulbsZ[indexBulb03]),
+                                       &( mLightBulbsX[indexBulb04]), &( mLightBulbsZ[indexBulb05]), &( mLightBulbsX[indexBulb06]), &( mLightBulbsZ[indexBulb07]),
+                                       &( mLightBulbsY[indexBulb08]), &( mLightBulbsY[indexBulb09]), &( mLightBulbsY[indexBulb10]), &( mLightBulbsY[indexBulb11]),
+                                       &(mLightBulbsZD[indexBulb12]), &(mLightBulbsZD[indexBulb13]),
+                                       &(mLightBulbsXD[indexBulb14]), &(mLightBulbsYD[indexBulb15]), &(mLightBulbsXD[indexBulb16]), &(mLightBulbsYD[indexBulb17]));
+                
+            }
+        }
+    }
     
-    mLightCubes.push_back(LightCube());
-    
-    int cubeIndexX = 0;
-    int cubeIndexY = 0;
-    int cubeIndexZ = 0;
-    
-    
-
-    
-    indexBulbY = cubeIndexZ + ( 3 * numEdgesZ + 2) * cubeIndexY;
-    indexBulbX = indexBulbZ + 1;
-    indexBulbZ = indexBulbZ + 2;
-    
-    mLightCubes.back().setTop(&mLightBulbs[indexBulbZ], 0, 0, 0);
-    mLightCubes.back().switchOn();
-    */
-   // std::cout << mLightCubes.size() << std::endl;
     
     
     
@@ -339,24 +381,79 @@ void IsoGridMarcherApp::update(){
     // Manage Light Cubes
     /*--------------------------------------------------------------------------------*/
 
+    int cubeIndex = floorf(abs(sinf(mTime*0.5f))*mLightCubes.size());
+    
     
     int i = -1;
-    std::cout << mLightCubes.size() << std::endl;
     while (++i < mLightCubes.size()) {
-        mLightCubes[i].switchOn();
+        mLightCubes[i].switchOff();
     }
-     
+   
     /*
-    int bulbIndex = floorf(abs(sinf(mTime*0.025f))*mLightBulbs.size());
+    i = -1;
+    while (++i < mLightBulbsX.size()) {
+        if(ci::randFloat() < 00.0125f)
+            mLightBulbsX[i].switchOn();
+    }
     
-     i = -1;
-    while (++i < mLightBulbs.size()) {
-        mLightBulbs[i].switchOn();
+    i = -1;
+    while (++i < mLightBulbsY.size()) {
+        if(ci::randFloat() < 0.00125f)
+            mLightBulbsY[i].switchOn();
     }
-     */
-    /*
-    mLightBulbs[bulbIndex].switchOn();
+    
+    i = -1;
+    while (++i < mLightBulbsZ.size()) {
+        if(ci::randFloat() < 0.00125f)
+            mLightBulbsZ[i].switchOn();
+    }
     */
+    
+    
+    /*
+    i = -1;
+    while (++i < mLightBulbsXD.size()) {
+        if(ci::randFloat() < 0.00125f)
+            mLightBulbsXD[i].switchOn();
+    }
+    
+    i = -1;
+    while (++i < mLightBulbsYD.size()) {
+        if(ci::randFloat() < 0.00125f)
+            mLightBulbsYD[i].switchOn();
+    }
+    
+    i = -1;
+    while (++i < mLightBulbsZD.size()) {
+        if(ci::randFloat() < 0.00125f)
+            mLightBulbsZD[i].switchOn();
+    }
+    */
+    int ix,iy,iz;
+    int index;
+    ix = floor(abs(sinf(mTime*0.85f))*mNumCubesX);
+
+    
+    iy = -1;
+    while (++iy < mNumCubesY) {
+        iz = -1;
+        while (++iz < mNumCubesZ) {
+            index = ix * mNumCubesX * mNumCubesZ + iy * mNumCubesZ + iz;
+            mLightCubes[index].switchRandom();
+            
+        }
+    }
+    
+    /*
+    mLightCubes[cubeIndex].switchOn();
+    
+    cubeIndex = floorf(abs(sinf(mTime*0.1f))*mLightCubes.size());
+    mLightCubes[cubeIndex].switchOn();
+    
+    cubeIndex = floorf(abs(sinf(mTime*0.35f))*mLightCubes.size());
+    mLightCubes[cubeIndex].switchOn();
+     */
+
     
 }
 
@@ -411,7 +508,7 @@ void IsoGridMarcherApp::draw(){
     float fontScale = 0.0015;
      ci::Vec2f zero2(0,0);
     
-    
+    /*
     if(DRAW_POINT_INDICES){
         ci::gl::disableDepthRead();
                 ci::gl::color(Color::white());
@@ -428,6 +525,7 @@ void IsoGridMarcherApp::draw(){
         ci::gl::disableAlphaBlending();
         ci::gl::enableDepthRead();
     }
+     */
     
     /*--------------------------------------------------------------------------------*/
     // Draw Light Bulbs
@@ -438,23 +536,124 @@ void IsoGridMarcherApp::draw(){
     if (DRAW_LIGHT_BULBS) {
         i = -1;
         ci::Vec3f mid;
-        while (++i < mLightBulbs.size()) {
-            mLightBulbs[i].draw();
+        std::vector<LightBulb>::iterator itrBulbs;
+        
+        
+        itrBulbs = mLightBulbsX.begin();
+        while (itrBulbs != mLightBulbsX.end()) {
+            itrBulbs->draw();
+            itrBulbs++;
         }
         
+        
+        itrBulbs = mLightBulbsY.begin();
+        while (itrBulbs != mLightBulbsY.end()) {
+            itrBulbs->draw();
+            itrBulbs++;
+        }
+        
+        itrBulbs = mLightBulbsZ.begin();
+        while (itrBulbs != mLightBulbsZ.end()) {
+            itrBulbs->draw();
+            itrBulbs++;
+        }
+        
+        itrBulbs = mLightBulbsXD.begin();
+        while (itrBulbs != mLightBulbsXD.end()) {
+            itrBulbs->draw();
+            itrBulbs++;
+        }
+        
+        itrBulbs = mLightBulbsYD.begin();
+        while (itrBulbs != mLightBulbsYD.end()) {
+            itrBulbs->draw();
+            itrBulbs++;
+        }
+        
+        itrBulbs = mLightBulbsZD.begin();
+        while (itrBulbs != mLightBulbsZD.end()) {
+            itrBulbs->draw();
+            itrBulbs++;
+        }
+        
+     
+        
+        
         ci::gl::disableDepthRead();
-        ci::gl::color(0,0,1);
         ci::gl::enableAlphaBlending();
 
+        /*
+        ci::gl::color(1,0,0);
         i = -1;
-        while (++i < mLightBulbs.size()) {
-            mLightBulbs[i].getMid(&mid);
+        while (++i < mLightBulbsX.size()) {
+            mLightBulbsX[i].getMid(&mid);
             glPushMatrix();
             glTranslatef(mid.x,mid.y,mid.z);
             glScalef(fontScale, -fontScale, fontScale);
             mTextureFont->drawString( ci::toString(i), zero2 );
             glPopMatrix();
         }
+        */
+        /*
+        ci::gl::color(0,1,0);
+        i = -1;
+        while (++i < mLightBulbsY.size()) {
+            mLightBulbsY[i].getMid(&mid);
+            glPushMatrix();
+            glTranslatef(mid.x,mid.y,mid.z);
+            glScalef(fontScale, -fontScale, fontScale);
+            mTextureFont->drawString( ci::toString(i), zero2 );
+            glPopMatrix();
+        }
+         */
+        /*
+        ci::gl::color(0,0,1);
+        i = -1;
+        while (++i < mLightBulbsZ.size()) {
+            mLightBulbsZ[i].getMid(&mid);
+            glPushMatrix();
+            glTranslatef(mid.x,mid.y,mid.z);
+            glScalef(fontScale, -fontScale, fontScale);
+            mTextureFont->drawString( ci::toString(i), zero2 );
+            glPopMatrix();
+        }
+         */
+        /*
+        ci::gl::color(0.5,0.5,0.5);
+        
+        i = -1;
+        while (++i < mLightBulbsYD.size()) {
+            mLightBulbsYD[i].getMid(&mid);
+            glPushMatrix();
+            glTranslatef(mid.x,mid.y,mid.z);
+            glScalef(fontScale, -fontScale, fontScale);
+            mTextureFont->drawString( ci::toString(i), zero2 );
+            glPopMatrix();
+        }
+        
+      
+        i = -1;
+        while (++i < mLightBulbsXD.size()) {
+            mLightBulbsXD[i].getMid(&mid);
+            glPushMatrix();
+            glTranslatef(mid.x,mid.y,mid.z);
+            glScalef(fontScale, -fontScale, fontScale);
+            mTextureFont->drawString( ci::toString(i), zero2 );
+            glPopMatrix();
+        }
+         */
+        /*
+        i = -1;
+        while (++i < mLightBulbsZD.size()) {
+            mLightBulbsZD[i].getMid(&mid);
+            glPushMatrix();
+            glTranslatef(mid.x,mid.y,mid.z);
+            glScalef(fontScale, -fontScale, fontScale);
+            mTextureFont->drawString( ci::toString(i), zero2 );
+            glPopMatrix();
+        }
+         */
+
         
         ci::gl::disableAlphaBlending();
         ci::gl::enableDepthRead();

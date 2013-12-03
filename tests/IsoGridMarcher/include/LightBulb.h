@@ -35,11 +35,11 @@ public:
     
     void draw(){
         if(!mIsOn){
-            ci::gl::color(1, 0, 0);
+            ci::gl::color(0, 0, 0);
             glLineWidth(0.5);
         }else{
             ci::gl::color(1, 1, 1);
-            glLineWidth(10);
+            glLineWidth(5);
         }
         ci::gl::drawLine(*mP0, *mP1);
         glLineWidth(1);

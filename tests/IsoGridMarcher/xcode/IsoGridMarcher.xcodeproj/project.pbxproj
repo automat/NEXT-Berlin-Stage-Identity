@@ -37,6 +37,8 @@
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		7112DBA1AE3D478A823429DA /* IsoGridMarcherApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = IsoGridMarcherApp.cpp; path = ../src/IsoGridMarcherApp.cpp; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* IsoGridMarcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IsoGridMarcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD67F297184E3FB300B9C7EC /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = ../include/Utils.h; sourceTree = "<group>"; };
+		CD67F298184E412B00B9C7EC /* LightCubeMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightCubeMatrix.h; path = ../include/LightCubeMatrix.h; sourceTree = "<group>"; };
 		CDBBCC9C18478637002283C2 /* LightCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightCube.h; path = ../include/LightCube.h; sourceTree = "<group>"; };
 		CDBBCC9D18478D10002283C2 /* LightBulb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightBulb.h; path = ../include/LightBulb.h; sourceTree = "<group>"; };
 		CDF55547184CF2C000C061A4 /* nexxxt.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = nexxxt.icns; sourceTree = "<group>"; };
@@ -128,6 +130,8 @@
 				08C885984C7E4AB6B357AC99 /* IsoGridMarcher_Prefix.pch */,
 				CDBBCC9C18478637002283C2 /* LightCube.h */,
 				CDBBCC9D18478D10002283C2 /* LightBulb.h */,
+				CD67F297184E3FB300B9C7EC /* Utils.h */,
+				CD67F298184E412B00B9C7EC /* LightCubeMatrix.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
