@@ -35,6 +35,10 @@ class LightCubeMatrix {
     int mNumCubesZ;
     int mNumCubes;
     
+    bool  mDrawBulbsOff;
+    bool  mDrawGridPoints;
+    float mGridPointsSize;
+    
     std::vector<ci::Vec3f> mGridPoints;
     std::vector<LightBulb> mLightBulbsX; // X axis
     std::vector<LightBulb> mLightBulbsY; // Y axis
@@ -78,6 +82,10 @@ public:
     void switchOff();
     //! Switch bulbs on/off randomly
     void switchRandom(float triggerTolerance = 0.0015f);
+    
+    void setDrawBulbsOff(bool b)      { mDrawBulbsOff = b; };
+    void setDrawGridPoints(bool b)    { mDrawGridPoints = b; };
+    void setGridPointsSize(float size){ mGridPointsSize = size; };
     
     //! Debug view grid points
     void drawDebugPoints();

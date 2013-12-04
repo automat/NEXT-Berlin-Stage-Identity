@@ -10,7 +10,10 @@
 #include "cinder/gl/gl.h"
 #include <OpenGL/OpenGL.h>
 
-LightCubeMatrix::LightCubeMatrix(){
+LightCubeMatrix::LightCubeMatrix() :
+mDrawBulbsOff(true),
+mDrawGridPoints(true),
+mGridPointsSize(0.005f){
     this->initDebugFont();
 }
 
@@ -33,9 +36,9 @@ void LightCubeMatrix::setPointsNum(int numXYZ){
 }
 
 void LightCubeMatrix::setNumPoints_Internal(int numX, int numY, int numZ){
-    mNumPointsX = std::max(2, std::min(numX, 30));
-    mNumPointsY = std::max(2, std::min(numY, 30));
-    mNumPointsZ = std::max(2, std::min(numZ, 30));
+    mNumPointsX = numX;
+    mNumPointsY = numY;
+    mNumPointsZ = numZ;
     mNumPoints  = mNumPointsX * mNumPointsY * mNumPointsZ;
     
     mNumCubesX = mNumPointsX_1 = mNumPointsX - 1;
@@ -367,11 +370,18 @@ void LightCubeMatrix::switchRandom(float triggerTolerance){
 void LightCubeMatrix::drawOcclusive(){
     // Draw Points
     
-    glColor3f(0.01,0.01,0.01);
-    for (std::vector<ci::Vec3f>::iterator itr = mGridPoints.begin(); itr != mGridPoints.end(); ++itr) {
-        ci::gl::drawSphere(*itr, 0.005f);
+    if(mDrawGridPoints){
+        ci::Vec3f size(mGridPointsSize,mGridPointsSize,mGridPointsSize);
+        for (std::vector<ci::Vec3f>::iterator itr = mGridPoints.begin(); itr != mGridPoints.end(); ++itr) {
+            //ci::gl::drawSphere(*itr, 0.005f);
+            ci::gl::drawCube(*itr, size);
+            //ci::gl::drawColorCube(*itr,size);
+        }
     }
-   
+    
+    
+    if(!mDrawBulbsOff)return;
+    
     // Draw Bulbs
     for (std::vector<LightBulb>::iterator itr = mLightBulbsX.begin(); itr!=mLightBulbsX.end(); ++itr) {
         itr->drawOcclusive();

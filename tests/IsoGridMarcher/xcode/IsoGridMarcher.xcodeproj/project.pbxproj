@@ -16,6 +16,9 @@
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		CD19D399184F67080000550E /* pass_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD19D397184F67080000550E /* pass_vert.glsl */; };
+		CD19D39A184F67080000550E /* blur_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD19D398184F67080000550E /* blur_frag.glsl */; };
+		CD19D39C184F68760000550E /* blend_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD19D39B184F68760000550E /* blend_frag.glsl */; };
 		CD67F29B184E419800B9C7EC /* LightCubeMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD67F299184E419800B9C7EC /* LightCubeMatrix.cpp */; };
 		CDF55548184CF2C000C061A4 /* nexxxt.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDF55547184CF2C000C061A4 /* nexxxt.icns */; };
 		F7B30B3E72B84DBE9F032BA1 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 39750460965347C0B0B93776 /* CinderApp.icns */; };
@@ -38,6 +41,9 @@
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		7112DBA1AE3D478A823429DA /* IsoGridMarcherApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = IsoGridMarcherApp.cpp; path = ../src/IsoGridMarcherApp.cpp; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* IsoGridMarcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IsoGridMarcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD19D397184F67080000550E /* pass_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pass_vert.glsl; sourceTree = "<group>"; };
+		CD19D398184F67080000550E /* blur_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blur_frag.glsl; sourceTree = "<group>"; };
+		CD19D39B184F68760000550E /* blend_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blend_frag.glsl; sourceTree = "<group>"; };
 		CD67F297184E3FB300B9C7EC /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = ../include/Utils.h; sourceTree = "<group>"; };
 		CD67F298184E412B00B9C7EC /* LightCubeMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightCubeMatrix.h; path = ../include/LightCubeMatrix.h; sourceTree = "<group>"; };
 		CD67F299184E419800B9C7EC /* LightCubeMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LightCubeMatrix.cpp; path = ../src/LightCubeMatrix.cpp; sourceTree = "<group>"; };
@@ -142,6 +148,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CD19D39B184F68760000550E /* blend_frag.glsl */,
+				CD19D397184F67080000550E /* pass_vert.glsl */,
+				CD19D398184F67080000550E /* blur_frag.glsl */,
 				CDF55547184CF2C000C061A4 /* nexxxt.icns */,
 				39750460965347C0B0B93776 /* CinderApp.icns */,
 				1691BF0014564BABB44295B3 /* Info.plist */,
@@ -185,6 +194,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0500;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "IsoGridMarcher" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -211,6 +221,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7B30B3E72B84DBE9F032BA1 /* CinderApp.icns in Resources */,
+				CD19D39C184F68760000550E /* blend_frag.glsl in Resources */,
+				CD19D399184F67080000550E /* pass_vert.glsl in Resources */,
+				CD19D39A184F67080000550E /* blur_frag.glsl in Resources */,
 				CDF55548184CF2C000C061A4 /* nexxxt.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,7 +295,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
 				CINDER_PATH = ../../../../Cinder;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -290,6 +302,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/boost\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include";
 			};
@@ -299,7 +312,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
 				CINDER_PATH = ../../../../Cinder;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
