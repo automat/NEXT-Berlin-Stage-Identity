@@ -19,6 +19,7 @@
 		CD19D399184F67080000550E /* pass_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD19D397184F67080000550E /* pass_vert.glsl */; };
 		CD19D39A184F67080000550E /* blur_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD19D398184F67080000550E /* blur_frag.glsl */; };
 		CD19D39C184F68760000550E /* blend_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD19D39B184F68760000550E /* blend_frag.glsl */; };
+		CD59982A18509CBE0037B2E9 /* LightBulb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD59982818509CBE0037B2E9 /* LightBulb.cpp */; };
 		CD67F29B184E419800B9C7EC /* LightCubeMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD67F299184E419800B9C7EC /* LightCubeMatrix.cpp */; };
 		CDF55548184CF2C000C061A4 /* nexxxt.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDF55547184CF2C000C061A4 /* nexxxt.icns */; };
 		F7B30B3E72B84DBE9F032BA1 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 39750460965347C0B0B93776 /* CinderApp.icns */; };
@@ -44,6 +45,7 @@
 		CD19D397184F67080000550E /* pass_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pass_vert.glsl; sourceTree = "<group>"; };
 		CD19D398184F67080000550E /* blur_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blur_frag.glsl; sourceTree = "<group>"; };
 		CD19D39B184F68760000550E /* blend_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blend_frag.glsl; sourceTree = "<group>"; };
+		CD59982818509CBE0037B2E9 /* LightBulb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LightBulb.cpp; path = ../src/LightBulb.cpp; sourceTree = "<group>"; };
 		CD67F297184E3FB300B9C7EC /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = ../include/Utils.h; sourceTree = "<group>"; };
 		CD67F298184E412B00B9C7EC /* LightCubeMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightCubeMatrix.h; path = ../include/LightCubeMatrix.h; sourceTree = "<group>"; };
 		CD67F299184E419800B9C7EC /* LightCubeMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LightCubeMatrix.cpp; path = ../src/LightCubeMatrix.cpp; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			children = (
 				7112DBA1AE3D478A823429DA /* IsoGridMarcherApp.cpp */,
 				CD67F299184E419800B9C7EC /* LightCubeMatrix.cpp */,
+				CD59982818509CBE0037B2E9 /* LightBulb.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD67F29B184E419800B9C7EC /* LightCubeMatrix.cpp in Sources */,
+				CD59982A18509CBE0037B2E9 /* LightBulb.cpp in Sources */,
 				0B0B5213A7374F9BBAA235BA /* IsoGridMarcherApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

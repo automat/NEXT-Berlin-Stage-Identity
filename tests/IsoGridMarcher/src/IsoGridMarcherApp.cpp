@@ -21,6 +21,7 @@
 
 #include "Resources.h"
 
+
 using namespace ci;
 using namespace ci::app;
 using namespace std;
@@ -30,23 +31,27 @@ using namespace std;
 static const int APP_WINDOW_WIDTH  = 1024,
                  APP_WINDOW_HEIGHT = 1024;
 
-static const int FBO_WIDTH  = APP_WINDOW_WIDTH,
+static int FBO_WIDTH  = APP_WINDOW_WIDTH,
                  FBO_HEIGHT = APP_WINDOW_HEIGHT;
 
 static float SHADER_TEXEL_SIZE_X = 1.0f / FBO_WIDTH,
              SHADER_TEXEL_SIZE_Y = 1.0f / FBO_HEIGHT;
 
-static float SHADER_BLUR_SCALE    = 1.0f,
-             SHADER_BLUR_STRENGTH = 0.75f;
+static float SHADER_BLUR_SCALE    = 0.7f,
+             SHADER_BLUR_STRENGTH = 0.05f;
 
 const static int SHADER_BLUR_AMOUNT_MAX = 20;
-static int   SHADER_BLUR_AMOUNT = SHADER_BLUR_AMOUNT_MAX;
+static int       SHADER_BLUR_AMOUNT = SHADER_BLUR_AMOUNT_MAX;
 
+static bool USE_SHADER(true);
 
 /*----------------------------------------------------------------------------------*/
+
+
 static bool VIEW_AXES(false);
 static bool VIEW_BG_SPHERE(true);
 static bool TICK(false);
+static int  TICK_FREQUENCE(20);
 
 static bool MATRIX_DEBUG_VIEW_POINTS(false),
             MATRIX_DEBUG_VIEW_AXIS_X(false),
@@ -57,20 +62,28 @@ static bool MATRIX_DEBUG_VIEW_POINTS(false),
             MATRIX_DEBUG_VIEW_AXIS_ZD(false),
             MATRIX_DRAW_BULBS_OFF(true),
             MATRIX_DRAW_GRID_POINTS(true);
+static int   MATRIX_SIZE(4);
+static float MATRIX_BULB_SIZE_ON(0.004f),
+             MATRIX_BULB_SIZE_OFF(0.001f);
+static bool MATRIX_FORM_OBJECTS(false);
 
-static int  CAMERA_MODE(0); //0 = persp, 1 = ortho
+static int  CAMERA_MODE(1); //0 = persp, 1 = ortho
 static bool CAMERA_SNAP(true);
 static int  CAMERA_SNAP_AXIS_X(3),
             CAMERA_SNAP_AXIS_Y(3),
             CAMERA_SNAP_AXIS_Z(3);
+
 static bool LIGHT_ROTATE(false);
 
 static ci::Colorf BLACK(0,0,0),
-                  BLACK_0(0.06f,0.06f,0.225f),
+                  BLACK_0(0.123f,0.128f,0.185f),
                   BLACK_1(0.25f,0.25f,0.35f);
 static const ci::Color WHITE(1,1,1);
 
 static const ci::Vec3f ZERO(0,0,0);
+
+
+
 
 /*----------------------------------------------------------------------------------*/
 
@@ -85,10 +98,14 @@ public:
     void updateLights();
     void updateCamRot(const ci::Vec2f& pos);
     
+    void resize();
+    
     void drawScenePartsAll();
     void drawScenePartsOcclusive();
     void drawScenePartsEmmissive();
     void drawScenePartsDebug();
+    
+    void changeMatrixSize();
     
     void setupParams();
     
@@ -147,6 +164,15 @@ public:
 
 };
 
+void IsoGridMarcherApp::changeMatrixSize(){
+    mLightMatrix->setPointsNum(MATRIX_SIZE);
+    
+    std::cout << mLightMatrix->getNumLightBulbsYX() << std::endl;
+    std::cout << mLightMatrix->getNumLightBulbsYY() << std::endl;
+    std::cout << mLightMatrix->getNumLightBulbsYZ() << std::endl;
+    
+}
+
 void IsoGridMarcherApp::prepareSettings(Settings* settings){
     settings->setWindowSize(APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT);
     settings->setFrameRate(30);
@@ -165,7 +191,7 @@ void IsoGridMarcherApp::setup(){
     ci::gl::enableDepthWrite();
     
     gl::Fbo::Format format;
-    format.setSamples( 4 );
+    format.setSamples( 16 );
 	mFbo0 = gl::Fbo( FBO_WIDTH, FBO_HEIGHT, format);
     mFbo1 = gl::Fbo( FBO_WIDTH, FBO_HEIGHT, format);
     mFbo2 = gl::Fbo( FBO_WIDTH, FBO_HEIGHT, format);
@@ -235,8 +261,8 @@ void IsoGridMarcherApp::setup(){
     /*----------------------------------------------------------------------------------*/
 
     mLightMatrix = new LightCubeMatrix();
-    mLightMatrix->setPointsNum(10);
     
+    this->changeMatrixSize();
     this->setupParams();
 }
 
@@ -250,11 +276,7 @@ void IsoGridMarcherApp::update(){
     
     /*----------------------------------------------------------------------------------*/
     
-    SHADER_TEXEL_SIZE_X   = std::max(0.0f,std::min(SHADER_TEXEL_SIZE_X, 1.0f));
-    SHADER_TEXEL_SIZE_Y   = std::max(0.0f,std::min(SHADER_TEXEL_SIZE_Y, 1.0f));
-    SHADER_BLUR_STRENGTH  = std::max(0.0f,std::min(SHADER_BLUR_STRENGTH,1.0f));
-    SHADER_BLUR_SCALE     = std::max(0.0f,SHADER_BLUR_SCALE);
-    SHADER_BLUR_AMOUNT    = std::max(1,std::min(SHADER_BLUR_AMOUNT,SHADER_BLUR_AMOUNT_MAX));
+  
     
     ci::Vec2f TEXEL_SIZE  = ci::Vec2f(SHADER_TEXEL_SIZE_X, SHADER_TEXEL_SIZE_Y);
     
@@ -264,7 +286,7 @@ void IsoGridMarcherApp::update(){
     this->updateLights();
     
     glMatrixMode(GL_MODELVIEW_MATRIX);
-    gl::clear(WHITE);
+    gl::clear(BLACK);
     glEnable(GL_DEPTH_TEST);
     
     /*----------------------------------------------------------------------------------*/
@@ -276,7 +298,34 @@ void IsoGridMarcherApp::update(){
     
     mLightMatrix->setDrawBulbsOff(MATRIX_DRAW_BULBS_OFF);
     mLightMatrix->setDrawGridPoints(MATRIX_DRAW_GRID_POINTS);
-    mLightMatrix->switchOn();
+    mLightMatrix->setLightBulbSizeOff(MATRIX_BULB_SIZE_OFF);
+    mLightMatrix->setLightBulbSizeOn(MATRIX_BULB_SIZE_ON);
+    
+    
+    if(TICK && mTick % TICK_FREQUENCE == 0){
+        mLightMatrix->switchRandom(0.0125f);
+        
+    }
+    
+    if(MATRIX_FORM_OBJECTS){
+        mLightMatrix->getLightBulbsX()[15].switchOn();
+        mLightMatrix->getLightBulbsX()[31].switchOn();
+        mLightMatrix->getLightBulbsX()[47].switchOn();
+        mLightMatrix->getLightBulbsX()[23].switchOn();
+        mLightMatrix->getLightBulbsX()[39].switchOn();
+        
+        mLightMatrix->getLightBulbsY()[47].switchOn();
+        mLightMatrix->getLightBulbsY()[43].switchOn();
+        mLightMatrix->getLightBulbsY()[11].switchOn();
+        mLightMatrix->getLightBulbsY()[7].switchOn();
+        mLightMatrix->getLightBulbsY()[15].switchOn();
+        
+        mLightMatrix->getLightBulbsXD()[3].switchOn();
+        
+    }
+    
+    //mLightMatrix->switchRandom(0.0125f);
+    //mLightMatrix->switchOn();
     
     
     // Draw complete scene
@@ -286,6 +335,7 @@ void IsoGridMarcherApp::update(){
     this->drawScenePartsAll();
     mFbo0.unbindFramebuffer();
 
+    if (!USE_SHADER)return;
     
     // Draw only emissive objects
     mFbo1.bindFramebuffer();
@@ -296,7 +346,7 @@ void IsoGridMarcherApp::update(){
     this->drawScenePartsEmmissive();
     mFbo1.unbindFramebuffer();
     
-    /*
+    
     //Draw first pass blur x
     glDisable(GL_DEPTH_TEST);
     glDepthMask(false);
@@ -317,7 +367,8 @@ void IsoGridMarcherApp::update(){
     mFbo2.unbindFramebuffer();
     
     
-    //Draw first pass blur y
+    
+    //Draw second pass blur y
     mFbo1.bindFramebuffer();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
@@ -334,6 +385,7 @@ void IsoGridMarcherApp::update(){
     mFbo1.unbindFramebuffer();
     
     
+    //blend original and blurred glowmap
     mFbo2.bindFramebuffer();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
@@ -344,7 +396,7 @@ void IsoGridMarcherApp::update(){
     mShaderBlend->unbind();
     
     mFbo2.unbindFramebuffer();
-     */
+    
 
 }
 
@@ -358,7 +410,7 @@ void IsoGridMarcherApp::draw(){
     
     //this->drawScenePartsOcclusive();
     //this->drawScenePartsAll();
-    drawFBO(mFbo1);
+    drawFBO(USE_SHADER ? mFbo2 : mFbo0);
     
     mFbo0.getTexture().unbind();
     mFbo1.getTexture().unbind();
@@ -378,7 +430,11 @@ void IsoGridMarcherApp::drawScenePartsOcclusive(){
     
     if(VIEW_BG_SPHERE){
         mMaterial0.apply();
-        ci::gl::drawSphere(ZERO, 2.5f,100);
+        ci::gl::drawSphere(ZERO, 6,100);
+    } else {
+        mMaterial2.apply();
+        ci::gl::drawSphere(ZERO, 6,100);
+
     }
     
     mMaterial1.apply();
@@ -475,21 +531,26 @@ void IsoGridMarcherApp::updateCamRot(const ci::Vec2f &pos){
 
 /*----------------------------------------------------------------------------------*/
 
-void IsoGridMarcherApp::updateCams(){
-    float near = 0.001f;
-    float far  = 1000.0f;
-    //Urgh
-
-    /*
-    mCameraPersp.setPerspective(45.0f,  app::getWindowAspectRatio(), near, far);
-    mCameraOrtho.setOrtho(-app::getWindowAspectRatio() * mCameraZoom, app::getWindowAspectRatio() * mCameraZoom,-mCameraZoom,mCameraZoom, near, far);
-     */
+void IsoGridMarcherApp::resize(){
+    FBO_WIDTH  = app::getWindowWidth();
+    FBO_HEIGHT = app::getWindowHeight();
     
     mCameraPersp = ci::CameraPersp(mFbo0.getWidth(),mFbo0.getHeight(), 60.0f);
-    mCameraPersp.setPerspective(60, mFbo0.getAspectRatio(), near, far);
     
-    mCameraOrtho = ci::CameraOrtho();
-    mCameraOrtho.setOrtho(-mCameraZoom,mCameraZoom , -mCameraZoom, mCameraZoom, near, far);
+    gl::Fbo::Format format;
+    format.setSamples( 16 );
+	mFbo0 = gl::Fbo( FBO_WIDTH, FBO_HEIGHT, format);
+    mFbo1 = gl::Fbo( FBO_WIDTH, FBO_HEIGHT, format);
+    mFbo2 = gl::Fbo( FBO_WIDTH, FBO_HEIGHT, format);
+}
+
+void IsoGridMarcherApp::updateCams(){
+    float near = 0.0001f;
+    float far  = 1000.0f;
+    float aspectRatio = mFbo0.getAspectRatio();
+    
+    mCameraPersp.setPerspective(45.0f, aspectRatio, near, far);
+    mCameraOrtho.setOrtho(-aspectRatio * mCameraZoom, aspectRatio * mCameraZoom , -mCameraZoom, mCameraZoom, near, far);
     
     mCameraZoom += mMouseWheelOffset;
     mCameraZoom = std::max(-5.0f,std::min(mCameraZoom, 5.0f));
@@ -510,6 +571,7 @@ void IsoGridMarcherApp::updateCams(){
     }
     
     mCameraEye = mCameraEye.lerp(mTimeDelta*1.5f, mCameraEyeTarget);
+    
     
     if(CAMERA_MODE == 0){
         mCameraPersp.setEyePoint(mCameraEye);
@@ -532,9 +594,15 @@ void IsoGridMarcherApp::updateLights(){
 
 
 void IsoGridMarcherApp::setupParams(){
-    mParams = ci::params::InterfaceGl::create( app::getWindow(), "CONTROL", ci::app::toPixels( ci::Vec2i( 200, 450 ) ) );
+    mParams = ci::params::InterfaceGl::create( app::getWindow(), "CONTROL", ci::app::toPixels( ci::Vec2i( 250, 600 ) ) );
+    mParams->addText("Shader");
+        mParams->addParam("Use", &USE_SHADER);
+    mParams->addParam("Blur Scale", &SHADER_BLUR_SCALE, "min=0 step=0.05");
+    mParams->addParam("Blur Strength", &SHADER_BLUR_STRENGTH, "min=0 max=1 step=0.05");
+    mParams->addSeparator();
+    
     mParams->addText("Debug View");
-    mParams->addParam("Bg Sphere", &VIEW_BG_SPHERE);
+   // mParams->addParam("Bg Sphere", &VIEW_BG_SPHERE);
     mParams->addParam("Axes", &VIEW_AXES);
     mParams->addParam("Grid Points", &MATRIX_DEBUG_VIEW_POINTS);
     mParams->addParam("Axis X", &MATRIX_DEBUG_VIEW_AXIS_X);
@@ -543,19 +611,34 @@ void IsoGridMarcherApp::setupParams(){
     mParams->addParam("Axis XD",&MATRIX_DEBUG_VIEW_AXIS_XD);
     mParams->addParam("Axis YD",&MATRIX_DEBUG_VIEW_AXIS_YD);
     mParams->addParam("Axis ZD",&MATRIX_DEBUG_VIEW_AXIS_ZD);
+    
     mParams->addText("Camera");
     mParams->addParam("Mode", &CAMERA_MODE, "min=0 max=1 step=1");
     mParams->addParam("Snap", &CAMERA_SNAP);
     mParams->addParam("Snap X", &CAMERA_SNAP_AXIS_X, "min=1 max=4 step=1");
     mParams->addParam("Snap Y", &CAMERA_SNAP_AXIS_Y, "min=1 max=4 step=1");
     mParams->addParam("Snap Z", &CAMERA_SNAP_AXIS_Z, "min=1 max=4 step=1");
+    mParams->addSeparator();
+    
     mParams->addText("Light");
     mParams->addParam("Rotate", &LIGHT_ROTATE);
+    mParams->addSeparator();
+    
+    mParams->addText("Time");
+    mParams->addParam("Tick", &TICK);
+    mParams->addParam("Tick Frequence", &TICK_FREQUENCE, "min=1 max=50 step=1");
+    mParams->addSeparator();
+    
     mParams->addText("Matrix");
-    mParams->addParam("TICK", &TICK);
+    mParams->addParam("Size", &MATRIX_SIZE, "min=2 max=25 step=1");
+    mParams->addButton("DO IT", std::bind(&IsoGridMarcherApp::changeMatrixSize,this));
+    mParams->addParam("Bg Sphere", &VIEW_BG_SPHERE);
+
     mParams->addParam("Draw Bulbs Off", &MATRIX_DRAW_BULBS_OFF);
     mParams->addParam("Draw Gird Points", &MATRIX_DRAW_GRID_POINTS);
-    
+    mParams->addParam("Bulb Size Off", &MATRIX_BULB_SIZE_OFF, "min=0 max=1 step=0.0001");
+    mParams->addParam("Bulb Size On", &MATRIX_BULB_SIZE_ON,  "min=0 max=1 step=0.0001");
+    mParams->addParam("Form Objects", &MATRIX_FORM_OBJECTS);
     mParams->minimize();
     
     

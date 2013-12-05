@@ -39,6 +39,26 @@ class LightCubeMatrix {
     bool  mDrawGridPoints;
     float mGridPointsSize;
     
+    float mLightBulbSizeOffLast;
+    float mLightBulbSizeOnLast;
+    
+    int mNumLightBulbsXX;
+    int mNumLightBulbsXY;
+    int mNumLightBulbsXZ;
+    
+    
+    
+    int mNumLightBulbsYX;
+    int mNumLightBulbsYY;
+    int mNumLightBulbsYZ;
+    int mNumLightBulbsYXZ;
+    
+    int mNumLightBulbsZX;
+    int mNumLightBulbsZY;
+    int mNumLightBulbsZZ;
+    
+    
+    
     std::vector<ci::Vec3f> mGridPoints;
     std::vector<LightBulb> mLightBulbsX; // X axis
     std::vector<LightBulb> mLightBulbsY; // Y axis
@@ -86,6 +106,8 @@ public:
     void setDrawBulbsOff(bool b)      { mDrawBulbsOff = b; };
     void setDrawGridPoints(bool b)    { mDrawGridPoints = b; };
     void setGridPointsSize(float size){ mGridPointsSize = size; };
+    void setLightBulbSizeOff(float size);
+    void setLightBulbSizeOn(float size);
     
     //! Debug view grid points
     void drawDebugPoints();
@@ -127,6 +149,27 @@ public:
     int getNumLightBulbsXD(){return mLightBulbsXD.size();};
     int getNumLightBulbsYD(){return mLightBulbsYD.size();};
     int getNumLightBulbsZD(){return mLightBulbsZD.size();};
+    
+    //! Number of x bulbs on x axis 1 row
+    int getNumLightBulbsXX() {return mNumLightBulbsYX;}
+    //! Number of x bulbs on y axis 1 column
+    int getNumLightBulbsXY() {return mNumLightBulbsYY;};
+    //! Number of x bulbs on z axis 1 row
+    int getNumLightBulbsXZ() {return mNumLightBulbsYX;}
+    //! Number of x bulbs on x * z axis 1 row
+    int getNumLightBulbsXYZ(){return mNumLightBulbsYXZ;}
+    
+    //! Number of y bulbs on x axis 1 row
+    int getNumLightBulbsYX() {return mNumLightBulbsYX;}
+    //! Number of y bulbs on y axis 1 column
+    int getNumLightBulbsYY() {return mNumLightBulbsYY;};
+    //! Number of y bulbs on z axis 1 row
+    int getNumLightBulbsYZ() {return mNumLightBulbsYX;}
+    //! Number of y bulbs on x * z axis 1 row
+    int getNumLightBulbsYXZ(){return mNumLightBulbsYXZ;}
+    
+    
+    
    
     
     

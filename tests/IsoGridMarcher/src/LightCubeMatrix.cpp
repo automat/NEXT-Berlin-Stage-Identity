@@ -13,7 +13,9 @@
 LightCubeMatrix::LightCubeMatrix() :
 mDrawBulbsOff(true),
 mDrawGridPoints(true),
-mGridPointsSize(0.005f){
+mGridPointsSize(0.005f),
+mLightBulbSizeOffLast(-1),
+mLightBulbSizeOnLast(-1){
     this->initDebugFont();
 }
 
@@ -29,6 +31,8 @@ void LightCubeMatrix::initDebugFont(){
 
 void LightCubeMatrix::setPointsNum(int numX, int numY, int numZ){
     this->setNumPoints_Internal(numX, numY, numZ);
+    mLightBulbSizeOnLast  = -1;
+    mLightBulbSizeOffLast = -1;
 }
 
 void LightCubeMatrix::setPointsNum(int numXYZ){
@@ -221,6 +225,13 @@ void LightCubeMatrix::build(){
     int numPointsYZ_1   = mNumPointsY   * mNumPointsZ_1;
     int numPointsY_1Z   = mNumPointsY_1 * mNumPointsZ;
     
+    mNumLightBulbsYX  = mNumPointsX;
+    mNumLightBulbsYY  = mNumPointsY_1;
+    mNumLightBulbsYZ  = mNumPointsZ;
+    mNumLightBulbsYXZ = mNumLightBulbsYX * mNumLightBulbsYZ;
+    
+    
+    
     
     
     ix = -1;
@@ -366,6 +377,65 @@ void LightCubeMatrix::switchRandom(float triggerTolerance){
 
 /*--------------------------------------------------------------------------------*/
 
+void LightCubeMatrix::setLightBulbSizeOn(float size){
+    if(mLightBulbSizeOnLast == size)return;
+    for (std::vector<LightBulb>::iterator itr = mLightBulbsX.begin(); itr!=mLightBulbsX.end(); ++itr) {
+        itr->setSizeOn(size);
+    }
+    
+    for (std::vector<LightBulb>::iterator itr = mLightBulbsY.begin(); itr!=mLightBulbsY.end(); ++itr) {
+        itr->setSizeOn(size);
+    }
+    
+    for (std::vector<LightBulb>::iterator itr = mLightBulbsZ.begin(); itr!=mLightBulbsZ.end(); ++itr) {
+        itr->setSizeOn(size);
+    }
+    
+    for (std::vector<LightBulb>::iterator itr = mLightBulbsXD.begin(); itr!=mLightBulbsXD.end(); ++itr) {
+        itr->setSizeOn(size);
+    }
+    
+    for (std::vector<LightBulb>::iterator itr = mLightBulbsYD.begin(); itr!=mLightBulbsYD.end(); ++itr) {
+        itr->setSizeOn(size);
+    }
+    
+    for (std::vector<LightBulb>::iterator itr = mLightBulbsZD.begin(); itr!=mLightBulbsZD.end(); ++itr) {
+        itr->setSizeOn(size);
+    }
+    
+    mLightBulbSizeOnLast = size;
+
+}
+
+void LightCubeMatrix::setLightBulbSizeOff(float size){
+    if(mLightBulbSizeOffLast == size)return;
+    for (std::vector<LightBulb>::iterator itr = mLightBulbsX.begin(); itr!=mLightBulbsX.end(); ++itr) {
+        itr->setSizeOff(size);
+    }
+    
+    for (std::vector<LightBulb>::iterator itr = mLightBulbsY.begin(); itr!=mLightBulbsY.end(); ++itr) {
+        itr->setSizeOff(size);
+    }
+    
+    for (std::vector<LightBulb>::iterator itr = mLightBulbsZ.begin(); itr!=mLightBulbsZ.end(); ++itr) {
+        itr->setSizeOff(size);
+    }
+    
+    for (std::vector<LightBulb>::iterator itr = mLightBulbsXD.begin(); itr!=mLightBulbsXD.end(); ++itr) {
+        itr->setSizeOff(size);
+    }
+    
+    for (std::vector<LightBulb>::iterator itr = mLightBulbsYD.begin(); itr!=mLightBulbsYD.end(); ++itr) {
+        itr->setSizeOff(size);
+    }
+    
+    for (std::vector<LightBulb>::iterator itr = mLightBulbsZD.begin(); itr!=mLightBulbsZD.end(); ++itr) {
+        itr->setSizeOff(size);
+    }
+    
+    mLightBulbSizeOffLast = size;
+    
+}
 
 void LightCubeMatrix::drawOcclusive(){
     // Draw Points
@@ -373,8 +443,8 @@ void LightCubeMatrix::drawOcclusive(){
     if(mDrawGridPoints){
         ci::Vec3f size(mGridPointsSize,mGridPointsSize,mGridPointsSize);
         for (std::vector<ci::Vec3f>::iterator itr = mGridPoints.begin(); itr != mGridPoints.end(); ++itr) {
-            //ci::gl::drawSphere(*itr, 0.005f);
-            ci::gl::drawCube(*itr, size);
+            ci::gl::drawSphere(*itr, mGridPointsSize, 15);
+            //ci::gl::drawCube(*itr, size);
             //ci::gl::drawColorCube(*itr,size);
         }
     }
