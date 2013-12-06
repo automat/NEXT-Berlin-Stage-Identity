@@ -60,11 +60,12 @@ static bool MATRIX_DEBUG_VIEW_POINTS(false),
             MATRIX_DEBUG_VIEW_AXIS_XD(false),
             MATRIX_DEBUG_VIEW_AXIS_YD(false),
             MATRIX_DEBUG_VIEW_AXIS_ZD(false),
+            MATRIX_DEBUG_VIEW_CUBES(true),
             MATRIX_DRAW_BULBS_OFF(true),
             MATRIX_DRAW_GRID_POINTS(true);
-static int   MATRIX_SIZE(4);
-static float MATRIX_BULB_SIZE_ON(0.004f),
-             MATRIX_BULB_SIZE_OFF(0.001f);
+static int   MATRIX_SIZE(12);
+static float MATRIX_BULB_SIZE_ON(0.015f),
+             MATRIX_BULB_SIZE_OFF(0.005f);
 static bool MATRIX_FORM_OBJECTS(false);
 
 static int  CAMERA_MODE(1); //0 = persp, 1 = ortho
@@ -166,8 +167,6 @@ public:
 
 void IsoGridMarcherApp::changeMatrixSize(){
     mLightMatrix->setPointsNum(MATRIX_SIZE);
-    
-    mLightMatrix->getLightBulbX(1, 0, 0, 0, NULL);
 }
 
 void IsoGridMarcherApp::prepareSettings(Settings* settings){
@@ -292,11 +291,11 @@ void IsoGridMarcherApp::update(){
         float light0RotationXZ = mTime * 0.125f;
         mLight0->lookAt(ci::Vec3f(cosf(light0RotationXZ) * 5, 5, sinf(light0RotationXZ) * 5), ZERO );
     }
-    
+    mLightMatrix->update();
     mLightMatrix->setDrawBulbsOff(MATRIX_DRAW_BULBS_OFF);
     mLightMatrix->setDrawGridPoints(MATRIX_DRAW_GRID_POINTS);
-    mLightMatrix->setLightBulbSizeOff(MATRIX_BULB_SIZE_OFF);
-    mLightMatrix->setLightBulbSizeOn(MATRIX_BULB_SIZE_ON);
+    mLightMatrix->setBulbSizeOff(MATRIX_BULB_SIZE_OFF);
+    mLightMatrix->setBulbSizeOn(MATRIX_BULB_SIZE_ON);
     
     
     if(TICK && mTick % TICK_FREQUENCE == 0){
@@ -305,24 +304,29 @@ void IsoGridMarcherApp::update(){
     }
     
     
+    
     if(MATRIX_FORM_OBJECTS){
-        mLightMatrix->getLightBulbsX()[15].switchOn();
-        mLightMatrix->getLightBulbsX()[31].switchOn();
-        mLightMatrix->getLightBulbsX()[47].switchOn();
-        mLightMatrix->getLightBulbsX()[23].switchOn();
-        mLightMatrix->getLightBulbsX()[39].switchOn();
+        mLightMatrix->getBulbsX()[15].switchOn();
+        mLightMatrix->getBulbsX()[31].switchOn();
+        mLightMatrix->getBulbsX()[47].switchOn();
+        mLightMatrix->getBulbsX()[23].switchOn();
+        mLightMatrix->getBulbsX()[39].switchOn();
         
-        mLightMatrix->getLightBulbsY()[47].switchOn();
-        mLightMatrix->getLightBulbsY()[43].switchOn();
-        mLightMatrix->getLightBulbsY()[11].switchOn();
-        mLightMatrix->getLightBulbsY()[7].switchOn();
-        mLightMatrix->getLightBulbsY()[15].switchOn();
+        mLightMatrix->getBulbsY()[47].switchOn();
+        mLightMatrix->getBulbsY()[43].switchOn();
+        mLightMatrix->getBulbsY()[11].switchOn();
+        mLightMatrix->getBulbsY()[7].switchOn();
+        mLightMatrix->getBulbsY()[15].switchOn();
         
-        mLightMatrix->getLightBulbsXD()[3].switchOn();
+        mLightMatrix->getBulbsXD()[3].switchOn();
         
     }
-     
-     
+    
+    /*
+    mLightMatrix->switchOff();
+    mLightMatrix->getLightCube(*mLightMatrix->getLightCube(0, 0, 0),0,floor(abs(sinf(mTime)*mLightMatrix->getNumCubesX())),0)->switchRandom(0.15f);
+    mLightMatrix->getLightCube(*mLightMatrix->getLightCube(0, 0, 0),1,floor(abs(sinf(mTime*2)*mLightMatrix->getNumCubesX())),0)->switchRandom(0.15f);
+    */
     
     //mLightMatrix->getLightBulbsX()[1].switchOn();
     
@@ -471,12 +475,13 @@ void IsoGridMarcherApp::drawScenePartsDebug(){
         ci::gl::color(Color::white());
         ci::gl::enableAlphaBlending();
         if(MATRIX_DEBUG_VIEW_POINTS) mLightMatrix->drawDebugPoints();
-        if(MATRIX_DEBUG_VIEW_AXIS_X) mLightMatrix->drawDebugLightBulbsX();
-        if(MATRIX_DEBUG_VIEW_AXIS_Y) mLightMatrix->drawDebugLightBulbsY();
-        if(MATRIX_DEBUG_VIEW_AXIS_Z) mLightMatrix->drawDebugLightBulbsZ();
-        if(MATRIX_DEBUG_VIEW_AXIS_XD)mLightMatrix->drawDebugLightBulbsXD();
-        if(MATRIX_DEBUG_VIEW_AXIS_YD)mLightMatrix->drawDebugLightBulbsYD();
-        if(MATRIX_DEBUG_VIEW_AXIS_ZD)mLightMatrix->drawDebugLightBulbsZD();
+        if(MATRIX_DEBUG_VIEW_AXIS_X) mLightMatrix->drawDebugBulbsX();
+        if(MATRIX_DEBUG_VIEW_AXIS_Y) mLightMatrix->drawDebugBulbsY();
+        if(MATRIX_DEBUG_VIEW_AXIS_Z) mLightMatrix->drawDebugBulbsZ();
+        if(MATRIX_DEBUG_VIEW_AXIS_XD)mLightMatrix->drawDebugBulbsXD();
+        if(MATRIX_DEBUG_VIEW_AXIS_YD)mLightMatrix->drawDebugBulbsYD();
+        if(MATRIX_DEBUG_VIEW_AXIS_ZD)mLightMatrix->drawDebugBulbsZD();
+        if(MATRIX_DEBUG_VIEW_CUBES)  mLightMatrix->drawDebugCubes();
         ci::gl::disableAlphaBlending();
         ci::gl::enableDepthRead();
     }

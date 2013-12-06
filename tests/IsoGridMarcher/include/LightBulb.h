@@ -15,10 +15,12 @@
 #include "cinder/Quaternion.h"
 #include "cinder/Rand.h"
 #include <OpenGL/OpenGL.h>
+#include <vector>
+#include "cinder/TriMesh.h"
 
 
 
-class LightBulb {
+class LightBulb : public ci::TriMesh{
 private:
     bool mOn;
     bool mActive;
@@ -31,8 +33,8 @@ private:
     float         mDistance;
     ci::Matrix44f mMatrix;
     
-    
-   
+    void init();
+    void updateGeometry();
     
 public:
     LightBulb();

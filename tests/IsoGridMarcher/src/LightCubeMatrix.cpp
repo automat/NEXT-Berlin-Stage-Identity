@@ -14,12 +14,20 @@ LightCubeMatrix::LightCubeMatrix() :
 mDrawBulbsOff(true),
 mDrawGridPoints(true),
 mGridPointsSize(0.005f),
-mLightBulbSizeOffLast(-1),
-mLightBulbSizeOnLast(-1){
+mBulbSizeOffLast(-1),
+mBulbSizeOnLast(-1){
     this->initDebugFont();
+    this->initBatchesOff();
 }
 
 LightCubeMatrix::~LightCubeMatrix(){
+    delete mBatchBulbsOffX;
+    delete mBatchBulbsOffY;
+    delete mBatchBulbsOffZ;
+    delete mBatchBulbsOffXD;
+    delete mBatchBulbsOffYD;
+    delete mBatchBulbsOffZD;
+    
     this->clear();
 }
 
@@ -31,8 +39,8 @@ void LightCubeMatrix::initDebugFont(){
 
 void LightCubeMatrix::setPointsNum(int numX, int numY, int numZ){
     this->setNumPoints_Internal(numX, numY, numZ);
-    mLightBulbSizeOnLast  = -1;
-    mLightBulbSizeOffLast = -1;
+    mBulbSizeOnLast  = -1;
+    mBulbSizeOffLast = -1;
 }
 
 void LightCubeMatrix::setPointsNum(int numXYZ){
@@ -54,20 +62,23 @@ void LightCubeMatrix::setNumPoints_Internal(int numX, int numY, int numZ){
     this->build();
 }
 
-void LightCubeMatrix::clear(){
-    mGridPoints.clear();
-    mLightBulbsX.clear();
-    mLightBulbsY.clear();
-    mLightBulbsZ.clear();
-    mLightBulbsXD.clear();
-    mLightBulbsYD.clear();
-    mLightBulbsZD.clear();
+void LightCubeMatrix::initBatchesOff(){
+    mBatchBulbsOffX = new TriMeshBatch();
+    mBatchBulbsOffY = new TriMeshBatch();
+    mBatchBulbsOffZ = new TriMeshBatch();
+    mBatchBulbsOffXD= new TriMeshBatch();
+    mBatchBulbsOffYD= new TriMeshBatch();
+    mBatchBulbsOffZD= new TriMeshBatch();
 }
 
-
-void LightCubeMatrix::getLightBulbX(int indexBase, int indexAddX, int indexAddY, int indexAddZ, LightBulb* bulb){
-   // int stepX = mNum
-    std::cout << indexAddX * mNumPointsYZ_1 + indexAddY * mNumPointsZ_1 + indexAddZ << std::endl;
+void LightCubeMatrix::clear(){
+    mGridPoints.clear();
+    mBulbsX.clear();
+    mBulbsY.clear();
+    mBulbsZ.clear();
+    mBulbsXD.clear();
+    mBulbsYD.clear();
+    mBulbsZD.clear();
 }
 
 /*--------------------------------------------------------------------------------*/
@@ -99,7 +110,7 @@ void LightCubeMatrix::build(){
     
     
     /*--------------------------------------------------------------------------------*/
-    // Setup Edges aka LightBulbs
+    // Setup Edges aka Bulbs
     /*--------------------------------------------------------------------------------*/
     
     int index;
@@ -123,6 +134,22 @@ void LightCubeMatrix::build(){
     
     int ix1;
     int iy1;
+    
+    int numBulbsXVertices = 0;
+    int numBulbsYVertices = 0;
+    int numBulbsZVertices = 0;
+    int numBulbsXDVertices = 0;
+    int numBulbsYDVertices = 0;
+    int numBulbsZDVertices = 0;
+    
+    int numBulbsXIndices  = 0;
+    int numBulbsYIndices  = 0;
+    int numBulbsZIndices  = 0;
+    int numBulbsXDIndices  = 0;
+    int numBulbsYDIndices  = 0;
+    int numBulbsZDIndices  = 0;
+    
+    
     
     ix = -1;
     while (++ix < mNumPointsX) {
@@ -151,39 +178,51 @@ void LightCubeMatrix::build(){
                 
                 //bulbs X axis
                 if (ix < numEdgesX){
-                    mLightBulbsX.push_back(LightBulb(&mGridPoints[indexCubeVertex0],
+                    mBulbsX.push_back(LightBulb(&mGridPoints[indexCubeVertex0],
                                                      &mGridPoints[indexCubeVertex1]));
+                    numBulbsXVertices += mBulbsX.back().getNumVertices();
+                    numBulbsXIndices  += mBulbsX.back().getNumIndices();
                 }
                 
                 //bulbs Z axis
                 if (iz < numEdgesZ) {
                     
-                    mLightBulbsZ.push_back(LightBulb(&mGridPoints[indexCubeVertex0],
+                    mBulbsZ.push_back(LightBulb(&mGridPoints[indexCubeVertex0],
                                                      &mGridPoints[indexCubeVertex2]));
+                    numBulbsZVertices += mBulbsZ.back().getNumVertices();
+                    numBulbsZIndices  += mBulbsZ.back().getNumIndices();
                 }
                 
                 //bulbs Y axis
                 if (iy < numEdgesY) {
-                    mLightBulbsY.push_back(LightBulb(&mGridPoints[indexCubeVertex0],
+                    mBulbsY.push_back(LightBulb(&mGridPoints[indexCubeVertex0],
                                                      &mGridPoints[indexCubeVertex4]));
+                    numBulbsYVertices += mBulbsY.back().getNumVertices();
+                    numBulbsYIndices  += mBulbsY.back().getNumIndices();
                 }
                 
                 //bulbs diagonal X Axis
                 if( ix < numEdgesX && iy < numEdgesY){
-                    mLightBulbsXD.push_back(LightBulb(&mGridPoints[indexCubeVertex4],
+                    mBulbsXD.push_back(LightBulb(&mGridPoints[indexCubeVertex4],
                                                       &mGridPoints[indexCubeVertex1]));
+                    numBulbsXDVertices += mBulbsXD.back().getNumVertices();
+                    numBulbsXDIndices  += mBulbsXD.back().getNumIndices();
                 }
                 
                 //bulbs diagonal TOP / BOTTOM
                 if( ix < numEdgesX && iz < numEdgesZ){
-                    mLightBulbsZD.push_back(LightBulb(&mGridPoints[indexCubeVertex0],
+                    mBulbsZD.push_back(LightBulb(&mGridPoints[indexCubeVertex0],
                                                       &mGridPoints[indexCubeVertex3]));
+                    numBulbsZDVertices += mBulbsZD.back().getNumVertices();
+                    numBulbsZDIndices  += mBulbsZD.back().getNumIndices();
                 }
                 
                 //bulbs diagonal Z axes
                 if( iz < numEdgesZ && iy < numEdgesY){
-                    mLightBulbsYD.push_back(LightBulb(&mGridPoints[indexCubeVertex0],
+                    mBulbsYD.push_back(LightBulb(&mGridPoints[indexCubeVertex0],
                                                       &mGridPoints[indexCubeVertex6]));
+                    numBulbsYDVertices += mBulbsYD.back().getNumVertices();
+                    numBulbsYDIndices  += mBulbsYD.back().getNumIndices();
                 }
                 
                 //std::cout << indexCube << " : " << indexCubeVertex0 << " " << indexCubeVertex1 << " " << indexCubeVertex2 << " " << indexCubeVertex3 <<  std::endl;
@@ -191,6 +230,14 @@ void LightCubeMatrix::build(){
             }
         }
     }
+    
+    mBatchBulbsOffX->resize(numBulbsXVertices, numBulbsXIndices);
+    mBatchBulbsOffY->resize(numBulbsYVertices, numBulbsYIndices);
+    mBatchBulbsOffZ->resize(numBulbsZVertices, numBulbsZIndices);
+    
+    mBatchBulbsOffXD->resize(numBulbsXDVertices, numBulbsXDIndices);
+    mBatchBulbsOffYD->resize(numBulbsYDVertices, numBulbsYDIndices);
+    mBatchBulbsOffZD->resize(numBulbsZDVertices, numBulbsZDIndices);
     
     /*--------------------------------------------------------------------------------*/
     // Setup Light Cubes
@@ -224,27 +271,11 @@ void LightCubeMatrix::build(){
     int indexBulb16;
     int indexBulb17;
     
-    
     mNumPointsY_1Z_1 = mNumPointsY_1 * mNumPointsZ_1;
     mNumPointsYZ     = mNumPointsY   * mNumPointsZ;
     mNumPointsYZ_1   = mNumPointsY   * mNumPointsZ_1;
     mNumPointsY_1Z   = mNumPointsY_1 * mNumPointsZ;
-    
-    mNumLightBulbsXX  = mNumPointsX_1;
-    mNumLightBulbsXY  = mNumPointsY;
-    mNumLightBulbsXZ  = mNumPointsZ;
-    mNumLightBulbsXZY = mNumLightBulbsXZ * mNumLightBulbsXY;
-    
-    mNumLightBulbsYX  = mNumPointsX;
-    mNumLightBulbsYY  = mNumPointsY_1;
-    mNumLightBulbsYZ  = mNumPointsZ;
-    mNumLightBulbsYZX = mNumLightBulbsYX * mNumLightBulbsYZ;
-    
-    mNumLightBulbsZX  = mNumPointsX_1;
-    mNumLightBulbsZY  = mNumPointsY;
-    mNumLightBulbsZZ  = mNumPointsZ;
-    mNumLightBulbsZXY = mNumLightBulbsZX * mNumLightBulbsZY;
-    
+
     ix = -1;
     while (++ix < numEdgesX) {
         ix1 = ix + 1;
@@ -312,139 +343,122 @@ void LightCubeMatrix::build(){
                 
                 
                 
-                mLightCubes.push_back(LightCube());
-                mLightCubes.back().set(&( mLightBulbsX[indexBulb00]), &( mLightBulbsZ[indexBulb01]), &( mLightBulbsX[indexBulb02]), &( mLightBulbsZ[indexBulb03]),
-                                       &( mLightBulbsX[indexBulb04]), &( mLightBulbsZ[indexBulb05]), &( mLightBulbsX[indexBulb06]), &( mLightBulbsZ[indexBulb07]),
-                                       &( mLightBulbsY[indexBulb08]), &( mLightBulbsY[indexBulb09]), &( mLightBulbsY[indexBulb10]), &( mLightBulbsY[indexBulb11]),
-                                       &(mLightBulbsZD[indexBulb12]), &(mLightBulbsZD[indexBulb13]),
-                                       &(mLightBulbsXD[indexBulb14]), &(mLightBulbsYD[indexBulb15]), &(mLightBulbsXD[indexBulb16]), &(mLightBulbsYD[indexBulb17]));
+                mCubes.push_back(LightCube(ix,iy,iz));
+                mCubes.back().set(&( mBulbsX[indexBulb00]), &( mBulbsZ[indexBulb01]), &( mBulbsX[indexBulb02]), &( mBulbsZ[indexBulb03]),
+                                       &( mBulbsX[indexBulb04]), &( mBulbsZ[indexBulb05]), &( mBulbsX[indexBulb06]), &( mBulbsZ[indexBulb07]),
+                                       &( mBulbsY[indexBulb08]), &( mBulbsY[indexBulb09]), &( mBulbsY[indexBulb10]), &( mBulbsY[indexBulb11]),
+                                       &(mBulbsZD[indexBulb12]), &(mBulbsZD[indexBulb13]),
+                                       &(mBulbsXD[indexBulb14]), &(mBulbsYD[indexBulb15]), &(mBulbsXD[indexBulb16]), &(mBulbsYD[indexBulb17]));
             }
         }
     }
+    
 }
 
 void LightCubeMatrix::switchOn(){
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsX.begin(); itr != mLightBulbsX.end(); ++itr) {
-        itr->switchOn();
-    }
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsY.begin(); itr != mLightBulbsY.end(); ++itr) {
-        itr->switchOn();
-    }
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsZ.begin(); itr != mLightBulbsZ.end(); ++itr) {
-        itr->switchOn();
-    }
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsXD.begin(); itr != mLightBulbsXD.end(); ++itr) {
-        itr->switchOn();
-    }
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsYD.begin(); itr != mLightBulbsYD.end(); ++itr) {
-        itr->switchOn();
-    }
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsZD.begin(); itr != mLightBulbsZD.end(); ++itr) {
-        itr->switchOn();
-    }
+    this->switchOnBulb(mBulbsX);
+    this->switchOnBulb(mBulbsY);
+    this->switchOnBulb(mBulbsZ);
+    this->switchOnBulb(mBulbsXD);
+    this->switchOnBulb(mBulbsYD);
+    this->switchOnBulb(mBulbsZD);
 }
 
 void LightCubeMatrix::switchOff(){
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsX.begin(); itr != mLightBulbsX.end(); ++itr) {
-        itr->switchOff();
-    }
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsY.begin(); itr != mLightBulbsY.end(); ++itr) {
-        itr->switchOff();
-    }
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsZ.begin(); itr != mLightBulbsZ.end(); ++itr) {
-        itr->switchOff();
-    }
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsXD.begin(); itr != mLightBulbsXD.end(); ++itr) {
-        itr->switchOff();
-    }
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsYD.begin(); itr != mLightBulbsYD.end(); ++itr) {
-        itr->switchOff();
-    }
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsZD.begin(); itr != mLightBulbsZD.end(); ++itr) {
-        itr->switchOff();
-    }
+    this->switchOffBulbs(mBulbsX);
+    this->switchOffBulbs(mBulbsY);
+    this->switchOffBulbs(mBulbsZ);
+    this->switchOffBulbs(mBulbsXD);
+    this->switchOffBulbs(mBulbsYD);
+    this->switchOffBulbs(mBulbsZD);
 }
 
 void LightCubeMatrix::switchRandom(float triggerTolerance){
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsX.begin(); itr != mLightBulbsX.end(); ++itr) {
+    this->switchRandomBulbs(mBulbsX,  triggerTolerance);
+    this->switchRandomBulbs(mBulbsY,  triggerTolerance);
+    this->switchRandomBulbs(mBulbsZ,  triggerTolerance);
+    this->switchRandomBulbs(mBulbsXD, triggerTolerance);
+    this->switchRandomBulbs(mBulbsYD, triggerTolerance);
+    this->switchRandomBulbs(mBulbsZD, triggerTolerance);
+}
+
+void LightCubeMatrix::switchRandomBulbs(std::vector<LightBulb>& bulbs, float triggerTolerance){
+    for (std::vector<LightBulb>::iterator itr = bulbs.begin(); itr != bulbs.end(); ++itr) {
         itr->switchRandom(triggerTolerance);
     }
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsY.begin(); itr != mLightBulbsY.end(); ++itr) {
-        itr->switchRandom(triggerTolerance);
+}
+
+void LightCubeMatrix::switchOffBulbs(std::vector<LightBulb>& bulbs){
+    for (std::vector<LightBulb>::iterator itr = bulbs.begin(); itr != bulbs.end(); ++itr) {
+        itr->switchOn();
     }
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsZ.begin(); itr != mLightBulbsZ.end(); ++itr) {
-        itr->switchRandom(triggerTolerance);
-    }
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsXD.begin(); itr != mLightBulbsXD.end(); ++itr) {
-        itr->switchRandom(triggerTolerance);
-    }
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsYD.begin(); itr != mLightBulbsYD.end(); ++itr) {
-        itr->switchRandom(triggerTolerance);
-    }
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsZD.begin(); itr != mLightBulbsZD.end(); ++itr) {
-        itr->switchRandom(triggerTolerance);
+}
+
+void LightCubeMatrix::switchOnBulb(std::vector<LightBulb>& bulbs){
+    for (std::vector<LightBulb>::iterator itr = bulbs.begin(); itr != bulbs.end(); ++itr) {
+        itr->switchOff();
     }
 }
 
 /*--------------------------------------------------------------------------------*/
 
-void LightCubeMatrix::setLightBulbSizeOn(float size){
-    if(mLightBulbSizeOnLast == size)return;
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsX.begin(); itr!=mLightBulbsX.end(); ++itr) {
+void LightCubeMatrix::setBulbSizeOn(float size){
+    if(mBulbSizeOnLast == size)return;
+    for (std::vector<LightBulb>::iterator itr = mBulbsX.begin(); itr!=mBulbsX.end(); ++itr) {
         itr->setSizeOn(size);
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsY.begin(); itr!=mLightBulbsY.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsY.begin(); itr!=mBulbsY.end(); ++itr) {
         itr->setSizeOn(size);
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsZ.begin(); itr!=mLightBulbsZ.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsZ.begin(); itr!=mBulbsZ.end(); ++itr) {
         itr->setSizeOn(size);
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsXD.begin(); itr!=mLightBulbsXD.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsXD.begin(); itr!=mBulbsXD.end(); ++itr) {
         itr->setSizeOn(size);
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsYD.begin(); itr!=mLightBulbsYD.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsYD.begin(); itr!=mBulbsYD.end(); ++itr) {
         itr->setSizeOn(size);
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsZD.begin(); itr!=mLightBulbsZD.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsZD.begin(); itr!=mBulbsZD.end(); ++itr) {
         itr->setSizeOn(size);
     }
     
-    mLightBulbSizeOnLast = size;
+    mBulbSizeOnLast = size;
 
 }
 
-void LightCubeMatrix::setLightBulbSizeOff(float size){
-    if(mLightBulbSizeOffLast == size)return;
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsX.begin(); itr!=mLightBulbsX.end(); ++itr) {
+void LightCubeMatrix::setBulbSizeOff(float size){
+    if(mBulbSizeOffLast == size)return;
+    for (std::vector<LightBulb>::iterator itr = mBulbsX.begin(); itr!=mBulbsX.end(); ++itr) {
         itr->setSizeOff(size);
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsY.begin(); itr!=mLightBulbsY.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsY.begin(); itr!=mBulbsY.end(); ++itr) {
         itr->setSizeOff(size);
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsZ.begin(); itr!=mLightBulbsZ.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsZ.begin(); itr!=mBulbsZ.end(); ++itr) {
         itr->setSizeOff(size);
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsXD.begin(); itr!=mLightBulbsXD.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsXD.begin(); itr!=mBulbsXD.end(); ++itr) {
         itr->setSizeOff(size);
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsYD.begin(); itr!=mLightBulbsYD.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsYD.begin(); itr!=mBulbsYD.end(); ++itr) {
         itr->setSizeOff(size);
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsZD.begin(); itr!=mLightBulbsZD.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsZD.begin(); itr!=mBulbsZD.end(); ++itr) {
         itr->setSizeOff(size);
     }
     
-    mLightBulbSizeOffLast = size;
+    mBulbSizeOffLast = size;
     
 }
 
@@ -463,61 +477,118 @@ void LightCubeMatrix::drawOcclusive(){
     
     if(!mDrawBulbsOff)return;
     
-    // Draw Bulbs
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsX.begin(); itr!=mLightBulbsX.end(); ++itr) {
-        itr->drawOcclusive();
+    this->drawBatch(mBatchBulbsOffX);
+    this->drawBatch(mBatchBulbsOffY);
+    this->drawBatch(mBatchBulbsOffZ);
+    this->drawBatch(mBatchBulbsOffXD);
+    this->drawBatch(mBatchBulbsOffYD);
+    this->drawBatch(mBatchBulbsOffZD);
+}
+
+void LightCubeMatrix::update(){
+    
+    if(!mDrawBulbsOff)return;
+    this->putBatch(mBulbsX,  mBatchBulbsOffX);
+    this->putBatch(mBulbsY,  mBatchBulbsOffY);
+    this->putBatch(mBulbsZ,  mBatchBulbsOffZ);
+    this->putBatch(mBulbsXD, mBatchBulbsOffXD);
+    this->putBatch(mBulbsYD, mBatchBulbsOffYD);
+    this->putBatch(mBulbsZD, mBatchBulbsOffZD);
+}
+
+void LightCubeMatrix::putBatch(std::vector<LightBulb> &bulbs, TriMeshBatch *batch){
+    batch->reset();
+    for (std::vector<LightBulb>::iterator itr = bulbs.begin(); itr!=bulbs.end(); ++itr) {
+        batch->put(*itr);
+    }
+}
+
+void LightCubeMatrix::drawBatch(TriMeshBatch *batch){
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_NORMAL_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, &batch->getVertices()[0].x);
+    glNormalPointer(GL_FLOAT, 0, &batch->getNormals()[0].x);
+    glDrawElements(GL_TRIANGLES, batch->getNumIndices(), GL_UNSIGNED_INT, &batch->getIndices()[0]);
+    glDisableClientState(GL_NORMAL_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+LightCube* LightCubeMatrix::getLightCube(int x, int y, int z){
+    int numCubesX_1 = mNumCubesX - 1;
+    int numCubesY_1 = mNumCubesY - 1;
+    int numCubesZ_1 = mNumCubesZ - 1;
+    
+    if (x > numCubesX_1   || y > numCubesY_1  || z > numCubesZ_1 ) {
+        return NULL;
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsY.begin(); itr!=mLightBulbsY.end(); ++itr) {
-        itr->drawOcclusive();
+    return &mCubes[x * mNumCubesY * mNumCubesZ + y * mNumCubesZ + z];
+}
+
+LightCube* LightCubeMatrix::getLightCube(int x, int y, int z, int ax, int ay, int az){
+    int numCubesX_1 = mNumCubesX - 1;
+    int numCubesY_1 = mNumCubesY - 1;
+    int numCubesZ_1 = mNumCubesZ - 1;
+    
+    int indexXAdded = x + ax;
+    int indexYAdded = y + ay;
+    int indexZAdded = z + az;
+    
+    if (ax > numCubesX_1   || ay > numCubesY_1   || az > numCubesZ_1 ||
+        indexXAdded > numCubesX_1 || indexYAdded > numCubesY_1 || indexZAdded > numCubesZ_1) {
+        return NULL;
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsZ.begin(); itr!=mLightBulbsZ.end(); ++itr) {
-        itr->drawOcclusive();
-    }
-    
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsXD.begin(); itr!=mLightBulbsXD.end(); ++itr) {
-        itr->drawOcclusive();
-    }
-    
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsYD.begin(); itr!=mLightBulbsYD.end(); ++itr) {
-        itr->drawOcclusive();
-    }
-    
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsZD.begin(); itr!=mLightBulbsZD.end(); ++itr) {
-        itr->drawOcclusive();
-    }
+    return &mCubes[indexXAdded * mNumCubesY * mNumCubesZ + indexYAdded * mNumCubesZ + indexZAdded];
+}
+
+LightCube* LightCubeMatrix::getLightCube(LightCube &baseCube, int ax, int ay, int az){
+    return this->getLightCube(baseCube.getIX(), baseCube.getIY(), baseCube.getIZ(),ax, ay, az);
 }
 
 
 void LightCubeMatrix::drawEmissive(){
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsX.begin(); itr!=mLightBulbsX.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsX.begin(); itr!=mBulbsX.end(); ++itr) {
         itr->drawEmissive();
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsY.begin(); itr!=mLightBulbsY.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsY.begin(); itr!=mBulbsY.end(); ++itr) {
         itr->drawEmissive();
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsZ.begin(); itr!=mLightBulbsZ.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsZ.begin(); itr!=mBulbsZ.end(); ++itr) {
         itr->drawEmissive();
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsXD.begin(); itr!=mLightBulbsXD.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsXD.begin(); itr!=mBulbsXD.end(); ++itr) {
         itr->drawEmissive();
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsYD.begin(); itr!=mLightBulbsYD.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsYD.begin(); itr!=mBulbsYD.end(); ++itr) {
         itr->drawEmissive();
     }
     
-    for (std::vector<LightBulb>::iterator itr = mLightBulbsZD.begin(); itr!=mLightBulbsZD.end(); ++itr) {
+    for (std::vector<LightBulb>::iterator itr = mBulbsZD.begin(); itr!=mBulbsZD.end(); ++itr) {
         itr->drawEmissive();
     }
 }
 
 /*--------------------------------------------------------------------------------*/
 
+void LightCubeMatrix::drawDebugBulb(std::vector<LightBulb> &bulbs){
+    const static ci::Vec2f zero = ci::Vec2f::zero();
+    ci::Vec3f mid;
+    
+    int i = -1;
+    while (++i < bulbs.size()) {
+        bulbs[i].getMid(&mid);
+        glPushMatrix();
+        glTranslatef(mid.x,mid.y,mid.z);
+        glScalef(mDebugFontScale, -mDebugFontScale, mDebugFontScale);
+        mTextureDebugFont->drawString( ci::toString(i), zero );
+        glPopMatrix();
+    }
+}
 
 void LightCubeMatrix::drawDebugPoints(){
     ci::Vec2f zero = ci::Vec2f::zero();
@@ -533,96 +604,32 @@ void LightCubeMatrix::drawDebugPoints(){
     }
 }
 
-void LightCubeMatrix::drawDebugLightBulbsX(){
-    ci::Vec2f zero = ci::Vec2f::zero();
-    ci::Vec3f mid;
-    
-    ci::gl::color(1,0,0);
-    int i = -1;
-    while (++i < mLightBulbsX.size()) {
-        mLightBulbsX[i].getMid(&mid);
-        glPushMatrix();
-        glTranslatef(mid.x,mid.y,mid.z);
-        glScalef(mDebugFontScale, -mDebugFontScale, mDebugFontScale);
-        mTextureDebugFont->drawString( ci::toString(i), zero );
-        glPopMatrix();
-    }
-}
 
-void LightCubeMatrix::drawDebugLightBulbsY(){
+void LightCubeMatrix::drawDebugCubes(){
     ci::Vec2f zero = ci::Vec2f::zero();
+    ci::Vec3f sum;
     ci::Vec3f mid;
     
-    ci::gl::color(0,1,0);
-    int i = -1;
-    while (++i < mLightBulbsY.size()) {
-        mLightBulbsY[i].getMid(&mid);
-        glPushMatrix();
-        glTranslatef(mid.x,mid.y,mid.z);
-        glScalef(mDebugFontScale, -mDebugFontScale, mDebugFontScale);
-        mTextureDebugFont->drawString( ci::toString(i), zero );
-        glPopMatrix();
-    }
-}
-
-void LightCubeMatrix::drawDebugLightBulbsZ(){
-    ci::Vec2f zero = ci::Vec2f::zero();
-    ci::Vec3f mid;
+    int numBulbs = 18;
     
-    ci::gl::color(0,0,1);
-    int i = -1;
-    while (++i < mLightBulbsZ.size()) {
-        mLightBulbsZ[i].getMid(&mid);
+    ci::gl::color(1, 0, 0);
+    int i,j;
+    i = -1;
+    while (++i < mCubes.size()) {
+        sum.x = 0;
+        sum.y = 0;
+        sum.z = 0;
+        
+        j = -1;
+        while (++j < numBulbs) {
+            mCubes[i][j]->getMid(&mid);
+            sum += mid;
+        }
+        
+        sum/=numBulbs;
+        
         glPushMatrix();
-        glTranslatef(mid.x,mid.y,mid.z);
-        glScalef(mDebugFontScale, -mDebugFontScale, mDebugFontScale);
-        mTextureDebugFont->drawString( ci::toString(i), zero );
-        glPopMatrix();
-    }
-}
-
-void LightCubeMatrix::drawDebugLightBulbsXD(){
-    ci::Vec2f zero = ci::Vec2f::zero();
-    ci::Vec3f mid;
-    
-    ci::gl::color(0.5f,0,0);
-    int i = -1;
-    while (++i < mLightBulbsXD.size()) {
-        mLightBulbsXD[i].getMid(&mid);
-        glPushMatrix();
-        glTranslatef(mid.x,mid.y,mid.z);
-        glScalef(mDebugFontScale, -mDebugFontScale, mDebugFontScale);
-        mTextureDebugFont->drawString( ci::toString(i), zero );
-        glPopMatrix();
-    }
-}
-
-void LightCubeMatrix::drawDebugLightBulbsYD(){
-    ci::Vec2f zero = ci::Vec2f::zero();
-    ci::Vec3f mid;
-    
-    ci::gl::color(0,0.5f,0);
-    int i = -1;
-    while (++i < mLightBulbsYD.size()) {
-        mLightBulbsYD[i].getMid(&mid);
-        glPushMatrix();
-        glTranslatef(mid.x,mid.y,mid.z);
-        glScalef(mDebugFontScale, -mDebugFontScale, mDebugFontScale);
-        mTextureDebugFont->drawString( ci::toString(i), zero );
-        glPopMatrix();
-    }
-}
-
-void LightCubeMatrix::drawDebugLightBulbsZD(){
-    ci::Vec2f zero = ci::Vec2f::zero();
-    ci::Vec3f mid;
-    
-    ci::gl::color(0,0,0.5f);
-    int i = -1;
-    while (++i < mLightBulbsZD.size()) {
-        mLightBulbsZD[i].getMid(&mid);
-        glPushMatrix();
-        glTranslatef(mid.x,mid.y,mid.z);
+        glTranslatef(sum.x,sum.y,sum.z);
         glScalef(mDebugFontScale, -mDebugFontScale, mDebugFontScale);
         mTextureDebugFont->drawString( ci::toString(i), zero );
         glPopMatrix();

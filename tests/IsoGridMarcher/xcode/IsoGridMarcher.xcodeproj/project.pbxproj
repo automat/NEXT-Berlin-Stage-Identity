@@ -46,6 +46,8 @@
 		CD19D398184F67080000550E /* blur_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blur_frag.glsl; sourceTree = "<group>"; };
 		CD19D39B184F68760000550E /* blend_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blend_frag.glsl; sourceTree = "<group>"; };
 		CD59982818509CBE0037B2E9 /* LightBulb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LightBulb.cpp; path = ../src/LightBulb.cpp; sourceTree = "<group>"; };
+		CD59982B1851C8180037B2E9 /* LightCubePattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightCubePattern.h; path = ../include/LightCubePattern.h; sourceTree = "<group>"; };
+		CD59982C185239020037B2E9 /* TriMeshBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TriMeshBatch.h; path = ../include/TriMeshBatch.h; sourceTree = "<group>"; };
 		CD67F297184E3FB300B9C7EC /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = ../include/Utils.h; sourceTree = "<group>"; };
 		CD67F298184E412B00B9C7EC /* LightCubeMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightCubeMatrix.h; path = ../include/LightCubeMatrix.h; sourceTree = "<group>"; };
 		CD67F299184E419800B9C7EC /* LightCubeMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LightCubeMatrix.cpp; path = ../src/LightCubeMatrix.cpp; sourceTree = "<group>"; };
@@ -144,6 +146,8 @@
 				CDBBCC9D18478D10002283C2 /* LightBulb.h */,
 				CD67F297184E3FB300B9C7EC /* Utils.h */,
 				CD67F298184E412B00B9C7EC /* LightCubeMatrix.h */,
+				CD59982B1851C8180037B2E9 /* LightCubePattern.h */,
+				CD59982C185239020037B2E9 /* TriMeshBatch.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";

@@ -13,20 +13,27 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Rand.h"
 #include "LightBulb.h"
+#include <cassert>
 
 class LightCube {
 private:
+    int mX,mY,mZ;
     const static int NUM_BULBS = 18;
     LightBulb* mBulbs[NUM_BULBS];
     
 public:
-    LightCube(){
+    LightCube(int x = 0, int y = 0, int z = 0) :
+    mX(x),
+    mY(y),
+    mZ(z){
         mBulbs[ 0] = mBulbs[ 1] = mBulbs[ 2] = mBulbs[ 3] =    // bottom
         mBulbs[ 4] = mBulbs[ 5] = mBulbs[ 6] = mBulbs[ 7] =    // top
         mBulbs[ 8] = mBulbs[ 9] = mBulbs[10] = mBulbs[11] =    // sides
         mBulbs[12] = mBulbs[13] =                              // bottom top diagonal
         mBulbs[14] = mBulbs[15] = mBulbs[16] = mBulbs[17] = 0; // sided diagonal
     }
+    
+    
     
     void set(LightBulb* bulb00, LightBulb* bulb01, LightBulb* bulb02, LightBulb* bulb03,
              LightBulb* bulb04, LightBulb* bulb05, LightBulb* bulb06, LightBulb* bulb07,
@@ -71,9 +78,22 @@ public:
         }
     }
     
+    int getNumBulbs(){
+        return NUM_BULBS;
+    }
+    
+    int getIX(){ return mX; }
+    int getIY(){ return mY; }
+    int getIZ(){ return mZ; }
     
     
+    LightBulb* operator[](int n){
+        return mBulbs[n];
+    }
     
+    const LightBulb* operator[](int n) const{
+        return mBulbs[n];
+    }
     
 
 };

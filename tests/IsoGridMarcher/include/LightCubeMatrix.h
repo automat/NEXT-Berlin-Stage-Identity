@@ -20,6 +20,8 @@
 #include "LightBulb.h"
 #include "LightCube.h"
 
+#include "TriMeshBatch.h"
+
 class LightCubeMatrix {
     int mNumPointsX;
     int mNumPointsY;
@@ -44,36 +46,17 @@ class LightCubeMatrix {
     bool  mDrawGridPoints;
     float mGridPointsSize;
     
-    float mLightBulbSizeOffLast;
-    float mLightBulbSizeOnLast;
-    
-    int mNumLightBulbsXX;
-    int mNumLightBulbsXY;
-    int mNumLightBulbsXZ;
-    int mNumLightBulbsXZY;
-    
-    
-    int mNumLightBulbsYX;
-    int mNumLightBulbsYY;
-    int mNumLightBulbsYZ;
-    int mNumLightBulbsYZX;
-    
-    
-    int mNumLightBulbsZX;
-    int mNumLightBulbsZY;
-    int mNumLightBulbsZZ;
-    int mNumLightBulbsZXY;
-    
-    
+    float mBulbSizeOffLast;
+    float mBulbSizeOnLast;
     
     std::vector<ci::Vec3f> mGridPoints;
-    std::vector<LightBulb> mLightBulbsX; // X axis
-    std::vector<LightBulb> mLightBulbsY; // Y axis
-    std::vector<LightBulb> mLightBulbsZ; // Z axis
-    std::vector<LightBulb> mLightBulbsXD; // diagonal
-    std::vector<LightBulb> mLightBulbsYD; // diagonal
-    std::vector<LightBulb> mLightBulbsZD; // diagonal
-    std::vector<LightCube> mLightCubes;
+    std::vector<LightBulb> mBulbsX; // X axis
+    std::vector<LightBulb> mBulbsY; // Y axis
+    std::vector<LightBulb> mBulbsZ; // Z axis
+    std::vector<LightBulb> mBulbsXD; // diagonal
+    std::vector<LightBulb> mBulbsYD; // diagonal
+    std::vector<LightBulb> mBulbsZD; // diagonal
+    std::vector<LightCube> mCubes;
     
     void build();
     void clear();
@@ -81,11 +64,27 @@ class LightCubeMatrix {
     ci::Font               mDebugFont;
     ci::gl::TextureFontRef mTextureDebugFont;
     float                  mDebugFontScale;
-
+    
+    TriMeshBatch* mBatchBulbsOffX;
+    TriMeshBatch* mBatchBulbsOffY;
+    TriMeshBatch* mBatchBulbsOffZ;
+    TriMeshBatch* mBatchBulbsOffXD;
+    TriMeshBatch* mBatchBulbsOffYD;
+    TriMeshBatch* mBatchBulbsOffZD;
+    
     void initDebugFont();
+    void initBatchesOff();
     
     void setNumPoints_Internal(int numX, int numY, int numZ);
     
+    void drawBatch(TriMeshBatch* batch);
+    void putBatch(std::vector<LightBulb>& bulbs, TriMeshBatch* batch);
+    
+    void switchOnBulb(std::vector<LightBulb>& bulbs);
+    void switchOffBulbs(std::vector<LightBulb>& bulbs);
+    void switchRandomBulbs(std::vector<LightBulb>& bulbs, float triggerTolerance);
+    
+    void drawDebugBulb(std::vector<LightBulb> &bulbs);
     
 public:
     LightCubeMatrix();
@@ -113,79 +112,67 @@ public:
     void setDrawBulbsOff(bool b)      { mDrawBulbsOff = b; };
     void setDrawGridPoints(bool b)    { mDrawGridPoints = b; };
     void setGridPointsSize(float size){ mGridPointsSize = size; };
-    void setLightBulbSizeOff(float size);
-    void setLightBulbSizeOn(float size);
+    void setBulbSizeOff(float size);
+    void setBulbSizeOn(float size);
     
-    //! Debug view grid points
-    void drawDebugPoints();
-    //! Debug view all perpendicular axes
-    void drawDebugLightBulbsX();
-    void drawDebugLightBulbsY();
-    void drawDebugLightBulbsZ();
-    //! Debug view all diagonal axes
-    void drawDebugLightBulbsXD();
-    void drawDebugLightBulbsYD();
-    void drawDebugLightBulbsZD();
+    
+    //! Get pointer to cube at index x y z
+    LightCube* getLightCube(int x, int y, int z);
+    //! Get pointer to cube at index x y z, ax ay az added
+    LightCube* getLightCube(int x, int y, int z, int ax, int ay, int az);
+    //! Get pointer to cube index ax ay az added
+    LightCube* getLightCube(LightCube& baseCube, int ax, int ay, int az);
     
     //! Get points of grid bulb edges are connected to
     const std::vector<ci::Vec3f>& getGridPoints() const{ return mGridPoints;}
     //! Get bulbs all perpendicular axes
-    const std::vector<LightBulb>& getLightBulbsX() const{ return mLightBulbsX; };
-    const std::vector<LightBulb>& getLightBulbsY() const{ return mLightBulbsY; };
-    const std::vector<LightBulb>& getLightBulbsZ() const{ return mLightBulbsZ; };
-    std::vector<LightBulb>& getLightBulbsX(){ return mLightBulbsX; }
-    std::vector<LightBulb>& getLightBulbsY(){ return mLightBulbsY; }
-    std::vector<LightBulb>& getLightBulbsZ(){ return mLightBulbsZ; }
+    const std::vector<LightBulb>& getBulbsX() const{ return mBulbsX; };
+    const std::vector<LightBulb>& getBulbsY() const{ return mBulbsY; };
+    const std::vector<LightBulb>& getBulbsZ() const{ return mBulbsZ; };
+    std::vector<LightBulb>& getBulbsX(){ return mBulbsX; }
+    std::vector<LightBulb>& getBulbsY(){ return mBulbsY; }
+    std::vector<LightBulb>& getBulbsZ(){ return mBulbsZ; }
     //! Get bulbs all diagonal axes
-    const std::vector<LightBulb>& getLightBulbsXD() const{ return mLightBulbsXD; }
-    const std::vector<LightBulb>& getLightBulbsYD() const{ return mLightBulbsYD; }
-    const std::vector<LightBulb>& getLightBulbsZD() const{ return mLightBulbsZD; }
-    std::vector<LightBulb>& getLightBulbsXD(){ return mLightBulbsXD; }
-    std::vector<LightBulb>& getLightBulbsYD(){ return mLightBulbsYD; }
-    std::vector<LightBulb>& getLightBulbsZD(){ return mLightBulbsZD; }
+    const std::vector<LightBulb>& getBulbsXD() const{ return mBulbsXD; }
+    const std::vector<LightBulb>& getBulbsYD() const{ return mBulbsYD; }
+    const std::vector<LightBulb>& getBulbsZD() const{ return mBulbsZD; }
+    std::vector<LightBulb>& getBulbsXD(){ return mBulbsXD; }
+    std::vector<LightBulb>& getBulbsYD(){ return mBulbsYD; }
+    std::vector<LightBulb>& getBulbsZD(){ return mBulbsZD; }
     
     //! Get cubes formed defined by bulb edges
-    const std::vector<LightCube>& getLightCubes() const{return mLightCubes; }
-    std::vector<LightCube>& getLightCubes(){ return mLightCubes; }
+    const std::vector<LightCube>& getCubes() const{return mCubes; }
+    std::vector<LightCube>& getCubes(){ return mCubes; }
     
     //! Get nums
-    int getNumLightCubes(){return mNumCubes;};
-    int getNumLightBulbsX() {return mLightBulbsX.size();};
-    int getNumLightBulbsY() {return mLightBulbsY.size();};
-    int getNumLightBulbsZ() {return mLightBulbsZ.size();};
-    int getNumLightBulbsXD(){return mLightBulbsXD.size();};
-    int getNumLightBulbsYD(){return mLightBulbsYD.size();};
-    int getNumLightBulbsZD(){return mLightBulbsZD.size();};
+    int getNumCubes(){ return mNumCubes;};
+    int getNumCubesX(){return mNumCubesX;};
+    int getNumCubesY(){return mNumCubesY;};
+    int getNumCubesZ(){return mNumCubesZ;};
     
     
-    //! Number of x bulbs on x axis 1 row
-    int getNumLightBulbsXX() {return mNumLightBulbsYX;}
-    //! Number of x bulbs on y axis 1 column
-    int getNumLightBulbsXY() {return mNumLightBulbsYY;};
-    //! Number of x bulbs on z axis 1 row
-    int getNumLightBulbsXZ() {return mNumLightBulbsYX;}
-    //! Number of x bulbs on x * z axis 1 row
-    int getNumLightBulbsXZY(){return mNumLightBulbsXZY;}
+    int getNumBulbsX() {return mBulbsX.size();};
+    int getNumBulbsY() {return mBulbsY.size();};
+    int getNumBulbsZ() {return mBulbsZ.size();};
+    int getNumBulbsXD(){return mBulbsXD.size();};
+    int getNumBulbsYD(){return mBulbsYD.size();};
+    int getNumBulbsZD(){return mBulbsZD.size();};
     
-    //! Number of y bulbs on x axis 1 row
-    int getNumLightBulbsYX() {return mNumLightBulbsYX;}
-    //! Number of y bulbs on y axis 1 column
-    int getNumLightBulbsYY() {return mNumLightBulbsYY;};
-    //! Number of y bulbs on z axis 1 row
-    int getNumLightBulbsYZ() {return mNumLightBulbsYX;}
-    //! Number of y bulbs on x * z axis 1 row
-    int getNumLightBulbsYZX(){return mNumLightBulbsYZX;}
     
-    //! Number of y bulbs on x axis 1 row
-    int getNumLightBulbsZX() {return mNumLightBulbsZX;}
-    //! Number of y bulbs on y axis 1 column
-    int getNumLightBulbsZY() {return mNumLightBulbsZY;};
-    //! Number of y bulbs on z axis 1 row
-    int getNumLightBulbsZZ() {return mNumLightBulbsZZ;}
-    //! Number of y bulbs on x * z axis 1 row
-    int getNumLightBulbsZXY(){return mNumLightBulbsZXY;}
-    
-    void getLightBulbX(int indexBase, int indexAddX, int indexAddY, int indexAddZ, LightBulb* bulb);
+    //! Debug view grid points
+    void drawDebugPoints();
+    //! Debug view all perpendicular axes
+    void drawDebugBulbsX(){ this->drawDebugBulb(mBulbsX);};
+    void drawDebugBulbsY(){ this->drawDebugBulb(mBulbsY);};
+    void drawDebugBulbsZ(){ this->drawDebugBulb(mBulbsZ);};
+    //! Debug view all diagonal axes
+    void drawDebugBulbsXD(){ this->drawDebugBulb(mBulbsXD);};
+    void drawDebugBulbsYD(){ this->drawDebugBulb(mBulbsYD);};
+    void drawDebugBulbsZD(){ this->drawDebugBulb(mBulbsZD);};
+    //! Debug view all cubes
+    void drawDebugCubes();
+
+
     
     
    
