@@ -167,10 +167,7 @@ public:
 void IsoGridMarcherApp::changeMatrixSize(){
     mLightMatrix->setPointsNum(MATRIX_SIZE);
     
-    std::cout << mLightMatrix->getNumLightBulbsYX() << std::endl;
-    std::cout << mLightMatrix->getNumLightBulbsYY() << std::endl;
-    std::cout << mLightMatrix->getNumLightBulbsYZ() << std::endl;
-    
+    mLightMatrix->getLightBulbX(1, 0, 0, 0, NULL);
 }
 
 void IsoGridMarcherApp::prepareSettings(Settings* settings){
@@ -307,6 +304,7 @@ void IsoGridMarcherApp::update(){
         
     }
     
+    
     if(MATRIX_FORM_OBJECTS){
         mLightMatrix->getLightBulbsX()[15].switchOn();
         mLightMatrix->getLightBulbsX()[31].switchOn();
@@ -323,6 +321,10 @@ void IsoGridMarcherApp::update(){
         mLightMatrix->getLightBulbsXD()[3].switchOn();
         
     }
+     
+     
+    
+    //mLightMatrix->getLightBulbsX()[1].switchOn();
     
     //mLightMatrix->switchRandom(0.0125f);
     //mLightMatrix->switchOn();
@@ -596,11 +598,11 @@ void IsoGridMarcherApp::updateLights(){
 void IsoGridMarcherApp::setupParams(){
     mParams = ci::params::InterfaceGl::create( app::getWindow(), "CONTROL", ci::app::toPixels( ci::Vec2i( 250, 600 ) ) );
     mParams->addText("Shader");
-        mParams->addParam("Use", &USE_SHADER);
+    mParams->addParam("Use", &USE_SHADER);
     mParams->addParam("Blur Scale", &SHADER_BLUR_SCALE, "min=0 step=0.05");
     mParams->addParam("Blur Strength", &SHADER_BLUR_STRENGTH, "min=0 max=1 step=0.05");
-    mParams->addSeparator();
     
+    mParams->addSeparator();
     mParams->addText("Debug View");
    // mParams->addParam("Bg Sphere", &VIEW_BG_SPHERE);
     mParams->addParam("Axes", &VIEW_AXES);
@@ -612,14 +614,15 @@ void IsoGridMarcherApp::setupParams(){
     mParams->addParam("Axis YD",&MATRIX_DEBUG_VIEW_AXIS_YD);
     mParams->addParam("Axis ZD",&MATRIX_DEBUG_VIEW_AXIS_ZD);
     
+    mParams->addSeparator();
     mParams->addText("Camera");
     mParams->addParam("Mode", &CAMERA_MODE, "min=0 max=1 step=1");
     mParams->addParam("Snap", &CAMERA_SNAP);
     mParams->addParam("Snap X", &CAMERA_SNAP_AXIS_X, "min=1 max=4 step=1");
     mParams->addParam("Snap Y", &CAMERA_SNAP_AXIS_Y, "min=1 max=4 step=1");
     mParams->addParam("Snap Z", &CAMERA_SNAP_AXIS_Z, "min=1 max=4 step=1");
-    mParams->addSeparator();
     
+    mParams->addSeparator();
     mParams->addText("Light");
     mParams->addParam("Rotate", &LIGHT_ROTATE);
     mParams->addSeparator();

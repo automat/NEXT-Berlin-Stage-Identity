@@ -30,6 +30,11 @@ class LightCubeMatrix {
     int mNumPointsY_1;
     int mNumPointsZ_1;
     
+    int mNumPointsY_1Z_1;
+    int mNumPointsYZ;
+    int mNumPointsYZ_1;
+    int mNumPointsY_1Z;
+    
     int mNumCubesX;
     int mNumCubesY;
     int mNumCubesZ;
@@ -45,17 +50,19 @@ class LightCubeMatrix {
     int mNumLightBulbsXX;
     int mNumLightBulbsXY;
     int mNumLightBulbsXZ;
-    
+    int mNumLightBulbsXZY;
     
     
     int mNumLightBulbsYX;
     int mNumLightBulbsYY;
     int mNumLightBulbsYZ;
-    int mNumLightBulbsYXZ;
+    int mNumLightBulbsYZX;
+    
     
     int mNumLightBulbsZX;
     int mNumLightBulbsZY;
     int mNumLightBulbsZZ;
+    int mNumLightBulbsZXY;
     
     
     
@@ -150,6 +157,7 @@ public:
     int getNumLightBulbsYD(){return mLightBulbsYD.size();};
     int getNumLightBulbsZD(){return mLightBulbsZD.size();};
     
+    
     //! Number of x bulbs on x axis 1 row
     int getNumLightBulbsXX() {return mNumLightBulbsYX;}
     //! Number of x bulbs on y axis 1 column
@@ -157,7 +165,7 @@ public:
     //! Number of x bulbs on z axis 1 row
     int getNumLightBulbsXZ() {return mNumLightBulbsYX;}
     //! Number of x bulbs on x * z axis 1 row
-    int getNumLightBulbsXYZ(){return mNumLightBulbsYXZ;}
+    int getNumLightBulbsXZY(){return mNumLightBulbsXZY;}
     
     //! Number of y bulbs on x axis 1 row
     int getNumLightBulbsYX() {return mNumLightBulbsYX;}
@@ -166,8 +174,18 @@ public:
     //! Number of y bulbs on z axis 1 row
     int getNumLightBulbsYZ() {return mNumLightBulbsYX;}
     //! Number of y bulbs on x * z axis 1 row
-    int getNumLightBulbsYXZ(){return mNumLightBulbsYXZ;}
+    int getNumLightBulbsYZX(){return mNumLightBulbsYZX;}
     
+    //! Number of y bulbs on x axis 1 row
+    int getNumLightBulbsZX() {return mNumLightBulbsZX;}
+    //! Number of y bulbs on y axis 1 column
+    int getNumLightBulbsZY() {return mNumLightBulbsZY;};
+    //! Number of y bulbs on z axis 1 row
+    int getNumLightBulbsZZ() {return mNumLightBulbsZZ;}
+    //! Number of y bulbs on x * z axis 1 row
+    int getNumLightBulbsZXY(){return mNumLightBulbsZXY;}
+    
+    void getLightBulbX(int indexBase, int indexAddX, int indexAddY, int indexAddZ, LightBulb* bulb);
     
     
    

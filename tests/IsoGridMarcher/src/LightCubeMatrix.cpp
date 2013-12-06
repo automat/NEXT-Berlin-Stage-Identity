@@ -65,6 +65,11 @@ void LightCubeMatrix::clear(){
 }
 
 
+void LightCubeMatrix::getLightBulbX(int indexBase, int indexAddX, int indexAddY, int indexAddZ, LightBulb* bulb){
+   // int stepX = mNum
+    std::cout << indexAddX * mNumPointsYZ_1 + indexAddY * mNumPointsZ_1 + indexAddZ << std::endl;
+}
+
 /*--------------------------------------------------------------------------------*/
 
 void LightCubeMatrix::build(){
@@ -220,19 +225,25 @@ void LightCubeMatrix::build(){
     int indexBulb17;
     
     
-    int numPointsY_1Z_1 = mNumPointsY_1 * mNumPointsZ_1;
-    int numPointsYZ     = mNumPointsY   * mNumPointsZ;
-    int numPointsYZ_1   = mNumPointsY   * mNumPointsZ_1;
-    int numPointsY_1Z   = mNumPointsY_1 * mNumPointsZ;
+    mNumPointsY_1Z_1 = mNumPointsY_1 * mNumPointsZ_1;
+    mNumPointsYZ     = mNumPointsY   * mNumPointsZ;
+    mNumPointsYZ_1   = mNumPointsY   * mNumPointsZ_1;
+    mNumPointsY_1Z   = mNumPointsY_1 * mNumPointsZ;
+    
+    mNumLightBulbsXX  = mNumPointsX_1;
+    mNumLightBulbsXY  = mNumPointsY;
+    mNumLightBulbsXZ  = mNumPointsZ;
+    mNumLightBulbsXZY = mNumLightBulbsXZ * mNumLightBulbsXY;
     
     mNumLightBulbsYX  = mNumPointsX;
     mNumLightBulbsYY  = mNumPointsY_1;
     mNumLightBulbsYZ  = mNumPointsZ;
-    mNumLightBulbsYXZ = mNumLightBulbsYX * mNumLightBulbsYZ;
+    mNumLightBulbsYZX = mNumLightBulbsYX * mNumLightBulbsYZ;
     
-    
-    
-    
+    mNumLightBulbsZX  = mNumPointsX_1;
+    mNumLightBulbsZY  = mNumPointsY;
+    mNumLightBulbsZZ  = mNumPointsZ;
+    mNumLightBulbsZXY = mNumLightBulbsZX * mNumLightBulbsZY;
     
     ix = -1;
     while (++ix < numEdgesX) {
@@ -243,32 +254,32 @@ void LightCubeMatrix::build(){
             iz  = -1;
             while (++iz < numEdgesZ) {
                 //bottom trbl
-                indexBulb00 = ix * numPointsYZ   + iy * mNumPointsZ  + iz;
-                indexBulb03 = ix * numPointsYZ_1 + iy * mNumPointsZ_1 + iz;
+                indexBulb00 = ix * mNumPointsYZ   + iy * mNumPointsZ  + iz;
+                indexBulb03 = ix * mNumPointsYZ_1 + iy * mNumPointsZ_1 + iz;
                 indexBulb02 = indexBulb00 + 1;
-                indexBulb01 = indexBulb03 + numPointsYZ_1;
+                indexBulb01 = indexBulb03 + mNumPointsYZ_1;
                 
                 //top trbl
-                indexBulb04 = ix * numPointsYZ   + iy1 * mNumPointsZ  + iz;
-                indexBulb07 = ix * numPointsYZ_1 + iy1 * mNumPointsZ_1 + iz;
+                indexBulb04 = ix * mNumPointsYZ   + iy1 * mNumPointsZ  + iz;
+                indexBulb07 = ix * mNumPointsYZ_1 + iy1 * mNumPointsZ_1 + iz;
                 indexBulb06 = indexBulb04 + 1;
-                indexBulb05 = indexBulb07 + numPointsYZ_1;
+                indexBulb05 = indexBulb07 + mNumPointsYZ_1;
                 
                 //sides cw
-                indexBulb08 = ix  * numPointsY_1Z + iy * mNumPointsZ + iz;
-                indexBulb09 = ix1 * numPointsY_1Z + iy * mNumPointsZ + iz;
+                indexBulb08 = ix  * mNumPointsY_1Z + iy * mNumPointsZ + iz;
+                indexBulb09 = ix1 * mNumPointsY_1Z + iy * mNumPointsZ + iz;
                 indexBulb10 = indexBulb09 + 1;
                 indexBulb11 = indexBulb08 + 1;
                 
                 //bottom/top diagonal
-                indexBulb12 = ix * numPointsYZ_1 + iy  * mNumPointsZ_1 + iz;
-                indexBulb13 = ix * numPointsYZ_1 + iy1 * mNumPointsZ_1 + iz;
+                indexBulb12 = ix * mNumPointsYZ_1 + iy  * mNumPointsZ_1 + iz;
+                indexBulb13 = ix * mNumPointsYZ_1 + iy1 * mNumPointsZ_1 + iz;
                 
                 //sides diagonal;
                 indexBulb14 = indexBulb08;
-                indexBulb17 = ix * numPointsY_1Z_1 + iy * mNumPointsZ_1 + iz;
+                indexBulb17 = ix * mNumPointsY_1Z_1 + iy * mNumPointsZ_1 + iz;
                 indexBulb16 = indexBulb14 + 1;
-                indexBulb15 = indexBulb17 + numPointsY_1Z_1;
+                indexBulb15 = indexBulb17 + mNumPointsY_1Z_1;
                 
                 
                 /*
