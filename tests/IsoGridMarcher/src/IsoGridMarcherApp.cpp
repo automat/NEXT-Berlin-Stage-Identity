@@ -293,7 +293,7 @@ void IsoGridMarcherApp::update(){
     }
     mLightMatrix->update();
     mLightMatrix->setDrawBulbsOff(MATRIX_DRAW_BULBS_OFF);
-    mLightMatrix->setDrawGridPoints(MATRIX_DRAW_GRID_POINTS);
+    mLightMatrix->setDrawPoints(MATRIX_DRAW_GRID_POINTS);
     mLightMatrix->setBulbSizeOff(MATRIX_BULB_SIZE_OFF);
     mLightMatrix->setBulbSizeOn(MATRIX_BULB_SIZE_ON);
     

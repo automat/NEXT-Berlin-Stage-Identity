@@ -43,13 +43,12 @@ class LightCubeMatrix {
     int mNumCubes;
     
     bool  mDrawBulbsOff;
-    bool  mDrawGridPoints;
-    float mGridPointsSize;
-    
+    bool  mDrawPoints;
     float mBulbSizeOffLast;
     float mBulbSizeOnLast;
+    float mPointSize;
     
-    std::vector<ci::Vec3f> mGridPoints;
+    std::vector<ci::Vec3f> mPoints;
     std::vector<LightBulb> mBulbsX; // X axis
     std::vector<LightBulb> mBulbsY; // Y axis
     std::vector<LightBulb> mBulbsZ; // Z axis
@@ -84,6 +83,9 @@ class LightCubeMatrix {
     void switchOffBulbs(std::vector<LightBulb>& bulbs);
     void switchRandomBulbs(std::vector<LightBulb>& bulbs, float triggerTolerance);
     
+    void setSizeOnBulbs(std::vector<LightBulb> &bulbs, float size);
+    void setSizeOffBulbs(std::vector<LightBulb> &bulbs, float size);
+    
     void drawDebugBulb(std::vector<LightBulb> &bulbs);
     
 public:
@@ -109,9 +111,9 @@ public:
     //! Switch bulbs on/off randomly
     void switchRandom(float triggerTolerance = 0.0015f);
     
-    void setDrawBulbsOff(bool b)      { mDrawBulbsOff = b; };
-    void setDrawGridPoints(bool b)    { mDrawGridPoints = b; };
-    void setGridPointsSize(float size){ mGridPointsSize = size; };
+    void setDrawBulbsOff(bool b){ mDrawBulbsOff = b; };
+    void setDrawPoints(bool b){ mDrawPoints = b; };
+    void setPointsSize(float size){ mPointSize = size; };
     void setBulbSizeOff(float size);
     void setBulbSizeOn(float size);
     
@@ -124,7 +126,7 @@ public:
     LightCube* getLightCube(LightCube& baseCube, int ax, int ay, int az);
     
     //! Get points of grid bulb edges are connected to
-    const std::vector<ci::Vec3f>& getGridPoints() const{ return mGridPoints;}
+    const std::vector<ci::Vec3f>& getGridPoints() const{ return mPoints;}
     //! Get bulbs all perpendicular axes
     const std::vector<LightBulb>& getBulbsX() const{ return mBulbsX; };
     const std::vector<LightBulb>& getBulbsY() const{ return mBulbsY; };

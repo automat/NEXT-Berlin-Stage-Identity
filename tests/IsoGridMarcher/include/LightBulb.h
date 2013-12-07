@@ -34,7 +34,7 @@ private:
     ci::Matrix44f mMatrix;
     
     void init();
-    void updateGeometry();
+    
     
 public:
     LightBulb();
@@ -45,6 +45,8 @@ public:
     
     void drawOcclusive();
     void drawEmissive();
+    
+    void updateGeometry();
     
     void switchOn(){if(!mActive)return;mOn = true;}
     

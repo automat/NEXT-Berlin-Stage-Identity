@@ -121,8 +121,8 @@ void LightBulb::updateGeometry(){
     while (itrObjV != vertices.end()) {
         i3 = i * 3;
         temp.set((0.5f+normVertices[i3  ]) * mDistance,
-                 normVertices[i3+1] * mSizeOff ,
-                 normVertices[i3+2] * mSizeOff);
+                       normVertices[i3+1] * mSizeOff ,
+                       normVertices[i3+2] * mSizeOff);
         
         *itrObjV  = mMatrix.transformPoint(temp);
         ++itrObjV;
