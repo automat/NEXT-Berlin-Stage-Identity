@@ -1,28 +1,28 @@
 //
-//  LightBulb.cpp
+//  Edge.cpp
 //  IsoGridMarcher
 //
 //  Created by Henryk Wollik on 05/12/13.
 //
 //
 
-#include "LightBulb.h"
+#include "Edge.h"
 
-LightBulb::LightBulb() :
+Edge::Edge() :
     mOn(false),
     mActive(true),
-    mSizeOff(0.01f),
-    mSizeOn(0.015f),
+    mSizeOff(0.01f,0.01f),
+    mSizeOn(0.015f,0.015f),
     ci::TriMesh(){
         this->init();
     }
 
 
-LightBulb::LightBulb(ci::Vec3f* p0, ci::Vec3f* p1, bool isOn) :
+Edge::Edge(ci::Vec3f* p0, ci::Vec3f* p1, bool isOn) :
     mOn(isOn),
     mActive(true),
-    mSizeOff(0.01f),
-    mSizeOn(0.015f),
+    mSizeOff(0.01f,0.01f),
+    mSizeOn(0.015f,0.015f),
     mP0(p0),
     mP1(p1),
     ci::TriMesh(){
@@ -30,7 +30,7 @@ LightBulb::LightBulb(ci::Vec3f* p0, ci::Vec3f* p1, bool isOn) :
         this->updateGeometry();
 }
 
-void LightBulb::init(){
+void Edge::init(){
     this->getVertices().resize(24);
     this->getNormals().resize(24);
     
@@ -62,7 +62,7 @@ void LightBulb::init(){
 
 }
 
-void LightBulb::updateGeometry(){
+void Edge::updateGeometry(){
     static const ci::Vec3f xAxis(1,0,0);
     static const ci::Vec3f yAxis(0,1,0);
     
@@ -121,8 +121,8 @@ void LightBulb::updateGeometry(){
     while (itrObjV != vertices.end()) {
         i3 = i * 3;
         temp.set((0.5f+normVertices[i3  ]) * mDistance,
-                       normVertices[i3+1] * mSizeOff ,
-                       normVertices[i3+2] * mSizeOff);
+                       normVertices[i3+1] * mSizeOff.y ,
+                       normVertices[i3+2] * mSizeOff.x);
         
         *itrObjV  = mMatrix.transformPoint(temp);
         ++itrObjV;
@@ -132,7 +132,7 @@ void LightBulb::updateGeometry(){
     this->recalculateNormals();
 }
 
-void LightBulb::drawOcclusive(){
+void Edge::drawOcclusive(){
     if (mOn) return;
     
     glPushMatrix();
@@ -142,28 +142,28 @@ void LightBulb::drawOcclusive(){
     //float dist = mDistance * 0.75;
     //glTranslatef(0,mDistance*0.25f - dist*0.5f ,0);
     //ci::gl::drawCylinder(0.005f, 0.005f, -(dist));
-    ci::gl::drawCube(ci::Vec3f(mDistance*0.5f,0,0), ci::Vec3f(mDistance,mSizeOff,mSizeOff));
+    //ci::gl::drawCube(ci::Vec3f(mDistance*0.5f,0,0), ci::Vec3f(mDistance,mSizeOff,mSizeOff));
     glPopMatrix();
 }
 
-void LightBulb::drawEmissive(){
+void Edge::drawEmissive(){
     if (!mOn)return;
     
     glPushMatrix();
     glMultMatrixf(&(mMatrix)[0]);
     //float dist = mDistance * 0.75;
     //ci::gl::drawCylinder(0.003f, 0.003f, -mDistance);
-    ci::gl::drawCube(ci::Vec3f(mDistance*0.5f,0,0), ci::Vec3f(mDistance,mSizeOn,mSizeOn));
+    ci::gl::drawCube(ci::Vec3f(mDistance*0.5f,0,0), ci::Vec3f(mDistance,mSizeOn.y,mSizeOn.x));
     glPopMatrix();
 }
 
 
-void LightBulb::switchRandom(float triggerTolerance){
+void Edge::switchRandom(float triggerTolerance){
     if(ci::randFloat()<triggerTolerance)this->switchOn();
     else this->switchOff();
 }
 
-void LightBulb::getMid(ci::Vec3f* vec){
+void Edge::getMid(ci::Vec3f* vec){
     *vec = (*mP0 + *mP1) * 0.5f;
 }
 

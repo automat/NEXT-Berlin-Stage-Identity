@@ -18,14 +18,12 @@
 #include <vector>
 #include "cinder/TriMesh.h"
 
-
-
-class LightBulb : public ci::TriMesh{
+class Edge : public ci::TriMesh{
 private:
     bool mOn;
     bool mActive;
-    float mSizeOff;
-    float mSizeOn;
+    ci::Vec2f mSizeOff;
+    ci::Vec2f mSizeOn;
     
     ci::Vec3f* mP0;
     ci::Vec3f* mP1;
@@ -37,11 +35,11 @@ private:
     
     
 public:
-    LightBulb();
-    LightBulb(ci::Vec3f* p0, ci::Vec3f* p1, bool isOn = false);
+    Edge();
+    Edge(ci::Vec3f* p0, ci::Vec3f* p1, bool isOn = false);
     
-    void setSizeOn(float size) { mSizeOn = size; }
-    void setSizeOff(float size){ mSizeOff = size; }
+    void setSizeOn(const ci::Vec2f& size) { mSizeOn = size; }
+    void setSizeOff(const ci::Vec2f& size){ mSizeOff = size; }
     
     void drawOcclusive();
     void drawEmissive();
@@ -49,7 +47,6 @@ public:
     void updateGeometry();
     
     void switchOn(){if(!mActive)return;mOn = true;}
-    
     void switchOff(){mOn = false;}
     
     void switchRandom(float triggerTolerance = 0.0015f);

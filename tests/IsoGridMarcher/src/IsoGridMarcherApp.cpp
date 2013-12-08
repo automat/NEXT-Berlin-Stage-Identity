@@ -15,9 +15,9 @@
 
 #include <vector>
 #include "Utils.h"
-#include "LightBulb.h"
-#include "LightCube.h"
-#include "LightCubeMatrix.h"
+#include "Edge.h"
+#include "EdgeCube.h"
+#include "EdgeCubeMatrix.h"
 
 #include "Resources.h"
 
@@ -28,20 +28,19 @@ using namespace std;
 
 /*----------------------------------------------------------------------------------*/
 
-static const int APP_WINDOW_WIDTH  = 1024,
-                 APP_WINDOW_HEIGHT = 1024;
+static const int APP_WINDOW_WIDTH(1024),
+                 APP_WINDOW_HEIGHT(1024);
 
-static int FBO_WIDTH  = APP_WINDOW_WIDTH,
-                 FBO_HEIGHT = APP_WINDOW_HEIGHT;
+static int FBO_WIDTH(APP_WINDOW_WIDTH),
+           FBO_HEIGHT(APP_WINDOW_HEIGHT);
 
-static float SHADER_TEXEL_SIZE_X = 1.0f / FBO_WIDTH,
-             SHADER_TEXEL_SIZE_Y = 1.0f / FBO_HEIGHT;
+static ci::Vec2f SHADER_TEXEL_SIZE(1.0f / FBO_WIDTH, 1.0f / FBO_HEIGHT);
 
-static float SHADER_BLUR_SCALE    = 0.7f,
-             SHADER_BLUR_STRENGTH = 0.05f;
+static float SHADER_BLUR_SCALE(0.7f),
+             SHADER_BLUR_STRENGTH(0.25f);
 
-const static int SHADER_BLUR_AMOUNT_MAX = 20;
-static int       SHADER_BLUR_AMOUNT = SHADER_BLUR_AMOUNT_MAX;
+const static int SHADER_BLUR_AMOUNT_MAX(20);
+static int       SHADER_BLUR_AMOUNT(SHADER_BLUR_AMOUNT_MAX);
 
 static bool USE_SHADER(true);
 
@@ -60,13 +59,16 @@ static bool MATRIX_DEBUG_VIEW_POINTS(false),
             MATRIX_DEBUG_VIEW_AXIS_XD(false),
             MATRIX_DEBUG_VIEW_AXIS_YD(false),
             MATRIX_DEBUG_VIEW_AXIS_ZD(false),
-            MATRIX_DEBUG_VIEW_CUBES(true),
-            MATRIX_DRAW_BULBS_OFF(true),
-            MATRIX_DRAW_GRID_POINTS(true);
-static int   MATRIX_SIZE(12);
-static float MATRIX_BULB_SIZE_ON(0.015f),
-             MATRIX_BULB_SIZE_OFF(0.005f);
+            MATRIX_DEBUG_VIEW_CUBES(false),
+            MATRIX_DRAW_BULBS_OFF(false),
+            MATRIX_DRAW_POINTS(false);
+static int  MATRIX_SIZE_X(60),
+            MATRIX_SIZE_Y(6),
+            MATRIX_SIZE_Z(60);
+static ci::Vec2f MATRIX_BULB_SIZE_ON(0.2f,0.05f),
+                 MATRIX_BULB_SIZE_OFF(0.005f,0.005f);
 static bool MATRIX_FORM_OBJECTS(false);
+
 
 static int  CAMERA_MODE(1); //0 = persp, 1 = ortho
 static bool CAMERA_SNAP(true);
@@ -77,9 +79,10 @@ static int  CAMERA_SNAP_AXIS_X(3),
 static bool LIGHT_ROTATE(false);
 
 static ci::Colorf BLACK(0,0,0),
-                  BLACK_0(0.123f,0.128f,0.185f),
+                  BLACK_0(0.05f,0.0164f,0.035f),
                   BLACK_1(0.25f,0.25f,0.35f);
-static const ci::Color WHITE(1,1,1);
+static const ci::Color WHITE(1,1,1),
+                      WHITE_2(0.9,1,1);
 
 static const ci::Vec3f ZERO(0,0,0);
 
@@ -105,6 +108,7 @@ public:
     void drawScenePartsOcclusive();
     void drawScenePartsEmmissive();
     void drawScenePartsDebug();
+    void processFBO();
     
     void changeMatrixSize();
     
@@ -147,7 +151,17 @@ public:
     ci::gl::Material mMaterial2; //black
     
     
-    LightCubeMatrix* mLightMatrix;
+    EdgeCubeMatrix* mLightMatrix;
+    EdgePatternSequence mLightPatternSeq;
+    EdgePatternSequence mPattern0; //bubble
+    EdgePatternSequence mPattern1;
+    EdgePatternSequence mPattern2;
+    EdgePatternSequence mPattern3;
+    EdgePatternSequence mPattern4;
+    EdgePatternSequence mPattern5;
+    EdgePatternSequence mPattern6;
+    EdgePatternSequence mPattern7;
+    EdgePatternSequence mPattern8;
     
     /*----------------------------------------------------------------------------------*/
     
@@ -166,7 +180,7 @@ public:
 };
 
 void IsoGridMarcherApp::changeMatrixSize(){
-    mLightMatrix->setPointsNum(MATRIX_SIZE);
+    mLightMatrix->setSize(MATRIX_SIZE_X, MATRIX_SIZE_Y, MATRIX_SIZE_Z);
 }
 
 void IsoGridMarcherApp::prepareSettings(Settings* settings){
@@ -218,11 +232,11 @@ void IsoGridMarcherApp::setup(){
     
     this->updateCams();
     
-    mCameraZoom = 1.0f;
+    mCameraZoom = 5.0f;
     mCameraRotX = (float)M_PI * 0.5f;
     mCameraRotY = 0.0f;
     
-    mCameraEye.set(3,3,3);
+    mCameraEye = mCameraEyeTarget = ci::Vec3f(6,-6,6);
     
     mCameraPersp.setEyePoint(mCameraEye);
     mCameraPersp.setCenterOfInterestPoint(ZERO);
@@ -232,7 +246,7 @@ void IsoGridMarcherApp::setup(){
     /*----------------------------------------------------------------------------------*/
     
     mLight0 = new gl::Light( gl::Light::DIRECTIONAL, 0 );
-	mLight0->lookAt( Vec3f( 5,5,5 ), ZERO );
+	mLight0->lookAt( Vec3f( 5,-5,5 ), ZERO );
 	mLight0->setAmbient( Color( 0.3f, 0.3f, 0.3f ) );
 	mLight0->setDiffuse( Color( 0.5f, 0.5f, 0.5f ) );
 	mLight0->setSpecular( Color( 1,1,1 ) );
@@ -249,17 +263,106 @@ void IsoGridMarcherApp::setup(){
     mMaterial1.setSpecular( BLACK_1);
 	mMaterial1.setShininess( 215.0f );
     
-    mMaterial2.setAmbient( WHITE );
-	mMaterial2.setDiffuse( WHITE );
+    mMaterial2.setAmbient( WHITE_2 );
+	mMaterial2.setDiffuse( WHITE_2 );
     mMaterial2.setSpecular( Color(1,1,1));
 	mMaterial2.setShininess( 215.0f );
 
     /*----------------------------------------------------------------------------------*/
 
-    mLightMatrix = new LightCubeMatrix();
+    mLightMatrix = new EdgeCubeMatrix();
+    mLightPatternSeq = EdgePatternSequence(6);
+    mLightPatternSeq[ 0][ 0] = 1;
+    mLightPatternSeq[ 0][ 9] = 1;
+    
+    mLightPatternSeq[ 1].pos.y = 1;
+    mLightPatternSeq[ 1][ 0] = 1;
+    mLightPatternSeq[ 1][14] = 1;
+    
+    mLightPatternSeq[ 2].pos.y = 2;
+    mLightPatternSeq[ 2][14] = 1;
+    
+    mLightPatternSeq[ 3].pos.x = -1;
+    mLightPatternSeq[ 3][ 0] = 1;
+    
+    
+    mLightPatternSeq[ 4].pos.set(-1,2,0);
+    mLightPatternSeq[ 4][11] = 1;
+    
+    mLightPatternSeq[ 5].pos.set(-2,2,0);
+    mLightPatternSeq[ 4][11] = 1;
+    
+    
+    
+    /*
+    (*mLightPatternSeq)[1].position.y = 0;
+    (*mLightPatternSeq)[1][11] = 1;
+    */
+    
+    
+   
     
     this->changeMatrixSize();
     this->setupParams();
+    
+    
+    
+    
+    mPattern0 = EdgePatternSequence(7);
+    mPattern0.pos.x = floor(mLightMatrix->getNumCubesX() * 0.5f);
+    mPattern0.pos.y = floor(mLightMatrix->getNumCubesY() * 0.5f);
+    mPattern0.pos.z = floor(mLightMatrix->getNumCubesZ() * 0.5f);
+    mPattern0[0].pos.set(1, 1, 0);
+    mPattern0[0][4] = 1;
+    mPattern0[0][9] = 1;
+    mPattern0[1].pos.set(0, 1, 0);
+    mPattern0[1][4] = 1;
+    mPattern0[2].pos.set(-1, 1, 0);
+    mPattern0[2][4] = 1;
+    mPattern0[2][8] = 1;
+    mPattern0[3].pos.set(-1, 0, 0);
+    mPattern0[3][0] = 1;
+    mPattern0[3][8] = 1;
+    mPattern0[4].pos.set(0,0, 0);
+    mPattern0[4][0] = 1;
+    mPattern0[5].pos.set(1,-1, 0);
+    mPattern0[5][8] = 1;
+     mPattern0[5][14] = 1;
+    mPattern0[6].pos.set(1, 0, 0);
+    mPattern0[6][9] = 1;
+    
+    mPattern1 = EdgePatternSequence(mPattern0);
+    mPattern1.pos.x = mPattern0.pos.x + 4;
+    mPattern1.pos.z = mPattern0.pos.z + 3;
+    
+    mPattern2 = EdgePatternSequence(mPattern0);
+    mPattern2.pos.z = mPattern2.pos.z + 3;
+    
+    mPattern3 = EdgePatternSequence(mPattern0);
+    mPattern3.pos.x = mPattern0.pos.x - 4;
+    mPattern3.pos.z = mPattern0.pos.z + 3;
+    
+    mPattern4 = EdgePatternSequence(mPattern0);
+    mPattern4.pos.x = mPattern0.pos.x - 4;
+    
+    mPattern5 = EdgePatternSequence(mPattern0);
+    mPattern5.pos.x = mPattern0.pos.x + 4;
+    
+    mPattern6 = EdgePatternSequence(mPattern0);
+    mPattern6.pos.x = mPattern0.pos.x + 4;
+    mPattern6.pos.z = mPattern0.pos.z - 3;
+    
+    mPattern7 = EdgePatternSequence(mPattern0);
+    mPattern7.pos.z = mPattern0.pos.z - 3;
+    
+    mPattern8 = EdgePatternSequence(mPattern0);
+    mPattern8.pos.x = mPattern0.pos.x - 4;
+    mPattern8.pos.z = mPattern0.pos.z - 3;
+    
+
+    
+    
+
 }
 
 
@@ -274,7 +377,6 @@ void IsoGridMarcherApp::update(){
     
   
     
-    ci::Vec2f TEXEL_SIZE  = ci::Vec2f(SHADER_TEXEL_SIZE_X, SHADER_TEXEL_SIZE_Y);
     
     /*----------------------------------------------------------------------------------*/
     
@@ -292,10 +394,10 @@ void IsoGridMarcherApp::update(){
         mLight0->lookAt(ci::Vec3f(cosf(light0RotationXZ) * 5, 5, sinf(light0RotationXZ) * 5), ZERO );
     }
     mLightMatrix->update();
-    mLightMatrix->setDrawBulbsOff(MATRIX_DRAW_BULBS_OFF);
-    mLightMatrix->setDrawPoints(MATRIX_DRAW_GRID_POINTS);
-    mLightMatrix->setBulbSizeOff(MATRIX_BULB_SIZE_OFF);
-    mLightMatrix->setBulbSizeOn(MATRIX_BULB_SIZE_ON);
+    mLightMatrix->setDrawEdgesOff(MATRIX_DRAW_BULBS_OFF);
+    mLightMatrix->setDrawPoints(MATRIX_DRAW_POINTS);
+    mLightMatrix->setEdgeSizeOff(MATRIX_BULB_SIZE_OFF);
+    mLightMatrix->setEdgeSizeOn(MATRIX_BULB_SIZE_ON);
     
     
     if(TICK && mTick % TICK_FREQUENCE == 0){
@@ -306,41 +408,85 @@ void IsoGridMarcherApp::update(){
     
     
     if(MATRIX_FORM_OBJECTS){
-        mLightMatrix->getBulbsX()[15].switchOn();
-        mLightMatrix->getBulbsX()[31].switchOn();
-        mLightMatrix->getBulbsX()[47].switchOn();
-        mLightMatrix->getBulbsX()[23].switchOn();
-        mLightMatrix->getBulbsX()[39].switchOn();
+        mLightMatrix->getEdgesX()[15].switchOn();
+        mLightMatrix->getEdgesX()[31].switchOn();
+        mLightMatrix->getEdgesX()[47].switchOn();
+        mLightMatrix->getEdgesX()[23].switchOn();
+        mLightMatrix->getEdgesX()[39].switchOn();
         
-        mLightMatrix->getBulbsY()[47].switchOn();
-        mLightMatrix->getBulbsY()[43].switchOn();
-        mLightMatrix->getBulbsY()[11].switchOn();
-        mLightMatrix->getBulbsY()[7].switchOn();
-        mLightMatrix->getBulbsY()[15].switchOn();
+        mLightMatrix->getEdgesY()[47].switchOn();
+        mLightMatrix->getEdgesY()[43].switchOn();
+        mLightMatrix->getEdgesY()[11].switchOn();
+        mLightMatrix->getEdgesY()[7].switchOn();
+        mLightMatrix->getEdgesY()[15].switchOn();
         
-        mLightMatrix->getBulbsXD()[3].switchOn();
+        mLightMatrix->getEdgesXD()[3].switchOn();
         
     }
     
-    /*
+    
     mLightMatrix->switchOff();
-    mLightMatrix->getLightCube(*mLightMatrix->getLightCube(0, 0, 0),0,floor(abs(sinf(mTime)*mLightMatrix->getNumCubesX())),0)->switchRandom(0.15f);
-    mLightMatrix->getLightCube(*mLightMatrix->getLightCube(0, 0, 0),1,floor(abs(sinf(mTime*2)*mLightMatrix->getNumCubesX())),0)->switchRandom(0.15f);
-    */
+    //mLightMatrix->getLightCube(*mLightMatrix->getLightCube(0, 0, 0),0,floor(abs(sinf(mTime)  *(mLightMatrix->getNumCubesY()))),0)->switchRandom(0.15f);
+    //mLightMatrix->getLightCube(*mLightMatrix->getLightCube(0, 0, 0),1,floor(abs(sinf(mTime*2)*(mLightMatrix->getNumCubesY()))),0)->switchRandom(0.15f);
+    //mLightMatrix->getLightCube(0, 0, 0)->switchOn();
+    
+  
+    
+    //mLightPatternSeq.pos.x = floor(abs(sinf(mTime*3)*(mLightMatrix->getNumCubesX())));
+   // mLightPatternSeq.pos.y = floor(abs(sinf(mTime*3)*(mLightMatrix->getNumCubesY())));
+    
+    int centerX = floor(mLightMatrix->getNumCubesX() * 0.5f);
+    int centerZ = floor(mLightMatrix->getNumCubesZ() * 0.5f);
+    
+    float step = float(M_PI)*0.5f/10;
+    float stepY = mLightMatrix->getNumCubesY() + 1;
+    
+    mPattern1.pos.y = 1 + floor(sinf(step*1 + mTime*2)*stepY);
+    mPattern2.pos.y = 1 + floor(sinf(step*2+ mTime*2)*stepY);
+    mPattern3.pos.y = 1 + floor(sinf(step*3+ mTime*2)*stepY);
+    
+    mPattern4.pos.y = 1 + floor(sinf(step*4 + mTime*2)*stepY);
+    mPattern0.pos.y = 1 + floor(sinf(step*5+ mTime*2)*stepY);
+    mPattern5.pos.y = 1 + floor(sinf(step*6+ mTime*2)*stepY);
+    
+    mPattern6.pos.y = 1 + floor(sinf(step*7 + mTime*2)*stepY);
+    mPattern7.pos.y = 1 + floor(sinf(step*8+ mTime*2)*stepY);
+    mPattern8.pos.y = 1 + floor(sinf(step*9+ mTime*2)*stepY);
+    
+    //mPattern2.pos.y = 1 + floor(sinf((float)M_PI + mTime*2)*4);
+    
+    
+   // mLightMatrix->applyPatternSeq(mLightPatternSeq);
+    
+    
+    
+    
+    mLightMatrix->applyPatternSeq(mPattern0);
+    mLightMatrix->applyPatternSeq(mPattern1);
+    mLightMatrix->applyPatternSeq(mPattern2);
+    mLightMatrix->applyPatternSeq(mPattern3);
+    mLightMatrix->applyPatternSeq(mPattern4);
+    mLightMatrix->applyPatternSeq(mPattern5);
+    mLightMatrix->applyPatternSeq(mPattern6);
+    mLightMatrix->applyPatternSeq(mPattern7);
+    mLightMatrix->applyPatternSeq(mPattern8);
     
     //mLightMatrix->getLightBulbsX()[1].switchOn();
     
     //mLightMatrix->switchRandom(0.0125f);
     //mLightMatrix->switchOn();
     
-    
+    this->processFBO();
+}
+
+void IsoGridMarcherApp::processFBO(){
     // Draw complete scene
     mFbo0.bindFramebuffer();
     mFbo0.getTexture().bind(1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     this->drawScenePartsAll();
     mFbo0.unbindFramebuffer();
-
+    
     if (!USE_SHADER)return;
     
     // Draw only emissive objects
@@ -363,7 +509,7 @@ void IsoGridMarcherApp::update(){
     mShaderBlur->bind();
     mShaderBlur->uniform("uTex", 0);
     mShaderBlur->uniform("uOrientation",  0);
-    mShaderBlur->uniform("uTexelSize",    TEXEL_SIZE);
+    mShaderBlur->uniform("uTexelSize",    SHADER_TEXEL_SIZE);
     mShaderBlur->uniform("uBlurStrength", SHADER_BLUR_STRENGTH);
     mShaderBlur->uniform("uBlurScale",    SHADER_BLUR_SCALE);
     mShaderBlur->uniform("uBlurAmount",   SHADER_BLUR_AMOUNT);
@@ -381,7 +527,7 @@ void IsoGridMarcherApp::update(){
     mShaderBlur->bind();
     mShaderBlur->uniform("uTex", 0);
     mShaderBlur->uniform("uOrientation",  1);
-    mShaderBlur->uniform("uTexelSize",    TEXEL_SIZE);
+    mShaderBlur->uniform("uTexelSize",    SHADER_TEXEL_SIZE);
     mShaderBlur->uniform("uBlurStrength", SHADER_BLUR_STRENGTH);
     mShaderBlur->uniform("uBlurScale",    SHADER_BLUR_SCALE);
     mShaderBlur->uniform("uBlurAmount",   SHADER_BLUR_AMOUNT);
@@ -402,8 +548,6 @@ void IsoGridMarcherApp::update(){
     mShaderBlend->unbind();
     
     mFbo2.unbindFramebuffer();
-    
-
 }
 
 void IsoGridMarcherApp::draw(){
@@ -436,10 +580,10 @@ void IsoGridMarcherApp::drawScenePartsOcclusive(){
     
     if(VIEW_BG_SPHERE){
         mMaterial0.apply();
-        ci::gl::drawSphere(ZERO, 6,100);
+        ci::gl::drawSphere(ZERO, 10,100);
     } else {
         mMaterial2.apply();
-        ci::gl::drawSphere(ZERO, 6,100);
+        ci::gl::drawSphere(ZERO, 10,100);
 
     }
     
@@ -475,12 +619,12 @@ void IsoGridMarcherApp::drawScenePartsDebug(){
         ci::gl::color(Color::white());
         ci::gl::enableAlphaBlending();
         if(MATRIX_DEBUG_VIEW_POINTS) mLightMatrix->drawDebugPoints();
-        if(MATRIX_DEBUG_VIEW_AXIS_X) mLightMatrix->drawDebugBulbsX();
-        if(MATRIX_DEBUG_VIEW_AXIS_Y) mLightMatrix->drawDebugBulbsY();
-        if(MATRIX_DEBUG_VIEW_AXIS_Z) mLightMatrix->drawDebugBulbsZ();
-        if(MATRIX_DEBUG_VIEW_AXIS_XD)mLightMatrix->drawDebugBulbsXD();
-        if(MATRIX_DEBUG_VIEW_AXIS_YD)mLightMatrix->drawDebugBulbsYD();
-        if(MATRIX_DEBUG_VIEW_AXIS_ZD)mLightMatrix->drawDebugBulbsZD();
+        if(MATRIX_DEBUG_VIEW_AXIS_X) mLightMatrix->drawDebugEdgesX();
+        if(MATRIX_DEBUG_VIEW_AXIS_Y) mLightMatrix->drawDebugEdgesY();
+        if(MATRIX_DEBUG_VIEW_AXIS_Z) mLightMatrix->drawDebugEdgesZ();
+        if(MATRIX_DEBUG_VIEW_AXIS_XD)mLightMatrix->drawDebugEdgesXD();
+        if(MATRIX_DEBUG_VIEW_AXIS_YD)mLightMatrix->drawDebugEdgesYD();
+        if(MATRIX_DEBUG_VIEW_AXIS_ZD)mLightMatrix->drawDebugEdgesZD();
         if(MATRIX_DEBUG_VIEW_CUBES)  mLightMatrix->drawDebugCubes();
         ci::gl::disableAlphaBlending();
         ci::gl::enableDepthRead();
@@ -542,6 +686,9 @@ void IsoGridMarcherApp::resize(){
     FBO_WIDTH  = app::getWindowWidth();
     FBO_HEIGHT = app::getWindowHeight();
     
+    SHADER_TEXEL_SIZE.x = 1.0f / float(FBO_WIDTH);
+    SHADER_TEXEL_SIZE.y = 1.0f / float(FBO_HEIGHT);
+    
     mCameraPersp = ci::CameraPersp(mFbo0.getWidth(),mFbo0.getHeight(), 60.0f);
     
     gl::Fbo::Format format;
@@ -552,7 +699,7 @@ void IsoGridMarcherApp::resize(){
 }
 
 void IsoGridMarcherApp::updateCams(){
-    float near = 0.0001f;
+    float near = CAMERA_MODE == 0 ? 0.0001f : -3;
     float far  = 1000.0f;
     float aspectRatio = mFbo0.getAspectRatio();
     
@@ -601,7 +748,7 @@ void IsoGridMarcherApp::updateLights(){
 
 
 void IsoGridMarcherApp::setupParams(){
-    mParams = ci::params::InterfaceGl::create( app::getWindow(), "CONTROL", ci::app::toPixels( ci::Vec2i( 250, 600 ) ) );
+    mParams = ci::params::InterfaceGl::create( app::getWindow(), "CONTROL", ci::app::toPixels( ci::Vec2i( 250, 800 ) ) );
     mParams->addText("Shader");
     mParams->addParam("Use", &USE_SHADER);
     mParams->addParam("Blur Scale", &SHADER_BLUR_SCALE, "min=0 step=0.05");
@@ -638,14 +785,18 @@ void IsoGridMarcherApp::setupParams(){
     mParams->addSeparator();
     
     mParams->addText("Matrix");
-    mParams->addParam("Size", &MATRIX_SIZE, "min=2 max=25 step=1");
+    mParams->addParam("Size X", &MATRIX_SIZE_X, "min=2 max=25 step=1");
+    mParams->addParam("Size YY", &MATRIX_SIZE_Y, "min=2 max=25 step=1");
+    mParams->addParam("Size Z", &MATRIX_SIZE_Z, "min=2 max=25 step=1");
     mParams->addButton("DO IT", std::bind(&IsoGridMarcherApp::changeMatrixSize,this));
     mParams->addParam("Bg Sphere", &VIEW_BG_SPHERE);
 
     mParams->addParam("Draw Bulbs Off", &MATRIX_DRAW_BULBS_OFF);
-    mParams->addParam("Draw Gird Points", &MATRIX_DRAW_GRID_POINTS);
-    mParams->addParam("Bulb Size Off", &MATRIX_BULB_SIZE_OFF, "min=0 max=1 step=0.0001");
-    mParams->addParam("Bulb Size On", &MATRIX_BULB_SIZE_ON,  "min=0 max=1 step=0.0001");
+    mParams->addParam("Draw Gird Points", &MATRIX_DRAW_POINTS);
+    mParams->addParam("Bulb Size Off X", &MATRIX_BULB_SIZE_OFF.x, "min=0 max=1 step=0.0001");
+    mParams->addParam("Bulb Size Off Y", &MATRIX_BULB_SIZE_OFF.y, "min=0 max=1 step=0.0001");
+    mParams->addParam("Bulb Size On X", &MATRIX_BULB_SIZE_ON.x,  "min=0 max=1 step=0.0001");
+    mParams->addParam("Bulb Size On Y", &MATRIX_BULB_SIZE_ON.y,  "min=0 max=1 step=0.0001");
     mParams->addParam("Form Objects", &MATRIX_FORM_OBJECTS);
     mParams->minimize();
     

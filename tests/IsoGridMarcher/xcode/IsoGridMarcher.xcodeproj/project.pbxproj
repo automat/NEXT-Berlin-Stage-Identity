@@ -19,8 +19,9 @@
 		CD19D399184F67080000550E /* pass_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD19D397184F67080000550E /* pass_vert.glsl */; };
 		CD19D39A184F67080000550E /* blur_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD19D398184F67080000550E /* blur_frag.glsl */; };
 		CD19D39C184F68760000550E /* blend_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD19D39B184F68760000550E /* blend_frag.glsl */; };
-		CD59982A18509CBE0037B2E9 /* LightBulb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD59982818509CBE0037B2E9 /* LightBulb.cpp */; };
-		CD67F29B184E419800B9C7EC /* LightCubeMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD67F299184E419800B9C7EC /* LightCubeMatrix.cpp */; };
+		CD59982A18509CBE0037B2E9 /* Edge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD59982818509CBE0037B2E9 /* Edge.cpp */; };
+		CD59983018537E060037B2E9 /* EdgeCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD59982E18537E060037B2E9 /* EdgeCube.cpp */; };
+		CD67F29B184E419800B9C7EC /* EdgeCubeMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD67F299184E419800B9C7EC /* EdgeCubeMatrix.cpp */; };
 		CDF55548184CF2C000C061A4 /* nexxxt.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDF55547184CF2C000C061A4 /* nexxxt.icns */; };
 		F7B30B3E72B84DBE9F032BA1 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 39750460965347C0B0B93776 /* CinderApp.icns */; };
 /* End PBXBuildFile section */
@@ -45,14 +46,16 @@
 		CD19D397184F67080000550E /* pass_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pass_vert.glsl; sourceTree = "<group>"; };
 		CD19D398184F67080000550E /* blur_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blur_frag.glsl; sourceTree = "<group>"; };
 		CD19D39B184F68760000550E /* blend_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blend_frag.glsl; sourceTree = "<group>"; };
-		CD59982818509CBE0037B2E9 /* LightBulb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LightBulb.cpp; path = ../src/LightBulb.cpp; sourceTree = "<group>"; };
-		CD59982B1851C8180037B2E9 /* LightCubePattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightCubePattern.h; path = ../include/LightCubePattern.h; sourceTree = "<group>"; };
+		CD59982818509CBE0037B2E9 /* Edge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Edge.cpp; path = ../src/Edge.cpp; sourceTree = "<group>"; };
+		CD59982B1851C8180037B2E9 /* EdgePatternSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EdgePatternSequence.h; path = ../include/EdgePatternSequence.h; sourceTree = "<group>"; };
 		CD59982C185239020037B2E9 /* TriMeshBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TriMeshBatch.h; path = ../include/TriMeshBatch.h; sourceTree = "<group>"; };
+		CD59982D18536C930037B2E9 /* EdgePattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EdgePattern.h; path = ../include/EdgePattern.h; sourceTree = "<group>"; };
+		CD59982E18537E060037B2E9 /* EdgeCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EdgeCube.cpp; path = ../src/EdgeCube.cpp; sourceTree = "<group>"; };
 		CD67F297184E3FB300B9C7EC /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = ../include/Utils.h; sourceTree = "<group>"; };
-		CD67F298184E412B00B9C7EC /* LightCubeMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightCubeMatrix.h; path = ../include/LightCubeMatrix.h; sourceTree = "<group>"; };
-		CD67F299184E419800B9C7EC /* LightCubeMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LightCubeMatrix.cpp; path = ../src/LightCubeMatrix.cpp; sourceTree = "<group>"; };
-		CDBBCC9C18478637002283C2 /* LightCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightCube.h; path = ../include/LightCube.h; sourceTree = "<group>"; };
-		CDBBCC9D18478D10002283C2 /* LightBulb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightBulb.h; path = ../include/LightBulb.h; sourceTree = "<group>"; };
+		CD67F298184E412B00B9C7EC /* EdgeCubeMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EdgeCubeMatrix.h; path = ../include/EdgeCubeMatrix.h; sourceTree = "<group>"; };
+		CD67F299184E419800B9C7EC /* EdgeCubeMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EdgeCubeMatrix.cpp; path = ../src/EdgeCubeMatrix.cpp; sourceTree = "<group>"; };
+		CDBBCC9C18478637002283C2 /* EdgeCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EdgeCube.h; path = ../include/EdgeCube.h; sourceTree = "<group>"; };
+		CDBBCC9D18478D10002283C2 /* Edge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Edge.h; path = ../include/Edge.h; sourceTree = "<group>"; };
 		CDF55547184CF2C000C061A4 /* nexxxt.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = nexxxt.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,8 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				7112DBA1AE3D478A823429DA /* IsoGridMarcherApp.cpp */,
-				CD67F299184E419800B9C7EC /* LightCubeMatrix.cpp */,
-				CD59982818509CBE0037B2E9 /* LightBulb.cpp */,
+				CD9C9CA11853C59A00DD87D8 /* matrix */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -142,12 +144,8 @@
 			children = (
 				4EDC098CD62E4ED38AF152EB /* Resources.h */,
 				08C885984C7E4AB6B357AC99 /* IsoGridMarcher_Prefix.pch */,
-				CDBBCC9C18478637002283C2 /* LightCube.h */,
-				CDBBCC9D18478D10002283C2 /* LightBulb.h */,
-				CD67F297184E3FB300B9C7EC /* Utils.h */,
-				CD67F298184E412B00B9C7EC /* LightCubeMatrix.h */,
-				CD59982B1851C8180037B2E9 /* LightCubePattern.h */,
-				CD59982C185239020037B2E9 /* TriMeshBatch.h */,
+				CD9C9C9F1853C58200DD87D8 /* matrix */,
+				CD9C9CA01853C59100DD87D8 /* utils */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -172,6 +170,37 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CD9C9C9F1853C58200DD87D8 /* matrix */ = {
+			isa = PBXGroup;
+			children = (
+				CDBBCC9C18478637002283C2 /* EdgeCube.h */,
+				CDBBCC9D18478D10002283C2 /* Edge.h */,
+				CD67F298184E412B00B9C7EC /* EdgeCubeMatrix.h */,
+				CD59982D18536C930037B2E9 /* EdgePattern.h */,
+				CD59982B1851C8180037B2E9 /* EdgePatternSequence.h */,
+			);
+			name = matrix;
+			sourceTree = "<group>";
+		};
+		CD9C9CA01853C59100DD87D8 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				CD67F297184E3FB300B9C7EC /* Utils.h */,
+				CD59982C185239020037B2E9 /* TriMeshBatch.h */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
+		CD9C9CA11853C59A00DD87D8 /* matrix */ = {
+			isa = PBXGroup;
+			children = (
+				CD67F299184E419800B9C7EC /* EdgeCubeMatrix.cpp */,
+				CD59982818509CBE0037B2E9 /* Edge.cpp */,
+				CD59982E18537E060037B2E9 /* EdgeCube.cpp */,
+			);
+			name = matrix;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,8 +271,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD67F29B184E419800B9C7EC /* LightCubeMatrix.cpp in Sources */,
-				CD59982A18509CBE0037B2E9 /* LightBulb.cpp in Sources */,
+				CD67F29B184E419800B9C7EC /* EdgeCubeMatrix.cpp in Sources */,
+				CD59983018537E060037B2E9 /* EdgeCube.cpp in Sources */,
+				CD59982A18509CBE0037B2E9 /* Edge.cpp in Sources */,
 				0B0B5213A7374F9BBAA235BA /* IsoGridMarcherApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

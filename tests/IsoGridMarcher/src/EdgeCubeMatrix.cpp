@@ -1,56 +1,55 @@
 //
-//  LightCubeMatrix.cpp
+//  EdgeCubeMatrix.cpp
 //  IsoGridMarcher
 //
 //  Created by Henryk Wollik on 03/12/13.
 //
 //
 
-#include "LightCubeMatrix.h"
+#include "EdgeCubeMatrix.h"
 #include "cinder/gl/gl.h"
 #include <OpenGL/OpenGL.h>
 
-LightCubeMatrix::LightCubeMatrix() :
-mDrawBulbsOff(true),
+EdgeCubeMatrix::EdgeCubeMatrix() :
+mDrawEdgesOff(true),
 mDrawPoints(true),
-mPointSize(0.005f),
-mBulbSizeOffLast(-1),
-mBulbSizeOnLast(-1){
+mPointSize(0.005f){
     this->initDebugFont();
     this->initBatchesOff();
 }
 
-LightCubeMatrix::~LightCubeMatrix(){
-    delete mBatchBulbsOffX;
-    delete mBatchBulbsOffY;
-    delete mBatchBulbsOffZ;
-    delete mBatchBulbsOffXD;
-    delete mBatchBulbsOffYD;
-    delete mBatchBulbsOffZD;
+EdgeCubeMatrix::~EdgeCubeMatrix(){
+    delete mBatchEdgesOffX;
+    delete mBatchEdgesOffY;
+    delete mBatchEdgesOffZ;
+    delete mBatchEdgesOffXD;
+    delete mBatchEdgesOffYD;
+    delete mBatchEdgesOffZD;
     
     this->clear();
 }
 
-void LightCubeMatrix::initDebugFont(){
+void EdgeCubeMatrix::initDebugFont(){
     mDebugFontScale   = 0.0015f;
     mDebugFont        = ci::Font("Arial",12);
     mTextureDebugFont = ci::gl::TextureFont::create(mDebugFont);
 }
 
-void LightCubeMatrix::setPointsNum(int numX, int numY, int numZ){
-    this->setNumPoints_Internal(numX, numY, numZ);
-    mBulbSizeOnLast  = -1;
-    mBulbSizeOffLast = -1;
+void EdgeCubeMatrix::setSize(int sizeX, int sizeY, int sizeZ){
+    this->setSize_Internal(sizeX, sizeY, sizeZ);
 }
 
-void LightCubeMatrix::setPointsNum(int numXYZ){
-    this->setNumPoints_Internal(numXYZ, numXYZ, numXYZ);
+void EdgeCubeMatrix::setSize(int sizeXYZ){
+    this->setSize_Internal(sizeXYZ, sizeXYZ, sizeXYZ);
 }
 
-void LightCubeMatrix::setNumPoints_Internal(int numX, int numY, int numZ){
-    mNumPointsX = numX;
-    mNumPointsY = numY;
-    mNumPointsZ = numZ;
+void EdgeCubeMatrix::setSize_Internal(int sizeX, int sizeY, int sizeZ){
+    mEdgesSizeOnLast.set(-1, -1);
+    mEdgesSizeOffLast.set(-1, -1);
+    
+    mNumPointsX = std::max(2,sizeX);
+    mNumPointsY = std::max(2,sizeY);
+    mNumPointsZ = std::max(2,sizeZ);
     mNumPoints  = mNumPointsX * mNumPointsY * mNumPointsZ;
     
     mNumCubesX = mNumPointsX_1 = mNumPointsX - 1;
@@ -62,28 +61,28 @@ void LightCubeMatrix::setNumPoints_Internal(int numX, int numY, int numZ){
     this->build();
 }
 
-void LightCubeMatrix::initBatchesOff(){
-    mBatchBulbsOffX = new TriMeshBatch();
-    mBatchBulbsOffY = new TriMeshBatch();
-    mBatchBulbsOffZ = new TriMeshBatch();
-    mBatchBulbsOffXD= new TriMeshBatch();
-    mBatchBulbsOffYD= new TriMeshBatch();
-    mBatchBulbsOffZD= new TriMeshBatch();
+void EdgeCubeMatrix::initBatchesOff(){
+    mBatchEdgesOffX = new TriMeshBatch();
+    mBatchEdgesOffY = new TriMeshBatch();
+    mBatchEdgesOffZ = new TriMeshBatch();
+    mBatchEdgesOffXD= new TriMeshBatch();
+    mBatchEdgesOffYD= new TriMeshBatch();
+    mBatchEdgesOffZD= new TriMeshBatch();
 }
 
-void LightCubeMatrix::clear(){
+void EdgeCubeMatrix::clear(){
     mPoints.clear();
-    mBulbsX.clear();
-    mBulbsY.clear();
-    mBulbsZ.clear();
-    mBulbsXD.clear();
-    mBulbsYD.clear();
-    mBulbsZD.clear();
+    mEdgesX.clear();
+    mEdgesY.clear();
+    mEdgesZ.clear();
+    mEdgesXD.clear();
+    mEdgesYD.clear();
+    mEdgesZD.clear();
 }
 
 /*--------------------------------------------------------------------------------*/
 
-void LightCubeMatrix::build(){
+void EdgeCubeMatrix::build(){
     
     /*--------------------------------------------------------------------------------*/
     // Setup Points
@@ -91,6 +90,10 @@ void LightCubeMatrix::build(){
     
     int ix,iy,iz;
     float nx,ny,nz;
+    float cubeSize = 0.25f;
+    float rangeX = cubeSize * (float)mNumCubesX;
+    float rangeY = cubeSize * (float)mNumCubesY;
+    float rangeZ = cubeSize * (float)mNumCubesZ;
     
     ix = -1;
     while (++ix < mNumPointsX) {
@@ -101,9 +104,9 @@ void LightCubeMatrix::build(){
             iz = -1;
             while (++iz < mNumPointsZ) {
                 nz = (float)iz / (float)(mNumPointsZ_1);
-                mPoints.push_back(ci::Vec3f((-0.5  + nx),
-                                                (-0.5f + ny),
-                                                (-0.5f + nz)));
+                mPoints.push_back(ci::Vec3f((-0.5  + nx) * rangeX,
+                                            (-0.5f + ny) * rangeY,
+                                            (-0.5f + nz) * rangeZ));
             }
         }
     }
@@ -113,8 +116,8 @@ void LightCubeMatrix::build(){
     // Setup Edges aka Bulbs
     /*--------------------------------------------------------------------------------*/
     
-    int index;
-    int indexCube;
+    //int index;
+    //int indexCube;
     
     //bottom
     int indexCubeVertex0;
@@ -135,19 +138,19 @@ void LightCubeMatrix::build(){
     int ix1;
     int iy1;
     
-    int numBulbsXVertices = 0;
-    int numBulbsYVertices = 0;
-    int numBulbsZVertices = 0;
-    int numBulbsXDVertices = 0;
-    int numBulbsYDVertices = 0;
-    int numBulbsZDVertices = 0;
+    int numEdgesXVertices = 0;
+    int numEdgesYVertices = 0;
+    int numEdgesZVertices = 0;
+    int numEdgesXDVertices = 0;
+    int numEdgesYDVertices = 0;
+    int numEdgesZDVertices = 0;
     
-    int numBulbsXIndices  = 0;
-    int numBulbsYIndices  = 0;
-    int numBulbsZIndices  = 0;
-    int numBulbsXDIndices  = 0;
-    int numBulbsYDIndices  = 0;
-    int numBulbsZDIndices  = 0;
+    int numEdgesXIndices  = 0;
+    int numEdgesYIndices  = 0;
+    int numEdgesZIndices  = 0;
+    int numEdgesXDIndices  = 0;
+    int numEdgesYDIndices  = 0;
+    int numEdgesZDIndices  = 0;
     
     
     
@@ -160,8 +163,8 @@ void LightCubeMatrix::build(){
             iz  = -1;
             while (++iz < mNumPointsZ) {
                 
-                index     = ix * mNumPointsY * mNumPointsZ + iy * mNumPointsZ + iz;
-                indexCube = ix * numEdgesY * numEdgesZ + iy * numEdgesZ + iz;
+                //index     = ix * mNumPointsY * mNumPointsZ + iy * mNumPointsZ + iz;
+                //indexCube = ix * numEdgesY * numEdgesZ + iy * numEdgesZ + iz;
                 
                 //bottom
                 indexCubeVertex0 = ix  * mNumPointsY * mNumPointsZ + iy * mNumPointsZ + iz;
@@ -178,51 +181,51 @@ void LightCubeMatrix::build(){
                 
                 //bulbs X axis
                 if (ix < numEdgesX){
-                    mBulbsX.push_back(LightBulb(&mPoints[indexCubeVertex0],
+                    mEdgesX.push_back(Edge(&mPoints[indexCubeVertex0],
                                                 &mPoints[indexCubeVertex1]));
-                    numBulbsXVertices += mBulbsX.back().getNumVertices();
-                    numBulbsXIndices  += mBulbsX.back().getNumIndices();
+                    numEdgesXVertices += mEdgesX.back().getNumVertices();
+                    numEdgesXIndices  += mEdgesX.back().getNumIndices();
                 }
                 
                 //bulbs Z axis
                 if (iz < numEdgesZ) {
                     
-                    mBulbsZ.push_back(LightBulb(&mPoints[indexCubeVertex0],
+                    mEdgesZ.push_back(Edge(&mPoints[indexCubeVertex0],
                                                 &mPoints[indexCubeVertex2]));
-                    numBulbsZVertices += mBulbsZ.back().getNumVertices();
-                    numBulbsZIndices  += mBulbsZ.back().getNumIndices();
+                    numEdgesZVertices += mEdgesZ.back().getNumVertices();
+                    numEdgesZIndices  += mEdgesZ.back().getNumIndices();
                 }
                 
                 //bulbs Y axis
                 if (iy < numEdgesY) {
-                    mBulbsY.push_back(LightBulb(&mPoints[indexCubeVertex0],
+                    mEdgesY.push_back(Edge(&mPoints[indexCubeVertex0],
                                                 &mPoints[indexCubeVertex4]));
-                    numBulbsYVertices += mBulbsY.back().getNumVertices();
-                    numBulbsYIndices  += mBulbsY.back().getNumIndices();
+                    numEdgesYVertices += mEdgesY.back().getNumVertices();
+                    numEdgesYIndices  += mEdgesY.back().getNumIndices();
                 }
                 
                 //bulbs diagonal X Axis
                 if( ix < numEdgesX && iy < numEdgesY){
-                    mBulbsXD.push_back(LightBulb(&mPoints[indexCubeVertex4],
-                                                 &mPoints[indexCubeVertex1]));
-                    numBulbsXDVertices += mBulbsXD.back().getNumVertices();
-                    numBulbsXDIndices  += mBulbsXD.back().getNumIndices();
+                    mEdgesXD.push_back(Edge(&mPoints[indexCubeVertex0],  //4
+                                                 &mPoints[indexCubeVertex5]));//1
+                    numEdgesXDVertices += mEdgesXD.back().getNumVertices();
+                    numEdgesXDIndices  += mEdgesXD.back().getNumIndices();
                 }
                 
                 //bulbs diagonal TOP / BOTTOM
                 if( ix < numEdgesX && iz < numEdgesZ){
-                    mBulbsZD.push_back(LightBulb(&mPoints[indexCubeVertex0],
-                                                 &mPoints[indexCubeVertex3]));
-                    numBulbsZDVertices += mBulbsZD.back().getNumVertices();
-                    numBulbsZDIndices  += mBulbsZD.back().getNumIndices();
+                    mEdgesZD.push_back(Edge(&mPoints[indexCubeVertex1],  //0
+                                                 &mPoints[indexCubeVertex2]));//3
+                    numEdgesZDVertices += mEdgesZD.back().getNumVertices();
+                    numEdgesZDIndices  += mEdgesZD.back().getNumIndices();
                 }
                 
                 //bulbs diagonal Z axes
                 if( iz < numEdgesZ && iy < numEdgesY){
-                    mBulbsYD.push_back(LightBulb(&mPoints[indexCubeVertex0],
+                    mEdgesYD.push_back(Edge(&mPoints[indexCubeVertex0],
                                                  &mPoints[indexCubeVertex6]));
-                    numBulbsYDVertices += mBulbsYD.back().getNumVertices();
-                    numBulbsYDIndices  += mBulbsYD.back().getNumIndices();
+                    numEdgesYDVertices += mEdgesYD.back().getNumVertices();
+                    numEdgesYDIndices  += mEdgesYD.back().getNumIndices();
                 }
                 
                 //std::cout << indexCube << " : " << indexCubeVertex0 << " " << indexCubeVertex1 << " " << indexCubeVertex2 << " " << indexCubeVertex3 <<  std::endl;
@@ -231,13 +234,13 @@ void LightCubeMatrix::build(){
         }
     }
     
-    mBatchBulbsOffX->resize(numBulbsXVertices, numBulbsXIndices);
-    mBatchBulbsOffY->resize(numBulbsYVertices, numBulbsYIndices);
-    mBatchBulbsOffZ->resize(numBulbsZVertices, numBulbsZIndices);
+    mBatchEdgesOffX->resize(numEdgesXVertices, numEdgesXIndices);
+    mBatchEdgesOffY->resize(numEdgesYVertices, numEdgesYIndices);
+    mBatchEdgesOffZ->resize(numEdgesZVertices, numEdgesZIndices);
     
-    mBatchBulbsOffXD->resize(numBulbsXDVertices, numBulbsXDIndices);
-    mBatchBulbsOffYD->resize(numBulbsYDVertices, numBulbsYDIndices);
-    mBatchBulbsOffZD->resize(numBulbsZDVertices, numBulbsZDIndices);
+    mBatchEdgesOffXD->resize(numEdgesXDVertices, numEdgesXDIndices);
+    mBatchEdgesOffYD->resize(numEdgesYDVertices, numEdgesYDIndices);
+    mBatchEdgesOffZD->resize(numEdgesZDVertices, numEdgesZDIndices);
     
     /*--------------------------------------------------------------------------------*/
     // Setup Light Cubes
@@ -343,12 +346,12 @@ void LightCubeMatrix::build(){
                 
                 
                 
-                mCubes.push_back(LightCube(ix,iy,iz));
-                mCubes.back().set(&( mBulbsX[indexBulb00]), &( mBulbsZ[indexBulb01]), &( mBulbsX[indexBulb02]), &( mBulbsZ[indexBulb03]),
-                                  &( mBulbsX[indexBulb04]), &( mBulbsZ[indexBulb05]), &( mBulbsX[indexBulb06]), &( mBulbsZ[indexBulb07]),
-                                  &( mBulbsY[indexBulb08]), &( mBulbsY[indexBulb09]), &( mBulbsY[indexBulb10]), &( mBulbsY[indexBulb11]),
-                                  &(mBulbsZD[indexBulb12]), &(mBulbsZD[indexBulb13]),
-                                  &(mBulbsXD[indexBulb14]), &(mBulbsYD[indexBulb15]), &(mBulbsXD[indexBulb16]), &(mBulbsYD[indexBulb17]));
+                mCubes.push_back(EdgeCube(ix,iy,iz));
+                mCubes.back().set(&( mEdgesX[indexBulb00]), &( mEdgesZ[indexBulb01]), &( mEdgesX[indexBulb02]), &( mEdgesZ[indexBulb03]),
+                                  &( mEdgesX[indexBulb04]), &( mEdgesZ[indexBulb05]), &( mEdgesX[indexBulb06]), &( mEdgesZ[indexBulb07]),
+                                  &( mEdgesY[indexBulb08]), &( mEdgesY[indexBulb09]), &( mEdgesY[indexBulb10]), &( mEdgesY[indexBulb11]),
+                                  &(mEdgesZD[indexBulb12]), &(mEdgesZD[indexBulb13]),
+                                  &(mEdgesXD[indexBulb14]), &(mEdgesYD[indexBulb15]), &(mEdgesXD[indexBulb16]), &(mEdgesYD[indexBulb17]));
             }
         }
     }
@@ -357,96 +360,96 @@ void LightCubeMatrix::build(){
 
 /*--------------------------------------------------------------------------------*/
 
-void LightCubeMatrix::switchOn(){
-    this->switchOnBulb(mBulbsX);
-    this->switchOnBulb(mBulbsY);
-    this->switchOnBulb(mBulbsZ);
-    this->switchOnBulb(mBulbsXD);
-    this->switchOnBulb(mBulbsYD);
-    this->switchOnBulb(mBulbsZD);
+void EdgeCubeMatrix::switchOn(){
+    this->switchOnEdges(mEdgesX);
+    this->switchOnEdges(mEdgesY);
+    this->switchOnEdges(mEdgesZ);
+    this->switchOnEdges(mEdgesXD);
+    this->switchOnEdges(mEdgesYD);
+    this->switchOnEdges(mEdgesZD);
 }
 
-void LightCubeMatrix::switchOff(){
-    this->switchOffBulbs(mBulbsX);
-    this->switchOffBulbs(mBulbsY);
-    this->switchOffBulbs(mBulbsZ);
-    this->switchOffBulbs(mBulbsXD);
-    this->switchOffBulbs(mBulbsYD);
-    this->switchOffBulbs(mBulbsZD);
+void EdgeCubeMatrix::switchOff(){
+    this->switchOffEdges(mEdgesX);
+    this->switchOffEdges(mEdgesY);
+    this->switchOffEdges(mEdgesZ);
+    this->switchOffEdges(mEdgesXD);
+    this->switchOffEdges(mEdgesYD);
+    this->switchOffEdges(mEdgesZD);
 }
 
-void LightCubeMatrix::switchRandom(float triggerTolerance){
-    this->switchRandomBulbs(mBulbsX,  triggerTolerance);
-    this->switchRandomBulbs(mBulbsY,  triggerTolerance);
-    this->switchRandomBulbs(mBulbsZ,  triggerTolerance);
-    this->switchRandomBulbs(mBulbsXD, triggerTolerance);
-    this->switchRandomBulbs(mBulbsYD, triggerTolerance);
-    this->switchRandomBulbs(mBulbsZD, triggerTolerance);
+void EdgeCubeMatrix::switchRandom(float triggerTolerance){
+    this->switchRandomEdges(mEdgesX,  triggerTolerance);
+    this->switchRandomEdges(mEdgesY,  triggerTolerance);
+    this->switchRandomEdges(mEdgesZ,  triggerTolerance);
+    this->switchRandomEdges(mEdgesXD, triggerTolerance);
+    this->switchRandomEdges(mEdgesYD, triggerTolerance);
+    this->switchRandomEdges(mEdgesZD, triggerTolerance);
 }
 
-void LightCubeMatrix::switchRandomBulbs(std::vector<LightBulb>& bulbs, float triggerTolerance){
-    for (std::vector<LightBulb>::iterator itr = bulbs.begin(); itr != bulbs.end(); ++itr) {
+void EdgeCubeMatrix::switchRandomEdges(std::vector<Edge>& bulbs, float triggerTolerance){
+    for (std::vector<Edge>::iterator itr = bulbs.begin(); itr != bulbs.end(); ++itr) {
         itr->switchRandom(triggerTolerance);
     }
 }
 
-void LightCubeMatrix::switchOffBulbs(std::vector<LightBulb>& bulbs){
-    for (std::vector<LightBulb>::iterator itr = bulbs.begin(); itr != bulbs.end(); ++itr) {
-        itr->switchOn();
-    }
-}
-
-void LightCubeMatrix::switchOnBulb(std::vector<LightBulb>& bulbs){
-    for (std::vector<LightBulb>::iterator itr = bulbs.begin(); itr != bulbs.end(); ++itr) {
+void EdgeCubeMatrix::switchOffEdges(std::vector<Edge>& edges){
+    for (std::vector<Edge>::iterator itr = edges.begin(); itr != edges.end(); ++itr) {
         itr->switchOff();
     }
 }
 
-/*--------------------------------------------------------------------------------*/
-
-void LightCubeMatrix::setBulbSizeOn(float size){
-    if(mBulbSizeOnLast == size)return;
-    
-    this->setSizeOnBulbs(mBulbsX, size);
-    this->setSizeOnBulbs(mBulbsY, size);
-    this->setSizeOnBulbs(mBulbsZ, size);
-    this->setSizeOnBulbs(mBulbsXD,size);
-    this->setSizeOnBulbs(mBulbsYD,size);
-    this->setSizeOnBulbs(mBulbsZD,size);
-    
-    mBulbSizeOnLast = size;
-}
-
-void LightCubeMatrix::setBulbSizeOff(float size){
-    if(mBulbSizeOffLast == size)return;
-    
-    this->setSizeOffBulbs(mBulbsX, size);
-    this->setSizeOffBulbs(mBulbsY, size);
-    this->setSizeOffBulbs(mBulbsZ, size);
-    this->setSizeOffBulbs(mBulbsXD,size);
-    this->setSizeOffBulbs(mBulbsYD,size);
-    this->setSizeOffBulbs(mBulbsZD,size);
-    
-    mBulbSizeOffLast = size;
-}
-
-void LightCubeMatrix::setSizeOffBulbs(std::vector<LightBulb> &bulbs, float size){
-    for (std::vector<LightBulb>::iterator itr = bulbs.begin(); itr!=bulbs.end(); ++itr) {
-        itr->setSizeOff(size);
-        itr->updateGeometry();
-    }
-}
-
-void LightCubeMatrix::setSizeOnBulbs(std::vector<LightBulb> &bulbs, float size){
-    for (std::vector<LightBulb>::iterator itr = bulbs.begin(); itr!=bulbs.end(); ++itr) {
-        itr->setSizeOff(size);
-        itr->updateGeometry();
+void EdgeCubeMatrix::switchOnEdges(std::vector<Edge>& edges){
+    for (std::vector<Edge>::iterator itr = edges.begin(); itr != edges.end(); ++itr) {
+        itr->switchOn();
     }
 }
 
 /*--------------------------------------------------------------------------------*/
 
-void LightCubeMatrix::drawOcclusive(){
+void EdgeCubeMatrix::setEdgeSizeOn(const ci::Vec2f& size){
+    if(mEdgesSizeOnLast == size)return;
+    
+    this->setSizeOnEdges(mEdgesX, size);
+    this->setSizeOnEdges(mEdgesY, size);
+    this->setSizeOnEdges(mEdgesZ, size);
+    this->setSizeOnEdges(mEdgesXD,size);
+    this->setSizeOnEdges(mEdgesYD,size);
+    this->setSizeOnEdges(mEdgesZD,size);
+    
+    mEdgesSizeOnLast = size;
+}
+
+void EdgeCubeMatrix::setEdgeSizeOff(const ci::Vec2f& size){
+    if(mEdgesSizeOffLast == size)return;
+    
+    this->setSizeOffEdges(mEdgesX, size);
+    this->setSizeOffEdges(mEdgesY, size);
+    this->setSizeOffEdges(mEdgesZ, size);
+    this->setSizeOffEdges(mEdgesXD,size);
+    this->setSizeOffEdges(mEdgesYD,size);
+    this->setSizeOffEdges(mEdgesZD,size);
+    
+    mEdgesSizeOffLast = size;
+}
+
+void EdgeCubeMatrix::setSizeOffEdges(std::vector<Edge> &bulbs, const ci::Vec2f& size){
+    for (std::vector<Edge>::iterator itr = bulbs.begin(); itr!=bulbs.end(); ++itr) {
+        itr->setSizeOff(size);
+        itr->updateGeometry();
+    }
+}
+
+void EdgeCubeMatrix::setSizeOnEdges(std::vector<Edge> &bulbs, const ci::Vec2f& size){
+    for (std::vector<Edge>::iterator itr = bulbs.begin(); itr!=bulbs.end(); ++itr) {
+        itr->setSizeOn(size);
+        itr->updateGeometry();
+    }
+}
+
+/*--------------------------------------------------------------------------------*/
+
+void EdgeCubeMatrix::drawOcclusive(){
     // Draw Points
     
     if(mDrawPoints){
@@ -458,35 +461,35 @@ void LightCubeMatrix::drawOcclusive(){
         }
     }
     
-    if(!mDrawBulbsOff)return;
+    if(!mDrawEdgesOff)return;
     
-    this->drawBatch(mBatchBulbsOffX);
-    this->drawBatch(mBatchBulbsOffY);
-    this->drawBatch(mBatchBulbsOffZ);
-    this->drawBatch(mBatchBulbsOffXD);
-    this->drawBatch(mBatchBulbsOffYD);
-    this->drawBatch(mBatchBulbsOffZD);
+    this->drawBatch(mBatchEdgesOffX);
+    this->drawBatch(mBatchEdgesOffY);
+    this->drawBatch(mBatchEdgesOffZ);
+    this->drawBatch(mBatchEdgesOffXD);
+    this->drawBatch(mBatchEdgesOffYD);
+    this->drawBatch(mBatchEdgesOffZD);
 }
 
-void LightCubeMatrix::update(){
+void EdgeCubeMatrix::update(){
     
-    if(!mDrawBulbsOff)return;
-    this->putBatch(mBulbsX,  mBatchBulbsOffX);
-    this->putBatch(mBulbsY,  mBatchBulbsOffY);
-    this->putBatch(mBulbsZ,  mBatchBulbsOffZ);
-    this->putBatch(mBulbsXD, mBatchBulbsOffXD);
-    this->putBatch(mBulbsYD, mBatchBulbsOffYD);
-    this->putBatch(mBulbsZD, mBatchBulbsOffZD);
+    if(!mDrawEdgesOff)return;
+    this->putBatch(mEdgesX,  mBatchEdgesOffX);
+    this->putBatch(mEdgesY,  mBatchEdgesOffY);
+    this->putBatch(mEdgesZ,  mBatchEdgesOffZ);
+    this->putBatch(mEdgesXD, mBatchEdgesOffXD);
+    this->putBatch(mEdgesYD, mBatchEdgesOffYD);
+    this->putBatch(mEdgesZD, mBatchEdgesOffZD);
 }
 
-void LightCubeMatrix::putBatch(std::vector<LightBulb> &bulbs, TriMeshBatch *batch){
+void EdgeCubeMatrix::putBatch(std::vector<Edge> &edge, TriMeshBatch *batch){
     batch->reset();
-    for (std::vector<LightBulb>::iterator itr = bulbs.begin(); itr!=bulbs.end(); ++itr) {
+    for (std::vector<Edge>::iterator itr = edge.begin(); itr!=edge.end(); ++itr) {
         batch->put(*itr);
     }
 }
 
-void LightCubeMatrix::drawBatch(TriMeshBatch *batch){
+void EdgeCubeMatrix::drawBatch(TriMeshBatch *batch){
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_NORMAL_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, &batch->getVertices()[0].x);
@@ -497,47 +500,102 @@ void LightCubeMatrix::drawBatch(TriMeshBatch *batch){
 }
 
 
-void LightCubeMatrix::drawEmissive(){
-    for (std::vector<LightBulb>::iterator itr = mBulbsX.begin(); itr!=mBulbsX.end(); ++itr) {
+void EdgeCubeMatrix::drawEmissive(){
+    for (std::vector<Edge>::iterator itr = mEdgesX.begin(); itr!=mEdgesX.end(); ++itr) {
         itr->drawEmissive();
     }
     
-    for (std::vector<LightBulb>::iterator itr = mBulbsY.begin(); itr!=mBulbsY.end(); ++itr) {
+    for (std::vector<Edge>::iterator itr = mEdgesY.begin(); itr!=mEdgesY.end(); ++itr) {
         itr->drawEmissive();
     }
     
-    for (std::vector<LightBulb>::iterator itr = mBulbsZ.begin(); itr!=mBulbsZ.end(); ++itr) {
+    for (std::vector<Edge>::iterator itr = mEdgesZ.begin(); itr!=mEdgesZ.end(); ++itr) {
         itr->drawEmissive();
     }
     
-    for (std::vector<LightBulb>::iterator itr = mBulbsXD.begin(); itr!=mBulbsXD.end(); ++itr) {
+    for (std::vector<Edge>::iterator itr = mEdgesXD.begin(); itr!=mEdgesXD.end(); ++itr) {
         itr->drawEmissive();
     }
     
-    for (std::vector<LightBulb>::iterator itr = mBulbsYD.begin(); itr!=mBulbsYD.end(); ++itr) {
+    for (std::vector<Edge>::iterator itr = mEdgesYD.begin(); itr!=mEdgesYD.end(); ++itr) {
         itr->drawEmissive();
     }
     
-    for (std::vector<LightBulb>::iterator itr = mBulbsZD.begin(); itr!=mBulbsZD.end(); ++itr) {
+    for (std::vector<Edge>::iterator itr = mEdgesZD.begin(); itr!=mEdgesZD.end(); ++itr) {
         itr->drawEmissive();
     }
 }
 
 /*--------------------------------------------------------------------------------*/
 
-LightCube* LightCubeMatrix::getLightCube(int x, int y, int z){
+void EdgeCubeMatrix::applyPattern(const EdgePattern &pattern){
+    EdgeCube* cube = this->getEdgeCube(pattern.pos.x,
+                                       pattern.pos.y,
+                                       pattern.pos.z);
+    if(!cube)return;
+    int i = -1;
+    while (++i < EdgeCube::NUM_EDGES) {
+        if(bool(pattern[i]))(*cube)[i]->switchOn(); // just switch on
+    }
+}
+
+void EdgeCubeMatrix::applyPatternSeq(const EdgePatternSequence& seq){
+    const std::vector<EdgePattern>& patterns = seq.getPatterns();
+    int i;
+    EdgeCube* cube;
+    ci::Vec3f index;
+    for(std::vector<EdgePattern>::const_iterator itr = patterns.begin();
+        itr != patterns.end();
+        ++itr){
+        index = seq.pos + itr->pos;
+        cube  = this->getEdgeCube(index.x,index.y,index.z);
+        if(!cube)continue;
+        i = -1;
+        while (++i < EdgeCube::NUM_EDGES) {
+            if(bool((*itr)[i]))(*cube)[i]->switchOn();
+        }
+    }
+}
+
+void EdgeCubeMatrix::applyPatternSeqs(const std::vector<EdgePatternSequence>& seqs){
+    int i;
+    EdgeCube* cube;
+    ci::Vec3f index;
+    for (std::vector<EdgePatternSequence>::const_iterator itrSeq = seqs.begin();
+         itrSeq != seqs.end();
+         ++itrSeq) {
+        const std::vector<EdgePattern>& patterns = itrSeq->getPatterns();
+        for (std::vector<EdgePattern>::const_iterator itr = patterns.begin();
+             itr != patterns.end();
+             ++itr) {
+            index = itrSeq->pos + itr->pos;
+            cube  = this->getEdgeCube(index.x, index.y, index.z);
+            if(!cube)continue;
+            i = -1;
+            while (++i < EdgeCube::NUM_EDGES) {
+                if(bool((*itr)[i]))(*cube)[i]->switchOn();
+            }
+        }
+    }
+}
+
+/*--------------------------------------------------------------------------------*/
+
+EdgeCube* EdgeCubeMatrix::getEdgeCube(int x, int y, int z){
     int numCubesX_1 = mNumCubesX - 1;
     int numCubesY_1 = mNumCubesY - 1;
     int numCubesZ_1 = mNumCubesZ - 1;
     
-    if (x > numCubesX_1   || y > numCubesY_1  || z > numCubesZ_1 ) {
+    if ( x < 0 || x > numCubesX_1 ||
+         y < 0 || y > numCubesY_1 ||
+         z < 0 || z > numCubesZ_1 ) {
         return NULL;
     }
     
     return &mCubes[x * mNumCubesY * mNumCubesZ + y * mNumCubesZ + z];
 }
 
-LightCube* LightCubeMatrix::getLightCube(int x, int y, int z, int ax, int ay, int az){
+EdgeCube* EdgeCubeMatrix::getEdgeCube(int x, int y, int z, int ax, int ay, int az){
     int numCubesX_1 = mNumCubesX - 1;
     int numCubesY_1 = mNumCubesY - 1;
     int numCubesZ_1 = mNumCubesZ - 1;
@@ -546,22 +604,26 @@ LightCube* LightCubeMatrix::getLightCube(int x, int y, int z, int ax, int ay, in
     int indexYAdded = y + ay;
     int indexZAdded = z + az;
     
-    if (ax > numCubesX_1   || ay > numCubesY_1   || az > numCubesZ_1 ||
-        indexXAdded > numCubesX_1 || indexYAdded > numCubesY_1 || indexZAdded > numCubesZ_1) {
+    if (ax > numCubesX_1 ||
+        ay > numCubesY_1 ||
+        az > numCubesZ_1 ||
+        indexXAdded < 0 || indexXAdded > numCubesX_1 ||
+        indexYAdded < 0 || indexYAdded > numCubesY_1 ||
+        indexZAdded < 0 || indexZAdded > numCubesZ_1) {
         return NULL;
     }
     
     return &mCubes[indexXAdded * mNumCubesY * mNumCubesZ + indexYAdded * mNumCubesZ + indexZAdded];
 }
 
-LightCube* LightCubeMatrix::getLightCube(LightCube &baseCube, int ax, int ay, int az){
-    return this->getLightCube(baseCube.getIX(), baseCube.getIY(), baseCube.getIZ(),
+EdgeCube* EdgeCubeMatrix::getEdgeCube(EdgeCube &baseCube, int ax, int ay, int az){
+    return this->getEdgeCube(baseCube.getIX(), baseCube.getIY(), baseCube.getIZ(),
                               ax, ay, az);
 }
 
 /*--------------------------------------------------------------------------------*/
 
-void LightCubeMatrix::drawDebugBulb(std::vector<LightBulb> &bulbs){
+void EdgeCubeMatrix::drawDebugBulb(std::vector<Edge> &bulbs){
     const static ci::Vec2f zero = ci::Vec2f::zero();
     ci::Vec3f mid;
     
@@ -576,7 +638,7 @@ void LightCubeMatrix::drawDebugBulb(std::vector<LightBulb> &bulbs){
     }
 }
 
-void LightCubeMatrix::drawDebugPoints(){
+void EdgeCubeMatrix::drawDebugPoints(){
     ci::Vec2f zero = ci::Vec2f::zero();
     ci::gl::color(1, 1, 1);
     int i = -1;
@@ -591,12 +653,12 @@ void LightCubeMatrix::drawDebugPoints(){
 }
 
 
-void LightCubeMatrix::drawDebugCubes(){
+void EdgeCubeMatrix::drawDebugCubes(){
     ci::Vec2f zero = ci::Vec2f::zero();
     ci::Vec3f sum;
     ci::Vec3f mid;
     
-    int numBulbs = 18;
+    int numEdges = 18;
     
     ci::gl::color(1, 0, 0);
     int i,j;
@@ -607,12 +669,12 @@ void LightCubeMatrix::drawDebugCubes(){
         sum.z = 0;
         
         j = -1;
-        while (++j < numBulbs) {
+        while (++j < numEdges) {
             mCubes[i][j]->getMid(&mid);
             sum += mid;
         }
         
-        sum/=numBulbs;
+        sum/=numEdges;
         
         glPushMatrix();
         glTranslatef(sum.x,sum.y,sum.z);
