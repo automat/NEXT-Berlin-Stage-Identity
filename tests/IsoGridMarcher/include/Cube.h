@@ -22,16 +22,16 @@ public:
     
 private:
     int mX,mY,mZ;
-    ci::Vec3f* mPoints[NUM_POINTS];
-    Edge*      mEdges[NUM_EDGES];
+    int   mPoints[NUM_POINTS];
+    Edge* mEdges[NUM_EDGES];
     
 public:
     
     Cube(int x = 0, int y = 0, int z = 0);
     
-    void setPoints(ci::Vec3f* p0, ci::Vec3f* p1, ci::Vec3f* p2, ci::Vec3f* p3,
-                   ci::Vec3f* p4, ci::Vec3f* p5, ci::Vec3f* p6, ci::Vec3f* p7);
-    
+    void setPointIndices(int index0, int index1, int index2, int index3,
+                         int index4, int index5, int index6, int index7);
+                         
     void setEdges(Edge* bulb00, Edge* bulb01, Edge* bulb02, Edge* bulb03,
                   Edge* bulb04, Edge* bulb05, Edge* bulb06, Edge* bulb07,
                   Edge* bulb08, Edge* bulb09, Edge* bulb10, Edge* bulb11,
@@ -58,7 +58,13 @@ public:
         return mEdges[n];
     }
     
-
+    const int* getPointIndices() const{
+        return mPoints;
+    }
+    
+    int* getPointIndices(){
+        return mPoints;
+    }
 };
 
 #endif

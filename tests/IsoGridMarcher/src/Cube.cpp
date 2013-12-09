@@ -32,10 +32,11 @@ void Cube::setEdges(Edge* bulb00, Edge* bulb01, Edge* bulb02, Edge* bulb03,
     mEdges[14] = bulb14; mEdges[15] = bulb15; mEdges[16] = bulb16; mEdges[17] = bulb17;
 }
 
-void Cube::setPoints(ci::Vec3f* p0, ci::Vec3f* p1, ci::Vec3f* p2, ci::Vec3f* p3,
-                     ci::Vec3f* p4, ci::Vec3f* p5, ci::Vec3f* p6, ci::Vec3f* p7){
-    mPoints[0] = p0; mPoints[1] = p1; mPoints[2] = p2; mPoints[3] = p3;
-    mPoints[4] = p4; mPoints[5] = p5; mPoints[6] = p6; mPoints[7] = p7;
+void Cube::setPointIndices(int index0, int index1, int index2, int index3,
+                           int index4, int index5, int index6, int index7){
+    mPoints[0] = index0; mPoints[1] = index1; mPoints[2] = index2; mPoints[3] = index3;
+    mPoints[4] = index4; mPoints[5] = index5; mPoints[6] = index6; mPoints[7] = index7;
+
 }
 
 void Cube::switchOn(){

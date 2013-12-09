@@ -17,6 +17,7 @@
 #include "cinder/gl/TextureFont.h"
 #include "cinder/Utilities.h"
 
+#include "cinder/TriMesh.h"
 #include "TriMeshBatch.h"
 
 #include "Edge.h"
@@ -24,6 +25,9 @@
 
 #include "EdgePattern.h"
 #include "EdgePatternSequence.h"
+
+#include "FacePattern.h"
+#include "FacePatternSequence.h"
 
 
 class CubeMatrix {
@@ -75,8 +79,12 @@ class CubeMatrix {
     TriMeshBatch* mBatchEdgesOffYD;
     TriMeshBatch* mBatchEdgesOffZD;
     
+    ci::TriMesh*  mMeshFaces;
+    
     void initDebugFont();
     void initBatchesOff();
+    void initMeshFaces();
+    void setupMeshFaces();
     
     void setSize_Internal(int sizeX, int sizeY, int sizeZ);
     
@@ -103,14 +111,24 @@ public:
     //! Update time component of all edges
     void update();
     
-    //! Draw occlusive bulb parts and joints
-    void drawOcclusive();
-    //! Draw emmisive bulb parts
-    void drawEmissive();
+    //! Draw occlusive edges parts and joints
+    void drawEdgesOcclusive();
+    void drawFacesOcclusive();
+    //! Draw emmisive edges parts
+    void drawEdgesEmissive();
+    void drawFacesEmissive();
+    
     //! switch edges based on pattern & pattern sequences
     void applyPattern(const EdgePattern& pattern);
     void applyPatternSeq(const EdgePatternSequence& seq);
     void applyPatternSeqs(const std::vector<EdgePatternSequence>& seqs);
+    
+    //! draw faces based on pattern & pattern sequences
+    void applyPattern(const FacePattern& pattern);
+    void applyPatternSeq(const FacePatternSequence& seq);
+    void applyPatternSeqs(const std::vector<FacePatternSequence>& seqs);
+    
+    void resetFaceMesh();
     
     //! Switch all edges on
     void switchOn();
@@ -133,8 +151,11 @@ public:
     //! Get pointer to cube index ax ay az added
     Cube* getCube(Cube& baseCube, int ax, int ay, int az);
     
+    Cube* getCube(const ci::Vec3f& index);
+    
     //! Get points of grid bulb edges are connected to
-    const std::vector<ci::Vec3f>& getGridPoints() const{ return mPoints;}
+    const std::vector<ci::Vec3f>& getPoints() const{ return mPoints;}
+    std::vector<ci::Vec3f>& getPoints(){return mPoints;}
     //! Get edges all perpendicular axes
     const std::vector<Edge>& getEdgesX() const{ return mEdgesX; };
     const std::vector<Edge>& getEdgesY() const{ return mEdgesY; };

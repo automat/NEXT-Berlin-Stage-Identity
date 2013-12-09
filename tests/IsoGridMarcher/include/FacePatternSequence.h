@@ -1,48 +1,46 @@
 //
-//  LightCubePattern.h
+//  FacePatternSequence.h
 //  IsoGridMarcher
 //
-//  Created by Henryk Wollik on 06/12/13.
+//  Created by Henryk Wollik on 09/12/13.
 //
 //
 
-#ifndef IsoGridMarcher_LightCubePattern_h
-#define IsoGridMarcher_LightCubePattern_h
+#ifndef IsoGridMarcher_FacePatternSequence_h
+#define IsoGridMarcher_FacePatternSequence_h
 
-#include "EdgePattern.h"
+#include "FacePattern.h"
 #include <vector>
 #include "cinder/Vector.h"
 
-
-class EdgePatternSequence {
+class FacePatternSequence {
     int mSizeX;
     int mSizeY;
     int mSizeZ;
     
-    std::vector<EdgePattern> mPatterns;
+    std::vector<FacePattern> mPatterns;
     
 public:
     ci::Vec3f pos;
     
-    EdgePatternSequence(int size = 1, int x = 0, int y = 0, int z = 0) :
+    FacePatternSequence(int size = 1, int x = 0, int y = 0, int z = 0) :
     pos(x,y,z){
         mPatterns.resize(size);
     }
     
-    
-    const EdgePattern& operator[](int n) const{
+    const FacePattern& operator[](int n) const{
         return mPatterns[n];
     }
     
-    EdgePattern& operator[](int n){
+    FacePattern& operator[](int n){
         return mPatterns[n];
     }
     
-    std::vector<EdgePattern> getPatterns(){
+    std::vector<FacePattern> getPatterns(){
         return mPatterns;
     }
     
-    const std::vector<EdgePattern> getPatterns() const{
+    const std::vector<FacePattern> getPatterns() const{
         return mPatterns;
     }
     
@@ -53,8 +51,8 @@ public:
     const int getNumPatterns() const{
         return mPatterns.size();
     }
+    
 };
-
 
 
 #endif

@@ -47,6 +47,8 @@
 		CD19D398184F67080000550E /* blur_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blur_frag.glsl; sourceTree = "<group>"; };
 		CD19D39B184F68760000550E /* blend_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blend_frag.glsl; sourceTree = "<group>"; };
 		CD59281C1855BE8200300E83 /* Face.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Face.h; path = ../include/Face.h; sourceTree = "<group>"; };
+		CD5928201855CBD500300E83 /* FacePattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FacePattern.h; path = ../include/FacePattern.h; sourceTree = "<group>"; };
+		CD5928211855D00B00300E83 /* FacePatternSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FacePatternSequence.h; path = ../include/FacePatternSequence.h; sourceTree = "<group>"; };
 		CD59982818509CBE0037B2E9 /* Edge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Edge.cpp; path = ../src/Edge.cpp; sourceTree = "<group>"; };
 		CD59982B1851C8180037B2E9 /* EdgePatternSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EdgePatternSequence.h; path = ../include/EdgePatternSequence.h; sourceTree = "<group>"; };
 		CD59982C185239020037B2E9 /* TriMeshBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TriMeshBatch.h; path = ../include/TriMeshBatch.h; sourceTree = "<group>"; };
@@ -173,15 +175,41 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CD59281D1855CB7E00300E83 /* Edge */ = {
+			isa = PBXGroup;
+			children = (
+				CDBBCC9D18478D10002283C2 /* Edge.h */,
+				CD59982D18536C930037B2E9 /* EdgePattern.h */,
+				CD59982B1851C8180037B2E9 /* EdgePatternSequence.h */,
+			);
+			name = Edge;
+			sourceTree = "<group>";
+		};
+		CD59281E1855CB8700300E83 /* Edge */ = {
+			isa = PBXGroup;
+			children = (
+				CD59982818509CBE0037B2E9 /* Edge.cpp */,
+			);
+			name = Edge;
+			sourceTree = "<group>";
+		};
+		CD59281F1855CB9300300E83 /* Face */ = {
+			isa = PBXGroup;
+			children = (
+				CD59281C1855BE8200300E83 /* Face.h */,
+				CD5928201855CBD500300E83 /* FacePattern.h */,
+				CD5928211855D00B00300E83 /* FacePatternSequence.h */,
+			);
+			name = Face;
+			sourceTree = "<group>";
+		};
 		CD9C9C9F1853C58200DD87D8 /* matrix */ = {
 			isa = PBXGroup;
 			children = (
+				CD59281F1855CB9300300E83 /* Face */,
+				CD59281D1855CB7E00300E83 /* Edge */,
 				CDBBCC9C18478637002283C2 /* Cube.h */,
-				CDBBCC9D18478D10002283C2 /* Edge.h */,
 				CD67F298184E412B00B9C7EC /* CubeMatrix.h */,
-				CD59982D18536C930037B2E9 /* EdgePattern.h */,
-				CD59982B1851C8180037B2E9 /* EdgePatternSequence.h */,
-				CD59281C1855BE8200300E83 /* Face.h */,
 			);
 			name = matrix;
 			sourceTree = "<group>";
@@ -199,7 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				CD67F299184E419800B9C7EC /* CubeMatrix.cpp */,
-				CD59982818509CBE0037B2E9 /* Edge.cpp */,
+				CD59281E1855CB8700300E83 /* Edge */,
 				CD59982E18537E060037B2E9 /* Cube.cpp */,
 			);
 			name = matrix;

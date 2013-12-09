@@ -10,12 +10,16 @@
 #include "cinder/gl/gl.h"
 #include <OpenGL/OpenGL.h>
 
+
+
 CubeMatrix::CubeMatrix() :
 mDrawEdgesOff(true),
 mDrawPoints(true),
 mPointSize(0.005f){
     this->initDebugFont();
     this->initBatchesOff();
+    
+    mMeshFaces = new ci::TriMesh();
 }
 
 CubeMatrix::~CubeMatrix(){
@@ -25,6 +29,7 @@ CubeMatrix::~CubeMatrix(){
     delete mBatchEdgesOffXD;
     delete mBatchEdgesOffYD;
     delete mBatchEdgesOffZD;
+    delete mMeshFaces;
     
     this->clear();
 }
@@ -59,6 +64,8 @@ void CubeMatrix::setSize_Internal(int sizeX, int sizeY, int sizeZ){
     
     this->clear();
     this->build();
+    
+    this->setupMeshFaces();
 }
 
 void CubeMatrix::initBatchesOff(){
@@ -68,6 +75,20 @@ void CubeMatrix::initBatchesOff(){
     mBatchEdgesOffXD= new TriMeshBatch();
     mBatchEdgesOffYD= new TriMeshBatch();
     mBatchEdgesOffZD= new TriMeshBatch();
+}
+
+
+
+void CubeMatrix::setupMeshFaces(){
+    std::vector<ci::Vec3f>& vertices = mMeshFaces->getVertices();
+    std::vector<uint>&      indices  = mMeshFaces->getIndices();
+    std::vector<ci::Vec3f>& normals  = mMeshFaces->getNormals();
+    std::vector<ci::Color>& colors   = mMeshFaces->getColorsRGB();
+    
+    vertices = mPoints;
+    indices.clear();
+    normals.clear();
+    colors.clear();
 }
 
 void CubeMatrix::clear(){
@@ -206,8 +227,8 @@ void CubeMatrix::build(){
                 
                 //bulbs diagonal X Axis
                 if( ix < numEdgesX && iy < numEdgesY){
-                    mEdgesXD.push_back(Edge(&mPoints[indexCubeVertex0],  //4
-                                                 &mPoints[indexCubeVertex5]));//1
+                    mEdgesXD.push_back(Edge(&mPoints[indexCubeVertex4],  //4
+                                                 &mPoints[indexCubeVertex1]));//1
                     numEdgesXDVertices += mEdgesXD.back().getNumVertices();
                     numEdgesXDIndices  += mEdgesXD.back().getNumIndices();
                 }
@@ -278,6 +299,8 @@ void CubeMatrix::build(){
     mNumPointsYZ     = mNumPointsY   * mNumPointsZ;
     mNumPointsYZ_1   = mNumPointsY   * mNumPointsZ_1;
     mNumPointsY_1Z   = mNumPointsY_1 * mNumPointsZ;
+    
+    int indexCube;
 
     ix = -1;
     while (++ix < numEdgesX) {
@@ -287,6 +310,8 @@ void CubeMatrix::build(){
             iy1 = iy + 1;
             iz  = -1;
             while (++iz < numEdgesZ) {
+                indexCube = ix * mNumCubesY * mNumCubesZ + iy * mNumCubesZ + iz;
+                
                 //POINTS
                 //bottom
                 indexCubeVertex0 = ix  * mNumPointsY * mNumPointsZ + iy * mNumPointsZ + iz;
@@ -330,10 +355,23 @@ void CubeMatrix::build(){
                 indexBulb16 = indexBulb14 + 1;
                 indexBulb15 = indexBulb17 + mNumPointsY_1Z_1;
                 
+                //POINTS
+                /*
+                std::cout << "---" << std::endl;
+                std::cout << indexCube << std::endl;
+                std::cout << "-" << std::endl;
+                std::cout << indexCubeVertex0 << std::endl;
+                std::cout << indexCubeVertex1 << std::endl;
+                std::cout << indexCubeVertex2 << std::endl;
+                std::cout << indexCubeVertex3 << std::endl;
+                std::cout << "-" << std::endl;
+                std::cout << indexCubeVertex4 << std::endl;
+                std::cout << indexCubeVertex5 << std::endl;
+                std::cout << indexCubeVertex6 << std::endl;
+                std::cout << indexCubeVertex7 << std::endl;
+                */
                 
-                
-                
-                
+                //EGES
                 /*
                  std::cout << "---" << std::endl;
                  std::cout << "- " << indexCube << std::endl;
@@ -364,12 +402,14 @@ void CubeMatrix::build(){
                 
                 
                 
+                
+                
                 mCubes.push_back(Cube(ix,iy,iz));
                 Cube& last = mCubes.back();
                 
                 
-                last.setPoints(0, 0, 0, 0,
-                               0, 0, 0, 0);
+                last.setPointIndices(indexCubeVertex0, indexCubeVertex1, indexCubeVertex2, indexCubeVertex3,
+                                     indexCubeVertex4, indexCubeVertex5, indexCubeVertex6, indexCubeVertex7);
                 
                 
                 last.setEdges(&( mEdgesX[indexBulb00]), &( mEdgesZ[indexBulb01]), &( mEdgesX[indexBulb02]), &( mEdgesZ[indexBulb03]),
@@ -474,7 +514,7 @@ void CubeMatrix::setSizeOnEdges(std::vector<Edge> &bulbs, const ci::Vec2f& size)
 
 /*--------------------------------------------------------------------------------*/
 
-void CubeMatrix::drawOcclusive(){
+void CubeMatrix::drawEdgesOcclusive(){
     // Draw Points
     
     if(mDrawPoints){
@@ -495,6 +535,36 @@ void CubeMatrix::drawOcclusive(){
     this->drawBatch(mBatchEdgesOffYD);
     this->drawBatch(mBatchEdgesOffZD);
 }
+
+void CubeMatrix::drawFacesOcclusive(){
+   
+}
+
+void CubeMatrix::drawFacesEmissive(){
+    
+    if (mMeshFaces->getNumIndices() == 0)return;
+   
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_NORMAL_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, &(mPoints[0].x));
+    glNormalPointer(GL_FLOAT, 0, &mMeshFaces->getNormals()[0].x);
+    glDrawElements(GL_TRIANGLES, mMeshFaces->getNumIndices(), GL_UNSIGNED_INT, &mMeshFaces->getIndices()[0]);
+    glDisableClientState(GL_NORMAL_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+void CubeMatrix::resetFaceMesh(){
+    if(mMeshFaces->getNumIndices() == 0)return;
+    
+    std::vector<uint>& indices      = mMeshFaces->getIndices();
+    std::vector<ci::Vec3f>& normals = mMeshFaces->getNormals();
+    std::vector<ci::Color>& colors  = mMeshFaces->getColorsRGB();
+    
+    indices.clear();
+    normals.clear();
+    colors.clear();
+}
+
 
 void CubeMatrix::update(){
     
@@ -525,7 +595,7 @@ void CubeMatrix::drawBatch(TriMeshBatch *batch){
 }
 
 
-void CubeMatrix::drawEmissive(){
+void CubeMatrix::drawEdgesEmissive(){
     for (std::vector<Edge>::iterator itr = mEdgesX.begin(); itr!=mEdgesX.end(); ++itr) {
         itr->drawEmissive();
     }
@@ -554,9 +624,7 @@ void CubeMatrix::drawEmissive(){
 /*--------------------------------------------------------------------------------*/
 
 void CubeMatrix::applyPattern(const EdgePattern &pattern){
-    Cube* cube = this->getCube(pattern.pos.x,
-                                       pattern.pos.y,
-                                       pattern.pos.z);
+    Cube* cube = this->getCube(pattern.pos);
     if(!cube)return;
     int i = -1;
     while (++i < Cube::NUM_EDGES) {
@@ -573,7 +641,7 @@ void CubeMatrix::applyPatternSeq(const EdgePatternSequence& seq){
         itr != patterns.end();
         ++itr){
         index = seq.pos + itr->pos;
-        cube  = this->getCube(index.x,index.y,index.z);
+        cube  = this->getCube(index);
         if(!cube)continue;
         i = -1;
         while (++i < Cube::NUM_EDGES) {
@@ -594,12 +662,58 @@ void CubeMatrix::applyPatternSeqs(const std::vector<EdgePatternSequence>& seqs){
              itr != patterns.end();
              ++itr) {
             index = itrSeq->pos + itr->pos;
-            cube  = this->getCube(index.x, index.y, index.z);
+            cube  = this->getCube(index);
             if(!cube)continue;
             i = -1;
             while (++i < Cube::NUM_EDGES) {
                 if(bool((*itr)[i]))(*cube)[i]->switchOn();
             }
+        }
+    }
+}
+
+void CubeMatrix::applyPattern(const FacePattern &pattern){
+    std::vector<uint>& faceMeshIndices      = mMeshFaces->getIndices();
+    std::vector<ci::Vec3f>& faceMeshNormals = mMeshFaces->getNormals();
+    Cube* cube = this->getCube(pattern.pos);
+    if(!cube)return;
+    int* indices = cube->getPointIndices();
+    int i = 0;
+
+    while (i < pattern.size()) {
+        faceMeshIndices.push_back(indices[pattern[i  ]]);
+        faceMeshIndices.push_back(indices[pattern[i+1]]);
+        faceMeshIndices.push_back(indices[pattern[i+2]]);
+        faceMeshNormals.push_back(ci::Vec3f());
+        faceMeshNormals.push_back(ci::Vec3f());
+        faceMeshNormals.push_back(ci::Vec3f());
+        i += 3;
+    }
+}
+
+void CubeMatrix::applyPatternSeq(const FacePatternSequence& seq){
+    std::vector<uint>& faceMeshIndices      = mMeshFaces->getIndices();
+    std::vector<ci::Vec3f>& faceMeshNormals = mMeshFaces->getNormals();
+    const std::vector<FacePattern>& patterns = seq.getPatterns();
+    int i;
+    Cube* cube;
+    ci::Vec3f index;
+    for (std::vector<FacePattern>::const_iterator itr = patterns.begin();
+         itr != patterns.end();
+         ++itr) {
+        index = seq.pos + itr->pos;
+        cube = this->getCube(index);
+        if(!cube)continue;
+        int* indices = cube->getPointIndices();
+        i  = 0;
+        while (i < itr->size()) {
+            faceMeshIndices.push_back(indices[(*itr)[i  ]]);
+            faceMeshIndices.push_back(indices[(*itr)[i+1]]);
+            faceMeshIndices.push_back(indices[(*itr)[i+2]]);
+            faceMeshNormals.push_back(ci::Vec3f());
+            faceMeshNormals.push_back(ci::Vec3f());
+            faceMeshNormals.push_back(ci::Vec3f());
+            i += 3;
         }
     }
 }
@@ -645,6 +759,12 @@ Cube* CubeMatrix::getCube(Cube &baseCube, int ax, int ay, int az){
     return this->getCube(baseCube.getIX(), baseCube.getIY(), baseCube.getIZ(),
                               ax, ay, az);
 }
+
+Cube* CubeMatrix::getCube(const ci::Vec3f &index){
+    return this->getCube(index.x, index.y, index.z);
+}
+
+
 
 /*--------------------------------------------------------------------------------*/
 
@@ -703,7 +823,7 @@ void CubeMatrix::drawDebugCubes(){
         
         glPushMatrix();
         glTranslatef(sum.x,sum.y,sum.z);
-        glScalef(mDebugFontScale, -mDebugFontScale, mDebugFontScale);
+        glScalef(mDebugFontScale*2, -mDebugFontScale*2, mDebugFontScale*2);
         mTextureDebugFont->drawString( ci::toString(i), zero );
         glPopMatrix();
     }

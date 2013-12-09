@@ -61,9 +61,9 @@ static bool MATRIX_DEBUG_VIEW_POINTS(false),
             MATRIX_DEBUG_VIEW_CUBES(false),
             MATRIX_DRAW_BULBS_OFF(false),
             MATRIX_DRAW_POINTS(false);
-static int  MATRIX_SIZE_X(60),
-            MATRIX_SIZE_Y(6),
-            MATRIX_SIZE_Z(60);
+static int  MATRIX_SIZE_X(20),
+            MATRIX_SIZE_Y(20),
+            MATRIX_SIZE_Z(20);
 static ci::Vec2f MATRIX_BULB_SIZE_ON(0.2f,0.05f),
                  MATRIX_BULB_SIZE_OFF(0.005f,0.005f);
 static bool MATRIX_FORM_OBJECTS(false);
@@ -71,9 +71,9 @@ static bool MATRIX_FORM_OBJECTS(false);
 
 static int  CAMERA_MODE(1); //0 = persp, 1 = ortho
 static bool CAMERA_SNAP(true);
-static int  CAMERA_SNAP_AXIS_X(3),
-            CAMERA_SNAP_AXIS_Y(3),
-            CAMERA_SNAP_AXIS_Z(3);
+static int  CAMERA_SNAP_AXIS_X(1),
+            CAMERA_SNAP_AXIS_Y(1),
+            CAMERA_SNAP_AXIS_Z(1);
 
 static bool LIGHT_ROTATE(false);
 
@@ -150,8 +150,8 @@ public:
     ci::gl::Material mMaterial2; //black
     
     
-    CubeMatrix* mLightMatrix;
-    EdgePatternSequence mLightPatternSeq;
+    CubeMatrix* mCubeMatrix;
+    EdgePatternSequence mEdgePatternSeq;
     EdgePatternSequence mPattern0; //bubble
     EdgePatternSequence mPattern1;
     EdgePatternSequence mPattern2;
@@ -161,6 +161,11 @@ public:
     EdgePatternSequence mPattern6;
     EdgePatternSequence mPattern7;
     EdgePatternSequence mPattern8;
+    
+    FacePatternSequence mFacePatternSeq;
+    FacePattern mFacePattern;
+    
+    
     
     /*----------------------------------------------------------------------------------*/
     
@@ -174,12 +179,14 @@ public:
     /*----------------------------------------------------------------------------------*/
 
 
+    std::vector<ci::Vec3f> mRandPoints;
+    
     ci::params::InterfaceGlRef mParams;
 
 };
 
 void IsoGridMarcherApp::changeMatrixSize(){
-    mLightMatrix->setSize(MATRIX_SIZE_X, MATRIX_SIZE_Y, MATRIX_SIZE_Z);
+    mCubeMatrix->setSize(MATRIX_SIZE_X, MATRIX_SIZE_Y, MATRIX_SIZE_Z);
 }
 
 void IsoGridMarcherApp::prepareSettings(Settings* settings){
@@ -231,7 +238,7 @@ void IsoGridMarcherApp::setup(){
     
     this->updateCams();
     
-    mCameraZoom = 5.0f;
+    mCameraZoom = 1.0f;
     mCameraRotX = (float)M_PI * 0.5f;
     mCameraRotY = 0.0f;
     
@@ -269,27 +276,27 @@ void IsoGridMarcherApp::setup(){
 
     /*----------------------------------------------------------------------------------*/
 
-    mLightMatrix = new CubeMatrix();
-    mLightPatternSeq = EdgePatternSequence(6);
-    mLightPatternSeq[ 0][ 0] = 1;
-    mLightPatternSeq[ 0][ 9] = 1;
+    mCubeMatrix = new CubeMatrix();
+    mEdgePatternSeq = EdgePatternSequence(6);
+    mEdgePatternSeq[ 0][ 0] = 1;
+    mEdgePatternSeq[ 0][ 9] = 1;
     
-    mLightPatternSeq[ 1].pos.y = 1;
-    mLightPatternSeq[ 1][ 0] = 1;
-    mLightPatternSeq[ 1][14] = 1;
+    mEdgePatternSeq[ 1].pos.y = 1;
+    mEdgePatternSeq[ 1][ 0] = 1;
+    mEdgePatternSeq[ 1][14] = 1;
     
-    mLightPatternSeq[ 2].pos.y = 2;
-    mLightPatternSeq[ 2][14] = 1;
+    mEdgePatternSeq[ 2].pos.y = 2;
+    mEdgePatternSeq[ 2][14] = 1;
     
-    mLightPatternSeq[ 3].pos.x = -1;
-    mLightPatternSeq[ 3][ 0] = 1;
+    mEdgePatternSeq[ 3].pos.x = -1;
+    mEdgePatternSeq[ 3][ 0] = 1;
     
     
-    mLightPatternSeq[ 4].pos.set(-1,2,0);
-    mLightPatternSeq[ 4][11] = 1;
+    mEdgePatternSeq[ 4].pos.set(-1,2,0);
+    mEdgePatternSeq[ 4][11] = 1;
     
-    mLightPatternSeq[ 5].pos.set(-2,2,0);
-    mLightPatternSeq[ 4][11] = 1;
+    mEdgePatternSeq[ 5].pos.set(-2,2,0);
+    mEdgePatternSeq[ 4][11] = 1;
     
     
     
@@ -301,11 +308,11 @@ void IsoGridMarcherApp::setup(){
     this->changeMatrixSize();
     this->setupParams();
     
-    /*
+    
     mPattern0 = EdgePatternSequence(7);
-    mPattern0.pos.x = floor(mLightMatrix->getNumCubesX() * 0.5f);
-    mPattern0.pos.y = floor(mLightMatrix->getNumCubesY() * 0.5f);
-    mPattern0.pos.z = floor(mLightMatrix->getNumCubesZ() * 0.5f);
+    mPattern0.pos.x = floor(mCubeMatrix->getNumCubesX() * 0.5f);
+    mPattern0.pos.y = floor(mCubeMatrix->getNumCubesY() * 0.5f);
+    mPattern0.pos.z = floor(mCubeMatrix->getNumCubesZ() * 0.5f);
     mPattern0[0].pos.set(1, 1, 0);
     mPattern0[0][4] = 1;
     mPattern0[0][9] = 1;
@@ -352,7 +359,53 @@ void IsoGridMarcherApp::setup(){
     mPattern8 = EdgePatternSequence(mPattern0);
     mPattern8.pos.x = mPattern0.pos.x - 4;
     mPattern8.pos.z = mPattern0.pos.z - 3;
-    */
+
+    
+
+
+    
+    mFacePatternSeq = FacePatternSequence(7);
+    mFacePatternSeq.pos.set(floor(mCubeMatrix->getNumCubesX() * 0.5f),
+                            floor(mCubeMatrix->getNumCubesY() * 0.5f),
+                            floor(mCubeMatrix->getNumCubesZ() * 0.5f));
+    mFacePatternSeq[0].pos.set(1, 1, -1);
+    mFacePatternSeq[0].addFace(2, 3, 7);
+    mFacePatternSeq[0].addFace(2, 7, 6);
+    
+    mFacePatternSeq[1].pos.set(0, 1, 0);
+    mFacePatternSeq[1].addFace(2, 1, 5);
+    mFacePatternSeq[1].addFace(2, 5, 6);
+    
+    mFacePatternSeq[2].pos.set(-1, 1, 1);
+    mFacePatternSeq[2].addFace(0, 1, 5);
+    mFacePatternSeq[2].addFace(0, 5, 4);
+    
+    mFacePatternSeq[3] = mFacePatternSeq[0];
+    mFacePatternSeq[3].pos.set(1,0,-1);
+    
+    mFacePatternSeq[4] = mFacePatternSeq[1];
+    mFacePatternSeq[1].pos.set(0, 0, 0);
+    
+    mFacePatternSeq[5] = mFacePatternSeq[2];
+    mFacePatternSeq[5].pos.set(-1, 0, 1);
+    
+    mFacePatternSeq[6].pos.set(-1,-1,1);
+    mFacePatternSeq[6].addFace(4,5,1);
+ 
+   
+    
+    //mFacePatternSeq[0].addFace(2, 1, 6);
+    //mFacePatternSeq[0].addFace(1, 5, 6);
+    
+    
+    
+    
+    mRandPoints.resize(100);
+    int i = -1;
+    while(++i < mRandPoints.size()){
+        mRandPoints[i] = ci::randVec3f() * ci::randFloat(3,5);
+    }
+    
 }
 
 
@@ -378,34 +431,23 @@ void IsoGridMarcherApp::update(){
         float light0RotationXZ = mTime * 0.125f;
         mLight0->lookAt(ci::Vec3f(cosf(light0RotationXZ) * 5, 5, sinf(light0RotationXZ) * 5), ZERO );
     }
-    mLightMatrix->update();
-    mLightMatrix->setDrawEdgesOff(MATRIX_DRAW_BULBS_OFF);
-    mLightMatrix->setDrawPoints(MATRIX_DRAW_POINTS);
-    mLightMatrix->setEdgeSizeOff(MATRIX_BULB_SIZE_OFF);
-    mLightMatrix->setEdgeSizeOn(MATRIX_BULB_SIZE_ON);
+    mCubeMatrix->update();
+    mCubeMatrix->setDrawEdgesOff(MATRIX_DRAW_BULBS_OFF);
+    mCubeMatrix->setDrawPoints(MATRIX_DRAW_POINTS);
+    mCubeMatrix->setEdgeSizeOff(MATRIX_BULB_SIZE_OFF);
+    mCubeMatrix->setEdgeSizeOn(MATRIX_BULB_SIZE_ON);
+    mCubeMatrix->resetFaceMesh();
     
+    
+
     
     if(TICK && mTick % TICK_FREQUENCE == 0){
-        mLightMatrix->switchRandom(0.0125f);
+        mCubeMatrix->switchOff();
+        mCubeMatrix->switchRandom(0.0125f);
     }
     
-    if(MATRIX_FORM_OBJECTS){
-        mLightMatrix->getEdgesX()[15].switchOn();
-        mLightMatrix->getEdgesX()[31].switchOn();
-        mLightMatrix->getEdgesX()[47].switchOn();
-        mLightMatrix->getEdgesX()[23].switchOn();
-        mLightMatrix->getEdgesX()[39].switchOn();
-        
-        mLightMatrix->getEdgesY()[47].switchOn();
-        mLightMatrix->getEdgesY()[43].switchOn();
-        mLightMatrix->getEdgesY()[11].switchOn();
-        mLightMatrix->getEdgesY()[7].switchOn();
-        mLightMatrix->getEdgesY()[15].switchOn();
-        
-        mLightMatrix->getEdgesXD()[3].switchOn();
-    }
+
     
-    mLightMatrix->switchOff();
     //mLightMatrix->getLightCube(*mLightMatrix->getLightCube(0, 0, 0),0,floor(abs(sinf(mTime)  *(mLightMatrix->getNumCubesY()))),0)->switchRandom(0.15f);
     //mLightMatrix->getLightCube(*mLightMatrix->getLightCube(0, 0, 0),1,floor(abs(sinf(mTime*2)*(mLightMatrix->getNumCubesY()))),0)->switchRandom(0.15f);
     //mLightMatrix->getLightCube(0, 0, 0)->switchOn();
@@ -416,11 +458,11 @@ void IsoGridMarcherApp::update(){
    // mLightPatternSeq.pos.y = floor(abs(sinf(mTime*3)*(mLightMatrix->getNumCubesY())));
     
     /*
-    int centerX = floor(mLightMatrix->getNumCubesX() * 0.5f);
-    int centerZ = floor(mLightMatrix->getNumCubesZ() * 0.5f);
+    int centerX = floor(mCubeMatrix->getNumCubesX() * 0.5f);
+    int centerZ = floor(mCubeMatrix->getNumCubesZ() * 0.5f);
     
     float step = float(M_PI)*0.5f/10;
-    float stepY = mLightMatrix->getNumCubesY() + 1;
+    float stepY = mCubeMatrix->getNumCubesY() + 1;
     
     mPattern1.pos.y = 1 + floor(sinf(step*1 + mTime*2)*stepY);
     mPattern2.pos.y = 1 + floor(sinf(step*2+ mTime*2)*stepY);
@@ -439,20 +481,22 @@ void IsoGridMarcherApp::update(){
     
    // mLightMatrix->applyPatternSeq(mLightPatternSeq);
     
-    mLightMatrix->applyPatternSeq(mPattern0);
-    mLightMatrix->applyPatternSeq(mPattern1);
-    mLightMatrix->applyPatternSeq(mPattern2);
-    mLightMatrix->applyPatternSeq(mPattern3);
-    mLightMatrix->applyPatternSeq(mPattern4);
-    mLightMatrix->applyPatternSeq(mPattern5);
-    mLightMatrix->applyPatternSeq(mPattern6);
-    mLightMatrix->applyPatternSeq(mPattern7);
-    mLightMatrix->applyPatternSeq(mPattern8);
+    mCubeMatrix->applyPatternSeq(mPattern0);
+    mCubeMatrix->applyPatternSeq(mPattern1);
+    mCubeMatrix->applyPatternSeq(mPattern2);
+    mCubeMatrix->applyPatternSeq(mPattern3);
+    mCubeMatrix->applyPatternSeq(mPattern4);
+    mCubeMatrix->applyPatternSeq(mPattern5);
+    mCubeMatrix->applyPatternSeq(mPattern6);
+    mCubeMatrix->applyPatternSeq(mPattern7);
+    mCubeMatrix->applyPatternSeq(mPattern8);
     */
     //mLightMatrix->getLightBulbsX()[1].switchOn();
     
     //mLightMatrix->switchRandom(0.0125f);
     //mLightMatrix->switchOn();
+    
+    mCubeMatrix->applyPatternSeq(mFacePatternSeq);
     
     this->processFBO();
 }
@@ -538,7 +582,12 @@ void IsoGridMarcherApp::draw(){
     
     //this->drawScenePartsOcclusive();
     //this->drawScenePartsAll();
-    drawFBO(USE_SHADER ? mFbo2 : mFbo0);
+    if (USE_SHADER) {
+        drawFBO(mFbo2);
+    } else {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        this->drawScenePartsAll();
+    }
     
     mFbo0.getTexture().unbind();
     mFbo1.getTexture().unbind();
@@ -553,6 +602,8 @@ void IsoGridMarcherApp::draw(){
 /*----------------------------------------------------------------------------------*/
 
 void IsoGridMarcherApp::drawScenePartsOcclusive(){
+    mCubeMatrix->drawFacesEmissive();
+    
     glEnable(GL_LIGHTING);
     mLight0->enable();
     
@@ -566,7 +617,8 @@ void IsoGridMarcherApp::drawScenePartsOcclusive(){
     }
     
     mMaterial1.apply();
-    mLightMatrix->drawOcclusive();
+    mCubeMatrix->drawEdgesOcclusive();
+    //mCubeMatrix->drawFacesOcclusive();
     mLight0->disable();
     glDisable(GL_LIGHTING);
     
@@ -578,7 +630,17 @@ void IsoGridMarcherApp::drawScenePartsEmmissive(){
     glEnable(GL_LIGHTING);
     mLight0->enable();
     mMaterial2.apply();
-    mLightMatrix->drawEmissive();
+    mCubeMatrix->drawEdgesEmissive();
+    mCubeMatrix->drawFacesEmissive();
+    
+    /*
+    for(std::vector<ci::Vec3f>::iterator itr = mRandPoints.begin();
+        itr!=mRandPoints.end();
+        ++itr){
+        ci::gl::drawSphere(*itr, 0.005f);
+    }
+    */
+    
     mLight0->disable();
     glDisable(GL_LIGHTING);
 }
@@ -596,14 +658,14 @@ void IsoGridMarcherApp::drawScenePartsDebug(){
         ci::gl::disableDepthRead();
         ci::gl::color(Color::white());
         ci::gl::enableAlphaBlending();
-        if(MATRIX_DEBUG_VIEW_POINTS) mLightMatrix->drawDebugPoints();
-        if(MATRIX_DEBUG_VIEW_AXIS_X) mLightMatrix->drawDebugEdgesX();
-        if(MATRIX_DEBUG_VIEW_AXIS_Y) mLightMatrix->drawDebugEdgesY();
-        if(MATRIX_DEBUG_VIEW_AXIS_Z) mLightMatrix->drawDebugEdgesZ();
-        if(MATRIX_DEBUG_VIEW_AXIS_XD)mLightMatrix->drawDebugEdgesXD();
-        if(MATRIX_DEBUG_VIEW_AXIS_YD)mLightMatrix->drawDebugEdgesYD();
-        if(MATRIX_DEBUG_VIEW_AXIS_ZD)mLightMatrix->drawDebugEdgesZD();
-        if(MATRIX_DEBUG_VIEW_CUBES)  mLightMatrix->drawDebugCubes();
+        if(MATRIX_DEBUG_VIEW_POINTS) mCubeMatrix->drawDebugPoints();
+        if(MATRIX_DEBUG_VIEW_AXIS_X) mCubeMatrix->drawDebugEdgesX();
+        if(MATRIX_DEBUG_VIEW_AXIS_Y) mCubeMatrix->drawDebugEdgesY();
+        if(MATRIX_DEBUG_VIEW_AXIS_Z) mCubeMatrix->drawDebugEdgesZ();
+        if(MATRIX_DEBUG_VIEW_AXIS_XD)mCubeMatrix->drawDebugEdgesXD();
+        if(MATRIX_DEBUG_VIEW_AXIS_YD)mCubeMatrix->drawDebugEdgesYD();
+        if(MATRIX_DEBUG_VIEW_AXIS_ZD)mCubeMatrix->drawDebugEdgesZD();
+        if(MATRIX_DEBUG_VIEW_CUBES)  mCubeMatrix->drawDebugCubes();
         ci::gl::disableAlphaBlending();
         ci::gl::enableDepthRead();
     }
