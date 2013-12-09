@@ -1,16 +1,16 @@
 //
-//  EdgeCubeMatrix.cpp
+//  CubeMatrix.cpp
 //  IsoGridMarcher
 //
 //  Created by Henryk Wollik on 03/12/13.
 //
 //
 
-#include "EdgeCubeMatrix.h"
+#include "CubeMatrix.h"
 #include "cinder/gl/gl.h"
 #include <OpenGL/OpenGL.h>
 
-EdgeCubeMatrix::EdgeCubeMatrix() :
+CubeMatrix::CubeMatrix() :
 mDrawEdgesOff(true),
 mDrawPoints(true),
 mPointSize(0.005f){
@@ -18,7 +18,7 @@ mPointSize(0.005f){
     this->initBatchesOff();
 }
 
-EdgeCubeMatrix::~EdgeCubeMatrix(){
+CubeMatrix::~CubeMatrix(){
     delete mBatchEdgesOffX;
     delete mBatchEdgesOffY;
     delete mBatchEdgesOffZ;
@@ -29,21 +29,21 @@ EdgeCubeMatrix::~EdgeCubeMatrix(){
     this->clear();
 }
 
-void EdgeCubeMatrix::initDebugFont(){
+void CubeMatrix::initDebugFont(){
     mDebugFontScale   = 0.0015f;
     mDebugFont        = ci::Font("Arial",12);
     mTextureDebugFont = ci::gl::TextureFont::create(mDebugFont);
 }
 
-void EdgeCubeMatrix::setSize(int sizeX, int sizeY, int sizeZ){
+void CubeMatrix::setSize(int sizeX, int sizeY, int sizeZ){
     this->setSize_Internal(sizeX, sizeY, sizeZ);
 }
 
-void EdgeCubeMatrix::setSize(int sizeXYZ){
+void CubeMatrix::setSize(int sizeXYZ){
     this->setSize_Internal(sizeXYZ, sizeXYZ, sizeXYZ);
 }
 
-void EdgeCubeMatrix::setSize_Internal(int sizeX, int sizeY, int sizeZ){
+void CubeMatrix::setSize_Internal(int sizeX, int sizeY, int sizeZ){
     mEdgesSizeOnLast.set(-1, -1);
     mEdgesSizeOffLast.set(-1, -1);
     
@@ -61,7 +61,7 @@ void EdgeCubeMatrix::setSize_Internal(int sizeX, int sizeY, int sizeZ){
     this->build();
 }
 
-void EdgeCubeMatrix::initBatchesOff(){
+void CubeMatrix::initBatchesOff(){
     mBatchEdgesOffX = new TriMeshBatch();
     mBatchEdgesOffY = new TriMeshBatch();
     mBatchEdgesOffZ = new TriMeshBatch();
@@ -70,7 +70,7 @@ void EdgeCubeMatrix::initBatchesOff(){
     mBatchEdgesOffZD= new TriMeshBatch();
 }
 
-void EdgeCubeMatrix::clear(){
+void CubeMatrix::clear(){
     mPoints.clear();
     mEdgesX.clear();
     mEdgesY.clear();
@@ -82,7 +82,7 @@ void EdgeCubeMatrix::clear(){
 
 /*--------------------------------------------------------------------------------*/
 
-void EdgeCubeMatrix::build(){
+void CubeMatrix::build(){
     
     /*--------------------------------------------------------------------------------*/
     // Setup Points
@@ -287,6 +287,21 @@ void EdgeCubeMatrix::build(){
             iy1 = iy + 1;
             iz  = -1;
             while (++iz < numEdgesZ) {
+                //POINTS
+                //bottom
+                indexCubeVertex0 = ix  * mNumPointsY * mNumPointsZ + iy * mNumPointsZ + iz;
+                indexCubeVertex1 = ix1 * mNumPointsY * mNumPointsZ + iy * mNumPointsZ + iz;
+                indexCubeVertex2 = indexCubeVertex0 + 1;
+                indexCubeVertex3 = indexCubeVertex1 + 1;
+                
+                //top
+                indexCubeVertex4 = ix  * mNumPointsY * mNumPointsZ + iy1 * mNumPointsZ + iz;
+                indexCubeVertex5 = ix1 * mNumPointsY * mNumPointsZ + iy1 * mNumPointsZ + iz;
+                indexCubeVertex6 = indexCubeVertex4 + 1;
+                indexCubeVertex7 = indexCubeVertex5 + 1;
+                
+                
+                //EDGES
                 //bottom trbl
                 indexBulb00 = ix * mNumPointsYZ   + iy * mNumPointsZ  + iz;
                 indexBulb03 = ix * mNumPointsYZ_1 + iy * mNumPointsZ_1 + iz;
@@ -314,6 +329,9 @@ void EdgeCubeMatrix::build(){
                 indexBulb17 = ix * mNumPointsY_1Z_1 + iy * mNumPointsZ_1 + iz;
                 indexBulb16 = indexBulb14 + 1;
                 indexBulb15 = indexBulb17 + mNumPointsY_1Z_1;
+                
+                
+                
                 
                 
                 /*
@@ -346,12 +364,19 @@ void EdgeCubeMatrix::build(){
                 
                 
                 
-                mCubes.push_back(EdgeCube(ix,iy,iz));
-                mCubes.back().set(&( mEdgesX[indexBulb00]), &( mEdgesZ[indexBulb01]), &( mEdgesX[indexBulb02]), &( mEdgesZ[indexBulb03]),
-                                  &( mEdgesX[indexBulb04]), &( mEdgesZ[indexBulb05]), &( mEdgesX[indexBulb06]), &( mEdgesZ[indexBulb07]),
-                                  &( mEdgesY[indexBulb08]), &( mEdgesY[indexBulb09]), &( mEdgesY[indexBulb10]), &( mEdgesY[indexBulb11]),
-                                  &(mEdgesZD[indexBulb12]), &(mEdgesZD[indexBulb13]),
-                                  &(mEdgesXD[indexBulb14]), &(mEdgesYD[indexBulb15]), &(mEdgesXD[indexBulb16]), &(mEdgesYD[indexBulb17]));
+                mCubes.push_back(Cube(ix,iy,iz));
+                Cube& last = mCubes.back();
+                
+                
+                last.setPoints(0, 0, 0, 0,
+                               0, 0, 0, 0);
+                
+                
+                last.setEdges(&( mEdgesX[indexBulb00]), &( mEdgesZ[indexBulb01]), &( mEdgesX[indexBulb02]), &( mEdgesZ[indexBulb03]),
+                              &( mEdgesX[indexBulb04]), &( mEdgesZ[indexBulb05]), &( mEdgesX[indexBulb06]), &( mEdgesZ[indexBulb07]),
+                              &( mEdgesY[indexBulb08]), &( mEdgesY[indexBulb09]), &( mEdgesY[indexBulb10]), &( mEdgesY[indexBulb11]),
+                              &(mEdgesZD[indexBulb12]), &(mEdgesZD[indexBulb13]),
+                              &(mEdgesXD[indexBulb14]), &(mEdgesYD[indexBulb15]), &(mEdgesXD[indexBulb16]), &(mEdgesYD[indexBulb17]));
             }
         }
     }
@@ -360,7 +385,7 @@ void EdgeCubeMatrix::build(){
 
 /*--------------------------------------------------------------------------------*/
 
-void EdgeCubeMatrix::switchOn(){
+void CubeMatrix::switchOn(){
     this->switchOnEdges(mEdgesX);
     this->switchOnEdges(mEdgesY);
     this->switchOnEdges(mEdgesZ);
@@ -369,7 +394,7 @@ void EdgeCubeMatrix::switchOn(){
     this->switchOnEdges(mEdgesZD);
 }
 
-void EdgeCubeMatrix::switchOff(){
+void CubeMatrix::switchOff(){
     this->switchOffEdges(mEdgesX);
     this->switchOffEdges(mEdgesY);
     this->switchOffEdges(mEdgesZ);
@@ -378,7 +403,7 @@ void EdgeCubeMatrix::switchOff(){
     this->switchOffEdges(mEdgesZD);
 }
 
-void EdgeCubeMatrix::switchRandom(float triggerTolerance){
+void CubeMatrix::switchRandom(float triggerTolerance){
     this->switchRandomEdges(mEdgesX,  triggerTolerance);
     this->switchRandomEdges(mEdgesY,  triggerTolerance);
     this->switchRandomEdges(mEdgesZ,  triggerTolerance);
@@ -387,19 +412,19 @@ void EdgeCubeMatrix::switchRandom(float triggerTolerance){
     this->switchRandomEdges(mEdgesZD, triggerTolerance);
 }
 
-void EdgeCubeMatrix::switchRandomEdges(std::vector<Edge>& bulbs, float triggerTolerance){
+void CubeMatrix::switchRandomEdges(std::vector<Edge>& bulbs, float triggerTolerance){
     for (std::vector<Edge>::iterator itr = bulbs.begin(); itr != bulbs.end(); ++itr) {
         itr->switchRandom(triggerTolerance);
     }
 }
 
-void EdgeCubeMatrix::switchOffEdges(std::vector<Edge>& edges){
+void CubeMatrix::switchOffEdges(std::vector<Edge>& edges){
     for (std::vector<Edge>::iterator itr = edges.begin(); itr != edges.end(); ++itr) {
         itr->switchOff();
     }
 }
 
-void EdgeCubeMatrix::switchOnEdges(std::vector<Edge>& edges){
+void CubeMatrix::switchOnEdges(std::vector<Edge>& edges){
     for (std::vector<Edge>::iterator itr = edges.begin(); itr != edges.end(); ++itr) {
         itr->switchOn();
     }
@@ -407,7 +432,7 @@ void EdgeCubeMatrix::switchOnEdges(std::vector<Edge>& edges){
 
 /*--------------------------------------------------------------------------------*/
 
-void EdgeCubeMatrix::setEdgeSizeOn(const ci::Vec2f& size){
+void CubeMatrix::setEdgeSizeOn(const ci::Vec2f& size){
     if(mEdgesSizeOnLast == size)return;
     
     this->setSizeOnEdges(mEdgesX, size);
@@ -420,7 +445,7 @@ void EdgeCubeMatrix::setEdgeSizeOn(const ci::Vec2f& size){
     mEdgesSizeOnLast = size;
 }
 
-void EdgeCubeMatrix::setEdgeSizeOff(const ci::Vec2f& size){
+void CubeMatrix::setEdgeSizeOff(const ci::Vec2f& size){
     if(mEdgesSizeOffLast == size)return;
     
     this->setSizeOffEdges(mEdgesX, size);
@@ -433,14 +458,14 @@ void EdgeCubeMatrix::setEdgeSizeOff(const ci::Vec2f& size){
     mEdgesSizeOffLast = size;
 }
 
-void EdgeCubeMatrix::setSizeOffEdges(std::vector<Edge> &bulbs, const ci::Vec2f& size){
+void CubeMatrix::setSizeOffEdges(std::vector<Edge> &bulbs, const ci::Vec2f& size){
     for (std::vector<Edge>::iterator itr = bulbs.begin(); itr!=bulbs.end(); ++itr) {
         itr->setSizeOff(size);
         itr->updateGeometry();
     }
 }
 
-void EdgeCubeMatrix::setSizeOnEdges(std::vector<Edge> &bulbs, const ci::Vec2f& size){
+void CubeMatrix::setSizeOnEdges(std::vector<Edge> &bulbs, const ci::Vec2f& size){
     for (std::vector<Edge>::iterator itr = bulbs.begin(); itr!=bulbs.end(); ++itr) {
         itr->setSizeOn(size);
         itr->updateGeometry();
@@ -449,7 +474,7 @@ void EdgeCubeMatrix::setSizeOnEdges(std::vector<Edge> &bulbs, const ci::Vec2f& s
 
 /*--------------------------------------------------------------------------------*/
 
-void EdgeCubeMatrix::drawOcclusive(){
+void CubeMatrix::drawOcclusive(){
     // Draw Points
     
     if(mDrawPoints){
@@ -471,7 +496,7 @@ void EdgeCubeMatrix::drawOcclusive(){
     this->drawBatch(mBatchEdgesOffZD);
 }
 
-void EdgeCubeMatrix::update(){
+void CubeMatrix::update(){
     
     if(!mDrawEdgesOff)return;
     this->putBatch(mEdgesX,  mBatchEdgesOffX);
@@ -482,14 +507,14 @@ void EdgeCubeMatrix::update(){
     this->putBatch(mEdgesZD, mBatchEdgesOffZD);
 }
 
-void EdgeCubeMatrix::putBatch(std::vector<Edge> &edge, TriMeshBatch *batch){
+void CubeMatrix::putBatch(std::vector<Edge> &edge, TriMeshBatch *batch){
     batch->reset();
     for (std::vector<Edge>::iterator itr = edge.begin(); itr!=edge.end(); ++itr) {
         batch->put(*itr);
     }
 }
 
-void EdgeCubeMatrix::drawBatch(TriMeshBatch *batch){
+void CubeMatrix::drawBatch(TriMeshBatch *batch){
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_NORMAL_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, &batch->getVertices()[0].x);
@@ -500,7 +525,7 @@ void EdgeCubeMatrix::drawBatch(TriMeshBatch *batch){
 }
 
 
-void EdgeCubeMatrix::drawEmissive(){
+void CubeMatrix::drawEmissive(){
     for (std::vector<Edge>::iterator itr = mEdgesX.begin(); itr!=mEdgesX.end(); ++itr) {
         itr->drawEmissive();
     }
@@ -528,38 +553,38 @@ void EdgeCubeMatrix::drawEmissive(){
 
 /*--------------------------------------------------------------------------------*/
 
-void EdgeCubeMatrix::applyPattern(const EdgePattern &pattern){
-    EdgeCube* cube = this->getEdgeCube(pattern.pos.x,
+void CubeMatrix::applyPattern(const EdgePattern &pattern){
+    Cube* cube = this->getCube(pattern.pos.x,
                                        pattern.pos.y,
                                        pattern.pos.z);
     if(!cube)return;
     int i = -1;
-    while (++i < EdgeCube::NUM_EDGES) {
+    while (++i < Cube::NUM_EDGES) {
         if(bool(pattern[i]))(*cube)[i]->switchOn(); // just switch on
     }
 }
 
-void EdgeCubeMatrix::applyPatternSeq(const EdgePatternSequence& seq){
+void CubeMatrix::applyPatternSeq(const EdgePatternSequence& seq){
     const std::vector<EdgePattern>& patterns = seq.getPatterns();
     int i;
-    EdgeCube* cube;
+    Cube* cube;
     ci::Vec3f index;
     for(std::vector<EdgePattern>::const_iterator itr = patterns.begin();
         itr != patterns.end();
         ++itr){
         index = seq.pos + itr->pos;
-        cube  = this->getEdgeCube(index.x,index.y,index.z);
+        cube  = this->getCube(index.x,index.y,index.z);
         if(!cube)continue;
         i = -1;
-        while (++i < EdgeCube::NUM_EDGES) {
+        while (++i < Cube::NUM_EDGES) {
             if(bool((*itr)[i]))(*cube)[i]->switchOn();
         }
     }
 }
 
-void EdgeCubeMatrix::applyPatternSeqs(const std::vector<EdgePatternSequence>& seqs){
+void CubeMatrix::applyPatternSeqs(const std::vector<EdgePatternSequence>& seqs){
     int i;
-    EdgeCube* cube;
+    Cube* cube;
     ci::Vec3f index;
     for (std::vector<EdgePatternSequence>::const_iterator itrSeq = seqs.begin();
          itrSeq != seqs.end();
@@ -569,10 +594,10 @@ void EdgeCubeMatrix::applyPatternSeqs(const std::vector<EdgePatternSequence>& se
              itr != patterns.end();
              ++itr) {
             index = itrSeq->pos + itr->pos;
-            cube  = this->getEdgeCube(index.x, index.y, index.z);
+            cube  = this->getCube(index.x, index.y, index.z);
             if(!cube)continue;
             i = -1;
-            while (++i < EdgeCube::NUM_EDGES) {
+            while (++i < Cube::NUM_EDGES) {
                 if(bool((*itr)[i]))(*cube)[i]->switchOn();
             }
         }
@@ -581,7 +606,7 @@ void EdgeCubeMatrix::applyPatternSeqs(const std::vector<EdgePatternSequence>& se
 
 /*--------------------------------------------------------------------------------*/
 
-EdgeCube* EdgeCubeMatrix::getEdgeCube(int x, int y, int z){
+Cube* CubeMatrix::getCube(int x, int y, int z){
     int numCubesX_1 = mNumCubesX - 1;
     int numCubesY_1 = mNumCubesY - 1;
     int numCubesZ_1 = mNumCubesZ - 1;
@@ -595,7 +620,7 @@ EdgeCube* EdgeCubeMatrix::getEdgeCube(int x, int y, int z){
     return &mCubes[x * mNumCubesY * mNumCubesZ + y * mNumCubesZ + z];
 }
 
-EdgeCube* EdgeCubeMatrix::getEdgeCube(int x, int y, int z, int ax, int ay, int az){
+Cube* CubeMatrix::getCube(int x, int y, int z, int ax, int ay, int az){
     int numCubesX_1 = mNumCubesX - 1;
     int numCubesY_1 = mNumCubesY - 1;
     int numCubesZ_1 = mNumCubesZ - 1;
@@ -616,14 +641,14 @@ EdgeCube* EdgeCubeMatrix::getEdgeCube(int x, int y, int z, int ax, int ay, int a
     return &mCubes[indexXAdded * mNumCubesY * mNumCubesZ + indexYAdded * mNumCubesZ + indexZAdded];
 }
 
-EdgeCube* EdgeCubeMatrix::getEdgeCube(EdgeCube &baseCube, int ax, int ay, int az){
-    return this->getEdgeCube(baseCube.getIX(), baseCube.getIY(), baseCube.getIZ(),
+Cube* CubeMatrix::getCube(Cube &baseCube, int ax, int ay, int az){
+    return this->getCube(baseCube.getIX(), baseCube.getIY(), baseCube.getIZ(),
                               ax, ay, az);
 }
 
 /*--------------------------------------------------------------------------------*/
 
-void EdgeCubeMatrix::drawDebugBulb(std::vector<Edge> &bulbs){
+void CubeMatrix::drawDebugBulb(std::vector<Edge> &bulbs){
     const static ci::Vec2f zero = ci::Vec2f::zero();
     ci::Vec3f mid;
     
@@ -638,7 +663,7 @@ void EdgeCubeMatrix::drawDebugBulb(std::vector<Edge> &bulbs){
     }
 }
 
-void EdgeCubeMatrix::drawDebugPoints(){
+void CubeMatrix::drawDebugPoints(){
     ci::Vec2f zero = ci::Vec2f::zero();
     ci::gl::color(1, 1, 1);
     int i = -1;
@@ -653,7 +678,7 @@ void EdgeCubeMatrix::drawDebugPoints(){
 }
 
 
-void EdgeCubeMatrix::drawDebugCubes(){
+void CubeMatrix::drawDebugCubes(){
     ci::Vec2f zero = ci::Vec2f::zero();
     ci::Vec3f sum;
     ci::Vec3f mid;

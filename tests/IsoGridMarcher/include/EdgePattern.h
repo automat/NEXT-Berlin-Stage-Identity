@@ -9,12 +9,12 @@
 #ifndef IsoGridMarcher_LightPattern_h
 #define IsoGridMarcher_LightPattern_h
 
-#include "EdgeCube.h"
+#include "Cube.h"
 #include "cinder/Vector.h"
 
 class EdgePattern{
 private:
-    int mB[EdgeCube::NUM_EDGES];
+    int mB[Cube::NUM_EDGES];
 public:
     
     ci::Vec3f pos;

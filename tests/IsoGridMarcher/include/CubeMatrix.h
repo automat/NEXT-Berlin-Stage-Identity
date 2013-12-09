@@ -1,13 +1,13 @@
 //
-//  EdgeCubeMatrix.h
+//  CubeMatrix.h
 //  IsoGridMarcher
 //
 //  Created by Henryk Wollik on 03/12/13.
 //
 //
 
-#ifndef IsoGridMarcher_EdgeCubeMatrix_h
-#define IsoGridMarcher_EdgeCubeMatrix_h
+#ifndef IsoGridMarcher_CubeMatrix_h
+#define IsoGridMarcher_CubeMatrix_h
 
 #include <vector>
 #include "cinder/Vector.h"
@@ -20,13 +20,13 @@
 #include "TriMeshBatch.h"
 
 #include "Edge.h"
-#include "EdgeCube.h"
+#include "Cube.h"
 
 #include "EdgePattern.h"
 #include "EdgePatternSequence.h"
 
 
-class EdgeCubeMatrix {
+class CubeMatrix {
     int mNumPointsX;
     int mNumPointsY;
     int mNumPointsZ;
@@ -59,7 +59,7 @@ class EdgeCubeMatrix {
     std::vector<Edge> mEdgesXD; // diagonal
     std::vector<Edge> mEdgesYD; // diagonal
     std::vector<Edge> mEdgesZD; // diagonal
-    std::vector<EdgeCube> mCubes;
+    std::vector<Cube> mCubes;
     
     void build();
     void clear();
@@ -93,8 +93,8 @@ class EdgeCubeMatrix {
     void drawDebugBulb(std::vector<Edge> &edges);
     
 public:
-    EdgeCubeMatrix();
-    ~EdgeCubeMatrix();
+    CubeMatrix();
+    ~CubeMatrix();
     
     //! Set initial grid size
     void setSize(int sizeXYZ);
@@ -127,11 +127,11 @@ public:
     
     
     //! Get pointer to cube at index x y z
-    EdgeCube* getEdgeCube(int x, int y, int z);
+    Cube* getCube(int x, int y, int z);
     //! Get pointer to cube at index x y z, ax ay az added
-    EdgeCube* getEdgeCube(int x, int y, int z, int ax, int ay, int az);
+    Cube* getCube(int x, int y, int z, int ax, int ay, int az);
     //! Get pointer to cube index ax ay az added
-    EdgeCube* getEdgeCube(EdgeCube& baseCube, int ax, int ay, int az);
+    Cube* getCube(Cube& baseCube, int ax, int ay, int az);
     
     //! Get points of grid bulb edges are connected to
     const std::vector<ci::Vec3f>& getGridPoints() const{ return mPoints;}
@@ -151,8 +151,8 @@ public:
     std::vector<Edge>& getEdgesZD(){ return mEdgesZD; }
     
     //! Get cubes formed defined by bulb edges
-    const std::vector<EdgeCube>& getCubes() const{return mCubes; }
-    std::vector<EdgeCube>& getCubes(){ return mCubes; }
+    const std::vector<Cube>& getCubes() const{return mCubes; }
+    std::vector<Cube>& getCubes(){ return mCubes; }
     
     //! Get nums
     int getNumCubes(){ return mNumCubes;};

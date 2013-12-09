@@ -16,8 +16,7 @@
 #include <vector>
 #include "Utils.h"
 #include "Edge.h"
-#include "EdgeCube.h"
-#include "EdgeCubeMatrix.h"
+#include "CubeMatrix.h"
 
 #include "Resources.h"
 
@@ -79,7 +78,7 @@ static int  CAMERA_SNAP_AXIS_X(3),
 static bool LIGHT_ROTATE(false);
 
 static ci::Colorf BLACK(0,0,0),
-                  BLACK_0(0.05f,0.0164f,0.035f),
+                  BLACK_0(0.15f,0.1164f,0.135f),
                   BLACK_1(0.25f,0.25f,0.35f);
 static const ci::Color WHITE(1,1,1),
                       WHITE_2(0.9,1,1);
@@ -151,7 +150,7 @@ public:
     ci::gl::Material mMaterial2; //black
     
     
-    EdgeCubeMatrix* mLightMatrix;
+    CubeMatrix* mLightMatrix;
     EdgePatternSequence mLightPatternSeq;
     EdgePatternSequence mPattern0; //bubble
     EdgePatternSequence mPattern1;
@@ -270,7 +269,7 @@ void IsoGridMarcherApp::setup(){
 
     /*----------------------------------------------------------------------------------*/
 
-    mLightMatrix = new EdgeCubeMatrix();
+    mLightMatrix = new CubeMatrix();
     mLightPatternSeq = EdgePatternSequence(6);
     mLightPatternSeq[ 0][ 0] = 1;
     mLightPatternSeq[ 0][ 9] = 1;
@@ -299,15 +298,10 @@ void IsoGridMarcherApp::setup(){
     (*mLightPatternSeq)[1][11] = 1;
     */
     
-    
-   
-    
     this->changeMatrixSize();
     this->setupParams();
     
-    
-    
-    
+    /*
     mPattern0 = EdgePatternSequence(7);
     mPattern0.pos.x = floor(mLightMatrix->getNumCubesX() * 0.5f);
     mPattern0.pos.y = floor(mLightMatrix->getNumCubesY() * 0.5f);
@@ -358,11 +352,7 @@ void IsoGridMarcherApp::setup(){
     mPattern8 = EdgePatternSequence(mPattern0);
     mPattern8.pos.x = mPattern0.pos.x - 4;
     mPattern8.pos.z = mPattern0.pos.z - 3;
-    
-
-    
-    
-
+    */
 }
 
 
@@ -372,11 +362,6 @@ void IsoGridMarcherApp::update(){
     mTime        = (float)app::getElapsedSeconds();
     mTimeDelta   = mTime - mTimeLast;
     mTick++;
-    
-    /*----------------------------------------------------------------------------------*/
-    
-  
-    
     
     /*----------------------------------------------------------------------------------*/
     
@@ -402,10 +387,7 @@ void IsoGridMarcherApp::update(){
     
     if(TICK && mTick % TICK_FREQUENCE == 0){
         mLightMatrix->switchRandom(0.0125f);
-        
     }
-    
-    
     
     if(MATRIX_FORM_OBJECTS){
         mLightMatrix->getEdgesX()[15].switchOn();
@@ -421,9 +403,7 @@ void IsoGridMarcherApp::update(){
         mLightMatrix->getEdgesY()[15].switchOn();
         
         mLightMatrix->getEdgesXD()[3].switchOn();
-        
     }
-    
     
     mLightMatrix->switchOff();
     //mLightMatrix->getLightCube(*mLightMatrix->getLightCube(0, 0, 0),0,floor(abs(sinf(mTime)  *(mLightMatrix->getNumCubesY()))),0)->switchRandom(0.15f);
@@ -435,6 +415,7 @@ void IsoGridMarcherApp::update(){
     //mLightPatternSeq.pos.x = floor(abs(sinf(mTime*3)*(mLightMatrix->getNumCubesX())));
    // mLightPatternSeq.pos.y = floor(abs(sinf(mTime*3)*(mLightMatrix->getNumCubesY())));
     
+    /*
     int centerX = floor(mLightMatrix->getNumCubesX() * 0.5f);
     int centerZ = floor(mLightMatrix->getNumCubesZ() * 0.5f);
     
@@ -458,9 +439,6 @@ void IsoGridMarcherApp::update(){
     
    // mLightMatrix->applyPatternSeq(mLightPatternSeq);
     
-    
-    
-    
     mLightMatrix->applyPatternSeq(mPattern0);
     mLightMatrix->applyPatternSeq(mPattern1);
     mLightMatrix->applyPatternSeq(mPattern2);
@@ -470,7 +448,7 @@ void IsoGridMarcherApp::update(){
     mLightMatrix->applyPatternSeq(mPattern6);
     mLightMatrix->applyPatternSeq(mPattern7);
     mLightMatrix->applyPatternSeq(mPattern8);
-    
+    */
     //mLightMatrix->getLightBulbsX()[1].switchOn();
     
     //mLightMatrix->switchRandom(0.0125f);
