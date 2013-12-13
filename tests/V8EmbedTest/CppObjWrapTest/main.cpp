@@ -55,7 +55,8 @@ void v8log_internal(const v8::Local<v8::Value>& val, int depth = 0){
         if(internal_field_count != 0){
             j = -1;
             while (++j < internal_field_count) {
-                std::cout << intend << "internal field " << j << " : " <<toCString(obj->GetInternalField(j)->ToString()) << std::endl;
+                std::cout << intend << "internal field " << j << " : " <<
+                toCString(obj->GetInternalField(j)->ToString()) << std::endl;
             }
         }
         
