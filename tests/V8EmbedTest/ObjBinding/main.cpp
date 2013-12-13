@@ -20,8 +20,47 @@ public:
     void set_member_a(int a){member_a_ = a;}
     void set_member_b(int b){member_b_ = b;}
     
+    static void v8_get_member_a(v8::Local<v8::String> property,
+                                const v8::PropertyCallbackInfo<v8::Value>& info){
+        v8::Local<v8::Object>   self = info.Holder();
+        v8::Local<v8::External> wrap = v8::Local<v8::External>::Cast(self->GetInternalField(0));
+        void* ptr = wrap->Value();
+        int value = static_cast<CppClass*>(ptr)->member_a_;
+        info.GetReturnValue().Set(v8Utils::v8_int(value));
+    }
+    
+    static void v8_set_member_a(v8::Local<v8::String> property,
+                         v8::Local<v8::Value>  value,
+                         const v8::PropertyCallbackInfo<void>& info){
+        v8::Local<v8::Object>   self = info.Holder();
+        v8::Local<v8::External> wrap = v8::Local<v8::External>::Cast(self->GetInternalField(0));
+        void* ptr = wrap->Value();
+        static_cast<CppClass*>(ptr)->member_a_ = value->Int32Value();
+    }
+
+    static v8::Handle<v8::Object> v8_init(){
+        v8::HandleScope handle_scope(v8::Isolate::GetCurrent());
+            v8::Handle<v8::ObjectTemplate> class_template;
+            class_template->SetInternalFieldCount(1);
+            class_template->SetAccessor(v8Utils::v8_str("a"),CppClass::v8_get_member_a, CppClass::v8_set_member_a);
+            v8::Handle<v8::Object> result = class_template->NewInstance();
+            v8::Handle<v8::External> class_ptr = v8::External::New(new CppClass());
+            result->SetInternalField(0, class_ptr);
+        return handle_scope.Close(result);
+    }
     
 };
+
+
+
+v8::Handle<v8::ObjectTemplate> getCppClassObjTemplate(){
+    v8::Local<v8::ObjectTemplate> obj_template = v8::ObjectTemplate::New();
+    obj_template->SetInternalFieldCount(1);
+    
+    return obj_template;
+}
+
+/*-------------------------------------------------------------------------------------*/
 
 int global_cpp_x = 256;
 int global_cpp_y = 16;

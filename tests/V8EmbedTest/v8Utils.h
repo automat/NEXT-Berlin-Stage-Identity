@@ -19,6 +19,10 @@ namespace v8Utils {
         return v8::Number::New(x);
     }
     
+    v8::Local<v8::Integer> v8_int(double x){
+        return v8::Integer::New(x);
+    }
+    
     v8::Local<v8::String> v8_str(const char* x){
         return v8::String::NewFromUtf8(v8::Isolate::GetCurrent(), x);
     }
