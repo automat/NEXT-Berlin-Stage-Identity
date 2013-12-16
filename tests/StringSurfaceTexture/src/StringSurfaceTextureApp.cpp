@@ -35,6 +35,7 @@ static bool  SHOW_TEXT_BOUNDS(false), SHOW_SAFE_ZONE(false);
 static float SAFE_ZONE_PADDING(0);
 static bool  LAYOUT_SETUP_REPEAT(false);
 static int   LAYOUT_SETUP_REPEAT_TICK(3);
+static int   EPS_FILE_TICK_COUNT = -1;
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 
@@ -70,6 +71,8 @@ static std::vector<std::string> quote_strings = {
     "10.500.500.500 daily video uploads.",
     "Dispute with your digital selfs." };
 
+static const std::string FONT_NAME("Transcript-Bold");
+
 /*-----------------------------------------------------------------------------------------------------------------------*/
 
 class StringSurfaceTextureApp : public AppNative {
@@ -83,6 +86,7 @@ public:
     
     void setupLayout();
     void printFontNames();
+    void cairoRenderScene(cairo::Context& ctx);
     void cairoDrawString(cairo::Context& ctx,
                          const std::string& str,
                          const ci::Vec2f& p,
@@ -90,10 +94,12 @@ public:
                          const ci::Colorf& color_bg,
                          bool  drawFakeLight,
                          ci::Vec2f* offset);
+    void cairoRenderToEPS();
     
     cairo::FontExtents m_font_extents;
     double             m_font_extents_line_height;
     float              m_text_padding[4];
+    ci::Rectf          m_safe_zone;
     
     ci::params::InterfaceGlRef m_params;
 #ifdef RENDER_SURFACE_OPENGL
@@ -122,6 +128,8 @@ void StringSurfaceTextureApp::setup(){
     m_params->addSeparator();
     m_params->addParam("Disco Mode", &LAYOUT_SETUP_REPEAT);
     m_params->addParam("Disco Mode Tick Num", &LAYOUT_SETUP_REPEAT_TICK, "min=1 max=30 step=1");
+    m_params->addSeparator();
+    m_params->addButton("Render To EPS", std::bind(&StringSurfaceTextureApp::cairoRenderToEPS, this));
     
     if(PRINT_FONT_NAME)this->printFontNames();
     this->setupLayout();
@@ -133,10 +141,10 @@ void StringSurfaceTextureApp::printFontNames(){
 }
 
 void StringSurfaceTextureApp::setupLayout(){
-    std::string font_name("Transcript-Bold");//"Akkurat-Bold");
-    ci::Font    font(ci::Font(loadResource(FONT_TRANSCRIPT_BOLD),FONT_SIZE));
-    ci::Rectf   safe_zone = ci::Rectf(SAFE_ZONE_PADDING,SAFE_ZONE_PADDING,
-                                       app::getWindowWidth()-SAFE_ZONE_PADDING,app::getWindowHeight()-SAFE_ZONE_PADDING);
+
+   // ci::Font    font(ci::Font(loadResource(FONT_TRANSCRIPT_BOLD),FONT_SIZE));
+    m_safe_zone = ci::Rectf(SAFE_ZONE_PADDING,SAFE_ZONE_PADDING,
+                            app::getWindowWidth()-SAFE_ZONE_PADDING,app::getWindowHeight()-SAFE_ZONE_PADDING);
     
     m_text_padding[0] = FONT_SIZE / TEXT_PADDING_RATIO[0];
     m_text_padding[1] = FONT_SIZE / TEXT_PADDING_RATIO[1];
@@ -148,7 +156,18 @@ void StringSurfaceTextureApp::setupLayout(){
     cairo::SurfaceImage surface(app::getWindowWidth()  - CAIRO_CANVAS_PADDING * 2, app::getWindowHeight() - CAIRO_CANVAS_PADDING * 2);
     cairo::Context ctx(surface);
     
-    ctx.selectFontFace(font_name, cairo::FONT_SLANT_NORMAL, cairo::FONT_WEIGHT_BOLD);
+    this->cairoRenderScene(ctx);
+
+#ifdef RENDER_SURFACE_OPENGL
+    // Get cairo texture
+    m_string_texture = ci::gl::Texture(surface.getSurface());
+#else
+    
+#endif
+}
+
+void StringSurfaceTextureApp::cairoRenderScene(cairo::Context &ctx){
+    ctx.selectFontFace(FONT_NAME, cairo::FONT_SLANT_NORMAL, cairo::FONT_WEIGHT_BOLD);
     //ctx.setFont(font);
     ctx.setFontSize(FONT_SIZE);
     
@@ -172,20 +191,20 @@ void StringSurfaceTextureApp::setupLayout(){
     
     std::vector<std::string> quote_words;
     ci::Vec2f quote_word_offset(quote_word_reset_x,0);
-
+    
     int index_quote_strings = -1;
     int index_quote_strings_last = -1;
     
     int j;
     while (true) {
         
-        if (quote_word_offset.y > safe_zone.getY2()) {
+        if (quote_word_offset.y > m_safe_zone.getY2()) {
             break;
         }
         
         index_quote_strings = ci::randInt(0,quote_strings.size());
         std::string& quote_string = quote_strings[index_quote_strings];
-
+        
         ci::Colorf& quote_string_color    = index_quote_strings == 0 ? main_quote_string_color : quote_string_colors[0] ;
         ci::Colorf& quote_string_color_bg = index_quote_strings == 0 ? main_quote_bg_color     : quote_bg_colors[ci::randInt(quote_bg_colors.size())];
         
@@ -196,7 +215,7 @@ void StringSurfaceTextureApp::setupLayout(){
              std::istream_iterator<std::string>(),
              std::back_inserter<std::vector<std::string>>(quote_words));
         
-        if(!safe_zone.contains(quote_word_offset)){
+        if(!m_safe_zone.contains(quote_word_offset)){
             quote_word_offset.x = quote_word_reset_x;
             quote_word_offset.y = word_offset_step_y * line_index++;
         }
@@ -223,24 +242,15 @@ void StringSurfaceTextureApp::setupLayout(){
         }
         
         index_quote_strings_last = index_quote_strings;
-
+        
     }
     
     if (SHOW_SAFE_ZONE) {
         ctx.setSourceRgb(1, 1, 0);
-        ctx.rectangle(safe_zone.getX1(), safe_zone.getY1(), safe_zone.getWidth(), safe_zone.getHeight());
+        ctx.rectangle(m_safe_zone.getX1(), m_safe_zone.getY1(),
+                      m_safe_zone.getWidth(), m_safe_zone.getHeight());
         ctx.stroke();
     }
-    
-    // End paint
-    
-    
-#ifdef RENDER_SURFACE_OPENGL
-    // Get cairo texture
-    m_string_texture = ci::gl::Texture(surface.getSurface());
-#else
-    
-#endif
 }
 
 void StringSurfaceTextureApp::cairoDrawString(cairo::Context& ctx,
@@ -317,6 +327,19 @@ void StringSurfaceTextureApp::cairoDrawString(cairo::Context& ctx,
     
     offset->x += text_bounds_width;
 }
+
+void StringSurfaceTextureApp::cairoRenderToEPS(){
+    EPS_FILE_TICK_COUNT++;
+    std::stringstream sstream;
+    sstream << "StringSurfaceTexture" << EPS_FILE_TICK_COUNT << ".eps";
+    std::string filename = sstream.str();
+    
+    cairo::Context ctx( cairo::SurfaceEps(getHomeDirectory() / filename,
+                                          app::getWindowWidth()  - CAIRO_CANVAS_PADDING * 2, app::getWindowHeight() - CAIRO_CANVAS_PADDING * 2));
+    cairoRenderScene(ctx);
+}
+
+
 
 void StringSurfaceTextureApp::update(){
     if(LAYOUT_SETUP_REPEAT)if(app::getElapsedFrames()%LAYOUT_SETUP_REPEAT_TICK==0)this->setupLayout();
