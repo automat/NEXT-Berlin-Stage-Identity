@@ -1,3 +1,4 @@
+#include "Resources.h"
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
 #include "cinder/gl/Texture.h"
@@ -24,14 +25,16 @@ static const int   APP_WIDTH(1600),APP_HEIGHT(600);
 static const float APP_FRAME_RATE(30);
 static const float CAIRO_CANVAS_PADDING(0);
 
-static bool  PRINT_FONT_NAME(false);
-static float FONT_SIZE(80);
+static bool  PRINT_FONT_NAME(true);
+static float FONT_SIZE(125);
 
 // trbl
 static float TEXT_PADDING_RATIO[4] = {2,3,3,3};
 static bool  SHOW_TEXT_BOUNDS(false), SHOW_SAFE_ZONE(false);
 
 static float SAFE_ZONE_PADDING(0);
+static bool  LAYOUT_SETUP_REPEAT(false);
+static int   LAYOUT_SETUP_REPEAT_TICK(3);
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 
@@ -50,22 +53,22 @@ static std::vector<ci::Colorf> quote_bg_colors = {
 
 static std::vector<std::string> quote_strings = {
     "This is The New Normal.",
-    "95% defenitive .",
-    "Drones dancing . People cheering .",
-    "Autonomous unmanned vehicles delivering parcels .",
-    "You will be disrupted soon .",
-    "Digital human senses .",
-    "Replaced by bot .",
-    "300 text messages sent per person per day .",
-    "Marketing is dead . Long live marketing .",
-    "Data-driven intuition .",
-    "99.999999 % reliable .",
-    "Cash - and plastic - less .",
-    "Orchestration , not control .",
-    "Screenlight dinners .",
-    "A prototype says more than 1000 images .",
-    "10.500.500.500 daily video uploads .",
-    "Dispute with your digital selfs ." };
+    "95% defenitive.",
+    "Drones dancing. People cheering.",
+    "Autonomous unmanned vehicles delivering parcels.",
+    "You will be disrupted soon.",
+    "Digital human senses.",
+    "Replaced by bot.",
+    "300 text messages sent per person per day.",
+    "Marketing is dead . Long live marketing.",
+    "Data-driven intuition.",
+    "99.999999% reliable.",
+    "Cash- and plastic- less.",
+    "Orchestration, not control.",
+    "Screenlight dinners.",
+    "A prototype says more than 1000 images.",
+    "10.500.500.500 daily video uploads.",
+    "Dispute with your digital selfs." };
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 
@@ -74,6 +77,7 @@ public:
 	void setup();
     void prepareSettings(Settings* settings);
 	
+    void update();
 	void draw();
     void resize();
     
@@ -108,13 +112,16 @@ void StringSurfaceTextureApp::prepareSettings(Settings *settings){
 
 
 void StringSurfaceTextureApp::setup(){
-    m_params = ci::params::InterfaceGl::create(app::getWindow(), "Controls", ci::Vec2f(300,150));
+    m_params = ci::params::InterfaceGl::create(app::getWindow(), "Controls", ci::Vec2f(300,180));
     m_params->addParam("Font Size", &FONT_SIZE, "min=15 max=200 step=1");
     m_params->addParam("Text Padding T Ratio", &TEXT_PADDING_RATIO[0], "min=0 max=20 step=1");
     m_params->addParam("Text Padding R Ratio", &TEXT_PADDING_RATIO[1], "min=0 max=20 step=1");
     m_params->addParam("Text Padding B Ratio", &TEXT_PADDING_RATIO[2], "min=0 max=20 step=1");
     m_params->addParam("Text Padding L Ratio", &TEXT_PADDING_RATIO[3], "min=0 max=20 step=1");
     m_params->addButton("HIT ME!", std::bind(&StringSurfaceTextureApp::setupLayout, this));
+    m_params->addSeparator();
+    m_params->addParam("Disco Mode", &LAYOUT_SETUP_REPEAT);
+    m_params->addParam("Disco Mode Tick Num", &LAYOUT_SETUP_REPEAT_TICK, "min=1 max=30 step=1");
     
     if(PRINT_FONT_NAME)this->printFontNames();
     this->setupLayout();
@@ -126,8 +133,8 @@ void StringSurfaceTextureApp::printFontNames(){
 }
 
 void StringSurfaceTextureApp::setupLayout(){
-    std::string font_name("Transcript-Bold");
-    ci::Font    font(font_name,FONT_SIZE);
+    std::string font_name("Transcript-Bold");//"Akkurat-Bold");
+    ci::Font    font(ci::Font(loadResource(FONT_TRANSCRIPT_BOLD),FONT_SIZE));
     ci::Rectf   safe_zone = ci::Rectf(SAFE_ZONE_PADDING,SAFE_ZONE_PADDING,
                                        app::getWindowWidth()-SAFE_ZONE_PADDING,app::getWindowHeight()-SAFE_ZONE_PADDING);
     
@@ -142,6 +149,7 @@ void StringSurfaceTextureApp::setupLayout(){
     cairo::Context ctx(surface);
     
     ctx.selectFontFace(font_name, cairo::FONT_SLANT_NORMAL, cairo::FONT_WEIGHT_BOLD);
+    //ctx.setFont(font);
     ctx.setFontSize(FONT_SIZE);
     
     m_font_extents = ctx.fontExtents();
@@ -150,6 +158,7 @@ void StringSurfaceTextureApp::setupLayout(){
     // Begin paint
     ctx.setSourceRgb(bg_color.r, bg_color.g, bg_color.b);
     ctx.paint();
+    
     
     //initial x pos after reset
     float quote_word_reset_x = -100;
@@ -193,7 +202,11 @@ void StringSurfaceTextureApp::setupLayout(){
         }
         
         if(index_quote_strings == 0){
-            this->cairoDrawString(ctx, quote_string, quote_word_offset, quote_string_color, quote_string_color_bg,
+            this->cairoDrawString(ctx,
+                                  quote_string,
+                                  quote_word_offset,
+                                  quote_string_color,
+                                  quote_string_color_bg,
                                   j!=0,
                                   &quote_word_offset);
         } else {
@@ -305,6 +318,9 @@ void StringSurfaceTextureApp::cairoDrawString(cairo::Context& ctx,
     offset->x += text_bounds_width;
 }
 
+void StringSurfaceTextureApp::update(){
+    if(LAYOUT_SETUP_REPEAT)if(app::getElapsedFrames()%LAYOUT_SETUP_REPEAT_TICK==0)this->setupLayout();
+}
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 
