@@ -101,8 +101,8 @@ public:
     
 };
 
-static const Color BLUE( 0.25f, 0.25f, 1.0f ), RED( 1.0f, 0.55f, 0.55f ),
-BLUE2(0.15f,0.15f,0.8f);
+static const Color BLUE( 1, 0.25f, 1.0f ), RED( 1.0f, 0.55f, 0.55f ),
+BLUE2(184.0f/255.0f,48.0f/255.0f,94.0f/255.0f);
 
 void GeomQuadWall_2ElementsOptApp::prepareSettings(Settings* settings){
     settings->setWindowSize(1024, 768);
@@ -130,15 +130,15 @@ void GeomQuadWall_2ElementsOptApp::setup(){
     mMouseWheelOffset = 0.0f;
     
     mLight0 = new gl::Light( gl::Light::DIRECTIONAL, 0 );
-	mLight0->lookAt( Vec3f( 5,5,5 ), Vec3f( 0, 0, 0 ) );
+	mLight0->lookAt( Vec3f( 20,20,20 ), Vec3f( 0, 0, 0 ) );
 	mLight0->setAmbient( Color( 0.3f, 0.3f, 0.3f ) );
-	mLight0->setDiffuse( Color( 0.5f, 0.5f, 0.5f ) );
+	mLight0->setDiffuse( Color( 1,1,1 ) );
 	mLight0->setSpecular( Color( 1,1,1 ) );
 	mLight0->update( *mCamera );
 	mLight0->enable();
     
     mMaterial0.setAmbient( BLUE2);
-	mMaterial0.setDiffuse( RED );
+	mMaterial0.setDiffuse( BLUE2 );
     mMaterial0.setSpecular( Color(1,1,1));
 	mMaterial0.setShininess( 125.0f );
     
@@ -362,7 +362,7 @@ void GeomQuadWall_2ElementsOptApp::draw(){
     
     
     gl::enableDepthRead();
-    gl::clear( Color( 0.75f,0.75f,0.80f ) );
+    gl::clear( Color( 180.0f/255.0f,180.0f/255.0f,180.0f/255.0f ) );
     glDisable(GL_CULL_FACE);
     glCullFace(GL_FRONT);
     

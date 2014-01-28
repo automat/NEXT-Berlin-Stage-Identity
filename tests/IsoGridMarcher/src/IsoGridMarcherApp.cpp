@@ -64,7 +64,7 @@ static bool MATRIX_DEBUG_VIEW_POINTS(false),
 static int  MATRIX_SIZE_X(20),
             MATRIX_SIZE_Y(20),
             MATRIX_SIZE_Z(20);
-static ci::Vec2f MATRIX_BULB_SIZE_ON(0.2f,0.05f),
+static ci::Vec2f MATRIX_BULB_SIZE_ON(0.0125f,0.0125f),
                  MATRIX_BULB_SIZE_OFF(0.005f,0.005f);
 static bool MATRIX_FORM_OBJECTS(false);
 

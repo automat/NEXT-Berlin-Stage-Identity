@@ -46,14 +46,14 @@ static std::vector<ci::Colorf> quote_string_colors = {
 };
 
 static std::vector<ci::Colorf> quote_bg_colors = {
-    ci::Colorf(255.0f /255.0f, 48.0f / 255.0f, 73.0f / 255.0f),
+    ci::Colorf(222.0f /255.0f, 59.0f / 255.0f, 114.0f / 255.0f),
     ci::Colorf(1,1,1),
     //ci::Colorf(100.0f / 255.0f, 0.0f, 81.0f / 255.0f),
     //ci::Colorf(0,160.0f/255.0f,228.0f)
 };
 
 static std::vector<std::string> quote_strings = {
-    "This is The New Normal.",
+    "THIS IS THE NEW NORMAL.",
     "95% defenitive.",
     "Drones dancing. People cheering.",
     "Autonomous unmanned vehicles delivering parcels.",
@@ -187,7 +187,7 @@ void StringSurfaceTextureApp::cairoRenderScene(cairo::Context &ctx){
     int line_index = 0;
     
     ci::Colorf main_quote_string_color(1,1,1);
-    ci::Colorf main_quote_bg_color(0,0,0);
+    ci::Colorf main_quote_bg_color(56.0f/255.0f,19.0f/255.0f,45.0f/255.0f);
     
     std::vector<std::string> quote_words;
     ci::Vec2f quote_word_offset(quote_word_reset_x,0);
