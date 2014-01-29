@@ -1,5 +1,4 @@
 #include "cinder/app/AppNative.h"
-#include "FileWatcher/FileWatcher.h"
 
 #include "cinder/gl/gl.h"
 #include "cinder/Camera.h"
@@ -10,6 +9,7 @@
 #include "cinder/gl/GlslProg.h"
 
 #include "cinder/Rand.h"
+#include "FileWatcher.h"
 
 #include <vector>
 
@@ -21,13 +21,12 @@ static bool DEBUG_DRAW_FBO(true);
 static const int FBO_DIM(512);
 static const float FBO_ITEMS_NUM(FBO_DIM * FBO_DIM);
 
-static const string FILE_TO_WATCH("test.glsl");
-static const string DIR_TO_WATCH("/Users/automat/Projects/next/tests/GPGPUTest01/xcode");
+static const string FILE_TO_WATCH("/Users/automat/Projects/next/tests/GPGPUTest01/xcode/test.glsl");
 
 static const int   APP_WINDOW_WIDTH(1024),APP_WINDOW_HEIGHT(512);
 static const float APP_FPS(30.0f);
 
-class GPGPUTest01App : public AppNative, public FW::FileWatchListener {
+class GPGPUTest01App : public AppNative {
 public:
     void prepareSettings(Settings* settings);
     void resize();
@@ -37,11 +36,8 @@ public:
     
     /*----------------------------------------------------------------------------------------------------*/
     
-    FW::FileWatcher*     mFileWatcher;
-    FW::WatchID          mWatchId;
-    void initFileWatcher();
-    void handleFileAction(FW::WatchID watchId, const string &dir, const string &filename, FW::Action action);
-    bool mUpdatingShader;
+    FileWatcher mFileWatcher;
+    void updateFileWatcher();
     
     /*----------------------------------------------------------------------------------------------------*/
     
@@ -95,7 +91,7 @@ void GPGPUTest01App::resize(){
 }
 
 void GPGPUTest01App::setup(){
-    this->initFileWatcher();
+    mFileWatcher.addFile(FILE_TO_WATCH);
     
     mCamera.setPerspective(45.0f, app::getWindowAspectRatio(), 0.0001f, 5.0f);
     mCameraEye.set(2, 2, 2);
@@ -109,54 +105,26 @@ void GPGPUTest01App::setup(){
 
 /*----------------------------------------------------------------------------------------------------*/
 
-void GPGPUTest01App::initFileWatcher(){
-    mFileWatcher    = new FW::FileWatcher();
-    mUpdatingShader = false;
-    mWatchId        = mFileWatcher->addWatch(DIR_TO_WATCH,this);
+void GPGPUTest01App::updateFileWatcher(){
+    if(mFileWatcher.fileDidChange(FILE_TO_WATCH)){
+        gl::GlslProg progTry;
+        bool success = true;
+        std::cout << FILE_TO_WATCH + " modified." << std::endl;
+        try {
+            progTry = gl::GlslProg(loadResource("passthru_vert.glsl"),loadFile(FILE_TO_WATCH));
+        } catch (gl::GlslProgCompileExc& exc) {
+            std::cout << exc.what()<<std::endl;
+            success = false;
+        } catch (...){
+            success = false;
+            throw "Can´t load shader.";
+        }
     
-}
-
-void GPGPUTest01App::handleFileAction(FW::WatchID watchId, const string &dir, const string &filename, FW::Action action){
-    if((DIR_TO_WATCH + "/" + FILE_TO_WATCH) != filename || mUpdatingShader){
-        return;
-    }
-    gl::GlslProg progTry;
-    bool success = true;
-    
-    switch (action) {
-        case FW::Actions::Add:
-            //unhandled
-            break;
-            
-        case FW::Actions::Delete:
-            //unhandled
-            break;
-            
-        case FW::Actions::Modified:
-            std::cout << FILE_TO_WATCH + " modified." << std::endl;
-            try {
-                mUpdatingShader = true;
-                progTry = gl::GlslProg(loadResource("passthru_vert.glsl"),loadFile(DIR_TO_WATCH + "/" + FILE_TO_WATCH));
-            } catch (gl::GlslProgCompileExc& exc) {
-                std::cout << exc.what()<<std::endl;
-                success = false;
-            } catch (...){
-                success = false;
-                throw "Can´t load shader.";
-            }
-            
-            if(!success){
-                mUpdatingShader = false;
-            } else {
-                std::cout << "Shader updated." << std::endl;
-                mPosShader = progTry; //copy shader
-                mUpdatingShader = false;
-            }
-            break;
-            
-        default:
-            std::cout << "Should never happen!" << std::endl;
-            break;
+        if(!success){
+        } else {
+            std::cout << "Shader updated." << std::endl;
+            mPosShader = progTry; //copy shader
+        }
     }
 }
 
@@ -382,7 +350,7 @@ void GPGPUTest01App::update(){
     this->updateVelocityFbo();
     this->updatePositionFbo();
     
-    mFileWatcher->update();
+    this->updateFileWatcher();
 }
 
 void GPGPUTest01App::draw(){

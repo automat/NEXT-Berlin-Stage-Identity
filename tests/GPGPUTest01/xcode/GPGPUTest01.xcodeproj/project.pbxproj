@@ -22,10 +22,6 @@
 		CD4496B818984DE80064FB05 /* out_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD4496B318984DE80064FB05 /* out_frag.glsl */; };
 		CD4496B918984DE80064FB05 /* pos_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD4496B418984DE80064FB05 /* pos_frag.glsl */; };
 		CD4496BA18984DE80064FB05 /* vel_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD4496B518984DE80064FB05 /* vel_frag.glsl */; };
-		CD4FEEDC1898FE6800063518 /* FileWatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD4FEED81898FE6800063518 /* FileWatcher.cpp */; };
-		CD4FEEDD1898FE6800063518 /* FileWatcherLinux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD4FEED91898FE6800063518 /* FileWatcherLinux.cpp */; };
-		CD4FEEDE1898FE6800063518 /* FileWatcherOSX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD4FEEDA1898FE6800063518 /* FileWatcherOSX.cpp */; };
-		CD4FEEDF1898FE6800063518 /* FileWatcherWin32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD4FEEDB1898FE6800063518 /* FileWatcherWin32.cpp */; };
 		CD4FEEE11898FEF300063518 /* test.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD4FEEE01898FEF300063518 /* test.glsl */; };
 /* End PBXBuildFile section */
 
@@ -50,15 +46,7 @@
 		CD4496B318984DE80064FB05 /* out_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = out_frag.glsl; sourceTree = "<group>"; };
 		CD4496B418984DE80064FB05 /* pos_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pos_frag.glsl; sourceTree = "<group>"; };
 		CD4496B518984DE80064FB05 /* vel_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vel_frag.glsl; sourceTree = "<group>"; };
-		CD4FEED21898FE6000063518 /* FileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWatcher.h; sourceTree = "<group>"; };
-		CD4FEED31898FE6000063518 /* FileWatcherImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWatcherImpl.h; sourceTree = "<group>"; };
-		CD4FEED41898FE6000063518 /* FileWatcherLinux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWatcherLinux.h; sourceTree = "<group>"; };
-		CD4FEED51898FE6000063518 /* FileWatcherOSX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWatcherOSX.h; sourceTree = "<group>"; };
-		CD4FEED61898FE6000063518 /* FileWatcherWin32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWatcherWin32.h; sourceTree = "<group>"; };
-		CD4FEED81898FE6800063518 /* FileWatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileWatcher.cpp; sourceTree = "<group>"; };
-		CD4FEED91898FE6800063518 /* FileWatcherLinux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileWatcherLinux.cpp; sourceTree = "<group>"; };
-		CD4FEEDA1898FE6800063518 /* FileWatcherOSX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileWatcherOSX.cpp; sourceTree = "<group>"; };
-		CD4FEEDB1898FE6800063518 /* FileWatcherWin32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileWatcherWin32.cpp; sourceTree = "<group>"; };
+		CD490D1A18996DC900BD9397 /* FileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileWatcher.h; path = ../include/FileWatcher.h; sourceTree = "<group>"; };
 		CD4FEEE01898FEF300063518 /* test.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.glsl; sourceTree = "<group>"; };
 		EE09E764FB594F848B5ED33B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,7 +80,6 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				CD4FEED71898FE6800063518 /* FileWatcher */,
 				59272FE087CD4C338D5CB6E5 /* GPGPUTest01App.cpp */,
 			);
 			name = Source;
@@ -146,9 +133,9 @@
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				CD4FEED11898FE6000063518 /* FileWatcher */,
 				592BF7B84DC04061A1D84560 /* Resources.h */,
 				1DE0CCF602A64741947F1622 /* GPGPUTest01_Prefix.pch */,
+				CD490D1A18996DC900BD9397 /* FileWatcher.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -175,31 +162,6 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		CD4FEED11898FE6000063518 /* FileWatcher */ = {
-			isa = PBXGroup;
-			children = (
-				CD4FEED21898FE6000063518 /* FileWatcher.h */,
-				CD4FEED31898FE6000063518 /* FileWatcherImpl.h */,
-				CD4FEED41898FE6000063518 /* FileWatcherLinux.h */,
-				CD4FEED51898FE6000063518 /* FileWatcherOSX.h */,
-				CD4FEED61898FE6000063518 /* FileWatcherWin32.h */,
-			);
-			name = FileWatcher;
-			path = ../include/FileWatcher;
-			sourceTree = "<group>";
-		};
-		CD4FEED71898FE6800063518 /* FileWatcher */ = {
-			isa = PBXGroup;
-			children = (
-				CD4FEED81898FE6800063518 /* FileWatcher.cpp */,
-				CD4FEED91898FE6800063518 /* FileWatcherLinux.cpp */,
-				CD4FEEDA1898FE6800063518 /* FileWatcherOSX.cpp */,
-				CD4FEEDB1898FE6800063518 /* FileWatcherWin32.cpp */,
-			);
-			name = FileWatcher;
-			path = ../src/FileWatcher;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,11 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD4FEEDD1898FE6800063518 /* FileWatcherLinux.cpp in Sources */,
-				CD4FEEDC1898FE6800063518 /* FileWatcher.cpp in Sources */,
-				CD4FEEDF1898FE6800063518 /* FileWatcherWin32.cpp in Sources */,
 				1BABD25B5C97434DB6632F1D /* GPGPUTest01App.cpp in Sources */,
-				CD4FEEDE1898FE6800063518 /* FileWatcherOSX.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
