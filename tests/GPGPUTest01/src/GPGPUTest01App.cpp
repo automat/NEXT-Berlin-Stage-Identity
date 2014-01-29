@@ -1,4 +1,6 @@
 #include "cinder/app/AppNative.h"
+#include "FileWatcher/FileWatcher.h"
+
 #include "cinder/gl/gl.h"
 #include "cinder/Camera.h"
 
@@ -16,20 +18,32 @@ using namespace ci::app;
 using namespace std;
 
 static bool DEBUG_DRAW_FBO(true);
-static const int FBO_DIM(256);
+static const int FBO_DIM(512);
 static const float FBO_ITEMS_NUM(FBO_DIM * FBO_DIM);
 
+static const string FILE_TO_WATCH("test.glsl");
+static const string DIR_TO_WATCH("/Users/automat/Projects/next/tests/GPGPUTest01/xcode");
 
 static const int   APP_WINDOW_WIDTH(1024),APP_WINDOW_HEIGHT(512);
 static const float APP_FPS(30.0f);
 
-class GPGPUTest00App : public AppNative {
-  public:
+class GPGPUTest01App : public AppNative, public FW::FileWatchListener {
+public:
     void prepareSettings(Settings* settings);
     void resize();
 	void setup();
 	void update();
 	void draw();
+    
+    /*----------------------------------------------------------------------------------------------------*/
+    
+    FW::FileWatcher*     mFileWatcher;
+    FW::WatchID          mWatchId;
+    void initFileWatcher();
+    void handleFileAction(FW::WatchID watchId, const string &dir, const string &filename, FW::Action action);
+    bool mUpdatingShader;
+    
+    /*----------------------------------------------------------------------------------------------------*/
     
     CameraPersp mCamera;
     Vec3f       mCameraEye;
@@ -50,7 +64,7 @@ class GPGPUTest00App : public AppNative {
     gl::Texture  mTextureIndex; //texture containing indices
     
     gl::VboMesh mVboMesh; //data geometry representation
-
+    
     gl::Fbo mFboPosition; //data position
     gl::Fbo mFboVelocity; //data velocity
     bool    mAttachmentIndex; //!mAttachmentIndex // (index + 1) % 2 //switch by !bool -> int
@@ -71,16 +85,18 @@ class GPGPUTest00App : public AppNative {
     /*----------------------------------------------------------------------------------------------------*/
 };
 
-void GPGPUTest00App::prepareSettings(Settings* settings){
+void GPGPUTest01App::prepareSettings(Settings* settings){
     settings->setWindowSize(APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT);
     settings->setFrameRate(APP_FPS);
 }
 
-void GPGPUTest00App::resize(){
+void GPGPUTest01App::resize(){
     mCamera.setAspectRatio(app::getWindowAspectRatio());
 }
 
-void GPGPUTest00App::setup(){
+void GPGPUTest01App::setup(){
+    this->initFileWatcher();
+    
     mCamera.setPerspective(45.0f, app::getWindowAspectRatio(), 0.0001f, 5.0f);
     mCameraEye.set(2, 2, 2);
     mCameraTarget.set(0,0,0);
@@ -93,13 +109,66 @@ void GPGPUTest00App::setup(){
 
 /*----------------------------------------------------------------------------------------------------*/
 
-void GPGPUTest00App::initShaders(){
+void GPGPUTest01App::initFileWatcher(){
+    mFileWatcher    = new FW::FileWatcher();
+    mUpdatingShader = false;
+    mWatchId        = mFileWatcher->addWatch(DIR_TO_WATCH,this);
+    
+}
+
+void GPGPUTest01App::handleFileAction(FW::WatchID watchId, const string &dir, const string &filename, FW::Action action){
+    if((DIR_TO_WATCH + "/" + FILE_TO_WATCH) != filename || mUpdatingShader){
+        return;
+    }
+    gl::GlslProg progTry;
+    bool success = true;
+    
+    switch (action) {
+        case FW::Actions::Add:
+            //unhandled
+            break;
+            
+        case FW::Actions::Delete:
+            //unhandled
+            break;
+            
+        case FW::Actions::Modified:
+            std::cout << FILE_TO_WATCH + " modified." << std::endl;
+            try {
+                mUpdatingShader = true;
+                progTry = gl::GlslProg(loadResource("passthru_vert.glsl"),loadFile(DIR_TO_WATCH + "/" + FILE_TO_WATCH));
+            } catch (gl::GlslProgCompileExc& exc) {
+                std::cout << exc.what()<<std::endl;
+                success = false;
+            } catch (...){
+                success = false;
+                throw "Can´t load shader.";
+            }
+            
+            if(!success){
+                mUpdatingShader = false;
+            } else {
+                std::cout << "Shader updated." << std::endl;
+                mPosShader = progTry; //copy shader
+                mUpdatingShader = false;
+            }
+            break;
+            
+        default:
+            std::cout << "Should never happen!" << std::endl;
+            break;
+    }
+}
+
+/*----------------------------------------------------------------------------------------------------*/
+
+void GPGPUTest01App::initShaders(){
     this->loadShader(mOutShader, loadResource("out_vert.glsl"),      loadResource("out_frag.glsl"));
     this->loadShader(mPosShader, loadResource("passthru_vert.glsl"), loadResource("pos_frag.glsl"));
     this->loadShader(mVelShader, loadResource("passthru_vert.glsl"), loadResource("vel_frag.glsl"));
 }
 
-void GPGPUTest00App::loadShader(gl::GlslProg &prog, DataSourceRef refVertGLSL, DataSourceRef refFragGLSL){
+void GPGPUTest01App::loadShader(gl::GlslProg &prog, DataSourceRef refVertGLSL, DataSourceRef refFragGLSL){
     try{
         prog = gl::GlslProg(refVertGLSL,refFragGLSL);
     } catch (gl::GlslProgCompileExc &exc){
@@ -111,7 +180,7 @@ void GPGPUTest00App::loadShader(gl::GlslProg &prog, DataSourceRef refVertGLSL, D
 
 /*----------------------------------------------------------------------------------------------------*/
 
-void GPGPUTest00App::initData(){
+void GPGPUTest01App::initData(){
     mAttachmentIndex = 0;
     
     gl::Fbo::Format formatFboRGBA16;
@@ -134,39 +203,21 @@ void GPGPUTest00App::initData(){
     this->setupFboVelocityInitial();
 }
 
-void GPGPUTest00App::setupFboPositionInitial(){
+void GPGPUTest01App::setupFboPositionInitial(){
     gl::Texture& indices = mTextureIndex;
     gl::Fbo& fbo = mFboPosition;
     
     //setup fbo pos data
     Surface32f surface(fbo.getTexture()); //retrieve dims
     Surface32f::Iter itr = surface.getIter();
-    int width    = fbo.getWidth() ;
-    int height   = fbo.getHeight();
-    int width_1  = width - 1;
-    int height_1 = height - 1;
-    int len      = width * height;
-    int y,x;
-    int index;
-    float xNormalized, yNormalized;
-    float indexNormalized;
-    y = -1;
+    int width    = fbo.getWidth();
+    int width_1  = fbo.getWidth() - 1;
+    int height_1 = fbo.getHeight() - 1;
     while (itr.line()) { // vertical
-        y++;
-        x = -1;
         while (itr.pixel()) { //horizontal
-            x++;
-            index = y * width + x;
-            xNormalized     = (float)x / (float)width_1;
-            yNormalized     = (float)y / (float)height_1;
-            indexNormalized = (float)index/(float)len;
-       
-            float u = xNormalized * (float)M_PI * 2;
-            float v = yNormalized * (float)M_PI;
-            float r = 0.25f - Rand::randFloat() * 0.0125f;
-            itr.r() = r * sinf(v) * cosf(u);
-            itr.g() = r * sinf(v) * sinf(u);
-            itr.b() = r * cosf(v);
+            itr.r() = -0.5f + (float)itr.x() / (float)width_1;
+            itr.g() = -0.5f + Rand::randFloat();
+            itr.b() = -0.5f + (float)itr.y() / (float)height_1;
             itr.a() = 1.0f; //unused
         }
     }
@@ -174,14 +225,11 @@ void GPGPUTest00App::setupFboPositionInitial(){
     
     
     //setup tex index data;
+    int index;
     itr = surface.getIter(); //reuse surface
-    y = -1;
     while (itr.line()) {
-        y++;
-        x = -1;
         while (itr.pixel()) {
-            x++;
-            index = y * width + x;
+            index = itr.y() * width + itr.x();
             itr.r() = index;
             itr.g() = 0.0f;
             itr.b() = 0.0f;
@@ -192,7 +240,7 @@ void GPGPUTest00App::setupFboPositionInitial(){
     indices.update(surface);
 }
 
-void GPGPUTest00App::setupFboVelocityInitial(){
+void GPGPUTest01App::setupFboVelocityInitial(){
     gl::Fbo& fbo = mFboVelocity;
     Surface32f surface(fbo.getTexture()); //retrieve dims
     Surface32f::Iter itr = surface.getIter();
@@ -207,7 +255,7 @@ void GPGPUTest00App::setupFboVelocityInitial(){
     this->applyInitialTexToFbo(surface, fbo);
 }
 
-void GPGPUTest00App::applyInitialTexToFbo(Surface32f &surface, gl::Fbo &fbo){
+void GPGPUTest01App::applyInitialTexToFbo(Surface32f &surface, gl::Fbo &fbo){
     gl::Texture::Format format;
     format.setWrap(GL_REPEAT, GL_REPEAT);
     format.setMinFilter(GL_NEAREST);
@@ -228,7 +276,7 @@ void GPGPUTest00App::applyInitialTexToFbo(Surface32f &surface, gl::Fbo &fbo){
 /*----------------------------------------------------------------------------------------------------*/
 
 
-void GPGPUTest00App::initVbo(){
+void GPGPUTest01App::initVbo(){
     gl::VboMesh::Layout layout;
     layout.setStaticPositions();
     layout.setStaticTexCoords2d();
@@ -263,7 +311,7 @@ void GPGPUTest00App::initVbo(){
 /*----------------------------------------------------------------------------------------------------*/
 
 
-void GPGPUTest00App::updatePositionFbo(){
+void GPGPUTest01App::updatePositionFbo(){
     mFboPosition.bindFramebuffer();
     //! bind the opposite attachment to draw to
     glDrawBuffer(GL_COLOR_ATTACHMENT0 + !mAttachmentIndex);
@@ -282,13 +330,13 @@ void GPGPUTest00App::updatePositionFbo(){
     mPosShader.uniform("uIndexMap", 1); //data index
     mPosShader.uniform("uNumItems", FBO_ITEMS_NUM); //num data
     mPosShader.uniform("uTime", mTime); //time
-
+    
     gl::drawSolidRect(mFboPosition.getBounds());
     mPosShader.unbind();
     mFboPosition.unbindFramebuffer();
 }
 
-void GPGPUTest00App::updateVelocityFbo(){
+void GPGPUTest01App::updateVelocityFbo(){
     mFboVelocity.bindFramebuffer();
     //! bind the opposite attachment to draw to
     glDrawBuffer(GL_COLOR_ATTACHMENT0 + !mAttachmentIndex);
@@ -309,7 +357,7 @@ void GPGPUTest00App::updateVelocityFbo(){
 }
 
 //Transfer data from fbo to vbo
-void GPGPUTest00App::retrieveFboData(){
+void GPGPUTest01App::retrieveFboData(){
     //bind color_attachment last written to
     mFboPosition.bindTexture(0,mAttachmentIndex);
     mOutShader.bind();
@@ -322,7 +370,7 @@ void GPGPUTest00App::retrieveFboData(){
 
 /*----------------------------------------------------------------------------------------------------*/
 
-void GPGPUTest00App::update(){
+void GPGPUTest01App::update(){
     mTime        = (float)app::getElapsedSeconds();
     mTimeElapsed = mTime - mTimeStart;
     mTimeDelta   = mTime - mTimeLast;
@@ -333,9 +381,11 @@ void GPGPUTest00App::update(){
     
     this->updateVelocityFbo();
     this->updatePositionFbo();
+    
+    mFileWatcher->update();
 }
 
-void GPGPUTest00App::draw(){
+void GPGPUTest01App::draw(){
     //Draw
     gl::clear(Color::black());
     gl::setViewport(app::getWindowBounds());
@@ -369,7 +419,7 @@ void GPGPUTest00App::draw(){
         gl::drawSolidRect(Rectf(0,128,128,256));
         mFboVelocity.getTexture().disable();
         gl::drawString("FBO VELOCITY", Vec2f(20,128 + 20));
-       
+        
         
         mTextureIndex.enableAndBind();
         gl::drawSolidRect(Rectf(0,256,128,384));
@@ -385,4 +435,4 @@ void GPGPUTest00App::draw(){
     mTimeLast = mTime;
 }
 
-CINDER_APP_NATIVE( GPGPUTest00App, RendererGl )
+CINDER_APP_NATIVE( GPGPUTest01App, RendererGl )

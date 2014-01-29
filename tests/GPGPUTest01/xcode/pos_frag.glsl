@@ -10,12 +10,5 @@ void main(){
     vec4 dataIndexMap     = texture2D(uIndexMap,        gl_TexCoord[0].st);
     vec4 position = dataPrevPosition; //+ sin(dataIndexMap.r / (float)uNumItemms * M_PI + uTime);
 
-    float norm   = dataIndexMap.r / uNumItems;
-    float angle  = norm * M_PI * 2.0 + uTime;
-    float radius = 0.5;
-    
-    position.y = sin(norm * M_PI * 128.0) * 0.25;
-    position.x = (radius - sin(norm * M_PI * 512.0) * cos(norm * M_PI * 16.0) * 0.125 ) * cos(angle);// / uNumItemms;
-    position.z = radius*sin(angle);//sin(dataIndexMap.r/uNumItemms * M_PI + uTime);
     gl_FragColor = position;
 }
