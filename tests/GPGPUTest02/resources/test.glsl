@@ -1,19 +1,15 @@
 uniform sampler2D uPrevPositionMap; //prev position
 uniform sampler2D uIndexMap; //overall index of current item
-uniform float     uNumItems; //overall size
+uniform float     uCount; //overall size
 uniform float     uTime; //seconds elapsed
-
-float frame = 1.0;
+uniform float     uFrame; //frames elapsed
 
 #define M_PI 3.1415926535897932384626433832795
 
-
-
-
 void stepPos(in float time, in float index, in vec4 prevPos, out vec4 nextPos){
-	nextPos.x = 0.5 * cos(index / uNumItems * M_PI * 2. + time);
+	nextPos.x = 0.5 * cos(index / uCount * M_PI * 2. + time);
 	nextPos.y = 0.0;
-	nextPos.z = 0.5 * sin(index / uNumItems * M_PI * 2. + time);	
+	nextPos.z = 0.5 * sin(index / uCount * M_PI * 2. + time);	
 }
 
 
@@ -24,9 +20,9 @@ void main(){
 
     vec4 position = vec4(0,0,0,1);
     //stepPos(uTime,dataIndexMap.r,dataPrevPosition,position);
-    position.x = 0.5 * cos(index / uNumItems * M_PI * 2. + uTime);
-	position.y = 0.5 * sin(index / uNumItems * M_PI * 512.0);
-	position.z = 0.5 * sin(index / uNumItems * M_PI * 2. + uTime);	
+    position.x = 0.5 * cos(index / uCount * M_PI * 2. + uTime);
+	position.y = 0.5 * sin(index / uCount * M_PI * 128.0);
+	position.z = 0.5 * sin(index / uCount * M_PI * 2. + uTime);
 
 	//stepPos(uTime,dataIndexMap.r,dataPrevPosition,gl_FragColor);
 	gl_FragColor = position;

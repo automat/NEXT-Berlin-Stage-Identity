@@ -12,17 +12,16 @@
 		00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */; };
 		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
-		1BABD25B5C97434DB6632F1D /* GPGPUTest01App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59272FE087CD4C338D5CB6E5 /* GPGPUTest01App.cpp */; };
-		342B7F06432E45F091701168 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 66583CC108FA4174A484228A /* CinderApp.icns */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		CD490D211899B3BB00BD9397 /* out_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD490D1B1899B3BB00BD9397 /* out_frag.glsl */; };
-		CD490D221899B3BB00BD9397 /* out_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD490D1C1899B3BB00BD9397 /* out_vert.glsl */; };
-		CD490D231899B3BB00BD9397 /* passthru_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD490D1D1899B3BB00BD9397 /* passthru_vert.glsl */; };
-		CD490D241899B3BB00BD9397 /* pos_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD490D1E1899B3BB00BD9397 /* pos_frag.glsl */; };
-		CD490D251899B3BB00BD9397 /* test.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD490D1F1899B3BB00BD9397 /* test.glsl */; };
-		CD490D261899B3BB00BD9397 /* vel_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD490D201899B3BB00BD9397 /* vel_frag.glsl */; };
+		95DF917BFF904F08B55A986E /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 294DB7739593484B88357139 /* CinderApp.icns */; };
+		B7ADAF0F4B094425BD0D769C /* GPGPUTest03App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D22BAB8F18E4CF183F09C4A /* GPGPUTest03App.cpp */; };
+		CD490D47189A97EB00BD9397 /* out_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD490D41189A97EB00BD9397 /* out_frag.glsl */; };
+		CD490D48189A97EB00BD9397 /* out_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD490D42189A97EB00BD9397 /* out_vert.glsl */; };
+		CD490D49189A97EB00BD9397 /* passthru_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD490D43189A97EB00BD9397 /* passthru_vert.glsl */; };
+		CD490D4B189A97EB00BD9397 /* program_template_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD490D45189A97EB00BD9397 /* program_template_frag.glsl */; };
+		CD490D4C189A97EB00BD9397 /* vel_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD490D46189A97EB00BD9397 /* vel_frag.glsl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,23 +31,22 @@
 		00B784B10FF439BC000DE1D7 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		1DE0CCF602A64741947F1622 /* GPGPUTest01_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = GPGPUTest01_Prefix.pch; sourceTree = "<group>"; };
+		294DB7739593484B88357139 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4D76688D71E3445F95427D4A /* GPGPUTest03_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = GPGPUTest03_Prefix.pch; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
-		59272FE087CD4C338D5CB6E5 /* GPGPUTest01App.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = GPGPUTest01App.cpp; path = ../src/GPGPUTest01App.cpp; sourceTree = "<group>"; };
-		592BF7B84DC04061A1D84560 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
-		66583CC108FA4174A484228A /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* GPGPUTest01.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPGPUTest01.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD490D1A18996DC900BD9397 /* FileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileWatcher.h; path = ../include/FileWatcher.h; sourceTree = "<group>"; };
-		CD490D1B1899B3BB00BD9397 /* out_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = out_frag.glsl; path = ../resources/out_frag.glsl; sourceTree = "<group>"; };
-		CD490D1C1899B3BB00BD9397 /* out_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = out_vert.glsl; path = ../resources/out_vert.glsl; sourceTree = "<group>"; };
-		CD490D1D1899B3BB00BD9397 /* passthru_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = passthru_vert.glsl; path = ../resources/passthru_vert.glsl; sourceTree = "<group>"; };
-		CD490D1E1899B3BB00BD9397 /* pos_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = pos_frag.glsl; path = ../resources/pos_frag.glsl; sourceTree = "<group>"; };
-		CD490D1F1899B3BB00BD9397 /* test.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = test.glsl; path = ../resources/test.glsl; sourceTree = "<group>"; };
-		CD490D201899B3BB00BD9397 /* vel_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = vel_frag.glsl; path = ../resources/vel_frag.glsl; sourceTree = "<group>"; };
-		EE09E764FB594F848B5ED33B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		62A640B28E83496E9221C9D4 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
+		6D22BAB8F18E4CF183F09C4A /* GPGPUTest03App.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = GPGPUTest03App.cpp; path = ../src/GPGPUTest03App.cpp; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* GPGPUTest03.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPGPUTest03.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		976310DA1564476A88F9A975 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD490D40189A97E300BD9397 /* FileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileWatcher.h; path = ../include/FileWatcher.h; sourceTree = "<group>"; };
+		CD490D41189A97EB00BD9397 /* out_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = out_frag.glsl; path = ../resources/out_frag.glsl; sourceTree = "<group>"; };
+		CD490D42189A97EB00BD9397 /* out_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = out_vert.glsl; path = ../resources/out_vert.glsl; sourceTree = "<group>"; };
+		CD490D43189A97EB00BD9397 /* passthru_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = passthru_vert.glsl; path = ../resources/passthru_vert.glsl; sourceTree = "<group>"; };
+		CD490D45189A97EB00BD9397 /* program_template_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = program_template_frag.glsl; path = ../resources/program_template_frag.glsl; sourceTree = "<group>"; };
+		CD490D46189A97EB00BD9397 /* vel_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = vel_frag.glsl; path = ../resources/vel_frag.glsl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +78,7 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				59272FE087CD4C338D5CB6E5 /* GPGPUTest01App.cpp */,
+				6D22BAB8F18E4CF183F09C4A /* GPGPUTest03App.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -112,12 +110,12 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* GPGPUTest01.app */,
+				8D1107320486CEB800E47090 /* GPGPUTest03.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* GPGPUTest01 */ = {
+		29B97314FDCFA39411CA2CEA /* GPGPUTest03 */ = {
 			isa = PBXGroup;
 			children = (
 				01B97315FEAEA392516A2CEA /* Blocks */,
@@ -127,15 +125,15 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
-			name = GPGPUTest01;
+			name = GPGPUTest03;
 			sourceTree = "<group>";
 		};
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				592BF7B84DC04061A1D84560 /* Resources.h */,
-				1DE0CCF602A64741947F1622 /* GPGPUTest01_Prefix.pch */,
-				CD490D1A18996DC900BD9397 /* FileWatcher.h */,
+				CD490D40189A97E300BD9397 /* FileWatcher.h */,
+				62A640B28E83496E9221C9D4 /* Resources.h */,
+				4D76688D71E3445F95427D4A /* GPGPUTest03_Prefix.pch */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -143,14 +141,13 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				CD490D1B1899B3BB00BD9397 /* out_frag.glsl */,
-				CD490D1C1899B3BB00BD9397 /* out_vert.glsl */,
-				CD490D1D1899B3BB00BD9397 /* passthru_vert.glsl */,
-				CD490D1E1899B3BB00BD9397 /* pos_frag.glsl */,
-				CD490D1F1899B3BB00BD9397 /* test.glsl */,
-				CD490D201899B3BB00BD9397 /* vel_frag.glsl */,
-				66583CC108FA4174A484228A /* CinderApp.icns */,
-				EE09E764FB594F848B5ED33B /* Info.plist */,
+				CD490D41189A97EB00BD9397 /* out_frag.glsl */,
+				CD490D42189A97EB00BD9397 /* out_vert.glsl */,
+				CD490D43189A97EB00BD9397 /* passthru_vert.glsl */,
+				CD490D45189A97EB00BD9397 /* program_template_frag.glsl */,
+				CD490D46189A97EB00BD9397 /* vel_frag.glsl */,
+				294DB7739593484B88357139 /* CinderApp.icns */,
+				976310DA1564476A88F9A975 /* Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -167,9 +164,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D1107260486CEB800E47090 /* GPGPUTest01 */ = {
+		8D1107260486CEB800E47090 /* GPGPUTest03 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "GPGPUTest01" */;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "GPGPUTest03" */;
 			buildPhases = (
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
@@ -179,10 +176,10 @@
 			);
 			dependencies = (
 			);
-			name = GPGPUTest01;
+			name = GPGPUTest03;
 			productInstallPath = "$(HOME)/Applications";
-			productName = GPGPUTest01;
-			productReference = 8D1107320486CEB800E47090 /* GPGPUTest01.app */;
+			productName = GPGPUTest03;
+			productReference = 8D1107320486CEB800E47090 /* GPGPUTest03.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -192,7 +189,7 @@
 			isa = PBXProject;
 			attributes = {
 			};
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "GPGPUTest01" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "GPGPUTest03" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -202,11 +199,11 @@
 				French,
 				German,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* GPGPUTest01 */;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* GPGPUTest03 */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D1107260486CEB800E47090 /* GPGPUTest01 */,
+				8D1107260486CEB800E47090 /* GPGPUTest03 */,
 			);
 		};
 /* End PBXProject section */
@@ -216,13 +213,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD490D241899B3BB00BD9397 /* pos_frag.glsl in Resources */,
-				342B7F06432E45F091701168 /* CinderApp.icns in Resources */,
-				CD490D221899B3BB00BD9397 /* out_vert.glsl in Resources */,
-				CD490D261899B3BB00BD9397 /* vel_frag.glsl in Resources */,
-				CD490D211899B3BB00BD9397 /* out_frag.glsl in Resources */,
-				CD490D231899B3BB00BD9397 /* passthru_vert.glsl in Resources */,
-				CD490D251899B3BB00BD9397 /* test.glsl in Resources */,
+				CD490D49189A97EB00BD9397 /* passthru_vert.glsl in Resources */,
+				CD490D4C189A97EB00BD9397 /* vel_frag.glsl in Resources */,
+				CD490D47189A97EB00BD9397 /* out_frag.glsl in Resources */,
+				95DF917BFF904F08B55A986E /* CinderApp.icns in Resources */,
+				CD490D48189A97EB00BD9397 /* out_vert.glsl in Resources */,
+				CD490D4B189A97EB00BD9397 /* program_template_frag.glsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BABD25B5C97434DB6632F1D /* GPGPUTest01App.cpp in Sources */,
+				B7ADAF0F4B094425BD0D769C /* GPGPUTest03App.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,7 +246,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = GPGPUTest01_Prefix.pch;
+				GCC_PREFIX_HEADER = GPGPUTest03_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -259,7 +255,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder_d.a\"";
-				PRODUCT_NAME = GPGPUTest01;
+				PRODUCT_NAME = GPGPUTest03;
 				SYMROOT = ./build;
 				WRAPPER_EXTENSION = app;
 			};
@@ -276,12 +272,12 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = GPGPUTest01_Prefix.pch;
+				GCC_PREFIX_HEADER = GPGPUTest03_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder.a\"";
-				PRODUCT_NAME = GPGPUTest01;
+				PRODUCT_NAME = GPGPUTest03;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = ./build;
 				WRAPPER_EXTENSION = app;
@@ -325,7 +321,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "GPGPUTest01" */ = {
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "GPGPUTest03" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4B08A954540054247B /* Debug */,
@@ -334,7 +330,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "GPGPUTest01" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "GPGPUTest03" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,

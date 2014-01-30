@@ -8,7 +8,7 @@ uniform float     uTime; //seconds elapsed
 void main(){
     vec4 dataPrevPosition = texture2D(uPrevPositionMap, gl_TexCoord[0].st);
     vec4 dataIndexMap     = texture2D(uIndexMap,        gl_TexCoord[0].st);
-    vec4 position = dataPrevPosition; //+ sin(dataIndexMap.r / (float)uNumItemms * M_PI + uTime);
+    vec4 position         = dataPrevPosition; //+ sin(dataIndexMap.r / (float)uNumItemms * M_PI + uTime);
 
     gl_FragColor = position;
 }
