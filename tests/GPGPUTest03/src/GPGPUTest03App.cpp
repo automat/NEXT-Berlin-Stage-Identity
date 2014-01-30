@@ -18,7 +18,7 @@ using namespace ci::app;
 using namespace std;
 
 static bool        DEBUG_DRAW_FBO(true);
-static const int   FBO_DIM(512);
+static const int   FBO_DIM(1024);
 static const float FBO_COUNT(FBO_DIM * FBO_DIM);
 
 static const string FILE_TO_WATCH("program_template_frag.glsl");
@@ -36,6 +36,11 @@ public:
 	void setup();
 	void update();
 	void draw();
+    
+    void mouseMove (MouseEvent event);
+    void mouseDown (MouseEvent event);
+    void mouseUp   (MouseEvent event);
+    void mouseWheel(MouseEvent event);
     
     /*----------------------------------------------------------------------------------------------------*/
     
@@ -55,10 +60,15 @@ public:
     float mTimeElapsed;
     float mFrame;
     
+    Vec4f mDataApplication;
+    Vec4f mDataMouse;
+    Vec3f mDataArray;
+    
     /*----------------------------------------------------------------------------------------------------*/
     
     gl::GlslProg mOutShader; //retrieve data from gpu
     gl::GlslProg mPosShader; //update postion
+    
     
     gl::Texture  mTextureIndex; //texture containing indices
     
@@ -72,15 +82,57 @@ public:
     void initData();
     void initVbo();
     
-    void setupFboPositionInitial();
+    void setupFboProgram();
 
-    void applyInitialTexToFbo(Surface32f& surface, gl::Fbo& fbo);
-    
     void updatePositionFbo();
     void retrieveFboData();
     
     /*----------------------------------------------------------------------------------------------------*/
 };
+
+void GPGPUTest03App::setup(){
+    mFileWatcher.addFile(PATH_TO_WATCH);
+    
+    mDataArray.x = FBO_DIM;
+    mDataArray.y = FBO_DIM;
+    mDataArray.z = FBO_COUNT;
+    
+    mCamera.setPerspective(45.0f, app::getWindowAspectRatio(), 0.0001f, 5.0f);
+    mCameraEye.set(2, 2, 2);
+    mCameraTarget.set(0,0,0);
+    mCamera.lookAt(mCameraEye,mCameraTarget);
+    
+    mDataApplication.x = app::getWindowWidth();
+    mDataApplication.y = app::getWindowHeight();
+    mDataApplication.z = 0.0;
+    mDataApplication.w = 0.0;
+    
+    mDataMouse.x = 0.0;
+    mDataMouse.y = 0.0;
+    mDataMouse.z = 0.0;
+    mDataMouse.w = 0.0;
+    
+    this->initShaders();
+    this->initData();
+    this->initVbo();
+}
+
+void GPGPUTest03App::mouseMove(MouseEvent event){
+    mDataMouse.x = event.getX();
+    mDataMouse.y = event.getY();
+}
+
+void GPGPUTest03App::mouseDown(MouseEvent event){
+    mDataMouse.z = 1;
+}
+
+void GPGPUTest03App::mouseUp(MouseEvent event){
+    mDataMouse.z = 0;
+}
+
+void GPGPUTest03App::mouseWheel(MouseEvent event){
+    mDataMouse.w += event.getWheelIncrement();
+}
 
 void GPGPUTest03App::prepareSettings(Settings* settings){
     settings->setWindowSize(APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT);
@@ -89,19 +141,6 @@ void GPGPUTest03App::prepareSettings(Settings* settings){
 
 void GPGPUTest03App::resize(){
     mCamera.setAspectRatio(app::getWindowAspectRatio());
-}
-
-void GPGPUTest03App::setup(){
-    mFileWatcher.addFile(PATH_TO_WATCH);
-    
-    mCamera.setPerspective(45.0f, app::getWindowAspectRatio(), 0.0001f, 5.0f);
-    mCameraEye.set(2, 2, 2);
-    mCameraTarget.set(0,0,0);
-    mCamera.lookAt(mCameraEye,mCameraTarget);
-    
-    this->initShaders();
-    this->initData();
-    this->initVbo();
 }
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -150,47 +189,51 @@ void GPGPUTest03App::loadShader(gl::GlslProg &prog, DataSourceRef refVertGLSL, D
 
 void GPGPUTest03App::initData(){
     mAttachmentIndex = 0;
-    
+    this->setupFboProgram();
+}
+
+void GPGPUTest03App::setupFboProgram(){
+    //Setup fbo & textures
     gl::Fbo::Format formatFboRGBA16;
     formatFboRGBA16.enableColorBuffer(true,2);
     formatFboRGBA16.setMinFilter(GL_NEAREST);
     formatFboRGBA16.setMagFilter(GL_NEAREST);
     formatFboRGBA16.setColorInternalFormat(GL_RGBA16F_ARB);
-    
+    const GLenum buffers[2] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1};
     mFboPosition = gl::Fbo(FBO_DIM,FBO_DIM,formatFboRGBA16);
+    
+    //setup fbo program data
+    Surface32f surface(mFboPosition.getTexture()); //retrieve dims
+    Surface32f::Iter itr(surface.getIter());
+    
+    while (itr.line()) { // vertical
+        while (itr.pixel()) { //horizontal
+            itr.r() = 0.0f;//-0.5f + (float)itr.x() / (float)width_1;
+            itr.g() = 0.0f;//-0.5f + Rand::randFloat();
+            itr.b() = 0.0f;//-0.5f + (float)itr.y() / (float)height_1;
+            itr.a() = 1.0f; //w
+        }
+    }
     
     gl::Texture::Format formatTex;
     formatTex.setWrap(GL_REPEAT, GL_REPEAT);
     formatTex.setMinFilter(GL_NEAREST);
     formatTex.setMagFilter(GL_NEAREST);
     
+    //pass data texture to fbo
+    gl::Texture texture(surface,formatTex);
+    mFboPosition.bindFramebuffer();
+    glDrawBuffers(2, buffers);
+    gl::setMatricesWindow(mFboPosition.getSize(),false);
+    gl::setViewport(mFboPosition.getBounds());
+    gl::clear();
+    gl::draw(texture);
+    mFboPosition.unbindFramebuffer();
+    
+    //setup tex index data
+    
     mTextureIndex = gl::Texture(FBO_DIM,FBO_DIM,formatTex);
-    
-    this->setupFboPositionInitial();
-
-}
-
-void GPGPUTest03App::setupFboPositionInitial(){
-    gl::Texture& indices = mTextureIndex;
-    gl::Fbo& fbo = mFboPosition;
-    
-    //setup fbo pos data
-    Surface32f surface(fbo.getTexture()); //retrieve dims
-    Surface32f::Iter itr = surface.getIter();
-    int width    = fbo.getWidth();
-    int width_1  = fbo.getWidth() - 1;
-    int height_1 = fbo.getHeight() - 1;
-    while (itr.line()) { // vertical
-        while (itr.pixel()) { //horizontal
-            itr.r() = -0.5f + (float)itr.x() / (float)width_1;
-            itr.g() = -0.5f + Rand::randFloat();
-            itr.b() = -0.5f + (float)itr.y() / (float)height_1;
-            itr.a() = 1.0f; //w
-        }
-    }
-    this->applyInitialTexToFbo(surface, fbo);
-    
-    //setup tex index data;
+    int width = mFboPosition.getWidth();
     int index;
     itr = surface.getIter(); //reuse surface
     while (itr.line()) {
@@ -203,25 +246,7 @@ void GPGPUTest03App::setupFboPositionInitial(){
         }
     }
     
-    indices.update(surface);
-}
-
-void GPGPUTest03App::applyInitialTexToFbo(Surface32f &surface, gl::Fbo &fbo){
-    gl::Texture::Format format;
-    format.setWrap(GL_REPEAT, GL_REPEAT);
-    format.setMinFilter(GL_NEAREST);
-    format.setMagFilter(GL_NEAREST);
-    
-    gl::Texture texture(surface,format);
-    
-    fbo.bindFramebuffer();
-    const GLenum buffers[2] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1}; //create ping pong color attachment
-    glDrawBuffers(2, buffers);
-    gl::setMatricesWindow(fbo.getSize(),false);
-    gl::setViewport(fbo.getBounds());
-    gl::clear();
-    gl::draw(texture);
-    fbo.unbindFramebuffer();
+    mTextureIndex.update(surface);
 }
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -277,11 +302,12 @@ void GPGPUTest03App::updatePositionFbo(){
     mTextureIndex.bind(1);
     mPosShader.bind();
     
-    mPosShader.uniform("uDataPosition", 0); //send data to uniform
-    mPosShader.uniform("uDataIndex", 1); //data index
-    mPosShader.uniform("uCount", FBO_COUNT); //num data
-    mPosShader.uniform("uTime", mTime); //time
-    mPosShader.uniform("uFrame",mFrame); // frames;
+    mPosShader.uniform("uDataApplication", mDataApplication); // send data application
+    mPosShader.uniform("uDataMouse", mDataMouse);             // send data mouse
+    mPosShader.uniform("uDataIndex", 1);                      // send data indices
+    mPosShader.uniform("uCount", FBO_COUNT);                  // send data count
+    mPosShader.uniform("uDataPosition", 0);                   // send data prev position
+    mPosShader.uniform("uDataArray", mDataArray);             // send data array
     
     gl::drawSolidRect(mFboPosition.getBounds());
     mPosShader.unbind();
@@ -303,11 +329,12 @@ void GPGPUTest03App::retrieveFboData(){
 /*----------------------------------------------------------------------------------------------------*/
 
 void GPGPUTest03App::update(){
-    mTime        = (float)app::getElapsedSeconds();
-    mTimeElapsed = mTime - mTimeStart;
-    mTimeDelta   = mTime - mTimeLast;
-    mTimeDelta   = std::max(0.0f, std::min(mTimeDelta, 1.0f));
-    mFrame       = (float)app::getElapsedFrames();
+    mTime              = (float)app::getElapsedSeconds();
+    mTimeElapsed       = mTime - mTimeStart;
+    mTimeDelta         = mTime - mTimeLast;
+    mTimeDelta         = std::max(0.0f, std::min(mTimeDelta, 1.0f));
+    mDataApplication.z = mTime;
+    mDataApplication.w = (float)app::getElapsedFrames();
     
     mCameraEye.set(sinf(mTime)*(float)M_2_PI, 1.0f, 1.0f);
     mCamera.lookAt(mCameraEye, mCameraTarget);
@@ -345,11 +372,6 @@ void GPGPUTest03App::draw(){
         gl::drawSolidRect(Rectf(128,0,256,128));
         mFboPosition.getTexture(mAttachmentIndex).disable();
         gl::drawString("FBO POSITION", Vec2f(20,20));
-        
-        mTextureIndex.enableAndBind();
-        gl::drawSolidRect(Rectf(0,128,128,256));
-        mTextureIndex.disable();
-        gl::drawString("TEX INDEX", Vec2f(20,128 + 20));
         
         gl::disableAlphaBlending();
         

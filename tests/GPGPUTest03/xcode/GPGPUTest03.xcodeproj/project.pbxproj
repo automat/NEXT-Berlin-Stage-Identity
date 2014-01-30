@@ -21,7 +21,6 @@
 		CD490D48189A97EB00BD9397 /* out_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD490D42189A97EB00BD9397 /* out_vert.glsl */; };
 		CD490D49189A97EB00BD9397 /* passthru_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD490D43189A97EB00BD9397 /* passthru_vert.glsl */; };
 		CD490D4B189A97EB00BD9397 /* program_template_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD490D45189A97EB00BD9397 /* program_template_frag.glsl */; };
-		CD490D4C189A97EB00BD9397 /* vel_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD490D46189A97EB00BD9397 /* vel_frag.glsl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,7 +45,7 @@
 		CD490D42189A97EB00BD9397 /* out_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = out_vert.glsl; path = ../resources/out_vert.glsl; sourceTree = "<group>"; };
 		CD490D43189A97EB00BD9397 /* passthru_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = passthru_vert.glsl; path = ../resources/passthru_vert.glsl; sourceTree = "<group>"; };
 		CD490D45189A97EB00BD9397 /* program_template_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = program_template_frag.glsl; path = ../resources/program_template_frag.glsl; sourceTree = "<group>"; };
-		CD490D46189A97EB00BD9397 /* vel_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = vel_frag.glsl; path = ../resources/vel_frag.glsl; sourceTree = "<group>"; };
+		CD490D4D189AD66B00BD9397 /* camera_template_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = camera_template_frag.glsl; path = ../resources/camera_template_frag.glsl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,8 +143,8 @@
 				CD490D41189A97EB00BD9397 /* out_frag.glsl */,
 				CD490D42189A97EB00BD9397 /* out_vert.glsl */,
 				CD490D43189A97EB00BD9397 /* passthru_vert.glsl */,
+				CD490D4D189AD66B00BD9397 /* camera_template_frag.glsl */,
 				CD490D45189A97EB00BD9397 /* program_template_frag.glsl */,
-				CD490D46189A97EB00BD9397 /* vel_frag.glsl */,
 				294DB7739593484B88357139 /* CinderApp.icns */,
 				976310DA1564476A88F9A975 /* Info.plist */,
 			);
@@ -214,7 +213,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD490D49189A97EB00BD9397 /* passthru_vert.glsl in Resources */,
-				CD490D4C189A97EB00BD9397 /* vel_frag.glsl in Resources */,
 				CD490D47189A97EB00BD9397 /* out_frag.glsl in Resources */,
 				95DF917BFF904F08B55A986E /* CinderApp.icns in Resources */,
 				CD490D48189A97EB00BD9397 /* out_vert.glsl in Resources */,
