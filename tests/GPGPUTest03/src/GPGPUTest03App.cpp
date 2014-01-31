@@ -8,8 +8,13 @@
 #include "cinder/gl/Texture.h"
 #include "cinder/gl/GlslProg.h"
 
+#include <cstdio>
+#include <unistd.h>
+
 #include "cinder/Rand.h"
 #include "FileWatcher.h"
+
+#include "cinder/params/Params.h"
 
 #include <vector>
 
@@ -18,6 +23,7 @@ using namespace ci::app;
 using namespace std;
 
 static bool        DEBUG_DRAW_FBO(true);
+static bool        DRAW_BOX(true);
 static const int   FBO_DIM(1024);
 static const float FBO_COUNT(FBO_DIM * FBO_DIM);
 
@@ -66,16 +72,15 @@ public:
     
     /*----------------------------------------------------------------------------------------------------*/
     
-    gl::GlslProg mOutShader; //retrieve data from gpu
-    gl::GlslProg mPosShader; //update postion
+    gl::GlslProg mOutShader; // retrieve data from gpu
+    gl::GlslProg mPosShader; // update postion
+    GLenum       mBuffers[6];
+    size_t       mBuffersSize;
     
-    
-    gl::Texture  mTextureIndex; //texture containing indices
-    
-    gl::VboMesh mVboMesh; //data geometry representation
-    
-    gl::Fbo mFboPosition; //data position
-    bool    mAttachmentIndex; //!mAttachmentIndex // (index + 1) % 2 //switch by !bool -> int
+    gl::Fbo      mFboPosition;     // data position
+    gl::Texture  mTextureIndex;    // texture containing indices
+    gl::VboMesh  mVboMesh;         // data geometry representation
+    bool         mAttachmentIndex; // !mAttachmentIndex // (index + 1) % 2 //switch by !bool -> int
     
     void initShaders();
     void loadShader(gl::GlslProg& prog, DataSourceRef refVertGLSL, DataSourceRef refFragGLSL);
@@ -88,55 +93,55 @@ public:
     void retrieveFboData();
     
     /*----------------------------------------------------------------------------------------------------*/
+
+    params::InterfaceGlRef mParams;
 };
 
 void GPGPUTest03App::setup(){
-    mFileWatcher.addFile(PATH_TO_WATCH);
+    mDataArray.x = (float)FBO_DIM;   // fbo width
+    mDataArray.y = (float)FBO_DIM;   // fbo height
+    mDataArray.z = (float)FBO_COUNT; // fbo count
     
-    mDataArray.x = FBO_DIM;
-    mDataArray.y = FBO_DIM;
-    mDataArray.z = FBO_COUNT;
+    mDataApplication.x = app::getWindowWidth();  // width
+    mDataApplication.y = app::getWindowHeight(); // height
+    mDataApplication.z = 0.0;                    // time
+    mDataApplication.w = 0.0;                    // frame
+    
+    mDataMouse.x = 0.0; // x
+    mDataMouse.y = 0.0; // y
+    mDataMouse.z = 0.0; // mouse down
+    mDataMouse.w = 0.0; // mouse wheel
+    
+    
+    mBuffers[0] = GL_COLOR_ATTACHMENT0; // position ping
+    mBuffers[1] = GL_COLOR_ATTACHMENT1; // position pong
+    mBuffers[2] = GL_COLOR_ATTACHMENT2; // color ping
+    mBuffers[3] = GL_COLOR_ATTACHMENT3; // color pong;
+    mBuffers[4] = GL_COLOR_ATTACHMENT4; // size ping
+    mBuffers[5] = GL_COLOR_ATTACHMENT5; // size pong;
+    mBuffersSize = sizeof(mBuffers) / sizeof(mBuffers[0]);
+    
+    glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+    
+    mParams = params::InterfaceGl::create(app::getWindow(), "CONTROL", Vec2f(200,100));
+    mParams->addParam("Show debug view fbo", &DEBUG_DRAW_FBO);
+    mParams->minimize();
+
+    mFileWatcher.addFile(PATH_TO_WATCH);
     
     mCamera.setPerspective(45.0f, app::getWindowAspectRatio(), 0.0001f, 5.0f);
     mCameraEye.set(2, 2, 2);
     mCameraTarget.set(0,0,0);
     mCamera.lookAt(mCameraEye,mCameraTarget);
     
-    mDataApplication.x = app::getWindowWidth();
-    mDataApplication.y = app::getWindowHeight();
-    mDataApplication.z = 0.0;
-    mDataApplication.w = 0.0;
-    
-    mDataMouse.x = 0.0;
-    mDataMouse.y = 0.0;
-    mDataMouse.z = 0.0;
-    mDataMouse.w = 0.0;
-    
     this->initShaders();
     this->initData();
-    this->initVbo();
-}
-
-void GPGPUTest03App::mouseMove(MouseEvent event){
-    mDataMouse.x = event.getX();
-    mDataMouse.y = event.getY();
-}
-
-void GPGPUTest03App::mouseDown(MouseEvent event){
-    mDataMouse.z = 1;
-}
-
-void GPGPUTest03App::mouseUp(MouseEvent event){
-    mDataMouse.z = 0;
-}
-
-void GPGPUTest03App::mouseWheel(MouseEvent event){
-    mDataMouse.w += event.getWheelIncrement();
 }
 
 void GPGPUTest03App::prepareSettings(Settings* settings){
     settings->setWindowSize(APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT);
     settings->setFrameRate(APP_FPS);
+
 }
 
 void GPGPUTest03App::resize(){
@@ -190,27 +195,33 @@ void GPGPUTest03App::loadShader(gl::GlslProg &prog, DataSourceRef refVertGLSL, D
 void GPGPUTest03App::initData(){
     mAttachmentIndex = 0;
     this->setupFboProgram();
+    this->initVbo();
 }
 
 void GPGPUTest03App::setupFboProgram(){
     //Setup fbo & textures
     gl::Fbo::Format formatFboRGBA16;
-    formatFboRGBA16.enableColorBuffer(true,2);
+    formatFboRGBA16.enableColorBuffer(true,mBuffersSize);
     formatFboRGBA16.setMinFilter(GL_NEAREST);
     formatFboRGBA16.setMagFilter(GL_NEAREST);
     formatFboRGBA16.setColorInternalFormat(GL_RGBA16F_ARB);
-    const GLenum buffers[2] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1};
+    
     mFboPosition = gl::Fbo(FBO_DIM,FBO_DIM,formatFboRGBA16);
     
     //setup fbo program data
     Surface32f surface(mFboPosition.getTexture()); //retrieve dims
     Surface32f::Iter itr(surface.getIter());
     
+    int width    = mFboPosition.getWidth();
+    int height   = mFboPosition.getHeight();
+    int width_1  = width - 1;
+    int height_1 = height - 1;
+    
     while (itr.line()) { // vertical
         while (itr.pixel()) { //horizontal
-            itr.r() = 0.0f;//-0.5f + (float)itr.x() / (float)width_1;
-            itr.g() = 0.0f;//-0.5f + Rand::randFloat();
-            itr.b() = 0.0f;//-0.5f + (float)itr.y() / (float)height_1;
+            itr.r() =-0.5f + (float)itr.x() / (float)width_1;
+            itr.g() = 0.0f;
+            itr.b() =-0.5f + (float)itr.y() / (float)height_1;
             itr.a() = 1.0f; //w
         }
     }
@@ -221,19 +232,42 @@ void GPGPUTest03App::setupFboProgram(){
     formatTex.setMagFilter(GL_NEAREST);
     
     //pass data texture to fbo
+    
     gl::Texture texture(surface,formatTex);
     mFboPosition.bindFramebuffer();
-    glDrawBuffers(2, buffers);
+    glDrawBuffers(mBuffersSize - 2, mBuffers); // fill all except size buffe
     gl::setMatricesWindow(mFboPosition.getSize(),false);
     gl::setViewport(mFboPosition.getBounds());
     gl::clear();
     gl::draw(texture);
     mFboPosition.unbindFramebuffer();
     
-    //setup tex index data
+    // fill size data
+    itr = surface.getIter();
+    while (itr.line()) {
+        while (itr.pixel()) {
+            itr.r() = 1.0f;
+            itr.g() = itr.b() = 0.0; // unused
+            itr.a() = 1.0; // for debug display
+        }
+    }
     
+    
+    GLenum buffersToFill[2] = {
+        mBuffers[4], mBuffers[5]
+    };
+    
+    texture.update(surface);
+    mFboPosition.bindFramebuffer();
+    glDrawBuffers(2, buffersToFill);
+    gl::setMatricesWindow(mFboPosition.getSize(), false);
+    gl::setViewport(mFboPosition.getBounds());
+    gl::clear();
+    gl::draw(texture);
+    mFboPosition.unbindFramebuffer();
+    
+    //setup tex index data
     mTextureIndex = gl::Texture(FBO_DIM,FBO_DIM,formatTex);
-    int width = mFboPosition.getWidth();
     int index;
     itr = surface.getIter(); //reuse surface
     while (itr.line()) {
@@ -242,7 +276,7 @@ void GPGPUTest03App::setupFboProgram(){
             itr.r() = index;
             itr.g() = 0.0f;
             itr.b() = 0.0f;
-            itr.a() = 1.0f;
+            itr.a() = 1.0f; // for debug display
         }
     }
     
@@ -288,26 +322,46 @@ void GPGPUTest03App::initVbo(){
 
 
 void GPGPUTest03App::updatePositionFbo(){
-    mFboPosition.bindFramebuffer();
-    //! bind the opposite attachment to draw to
-    glDrawBuffer(GL_COLOR_ATTACHMENT0 + !mAttachmentIndex);
+    int indexPing     = mAttachmentIndex;  // position current
+    int indexPong     = !mAttachmentIndex; // position next
+    int indexPosPrev  = indexPing;
+    int indexPosNext  = indexPong;
+    int indexColPrev  = indexPing + 2;
+    int indexColNext  = indexPong + 2;
+    int indexSizePrev = indexPing + 4;
+    int indexSizeNext = indexPong + 4;
     
-    //! set window according to fbo size
+    int numBuffersToDraw  = 3;
+    GLenum buffersToDraw[numBuffersToDraw];
+    buffersToDraw[0] = GL_COLOR_ATTACHMENT0 + indexPosNext;
+    buffersToDraw[1] = GL_COLOR_ATTACHMENT0 + indexColNext;
+    buffersToDraw[2] = GL_COLOR_ATTACHMENT0 + indexSizeNext;
+    
+    mFboPosition.bindFramebuffer();
+    // bind the opposite attachment to draw to
+    // glDrawBuffer(GL_COLOR_ATTACHMENT0 + !mAttachmentIndex);
+    glDrawBuffers(numBuffersToDraw, buffersToDraw);
+    
+    // set window according to fbo size
     gl::setViewport(mFboPosition.getBounds());
     gl::setMatricesWindow(mFboPosition.getSize(),false);
     gl::clear(); //clear current color attachement
     
-    //! bind current color attachment as previous data
-    mFboPosition.bindTexture(0,mAttachmentIndex);
-    mTextureIndex.bind(1);
+    // bind current color attachment as previous data
+    mFboPosition.bindTexture(0,indexPosPrev);
+    mFboPosition.bindTexture(1,indexColPrev);
+    mFboPosition.bindTexture(2,indexSizePrev);
+    mTextureIndex.bind(3);
     mPosShader.bind();
     
     mPosShader.uniform("uDataApplication", mDataApplication); // send data application
     mPosShader.uniform("uDataMouse", mDataMouse);             // send data mouse
-    mPosShader.uniform("uDataIndex", 1);                      // send data indices
-    mPosShader.uniform("uCount", FBO_COUNT);                  // send data count
-    mPosShader.uniform("uDataPosition", 0);                   // send data prev position
     mPosShader.uniform("uDataArray", mDataArray);             // send data array
+    mPosShader.uniform("uDataIndex", 3);                      // send data indices
+    
+    mPosShader.uniform("uDataPosition", 0);                   // send data prev position
+    mPosShader.uniform("uDataColor", 1);                      // send data prev color
+    mPosShader.uniform("uDataSize", 2);                       // send data prev size
     
     gl::drawSolidRect(mFboPosition.getBounds());
     mPosShader.unbind();
@@ -317,10 +371,17 @@ void GPGPUTest03App::updatePositionFbo(){
 
 //Transfer data from fbo to vbo
 void GPGPUTest03App::retrieveFboData(){
+    int indexPos  = mAttachmentIndex;
+    int indexCol  = mAttachmentIndex + 2;
+    int indexSize = mAttachmentIndex + 4;
     //bind color_attachment last written to
-    mFboPosition.bindTexture(0,mAttachmentIndex);
+    mFboPosition.bindTexture(0,indexPos);
+    mFboPosition.bindTexture(1,indexCol);
+    mFboPosition.bindTexture(2,indexSize);
     mOutShader.bind();
     mOutShader.uniform("uDataPosition", 0);
+    mOutShader.uniform("uDataColor", 1);
+    mOutShader.uniform("uDataSize", 2);
     gl::draw(mVboMesh);
     mOutShader.unbind();
 }
@@ -349,37 +410,99 @@ void GPGPUTest03App::draw(){
     gl::setViewport(app::getWindowBounds());
     gl::setMatrices(mCamera);
     
+    
     glColor3f(1, 1, 1);
     gl::drawStrokedCube(Vec3f::zero(), Vec3f(1,1,1));
     
     gl::enable( GL_TEXTURE_2D );
     gl::enableDepthRead();
+    gl::enableAlphaBlending();
     
     this->retrieveFboData();
     
     gl::disableDepthWrite();
+    gl::disableAlphaBlending();
     gl::disable( GL_TEXTURE_2D );
     
     if(DEBUG_DRAW_FBO){
         gl::enableAlphaBlending();
         
+        int indexPing     = !mAttachmentIndex;
+        int indexPong     = mAttachmentIndex;
+        int indexPosPrev  = indexPing;
+        int indexPosNext  = indexPong;
+        int indexColPrev  = indexPing + 2;
+        int indexColNext  = indexPong + 2;
+        int indexSizePrev = indexPing + 4;
+        int indexSizeNext = indexPong + 4;
+        
+        static const float paddingTL = 10.0f;
+        static const int   size = 64;
+
+        
         glColor3f(1,1,1);
         gl::setMatricesWindow(app::getWindowSize());
-        mFboPosition.getTexture(!mAttachmentIndex).enableAndBind();
-        gl::drawSolidRect(Rectf(0,0,128,128));
-        mFboPosition.getTexture(!mAttachmentIndex).disable();
-        mFboPosition.getTexture(mAttachmentIndex).enableAndBind();
-        gl::drawSolidRect(Rectf(128,0,256,128));
-        mFboPosition.getTexture(mAttachmentIndex).disable();
-        gl::drawString("FBO POSITION", Vec2f(20,20));
+        
+        gl::pushMatrices();
+        gl::translate(Vec2f(app::getWindowWidth() - size * 2,0));
+        
+        mFboPosition.getTexture(indexPosPrev).enableAndBind();
+        gl::drawSolidRect(Rectf(0,0,size,size));
+        mFboPosition.getTexture(indexPosPrev).disable();
+        mFboPosition.getTexture(indexPosNext).enableAndBind();
+        gl::drawSolidRect(Rectf(size,0,size * 2,size));
+        mFboPosition.getTexture(indexPosNext).disable();
+        gl::drawString("FBO POSITION", Vec2f(paddingTL,paddingTL));
+        
+        gl::translate(0, size);
+        mFboPosition.getTexture(indexColPrev).enableAndBind();
+        gl::drawSolidRect(Rectf(0,0,size,size));
+        mFboPosition.getTexture(indexColPrev).disable();
+        mFboPosition.getTexture(indexColNext).enableAndBind();
+        gl::drawSolidRect(Rectf(size,0,size * 2,size));
+        mFboPosition.getTexture(indexColNext).disable();
+        gl::drawString("FBO COLOR", Vec2f(paddingTL,paddingTL));
+        
+        gl::translate(0, size);
+        mFboPosition.getTexture(indexSizePrev).enableAndBind();
+        gl::drawSolidRect(Rectf(0,0,size,size));
+        mFboPosition.getTexture(indexSizePrev).disable();
+        mFboPosition.getTexture(indexSizeNext).enableAndBind();
+        gl::drawSolidRect(Rectf(size,0,size * 2,size));
+        mFboPosition.getTexture(indexSizeNext).disable();
+        gl::drawString("FBO SIZE", Vec2f(paddingTL,paddingTL));
+        
+        gl::popMatrices();
+        
         
         gl::disableAlphaBlending();
         
     }
     
+    mParams->draw();
+    
     //Swap color attachment index
     mAttachmentIndex = !mAttachmentIndex;
     mTimeLast = mTime;
+}
+
+/*----------------------------------------------------------------------------------------------------*/
+
+void GPGPUTest03App::mouseMove(MouseEvent event){
+    mDataMouse.x = event.getX();
+    mDataMouse.y = event.getY();
+}
+
+void GPGPUTest03App::mouseDown(MouseEvent event){
+    mDataMouse.z = 1;
+}
+
+void GPGPUTest03App::mouseUp(MouseEvent event){
+    mDataMouse.z = 0;
+}
+
+void GPGPUTest03App::mouseWheel(MouseEvent event){
+    mDataMouse.w += event.getWheelIncrement();
 }
 
 CINDER_APP_NATIVE( GPGPUTest03App, RendererGl )
