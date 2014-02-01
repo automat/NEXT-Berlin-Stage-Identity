@@ -126,6 +126,10 @@ void GPGPUTest03App::setup(){
     mParams = params::InterfaceGl::create(app::getWindow(), "CONTROL", Vec2f(200,100));
     mParams->addParam("Show debug view fbo", &DEBUG_DRAW_FBO);
     mParams->minimize();
+    
+    //
+    std::cout << "GLSL Editor started." << std::endl;
+    //
 
     mFileWatcher.addFile(PATH_TO_WATCH);
     

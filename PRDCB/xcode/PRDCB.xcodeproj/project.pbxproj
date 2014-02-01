@@ -20,6 +20,7 @@
 		CD0C21E7183B66980083D456 /* LineTriMesh.h in Headers */ = {isa = PBXBuildFile; fileRef = CD0C21E6183B66980083D456 /* LineTriMesh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD0C21EA183B66F40083D456 /* LineTriMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD0C21E8183B66F40083D456 /* LineTriMesh.cpp */; };
 		CD22059A183CBC1600BB6B94 /* TNBFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = CD220599183CBC1600BB6B94 /* TNBFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD5A6C7A189D0F440064B77C /* FileWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = CD5A6C79189D0F440064B77C /* FileWatcher.h */; };
 		CD843511183A32CD00D3E753 /* Spline.h in Headers */ = {isa = PBXBuildFile; fileRef = CD84350C183A32CD00D3E753 /* Spline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD843512183A32CD00D3E753 /* glUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = CD84350E183A32CD00D3E753 /* glUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD843513183A32CD00D3E753 /* PRMath.h in Headers */ = {isa = PBXBuildFile; fileRef = CD843510183A32CD00D3E753 /* PRMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -49,6 +50,7 @@
 		CD0C21E6183B66980083D456 /* LineTriMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineTriMesh.h; sourceTree = "<group>"; };
 		CD0C21E8183B66F40083D456 /* LineTriMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LineTriMesh.cpp; sourceTree = "<group>"; };
 		CD220599183CBC1600BB6B94 /* TNBFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNBFrame.h; sourceTree = "<group>"; };
+		CD5A6C79189D0F440064B77C /* FileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWatcher.h; sourceTree = "<group>"; };
 		CD8434FF183A277000D3E753 /* libPRDCB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPRDCB.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD843503183A279800D3E753 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		CD84350C183A32CD00D3E753 /* Spline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Spline.h; sourceTree = "<group>"; };
@@ -178,9 +180,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CD5A6C78189D0F440064B77C /* filesystem */ = {
+			isa = PBXGroup;
+			children = (
+				CD5A6C79189D0F440064B77C /* FileWatcher.h */,
+			);
+			path = filesystem;
+			sourceTree = "<group>";
+		};
 		CD84350A183A32CD00D3E753 /* PRDCB */ = {
 			isa = PBXGroup;
 			children = (
+				CD5A6C78189D0F440064B77C /* filesystem */,
 				CD84350B183A32CD00D3E753 /* geom */,
 				CD84350D183A32CD00D3E753 /* gl */,
 				CD84350F183A32CD00D3E753 /* math */,
@@ -253,6 +264,7 @@
 				CD0C21E7183B66980083D456 /* LineTriMesh.h in Headers */,
 				CDC89FE8183D465B0037D75C /* ITNBSequence.h in Headers */,
 				CD22059A183CBC1600BB6B94 /* TNBFrame.h in Headers */,
+				CD5A6C7A189D0F440064B77C /* FileWatcher.h in Headers */,
 				CD843511183A32CD00D3E753 /* Spline.h in Headers */,
 				CD843513183A32CD00D3E753 /* PRMath.h in Headers */,
 				CD843512183A32CD00D3E753 /* glUtil.h in Headers */,

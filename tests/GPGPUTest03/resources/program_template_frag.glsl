@@ -18,6 +18,22 @@ uniform int     uAttachmentIndex;
 
 varying vec2 vTexCoord2d;
 
+/*-----------------------------------------------------------------------------------------*/
+// UTILITY FUNCTIONS
+/*-----------------------------------------------------------------------------------------*/
+
+float saw(in float a){
+    return a - floor(0.5 + a);
+}
+
+float frac(in float a){
+    return a - floor(a);
+}
+
+float tri(in float n){
+    return 1.0 - abs(0.5 - frac(n));
+}
+
 vec4 getParticleAt(in int indexX, in int indexY){
     return texture2D(uDataPosition,vec2(float(indexX),float(indexY)));
 }
@@ -26,9 +42,9 @@ vec4 getParticleAt(in int indexX, in int indexY){
 // PROGRAM - BEGIN
 /*-----------------------------------------------------------------------------------------*/
 
-void step(in float  dataIndex, // index overall of current particle
-          in float  dataIndexX, // index X in 2d array of current particle (normalized)
-          in float  dataIndexY, // index Y in 2d array of current particle (normalized)
+void step(in float  index, // index overall of current particle
+          in float  indexX, // index X in 2d array of current particle (normalized)
+          in float  indexY, // index Y in 2d array of current particle (normalized)
           in float  dataWidth,  // data particle width
           in float  dataHeight, // data particle height
           in float  dataCount,  // overall particle count
@@ -40,12 +56,14 @@ void step(in float  dataIndex, // index overall of current particle
           in float  mouseWheel, // mouse wheel
           in vec4   prevColor,  // previous particle color
           out vec4  nextColor,  // next particle color
-          in float  prevSize,
-          out float nextSize,
+          in float  prevSize,   // previous particle size
+          out float nextSize,   // next particle size
           in vec4   prevPos,    // previous particle position
           out vec4  nextPos){   // next particle position
 
-    nextPos     = prevPos;
+    nextPos.x = saw(time) * sin(indexX * M_PI * 16.0+time);//-0.5 + indexX;
+    nextPos.y = 0.0;
+    nextPos.z = -0.5 + indexY;
 
     nextColor.r = 0.5 + nextPos.r;
     nextColor.g = 0.0;
