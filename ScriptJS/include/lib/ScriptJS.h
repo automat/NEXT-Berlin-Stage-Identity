@@ -9,7 +9,7 @@
 #ifndef ScriptJS_ScriptJS_h
 #define ScriptJS_ScriptJS_h
 
-#include "ScriptJS_Prefix.h"
+#include "ScriptContext.h"
 
 
 #endif

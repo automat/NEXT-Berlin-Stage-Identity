@@ -2,6 +2,10 @@
 
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
+#include "cinder/Utilities.h"
+
+#include <iostream>
+#include <fstream>
 
 #include "ScriptJS.h"
 
@@ -15,10 +19,18 @@ class ScriptJSApp : public AppNative {
 	void mouseDown( MouseEvent event );	
 	void update();
 	void draw();
+    
+    scriptjs::ScriptContext mScriptContext;
+    
+    
 };
 
-void ScriptJSApp::setup()
-{
+void ScriptJSApp::setup(){
+    std::ifstream in("/Users/automat/Projects/next/ScriptJS/resources/script.js");
+    std::string source((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
+
+    //std::cout << toString(loadFile("/Users/automat/Projects/next/ScriptJS/resources/script.js")) << std::endl;
+     mScriptContext.execute(source);
 }
 
 void ScriptJSApp::mouseDown( MouseEvent event )

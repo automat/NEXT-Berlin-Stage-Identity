@@ -36,14 +36,13 @@ namespace scriptjs {
         
         if (Context::InContext()) {
             //Context::Exit();
-            //mContext.Exit();
+            //mContext->Exit();
             mContext.Dispose();
-            
         }
         
         Isolate* isolate = Isolate::GetCurrent();
         HandleScope handleScope(isolate);
-        
+       
         Handle<Context> context = Context::New(isolate,nullptr,this->getGlobalTemplate());
         Persistent<Context> contextPersistent(isolate,context);
         

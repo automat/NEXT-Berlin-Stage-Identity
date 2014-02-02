@@ -20,6 +20,7 @@
 		CD3E7DCC189EC4050052ED59 /* ScriptJS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DCB189EC4050052ED59 /* ScriptJS.cpp */; };
 		CD3E7DCF189ED0D80052ED59 /* ScriptContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DCD189ED0D80052ED59 /* ScriptContext.cpp */; };
 		CD3E7DD3189EDFBF0052ED59 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DD1189EDFBF0052ED59 /* Logger.cpp */; };
+		CD3E7DD7189F0A0E0052ED59 /* script.js in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DD6189F0A0E0052ED59 /* script.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		CD3E7DD1189EDFBF0052ED59 /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Logger.cpp; sourceTree = "<group>"; };
 		CD3E7DD4189EE0AE0052ED59 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		CD3E7DD5189EE2480052ED59 /* ScriptContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptContext.h; sourceTree = "<group>"; };
+		CD3E7DD6189F0A0E0052ED59 /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = script.js; path = ../resources/script.js; sourceTree = "<group>"; };
 		D4C892B05EBD490FB2F927B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +145,7 @@
 			children = (
 				5C0ED46ADD304946B9C0342E /* CinderApp.icns */,
 				D4C892B05EBD490FB2F927B5 /* Info.plist */,
+				CD3E7DD6189F0A0E0052ED59 /* script.js */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD3E7DD7189F0A0E0052ED59 /* script.js in Sources */,
 				195400F0F9F34A59B12A7584 /* ScriptJSApp.cpp in Sources */,
 				CD3E7DCC189EC4050052ED59 /* ScriptJS.cpp in Sources */,
 				CD3E7DCF189ED0D80052ED59 /* ScriptContext.cpp in Sources */,
@@ -270,7 +274,14 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder_d.a\"";
+				OTHER_LDFLAGS = (
+					"\"$(CINDER_PATH)/lib/libcinder_d.a\"",
+					"\"$(V8_PATH)/out/ia32.debug/libicuuc.a\"",
+					"\"$(V8_PATH)/out/ia32.debug/libicudata.a\"",
+					"\"$(V8_PATH)/out/ia32.debug/libv8_base.ia32.a\"",
+					"\"$(V8_PATH)/out/ia32.debug/libicui18n.a\"",
+					"\"$(V8_PATH)/out/ia32.debug/libv8_snapshot.a\"",
+				);
 				PRODUCT_NAME = ScriptJS;
 				SYMROOT = ./build;
 				WRAPPER_EXTENSION = app;
@@ -304,7 +315,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CINDER_PATH = ../../../Cinder;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -316,11 +327,11 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
-					"\"$(V8_PATH)/xcodebuild/Debug/libicuuc.a\"",
-					"\"$(V8_PATH)/xcodebuild/Debug/libicudata.a\"",
-					"\"$(V8_PATH)/xcodebuild/Debug/libv8_base.x64.a\"",
-					"\"$(V8_PATH)/xcodebuild/Debug/libicui18n.a\"",
-					"\"$(V8_PATH)/xcodebuild/Debug/libv8_snapshot.a\"",
+					"\"$(V8_PATH)/out/ia32.debug/libicuuc.a\"",
+					"\"$(V8_PATH)/out/ia32.debug/libicudata.a\"",
+					"\"$(V8_PATH)/out/ia32.debug/libv8_base.ia32.a\"",
+					"\"$(V8_PATH)/out/ia32.debug/libicui18n.a\"",
+					"\"$(V8_PATH)/out/ia32.debug/libv8_snapshot.a\"",
 				);
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include";
@@ -332,7 +343,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = i386;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CINDER_PATH = ../../../Cinder;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
