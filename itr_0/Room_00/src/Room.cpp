@@ -26,6 +26,7 @@ Room::Room(float dim, CameraPersp* camera) :
         GeomHelper::genIcosahedron(&mMeshDome,4);
         GeomHelper::genIcosahedron(&mMeshFloor,3);
         
+        
         GeomHelper::invertNormals(mMeshDome);
         
         //
@@ -85,6 +86,13 @@ void Room::draw(){
     
     //glColor3f(0.25f, 0.25f, 0.25f);
     mMaterialDebug->apply();
+    glPushMatrix();
+    glScalef(5, 5, 5);
+    gl::draw(mMeshDome);
+    glPopMatrix();
+    
+    
+    
     glPushMatrix();
     glScalef(5, 5, 5);
     gl::draw(mMeshDome);

@@ -28,6 +28,80 @@ class GeomHelper {
     
 public:
     
+    static void addFace(uint32_t a, uint32_t b, uint32_t c, TriMesh* mesh){
+        push3(a,b,c,&(mesh->getIndices()));
+    }
+    
+    static void subdivideFaces(TriMesh* mesh, int numSubDivisions = 0){
+        vector<Vec3f>&   meshVertices  = mesh->getVertices();
+        vector<Vec2f>&   meshTexcoords = mesh->getTexCoords();
+        vector<uint32_t> meshIndices   = mesh->getIndices();
+        
+        vector<uint32_t> tempIndices;
+        
+        int i,j;
+        i = -1;
+        while (++i < numSubDivisions) {
+            tempIndices.clear(); //reset triangle indices
+            j = -1;
+            while (++j < mesh->getNumTriangles()) {
+                
+                
+                // get triagnle indices from original mesh
+                uint32_t indexA = meshIndices[j*3  ];
+                uint32_t indexB = meshIndices[j*3+1];
+                uint32_t indexC = meshIndices[j*3+2];
+                
+                const Vec3f& pA = meshVertices[indexA];
+                const Vec3f& pB = meshVertices[indexB];
+                const Vec3f& pC = meshVertices[indexC];
+                
+                const Vec2f& tA = meshTexcoords[indexA];
+                const Vec2f& tB = meshTexcoords[indexB];
+                const Vec2f& tC = meshTexcoords[indexC];
+                
+                // create interpolated points on triangles edges
+                Vec3f pAB = (pA + pB) * 0.5f;
+                Vec3f pBC = (pB + pC) * 0.5f;
+                Vec3f pCA = (pC + pA) * 0.5f;
+                
+                Vec2f tAB = (tA + tB) * 0.5f;
+                Vec2f tBC = (tB + tC) * 0.5f;
+                Vec2f tCA = (tC + tA) * 0.5f;
+                
+                // push those to the orignal mesh
+                mesh->appendVertex(pAB);
+                mesh->appendVertex(pBC);
+                mesh->appendVertex(pCA);
+                
+                mesh->appendTexCoord(tAB);
+                mesh->appendTexCoord(tBC);
+                mesh->appendTexCoord(tCA);
+                
+                
+                // get their vertex indices
+                uint32_t indexAB = meshVertices.size() - 3;
+                uint32_t indexBC = meshVertices.size() - 2;
+                uint32_t indexCA = meshVertices.size() - 1;
+                
+                //         A
+                //        / \
+                //       /   \         CCW
+                //      AB---CA
+                //     / \   / \
+                //    /   \ /   \
+                //   B----BC-----C
+                
+                push3(indexA,  indexAB, indexCA, &tempIndices);
+                push3(indexB,  indexBC, indexAB, &tempIndices);
+                push3(indexC,  indexCA, indexBC, &tempIndices);
+                push3(indexAB, indexBC, indexCA, &tempIndices);
+                
+            }
+            mesh->getIndices().swap(tempIndices);
+        }
+    }
+    
     static void genIcosahedron(TriMesh* mesh, int numSubDivisions = 0){
         vector<uint32_t>& meshIndices  = mesh->getIndices();
         vector<Vec3f>&    meshVertices = mesh->getVertices();
