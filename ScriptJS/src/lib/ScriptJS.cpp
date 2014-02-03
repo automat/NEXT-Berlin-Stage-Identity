@@ -20,6 +20,10 @@ namespace scriptjs {
         return v8::String::NewFromUtf8(v8::Isolate::GetCurrent(), x);
     }
     
+    v8::Local<v8::Value> ToV8Bool(bool x){
+        return v8::Boolean::New(x);
+    }
+    
     const char* ToCString(const v8::String::Utf8Value& string){
         return *string;
     }

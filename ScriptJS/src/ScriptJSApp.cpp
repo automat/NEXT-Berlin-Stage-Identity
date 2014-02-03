@@ -20,7 +20,9 @@ class ScriptJSApp : public AppNative {
 	void update();
 	void draw();
     
-    scriptjs::ScriptContext mScriptContext;
+    scriptjs::ScriptContext    mScriptContext;
+    v8::Persistent<v8::Object> mContextJS;
+
     
     
 };
@@ -29,7 +31,15 @@ void ScriptJSApp::setup(){
     std::ifstream in("/Users/automat/Projects/next/ScriptJS/resources/script.js");
     std::string source((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
 
-    mScriptContext.execute(source);
+    mScriptContext.loadScript(source);
+   
+    /*
+    CONTEXTJS_ENTER_SCOPE(mScriptContext);
+    mScriptContext.getNewInstance("ContextJS");
+    CONTEXTJS_EXIT_SCOPE;
+    */
+    v8::Handle<v8::Object> contextJS = mScriptContext.getNewInstance("ContextJS");
+    mContextJS = v8::Persistent<v8::Object>::New(<#v8::Isolate *isolate#>, <#v8::Object *that#>)
 }
 
 void ScriptJSApp::mouseDown( MouseEvent event )

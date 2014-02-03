@@ -11,6 +11,9 @@
 #include "Module.h"
 #include <boost/foreach.hpp>
 
+
+
+
 namespace scriptjs {
     ScriptContext::ScriptContext(){}
     
@@ -27,17 +30,12 @@ namespace scriptjs {
     Handle<ObjectTemplate> ScriptContext::getGlobalTemplate(){
         // create console object template
         Local<FunctionTemplate> consoleTemplate = FunctionTemplate::New(); // object
-        //consoleTemplate->Set("log",FunctionTemplate::New(scriptjs::log));  // object.method
         SET_METHOD(consoleTemplate, "log", scriptjs::log);
-        
-        
         
         // create global object template
         Local<ObjectTemplate> globalTemplate = ObjectTemplate::New();
-        //globalTemplate->Set("console", consoleTemplate); // add console object
         SET_PROPERTY(globalTemplate, "console", consoleTemplate);
         SET_PROPERTY_READONLY(globalTemplate, "const_number", ToV8Num(1000.0));;
-        
         
         return globalTemplate;
     };
@@ -65,31 +63,73 @@ namespace scriptjs {
         }
     };
     
-    bool ScriptContext::execute(const std::string &sourceJsOrFile){
-        if(sourceJsOrFile.length() == 0){
-            return false;
-        }
-
-        //if context already existe, eg created dispose (not sure if also done in Context.Reset())
-        if(Context::InContext()){
-            mContext.Dispose();
-        }
+    /*------------------------------------------------------------------------------------------------------------*/
     
-        // get current isolate / create handle scope
-        Isolate* isolate = Isolate::GetCurrent();
-        HandleScope handleScope(isolate);
-        Handle<Context> context = Context::New(isolate,nullptr,this->getGlobalTemplate());
-        // dispose old context, recreate new if initialized already
-        mContext.Reset(isolate, context);
-        // enter new context
-        Context::Scope contextScope(context);
-        // compile string
-        return this->executeString(String::New(sourceJsOrFile.c_str()));
+    bool ScriptContext::loadScript(const std::string &sourceJsOrFile){
+        Isolate* isolate = Isolate::GetCurrent(); // get default Instance of v8
+        
+        Isolate::Scope isolateScope(isolate); // enter isolate scope
+        HandleScope    handleScope(isolate);  // enter handle scope
+        
+            Handle<Context> context = Context::New(isolate,NULL,this->getGlobalTemplate()); // create new context
+                mContext.Reset(isolate, context); // update shared persistent context with newly created one
+                TryCatch tryCatch;
+        
+                Context::Scope contexScope(context); // enter context scope
+        
+                    Handle<Script> script = Script::Compile(String::New(sourceJsOrFile.c_str()));
+                    if(script.IsEmpty()){
+                        ReportException(&tryCatch);
+                        return false;
+                    } else {
+                        Handle<Value> result = script->Run();
+                        if (result.IsEmpty()) {
+                            ReportException(&tryCatch);
+                            return false;
+                        } else {
+                            if (result->IsUndefined()) {
+                                
+                            }
+                            return true;
+                        }
+                    }
+                // ~ exit context scope
+            // ~ exit handle scope
+        // ~ exit isolate scope
     };
+    
+    
 
     void ScriptContext::addModule(scriptjs::Module *module){
         mModules.push_back(module);
     }
+    
+    
+    /*------------------------------------------------------------------------------------------------------------*/
+    
+    
+    Handle<Object> ScriptContext::getNewInstance(const std::string &name){
+        Isolate* isolate = Isolate::GetCurrent(); //get instance of v8
+        
+        Isolate::Scope isolateScope(isolate); // enter isolate scope
+            HandleScope  handleScope(isolate); // enter handle scope
+        
+            Handle<Context> context = v8::Handle<Context>::New(isolate,mContext); // recreate context from persistent context
+                TryCatch tryCatch;
+        
+                    Context::Scope contexScope(context); // enter context
+        
+                        Handle<Value>    value    = context->Global()->Get(ToV8String(name.c_str()));
+                        Handle<Function> function = Handle<Function>::Cast(value);
+                        Handle<Value>    result   = function->NewInstance();
+        
+                        if (result.IsEmpty()) {
+                            ReportException(&tryCatch);
+                        }
+                    // ~ exit context scope
+        return handleScope.Close(Handle<Object>::Cast(result)); // ~ exit handle scope with object
+        // ~ exit isolate scope
+    };
     
     Handle<Object> ScriptContext::newInstance(Handle<Object> localContext, Handle<String> name, int argc, Handle<Value>* argv){
         HandleScope handleScope(Isolate::GetCurrent());

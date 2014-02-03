@@ -45,6 +45,8 @@ namespace scriptjs {
     // convert string to v8 val
     Local<Value> ToV8String(const char* x);
     
+    Local<Value> ToV8Bool(bool x);
+    
     // convert v8 string to c string
     const char* ToCString(const String::Utf8Value& string);
     
