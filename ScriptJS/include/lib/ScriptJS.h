@@ -10,6 +10,8 @@
 #define ScriptJS_ScriptJS_h
 
 #include "ScriptContext.h"
+#include "ObjectWrap.h"
+#include "Module.h"
 
 
 #endif

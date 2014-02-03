@@ -29,8 +29,7 @@ void ScriptJSApp::setup(){
     std::ifstream in("/Users/automat/Projects/next/ScriptJS/resources/script.js");
     std::string source((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
 
-    //std::cout << toString(loadFile("/Users/automat/Projects/next/ScriptJS/resources/script.js")) << std::endl;
-     mScriptContext.execute(source);
+    mScriptContext.execute(source);
 }
 
 void ScriptJSApp::mouseDown( MouseEvent event )

@@ -15,6 +15,14 @@
 namespace scriptjs {
     void log_internal(const Local<Value>& val, int depth = 0);
     void log(const FunctionCallbackInfo<Value>& info);
+    
+    //from plask
+    void ReportException(TryCatch* tryCatch);
+    Handle<Value> ThrowError(const char* msg);
+    Handle<Value> ThrowTypeError(const char* msg);
+    
+    
+    
 }
 
 #endif /* defined(__ScriptJS__Logger__) */
