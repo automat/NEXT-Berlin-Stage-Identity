@@ -8,6 +8,7 @@
 #include <fstream>
 
 #include "ScriptJS.h"
+#include "ModuleObj.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -22,9 +23,6 @@ class ScriptJSApp : public AppNative {
     
     scriptjs::ScriptContext    mScriptContext;
     v8::Persistent<v8::Object> mContextJS;
-
-    
-    
 };
 
 void ScriptJSApp::setup(){
@@ -32,28 +30,31 @@ void ScriptJSApp::setup(){
     std::string source((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
 
     mScriptContext.loadScript(source);
-   
-    /*
-    CONTEXTJS_ENTER_SCOPE(mScriptContext);
-    mScriptContext.getNewInstance("ContextJS");
-    CONTEXTJS_EXIT_SCOPE;
-    */
-    v8::Handle<v8::Object> contextJS = mScriptContext.getNewInstance("ContextJS");
-    mContextJS = v8::Persistent<v8::Object>::New(<#v8::Isolate *isolate#>, <#v8::Object *that#>)
+    
+    ENTER_CONTEXT(mScriptContext);
+    //mContextJS.Reset(isolate, mScriptContext.newInstance("ContextJS"));
+    mScriptContext.call("Init");
+    EXIT_CONTEXT;
 }
 
 void ScriptJSApp::mouseDown( MouseEvent event )
 {
 }
 
-void ScriptJSApp::update()
-{
+void ScriptJSApp::update(){
+    ENTER_CONTEXT(mScriptContext);
+    Handle<Value> args[2];
+        args[0] = scriptjs::ToV8Num(app::getElapsedSeconds());
+        args[1] = scriptjs::ToV8Int(app::getElapsedFrames());
+    mScriptContext.call("Update",2,args);
+    EXIT_CONTEXT;
 }
 
 void ScriptJSApp::draw()
 {
 	// clear out the window with black
-	gl::clear( Color( 0, 0, 0 ) ); 
+	gl::clear( Color( 0, 0, 0 ) );
+   // mScriptContext.call("draw");
 }
 
 CINDER_APP_NATIVE( ScriptJSApp, RendererGl )

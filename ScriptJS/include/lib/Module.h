@@ -12,7 +12,6 @@
 #include "ScriptJS_Prefix.h"
 
 namespace scriptjs {
-    
 	//! Interface for C++ to v8 bindings
 	class Module {
 	public:
@@ -20,7 +19,6 @@ namespace scriptjs {
 		~Module() {};
 		virtual void Initialize(v8::Handle<v8::Object> target) {};
 	};
-
 }
 
 

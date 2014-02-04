@@ -20,9 +20,6 @@ namespace scriptjs {
     void ReportException(TryCatch* tryCatch);
     Handle<Value> ThrowError(const char* msg);
     Handle<Value> ThrowTypeError(const char* msg);
-    
-    
-    
 }
 
 #endif /* defined(__ScriptJS__Logger__) */

@@ -11,21 +11,43 @@
 #include "Module.h"
 #include <boost/foreach.hpp>
 
+//  Get v8 instance
+//      Enter isolate scope
+//          Enter handle scope
 
+#define CONTEXT_ENTER_HANDLE_SCOPE \
+Isolate* isolate = Isolate::GetCurrent(); \
+    Isolate::Scope isolateScope(isolate); \
+        HandleScope handleScope(isolate);
 
+#define CONTEXT_ENTER_CONTEXT_SCOPE \
+    CONTEXT_ENTER_HANDLE_SCOPE; \
+        Handle<Context> context = v8::Handle<Context>::New(isolate, mContext); \
+        Context::Scope contextScope(context);
 
 namespace scriptjs {
     ScriptContext::ScriptContext(){}
     
+    /*------------------------------------------------------------------------------------------------------------*/
+    
     ScriptContext::~ScriptContext(){
         mContext.Dispose();
-        
         BOOST_FOREACH(Module* m, mModules){
             delete m;
         }
-        
         mModules.clear();
     }
+    
+    void ScriptContext::addModule(scriptjs::Module *module){
+        mModules.push_back(module);
+    }
+    
+    Handle<Context> ScriptContext::getContext(){
+        return Local<Context>::New(Isolate::GetCurrent(), mContext);
+    }
+    
+    
+    /*------------------------------------------------------------------------------------------------------------*/
     
     Handle<ObjectTemplate> ScriptContext::getGlobalTemplate(){
         // create console object template
@@ -35,42 +57,14 @@ namespace scriptjs {
         // create global object template
         Local<ObjectTemplate> globalTemplate = ObjectTemplate::New();
         SET_PROPERTY(globalTemplate, "console", consoleTemplate);
-        SET_PROPERTY_READONLY(globalTemplate, "const_number", ToV8Num(1000.0));;
         
         return globalTemplate;
-    };
-    
-    // execute string within a given js context
-    bool ScriptContext::executeString(Handle<String> str){
-        Handle<Context> handleContext;
-        TryCatch tryCatch;
-        Handle<Script> script = Script::Compile(str);
-        
-        if(script.IsEmpty()){
-            ReportException(&tryCatch);
-            return false;
-        } else {
-            Handle<Value> result = script->Run();
-            if (result.IsEmpty()) {
-                ReportException(&tryCatch);
-                return false;
-            } else {
-                if(!result->IsUndefined()){
-                    
-                }
-                return true;
-            }
-        }
     };
     
     /*------------------------------------------------------------------------------------------------------------*/
     
     bool ScriptContext::loadScript(const std::string &sourceJsOrFile){
-        Isolate* isolate = Isolate::GetCurrent(); // get default Instance of v8
-        
-        Isolate::Scope isolateScope(isolate); // enter isolate scope
-        HandleScope    handleScope(isolate);  // enter handle scope
-        
+        CONTEXT_ENTER_HANDLE_SCOPE;
             Handle<Context> context = Context::New(isolate,NULL,this->getGlobalTemplate()); // create new context
                 mContext.Reset(isolate, context); // update shared persistent context with newly created one
                 TryCatch tryCatch;
@@ -88,7 +82,7 @@ namespace scriptjs {
                             return false;
                         } else {
                             if (result->IsUndefined()) {
-                                
+                                // no object instance returned, global func scope assumed
                             }
                             return true;
                         }
@@ -98,22 +92,58 @@ namespace scriptjs {
         // ~ exit isolate scope
     };
     
+    /*------------------------------------------------------------------------------------------------------------*/
     
-
-    void ScriptContext::addModule(scriptjs::Module *module){
-        mModules.push_back(module);
-    }
+    Handle<Value> ScriptContext::call(const char *name, int argc, Handle<Value>* argv){
+        CONTEXT_ENTER_HANDLE_SCOPE;
+            Handle<Context> context = v8::Handle<Context>::New(isolate, mContext);
+                TryCatch tryCatch;
+                Context::Scope contextScope(context);
+        
+                    Handle<Object> global = context->Global();
+                    Handle<Value> value  = global->Get(String::New(name));
+        
+                    if(!value->IsUndefined()) {
+                            Handle<Function> func = Handle<Function>::Cast(value);
+                            Handle<Value> result = func->Call(global,argc,argv);
+            
+                        if(result.IsEmpty()){
+                            ReportException(&tryCatch);
+                        }
+                        
+                        return handleScope.Close(result);
+                    }
+                // ~ exit context scope
+            // ~ exit handle scope
+        // ~ exit isolate scope
+        return Undefined();
+    };
     
+    Handle<Value> ScriptContext::call(Persistent<v8::Object>& obj, const char *name, int argc, Handle<Value>* argv){
+        CONTEXT_ENTER_CONTEXT_SCOPE;
+        TryCatch tryCatch;
+        Handle<Object> object = Handle<Object>::New(isolate, obj);
+        Handle<Value> value = object->Get(String::New(name));
+        
+        // check if function exists within given context
+        if(!value->IsUndefined()) {
+            Handle<Function> func = Handle<Function>::Cast(value);
+            Handle<Value> result = func->Call(object, argc, argv);
+            
+            if(result.IsEmpty()){
+                ReportException(&tryCatch);
+            }
+            
+            return handleScope.Close(result);
+        }
+        
+        return Undefined();
+    };
     
     /*------------------------------------------------------------------------------------------------------------*/
     
-    
-    Handle<Object> ScriptContext::getNewInstance(const std::string &name){
-        Isolate* isolate = Isolate::GetCurrent(); //get instance of v8
-        
-        Isolate::Scope isolateScope(isolate); // enter isolate scope
-            HandleScope  handleScope(isolate); // enter handle scope
-        
+    Handle<Object> ScriptContext::newInstance(const std::string &name, int argc, Handle<Value>* argv){
+        CONTEXT_ENTER_HANDLE_SCOPE;
             Handle<Context> context = v8::Handle<Context>::New(isolate,mContext); // recreate context from persistent context
                 TryCatch tryCatch;
         
@@ -121,7 +151,7 @@ namespace scriptjs {
         
                         Handle<Value>    value    = context->Global()->Get(ToV8String(name.c_str()));
                         Handle<Function> function = Handle<Function>::Cast(value);
-                        Handle<Value>    result   = function->NewInstance();
+                        Handle<Value>    result   = function->NewInstance(argc,argv);
         
                         if (result.IsEmpty()) {
                             ReportException(&tryCatch);
@@ -130,46 +160,6 @@ namespace scriptjs {
         return handleScope.Close(Handle<Object>::Cast(result)); // ~ exit handle scope with object
         // ~ exit isolate scope
     };
-    
-    Handle<Object> ScriptContext::newInstance(Handle<Object> localContext, Handle<String> name, int argc, Handle<Value>* argv){
-        HandleScope handleScope(Isolate::GetCurrent());
-        TryCatch tryCatch;
-        
-        Handle<Value> value = localContext->Get(name);
-        Handle<Function> func = Handle<Function>::Cast(value);
-        Handle<Value> result = func->NewInstance(argc, argv);
-        
-        if(result.IsEmpty())
-            ReportException(&tryCatch);
-        
-        return handleScope.Close(Handle<Object>::Cast(result));
-    }
-    
-    Handle<Value> ScriptContext::call(Handle<Object> localContext, const char* name, int argc, Handle<Value>* argv){
-        return this->call(localContext, String::New(name), argc, argv);
-    }
-    
-    
-    Handle<Value> ScriptContext::call(Handle<Object> localContext, Handle<String> name, int argc, Handle<Value>* argv)
-    {
-        HandleScope handleScope(Isolate::GetCurrent());
-        TryCatch tryCatch;
-        
-        Handle<Value> value = localContext->Get(name);
-        
-        // check if function exists within given context
-        if(!value->IsUndefined()) {
-            Handle<Function> func = Handle<Function>::Cast(value);
-            Handle<Value> result = func->Call(localContext, argc, argv);
-            
-            if(result.IsEmpty())
-                ReportException(&tryCatch);
-            
-            return handleScope.Close(result);
-        }
-        
-        return Undefined();
-    }
     
 }
 

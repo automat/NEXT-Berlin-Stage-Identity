@@ -13,21 +13,18 @@
 #include "ScriptJS_Prefix.h"
 #include <vector>
 
-
-
-#define CONTEXTJS_ENTER_SCOPE(instance) \
-v8::Isolate* isolate = v8::Isolate::GetCurrent(); \
-    v8::Isolate::Scope isolateScope(isolate); \
+#define ENTER_CONTEXT(scriptContext) \
+    v8::Isolate* isolate = v8::Isolate::GetCurrent(); \
         v8::HandleScope handleScope(isolate); \
-            v8::Handle<v8::Context> context = v8::Handle<v8::Context>::New(isolate,instance.getContext()); \
-            try {
+        v8::Handle<Context> context = scriptContext.getContext(); \
+            v8::Context::Scope contextScope(context); \
+        try{
 
-#define CONTEXTJS_EXIT_SCOPE \
-} catch(std::exception& e) { \
-std::cout << e.what() << std::endl; \
-return; \
-}
-
+#define EXIT_CONTEXT \
+    } catch(std::exception& exc) { \
+        std::cout << exc.what() << std::endl; \
+        return; \
+    }
 
 using namespace std;
 namespace scriptjs {
@@ -38,31 +35,31 @@ namespace scriptjs {
     class ScriptContext{
         Persistent<Context> mContext; //shared persistent execution context
         vector<Module*>     mModules;
-        
-        bool executeString(Handle<String> str);
+
         Handle<ObjectTemplate> getGlobalTemplate();
         
     public:
         ScriptContext();
         ~ScriptContext();
         
+        // get Context
+        Handle<Context> getContext();
         
+        // add Module to global scope
         void addModule(Module* module);
         
+        // load and execute Script
         bool loadScript(const std::string& sourceJsOrFile);
         
+        // call function in global scope
+        Handle<Value> call(const char* name, int argc = 0, Handle<Value>* argv = NULL);
         
-        Handle<Object> getNewInstance(const std::string& name);
+        // call function in scope of object
+        Handle<Value> call(Persistent<Object>& obj, const char* name, int argc = 0, Handle<Value>* argv = NULL);
         
-        // creates a new javascript object instance
-        Handle<Object> newInstance(Handle<Object> localContext, Handle<String> name, int argc = 0, Handle<Value>* argv = NULL);
-        
-        // calls the javascript function within the given context
-        Handle<Value> call(Handle<Object> localContext, const char* name, int argc = 0, Handle<Value>* argv = NULL);
-        
-        // calls the javascript function within the given context
-        Handle<Value> call(Handle<Object> localContext, Handle<String> name, int argc = 0, Handle<Value>* argv = NULL);
-    };
+        // get new instance of js object
+        Handle<Object> newInstance(const std::string& name, int argc = 0, Handle<Value>* argv = NULL);
+     };
 }
 
 #endif /* defined(__ScriptJS__ScriptContext__) */

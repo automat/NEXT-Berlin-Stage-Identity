@@ -21,7 +21,6 @@
 		CD3E7DCF189ED0D80052ED59 /* ScriptContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DCD189ED0D80052ED59 /* ScriptContext.cpp */; };
 		CD3E7DD3189EDFBF0052ED59 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DD1189EDFBF0052ED59 /* Logger.cpp */; };
 		CD3E7DD7189F0A0E0052ED59 /* script.js in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DD6189F0A0E0052ED59 /* script.js */; };
-		CDDC9A49189FC34E0002D878 /* WrappedObj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDDC9A47189FC34E0002D878 /* WrappedObj.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,8 +49,7 @@
 		CD3E7DD6189F0A0E0052ED59 /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = script.js; path = ../resources/script.js; sourceTree = "<group>"; };
 		CDDC9A44189FB6850002D878 /* ObjectWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectWrap.h; sourceTree = "<group>"; };
 		CDDC9A45189FB8C40002D878 /* Module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Module.h; sourceTree = "<group>"; };
-		CDDC9A46189FC3390002D878 /* WrappedObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WrappedObj.h; path = ../include/WrappedObj.h; sourceTree = "<group>"; };
-		CDDC9A47189FC34E0002D878 /* WrappedObj.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WrappedObj.cpp; path = ../src/WrappedObj.cpp; sourceTree = "<group>"; };
+		CDDC9A46189FC3390002D878 /* ModuleObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModuleObj.h; path = ../include/ModuleObj.h; sourceTree = "<group>"; };
 		D4C892B05EBD490FB2F927B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,7 +84,6 @@
 			children = (
 				CD3E7DCA189EC3D00052ED59 /* lib */,
 				52B1C7000736440CB11B1073 /* ScriptJSApp.cpp */,
-				CDDC9A47189FC34E0002D878 /* WrappedObj.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -142,7 +139,7 @@
 				CD3E7DC7189EC1880052ED59 /* lib */,
 				511D577079F24A3C831CDC0C /* Resources.h */,
 				41A9D93DC84946ADAFF1C55A /* ScriptJS_Prefix.pch */,
-				CDDC9A46189FC3390002D878 /* WrappedObj.h */,
+				CDDC9A46189FC3390002D878 /* ModuleObj.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -257,7 +254,6 @@
 				CD3E7DD7189F0A0E0052ED59 /* script.js in Sources */,
 				195400F0F9F34A59B12A7584 /* ScriptJSApp.cpp in Sources */,
 				CD3E7DCC189EC4050052ED59 /* ScriptJS.cpp in Sources */,
-				CDDC9A49189FC34E0002D878 /* WrappedObj.cpp in Sources */,
 				CD3E7DCF189ED0D80052ED59 /* ScriptContext.cpp in Sources */,
 				CD3E7DD3189EDFBF0052ED59 /* Logger.cpp in Sources */,
 			);
