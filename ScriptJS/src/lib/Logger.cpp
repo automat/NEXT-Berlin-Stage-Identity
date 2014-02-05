@@ -40,6 +40,10 @@ namespace scriptjs {
             }
         }
         
+        if (val->IsUndefined()) {
+            std::cout << "Undefined";
+        }
+        
         if (val->IsNull()) {
             std::cout << "Null";
         }

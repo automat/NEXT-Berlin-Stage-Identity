@@ -1,3 +1,5 @@
+
+/*
 function ClassJS(){
     this.memberA = 1;
     this.memberB = "a";
@@ -27,6 +29,8 @@ function Init(){
     this._classCpp0.print();
     
     console.log(this._classCpp0.getValue());
+    
+    console.log(this);
 }
 
 function MouseDown(){
@@ -43,7 +47,24 @@ function Update(secondsElapsed, framesElapsed){
     this._classCpp0.incr();
     this._classCpp0.print();
 }
+*/
 
+function Class(){
+    this.a = 0;
+
+
+    console.log(this);
+}
+
+function B(){
+    console.log(this.a);
+}
+
+B();
+
+//new Class();
+
+//console.log(this);
 
 
 

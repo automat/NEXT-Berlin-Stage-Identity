@@ -35,27 +35,31 @@ void ScriptJSApp::setup(){
 
     
     //new ModuleObj();
+    /*
     ENTER_CONTEXT(mScriptContext);
     //mContextJS.Reset(isolate, mScriptContext.newInstance("ContextJS"));
     mScriptContext.call("Init");
     EXIT_CONTEXT;
+     */
 }
 
 void ScriptJSApp::mouseDown( MouseEvent event ){
+    /*
     ENTER_CONTEXT(mScriptContext);
     mScriptContext.call("MouseDown");
     EXIT_CONTEXT;
+     */
 }
 
 void ScriptJSApp::update(){
-    
+    /*
     ENTER_CONTEXT(mScriptContext);
     Handle<Value> args[2];
         args[0] = scriptjs::ToV8Num(app::getElapsedSeconds());
         args[1] = scriptjs::ToV8Int(app::getElapsedFrames());
     mScriptContext.call("Update",2,args);
     EXIT_CONTEXT;
-    
+    */
 }
 
 void ScriptJSApp::draw()

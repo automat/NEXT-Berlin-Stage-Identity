@@ -30,6 +30,10 @@ namespace scriptjs {
     /*------------------------------------------------------------------------------------------------------------*/
     
     ScriptContext::~ScriptContext(){
+        this->dispose();
+    }
+    
+    void ScriptContext::dispose(){
         mContext.Dispose();
         while (!mModules.empty()) delete mModules.back(), mModules.pop_back();
     }
@@ -162,6 +166,9 @@ namespace scriptjs {
         return handleScope.Close(Handle<Object>::Cast(result)); // ~ exit handle scope with object
         // ~ exit isolate scope
     };
+    
+    
+
     
 }
 
