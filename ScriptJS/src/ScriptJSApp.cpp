@@ -32,6 +32,8 @@ void ScriptJSApp::setup(){
     mScriptContext.addModule(new ModuleClassCpp());
     mScriptContext.loadScript(source);
     
+
+    
     //new ModuleObj();
     ENTER_CONTEXT(mScriptContext);
     //mContextJS.Reset(isolate, mScriptContext.newInstance("ContextJS"));

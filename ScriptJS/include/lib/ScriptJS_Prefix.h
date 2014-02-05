@@ -38,25 +38,23 @@ namespace scriptjs {
 #define SET_CLASS_NAME(templ, name)\
     templ->SetClassName(v8::String::New(name));
     
-    
-    // convert number to v8 val
+    //! convert number to v8 val
     Local<Value> ToV8Num(double x);
     
-    // convert string to v8 val
+    //! convert string to v8 val
     Local<Value> ToV8String(const char* x);
     
-    // convert bool to v8 val
+    //! convert bool to v8 val
     Local<Value> ToV8Bool(bool x);
     
+    //! convert int to v8 val
     Local<Value> ToV8Int(int x);
     
-    // convert v8 string to c string
+    //! convert v8 string to c string
     const char* ToCString(const String::Utf8Value& string);
     
-    // convert v8 string to c string
+    //! convert v8 string to c string
     const char* ToCString(const Local<String> string);
-    
-    
 }
 
 

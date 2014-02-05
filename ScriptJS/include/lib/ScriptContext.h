@@ -10,8 +10,8 @@
 #define __ScriptJS__ScriptContext__
 
 #include <iostream>
-#include "ScriptJS_Prefix.h"
 #include <vector>
+#include "ScriptJS_Prefix.h"
 
 #define ENTER_CONTEXT(scriptContext) \
     v8::Isolate* isolate = v8::Isolate::GetCurrent(); \
@@ -28,13 +28,11 @@
 
 using namespace std;
 namespace scriptjs {
-    
     class Module;
     
     class ScriptContext{
         Persistent<Context> mContext; //shared persistent execution context
         vector<Module*>     mModules;
-
         Handle<ObjectTemplate> getGlobalTemplate();
         
     public:
@@ -58,6 +56,9 @@ namespace scriptjs {
         
         //! get new instance of js object
         Handle<Object> newInstance(const std::string& name, int argc = 0, Handle<Value>* argv = NULL);
+        
+        //!
+        void dispose();
      };
 }
 

@@ -9,7 +9,6 @@
 #include "ScriptContext.h"
 #include "Logger.h"
 #include "Module.h"
-#include <boost/foreach.hpp>
 
 //  Get v8 instance
 //      Enter isolate scope
@@ -32,10 +31,7 @@ namespace scriptjs {
     
     ScriptContext::~ScriptContext(){
         mContext.Dispose();
-        BOOST_FOREACH(Module* m, mModules){
-            delete m;
-        }
-        mModules.clear();
+        while (!mModules.empty()) delete mModules.back(), mModules.pop_back();
     }
     
     void ScriptContext::addModule(scriptjs::Module *module){
@@ -70,12 +66,12 @@ namespace scriptjs {
                 TryCatch tryCatch;
         
                 Context::Scope contexScope(context); // enter context scope
+                    Handle<Object> global = context->Global();
         
                     // add global available modules
-                    BOOST_FOREACH(Module* m, mModules) {
-                        m->Initialize(context->Global());
+                    for (vector<Module*>::iterator itr = mModules.begin(); itr != mModules.end(); ++itr) {
+                        (*itr)->Initialize(global);
                     }
-                    
         
                     Handle<Script> script = Script::Compile(String::New(sourceJsOrFile.c_str()));
                     if(script.IsEmpty()){

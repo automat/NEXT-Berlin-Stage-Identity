@@ -6,8 +6,8 @@
 //
 //
 
-#include "Logger.h"
 #include "ScriptJS_Prefix.h"
+#include "Logger.h"
 
 namespace scriptjs {
     void log_internal(const Local<Value>& val, int depth){

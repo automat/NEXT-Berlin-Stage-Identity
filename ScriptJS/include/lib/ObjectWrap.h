@@ -22,8 +22,9 @@
 #ifndef SRC_NODE_OBJECT_WRAP_H_
 #define SRC_NODE_OBJECT_WRAP_H_
 
-#include "ScriptJS_Prefix.h"
 #include <assert.h>
+#include "ScriptJS_Prefix.h"
+
 
 // https://github.com/joyent/node/blob/master/src/node_object_wrap.h
 

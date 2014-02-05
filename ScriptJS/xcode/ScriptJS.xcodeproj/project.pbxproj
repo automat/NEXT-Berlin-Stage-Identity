@@ -21,6 +21,15 @@
 		CD3E7DCF189ED0D80052ED59 /* ScriptContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DCD189ED0D80052ED59 /* ScriptContext.cpp */; };
 		CD3E7DD3189EDFBF0052ED59 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DD1189EDFBF0052ED59 /* Logger.cpp */; };
 		CD3E7DD7189F0A0E0052ED59 /* script.js in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DD6189F0A0E0052ED59 /* script.js */; };
+		CD80544F18A2DB10007D6970 /* ScriptContext.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3E7DD5189EE2480052ED59 /* ScriptContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD80545018A2DB10007D6970 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3E7DD4189EE0AE0052ED59 /* Logger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD80545118A2DB10007D6970 /* ScriptJS_Prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3E7DC8189EC1AF0052ED59 /* ScriptJS_Prefix.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD80545218A2DB10007D6970 /* ScriptJS.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3E7DC9189EC3690052ED59 /* ScriptJS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD80545318A2DB10007D6970 /* ObjectWrap.h in Headers */ = {isa = PBXBuildFile; fileRef = CDDC9A44189FB6850002D878 /* ObjectWrap.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD80545418A2DB10007D6970 /* Module.h in Headers */ = {isa = PBXBuildFile; fileRef = CDDC9A45189FB8C40002D878 /* Module.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD80545518A2DB27007D6970 /* ScriptJS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DCB189EC4050052ED59 /* ScriptJS.cpp */; };
+		CD80545618A2DB27007D6970 /* ScriptContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DCD189ED0D80052ED59 /* ScriptContext.cpp */; };
+		CD80545718A2DB27007D6970 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DD1189EDFBF0052ED59 /* Logger.cpp */; };
 		CD9C09DB18A27EDD007516AF /* ModuleClassCpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9C09DA18A27EDD007516AF /* ModuleClassCpp.cpp */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +58,7 @@
 		CD3E7DD5189EE2480052ED59 /* ScriptContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptContext.h; sourceTree = "<group>"; };
 		CD3E7DD6189F0A0E0052ED59 /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = script.js; path = ../resources/script.js; sourceTree = "<group>"; };
 		CD9C09DA18A27EDD007516AF /* ModuleClassCpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ModuleClassCpp.cpp; path = ../src/ModuleClassCpp.cpp; sourceTree = "<group>"; };
+		CD9C0A0918A2D8DC007516AF /* liblibScriptJS_d.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibScriptJS_d.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDDC9A44189FB6850002D878 /* ObjectWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectWrap.h; sourceTree = "<group>"; };
 		CDDC9A45189FB8C40002D878 /* Module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Module.h; sourceTree = "<group>"; };
 		CDDC9A46189FC3390002D878 /* ModuleClassCpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModuleClassCpp.h; path = ../include/ModuleClassCpp.h; sourceTree = "<group>"; };
@@ -68,6 +78,13 @@
 				00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */,
 				00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */,
 				00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD9C0A0618A2D8DC007516AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* ScriptJS.app */,
+				CD9C0A0918A2D8DC007516AF /* liblibScriptJS_d.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -193,6 +211,22 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		CD9C0A0718A2D8DC007516AF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD80544F18A2DB10007D6970 /* ScriptContext.h in Headers */,
+				CD80545018A2DB10007D6970 /* Logger.h in Headers */,
+				CD80545118A2DB10007D6970 /* ScriptJS_Prefix.h in Headers */,
+				CD80545218A2DB10007D6970 /* ScriptJS.h in Headers */,
+				CD80545318A2DB10007D6970 /* ObjectWrap.h in Headers */,
+				CD80545418A2DB10007D6970 /* Module.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		8D1107260486CEB800E47090 /* ScriptJS */ = {
 			isa = PBXNativeTarget;
@@ -211,6 +245,23 @@
 			productName = ScriptJS;
 			productReference = 8D1107320486CEB800E47090 /* ScriptJS.app */;
 			productType = "com.apple.product-type.application";
+		};
+		CD9C0A0818A2D8DC007516AF /* libScriptJS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD9C0A0A18A2D8DC007516AF /* Build configuration list for PBXNativeTarget "libScriptJS" */;
+			buildPhases = (
+				CD9C0A0518A2D8DC007516AF /* Sources */,
+				CD9C0A0618A2D8DC007516AF /* Frameworks */,
+				CD9C0A0718A2D8DC007516AF /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libScriptJS;
+			productName = libScriptJS;
+			productReference = CD9C0A0918A2D8DC007516AF /* liblibScriptJS_d.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -234,6 +285,7 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* ScriptJS */,
+				CD9C0A0818A2D8DC007516AF /* libScriptJS */,
 			);
 		};
 /* End PBXProject section */
@@ -260,6 +312,16 @@
 				CD3E7DCC189EC4050052ED59 /* ScriptJS.cpp in Sources */,
 				CD3E7DCF189ED0D80052ED59 /* ScriptContext.cpp in Sources */,
 				CD3E7DD3189EDFBF0052ED59 /* Logger.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD9C0A0518A2D8DC007516AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD80545518A2DB27007D6970 /* ScriptJS.cpp in Sources */,
+				CD80545618A2DB27007D6970 /* ScriptContext.cpp in Sources */,
+				CD80545718A2DB27007D6970 /* Logger.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,9 +423,94 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/boost\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = (
+					"\"$(V8_PATH)/out/ia32.release/libicuuc.a\"",
+					"\"$(V8_PATH)/out/ia32.release/libicudata.a\"",
+					"\"$(V8_PATH)/out/ia32.release/libv8_base.ia32.a\"",
+					"\"$(V8_PATH)/out/ia32.release/libicui18n.a\"",
+					"\"$(V8_PATH)/out/ia32.release/libv8_snapshot.a\"",
+				);
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include";
 				V8_PATH = ../../../v8;
+			};
+			name = Release;
+		};
+		CD9C0A0B18A2D8DC007516AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/";
+				COPY_PHASE_STRIP = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)_d";
+				SYMROOT = ../lib;
+			};
+			name = Debug;
+		};
+		CD9C0A0C18A2D8DC007516AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(CINDER_PATH)/boost\"",
+					"\"$(V8_PATH)/include\"",
+				);
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = ../lib;
 			};
 			name = Release;
 		};
@@ -384,6 +531,15 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD9C0A0A18A2D8DC007516AF /* Build configuration list for PBXNativeTarget "libScriptJS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD9C0A0B18A2D8DC007516AF /* Debug */,
+				CD9C0A0C18A2D8DC007516AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

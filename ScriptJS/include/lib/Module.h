@@ -15,8 +15,6 @@ namespace scriptjs {
 	//! Interface for C++ to v8 bindings
 	class Module {
 	public:
-		Module() {};
-		~Module() {};
 		virtual void Initialize(v8::Handle<v8::Object> exports) {};
 	};
 }
