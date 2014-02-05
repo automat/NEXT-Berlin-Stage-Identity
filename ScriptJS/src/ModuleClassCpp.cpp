@@ -60,6 +60,12 @@ class ModuleClassCppWrap : public scriptjs::ObjectWrap {
     
     ModuleClassCppWrap(double value = 0) : mImpl(value){}; // init impl
     ~ModuleClassCppWrap(){};
+   
+    /*
+    static bool HasInstance(Handle<Value> value){
+    
+    }
+     */
     
     /*----------------------------------------------------------------------------------------------------*/
     // converted object methods

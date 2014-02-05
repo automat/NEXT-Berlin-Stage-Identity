@@ -49,18 +49,11 @@ function Update(secondsElapsed, framesElapsed){
 }
 */
 
-function Class(){
-    this.a = 0;
+var a = new ClassCpp();
 
+a.add("hello");
 
-    console.log(this);
-}
-
-function B(){
-    console.log(this.a);
-}
-
-B();
+//console.log(this);
 
 //new Class();
 

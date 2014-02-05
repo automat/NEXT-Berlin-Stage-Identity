@@ -36,4 +36,46 @@ namespace scriptjs {
         return *v8::String::Utf8Value(string);
     }
     
+    void ReportException(TryCatch* tryCatch) {
+        String::Utf8Value exception(tryCatch->Exception());
+        const char* exceptionString = ToCString(exception);
+        Handle<Message> message = tryCatch->Message();
+        if (message.IsEmpty()) {
+            // V8 didn't provide any extra information about this error; just
+            // print the exception.
+            printf("%s\n", exceptionString);
+        } else {
+            // Print (filename):(line number): (message).
+            String::Utf8Value filename(message->GetScriptResourceName());
+            const char* filenameString = ToCString(filename);
+            int linenum = message->GetLineNumber();
+            printf("%s:%i: %s\n", filenameString, linenum, exceptionString);
+            
+            // Print line of source code.
+            String::Utf8Value sourceline(message->GetSourceLine());
+            const char* sourcelineString = ToCString(sourceline);
+            printf("%s\n", sourcelineString);
+            
+            // Print wavy underline (GetUnderline is deprecated).
+            int start = message->GetStartColumn();
+            for (int i = 0; i < start; i++) {
+                printf(" ");
+            }
+            
+            int end = message->GetEndColumn();
+            for (int i = start; i < end; i++) {
+                printf("^");
+            }
+            printf("\n");
+        }
+    }
+    
+    Handle<Value> ThrowError(const char* msg){
+        return ThrowException(Exception::Error(String::New(msg)));
+    }
+    
+    Handle<Value> ThrowTypeError(const char* msg){
+        return ThrowException(Exception::TypeError(String::New(msg)));
+    }
+    
 }

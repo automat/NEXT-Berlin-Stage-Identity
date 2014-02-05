@@ -55,6 +55,11 @@ namespace scriptjs {
     
     //! convert v8 string to c string
     const char* ToCString(const Local<String> string);
+    
+    //from plask
+    void ReportException(TryCatch* tryCatch);
+    Handle<Value> ThrowError(const char* msg);
+    Handle<Value> ThrowTypeError(const char* msg);
 }
 
 
