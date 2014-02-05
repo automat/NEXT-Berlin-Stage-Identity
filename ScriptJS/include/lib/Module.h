@@ -17,7 +17,7 @@ namespace scriptjs {
 	public:
 		Module() {};
 		~Module() {};
-		virtual void Initialize(v8::Handle<v8::Object> target) {};
+		virtual void Initialize(v8::Handle<v8::Object> exports) {};
 	};
 }
 

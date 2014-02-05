@@ -8,7 +8,7 @@
 #include <fstream>
 
 #include "ScriptJS.h"
-#include "ModuleObj.h"
+#include "ModuleClassCpp.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -29,25 +29,31 @@ void ScriptJSApp::setup(){
     std::ifstream in("/Users/automat/Projects/next/ScriptJS/resources/script.js");
     std::string source((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
 
+    mScriptContext.addModule(new ModuleClassCpp());
     mScriptContext.loadScript(source);
     
+    //new ModuleObj();
     ENTER_CONTEXT(mScriptContext);
     //mContextJS.Reset(isolate, mScriptContext.newInstance("ContextJS"));
     mScriptContext.call("Init");
     EXIT_CONTEXT;
 }
 
-void ScriptJSApp::mouseDown( MouseEvent event )
-{
+void ScriptJSApp::mouseDown( MouseEvent event ){
+    ENTER_CONTEXT(mScriptContext);
+    mScriptContext.call("MouseDown");
+    EXIT_CONTEXT;
 }
 
 void ScriptJSApp::update(){
+    
     ENTER_CONTEXT(mScriptContext);
     Handle<Value> args[2];
         args[0] = scriptjs::ToV8Num(app::getElapsedSeconds());
         args[1] = scriptjs::ToV8Int(app::getElapsedFrames());
     mScriptContext.call("Update",2,args);
     EXIT_CONTEXT;
+    
 }
 
 void ScriptJSApp::draw()

@@ -21,6 +21,7 @@
 		CD3E7DCF189ED0D80052ED59 /* ScriptContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DCD189ED0D80052ED59 /* ScriptContext.cpp */; };
 		CD3E7DD3189EDFBF0052ED59 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DD1189EDFBF0052ED59 /* Logger.cpp */; };
 		CD3E7DD7189F0A0E0052ED59 /* script.js in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DD6189F0A0E0052ED59 /* script.js */; };
+		CD9C09DB18A27EDD007516AF /* ModuleClassCpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9C09DA18A27EDD007516AF /* ModuleClassCpp.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,9 +48,10 @@
 		CD3E7DD4189EE0AE0052ED59 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		CD3E7DD5189EE2480052ED59 /* ScriptContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptContext.h; sourceTree = "<group>"; };
 		CD3E7DD6189F0A0E0052ED59 /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = script.js; path = ../resources/script.js; sourceTree = "<group>"; };
+		CD9C09DA18A27EDD007516AF /* ModuleClassCpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ModuleClassCpp.cpp; path = ../src/ModuleClassCpp.cpp; sourceTree = "<group>"; };
 		CDDC9A44189FB6850002D878 /* ObjectWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectWrap.h; sourceTree = "<group>"; };
 		CDDC9A45189FB8C40002D878 /* Module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Module.h; sourceTree = "<group>"; };
-		CDDC9A46189FC3390002D878 /* ModuleObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModuleObj.h; path = ../include/ModuleObj.h; sourceTree = "<group>"; };
+		CDDC9A46189FC3390002D878 /* ModuleClassCpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModuleClassCpp.h; path = ../include/ModuleClassCpp.h; sourceTree = "<group>"; };
 		D4C892B05EBD490FB2F927B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +86,7 @@
 			children = (
 				CD3E7DCA189EC3D00052ED59 /* lib */,
 				52B1C7000736440CB11B1073 /* ScriptJSApp.cpp */,
+				CD9C09DA18A27EDD007516AF /* ModuleClassCpp.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -139,7 +142,7 @@
 				CD3E7DC7189EC1880052ED59 /* lib */,
 				511D577079F24A3C831CDC0C /* Resources.h */,
 				41A9D93DC84946ADAFF1C55A /* ScriptJS_Prefix.pch */,
-				CDDC9A46189FC3390002D878 /* ModuleObj.h */,
+				CDDC9A46189FC3390002D878 /* ModuleClassCpp.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD3E7DD7189F0A0E0052ED59 /* script.js in Sources */,
+				CD9C09DB18A27EDD007516AF /* ModuleClassCpp.cpp in Sources */,
 				195400F0F9F34A59B12A7584 /* ScriptJSApp.cpp in Sources */,
 				CD3E7DCC189EC4050052ED59 /* ScriptJS.cpp in Sources */,
 				CD3E7DCF189ED0D80052ED59 /* ScriptContext.cpp in Sources */,

@@ -31,7 +31,6 @@ namespace scriptjs {
     
     class Module;
     
-    
     class ScriptContext{
         Persistent<Context> mContext; //shared persistent execution context
         vector<Module*>     mModules;
@@ -42,22 +41,22 @@ namespace scriptjs {
         ScriptContext();
         ~ScriptContext();
         
-        // get Context
+        //! get Handle to persistent context
         Handle<Context> getContext();
         
-        // add Module to global scope
+        //! add Module to global scope
         void addModule(Module* module);
         
-        // load and execute Script
+        //! load and execute Script
         bool loadScript(const std::string& sourceJsOrFile);
         
-        // call function in global scope
+        //! call function in global scope
         Handle<Value> call(const char* name, int argc = 0, Handle<Value>* argv = NULL);
         
-        // call function in scope of object
+        //! call function in scope of object
         Handle<Value> call(Persistent<Object>& obj, const char* name, int argc = 0, Handle<Value>* argv = NULL);
         
-        // get new instance of js object
+        //! get new instance of js object
         Handle<Object> newInstance(const std::string& name, int argc = 0, Handle<Value>* argv = NULL);
      };
 }

@@ -71,6 +71,12 @@ namespace scriptjs {
         
                 Context::Scope contexScope(context); // enter context scope
         
+                    // add global available modules
+                    BOOST_FOREACH(Module* m, mModules) {
+                        m->Initialize(context->Global());
+                    }
+                    
+        
                     Handle<Script> script = Script::Compile(String::New(sourceJsOrFile.c_str()));
                     if(script.IsEmpty()){
                         ReportException(&tryCatch);
