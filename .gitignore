@@ -21,4 +21,7 @@ xcuserdata
 *.moved-aside
 
 DerivedData/
-build/
+# build/
+
+*.build
+
