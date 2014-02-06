@@ -1,3 +1,54 @@
+var a = require('module');
+
+a.spotted();
+a.spotted();
+a.spotted();
+a.logWaldo();
+
+
+/*--------------------------------------------------------------------------*/
+// Test console
+/*--------------------------------------------------------------------------*/
+
+/*
+var a = 1,
+    c = 1.0,
+    d = new Number(1.0),
+    e = "abc",
+    f = new String("abc"),
+    g = true,
+    h = new Boolean(true),
+    i = {},
+    j = new Object(),
+    k = [],
+    l = new Array(),
+    m,
+    n = null;
+
+var nested = {
+    a : {
+        a : new String("abc"),
+        b : 1.0
+    },
+
+    b : {
+        a : new String("def"),
+        b : 2.0
+    }
+}
+
+console.log(this);
+*/
+ 
+
+
+/*--------------------------------------------------------------------------*/
+// Test scopes
+/*--------------------------------------------------------------------------*/
+
+
+
+
 
 /*
 function ClassJS(){
@@ -51,7 +102,7 @@ function Update(secondsElapsed, framesElapsed){
 
 var a = new ClassCpp();
 
-a.add("hello");
+//a.add("hello");
 
 //console.log(this);
 

@@ -28,15 +28,32 @@
 
 using namespace std;
 namespace scriptjs {
+    //! Exception to be thrown on no file
+    class ScriptContexExcNoFile : public std::exception{
+        std::string mMessage;
+    public:
+        ScriptContexExcNoFile(const std::string& msg) : mMessage("File does not exist: " + msg){};
+        inline virtual const char* what() const throw(){ return mMessage.c_str();}
+    };
+    //! Exception to be thrown on wrong extension
+    class ScriptContexExcNoJSFile : public std::exception{
+        string mMessage;
+    public:
+        ScriptContexExcNoJSFile(const std::string& msg) : mMessage("Wrong file extension: " + msg){};
+        inline virtual const char* what() const throw(){ return mMessage.c_str();}
+    };
+    
     class Module;
+    
     
     class ScriptContext{
         Persistent<Context> mContext; //shared persistent execution context
         vector<Module*>     mModules;
-        Handle<ObjectTemplate> getGlobalTemplate();
+        
+        static Handle<ObjectTemplate> GetGlobalTemplate();
+        static void Require(const FunctionCallbackInfo<Value>& args);
         
     public:
-        ScriptContext();
         ~ScriptContext();
         
         //! get Handle to persistent context
@@ -46,7 +63,7 @@ namespace scriptjs {
         void addModule(Module* module);
         
         //! load and execute Script
-        bool loadScript(const std::string& sourceJsOrFile);
+        bool loadScript(const std::string& filepath);
         
         //! call function in global scope
         Handle<Value> call(const char* name, int argc = 0, Handle<Value>* argv = NULL);
@@ -57,7 +74,7 @@ namespace scriptjs {
         //! get new instance of js object
         Handle<Object> newInstance(const std::string& name, int argc = 0, Handle<Value>* argv = NULL);
         
-        //!
+        //! dipose context and clear modules
         void dispose();
      };
 }

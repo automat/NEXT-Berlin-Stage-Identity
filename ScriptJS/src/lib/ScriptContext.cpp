@@ -10,6 +10,9 @@
 #include "Logger.h"
 #include "Module.h"
 
+#include <iostream>
+#include <fstream>
+
 //  Get v8 instance
 //      Enter isolate scope
 //          Enter handle scope
@@ -25,15 +28,19 @@ Isolate* isolate = Isolate::GetCurrent(); \
         Context::Scope contextScope(context);
 
 namespace scriptjs {
-    ScriptContext::ScriptContext(){}
-    
+    using namespace std;
     /*------------------------------------------------------------------------------------------------------------*/
     
     ScriptContext::~ScriptContext(){
         this->dispose();
     }
     
+    static string scriptDir = "";
+    
+    
+    
     void ScriptContext::dispose(){
+        scriptDir = "";
         mContext.Dispose();
         while (!mModules.empty()) delete mModules.back(), mModules.pop_back();
     }
@@ -47,9 +54,11 @@ namespace scriptjs {
     }
     
     
+    
+    
     /*------------------------------------------------------------------------------------------------------------*/
     
-    Handle<ObjectTemplate> ScriptContext::getGlobalTemplate(){
+    Handle<ObjectTemplate> ScriptContext::GetGlobalTemplate(){
         // create console object template
         Local<FunctionTemplate> consoleTemplate = FunctionTemplate::New(); // object
         SET_METHOD(consoleTemplate, "log", scriptjs::log);
@@ -58,14 +67,92 @@ namespace scriptjs {
         Local<ObjectTemplate> globalTemplate = ObjectTemplate::New();
         SET_PROPERTY(globalTemplate, "console", consoleTemplate);
         
+        Local<ObjectTemplate> moduleTemplate = ObjectTemplate::New();
+        SET_PROPERTY(moduleTemplate, "exports", Handle<Value>());
+        SET_PROPERTY(globalTemplate, "module", moduleTemplate);
+        
+        // create import
+        SET_METHOD(globalTemplate, "require", ScriptContext::Require);
+        
         return globalTemplate;
     };
     
+    
+    void ScriptContext::Require(const FunctionCallbackInfo<Value>& args){
+        CONTEXT_ENTER_HANDLE_SCOPE;
+        
+        if(args.Length() != 1){ // wrong arg length
+            args.GetReturnValue().Set(Undefined());
+            return;
+        }
+        
+        Handle<Value> path(args[0]);
+        if(!path->IsString()){ // no string, no use
+            args.GetReturnValue().Set(Undefined());
+            return;
+        }
+        
+        string pathStr(ToCString(path->ToString()));
+        size_t ext(pathStr.find_last_of("."));
+        if(ext == string::npos){ // no extension
+            pathStr += ".js";
+        } else {
+            if( pathStr.substr(ext + 1) != "js"){ // wrong extension
+                args.GetReturnValue().Set(Undefined());
+                return;
+            }
+        }
+        
+        // create full absolute path
+        pathStr = scriptDir + pathStr;
+        
+        // load file
+        ifstream in(pathStr.c_str());
+        if(!in){
+            args.GetReturnValue().Set(Undefined());
+            return;
+        }
+        
+        string source((istreambuf_iterator<char>(in)),istreambuf_iterator<char>());
+        
+        // create module context with all necessary functionality
+        Handle<Context> context = Context::New(isolate,NULL,ScriptContext::GetGlobalTemplate());
+        Context::Scope contextScope(context);
+        
+            Handle<Script> script = Script::Compile(String::New(source.c_str()));
+            if (script.IsEmpty()) {
+                args.GetReturnValue().Set(Undefined());
+                return;
+            } else {
+                Handle<Value> result = script->Run();
+                if(result.IsEmpty()){
+                    args.GetReturnValue().Set(Undefined());
+                    return;
+                }
+                //return the export
+                args.GetReturnValue().Set(result);
+            }
+    }
+    
     /*------------------------------------------------------------------------------------------------------------*/
     
-    bool ScriptContext::loadScript(const std::string &sourceJsOrFile){
+    bool ScriptContext::loadScript(const std::string& filepath){
+        // is path valid?
+        ifstream in(filepath.c_str());
+        if(!in){
+            throw ScriptContexExcNoFile(filepath);
+        }
+        // javascript ?
+        if(filepath.substr(filepath.find_last_of(".") + 1) != "js"){
+            throw ScriptContexExcNoJSFile(filepath);
+        }
+        // get script directory for imports
+        scriptDir = filepath.substr(0,filepath.find_last_of("/") + 1);
+   
+        string source((istreambuf_iterator<char>(in)),istreambuf_iterator<char>());
+        
         CONTEXT_ENTER_HANDLE_SCOPE;
-            Handle<Context> context = Context::New(isolate,NULL,this->getGlobalTemplate()); // create new context
+            Handle<Context> context = Context::New(isolate,NULL,GetGlobalTemplate()); // create new context
                 mContext.Reset(isolate, context); // update shared persistent context with newly created one
                 TryCatch tryCatch;
         
@@ -77,7 +164,7 @@ namespace scriptjs {
                         (*itr)->Initialize(global);
                     }
         
-                    Handle<Script> script = Script::Compile(String::New(sourceJsOrFile.c_str()));
+                    Handle<Script> script = Script::Compile(String::New(source.c_str()));
                     if(script.IsEmpty()){
                         ReportException(&tryCatch);
                         return false;

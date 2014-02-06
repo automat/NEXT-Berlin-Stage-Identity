@@ -26,11 +26,12 @@ class ScriptJSApp : public AppNative {
 };
 
 void ScriptJSApp::setup(){
+    /*
     std::ifstream in("/Users/automat/Projects/next/ScriptJS/resources/script.js");
     std::string source((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
-
+     */
     mScriptContext.addModule(new ModuleClassCpp());
-    mScriptContext.loadScript(source);
+    mScriptContext.loadScript("/Users/automat/Projects/next/ScriptJS/resources/script.js");
     
 
     
