@@ -28,6 +28,7 @@
 
 using namespace std;
 namespace scriptjs {
+    
     //! Exception to be thrown on no file
     class ScriptContexExcNoFile : public std::exception{
         std::string mMessage;
@@ -35,6 +36,7 @@ namespace scriptjs {
         ScriptContexExcNoFile(const std::string& msg) : mMessage("File does not exist: " + msg){};
         inline virtual const char* what() const throw(){ return mMessage.c_str();}
     };
+    
     //! Exception to be thrown on wrong extension
     class ScriptContexExcNoJSFile : public std::exception{
         string mMessage;
@@ -43,8 +45,9 @@ namespace scriptjs {
         inline virtual const char* what() const throw(){ return mMessage.c_str();}
     };
     
-    class Module;
     
+    
+    class Module;
     
     class ScriptContext{
         Persistent<Context> mContext; //shared persistent execution context

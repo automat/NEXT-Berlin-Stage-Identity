@@ -40,6 +40,7 @@ namespace scriptjs {
         String::Utf8Value exception(tryCatch->Exception());
         const char* exceptionString = ToCString(exception);
         Handle<Message> message = tryCatch->Message();
+        
         if (message.IsEmpty()) {
             // V8 didn't provide any extra information about this error; just
             // print the exception.

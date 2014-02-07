@@ -1,11 +1,63 @@
+/*--------------------------------------------------------------------------*/
+// Test instancing
+/*--------------------------------------------------------------------------*/
+
+var module = require('anotherModule');
+
+function ContextJS(){
+    switch(arguments.length){
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+    }
+}
+
+ContextJS.prototype.update = function(t,f){
+    console.log('----- DRAW -----\n\n' + 
+                'time elapsed:  ' + t + '\n' + 
+                'frame elapsed: ' + f + '\n');
+    
+    if(f % 100 == 0){
+        module.spotted();    
+    }
+    module.report();
+};
+
+ContextJS.prototype.draw = function(){
+    console.log('---- UPDATE ----\n\n' + 
+                'draw\n');
+
+};
+
+
+/*--------------------------------------------------------------------------*/
+// Test require
+/*--------------------------------------------------------------------------*/
+
+/*
+// Test if requiring a module, doesnt just copy its source and returns a duplicated instance
 var a = require('module');
-
 a.spotted();
 a.spotted();
+var b = require('module');
 a.spotted();
-a.logWaldo();
+b.spotted();
+b.logWaldo();
+*/
 
-
+/*
+// Test if rerequiring a deep nested module returns the same object
+var a = require('module');
+a.spotted();
+a.spotted();
+var b = require('anotherModule');
+b.spotted();
+b.report();
+*/
+ 
 /*--------------------------------------------------------------------------*/
 // Test console
 /*--------------------------------------------------------------------------*/
@@ -39,16 +91,10 @@ var nested = {
 
 console.log(this);
 */
- 
-
 
 /*--------------------------------------------------------------------------*/
 // Test scopes
 /*--------------------------------------------------------------------------*/
-
-
-
-
 
 /*
 function ClassJS(){
@@ -99,20 +145,3 @@ function Update(secondsElapsed, framesElapsed){
     this._classCpp0.print();
 }
 */
-
-var a = new ClassCpp();
-
-//a.add("hello");
-
-//console.log(this);
-
-//new Class();
-
-//console.log(this);
-
-
-
-
-
-
-

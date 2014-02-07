@@ -17,6 +17,13 @@ var b = {
         waldoSpotted++;
     },
     
+    hidden : function(){
+        if(waldoSpotted == 0){
+            return;
+        }
+            waldoSpotted--;
+    },
+    
     report : function(){
         console.log("Found Waldo " + waldoSpotted + " times!");
     }

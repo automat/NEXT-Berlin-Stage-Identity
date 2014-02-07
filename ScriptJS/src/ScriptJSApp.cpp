@@ -26,22 +26,16 @@ class ScriptJSApp : public AppNative {
 };
 
 void ScriptJSApp::setup(){
-    /*
-    std::ifstream in("/Users/automat/Projects/next/ScriptJS/resources/script.js");
-    std::string source((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
-     */
     mScriptContext.addModule(new ModuleClassCpp());
     mScriptContext.loadScript("/Users/automat/Projects/next/ScriptJS/resources/script.js");
     
-
-    
-    //new ModuleObj();
-    /*
     ENTER_CONTEXT(mScriptContext);
-    //mContextJS.Reset(isolate, mScriptContext.newInstance("ContextJS"));
-    mScriptContext.call("Init");
+    const int argc = 2;
+    Handle<Value> argv[argc] = {scriptjs::ToV8Int(app::getWindowWidth()),
+                                scriptjs::ToV8Int(app::getWindowHeight())};
+    mContextJS.Reset(isolate, mScriptContext.newInstance("ContextJS",argc,argv));
     EXIT_CONTEXT;
-     */
+    
 }
 
 void ScriptJSApp::mouseDown( MouseEvent event ){
@@ -53,21 +47,20 @@ void ScriptJSApp::mouseDown( MouseEvent event ){
 }
 
 void ScriptJSApp::update(){
-    /*
     ENTER_CONTEXT(mScriptContext);
-    Handle<Value> args[2];
-        args[0] = scriptjs::ToV8Num(app::getElapsedSeconds());
-        args[1] = scriptjs::ToV8Int(app::getElapsedFrames());
-    mScriptContext.call("Update",2,args);
+    static const int argc = 2;
+    Handle<Value> argv[argc];
+        argv[0] = scriptjs::ToV8Num(app::getElapsedSeconds());
+        argv[1] = scriptjs::ToV8Int(app::getElapsedFrames());
+    mScriptContext.call(mContextJS,"update",argc,argv);
     EXIT_CONTEXT;
-    */
 }
 
-void ScriptJSApp::draw()
-{
-	// clear out the window with black
+void ScriptJSApp::draw(){
 	gl::clear( Color( 0, 0, 0 ) );
-   // mScriptContext.call("draw");
+    ENTER_CONTEXT(mScriptContext);
+    mScriptContext.call(mContextJS,"draw");
+    EXIT_CONTEXT;
 }
 
 CINDER_APP_NATIVE( ScriptJSApp, RendererGl )

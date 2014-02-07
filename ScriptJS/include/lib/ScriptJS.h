@@ -13,5 +13,4 @@
 #include "ObjectWrap.h"
 #include "Module.h"
 
-
 #endif

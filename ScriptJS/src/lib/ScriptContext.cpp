@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 //  Get v8 instance
 //      Enter isolate scope
@@ -35,12 +36,14 @@ namespace scriptjs {
         this->dispose();
     }
     
+    // TODO: This should be mapped to a created ScriptContext
     static string scriptDir = "";
-    
+    static map<string,Persistent<Context>> requiredModules;
     
     
     void ScriptContext::dispose(){
         scriptDir = "";
+        requiredModules.clear();
         mContext.Dispose();
         while (!mModules.empty()) delete mModules.back(), mModules.pop_back();
     }
@@ -53,30 +56,27 @@ namespace scriptjs {
         return Local<Context>::New(Isolate::GetCurrent(), mContext);
     }
     
-    
-    
-    
     /*------------------------------------------------------------------------------------------------------------*/
     
     Handle<ObjectTemplate> ScriptContext::GetGlobalTemplate(){
         // create console object template
-        Local<FunctionTemplate> consoleTemplate = FunctionTemplate::New(); // object
+        Local<ObjectTemplate> consoleTemplate = ObjectTemplate::New();
         SET_METHOD(consoleTemplate, "log", scriptjs::log);
         
         // create global object template
         Local<ObjectTemplate> globalTemplate = ObjectTemplate::New();
         SET_PROPERTY(globalTemplate, "console", consoleTemplate);
         
+        // fake node functionality
         Local<ObjectTemplate> moduleTemplate = ObjectTemplate::New();
-        SET_PROPERTY(moduleTemplate, "exports", Handle<Value>());
+        //SET_PROPERTY(moduleTemplate, "exports", Handle<Value>());
         SET_PROPERTY(globalTemplate, "module", moduleTemplate);
         
-        // create import
+        // pseudo require
         SET_METHOD(globalTemplate, "require", ScriptContext::Require);
         
         return globalTemplate;
     };
-    
     
     void ScriptContext::Require(const FunctionCallbackInfo<Value>& args){
         CONTEXT_ENTER_HANDLE_SCOPE;
@@ -113,13 +113,30 @@ namespace scriptjs {
             return;
         }
         
+        // get module name
+        string moduleName = pathStr.substr(pathStr.find_last_of("/") + 1);
+               moduleName = moduleName.substr(0,moduleName.find_last_of("."));
+        
+        Handle<Context> context;
+        
+        // check if module has already been required
+        if(requiredModules.find(moduleName) != requiredModules.end()){
+            context = Handle<Context>::New(isolate,requiredModules[moduleName]);
+            Context::Scope contextScope(context);
+            Handle<Object> contextGlobal = context->Global();
+            Handle<Object> exports = Handle<Object>::Cast(Handle<Object>::Cast(contextGlobal->Get(ToV8String("module")))->Get(ToV8String("exports")));
+            args.GetReturnValue().Set(exports);
+            return;
+        } // otherwise create new
+        
         string source((istreambuf_iterator<char>(in)),istreambuf_iterator<char>());
         
         // create module context with all necessary functionality
-        Handle<Context> context = Context::New(isolate,NULL,ScriptContext::GetGlobalTemplate());
+        context = Context::New(isolate,NULL,ScriptContext::GetGlobalTemplate());
         Context::Scope contextScope(context);
         
             Handle<Script> script = Script::Compile(String::New(source.c_str()));
+        
             if (script.IsEmpty()) {
                 args.GetReturnValue().Set(Undefined());
                 return;
@@ -129,8 +146,27 @@ namespace scriptjs {
                     args.GetReturnValue().Set(Undefined());
                     return;
                 }
+                
+                // check if exports is defined
+                Handle<Value> valueModule = context->Global()->Get(ToV8String("module"));
+                if(valueModule.IsEmpty()){
+                    args.GetReturnValue().Set(Undefined());
+                    return;
+                }
+                
+                Handle<Object> objectModule = Handle<Object>::Cast(valueModule);
+                Handle<Value>  valueExports = objectModule->Get(ToV8String("exports"));
+                
+                if(valueExports.IsEmpty()){
+                    args.GetReturnValue().Set(Undefined());
+                    return;
+                }
+                
+                //push context to requiredModules map
+                requiredModules[moduleName].Reset(isolate, context);
+                
                 //return the export
-                args.GetReturnValue().Set(result);
+                args.GetReturnValue().Set(valueExports);
             }
     }
     
