@@ -21,6 +21,7 @@
 		CD3E7DCF189ED0D80052ED59 /* ScriptContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DCD189ED0D80052ED59 /* ScriptContext.cpp */; };
 		CD3E7DD3189EDFBF0052ED59 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DD1189EDFBF0052ED59 /* Logger.cpp */; };
 		CD3E7DD7189F0A0E0052ED59 /* script.js in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DD6189F0A0E0052ED59 /* script.js */; };
+		CD582EDA18AA48E20078C683 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDC967A018AA3A7A000C50A7 /* Light.cpp */; };
 		CD80544F18A2DB10007D6970 /* ScriptContext.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3E7DD5189EE2480052ED59 /* ScriptContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD80545018A2DB10007D6970 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3E7DD4189EE0AE0052ED59 /* Logger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD80545118A2DB10007D6970 /* ScriptJS_Prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3E7DC8189EC1AF0052ED59 /* ScriptJS_Prefix.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -31,6 +32,12 @@
 		CD80545618A2DB27007D6970 /* ScriptContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DCD189ED0D80052ED59 /* ScriptContext.cpp */; };
 		CD80545718A2DB27007D6970 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DD1189EDFBF0052ED59 /* Logger.cpp */; };
 		CD9C09DB18A27EDD007516AF /* ModuleClassCpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9C09DA18A27EDD007516AF /* ModuleClassCpp.cpp */; };
+		CDC9679A18A97024000C50A7 /* gl.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC9679918A97024000C50A7 /* gl.h */; };
+		CDC9679C18A97113000C50A7 /* gl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDC9679B18A97113000C50A7 /* gl.cpp */; };
+		CDC9679D18A97113000C50A7 /* gl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDC9679B18A97113000C50A7 /* gl.cpp */; };
+		CDC9679F18AA3A50000C50A7 /* Light.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC9679E18AA3A50000C50A7 /* Light.h */; };
+		CDC967A118AA3A7A000C50A7 /* Light.cpp in Headers */ = {isa = PBXBuildFile; fileRef = CDC967A018AA3A7A000C50A7 /* Light.cpp */; };
+		CDC967A318AA3AE0000C50A7 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC967A218AA3AE0000C50A7 /* Material.h */; };
 		CDCD71BC18A3C84800EEC8F7 /* module.js in Sources */ = {isa = PBXBuildFile; fileRef = CDCD71BB18A3C84800EEC8F7 /* module.js */; };
 		CDCD71BE18A40A1400EEC8F7 /* anotherModule.js in Sources */ = {isa = PBXBuildFile; fileRef = CDCD71BD18A40A1400EEC8F7 /* anotherModule.js */; };
 /* End PBXBuildFile section */
@@ -61,6 +68,11 @@
 		CD3E7DD6189F0A0E0052ED59 /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = script.js; path = ../resources/script.js; sourceTree = "<group>"; };
 		CD9C09DA18A27EDD007516AF /* ModuleClassCpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ModuleClassCpp.cpp; path = ../src/ModuleClassCpp.cpp; sourceTree = "<group>"; };
 		CD9C0A0918A2D8DC007516AF /* liblibScriptJS_d.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibScriptJS_d.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDC9679918A97024000C50A7 /* gl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gl.h; sourceTree = "<group>"; };
+		CDC9679B18A97113000C50A7 /* gl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gl.cpp; sourceTree = "<group>"; };
+		CDC9679E18AA3A50000C50A7 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
+		CDC967A018AA3A7A000C50A7 /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Light.cpp; sourceTree = "<group>"; };
+		CDC967A218AA3AE0000C50A7 /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
 		CDCD71BB18A3C84800EEC8F7 /* module.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = module.js; path = ../resources/module.js; sourceTree = "<group>"; };
 		CDCD71BD18A40A1400EEC8F7 /* anotherModule.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = anotherModule.js; path = ../resources/anotherModule.js; sourceTree = "<group>"; };
 		CDDC9A44189FB6850002D878 /* ObjectWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectWrap.h; sourceTree = "<group>"; };
@@ -193,6 +205,7 @@
 		CD3E7DC7189EC1880052ED59 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				CDC9679718A96FA4000C50A7 /* module */,
 				CD3E7DD5189EE2480052ED59 /* ScriptContext.h */,
 				CD3E7DD4189EE0AE0052ED59 /* Logger.h */,
 				CD3E7DC8189EC1AF0052ED59 /* ScriptJS_Prefix.h */,
@@ -207,12 +220,32 @@
 		CD3E7DCA189EC3D00052ED59 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				CDC9679818A96FDA000C50A7 /* module */,
 				CD3E7DCB189EC4050052ED59 /* ScriptJS.cpp */,
 				CD3E7DCD189ED0D80052ED59 /* ScriptContext.cpp */,
 				CD3E7DD1189EDFBF0052ED59 /* Logger.cpp */,
 			);
 			name = lib;
 			path = ../src/lib;
+			sourceTree = "<group>";
+		};
+		CDC9679718A96FA4000C50A7 /* module */ = {
+			isa = PBXGroup;
+			children = (
+				CDC9679918A97024000C50A7 /* gl.h */,
+				CDC9679E18AA3A50000C50A7 /* Light.h */,
+				CDC967A218AA3AE0000C50A7 /* Material.h */,
+			);
+			path = module;
+			sourceTree = "<group>";
+		};
+		CDC9679818A96FDA000C50A7 /* module */ = {
+			isa = PBXGroup;
+			children = (
+				CDC9679B18A97113000C50A7 /* gl.cpp */,
+				CDC967A018AA3A7A000C50A7 /* Light.cpp */,
+			);
+			path = module;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,12 +255,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDC967A118AA3A7A000C50A7 /* Light.cpp in Headers */,
 				CD80544F18A2DB10007D6970 /* ScriptContext.h in Headers */,
 				CD80545018A2DB10007D6970 /* Logger.h in Headers */,
 				CD80545118A2DB10007D6970 /* ScriptJS_Prefix.h in Headers */,
 				CD80545218A2DB10007D6970 /* ScriptJS.h in Headers */,
 				CD80545318A2DB10007D6970 /* ObjectWrap.h in Headers */,
+				CDC9679F18AA3A50000C50A7 /* Light.h in Headers */,
+				CDC9679A18A97024000C50A7 /* gl.h in Headers */,
 				CD80545418A2DB10007D6970 /* Module.h in Headers */,
+				CDC967A318AA3AE0000C50A7 /* Material.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD582EDA18AA48E20078C683 /* Light.cpp in Sources */,
 				CD3E7DD7189F0A0E0052ED59 /* script.js in Sources */,
 				CD9C09DB18A27EDD007516AF /* ModuleClassCpp.cpp in Sources */,
 				CDCD71BE18A40A1400EEC8F7 /* anotherModule.js in Sources */,
@@ -320,6 +358,7 @@
 				CD3E7DCC189EC4050052ED59 /* ScriptJS.cpp in Sources */,
 				CD3E7DCF189ED0D80052ED59 /* ScriptContext.cpp in Sources */,
 				CD3E7DD3189EDFBF0052ED59 /* Logger.cpp in Sources */,
+				CDC9679C18A97113000C50A7 /* gl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +368,7 @@
 			files = (
 				CD80545518A2DB27007D6970 /* ScriptJS.cpp in Sources */,
 				CD80545618A2DB27007D6970 /* ScriptContext.cpp in Sources */,
+				CDC9679D18A97113000C50A7 /* gl.cpp in Sources */,
 				CD80545718A2DB27007D6970 /* Logger.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

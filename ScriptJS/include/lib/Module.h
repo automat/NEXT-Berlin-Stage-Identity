@@ -11,6 +11,12 @@
 
 #include "ScriptJS_Prefix.h"
 
+#define SCRIPTJS_MODULE_RETURN_UNDEFINED \
+    args.GetReturnValue().Set(Undefined());
+
+#define SCRIPTJS_MODULE_RETURN(arg) \
+    args.GetReturnValue().Set(arg);
+
 namespace scriptjs {
 	//! Interface for C++ to v8 bindings
 	class Module {

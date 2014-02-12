@@ -61,8 +61,8 @@ void step(in float  index, // index overall of current particle
           in vec4   prevPos,    // previous particle position
           out vec4  nextPos){   // next particle position
 
-    nextPos.x = saw(time) * sin(indexX * M_PI * 16.0+time);//-0.5 + indexX;
-    nextPos.y = 0.0;
+    nextPos.x = -0.5 + indexX ;
+    nextPos.y = sin(index*M_PI * 2.0 ) *   cos(indexY * M_PI * 16.0 + time * 10.0) * sin(indexX  * M_PI * 16.0 + time * 10.0) * 0.0125;
     nextPos.z = -0.5 + indexY;
 
     nextColor.r = 0.5 + nextPos.r;

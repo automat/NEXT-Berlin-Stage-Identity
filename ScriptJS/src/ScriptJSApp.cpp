@@ -3,12 +3,16 @@
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Utilities.h"
+#include "cinder/Camera.h"
+
 
 #include <iostream>
 #include <fstream>
 
 #include "ScriptJS.h"
 #include "ModuleClassCpp.h"
+#include "lib/module/gl.h"
+#include "lib/module/Light.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -21,13 +25,23 @@ class ScriptJSApp : public AppNative {
 	void update();
 	void draw();
     
+    CameraPersp mCamera;
+    Vec3f       mCameraEye;
+    Vec3f       mCameraTarget;
+    
     scriptjs::ScriptContext    mScriptContext;
     v8::Persistent<v8::Object> mContextJS;
 };
 
 void ScriptJSApp::setup(){
     mScriptContext.addModule(new ModuleClassCpp());
+    mScriptContext.addModule(new GL());
     mScriptContext.loadScript("/Users/automat/Projects/next/ScriptJS/resources/script.js");
+    
+    mCamera.setPerspective(45.0f, app::getWindowAspectRatio(), 0.0001f, 4);
+    mCameraEye.set(2,2,2);
+    mCameraTarget.set(0, 0, 0);
+    mCamera.lookAt(mCameraEye, mCameraTarget);
     
     ENTER_CONTEXT(mScriptContext);
     const int argc = 2;
@@ -57,10 +71,12 @@ void ScriptJSApp::update(){
 }
 
 void ScriptJSApp::draw(){
-	gl::clear( Color( 0, 0, 0 ) );
+	gl::setMatrices(mCamera);
     ENTER_CONTEXT(mScriptContext);
     mScriptContext.call(mContextJS,"draw");
     EXIT_CONTEXT;
+    glMatrixMode(GL_MODELVIEW);
+    
 }
 
 CINDER_APP_NATIVE( ScriptJSApp, RendererGl )

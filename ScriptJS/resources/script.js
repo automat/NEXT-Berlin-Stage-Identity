@@ -13,22 +13,46 @@ function ContextJS(){
         case 2:
             break;
     }
+    
+    this.gl = new GL();
+    this.time = 0;
+    this.frame = 0;
 }
 
 ContextJS.prototype.update = function(t,f){
-    console.log('----- DRAW -----\n\n' + 
-                'time elapsed:  ' + t + '\n' + 
-                'frame elapsed: ' + f + '\n');
-    
-    if(f % 100 == 0){
-        module.spotted();    
-    }
-    module.report();
+    this.time = t;
+    this.frame = f;
 };
 
 ContextJS.prototype.draw = function(){
-    console.log('---- UPDATE ----\n\n' + 
-                'draw\n');
+    var gl = this.gl;
+    var time = this.time,
+        frame = this.frame;
+    gl.clear();
+    gl.clearColor(0.5 + Math.sin(time) * 0.5,0,1);
+
+    var numi = 50,
+    numj = numi;
+    var ni,nj;
+    var i = -1;
+    var j;
+    while(++i < numi){
+        ni = i / (numi - 1);
+        j = -1;
+        while(++j < numj){
+            nj = j / (numj - 1);
+            gl.colorf(ni,nj,0);
+            gl.drawCube(-0.5 + nj * 2, 0,-0.5+ ni * 2, 0.0125, 0.0125, 0.0125);
+        }
+    }
+    
+    gl.drawVector(0,0,0,-1,1,-1);
+    
+    gl.colorf(1,1,1,1);
+    gl.drawCoordinateFrame();
+    gl.drawPlane();
+    
+    
 
 };
 
