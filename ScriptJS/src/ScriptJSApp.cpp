@@ -12,7 +12,7 @@
 #include "ScriptJS.h"
 #include "ModuleClassCpp.h"
 #include "lib/module/gl.h"
-#include "lib/module/Light.h"
+//#include "lib/module/Light.h"
 
 using namespace ci;
 using namespace ci::app;

@@ -21,8 +21,12 @@
 		CD582EDE18AA7F9A0078C683 /* shadowMap_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD582EDD18AA7F9A0078C683 /* shadowMap_vert.glsl */; };
 		CD582EE018AACEC50078C683 /* grain_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD582EDF18AACEC50078C683 /* grain_frag.glsl */; };
 		CD582EE218AACEED0078C683 /* grain_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD582EE118AACEED0078C683 /* grain_vert.glsl */; };
+		CD582EE418ABCCBA0078C683 /* depth_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD582EE318ABCCBA0078C683 /* depth_vert.glsl */; };
+		CD582EE618ABCCD60078C683 /* depth_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD582EE518ABCCD60078C683 /* depth_frag.glsl */; };
 		CD68C3AE18A935690007AA23 /* room_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD68C3AC18A935690007AA23 /* room_frag.glsl */; };
 		CD68C3AF18A935690007AA23 /* room_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD68C3AD18A935690007AA23 /* room_vert.glsl */; };
+		CDBA07B618ACC8D100876C0E /* gaussblur_h5_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDBA07B518ACC8D100876C0E /* gaussblur_h5_frag.glsl */; };
+		CDBA07B918ACC92700876C0E /* pass_thru.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDBA07B818ACC92700876C0E /* pass_thru.glsl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,11 +49,16 @@
 		CD582EDD18AA7F9A0078C683 /* shadowMap_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = shadowMap_vert.glsl; path = ../resources/shadowMap_vert.glsl; sourceTree = "<group>"; };
 		CD582EDF18AACEC50078C683 /* grain_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = grain_frag.glsl; path = ../resources/grain_frag.glsl; sourceTree = "<group>"; };
 		CD582EE118AACEED0078C683 /* grain_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = grain_vert.glsl; path = ../resources/grain_vert.glsl; sourceTree = "<group>"; };
+		CD582EE318ABCCBA0078C683 /* depth_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = depth_vert.glsl; path = ../resources/depth_vert.glsl; sourceTree = "<group>"; };
+		CD582EE518ABCCD60078C683 /* depth_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = depth_frag.glsl; path = ../resources/depth_frag.glsl; sourceTree = "<group>"; };
 		CD68C3A918A9355E0007AA23 /* FileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileWatcher.h; path = ../include/FileWatcher.h; sourceTree = "<group>"; };
 		CD68C3AA18A9355E0007AA23 /* GeomHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GeomHelper.h; path = ../include/GeomHelper.h; sourceTree = "<group>"; };
 		CD68C3AB18A9355E0007AA23 /* GLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLHelper.h; path = ../include/GLHelper.h; sourceTree = "<group>"; };
 		CD68C3AC18A935690007AA23 /* room_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = room_frag.glsl; path = ../resources/room_frag.glsl; sourceTree = "<group>"; };
 		CD68C3AD18A935690007AA23 /* room_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = room_vert.glsl; path = ../resources/room_vert.glsl; sourceTree = "<group>"; };
+		CDBA07B518ACC8D100876C0E /* gaussblur_h5_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gaussblur_h5_frag.glsl; path = ../resources/gaussblur_h5_frag.glsl; sourceTree = "<group>"; };
+		CDBA07B718ACC90300876C0E /* gaussblur_v5_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gaussblur_v5_frag.glsl; path = ../resources/gaussblur_v5_frag.glsl; sourceTree = "<group>"; };
+		CDBA07B818ACC92700876C0E /* pass_thru.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = pass_thru.glsl; path = ../resources/pass_thru.glsl; sourceTree = "<group>"; };
 		DC833E6B3E61465A8A04C8BC /* ShaderSetupApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ShaderSetupApp.cpp; path = ../src/ShaderSetupApp.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,12 +156,17 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CDBA07B818ACC92700876C0E /* pass_thru.glsl */,
 				CD68C3AC18A935690007AA23 /* room_frag.glsl */,
 				CD68C3AD18A935690007AA23 /* room_vert.glsl */,
 				CD582EDB18AA7F790078C683 /* shadowMap_frag.glsl */,
 				CD582EDD18AA7F9A0078C683 /* shadowMap_vert.glsl */,
 				CD582EDF18AACEC50078C683 /* grain_frag.glsl */,
 				CD582EE118AACEED0078C683 /* grain_vert.glsl */,
+				CD582EE318ABCCBA0078C683 /* depth_vert.glsl */,
+				CD582EE518ABCCD60078C683 /* depth_frag.glsl */,
+				CDBA07B518ACC8D100876C0E /* gaussblur_h5_frag.glsl */,
+				CDBA07B718ACC90300876C0E /* gaussblur_v5_frag.glsl */,
 				1D299445AABE421292AC9CF3 /* CinderApp.icns */,
 				0150D9ACDBDA44949528C61B /* Info.plist */,
 			);
@@ -220,13 +234,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD582EE618ABCCD60078C683 /* depth_frag.glsl in Resources */,
 				CD68C3AF18A935690007AA23 /* room_vert.glsl in Resources */,
 				CD68C3AE18A935690007AA23 /* room_frag.glsl in Resources */,
 				CD582EDC18AA7F790078C683 /* shadowMap_frag.glsl in Resources */,
 				CD582EE018AACEC50078C683 /* grain_frag.glsl in Resources */,
+				CD582EE418ABCCBA0078C683 /* depth_vert.glsl in Resources */,
+				CDBA07B918ACC92700876C0E /* pass_thru.glsl in Resources */,
 				4E26BB3301FC410FA6602F0B /* CinderApp.icns in Resources */,
 				CD582EDE18AA7F9A0078C683 /* shadowMap_vert.glsl in Resources */,
 				CD582EE218AACEED0078C683 /* grain_vert.glsl in Resources */,
+				CDBA07B618ACC8D100876C0E /* gaussblur_h5_frag.glsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

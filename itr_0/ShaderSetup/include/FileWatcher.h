@@ -44,6 +44,8 @@ class FileWatcher {
         string path;
         time_t timeModifiedNew = -1;
         time_t timeModifiedOld = -1;
+        File(){};
+        File(const string& path) : path(path){}
     };
     
     map<string,File> mFilesToWatch;
@@ -65,18 +67,14 @@ public:
             throw FileWatcherNotExistExc(filePath);
         }
         
-        if (mFilesToWatch.count(filePath) == 1) { //check if key already exist
+        if (this->hasFile(filePath)) { //check if key already exist
             return;
         }
-        
-        File file;
-        file.path = filePath;
-
-        mFilesToWatch[filePath] = file;
+        mFilesToWatch[filePath] = File(filePath);
     }
     
     inline void removeFile(const string& filePath){
-        if(mFilesToWatch.count(filePath) == 0){
+        if(!this->hasFile(filePath)){
             throw FileWatcherNotAddedExc(filePath);
         }
         mFilesToWatch.erase(mFilesToWatch.find(filePath));
@@ -99,6 +97,10 @@ public:
         File& file = mFilesToWatch[filePath];
         getFileWriteTime(file);
         return file.timeModifiedOld != -1 && file.timeModifiedNew != file.timeModifiedOld;
+    }
+    
+    inline bool hasFile(const string& filePath){
+        return mFilesToWatch.count(filePath) == 1;
     }
 };
 

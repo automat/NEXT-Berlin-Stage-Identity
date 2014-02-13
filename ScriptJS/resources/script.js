@@ -42,7 +42,7 @@ ContextJS.prototype.draw = function(){
         while(++j < numj){
             nj = j / (numj - 1);
             gl.colorf(ni,nj,0);
-            gl.drawCube(-0.5 + nj * 2, 0,-0.5+ ni * 2, 0.0125, 0.0125, 0.0125);
+            gl.drawCube(-0.5 + nj * 2, Math.sin((0.5+ni)*(0.5+nj)*Math.PI * 8.0 + time)*0.125,-0.5+ ni * 2, 0.0125, 0.0125, 0.0125);
         }
     }
     
