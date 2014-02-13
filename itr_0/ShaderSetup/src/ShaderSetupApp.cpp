@@ -248,9 +248,13 @@ void ShaderSetupApp::draw(){
     
     mFboLight0Depth.bindDepthTexture(1);
     mFboLight1Depth.bindDepthTexture(2);
-	mShader.bind();
+	mFboDepth0.bindTexture(3);
+    mFboDepth1.bindTexture(4);
+    mShader.bind();
 	mShader.uniform( "uLightDepthTexture0",1);
     mShader.uniform( "uLightDepthTexture1",2);
+    mShader.uniform( "uDepthTexture0", 3);
+    mShader.uniform( "uDepthTexture1", 4);
     mShader.uniform( "uShadow0Matrix", mLight0->getShadowTransformationMatrix(mCamera));
     mShader.uniform( "uShadow1Matrix", mLight1->getShadowTransformationMatrix(mCamera));
     this->drawScene();
@@ -290,8 +294,11 @@ void ShaderSetupApp::draw(){
     // draw fps
     gl::setMatricesWindow( getWindowSize(),true );
     gl::enableAlphaBlending();
+    glPushMatrix();
+    glTranslatef(app::getWindowWidth(), 0, 0);
     glColor3f(1, 1, 1);
-    gl::drawString(toString(getAverageFps()), ci::Vec2f(10,10));
+    gl::drawString(toString(getAverageFps()), ci::Vec2f(-50,10));
+    glPopMatrix();
     gl::disableAlphaBlending();
     
     glEnable(GL_DEPTH_TEST);

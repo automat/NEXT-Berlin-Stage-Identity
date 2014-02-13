@@ -1,12 +1,6 @@
-uniform float uNear;
-uniform float uFar;
-
-varying float vDepth;
-
+varying vec4 vPosition;
 
 void main( void ){
-    vec4 pos = gl_ModelViewMatrix * gl_Vertex;
-    //vDepth = clamp((-pos.z - uNear) / (uFar - uNear), 0.0, 1.0);
-    vDepth = (-pos.z-uNear) / (uFar- uNear);
+    vPosition = gl_ModelViewMatrix * gl_Vertex;
     gl_Position = ftransform();
 }
