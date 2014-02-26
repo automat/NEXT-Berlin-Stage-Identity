@@ -22,7 +22,11 @@ void main(){
     //gl_FragColor = vec4(1,0,0,1);
     //gl_FragColor = vec4(vDepth,vDepth,vDepth,1.0);
     //gl_FragColor = mix(vec4(0.0),vec4(1.0),vDepth);
-    float linearDepth = length(vPosition) * (1.0 / (uFar - uNear));
-    gl_FragColor = pack(linearDepth);
-
+    //float linearDepth = length(vPosition) * (1.0 / (uFar - uNear));
+    //gl_FragColor = pack(linearDepth);
+    float linearDepth = length(vPosition) * (1.0 / (uFar - uNear));//clamp(length(vPosition) * (1.0 / (uFar - uNear)),0.0,1.0);
+    gl_FragColor.r = linearDepth; //= vec4(vec3(linearDepth),1.0);	
+    //gl_FragColor = vec4(1,1,1,1);
+    //gl_FragColor = vec4(vec3(length(vPosition) * (1.0 / (uFar - uNear))),1.0);
+    //gl_FragColor = vec4(vec3(length(vPosition.xyz/vPosition.w)*0.15),1.0);
 }

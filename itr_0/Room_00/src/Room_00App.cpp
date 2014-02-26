@@ -112,12 +112,12 @@ void Room_00App::draw()
     gl::setViewport(app::getWindowBounds());
     gl::setMatrices(mCamera);
     gl::enableDepthRead();
-    gl::drawCoordinateFrame(2.0f);
+    //gl::drawCoordinateFrame(2.0f);
     
     
     mRoom.draw();
     
-    mParams->draw();
+    //mParams->draw();
 }
 
 /*----------------------------------------------------------------------------------------------------*/

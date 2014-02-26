@@ -28,7 +28,8 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-static const int RES_SHADOW_MAP = 1024;
+static const int RES_SHADOW_MAP = 2048;
+static const float TEXEL_SIZE = 1.0f / (float)RES_SHADOW_MAP;
 static const int STAGE_WIDTH(3552), STAGE_HEIGHT(1105);
 static const int STAGE_SCALE(2);
 
@@ -99,34 +100,42 @@ void ShaderSetupApp::setup(){
 	mLight0 = new gl::Light( gl::Light::POINT, 0 );
 	mLight0->setAmbient( Color( 0.3f, 0.3f, 0.3f ) );
 	mLight0->setDiffuse( Color( 0.5f, 0.5f, 0.5f ) );
-	mLight0->setSpecular( Color( 0.5f, 0.5f, 0.5f ) );
+	mLight0->setSpecular( Color( 1,1,1 ) );
 	mLight0->setShadowParams( 120.0f, 0.5f, 8.0f ); //fov, near, far
     
     mLight1 = new gl::Light( gl::Light::POINT, 1 );
     mLight1->lookAt(Vec3f(-2,2,2), Vec3f::zero());
     mLight1->setAmbient( Color( 0.1f, 0.1f, 0.1f ) );
 	mLight1->setDiffuse( Color( 0.2f, 0.2f, 0.2f ) );
-	mLight1->setSpecular( Color( 0.2f, 0.2f, 0.2f ) );
+	mLight1->setSpecular( Color( 1,1,1 ) );
     mLight1->setShadowParams( 120.0f, 0.5f, 16.0f );
 	 
     /*--------------------------------------------------------------------------------------------*/
     
+    
+    
     // setup light depth fbos
 	mFboLight0Depth = gl::Fbo( RES_SHADOW_MAP, RES_SHADOW_MAP, false, false, true );
 	mFboLight0Depth.bindDepthTexture();
-    //glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE );
-    //glTexParameteri( GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE, GL_LUMINANCE );
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE );
+
+    glTexParameteri(GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE, GL_LUMINANCE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glBindTexture(GL_TEXTURE_2D, NULL);
     
     mFboLight1Depth = gl::Fbo( RES_SHADOW_MAP, RES_SHADOW_MAP, false, false, true );
 	mFboLight1Depth.bindDepthTexture();
-    //glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE );
-    //glTexParameteri( GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE, GL_LUMINANCE );
-    
-    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE );
+    glTexParameteri(GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE, GL_LUMINANCE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glBindTexture(GL_TEXTURE_2D, NULL);
     
     
@@ -175,7 +184,10 @@ void ShaderSetupApp::drawScene(){
 void ShaderSetupApp::drawDepthLight(gl::Fbo& fbo, gl::Light* light){
 	fbo.bindFramebuffer();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glPolygonOffset( 1.0f, 1.0f );
+        //glPolygonOffset( 1.1f, 16.0f ); //1,1
+        glPolygonOffset(1.0f, 1.0f);
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_FRONT);
         glEnable( GL_POLYGON_OFFSET_FILL );
         glClear( GL_DEPTH_BUFFER_BIT );
             glPushAttrib( GL_VIEWPORT_BIT );
@@ -183,6 +195,7 @@ void ShaderSetupApp::drawDepthLight(gl::Fbo& fbo, gl::Light* light){
             light->setShadowRenderMatrices();
             this->drawScene();
             glPopAttrib();
+        glDisable(GL_CULL_FACE);
         glDisable( GL_POLYGON_OFFSET_FILL );
     fbo.unbindFramebuffer();
 }
@@ -255,8 +268,23 @@ void ShaderSetupApp::draw(){
     mShader.uniform( "uLightDepthTexture1",2);
     mShader.uniform( "uDepthTexture0", 3);
     mShader.uniform( "uDepthTexture1", 4);
-    mShader.uniform( "uShadow0Matrix", mLight0->getShadowTransformationMatrix(mCamera));
-    mShader.uniform( "uShadow1Matrix", mLight1->getShadowTransformationMatrix(mCamera));
+    
+    /**/ //with bias offset
+    //shadow matrix
+    static const Matrix44f bias(0.5, 0.0, 0.0, 0.0,
+                                0.0, 0.5, 0.0, 0.0,
+                                0.0, 0.0, 0.5, 0.0,
+                                0.5, 0.5, 0.5, 1.0);
+    mShader.uniform( "uShadow0Matrix", bias * mLight0->getShadowTransformationMatrix(mCamera));
+    mShader.uniform( "uShadow1Matrix", bias * mLight1->getShadowTransformationMatrix(mCamera));
+    
+    /*/
+     mShader.uniform( "uShadow0Matrix", mLight0->getShadowTransformationMatrix(mCamera));
+     mShader.uniform( "uShadow1Matrix", mLight1->getShadowTransformationMatrix(mCamera));
+     /**/
+    
+    
+    mShader.uniform( "uTexelSize", TEXEL_SIZE);
     this->drawScene();
 	mShader.unbind();
 	mFboLight0Depth.unbindTexture();
@@ -275,20 +303,20 @@ void ShaderSetupApp::draw(){
     glDisable(GL_DEPTH_TEST);
     
     /*
-    gl::setMatricesWindow( getWindowSize(),false );
+    gl::setMatricesWindow( getWindowSize(),true );
     Surface32f shadowMapSurface( mFboLight1Depth.getDepthTexture() );
     ip::hdrNormalize( &shadowMapSurface );
     gl::color( Color::white() );
-    gl::draw( gl::Texture( shadowMapSurface ), Rectf( 512, 0, 1024, 512 ) );
-    */
+    gl::draw( gl::Texture( shadowMapSurface ), Rectf( 0, 512, 512, 1024 ) );
+    
     
     gl::setMatricesWindow( getWindowSize(),false );
     glPushMatrix();
-    glTranslatef(0, app::getWindowHeight() - 256, 0);;
-    gl::draw(mFboDepth0.getTexture(), Rectf(0,0,256,256));
-    gl::draw(mFboDepth1.getTexture(), Rectf(256,0,512,256));
+    glTranslatef(0, app::getWindowHeight() - 512, 0);;
+    gl::draw(mFboDepth0.getTexture(), Rectf(0,0,512,512));
+    gl::draw(mFboDepth1.getTexture(), Rectf(512,0,1024,512));
     glPopMatrix();
-    
+    */
     
     
     // draw fps
@@ -334,7 +362,6 @@ void ShaderSetupApp::watchShaderSource(gl::GlslProg* prog, const string &pathVer
         cout << pathFrag << " modified." << endl;
         this->reloadShader(prog, pathVert, pathFrag);
     }
-
 }
 
 void ShaderSetupApp::reloadShader(gl::GlslProg* shader, const string& pathVert, const string& pathFrag){

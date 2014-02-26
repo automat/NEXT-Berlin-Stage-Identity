@@ -13,6 +13,9 @@
 #include "cinder/Vector.h"
 #include "cinder/Rect.h"
 
+#include <string>
+
+using namespace std;
 using namespace ci;
 
 class GLImpl{
@@ -66,6 +69,12 @@ public:
     void UniformMatrix3fv (int location, int count, bool transpose, const float *value) {glUniformMatrix3fv(location, count, transpose, value);};
     void UniformMatrix4fv (int location, int count, bool transpose, const float *value) {glUniformMatrix4fv(location, count, transpose, value);};
 
+    void Viewport(int x, int y, int width, int height){
+        glViewport(x, y, width, height);
+    }
+    
+    
+    
     /*----------------------------------------------------------------------------------------------------------------------------*/
     //  Cinder convience
     /*----------------------------------------------------------------------------------------------------------------------------*/
@@ -169,6 +178,8 @@ public:
         gl::drawVector(start, end, headLength, headRadius);
     }
     
+    
+    
     /*----------------------------------------------------------------------------------------------------------------------------*/
     //  Helper
     /*----------------------------------------------------------------------------------------------------------------------------*/
@@ -208,12 +219,44 @@ public:
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
         glEnableClientState(GL_NORMAL_ARRAY);
         glDisableClientState(GL_VERTEX_ARRAY);
-        
     }
 
     
     
     
+    
+};
+
+
+struct GLConstant{
+    const char* name;
+    uint32_t    value;
+};
+
+struct GLFunction{
+    const char* name;
+    void (*func)(const FunctionCallbackInfo<Value>& args);
+};
+
+GLConstant glconstants[] = {
+    /* AccumOp */
+    {"GL_ACCUM", GL_ACCUM},
+    {"GL_LOAD", GL_LOAD},
+    {"GL_RETURN", GL_RETURN},
+    {"GL_MULT", GL_MULT},
+    {"GL_ADD", GL_ADD},
+    /* AccumOp */
+    {"GL_NEVER",GL_NEVER},
+    {"GL_LESS",GL_LESS},
+    {"GL_EQUAL", GL_EQUAL},
+    {"GL_LEQUAL", GL_LEQUAL},
+    {"GL_GREATER", GL_GREATER},
+    {"GL_NOTEQUAL", GL_NOTEQUAL},
+    {"GL_GEQUAL", GL_GEQUAL},
+    {"GL_ALWAYS", GL_ALWAYS},
+    /* AttribMask */
+    {"GL_CURRENT_BIT", GL_CURRENT_BIT},
+    {"GL_POINT_BIT", GL_POINT_BIT},
     
 };
 
@@ -234,6 +277,7 @@ class GLWrap : public scriptjs::ObjectWrap{
     static void ClearColor(const FunctionCallbackInfo<Value>& args){
         int argc = args.Length();
         if(argc == 0){
+            
             SCRIPTJS_MODULE_RETURN_UNDEFINED;
             return;
         }
@@ -241,16 +285,19 @@ class GLWrap : public scriptjs::ObjectWrap{
         switch (argc) {
             case 1:
                 k = args[0]->NumberValue();
-                Impl(args).ClearColor(k, k, k, 1.0f);
+                glClearColor(k, k, k, 1.0f);
+                //Impl(args).ClearColor(k, k, k, 1.0f);
             break;
             case 2:
                 k = args[0]->NumberValue();
                 a = args[1]->NumberValue();
+                glClearColor(k, k, k, a);
                 Impl(args).ClearColor(k, k, k, a);
             case 3:
                 r = args[0]->NumberValue();
                 g = args[1]->NumberValue();
                 b = args[2]->NumberValue();
+                glClearColor(r, g, b, 1.0f);
                 Impl(args).ClearColor(r, g, b, 1.0f);
             break;
             case 4:

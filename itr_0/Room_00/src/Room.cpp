@@ -67,7 +67,7 @@ void Room::draw(){
     static const Vec3f ROOM_CENTER(0,0,0);
    
     glColor3f(1,1,1);
-    gl::drawStrokedCube(ROOM_CENTER, mDim);
+    //gl::drawStrokedCube(ROOM_CENTER, mDim);
     glPushMatrix();
     
     glPushMatrix();
@@ -86,11 +86,12 @@ void Room::draw(){
     
     //glColor3f(0.25f, 0.25f, 0.25f);
     mMaterialDebug->apply();
+    /*
     glPushMatrix();
     glScalef(5, 5, 5);
     gl::draw(mMeshDome);
     glPopMatrix();
-    
+    */
     
     
     glPushMatrix();
@@ -113,7 +114,7 @@ void Room::draw(){
     mNormalDebugShader.unbind();
     glPopMatrix();
     */
-    gl::draw(mMeshFloor);
+   // gl::draw(mMeshFloor);
     glPopMatrix();
     
     glDisable(GL_LIGHTING);
