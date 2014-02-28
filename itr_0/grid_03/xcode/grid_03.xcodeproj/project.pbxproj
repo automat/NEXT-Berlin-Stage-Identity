@@ -34,6 +34,8 @@
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		653F5476F86245B6BAD6F05C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* grid_03.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = grid_03.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD75DB0D18C1416D001B5631 /* FrustumOrtho.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FrustumOrtho.h; path = ../include/FrustumOrtho.h; sourceTree = "<group>"; };
+		CD75DB0E18C146CA001B5631 /* InfoPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoPanel.h; path = ../include/InfoPanel.h; sourceTree = "<group>"; };
 		CDFF24BD18BE938C00E4FB10 /* GridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridCell.h; path = ../include/GridCell.h; sourceTree = "<group>"; };
 		CDFF24BE18BE938C00E4FB10 /* GridController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridController.h; path = ../include/GridController.h; sourceTree = "<group>"; };
 		CDFF24BF18BE938C00E4FB10 /* GridDiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridDiver.h; path = ../include/GridDiver.h; sourceTree = "<group>"; };
@@ -124,10 +126,12 @@
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				CD75DB0D18C1416D001B5631 /* FrustumOrtho.h */,
 				CDFF24BD18BE938C00E4FB10 /* GridCell.h */,
 				CDFF24BE18BE938C00E4FB10 /* GridController.h */,
 				CDFF24BF18BE938C00E4FB10 /* GridDiver.h */,
 				CDFF24C018BE938C00E4FB10 /* GridDiverPath.h */,
+				CD75DB0E18C146CA001B5631 /* InfoPanel.h */,
 				FC6B0B981AAD4063B21207C1 /* Resources.h */,
 				3403C33FC32C4355B76DBC63 /* grid_03_Prefix.pch */,
 			);

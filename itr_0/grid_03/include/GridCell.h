@@ -20,6 +20,7 @@
 
 #include "cinder/Perlin.h"
 #include "cinder/Frustum.h"
+#include "FrustumOrtho.h"
 
 using namespace ci;
 using namespace std;
@@ -86,7 +87,7 @@ public:
         glPushMatrix();
         glTranslatef(mPos.x, mPos.y, mPos.z);
         
-        glGetFloatv(GL_MODELVIEW_MATRIX, mModelViewMatrix);
+        //glGetFloatv(GL_MODELVIEW_MATRIX, mModelViewMatrix);
         
         
         gl::enableAlphaBlending();
@@ -103,7 +104,7 @@ public:
         }
         static const Vec3f zero(0,0,0);
         
-        glPointSize(10);
+        glPointSize(5);
         glVertexPointer(3, GL_FLOAT, 0, &zero.x);
         glDrawArrays(GL_POINTS, 0, 1);
         glPointSize(1);
@@ -113,6 +114,9 @@ public:
     }
     
     inline void debugDraw(){
+        if(!mActive){
+            
+        }
         glColor3f(1, 0, 0);
         
         static const float unitPoints[]  = {
@@ -150,6 +154,9 @@ public:
     }
     
     inline void update(){
+        if(!mActive){
+            return;
+        }
         /*
         for(vector<GridDiver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
             GridDiver* diver = *itr;
@@ -169,8 +176,9 @@ public:
         }
     }
     
-    inline void checkFrustum(const Frustumf& frustum){
-        mActive = frustum.contains(mModelViewMatrix.transformPointAffine(Vec3f::zero()));
+    inline void checkFrustum(const FrustumOrtho& frustum,const Matrix44f& transform){
+        static const Vec3f zero;
+        mActive = frustum.contains(transform.transformPointAffine(mPos));
         
         
         ///cout << centerTransformed << endl;

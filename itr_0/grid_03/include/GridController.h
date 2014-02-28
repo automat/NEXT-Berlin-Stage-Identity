@@ -12,6 +12,7 @@
 #include "cinder/gl/gl.h"
 #include <OpenGL/OpenGL.h>
 #include "cinder/Frustum.h"
+#include "FrustumOrtho.h"
 #include <vector>
 #include "cinder/Rect.h"
 #include "cinder/Matrix44.h"
@@ -21,13 +22,11 @@
 using namespace std;
 using namespace cinder;
 
-
-
 class GridController {
     int mSizeX;
     int mSizeY;
     
-    Matrix44f mTransformation;
+    Matrix44f mTransform;
     Rectf     mBounds;
     
     vector<GridCell*> mCells;
@@ -45,23 +44,25 @@ public:
         while (++i < mSizeY) {
             j = -1;
             while (++j < mSizeX) {
-                mCells.push_back(new GridCell(Vec3f(-sizeX_2 + j,0,-sizeY_2 + i), //pos
-                                              Vec3f(1,1,1),
+                mCells.push_back(new GridCell(Vec3f(-sizeX_2 + j,0,-sizeY_2 + i), // pos
+                                              Vec3f(1,1,1),                       // vel
                                               GridCellId(i,j)));
             }
         }
         
         mBounds.x1 = -sizeX_2 - 0.5f;
         mBounds.y1 = -sizeX_2 - 0.5f;
-        
         mBounds.x2 = mBounds.x1 + sizeX;
         mBounds.y2 = mBounds.y1 + sizeY;
     }
     
+    
+    //! draw boundaries and diver path
     inline void debugArea(){
         glPushMatrix();
-        glMultMatrixf(&mTransformation[0]);
+        glMultMatrixf(&mTransform[0]);
         glLineWidth(3);
+        
         float vertices[] = {
             mBounds.x1,0,mBounds.y1,
             mBounds.x2,0,mBounds.y1,
@@ -84,9 +85,12 @@ public:
         glPopMatrix();
     }
     
+    
+    
+    
     inline void draw(){
         glPushMatrix();
-        glMultMatrixf(&mTransformation[0]);
+        glMultMatrixf(&mTransform[0]);
         for(vector<GridCell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
             (*itr)->debugDraw();
         }
@@ -99,17 +103,15 @@ public:
         }
     }
     
-    inline void checkFrustum(const ci::Frustumf& frustum){
+    inline void checkFrustum(const FrustumOrtho& frustum){
         for(vector<GridCell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
-            (*itr)->checkFrustum(frustum);
+            (*itr)->checkFrustum(frustum,mTransform);
         }
     }
     
-    inline void transform(float rotation, float scale = 1.0f){
-        mTransformation = mTransformation.identity();
-        static const Vec3f AXIS_X(1,0,0);
-        mTransformation.rotate(AXIS_X,rotation);
-        mTransformation.scale(scale);
+    inline void transform(float scale){
+        mTransform = mTransform.identity();
+        mTransform.scale(scale);
     }
 };
 

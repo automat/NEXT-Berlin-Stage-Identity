@@ -4,6 +4,8 @@
 #include "GridController.h"
 #include "cinder/Utilities.h"
 #include "cinder/Frustum.h"
+#include "FrustumOrtho.h"
+#include "InfoPanel.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -28,7 +30,7 @@ const static float MODEL_SCALE_STEP(0.05f);
 const static float MODEL_SCALE_MAX(1), MODEL_SCALE_MIN(MODEL_SCALE_STEP);
 static float MODEL_SCALE(0.65); //1
 
-static bool DRAW_FRUSTUM_DEBUG(false);
+static bool SHOW_INFO(true);
 
 /*--------------------------------------------------------------------------------------------*/
 
@@ -44,7 +46,10 @@ public:
     
     void updateView();
     
+    InfoPanel*      mInfoPanel;
+    
     //mem
+    FrustumOrtho    mFrustum;
     CameraOrtho     mCamera;
     CameraOrtho     mCameraDebug;
     GridController* mController;
@@ -58,8 +63,12 @@ void grid_03App::prepareSettings(Settings* settings){
 }
 
 void grid_03App::setup(){
+    mInfoPanel = new InfoPanel(Rectf(0,0,300,app::getWindowHeight()));
+    mInfoPanel->setModelScale(&MODEL_SCALE);
+    mInfoPanel->setModelZoom(&MODEL_ZOOM);
+    
     float aspectRatio = app::getWindowAspectRatio();
-    mCamera.setOrtho(-aspectRatio, aspectRatio, -1, 1, -10, 30.0f);
+    mCamera.setOrtho(-aspectRatio, aspectRatio, -1, 1, -10, 1.0f);
     mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
     
     float cameraDebugZoom = 6.0f;
@@ -76,10 +85,15 @@ void grid_03App::mouseDown( MouseEvent event ){
 }
 
 void grid_03App::update(){
-    ci::Frustumf frustum(mCamera);
+    mFrustum.set(mCamera,1.1f);
     
     mController->update();
-    mController->checkFrustum(frustum);
+    mController->checkFrustum(mFrustum);
+    mController->transform(MODEL_SCALE);
+    
+
+    mInfoPanel->setFps(getAverageFps());
+    
     
 }
 
@@ -93,31 +107,21 @@ void grid_03App::draw(){
     glPushMatrix();
     glScalef(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
     mController->draw();
-    mController->debugArea();
     glPopMatrix();
     
     
-    //  info
-    glPushAttrib(GL_VIEWPORT_BIT);
-    gl::setMatricesWindow(app::getWindowSize());
-    gl::enableAlphaBlending();
-    gl::drawString("Model Zoom:  " + toString(MODEL_ZOOM), Vec2f(10,10));
-    gl::drawString("Model Scale: " + toString(MODEL_SCALE), Vec2f(10,30));
-    gl::drawString("FPS:" + toString(getAverageFps()), Vec2f(app::getWindowWidth() - 100, 10));
-    gl::disableAlphaBlending();
-    glPopAttrib();
     
-    
-    if(DRAW_FRUSTUM_DEBUG){
+    if(SHOW_INFO){
+        mInfoPanel->draw();
         //  debug frustum
         glPushAttrib(GL_VIEWPORT_BIT);
-        static const float frustumViewBoxWidth  = 300;
-        float aspectRatio = app::getWindowAspectRatio();
-        glScissor(0, 0, frustumViewBoxWidth  * aspectRatio,frustumViewBoxWidth);
-        glViewport(0, 0, frustumViewBoxWidth * aspectRatio,frustumViewBoxWidth);
+        static const float frustumViewBoxWidth = 300;
+        float aspectRatio = 1.0f / app::getWindowAspectRatio();
+        glScissor(0, 0, frustumViewBoxWidth  ,frustumViewBoxWidth * aspectRatio);
+        glViewport(0, 0, frustumViewBoxWidth ,frustumViewBoxWidth * aspectRatio);
         gl::clear(Color(0,0,0));
         gl::setMatrices(mCameraDebug);
-        gl::drawFrustum(mCamera);
+        mFrustum.draw();
         
         //draw frustum plane intersection
         GLfloat modelViewMatrix[16];
@@ -129,6 +133,11 @@ void grid_03App::draw(){
         glPopAttrib();
         
     }
+    
+
+    
+    
+   
     
 }
 
@@ -169,7 +178,7 @@ void grid_03App::keyDown(KeyEvent event){
             this->updateView();
             break;
         case KeyEvent::KEY_f:
-            DRAW_FRUSTUM_DEBUG = !DRAW_FRUSTUM_DEBUG;
+            SHOW_INFO = !SHOW_INFO;
             break;
         default:
             break;
@@ -178,7 +187,7 @@ void grid_03App::keyDown(KeyEvent event){
 
 void grid_03App::updateView(){
     float aspectRatio = app::getWindowAspectRatio();
-    mCamera.setOrtho(-aspectRatio*MODEL_ZOOM, aspectRatio*MODEL_ZOOM, -MODEL_ZOOM, MODEL_ZOOM, 0.0001, 30.0f);
+    mCamera.setOrtho(-aspectRatio*MODEL_ZOOM, aspectRatio*MODEL_ZOOM, -MODEL_ZOOM, MODEL_ZOOM, 0.0001, 5.0f);
 }
 
 void grid_03App::resize(){
