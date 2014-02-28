@@ -76,7 +76,6 @@ public:
         calcPlane(&mPlaneNormals[0], &mPlanePoints[0], &mPlaneDists[0], mN[1], mN[0], mF[0]); // ntr, ntl, ftl
         calcPlane(&mPlaneNormals[1], &mPlanePoints[1], &mPlaneDists[1], mN[3], mN[2], mF[2]); // nbl, nbr, fbr
         calcPlane(&mPlaneNormals[2], &mPlanePoints[2], &mPlaneDists[2], mN[0], mN[3], mF[3]); // ntl, nbl, fbl
-        
         calcPlane(&mPlaneNormals[3], &mPlanePoints[3], &mPlaneDists[3], mF[1], mF[2], mN[2]); // ftr, fbr, nbr
         calcPlane(&mPlaneNormals[4], &mPlanePoints[4], &mPlaneDists[4], mN[0], mN[1], mN[2]); // ntl, ntr, nbr
         calcPlane(&mPlaneNormals[5], &mPlanePoints[5], &mPlaneDists[5], mF[1], mF[0], mF[3]); // ftr, ftl, fbl
