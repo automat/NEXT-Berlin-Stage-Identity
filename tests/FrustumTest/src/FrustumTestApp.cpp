@@ -127,7 +127,8 @@ void FrustumTestApp::update(){
     mTransform.rotate(Vec3f(sinf(time)*(float)M_PI,0,0));
     
     
-    mFrustumOrtho.set(mCameraOrtho);
+    
+    mFrustumOrtho.set(mCameraOrtho,1.0f + (0.5f + sinf(-time) * 0.5f) * 0.25f);
 }
 
 void FrustumTestApp::drawObjects(){

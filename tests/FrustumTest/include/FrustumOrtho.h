@@ -41,8 +41,8 @@ public:
     FrustumOrtho(const CameraOrtho& cam){
         set(cam);
     }
-    
-    inline void set(const CameraOrtho& cam){
+  
+    inline void set(const CameraOrtho& cam, float frustumScale = 1.0f){
         float frustumNear, frustumFar;
         float frustumTop, frustumBottom, frustumLeft, frustumRight;
         cam.getFrustum(&frustumLeft, &frustumTop, &frustumRight, &frustumBottom, &frustumNear, &frustumFar);
@@ -50,9 +50,11 @@ public:
         mEye = cam.getEyePoint();
         const Vec3f& dir = cam.getViewDirection();
         Quatf orient = cam.getOrientation();
-        
-        Vec3f u = orient * Vec3f::xAxis();
-        Vec3f v = orient * Vec3f::yAxis();
+       
+        frustumNear *= frustumScale;
+        frustumFar  *= frustumScale;
+        Vec3f u = orient * Vec3f::xAxis() * frustumScale;
+        Vec3f v = orient * Vec3f::yAxis() * frustumScale;
         
         Vec3f frustumNearDir = frustumNear   * dir;
         Vec3f frustumFarDir  = frustumFar    * dir;
