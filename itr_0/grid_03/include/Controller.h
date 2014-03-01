@@ -17,22 +17,22 @@
 #include "cinder/Rect.h"
 #include "cinder/Matrix44.h"
 
-#include "GridCell.h"
+#include "Cell.h"
 
 using namespace std;
 using namespace cinder;
 
-class GridController {
+class Controller {
     int mSizeX;
     int mSizeY;
     
     Matrix44f mTransform;
     Rectf     mBounds;
     
-    vector<GridCell*> mCells;
+    vector<Cell*> mCells;
     
 public:
-    GridController(int sizeX = 3, int sizeY = 3) :
+    Controller(int sizeX = 3, int sizeY = 3) :
         mSizeX(sizeX),
         mSizeY(sizeY){
         
@@ -44,9 +44,9 @@ public:
         while (++i < mSizeY) {
             j = -1;
             while (++j < mSizeX) {
-                mCells.push_back(new GridCell(Vec3f(-sizeX_2 + j,0,-sizeY_2 + i), // pos
+                mCells.push_back(new Cell(Vec3f(-sizeX_2 + j,0,-sizeY_2 + i), // pos
                                               Vec3f(1,1,1),                       // vel
-                                              GridCellId(i,j)));
+                                              CellId(i,j)));
             }
         }
         
@@ -79,7 +79,7 @@ public:
         
         
         glLineWidth(1);
-        for(vector<GridCell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
+        for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
             (*itr)->debugArea();
         }
         glPopMatrix();
@@ -91,20 +91,20 @@ public:
     inline void draw(){
         glPushMatrix();
         glMultMatrixf(&mTransform[0]);
-        for(vector<GridCell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
+        for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
             (*itr)->debugDraw();
         }
         glPopMatrix();
     }
     
     inline void update(){
-        for(vector<GridCell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
+        for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
             (*itr)->update();
         }
     }
     
     inline void checkFrustum(const FrustumOrtho& frustum){
-        for(vector<GridCell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
+        for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
             (*itr)->checkFrustum(frustum,mTransform);
         }
     }

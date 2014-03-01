@@ -19,13 +19,13 @@ using namespace std;
 using namespace ci;
 
 
-class GridDiverPath {
+class Path {
     vector<Vec3f> mPoints;
     
 public:
     static const int PATH_RES = 20;
     
-    GridDiverPath(Vec3f start, Vec3f end){
+    Path(Vec3f start, Vec3f end){
         mPoints.push_back(start);
         int i = 0;
         float a;

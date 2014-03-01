@@ -14,8 +14,8 @@
 
 #include "cinder/Vector.h"
 #include "cinder/Matrix44.h"
-#include "GridDiverPath.h"
-#include "GridDiver.h"
+#include "Path.h"
+#include "Diver.h"
 #include "cinder/Rand.h"
 
 #include "cinder/Perlin.h"
@@ -25,31 +25,31 @@
 using namespace ci;
 using namespace std;
 
-struct GridCellId{
+struct CellId{
     int x;
     int y;
-    GridCellId(int x, int y):x(x),y(y){};
+    CellId(int x, int y):x(x),y(y){};
 };
 
-class GridCell {
-    Vec3f      mPos;
-    Matrix44f  mModelViewMatrix;
-    Vec3f      mSize;
-    int        mNumDivers;
-    GridCellId mId;
-    bool       mActive;
-    Perlin     mPerlin;
+class Cell {
+    Vec3f  mPos;
+    Vec3f  mSize;
+    CellId mId;
+   
+    int            mNumDivers;
+    vector<Path*>  mPaths;
+    vector<Diver*> mDivers;
     
-    vector<GridDiverPath*>  mPaths;
-    vector<GridDiver*> mDivers;
+    bool   mActive;
+    Perlin mPerlin;
     
     
 public:
-    GridCell(Vec3f pos, Vec3f size, GridCellId id) :
-    mPos(pos),
-    mSize(size),
-    mId(id),
-    mActive(true){
+    Cell(Vec3f pos, Vec3f size, CellId id) :
+        mPos(pos),
+        mSize(size),
+        mId(id),
+        mActive(true){
         
         mPerlin = Perlin(2,clock() & 65535);
         this->reset();
@@ -68,31 +68,18 @@ public:
         while (++i < mNumDivers) {
             Vec3f end(marginX + float(i) / float(mNumDivers), 0.0, -0.5f);
             Vec3f start(end.x, end.y, 0.5f);
-            mDivers.push_back(new GridDiver(start,end));
-            mPaths.push_back(new GridDiverPath(start, end));
+            mPaths.push_back(new Path(start, end));
+            mDivers.push_back(new Diver(mPaths.back()));
         }
-        
-        
-        
     }
     
     inline void debugArea(){
-        static const float unitPoints[]  = {
-            -0.5,0,-0.5,
-            0.5,0,-0.5,
-            0.5,0, 0.5,
-            -0.5,0, 0.5
-        };
+        static const float unitPoints[] = {-0.5,0,-0.5,0.5,0,-0.5,0.5,0, 0.5,-0.5,0, 0.5};
+        
         glColor3f(1,0,0);
         glPushMatrix();
         glTranslatef(mPos.x, mPos.y, mPos.z);
         
-        //glGetFloatv(GL_MODELVIEW_MATRIX, mModelViewMatrix);
-        
-        
-        gl::enableAlphaBlending();
-        
-        gl::disableAlphaBlending();
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_FLOAT, 0, &unitPoints[0]);
         glDrawArrays(GL_LINE_LOOP, 0, 4);
@@ -115,16 +102,12 @@ public:
     
     inline void debugDraw(){
         if(!mActive){
-            
+            return;
         }
+        
         glColor3f(1, 0, 0);
         
-        static const float unitPoints[]  = {
-            -0.5,0,-0.5,
-             0.5,0,-0.5,
-             0.5,0, 0.5,
-            -0.5,0, 0.5
-        };
+        static const float unitPoints[] = {-0.5,0,-0.5,0.5,0,-0.5,0.5,0, 0.5,-0.5,0, 0.5};
         
         glPushMatrix();
         glTranslatef(mPos.x, mPos.y, mPos.z);
@@ -138,11 +121,11 @@ public:
         glDisableClientState(GL_VERTEX_ARRAY);
         */
         
-        for (vector<GridDiver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr) {
-            //(*itr)->debugDraw();
+        for (vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr) {
+            (*itr)->debugDraw();
         }
         
-        for (vector<GridDiverPath*>::const_iterator itr = mPaths.begin(); itr != mPaths.end(); ++itr) {
+        for (vector<Path*>::const_iterator itr = mPaths.begin(); itr != mPaths.end(); ++itr) {
             (*itr)->debugDraw();
         }
         
@@ -167,24 +150,18 @@ public:
         }
          */
         float time = app::getElapsedSeconds() * 0.125f;
-        for(vector<GridDiverPath*>::const_iterator itr = mPaths.begin(); itr != mPaths.end(); ++itr){
+        for(vector<Path*>::const_iterator itr = mPaths.begin(); itr != mPaths.end(); ++itr){
             for(vector<Vec3f>::iterator _itr = (*itr)->getPoints().begin(); _itr != (*itr)->getPoints().end(); _itr++){
                 _itr->y = mPerlin.fBm(_itr->x,_itr->z,time) * 0.5f;
                 
             }
-            
         }
     }
     
     inline void checkFrustum(const FrustumOrtho& frustum,const Matrix44f& transform){
         static const Vec3f zero;
         mActive = frustum.contains(transform.transformPointAffine(mPos));
-        
-        
-        ///cout << centerTransformed << endl;
-        
     }
-    
     
     inline void activate(){
         mActive = true;

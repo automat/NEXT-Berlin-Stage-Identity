@@ -34,7 +34,7 @@ static bool SHOW_INFO(true);
 
 /*--------------------------------------------------------------------------------------------*/
 
-class grid_03App : public AppNative {
+class grid_04App : public AppNative {
 public:
     void prepareSettings(Settings* settings);
 	void setup();
@@ -57,12 +57,12 @@ public:
     
 };
 
-void grid_03App::prepareSettings(Settings* settings){
+void grid_04App::prepareSettings(Settings* settings){
     settings->setWindowSize(APP_WIDTH,APP_HEIGHT);
     settings->setFrameRate(APP_FPS);
 }
 
-void grid_03App::setup(){
+void grid_04App::setup(){
     mInfoPanel = new InfoPanel(Rectf(0,0,300,app::getWindowHeight()));
     mInfoPanel->setModelScale(&MODEL_SCALE);
     mInfoPanel->setModelZoom(&MODEL_ZOOM);
@@ -81,23 +81,23 @@ void grid_03App::setup(){
     glEnable(GL_SCISSOR_TEST);
 }
 
-void grid_03App::mouseDown( MouseEvent event ){
+void grid_04App::mouseDown( MouseEvent event ){
 }
 
-void grid_03App::update(){
+void grid_04App::update(){
     mFrustum.set(mCamera,1.1f);
     
     mController->update();
     mController->checkFrustum(mFrustum);
     mController->transform(MODEL_SCALE);
     
-
+    
     mInfoPanel->setFps(getAverageFps());
     
     
 }
 
-void grid_03App::draw(){
+void grid_04App::draw(){
     glScissor(0, 0, app::getWindowWidth(), app::getWindowHeight());
 	gl::clear( Color( 0, 0, 0 ) );
     gl::setMatrices(mCamera);
@@ -134,14 +134,14 @@ void grid_03App::draw(){
         
     }
     
-
     
     
-   
+    
+    
     
 }
 
-void grid_03App::keyDown(KeyEvent event){
+void grid_04App::keyDown(KeyEvent event){
     
     switch (event.getCode()) {
         case KeyEvent::KEY_5:
@@ -185,14 +185,14 @@ void grid_03App::keyDown(KeyEvent event){
     }
 }
 
-void grid_03App::updateView(){
+void grid_04App::updateView(){
     float aspectRatio = app::getWindowAspectRatio();
     mCamera.setOrtho(-aspectRatio*MODEL_ZOOM, aspectRatio*MODEL_ZOOM, -MODEL_ZOOM, MODEL_ZOOM, 0.0001, 5.0f);
 }
 
-void grid_03App::resize(){
+void grid_04App::resize(){
     this->updateView();
     
 }
 
-CINDER_APP_NATIVE( grid_03App, RendererGl )
+CINDER_APP_NATIVE( grid_04App, RendererGl )

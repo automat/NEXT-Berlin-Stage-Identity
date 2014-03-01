@@ -11,12 +11,16 @@
 
 #include "cinder/Vector.h"
 #include "cinder/Rand.h"
+#include "Path.h"
 
 
 using namespace ci;
 using namespace std;
 
-class GridDiver {
+class Diver {
+    Path* mPath;
+    
+    
     Vec3f  mStart;
     Vec3f  mEnd;
     Vec3f  mPos;
@@ -31,15 +35,9 @@ class GridDiver {
     
     
 public:
-    GridDiver(Vec3f start,Vec3f end,float  width = 1.0f) :
-    mStart(start),
-    mEnd(end),
+    Diver(Path* path ) :
     mVel(0,0,-1),
-    mSpeed(Rand::randFloat(0.005f,0.015f)),
-    mWidth(width),
     mLength(0.5f){
-        mPos.set(mStart);
-        mPos.z += mLength;
     }
     
     inline void debugDraw(){
