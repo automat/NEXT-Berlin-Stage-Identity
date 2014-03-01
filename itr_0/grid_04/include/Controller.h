@@ -36,24 +36,27 @@ public:
         mSizeX(sizeX),
         mSizeY(sizeY){
         
-        int sizeX_2 = mSizeX / 2;
-        int sizeY_2 = mSizeY / 2;
-        //  init
-        int i,j;
-        i = -1;
-        while (++i < mSizeY) {
-            j = -1;
-            while (++j < mSizeX) {
-                mCells.push_back(new Cell(Vec3f(-sizeX_2 + j,0,-sizeY_2 + i), // pos
-                                              Vec3f(1,1,1),                       // vel
-                                              CellId(i,j)));
+            int sizeX_2 = mSizeX / 2;
+            int sizeY_2 = mSizeY / 2;
+            //  init
+            Vec3f pos;
+            int i,j;
+            i = -1;
+            
+            while (++i < mSizeY) {
+                j = -1;
+                while (++j < mSizeX) {
+                    int id[] = {i,j};
+                    pos.x = -sizeX_2 + j;
+                    pos.z = -sizeX_2 + i;
+                    mCells.push_back(new Cell(id,pos));
+                }
             }
-        }
-        
-        mBounds.x1 = -sizeX_2 - 0.5f;
-        mBounds.y1 = -sizeX_2 - 0.5f;
-        mBounds.x2 = mBounds.x1 + sizeX;
-        mBounds.y2 = mBounds.y1 + sizeY;
+            
+            mBounds.x1 = -sizeX_2 - 0.5f;
+            mBounds.y1 = -sizeX_2 - 0.5f;
+            mBounds.x2 = mBounds.x1 + sizeX;
+            mBounds.y2 = mBounds.y1 + sizeY;
     }
     
     

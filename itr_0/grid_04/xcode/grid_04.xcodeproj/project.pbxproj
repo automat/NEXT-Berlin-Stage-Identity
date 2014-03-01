@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 44;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,11 +14,9 @@
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
-		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		8A09770AB3054FA39D3D7C0D /* grid_04_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 6C9620F434AD4B61A9391CC8 /* grid_04_Prefix.pch */; };
-		EC2D6A0807F84373A418B660 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = A4DBC626A82742A1BC62EDC1 /* CinderApp.icns */; };
-		B55D93F66E3A47BC920DB213 /* Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = B99708B9EEBC4F7F9193BF6C /* Resources.h */; };
 		6A806F4E435146729D11678A /* grid_04App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74A6FAFD6E9C4DFCABC20ADD /* grid_04App.cpp */; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		EC2D6A0807F84373A418B660 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = A4DBC626A82742A1BC62EDC1 /* CinderApp.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,12 +30,18 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
+		6C9620F434AD4B61A9391CC8 /* grid_04_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = grid_04_Prefix.pch; sourceTree = "<group>"; };
+		74A6FAFD6E9C4DFCABC20ADD /* grid_04App.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = grid_04App.cpp; path = ../src/grid_04App.cpp; sourceTree = "<group>"; };
+		840CCE4782E7413F8E1BB6BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* grid_04.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = grid_04.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		74A6FAFD6E9C4DFCABC20ADD /* grid_04App.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../src/grid_04App.cpp; sourceTree = "<group>"; name = grid_04App.cpp; };
-		B99708B9EEBC4F7F9193BF6C /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../include/Resources.h; sourceTree = "<group>"; name = Resources.h; };
-		A4DBC626A82742A1BC62EDC1 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; name = CinderApp.icns; };
-		840CCE4782E7413F8E1BB6BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; name = Info.plist; };
-		6C9620F434AD4B61A9391CC8 /* grid_04_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = grid_04_Prefix.pch; sourceTree = "<group>"; name = grid_04_Prefix.pch; };
+		A4DBC626A82742A1BC62EDC1 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
+		B99708B9EEBC4F7F9193BF6C /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
+		CD3F13A618C1FEDD00E344AD /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cell.h; path = ../include/Cell.h; sourceTree = "<group>"; };
+		CD3F13A718C1FEDD00E344AD /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = ../include/Controller.h; sourceTree = "<group>"; };
+		CD3F13A818C1FEDD00E344AD /* Diver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Diver.h; path = ../include/Diver.h; sourceTree = "<group>"; };
+		CD3F13A918C1FEDD00E344AD /* FrustumOrtho.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FrustumOrtho.h; path = ../include/FrustumOrtho.h; sourceTree = "<group>"; };
+		CD3F13AA18C1FEDD00E344AD /* InfoPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoPanel.h; path = ../include/InfoPanel.h; sourceTree = "<group>"; };
+		CD3F13AB18C1FEDD00E344AD /* Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Path.h; path = ../include/Path.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01B97315FEAEA392516A2CEA /* Blocks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Blocks;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,16 +123,11 @@
 			name = grid_04;
 			sourceTree = "<group>";
 		};
-		01B97315FEAEA392516A2CEA /* Blocks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Blocks;
-			sourceTree = "<group>";
-		};
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				CD3F13AD18C1FEFA00E344AD /* Utils */,
+				CD3F13AC18C1FEE100E344AD /* World */,
 				B99708B9EEBC4F7F9193BF6C /* Resources.h */,
 				6C9620F434AD4B61A9391CC8 /* grid_04_Prefix.pch */,
 			);
@@ -144,6 +150,26 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CD3F13AC18C1FEE100E344AD /* World */ = {
+			isa = PBXGroup;
+			children = (
+				CD3F13A718C1FEDD00E344AD /* Controller.h */,
+				CD3F13A618C1FEDD00E344AD /* Cell.h */,
+				CD3F13A818C1FEDD00E344AD /* Diver.h */,
+				CD3F13AB18C1FEDD00E344AD /* Path.h */,
+			);
+			name = World;
+			sourceTree = "<group>";
+		};
+		CD3F13AD18C1FEFA00E344AD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CD3F13A918C1FEDD00E344AD /* FrustumOrtho.h */,
+				CD3F13AA18C1FEDD00E344AD /* InfoPanel.h */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,6 +198,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "grid_04" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -218,24 +246,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = grid_04_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = grid_04_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder_d.a\"";
 				PRODUCT_NAME = grid_04;
-				WRAPPER_EXTENSION = app;
 				SYMROOT = ./build;
+				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
@@ -257,19 +285,19 @@
 				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder.a\"";
 				PRODUCT_NAME = grid_04;
 				STRIP_INSTALLED_PRODUCT = YES;
-				WRAPPER_EXTENSION = app;
 				SYMROOT = ./build;
+				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = i386;
-				CINDER_PATH = "../../../../Cinder";
+				CINDER_PATH = ../../../../Cinder;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/boost\"";
@@ -282,11 +310,11 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = i386;
-				CINDER_PATH = "../../../../Cinder";
+				CINDER_PATH = ../../../../Cinder;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/boost\"";

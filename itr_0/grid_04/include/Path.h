@@ -21,12 +21,14 @@ using namespace ci;
 
 class Path {
     vector<Vec3f> mPoints;
+    float         mWidth;
     
 public:
     static const int PATH_RES = 20;
     
-    Path(Vec3f start, Vec3f end){
+    Path(Vec3f start, Vec3f end, float width){
         mPoints.push_back(start);
+        mWidth = width;
         int i = 0;
         float a;
         while (++i < PATH_RES - 1) {
@@ -35,23 +37,14 @@ public:
         }
         
         mPoints.push_back(end);
-        
-    
     }
     
     inline void debugDraw(){
-        glColor3f(0,0,1);
-        gl::drawLine(getStart(),getEnd());
-        
-        glColor3f(1,1,1);
-        glPointSize(3);
+        glColor3f(0.25f,0.15,0.25f);
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_FLOAT, 0, &mPoints[0]);
-        glDrawArrays(GL_POINTS, 0, mPoints.size());
+        glDrawArrays(GL_LINE_STRIP, 0, mPoints.size());
         glDisableClientState(GL_VERTEX_ARRAY);
-        glPointSize(1);
-       
-        
     }
     
     inline const Vec3f& getStart() const{
@@ -65,6 +58,26 @@ public:
     inline vector<Vec3f>& getPoints(){
         return mPoints;
     }
+    
+    float getWidth(){
+        return mWidth;
+    }
+    
+    inline void getPointOn(float intrpl, Vec3f* out){
+        intrpl = max(0.0f, min(intrpl,1.0f));
+
+        int size = mPoints.size();
+        int len  = size - 1;
+        
+        uint  index  = (uint)floorf((float)len * intrpl),
+              index1 = (uint)min((uint)index + 1, (uint)len);
+        float localIntrpl    = fmodf(intrpl, 1.0f / (float)len) * (float)len,
+              localIntrplInv = 1.0f - localIntrpl;
+        
+        out->set(mPoints[index] * localIntrplInv + mPoints[index1] * localIntrpl);
+    }
+    
+    
     
     
     

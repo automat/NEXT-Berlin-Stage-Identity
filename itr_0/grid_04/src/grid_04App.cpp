@@ -15,22 +15,23 @@ using namespace std;
 
 //SETTINGS
 
-static const int   RES_SHADOW_MAP = 2048;
-//static const float TEXEL_SIZE = 1.0f / (float)RES_SHADOW_MAP;
 static const int   STAGE_WIDTH(3552), STAGE_HEIGHT(1105);
 static const int   STAGE_SCALE(2);
 
 static const int   APP_WIDTH(STAGE_WIDTH / STAGE_SCALE), APP_HEIGHT(STAGE_HEIGHT / STAGE_SCALE);
 static const float APP_FPS(30.0);
 
-static int MODE_VIEW(0);
-const static int MODEL_ZOOM_MAX(10), MODEL_ZOOM_MIN(1);
-static int MODEL_ZOOM(1);
+const static int   MODEL_ZOOM_MAX(10), MODEL_ZOOM_MIN(1);
+static int         MODEL_ZOOM(1);
 const static float MODEL_SCALE_STEP(0.05f);
 const static float MODEL_SCALE_MAX(1), MODEL_SCALE_MIN(MODEL_SCALE_STEP);
-static float MODEL_SCALE(0.65); //1
+static float       MODEL_SCALE(1); //0.65
 
 static bool SHOW_INFO(true);
+
+//
+static const int NUM_CELLS_XY(1);
+
 
 /*--------------------------------------------------------------------------------------------*/
 
@@ -46,13 +47,13 @@ public:
     
     void updateView();
     
-    InfoPanel*      mInfoPanel;
+    InfoPanel*   mInfoPanel;
     
     //mem
-    FrustumOrtho    mFrustum;
-    CameraOrtho     mCamera;
-    CameraOrtho     mCameraDebug;
-    Controller* mController;
+    FrustumOrtho mFrustum;
+    CameraOrtho  mCamera;
+    CameraOrtho  mCameraDebug;
+    Controller*  mController;
     
     
 };
@@ -69,13 +70,13 @@ void grid_04App::setup(){
     
     float aspectRatio = app::getWindowAspectRatio();
     mCamera.setOrtho(-aspectRatio, aspectRatio, -1, 1, -10, 1.0f);
-    mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
+    mCamera.lookAt(Vec3f(-1,1,-1), Vec3f::zero());
     
     float cameraDebugZoom = 6.0f;
     mCameraDebug.setOrtho(-aspectRatio * cameraDebugZoom, aspectRatio * cameraDebugZoom, -cameraDebugZoom, cameraDebugZoom, -10, 100.0f);
     mCameraDebug.lookAt(Vec3f(0,1,0), Vec3f::zero());
     
-    mController = new Controller(11,11);
+    mController = new Controller(NUM_CELLS_XY,NUM_CELLS_XY);
     
     gl::enableDepthRead();
     glEnable(GL_SCISSOR_TEST);
@@ -106,6 +107,7 @@ void grid_04App::draw(){
     
     glPushMatrix();
     glScalef(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
+    mController->debugArea();
     mController->draw();
     glPopMatrix();
     
@@ -124,8 +126,6 @@ void grid_04App::draw(){
         mFrustum.draw();
         
         //draw frustum plane intersection
-        GLfloat modelViewMatrix[16];
-        glGetFloatv(GL_MODELVIEW_MATRIX, modelViewMatrix);
         glPushMatrix();
         glScalef(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
         mController->debugArea();
@@ -145,11 +145,9 @@ void grid_04App::keyDown(KeyEvent event){
     
     switch (event.getCode()) {
         case KeyEvent::KEY_5:
-            MODE_VIEW = 5;
             mCamera.lookAt(Vec3f(1,1,1),Vec3f::zero());
             break;
         case KeyEvent::KEY_6:
-            MODE_VIEW = 1;
             mCamera.lookAt(Vec3f(0,1,0),Vec3f::zero());
             break;
         case KeyEvent::KEY_7:
