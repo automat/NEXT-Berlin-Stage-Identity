@@ -28,8 +28,9 @@ using namespace ci;
 using namespace std;
 
 class Cell {
-    const int MIN_NUM_DIVERS = 1; // header lazyness
-    const int MAX_NUM_DIVERS = 1;
+    const int MIN_NUM_DIVERS   = 1; // header lazyness
+    const int MAX_NUM_DIVERS   = 1;
+    const int DIVER_NUM_POINTS = 10;
 
     
     Vec3f  mPos;
@@ -93,20 +94,38 @@ public:
             mDivers.push_back(new Diver(mPaths.back()));
         }
         
-        mVboMesh.reset();
-        mVboMesh = gl::VboMesh(mNumDivers * 2, (mNumDivers - 2) * 3,mVboMeshLayout,GL_POINTS);
+        int diverVerticesLen = DIVER_NUM_POINTS * 2;
+        int diverIndicesLen  = (diverVerticesLen / 2 - 2) * 3;
+        int meshVerticesLen  = diverVerticesLen * mNumDivers;
+        int meshIndicesLen   = diverIndicesLen * mNumDivers;
         
+        mVboMesh.reset();
+        mVboMesh = gl::VboMesh(meshVerticesLen,meshIndicesLen,mVboMeshLayout,GL_POINTS);
+        
+        vector<uint32_t> indices;
+        
+        /*
         int j;
         i = -1;
         while(++i < mNumDivers){
             j = -1;
-            Diver* diver = mDivers[i];
-            while(++j < diver->getNumPoints()){
-                
+            while (++j < DIVER_NUM_POINTS - 1) {
+                indices.push_back(0);
+                indices.push_back(0);
+                indices.push_back(0);
+            
+                indices.push_back(0);
+                indices.push_back(0);
+                indices.push_back(0);
             }
         }
+         */
+        i = -1;
+        while (++i < meshVerticesLen) {
+            indices.push_back(i);
+        }
         
-        
+        mVboMesh.bufferIndices(indices);
     }
     
     inline void debugArea(){
@@ -160,6 +179,17 @@ public:
         glDisableClientState(GL_VERTEX_ARRAY);
         */
         
+        gl::VboMesh::VertexIter itr = mVboMesh.mapVertexBuffer();
+        int i = -1;
+        while (i < mVboMesh.getNumVertices()) {
+            ++itr;
+            i += 2;
+        }
+        
+        glPointSize(15.0f);
+        gl::draw(mVboMesh);
+        
+        gl::VboMesh::VertexIter vItr = mVboMesh.mapVertexBuffer();
         for (vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr) {
             (*itr)->debugDraw();
         }

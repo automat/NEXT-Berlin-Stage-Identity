@@ -24,10 +24,10 @@ class Diver {
     const float MAX_SPEED  = 0.007f;
     const float MIN_LENGTH = 0.5f;
     const float MAX_LENGTH = 1.0f;
-    const int   NUM_POINTS = 10;
     /*------------------------------------------------------------------------------------*/
     
     Path* mPath;
+    int   mNumPoints;
     
     Vec3f  mStart;
     Vec3f  mEnd;
@@ -50,15 +50,17 @@ class Diver {
     
     
 public:
-    Diver(Path* path ) :
+    Diver(Path* path, int numPoints = 10) :
         mPath(path),
+        mNumPoints(numPoints),
         mOffset(1.0f),
         mSpeed(Rand::randFloat(MIN_SPEED,MAX_SPEED)),
         mLength(Rand::randFloat(MIN_LENGTH,MAX_LENGTH)),
         mWidth(){
-            mNormals.resize(NUM_POINTS);
-            mPoints.resize(NUM_POINTS);
-            mLengthStep = mLength / (float)(NUM_POINTS-1);
+            
+            mNormals.resize(mNumPoints);
+            mPoints.resize(mNumPoints);
+            mLengthStep = mLength / (float)(mNumPoints-1);
       
             
             
@@ -86,7 +88,7 @@ public:
         
         glColor3f(0.75f, 0, 0.15f);
         int i = 0;
-        while(i < NUM_POINTS){
+        while(i < mNumPoints){
             line[0].set(mPoints[i]);
             line[1].set(line[0]);
             line[0].x += pathWidth;
