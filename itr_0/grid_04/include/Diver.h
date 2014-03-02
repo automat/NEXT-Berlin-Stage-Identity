@@ -9,6 +9,7 @@
 #ifndef grid_01_GridDiver_h
 #define grid_01_GridDiver_h
 
+#include "Settings.h"
 #include "cinder/Vector.h"
 #include "cinder/Rand.h"
 #include "Path.h"
@@ -18,13 +19,6 @@ using namespace ci;
 using namespace std;
 
 class Diver {
-    /*------------------------------------------------------------------------------------*/
-     //header lazyness
-    const float MIN_SPEED  = 0.005f;
-    const float MAX_SPEED  = 0.007f;
-    const float MIN_LENGTH = 0.5f;
-    const float MAX_LENGTH = 1.0f;
-    /*------------------------------------------------------------------------------------*/
     
     Path* mPath;
     int   mNumPoints;
@@ -54,8 +48,8 @@ public:
         mPath(path),
         mNumPoints(numPoints),
         mOffset(1.0f),
-        mSpeed(Rand::randFloat(MIN_SPEED,MAX_SPEED)),
-        mLength(Rand::randFloat(MIN_LENGTH,MAX_LENGTH)),
+        mSpeed(Rand::randFloat(DIVER_MIN_SPEED,DIVER_MAX_SPEED)),
+        mLength(Rand::randFloat(DIVER_MIN_LENGTH,DIVER_MAX_LENGTH)),
         mWidth(){
             
             mNormals.resize(mNumPoints);

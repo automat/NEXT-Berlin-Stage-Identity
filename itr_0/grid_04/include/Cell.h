@@ -9,6 +9,7 @@
 #ifndef grid_01_GridCell_h
 #define grid_01_GridCell_h
 
+#include "Settings.h"
 #include <OpenGL/OpenGL.h>
 #include "cinder/gl/gl.h"
 
@@ -28,11 +29,6 @@ using namespace ci;
 using namespace std;
 
 class Cell {
-    const int MIN_NUM_DIVERS   = 1; // header lazyness
-    const int MAX_NUM_DIVERS   = 1;
-    const int DIVER_NUM_POINTS = 10;
-
-    
     Vec3f  mPos;
     Vec3f  mSize;
     int    mId[2];
@@ -78,7 +74,7 @@ public:
     }
     
     inline void reset(){
-        mNumDivers = Rand::randInt(MIN_NUM_DIVERS,MAX_NUM_DIVERS);
+        mNumDivers = Rand::randInt(CELL_MAX_NUM_DIVERS,CELL_MAX_NUM_DIVERS);
         
         freeData();
 
@@ -94,7 +90,7 @@ public:
             mDivers.push_back(new Diver(mPaths.back()));
         }
         
-        int diverVerticesLen = DIVER_NUM_POINTS * 2;
+        int diverVerticesLen = CELL_DIVER_NUM_POINTS * 2;
         int diverIndicesLen  = (diverVerticesLen / 2 - 2) * 3;
         int meshVerticesLen  = diverVerticesLen * mNumDivers;
         int meshIndicesLen   = diverIndicesLen * mNumDivers;
@@ -126,6 +122,8 @@ public:
         }
         
         mVboMesh.bufferIndices(indices);
+        
+        //cout << diverVerticesLen << " / " << indices.size() << endl;
     }
     
     inline void debugArea(){
@@ -179,17 +177,6 @@ public:
         glDisableClientState(GL_VERTEX_ARRAY);
         */
         
-        gl::VboMesh::VertexIter itr = mVboMesh.mapVertexBuffer();
-        int i = -1;
-        while (i < mVboMesh.getNumVertices()) {
-            ++itr;
-            i += 2;
-        }
-        
-        glPointSize(15.0f);
-        gl::draw(mVboMesh);
-        
-        gl::VboMesh::VertexIter vItr = mVboMesh.mapVertexBuffer();
         for (vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr) {
             (*itr)->debugDraw();
         }

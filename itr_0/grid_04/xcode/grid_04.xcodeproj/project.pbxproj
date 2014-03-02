@@ -42,6 +42,7 @@
 		CD3F13A918C1FEDD00E344AD /* FrustumOrtho.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FrustumOrtho.h; path = ../include/FrustumOrtho.h; sourceTree = "<group>"; };
 		CD3F13AA18C1FEDD00E344AD /* InfoPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoPanel.h; path = ../include/InfoPanel.h; sourceTree = "<group>"; };
 		CD3F13AB18C1FEDD00E344AD /* Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Path.h; path = ../include/Path.h; sourceTree = "<group>"; };
+		CD3F13AE18C345DB00E344AD /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = ../include/Settings.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +156,7 @@
 		CD3F13AC18C1FEE100E344AD /* World */ = {
 			isa = PBXGroup;
 			children = (
+				CD3F13AE18C345DB00E344AD /* Settings.h */,
 				CD3F13A718C1FEDD00E344AD /* Controller.h */,
 				CD3F13A618C1FEDD00E344AD /* Cell.h */,
 				CD3F13A818C1FEDD00E344AD /* Diver.h */,

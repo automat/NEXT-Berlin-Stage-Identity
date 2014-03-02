@@ -1,4 +1,5 @@
 #include "cinder/app/AppNative.h"
+#include "Settings.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Camera.h"
 #include "cinder/Utilities.h"
@@ -13,14 +14,6 @@ using namespace std;
 
 /*--------------------------------------------------------------------------------------------*/
 
-//SETTINGS
-
-static const int   STAGE_WIDTH(3552), STAGE_HEIGHT(1105);
-static const int   STAGE_SCALE(2);
-
-static const int   APP_WIDTH(STAGE_WIDTH / STAGE_SCALE), APP_HEIGHT(STAGE_HEIGHT / STAGE_SCALE);
-static const float APP_FPS(30.0);
-
 const static int   MODEL_ZOOM_MAX(10), MODEL_ZOOM_MIN(1);
 static int         MODEL_ZOOM(1);
 const static float MODEL_SCALE_STEP(0.05f);
@@ -28,10 +21,6 @@ const static float MODEL_SCALE_MAX(1), MODEL_SCALE_MIN(MODEL_SCALE_STEP);
 static float       MODEL_SCALE(1); //0.65
 
 static bool SHOW_INFO(true);
-
-//
-static const int NUM_CELLS_XY(1);
-
 
 /*--------------------------------------------------------------------------------------------*/
 
@@ -76,7 +65,7 @@ void grid_04App::setup(){
     mCameraDebug.setOrtho(-aspectRatio * cameraDebugZoom, aspectRatio * cameraDebugZoom, -cameraDebugZoom, cameraDebugZoom, -10, 100.0f);
     mCameraDebug.lookAt(Vec3f(0,1,0), Vec3f::zero());
     
-    mController = new Controller(NUM_CELLS_XY,NUM_CELLS_XY);
+    mController = new Controller(WORLD_NUM_CELLS_XY,WORLD_NUM_CELLS_XY);
     
     gl::enableDepthRead();
     glEnable(GL_SCISSOR_TEST);
@@ -107,7 +96,7 @@ void grid_04App::draw(){
     
     glPushMatrix();
     glScalef(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
-    mController->debugArea();
+    //mController->debugArea();
     mController->draw();
     glPopMatrix();
     
