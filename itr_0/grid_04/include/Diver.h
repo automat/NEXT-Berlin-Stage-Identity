@@ -19,9 +19,7 @@ using namespace ci;
 using namespace std;
 
 class Diver {
-    
     Path* mPath;
-    int   mNumPoints;
     
     Vec3f  mStart;
     Vec3f  mEnd;
@@ -35,6 +33,7 @@ class Diver {
     float  mLengthStep;
     
     float  mWidth;
+    float  mHeight;
     
     vector<Vec3f> mNormals;
     vector<Vec3f> mPoints;
@@ -44,17 +43,16 @@ class Diver {
     
     
 public:
-    Diver(Path* path, int numPoints = 10) :
+    Diver(Path* path, float height = 0.125f) :
         mPath(path),
-        mNumPoints(numPoints),
-        mOffset(1.0f),
+        mOffset(Rand::randFloat(DIVER_MIN_OFFSET,DIVER_MAX_OFFSET)),
         mSpeed(Rand::randFloat(DIVER_MIN_SPEED,DIVER_MAX_SPEED)),
         mLength(Rand::randFloat(DIVER_MIN_LENGTH,DIVER_MAX_LENGTH)),
-        mWidth(){
+        mHeight(height){
             
-            mNormals.resize(mNumPoints);
-            mPoints.resize(mNumPoints);
-            mLengthStep = mLength / (float)(mNumPoints-1);
+            mNormals.resize(DIVER_NUM_POINTS);
+            mPoints.resize(DIVER_NUM_POINTS);
+            mLengthStep = mLength / (float)(DIVER_NUM_POINTS-1);
       
             
             
@@ -82,7 +80,7 @@ public:
         
         glColor3f(0.75f, 0, 0.15f);
         int i = 0;
-        while(i < mNumPoints){
+        while(i < DIVER_NUM_POINTS){
             line[0].set(mPoints[i]);
             line[1].set(line[0]);
             line[0].x += pathWidth;
@@ -95,10 +93,6 @@ public:
         
         glDisableClientState(GL_VERTEX_ARRAY);
         glPointSize(prevPointSize);
-        
-        
-        
-        
     }
     
     inline const Vec3f& getStart() const{
@@ -139,6 +133,10 @@ public:
     };
     
     inline void draw(){
+    }
+    
+    float getHeight(){
+        return mHeight;
     }
     
     const vector<Vec3f>& getPoints(){

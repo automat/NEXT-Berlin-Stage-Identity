@@ -14,11 +14,8 @@ using namespace std;
 
 /*--------------------------------------------------------------------------------------------*/
 
-const static int   MODEL_ZOOM_MAX(10), MODEL_ZOOM_MIN(1);
-static int         MODEL_ZOOM(1);
-const static float MODEL_SCALE_STEP(0.05f);
-const static float MODEL_SCALE_MAX(1), MODEL_SCALE_MIN(MODEL_SCALE_STEP);
-static float       MODEL_SCALE(1); //0.65
+static int   MODEL_ZOOM(WORLD_MODEL_ZOOM_INITIAL);
+static float MODEL_SCALE(WORLD_MODEL_SCALE_INITIAL); //0.65
 
 static bool SHOW_INFO(true);
 
@@ -39,10 +36,10 @@ public:
     InfoPanel*   mInfoPanel;
     
     //mem
-    FrustumOrtho mFrustum;
-    CameraOrtho  mCamera;
-    CameraOrtho  mCameraDebug;
-    Controller*  mController;
+    FrustumOrtho   mFrustum;
+    CameraOrtho    mCamera;
+    CameraOrtho    mCameraDebug;
+    Controller*    mController;
     
     
 };
@@ -65,7 +62,7 @@ void grid_04App::setup(){
     mCameraDebug.setOrtho(-aspectRatio * cameraDebugZoom, aspectRatio * cameraDebugZoom, -cameraDebugZoom, cameraDebugZoom, -10, 100.0f);
     mCameraDebug.lookAt(Vec3f(0,1,0), Vec3f::zero());
     
-    mController = new Controller(WORLD_NUM_CELLS_XY,WORLD_NUM_CELLS_XY);
+    mController     = new Controller(WORLD_NUM_CELLS_XY,WORLD_NUM_CELLS_XY);
     
     gl::enableDepthRead();
     glEnable(GL_SCISSOR_TEST);
@@ -77,7 +74,7 @@ void grid_04App::mouseDown( MouseEvent event ){
 void grid_04App::update(){
     mFrustum.set(mCamera,1.1f);
     
-    mController->update();
+    mController->update(app::getElapsedSeconds());
     mController->checkFrustum(mFrustum);
     mController->transform(MODEL_SCALE);
     
@@ -96,8 +93,15 @@ void grid_04App::draw(){
     
     glPushMatrix();
     glScalef(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
-    //mController->debugArea();
+#ifdef WORLD_DEBUG_DRAW_CELL_AREA
+    mController->debugArea();
+#endif
+#ifdef WORLD_DEBUG_DRAW_CELL
+    mController->debugDraw();
+#endif
+#ifdef WORLD_DRAW_CELL
     mController->draw();
+#endif
     glPopMatrix();
     
     
@@ -149,19 +153,19 @@ void grid_04App::keyDown(KeyEvent event){
             mCamera.lookAt(Vec3f(-1,1,-1),Vec3f::zero());
             break;
         case KeyEvent::KEY_UP:
-            MODEL_ZOOM = MAX(MODEL_ZOOM_MIN,MIN(MODEL_ZOOM+1,MODEL_ZOOM_MAX));
+            MODEL_ZOOM = MAX(WORLD_MODEL_ZOOM_MIN,MIN(MODEL_ZOOM+1,WORLD_MODEL_ZOOM_MAX));
             this->updateView();
             break;
         case KeyEvent::KEY_DOWN:
-            MODEL_ZOOM = MAX(MODEL_ZOOM_MIN,MIN(MODEL_ZOOM-1,MODEL_ZOOM_MAX));
+            MODEL_ZOOM = MAX(WORLD_MODEL_ZOOM_MIN,MIN(MODEL_ZOOM-1,WORLD_MODEL_ZOOM_MAX));
             this->updateView();
             break;
         case KeyEvent::KEY_LEFT:
-            MODEL_SCALE = MAX(MODEL_SCALE_MIN,MIN(MODEL_SCALE-MODEL_SCALE_STEP,MODEL_SCALE_MAX));
+            MODEL_SCALE = MAX(WORLD_MODEL_SCALE_MIN,MIN(MODEL_SCALE-WORLD_MODEL_SCALE_STEP,WORLD_MODEL_SCALE_MAX));
             this->updateView();
             break;
         case KeyEvent::KEY_RIGHT:
-            MODEL_SCALE = MAX(MODEL_SCALE_MIN,MIN(MODEL_SCALE+MODEL_SCALE_STEP,MODEL_SCALE_MAX));
+            MODEL_SCALE = MAX(WORLD_MODEL_SCALE_MIN,MIN(MODEL_SCALE+WORLD_MODEL_SCALE_STEP,+WORLD_MODEL_SCALE_MAX));
             this->updateView();
             break;
         case KeyEvent::KEY_f:

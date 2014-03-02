@@ -9,6 +9,7 @@
 #ifndef grid_01_GridController_h
 #define grid_01_GridController_h
 
+#include "Settings.h"
 #include "cinder/gl/gl.h"
 #include <OpenGL/OpenGL.h>
 #include "cinder/Frustum.h"
@@ -16,8 +17,12 @@
 #include <vector>
 #include "cinder/Rect.h"
 #include "cinder/Matrix44.h"
+#include "cinder/Perlin.h"
+#include "Oscillator.h"
 
 #include "Cell.h"
+
+#include "cinder/Thread.h"
 
 using namespace std;
 using namespace cinder;
@@ -30,12 +35,21 @@ class Controller {
     Rectf     mBounds;
     
     vector<Cell*> mCells;
+    Oscillator    mOscillator;
+    
+#ifdef APP_USE_THREADS
+    thread        mUpdatePathsThread;
+    float         mUpdateInterval;
+    bool          mUpdateThreadIsDead;
+    mutex         mWriteMutex;
+#endif
+    
     
 public:
     Controller(int sizeX = 3, int sizeY = 3) :
         mSizeX(sizeX),
         mSizeY(sizeY){
-        
+
             int sizeX_2 = mSizeX / 2;
             int sizeY_2 = mSizeY / 2;
             //  init
@@ -48,8 +62,8 @@ public:
                 while (++j < mSizeX) {
                     int id[] = {i,j};
                     pos.x = -sizeX_2 + j;
-                    pos.z = -sizeX_2 + i;
-                    mCells.push_back(new Cell(id,pos));
+                    pos.z = -sizeY_2 + i;
+                    mCells.push_back(new Cell(id,pos,&mOscillator));
                 }
             }
             
@@ -57,7 +71,53 @@ public:
             mBounds.y1 = -sizeX_2 - 0.5f;
             mBounds.x2 = mBounds.x1 + sizeX;
             mBounds.y2 = mBounds.y1 + sizeY;
+#ifdef APP_USE_THREADS
+            mUpdateInterval     = (1.0f / APP_CTRL_PATH_THREAD_FPS) * 1000.0f;
+            mUpdatePathsThread  = thread(bind(&Controller::updatePaths,this));
+            mUpdateThreadIsDead = false;
+#endif
+            
+
     }
+    
+    ~Controller(){
+#ifdef APP_USE_THREADS
+        mUpdateThreadIsDead = true;
+        mUpdatePathsThread.join();
+        sleep(1000.0f);
+#endif
+    }
+    
+    
+    inline void draw(){
+        glPushMatrix();
+        glMultMatrixf(&mTransform[0]);
+        for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
+            (*itr)->draw();
+        }
+        glPopMatrix();
+    }
+    
+    inline void updatePaths(){
+#ifdef APP_USE_THREADS
+        while (!mUpdateThreadIsDead) {
+            
+            mWriteMutex.lock(); //naak
+            //more stuff here, soon
+            for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
+                (*itr)->updatePaths();
+            }
+            mWriteMutex.unlock();
+            
+            sleep(mUpdateInterval);
+        }
+#else
+        for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
+            (*itr)->updatePaths();
+        }
+#endif
+    }
+    
     
     
     //! draw boundaries and diver path
@@ -89,9 +149,7 @@ public:
     }
     
     
-    
-    
-    inline void draw(){
+    inline void debugDraw(){
         glPushMatrix();
         glMultMatrixf(&mTransform[0]);
         for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
@@ -100,18 +158,25 @@ public:
         glPopMatrix();
     }
     
-    inline void update(){
+    inline void update(float t){
+#ifndef APP_USE_THREADS
+        updatePaths();
+#endif
+        
         for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
-            (*itr)->update();
+            (*itr)->updateDivers();
+            (*itr)->update(t);
         }
     }
     
+    //! check if cells are within the orthographic frustum
     inline void checkFrustum(const FrustumOrtho& frustum){
         for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
             (*itr)->checkFrustum(frustum,mTransform);
         }
     }
     
+    //! scale the the world
     inline void transform(float scale){
         mTransform = mTransform.identity();
         mTransform.scale(scale);
