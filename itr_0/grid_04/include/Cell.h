@@ -37,6 +37,8 @@ class Cell {
     vector<Path*>  mPaths;
     vector<Diver*> mDivers;
     
+    vector<Vec3f>  mPathData;
+    
     float mDiverWidth;
     
     
@@ -77,6 +79,21 @@ class Cell {
         
     }
     
+    // add new path to path data
+    inline int addPath(Vec3f start, Vec3f end){
+        float a;
+        int i = 0;
+        int index = mPathData.size();
+        mPathData.push_back(start);
+        while (++i < PATH_NUM_POINTS - 1) {
+            a = float(i) / float(PATH_NUM_POINTS - 1);
+            mPathData.push_back(start * (1.0f - a) * end * a);
+        }
+        mPathData.push_back(end);
+        return index;
+    };
+    
+    
     
 public:
     Cell(int* id,const Vec3f& pos,Oscillator* oscillator, Vec3f size = Vec3f(1,1,1)) :
@@ -91,11 +108,7 @@ public:
             mVboMeshLayout.setDynamicPositions();
             mVboMeshLayout.setStaticIndices();
             mVboMeshLayout.setStaticColorsRGB();
-            
-            //mVboMeshLayout.setDynamicTexCoords2d();
-            //mVboMeshLayout.setDynamicNormals();
-            //mVboMeshLayout.setStaticColorsRGB();
-            
+
             this->reset();
     }
     
@@ -120,12 +133,16 @@ public:
         while (++i < mNumDivers) {
             Vec3f end(marginX + float(i) / float(mNumDivers), 0.0, -0.5f);
             Vec3f start(end.x, end.y, 0.5f);
+            //mPaths.push_back(new Path(&mPathData,addPath(start, end),mDiverWidth));
             mPaths.push_back(new Path(start, end, mDiverWidth));
             mDivers.push_back(new Diver(mPaths.back(),Rand::randFloat(CELL_DIVER_MIN_HEIGHT,CELL_DIVER_MAX_HEIGHT)));
         }
        
-     
-        mDiverVerticesCapLen  = 0; // just end, we cant see the front at all
+#ifdef CELL_DIVER_DRAW_FRONT_BACK
+        mDiverVerticesCapLen = 0;
+#else 
+        mDiverVerticesCapLen = 0;
+#endif
         mDiverVerticesTubeLen = (CELL_DIVER_NUM_POINTS * 4) * 2; //(top , bottom , left, right ) * 2 ,
         mDiverVerticesLen     = mDiverVerticesTubeLen + mDiverVerticesCapLen;
         mDiverIndicesLen      = (CELL_DIVER_NUM_POINTS - 1) * 6  * 2 * 2 + (mDiverVerticesCapLen/2 * 3);// + ((mDiverVerticesCapLen / 2 - 1) * 3);
@@ -147,12 +164,6 @@ public:
         int index;
         int uniqueVerticesLen = mDiverVerticesTubeLen / 2;
         
-        colors.resize(0);
-        
-        
-        
-        
-        
         i = -1;
         while (++i < mNumDivers) {
             j = 0;
@@ -162,8 +173,8 @@ public:
                 static const Vec3f down(0,-1,0);
                 static const Vec3f left(-1,0,0);
                 static const Vec3f right(1,0,0);
-                static const Vec3f multiplier(0.5f,0.5f,0.5f);
-                
+                static const Vec3f front(0,0,-1);
+                static const Vec3f back(0,0,1);
                 
                 colors.push_back(toColor(down));
                 colors.push_back(toColor(down));
@@ -173,17 +184,19 @@ public:
                 colors.push_back(toColor(left));
                 colors.push_back(toColor(right));
                 colors.push_back(toColor(right));
-                
-                //colors.push_back(Colorf(0,1,0));
-                //colors.push_back(Colorf(0,1,0));
-                //colors.push_back(Colorf(0,0.5,0));
-                //colors.push_back(Colorf(0,0.5,0));
-                
-                //colors.push_back(Colorf(1,0,0));
-                //colors.push_back(Colorf(1,0,0));
                 ++j;
-                //cout << j << endl;
             }
+#ifdef CELL_DIVER_DRAW_FRONT_BACK
+            colors.push_back(toColor(front));
+            colors.push_back(toColor(front));
+            colors.push_back(toColor(front));
+            colors.push_back(toColor(front));
+            
+            colors.push_back(toColor(back));
+            colors.push_back(toColor(back));
+            colors.push_back(toColor(back));
+            colors.push_back(toColor(back));
+#endif
             
             j = 0;
             while (j < uniqueVerticesLen - 4) {
@@ -256,45 +269,9 @@ public:
                 indices.push_back(v14);
                 indices.push_back(v15);
 #endif
-                
-                
-                
-                
-                
-                
-                
-                
-                /*
-                indices.push_back(v4);
-                indices.push_back(v5);
-                indices.push_back(v7);
-                
-                indices.push_back(v5);
-                indices.push_back(v6);
-                indices.push_back(v7);
-                */
-                /*
-                // side left
-                indices.push_back(v1);
-                indices.push_back(v5);
-                indices.push_back(v2);
-                
-                indices.push_back(v5);
-                indices.push_back(v6);
-                indices.push_back(v2);
-                
-                //side right
-                indices.push_back(v0);
-                indices.push_back(v4);
-                indices.push_back(v3);
-                
-                indices.push_back(v4);
-                indices.push_back(v7);
-                indices.push_back(v3);
-                 */
-                
                 j+=4;
             }
+#ifdef CELL_DIVER_DRAW_FRONT_BACK
             /*
             if(mDiverVerticesCapLen == 0)continue;
             
@@ -318,6 +295,7 @@ public:
             indices.push_back(v3);
             indices.push_back(v1);
              */
+#endif
         }
         
         //cout << "Buffer colors: " << colors.size() << " " << mVboMesh.getNumVertices() <<endl;
@@ -394,8 +372,9 @@ public:
             return;
         }
         
-        float scale  = 0.75f;
-        mOffset     += 0.01f;
+        static const float scale  = 0.75f;
+        mOffset += 0.01f;
+        
         for(vector<Path*>::const_iterator itr = mPaths.begin(); itr != mPaths.end(); ++itr){
             for(vector<Vec3f>::iterator _itr = (*itr)->getPoints().begin(); _itr != (*itr)->getPoints().end(); _itr++){
                 _itr->y = mOscillator->getValue(mPos.x + _itr->x,
@@ -403,16 +382,21 @@ public:
                                                 mId[0], mId[1]) * scale;
             }
         }
+        /*
+        for(vector<Vec3f>::iterator itr = mPathData.begin(); itr != mPathData.end(); ++itr){
+            itr->y = mOscillator->getValue(mPos.x + itr->x,
+                                           mPos.z + itr->z + mOffset, 0,
+                                           mId[0], mId[1]) * scale;
+        }
+         */
     }
     
     inline void updateDivers(){
         if(!mActive){
             return;
         }
-        
-        float t = app::getElapsedSeconds();
         for (vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr) {
-            (*itr)->update(t);
+            (*itr)->update();
         }
     }
     
@@ -473,7 +457,7 @@ public:
 
             }
             
-            if(mDiverVerticesCapLen == 0) continue;
+#ifdef CELL_DIVER_DRAW_FRONT_BACK
            
             const Vec3f& end = points[points.size() - 1];
             
@@ -494,6 +478,7 @@ public:
             
             vbItr.setPosition(0,0,0);
             ++vbItr;
+#endif
         }
     }
     

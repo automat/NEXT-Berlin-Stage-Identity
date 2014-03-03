@@ -132,7 +132,7 @@ public:
     
     
     
-    inline void update(float t){
+    inline void update(){
         // reset if offset reaches double the distance from start
         if(mOffset >= 2.0f){
             mOffset = -1;
