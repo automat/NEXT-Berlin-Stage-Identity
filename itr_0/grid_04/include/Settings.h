@@ -19,12 +19,12 @@
 
 #define APP_WIDTH  STAGE_WIDTH / STAGE_SCALE
 #define APP_HEIGHT STAGE_HEIGHT / STAGE_SCALE
-#define APP_FPS 32.0f
+#define APP_FPS 36.0f
 
 
 
 #define APP_USE_THREADS
-#define APP_CTRL_PATH_THREAD_FPS 60.0f
+#define APP_CTRL_PATH_THREAD_FPS 40.0f
 
 /*--------------------------------------------------------------------------------------------*/
 // WORLD
@@ -39,17 +39,17 @@
 #define WORLD_MODEL_SCALE_INITIAL 0.65f
 #define WORLD_MODEL_ZOOM_INITIAL  1
 
-#define WORLD_NUM_CELLS_XY 11
+#define WORLD_NUM_CELLS_XY 1
 
 #define OSCILLATOR_NUM_SOURCES_XY WORLD_NUM_CELLS_XY
 #define OSCILLATOR_OCTAVES 1
 #define OSCILLATOR_SEED    clock() & 65535
 
-#define CELL_MIN_NUM_DIVERS   10
-#define CELL_MAX_NUM_DIVERS   50
-#define CELL_DIVER_NUM_POINTS 10
+#define CELL_MIN_NUM_DIVERS   2
+#define CELL_MAX_NUM_DIVERS   2
+#define CELL_DIVER_NUM_POINTS 3
 #define CELL_DIVER_MIN_HEIGHT 0.01f
-#define CELL_DIVER_MAX_HEIGHT 0.15f
+#define CELL_DIVER_MAX_HEIGHT 0.05f
 
 
 #define DIVER_MIN_OFFSET 0
@@ -69,8 +69,10 @@
 #define WORLD_DEBUG_DRAW_CELL
 #define WORLD_DRAW_CELL
 
-#define CELL_DEBUG_DRAW_DIVER
-#define CELL_DEBUG_DRAW_PATH
+
+//#define CELL_DEBUG_DRAW_DIVER
+//#define CELL_DEBUG_DRAW_PATH
+//#define CELL_DEBUG_DRAW_MESH_INDICES
 
 
 #endif

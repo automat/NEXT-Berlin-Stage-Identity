@@ -39,9 +39,14 @@ class Controller {
     
 #ifdef APP_USE_THREADS
     thread        mUpdatePathsThread;
+    thread        mUpdateDiversThread;
     float         mUpdateInterval;
-    bool          mUpdateThreadIsDead;
-    mutex         mWriteMutex;
+    bool          mUpdatePathsThreadIsDead;
+    bool          mUpdateDiversThreadIsDead;
+    mutex         mPathWriteMutex;
+    mutex         mDiverWriteMutex;
+    
+    vector<Vec3f> mBufferPaths;
 #endif
     
     
@@ -74,20 +79,21 @@ public:
 #ifdef APP_USE_THREADS
             mUpdateInterval     = (1.0f / APP_CTRL_PATH_THREAD_FPS) * 1000.0f;
             mUpdatePathsThread  = thread(bind(&Controller::updatePaths,this));
-            mUpdateThreadIsDead = false;
+            mUpdateDiversThread = thread(bind(&Controller::updateDivers,this));
+            mUpdatePathsThreadIsDead = false;
+            mUpdateDiversThreadIsDead = false;
 #endif
-            
-
     }
     
     ~Controller(){
 #ifdef APP_USE_THREADS
-        mUpdateThreadIsDead = true;
+        mUpdatePathsThreadIsDead = true;
+        mUpdateDiversThreadIsDead = true;
         mUpdatePathsThread.join();
+        mUpdateDiversThread.join();
         sleep(1000.0f);
 #endif
     }
-    
     
     inline void draw(){
         glPushMatrix();
@@ -100,14 +106,14 @@ public:
     
     inline void updatePaths(){
 #ifdef APP_USE_THREADS
-        while (!mUpdateThreadIsDead) {
+        while (!mUpdatePathsThreadIsDead) {
             
-            mWriteMutex.lock(); //naak
+            mPathWriteMutex.lock(); //naak
             //more stuff here, soon
             for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
                 (*itr)->updatePaths();
             }
-            mWriteMutex.unlock();
+            mPathWriteMutex.unlock();
             
             sleep(mUpdateInterval);
         }
@@ -118,7 +124,25 @@ public:
 #endif
     }
     
-    
+    inline void updateDivers(){
+#ifdef APP_USE_THREADS
+        while (!mUpdateDiversThreadIsDead) {
+            
+            mDiverWriteMutex.lock(); //naak
+            //more stuff here, soon
+            for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
+                (*itr)->updateDivers();
+            }
+            mDiverWriteMutex.unlock();
+            
+            sleep(mUpdateInterval);
+        }
+#else
+        for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
+            (*itr)->updateDivers();
+        }
+#endif
+    }
     
     //! draw boundaries and diver path
     inline void debugArea(){
@@ -135,7 +159,6 @@ public:
         
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
-        
         glColor3f(1, 0, 1);
         glDrawArrays(GL_LINE_LOOP, 0, 4);
         glDisableClientState(GL_VERTEX_ARRAY);
@@ -161,10 +184,10 @@ public:
     inline void update(float t){
 #ifndef APP_USE_THREADS
         updatePaths();
+        updateDivers();
 #endif
         
         for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
-            (*itr)->updateDivers();
             (*itr)->update(t);
         }
     }
