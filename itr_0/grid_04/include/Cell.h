@@ -46,6 +46,7 @@ class Cell {
     
     int mDiverVerticesTubeLen;
     int mDiverVerticesCapLen;
+    int mDiverVerticesLen;
     int mDiverIndicesLen;
     int mVboMeshVerticesLen;
     int mVboMeshIndicesLen;
@@ -89,6 +90,7 @@ public:
             
             mVboMeshLayout.setDynamicPositions();
             mVboMeshLayout.setStaticIndices();
+            mVboMeshLayout.setStaticColorsRGB();
             
             //mVboMeshLayout.setDynamicTexCoords2d();
             //mVboMeshLayout.setDynamicNormals();
@@ -99,6 +101,10 @@ public:
     
     ~Cell(){
         freeData();
+    }
+    
+    inline Colorf toColor(const Vec3f& normal){
+        return Colorf(normal.x * 0.5f + 0.5f,normal.y * 0.5f + 0.5f,normal.z * 0.5f + 0.5f);
     }
     
     inline void reset(){
@@ -121,6 +127,7 @@ public:
      
         mDiverVerticesCapLen  = 0; // just end, we cant see the front at all
         mDiverVerticesTubeLen = (CELL_DIVER_NUM_POINTS * 4) * 2; //(top , bottom , left, right ) * 2 ,
+        mDiverVerticesLen     = mDiverVerticesTubeLen + mDiverVerticesCapLen;
         mDiverIndicesLen      = (CELL_DIVER_NUM_POINTS - 1) * 6  * 2 * 2 + (mDiverVerticesCapLen/2 * 3);// + ((mDiverVerticesCapLen / 2 - 1) * 3);
         mVboMeshVerticesLen   = (mDiverVerticesTubeLen + mDiverVerticesCapLen) * mNumDivers;
         mVboMeshIndicesLen    = mDiverIndicesLen  * mNumDivers;
@@ -130,41 +137,134 @@ public:
 
         
         vector<uint32_t> indices; // buffer target
+        vector<Colorf>   colors;  // buffer colors for debug
      
         int j;
-        int v0,v1,v2,v3;
-        int v4,v5,v6,v7;
+        int v00,v01,v02,v03;
+        int v04,v05,v06,v07;
+        int v08,v09,v10,v11;
+        int v12,v13,v14,v15;
         int index;
         int uniqueVerticesLen = mDiverVerticesTubeLen / 2;
         
+        colors.resize(0);
+        
+        
+        
+        
+        
         i = -1;
         while (++i < mNumDivers) {
+            j = 0;
+            while (j < CELL_DIVER_NUM_POINTS) {
+                
+                static const Vec3f up(0,1,0);
+                static const Vec3f down(0,-1,0);
+                static const Vec3f left(-1,0,0);
+                static const Vec3f right(1,0,0);
+                static const Vec3f multiplier(0.5f,0.5f,0.5f);
+                
+                
+                colors.push_back(toColor(down));
+                colors.push_back(toColor(down));
+                colors.push_back(toColor(up));
+                colors.push_back(toColor(up));
+                colors.push_back(toColor(left));
+                colors.push_back(toColor(left));
+                colors.push_back(toColor(right));
+                colors.push_back(toColor(right));
+                
+                //colors.push_back(Colorf(0,1,0));
+                //colors.push_back(Colorf(0,1,0));
+                //colors.push_back(Colorf(0,0.5,0));
+                //colors.push_back(Colorf(0,0.5,0));
+                
+                //colors.push_back(Colorf(1,0,0));
+                //colors.push_back(Colorf(1,0,0));
+                ++j;
+                //cout << j << endl;
+            }
+            
             j = 0;
             while (j < uniqueVerticesLen - 4) {
                 index = (i * uniqueVerticesLen + j) * 2;
         
                 // bottom -> j / top ->j(next step)
+                // the quads are verticaly sliced
                 
-                // bottom
-                v0 = index; //0
-                v1 = v0+1;  //1
-                v3 = v1+7;  //3
-                v2 = v3+1;  //2
+                // first quad
+                v00 = index + 0;
+                v01 = index + 2;
+                v02 = index + 3;
+                v03 = index + 1;
                 
-                indices.push_back(v0);
-                indices.push_back(v1);
-                indices.push_back(v3);
+                // next quad
+                v04 = index + 8;
+                v05 = index + 10;
+                v06 = index + 11;
+                v07 = index + 9;
                 
-                indices.push_back(v1);
-                indices.push_back(v2);
-                indices.push_back(v3);
+                // first quad duplicate
+                v08 = index + 4;
+                v09 = index + 6;
+                v10 = index + 7;
+                v11 = index + 5;
                 
-                // top
-                v4 = v0 + 2;
-                v5 = v1 + 2;
-                v6 = v2 + 2;
-                v7 = v3 + 2;
+                // next quad duplicate
+                v12 = index + 12;
+                v13 = index + 14;
+                v14 = index + 15;
+                v15 = index + 13;
                 
+#ifdef CELL_DIVER_DRAW_BOTTOM
+                // bottom lower triangle
+                indices.push_back(v00);
+                indices.push_back(v03);
+                indices.push_back(v04);
+                 // bottom upper triangle
+                indices.push_back(v03);
+                indices.push_back(v07);
+                indices.push_back(v04);
+#endif
+#ifdef CELL_DIVER_DRAW_TOP
+                // top lower triangle
+                indices.push_back(v01);
+                indices.push_back(v02);
+                indices.push_back(v05);
+                // bottom upper triangle
+                indices.push_back(v02);
+                indices.push_back(v06);
+                indices.push_back(v05);
+#endif
+#ifdef CELL_DIVER_DRAW_RIGHT
+                // right lower triangle
+                indices.push_back(v08);
+                indices.push_back(v09);
+                indices.push_back(v12);
+                // right upper triangle
+                indices.push_back(v09);
+                indices.push_back(v13);
+                indices.push_back(v12);
+#endif
+#ifdef CELL_DIVER_DRAW_LEFT
+                //left lower triangle
+                indices.push_back(v11);
+                indices.push_back(v10);
+                indices.push_back(v15);
+                 //left upper triangle
+                indices.push_back(v10);
+                indices.push_back(v14);
+                indices.push_back(v15);
+#endif
+                
+                
+                
+                
+                
+                
+                
+                
+                /*
                 indices.push_back(v4);
                 indices.push_back(v5);
                 indices.push_back(v7);
@@ -172,8 +272,8 @@ public:
                 indices.push_back(v5);
                 indices.push_back(v6);
                 indices.push_back(v7);
-                
-                
+                */
+                /*
                 // side left
                 indices.push_back(v1);
                 indices.push_back(v5);
@@ -191,23 +291,11 @@ public:
                 indices.push_back(v4);
                 indices.push_back(v7);
                 indices.push_back(v3);
+                 */
                 
-
-#ifdef CELL_DEBUG_DRAW_MESH_INDICES
-                 cout
-                 << indices[indices.size() - 6] << ", "
-                 << indices[indices.size() - 5] << ", "
-                 << indices[indices.size() - 4]
-                 << endl;
-                 cout
-                 << indices[indices.size() - 3] << ", "
-                 << indices[indices.size() - 2] << ", "
-                 << indices[indices.size() - 1]
-                 << endl;
-#endif
                 j+=4;
             }
-            
+            /*
             if(mDiverVerticesCapLen == 0)continue;
             
             index = (mDiverVerticesTubeLen * (i+1)) + (mDiverVerticesCapLen * i);
@@ -229,12 +317,13 @@ public:
             indices.push_back(v2);
             indices.push_back(v3);
             indices.push_back(v1);
+             */
         }
         
+        //cout << "Buffer colors: " << colors.size() << " " << mVboMesh.getNumVertices() <<endl;
+        
         mVboMesh.bufferIndices(indices);
-#ifdef CELL_DEBUG_DRAW_MESH_INDICES
-        mVboMeshVerticesCopy.resize(mVboMesh.getNumVertices());
-#endif
+        mVboMesh.bufferColorsRGB(colors);
     }
     
     inline void debugArea(){
@@ -284,27 +373,6 @@ public:
         for (vector<Path*>::const_iterator itr = mPaths.begin(); itr != mPaths.end(); ++itr) {
             (*itr)->debugDraw();
         }
-#endif
-#ifdef CELL_DEBUG_DRAW_MESH_INDICES
-        static const Vec2f meshIndexStringPos(0,0);
-        static const float meshIndexStringScale(0.00625f);
-        
-        gl::enableAlphaBlending();
-        gl::enableAlphaTest();
-        glColor3f(1, 1, 1);
-        
-        int i = -1;
-        while(++i < mVboMeshVerticesCopy.size()){
-            const Vec3f& pos = mVboMeshVerticesCopy[i];
-            glPushMatrix();
-    
-            glTranslatef(pos.x + ((i%2==0) ? 0.125f : 0.0f), pos.y + 0.125f, pos.z);
-            glScalef(-meshIndexStringScale,-meshIndexStringScale,meshIndexStringScale);
-            gl::drawString(toString(i),meshIndexStringPos);
-            glPopMatrix();
-        }
-        
-        gl::disableAlphaBlending();
 #endif
         glPopMatrix();
     }
@@ -359,11 +427,6 @@ public:
         float x0,x1,y0,y1;
         int i;
 
-        
-        
-#ifdef CELL_DEBUG_DRAW_MESH_INDICES
-        vector<Vec3f>::iterator vbCopyItr = mVboMeshVerticesCopy.begin();
-#endif
         gl::VboMesh::VertexIter vbItr = mVboMesh.mapVertexBuffer();
         
         for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr) {
@@ -378,73 +441,19 @@ public:
                 y0 = point.y - diverHeight_2;
                 y1 = point.y + diverHeight_2;
                 
-#ifdef CELL_DEBUG_DRAW_MESH_INDICES
-                /*------START------*/
+                // bottom
+                vbItr.setPosition(x0, y0, point.z);
+                ++vbItr;
+                
+                vbItr.setPosition(x1, y0, point.z);
+                ++vbItr;
                 
                 // top
-                vbItr.setPosition(x0, y0, point.z);
-                vbCopyItr->set(*(vbItr.getPositionPointer()));
-                ++vbCopyItr;
-                ++vbItr;
-                
-                vbItr.setPosition(x1, y0, point.z);
-                vbCopyItr->set(*(vbItr.getPositionPointer()));
-                ++vbCopyItr;
-                ++vbItr;
-                
-                // bottom
-                vbItr.setPosition(x0, y1, point.z);
-                vbCopyItr->set(*(vbItr.getPositionPointer()));
-                ++vbCopyItr;
-                ++vbItr;
-                
-                vbItr.setPosition(x1, y1, point.z);
-                vbCopyItr->set(*(vbItr.getPositionPointer()));
-                ++vbCopyItr;
-                ++vbItr;
-                
-                
-                // copy top for left / right
-                vbItr.setPosition(x0, y0, point.z);
-                vbCopyItr->set(*(vbItr.getPositionPointer()));
-                ++vbCopyItr;
-                ++vbItr;
-                
-                vbItr.setPosition(x1, y0, point.z);
-                vbCopyItr->set(*(vbItr.getPositionPointer()));
-                ++vbCopyItr;
-                ++vbItr;
-                
-                // copy bottom for left / right
-                vbItr.setPosition(x0, y1, point.z);
-                vbCopyItr->set(*(vbItr.getPositionPointer()));
-                ++vbCopyItr;
-                ++vbItr;
-                
-                vbItr.setPosition(x1, y1, point.z);
-                vbCopyItr->set(*(vbItr.getPositionPointer()));
-                ++vbCopyItr;
-                ++vbItr;
-                
-                /*-------END-------*/
-#else
-                /*------START------*/
-                
-                // top
-                vbItr.setPosition(x0, y0, point.z);
-                ++vbItr;
-                
-                vbItr.setPosition(x1, y0, point.z);
-                ++vbItr;
-                
-                // bottom
                 vbItr.setPosition(x0, y1, point.z);
                 ++vbItr;
                 
                 vbItr.setPosition(x1, y1, point.z);
                 ++vbItr;
-                
-             
                 
                 // copy top for left / right
                 vbItr.setPosition(x0, y0, point.z);
@@ -459,11 +468,9 @@ public:
                 
                 vbItr.setPosition(x1, y1, point.z);
                 ++vbItr;
-                
-                /*-------END-------*/
                 
                 int pos = vbItr.getIndex();
-#endif
+
             }
             
             if(mDiverVerticesCapLen == 0) continue;

@@ -74,7 +74,9 @@ void grid_04App::mouseDown( MouseEvent event ){
 void grid_04App::update(){
     mFrustum.set(mCamera,1.1f);
     
+#ifdef WORLD_UPDATE
     mController->update(app::getElapsedSeconds());
+#endif
     mController->checkFrustum(mFrustum);
     mController->transform(MODEL_SCALE);
     
@@ -93,6 +95,7 @@ void grid_04App::draw(){
     
     glPushMatrix();
     glScalef(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
+#ifdef WORLD_DRAW
 #ifdef WORLD_DEBUG_DRAW_CELL_AREA
     mController->debugArea();
 #endif
@@ -101,6 +104,7 @@ void grid_04App::draw(){
 #endif
 #ifdef WORLD_DRAW_CELL
     mController->draw();
+#endif
 #endif
     glPopMatrix();
     

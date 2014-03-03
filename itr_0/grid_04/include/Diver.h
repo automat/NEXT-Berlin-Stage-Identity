@@ -75,19 +75,33 @@ public:
         glVertexPointer(3, GL_FLOAT, 0, &mPoints[0].x);
         glDrawArrays(GL_POINTS, 0, mPoints.size());
         
-        Vec3f line[2];
-        float pathWidth = mPath->getWidth() * 0.5f;
+        Vec3f line[4];
+        float pathWidth  = mPath->getWidth() * 0.5f;
+        float height     = mHeight * 0.5f;
         
         glColor3f(0.75f, 0, 0.15f);
         int i = 0;
         while(i < DIVER_NUM_POINTS){
             line[0].set(mPoints[i]);
             line[1].set(line[0]);
+            line[0].y += height;
+            line[1].y += height;
             line[0].x += pathWidth;
             line[1].x -= pathWidth;
             
+            line[2].set(mPoints[i]);
+            line[3].set(line[2]);
+            line[2].y -= height;
+            line[3].y -= height;
+            line[2].x += pathWidth;
+            line[3].x -= pathWidth;
+            
+            
             glVertexPointer(3, GL_FLOAT, 0, &line[0].x);
-            glDrawArrays(GL_LINE_STRIP, 0, 2);
+            glColor3f(0.75f,0,0.15f);
+            glDrawArrays(GL_LINES, 0, 4);
+            glColor3f(1, 1, 1);
+            glDrawArrays(GL_POINTS, 0, 4);
             i++;
         }
         
