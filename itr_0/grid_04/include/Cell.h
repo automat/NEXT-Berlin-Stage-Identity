@@ -119,8 +119,8 @@ public:
         }
        
      
-        mDiverVerticesCapLen  = 4;//4 * 2;
-        mDiverVerticesTubeLen = CELL_DIVER_NUM_POINTS * 4 * 2; //(top , bottom , left, right ) * 2 ,
+        mDiverVerticesCapLen  = 0; // just end, we cant see the front at all
+        mDiverVerticesTubeLen = (CELL_DIVER_NUM_POINTS * 4) * 2; //(top , bottom , left, right ) * 2 ,
         mDiverIndicesLen      = (CELL_DIVER_NUM_POINTS - 1) * 6  * 2 * 2 + (mDiverVerticesCapLen/2 * 3);// + ((mDiverVerticesCapLen / 2 - 1) * 3);
         mVboMeshVerticesLen   = (mDiverVerticesTubeLen + mDiverVerticesCapLen) * mNumDivers;
         mVboMeshIndicesLen    = mDiverIndicesLen  * mNumDivers;
@@ -128,36 +128,29 @@ public:
         mVboMesh.reset();
         mVboMesh = gl::VboMesh(mVboMeshVerticesLen,mVboMeshIndicesLen,mVboMeshLayout,GL_TRIANGLES);
 
-        cout<< "TUBE LEN " << mDiverVerticesTubeLen << endl;
         
-        vector<uint32_t> indices;
+        vector<uint32_t> indices; // buffer target
      
         int j;
         int v0,v1,v2,v3;
         int v4,v5,v6,v7;
         int index;
-        int uniqueVerticesLen = mDiverVerticesTubeLen / 2  ;
-        int cap   = 4;
+        int uniqueVerticesLen = mDiverVerticesTubeLen / 2;
+        
         i = -1;
         while (++i < mNumDivers) {
             j = 0;
             while (j < uniqueVerticesLen - 4) {
                 index = (i * uniqueVerticesLen + j) * 2;
-                // 2 side
+        
                 // bottom -> j / top ->j(next step)
+                
                 // bottom
                 v0 = index; //0
                 v1 = v0+1;  //1
                 v3 = v1+7;  //3
                 v2 = v3+1;  //2
                 
-                // top
-                v4 = v0 + 2;
-                v5 = v1 + 2;
-                v6 = v2 + 2;
-                v7 = v3 + 2;
-                
-                // bottom
                 indices.push_back(v0);
                 indices.push_back(v1);
                 indices.push_back(v3);
@@ -166,8 +159,12 @@ public:
                 indices.push_back(v2);
                 indices.push_back(v3);
                 
-                
                 // top
+                v4 = v0 + 2;
+                v5 = v1 + 2;
+                v6 = v2 + 2;
+                v7 = v3 + 2;
+                
                 indices.push_back(v4);
                 indices.push_back(v5);
                 indices.push_back(v7);
@@ -194,8 +191,6 @@ public:
                 indices.push_back(v4);
                 indices.push_back(v7);
                 indices.push_back(v3);
-                 
-                
                 
 
 #ifdef CELL_DEBUG_DRAW_MESH_INDICES
@@ -211,17 +206,11 @@ public:
                  << endl;
 #endif
                 j+=4;
-                cout << index << endl;
-                //cout << index << " / " << (mVboMeshVerticesLen - 1) << endl;
             }
-            cout << index << endl;
+            
+            if(mDiverVerticesCapLen == 0)continue;
+            
             index = (mDiverVerticesTubeLen * (i+1)) + (mDiverVerticesCapLen * i);
-            //index += (mDiverVerticesCapLen * (i+1));
-            cout << "CAP :" << index << endl;
-            
-            //continue;
-            
-            
             
             v0 = index;
             v1 = v0 + 1;
@@ -232,7 +221,6 @@ public:
             v5 = v4 + 1;
             v6 = v4 + 2;
             v7 = v6 + 1;
-            //continue;
             
             indices.push_back(v0);
             indices.push_back(v1);
@@ -241,51 +229,7 @@ public:
             indices.push_back(v2);
             indices.push_back(v3);
             indices.push_back(v1);
-            
-            cout
-            << indices[indices.size() - 6] << ", "
-            << indices[indices.size() - 5] << ", "
-            << indices[indices.size() - 4]
-            << endl;
-            cout
-            << indices[indices.size() - 3] << ", "
-            << indices[indices.size() - 2] << ", "
-            << indices[indices.size() - 1]
-            << endl;
-            
-            /*
-            indices.push_back(v4);
-            indices.push_back(v5);
-            indices.push_back(v6);
-            
-            indices.push_back(v6);
-            indices.push_back(v7);
-            indices.push_back(v5);
-             */
-            
-            /*
-            cout << "   " << v0 << endl;
-            cout << "   " << v1 << endl;
-            cout << "   " << v2 << endl;
-            cout << "   " << v3 << endl;
-            
-            
-            cout << "   " << v4 << endl;
-            cout << "   " << v5 << endl;
-            cout << "   " << v6 << endl;
-            cout << "   " << v7 << endl;
-            */
-            
-            
-            
-
-            
-            
-            // push caps
-            //v0 =
         }
-        
-        //cout << indices.size() << " / " << mVboMeshIndicesLen << endl;
         
         mVboMesh.bufferIndices(indices);
 #ifdef CELL_DEBUG_DRAW_MESH_INDICES
@@ -415,19 +359,17 @@ public:
         float x0,x1,y0,y1;
         int i;
 
-        gl::VboMesh::VertexIter vbItr = mVboMesh.mapVertexBuffer();
+        
         
 #ifdef CELL_DEBUG_DRAW_MESH_INDICES
         vector<Vec3f>::iterator vbCopyItr = mVboMeshVerticesCopy.begin();
 #endif
-        int k = 0;
-        cout << "BEGIN" << endl;
-        cout << vbItr.getIndex() << endl;
+        gl::VboMesh::VertexIter vbItr = mVboMesh.mapVertexBuffer();
+        
         for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr) {
             diverHeight_2 = (*itr)->getHeight() * 0.5f;
             const vector<Vec3f>& points = (*itr)->getPoints();
-
-       
+            
             i = -1;
             while(++i < points.size()){
                 const Vec3f& point = points[i];
@@ -435,7 +377,7 @@ public:
                 x1 = point.x + diverWidth_2;
                 y0 = point.y - diverHeight_2;
                 y1 = point.y + diverHeight_2;
-
+                
 #ifdef CELL_DEBUG_DRAW_MESH_INDICES
                 /*------START------*/
                 
@@ -502,7 +444,7 @@ public:
                 vbItr.setPosition(x1, y1, point.z);
                 ++vbItr;
                 
-                //continue;
+             
                 
                 // copy top for left / right
                 vbItr.setPosition(x0, y0, point.z);
@@ -520,23 +462,15 @@ public:
                 
                 /*-------END-------*/
                 
-                k+=8;
-                cout << vbItr.getIndex() << endl;
-                //cout << k << endl;
+                int pos = vbItr.getIndex();
 #endif
             }
             
+            if(mDiverVerticesCapLen == 0) continue;
+           
+            const Vec3f& end = points[points.size() - 1];
             
-            
-            cout << "CAP" << endl;
-            
-            //cout << "END" << endl;
-            //cout << "CAP INDEX: " << k << endl;
-            
-            const Vec3f& end   = points[points.size() - 1];
-            //cout << k << endl;
-            
-            // start
+            // end
             x0 = end.x - diverWidth_2;
             x1 = end.x + diverWidth_2;
             y0 = end.y - diverHeight_2;
@@ -553,12 +487,6 @@ public:
             
             vbItr.setPosition(0,0,0);
             ++vbItr;
-            
-            k+=4;
-            
-            cout << vbItr.getIndex() << endl;
-            
-            continue;
         }
     }
     
