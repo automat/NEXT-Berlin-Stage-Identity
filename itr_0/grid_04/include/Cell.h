@@ -107,7 +107,7 @@ class Cell {
             mVboMeshBufferIndices[i] = mVboMeshUnfoldIndices[i] + vertexIndex;
         }
         
-        size_t offset = sizeof(uint32_t) * vertexIndex;
+        size_t offset = sizeof(uint32_t) * index * mDiverIndicesLen;
         size_t size   = sizeof(uint32_t) * mDiverIndicesLen;
         
         gl::Vbo& indexBuffer = mVboMesh.getIndexVbo();
@@ -472,12 +472,6 @@ public:
         mVboMesh.bufferIndices(indices);
         mVboMesh.bufferColorsRGB(colors);
         mVboMesh.unbindBuffers();
-        
-        //fold(0);
-        fold(1);
-        unfold(1);
-        //fold(3);
-        //fold(5);
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -573,25 +567,6 @@ public:
         }
     }
     
-    inline void updateDiversFolds(){
-        if(!mActive){
-            return;
-        }
-  
-        int vboMeshVertexIndex = 0;
-        for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
-            Diver* const diver = *itr;
-            
-            if(diver->isOut() && !(diver->isOutPrev())){
-              //  fold(vboMeshVertexIndex);
-            } else if (!(diver->isOut()) && diver->isOutPrev()){
-              //  unfold(vboMeshVertexIndex);
-            }
-            
-            vboMeshVertexIndex += mDiverVerticesLen;
-        }
-    }
-    
     //! Update all divers
     inline void updateDivers(){
         if(!mActive){
@@ -615,10 +590,14 @@ public:
         int i;
 
         gl::VboMesh::VertexIter vbItr = mVboMesh.mapVertexBuffer();
-        
+        bool diverOut;
+        bool diverOutPrev;
+        int diverIndex = 0;
         for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr) {
-            diverHeight_2 = (*itr)->getHeight() * 0.5f;
-            const vector<Vec3f>& points = (*itr)->getPoints();
+            Diver* const diver = *itr;
+            
+            diverHeight_2 = diver->getHeight() * 0.5f;
+            const vector<Vec3f>& points = diver->getPoints();
             
             i = -1;
             while(++i < points.size()){
@@ -697,8 +676,21 @@ public:
             vbItr.setPosition(x1,y1,end.z);
             ++vbItr;
 #endif
+            // update if in or out,
+            // need to be on same thread, otherwise in update
+            diver->updateInOut();
+            diverOut     = diver->isOut();
+            diverOutPrev = diver->isOutPrev();
+            
+            // fold / unfold diver
+            if(diverOut && !diverOutPrev){
+                fold(diverIndex);
+            } else if(!diverOut && diverOutPrev){
+                unfold(diverIndex);
+            }
+               
+            diverIndex++;
         }
-
     }
     
     //! Check if a cell lies within the orthographics camera frustum

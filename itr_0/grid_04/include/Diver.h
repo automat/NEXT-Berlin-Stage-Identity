@@ -149,11 +149,12 @@ public:
         for(vector<Vec3f>::iterator itr = mPoints.begin(); itr != mPoints.end(); itr++){
             mPath->getPointOn(offsetInv + mLengthStep * float(i++), &(*itr));
         }
-        
+    };
+    
+    inline void updateInOut(){
         mIsOutPrev = mIsOut;
         mIsOut = (mOffset >= (1.0f + mLength)) || (mOffset <= 0.0f);
-        
-    };
+    }
     
     inline void draw(){
     }
