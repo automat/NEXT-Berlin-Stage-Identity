@@ -33,25 +33,25 @@ class Cell {
     // Member
     /*--------------------------------------------------------------------------------------------*/
 
-    Vec3f  mPos;
-    Vec3f  mSize;
-    int    mId[2];
-   
+    Vec3f  mPos;    // global position of cell
+    Vec3f  mSize;   // global size of cell, 1
+    int    mId[2];  // x,y id of cell
+    bool   mActive;
+    
     int             mNumDivers;
     vector<Path*>   mPaths;
     vector<Diver*>  mDivers;
     
-    
-    vector<uint32_t> mVboMeshFoldIndices;
-    vector<uint32_t> mVboMeshUnfoldIndices;
-    vector<uint32_t> mVboMeshBufferIndices;
+    vector<uint32_t> mDiverIndicesFolded;   // indices order, when folded
+    vector<uint32_t> mDiverIndicesUnfolded; // indices order, when unfolded
+    vector<uint32_t> mDiverIndicesBuffer;   // indices order, when translated to specific diver
     
     vector<Vec3f>  mPathData;
     
     float mDiverWidth;
     
     
-    bool   mActive;
+    
     Oscillator* mOscillator;
     float mOffset;
     
@@ -92,7 +92,7 @@ class Cell {
         
         gl::Vbo& indexBuffer = mVboMesh.getIndexVbo();
         indexBuffer.bind();
-        indexBuffer.bufferSubData(offset, size, &mVboMeshFoldIndices[0]);
+        indexBuffer.bufferSubData(offset, size, &mDiverIndicesFolded[0]);
         indexBuffer.unbind();
     }
     
@@ -104,7 +104,7 @@ class Cell {
         int vertexIndex = index * mDiverVerticesLen;
         int i = -1;
         while(++i < mDiverIndicesLen){
-            mVboMeshBufferIndices[i] = mVboMeshUnfoldIndices[i] + vertexIndex;
+            mDiverIndicesBuffer[i] = mDiverIndicesUnfolded[i] + vertexIndex;
         }
         
         size_t offset = sizeof(uint32_t) * index * mDiverIndicesLen;
@@ -112,7 +112,7 @@ class Cell {
         
         gl::Vbo& indexBuffer = mVboMesh.getIndexVbo();
         indexBuffer.bind();
-        indexBuffer.bufferSubData(offset, size, &mVboMeshBufferIndices[0]);
+        indexBuffer.bufferSubData(offset, size, &mDiverIndicesBuffer[0]);
         indexBuffer.unbind();
     }
     
@@ -179,16 +179,16 @@ public:
         mVboMeshIndicesLen    = mDiverIndicesLen  * mNumDivers;
         
         
-        mVboMeshFoldIndices.resize(0);
-        mVboMeshUnfoldIndices.resize(0);
-        mVboMeshBufferIndices.resize(mDiverIndicesLen);
+        mDiverIndicesFolded.resize(0);
+        mDiverIndicesUnfolded.resize(0);
+        mDiverIndicesBuffer.resize(mDiverIndicesLen);
         
         //
         // setup a vector of 0 indices to use when folding a diver
         //
         i = -1;
         while(++i < mDiverIndicesLen){
-            mVboMeshFoldIndices.push_back(0);
+            mDiverIndicesFolded.push_back(0);
         }
         
         //
@@ -233,43 +233,43 @@ public:
             
 #ifdef CELL_DIVER_DRAW_BOTTOM
             // bottom lower triangle
-            mVboMeshUnfoldIndices.push_back(v00);
-            mVboMeshUnfoldIndices.push_back(v03);
-            mVboMeshUnfoldIndices.push_back(v04);
+            mDiverIndicesUnfolded.push_back(v00);
+            mDiverIndicesUnfolded.push_back(v03);
+            mDiverIndicesUnfolded.push_back(v04);
             // bottom upper triangle
-            mVboMeshUnfoldIndices.push_back(v03);
-            mVboMeshUnfoldIndices.push_back(v07);
-            mVboMeshUnfoldIndices.push_back(v04);
+            mDiverIndicesUnfolded.push_back(v03);
+            mDiverIndicesUnfolded.push_back(v07);
+            mDiverIndicesUnfolded.push_back(v04);
 #endif
 #ifdef CELL_DIVER_DRAW_TOP
             // top lower triangle
-            mVboMeshUnfoldIndices.push_back(v01);
-            mVboMeshUnfoldIndices.push_back(v02);
-            mVboMeshUnfoldIndices.push_back(v05);
+            mDiverIndicesUnfolded.push_back(v01);
+            mDiverIndicesUnfolded.push_back(v02);
+            mDiverIndicesUnfolded.push_back(v05);
             // bottom upper triangle
-            mVboMeshUnfoldIndices.push_back(v02);
-            mVboMeshUnfoldIndices.push_back(v06);
-            mVboMeshUnfoldIndices.push_back(v05);
+            mDiverIndicesUnfolded.push_back(v02);
+            mDiverIndicesUnfolded.push_back(v06);
+            mDiverIndicesUnfolded.push_back(v05);
 #endif
 #ifdef CELL_DIVER_DRAW_RIGHT
             // right lower triangle
-            mVboMeshUnfoldIndices.push_back(v08);
-            mVboMeshUnfoldIndices.push_back(v09);
-            mVboMeshUnfoldIndices.push_back(v12);
+            mDiverIndicesUnfolded.push_back(v08);
+            mDiverIndicesUnfolded.push_back(v09);
+            mDiverIndicesUnfolded.push_back(v12);
             // right upper triangle
-            mVboMeshUnfoldIndices.push_back(v09);
-            mVboMeshUnfoldIndices.push_back(v13);
-            mVboMeshUnfoldIndices.push_back(v12);
+            mDiverIndicesUnfolded.push_back(v09);
+            mDiverIndicesUnfolded.push_back(v13);
+            mDiverIndicesUnfolded.push_back(v12);
 #endif
 #ifdef CELL_DIVER_DRAW_LEFT
             //left lower triangle
-            mVboMeshUnfoldIndices.push_back(v11);
-            mVboMeshUnfoldIndices.push_back(v10);
-            mVboMeshUnfoldIndices.push_back(v15);
+            mDiverIndicesUnfolded.push_back(v11);
+            mDiverIndicesUnfolded.push_back(v10);
+            mDiverIndicesUnfolded.push_back(v15);
             //left upper triangle
-            mVboMeshUnfoldIndices.push_back(v10);
-            mVboMeshUnfoldIndices.push_back(v14);
-            mVboMeshUnfoldIndices.push_back(v15);
+            mDiverIndicesUnfolded.push_back(v10);
+            mDiverIndicesUnfolded.push_back(v14);
+            mDiverIndicesUnfolded.push_back(v15);
 #endif
         }
 #ifdef CELL_DIVER_DRAW_FRONT_BACK
@@ -289,22 +289,22 @@ public:
         v07 = index+7;
         
         // front lower triangle
-        mVboMeshUnfoldIndices.push_back(v00);
-        mVboMeshUnfoldIndices.push_back(v02);
-        mVboMeshUnfoldIndices.push_back(v01);
+        mDiverIndicesUnfolded.push_back(v00);
+        mDiverIndicesUnfolded.push_back(v02);
+        mDiverIndicesUnfolded.push_back(v01);
         // front upper triangle
-        mVboMeshUnfoldIndices.push_back(v02);
-        mVboMeshUnfoldIndices.push_back(v03);
-        mVboMeshUnfoldIndices.push_back(v01);
+        mDiverIndicesUnfolded.push_back(v02);
+        mDiverIndicesUnfolded.push_back(v03);
+        mDiverIndicesUnfolded.push_back(v01);
         
         // back lower triangle
-        mVboMeshUnfoldIndices.push_back(v04);
-        mVboMeshUnfoldIndices.push_back(v06);
-        mVboMeshUnfoldIndices.push_back(v05);
+        mDiverIndicesUnfolded.push_back(v04);
+        mDiverIndicesUnfolded.push_back(v06);
+        mDiverIndicesUnfolded.push_back(v05);
         // back upper triangle
-        mVboMeshUnfoldIndices.push_back(v06);
-        mVboMeshUnfoldIndices.push_back(v07);
-        mVboMeshUnfoldIndices.push_back(v05);
+        mDiverIndicesUnfolded.push_back(v06);
+        mDiverIndicesUnfolded.push_back(v07);
+        mDiverIndicesUnfolded.push_back(v05);
 #endif
         
         //
@@ -317,7 +317,7 @@ public:
         vector<uint32_t> indices; // buffer target
         vector<Colorf>   colors;  // buffer colors for debug
      
-        int offset = 0;
+        int vertexIndex = 0;
         
         const static Vec3f up(0,1,0);
         const static Vec3f down(0,-1,0);
@@ -356,117 +356,11 @@ public:
             colors.push_back(toColor(back));
             colors.push_back(toColor(back));
 #endif
-            // step one complete diver forward
-            offset = mDiverVerticesLen * i;
-            
-            j = 0;
-            while (j < CELL_DIVER_NUM_POINTS - 1) {
-                //current diver beginning + step quads * 2
-                index = offset + j * 8;
-        
-                // bottom -> j / top ->j(next step)
-                // the quads are verticaly sliced
-                
-                // first quad
-                v00 = index + 0;
-                v01 = index + 2;
-                v02 = index + 3;
-                v03 = index + 1;
-                
-                // next quad
-                v04 = index + 8;
-                v05 = index + 10;
-                v06 = index + 11;
-                v07 = index + 9;
-                
-                // first quad duplicate
-                v08 = index + 4;
-                v09 = index + 6;
-                v10 = index + 7;
-                v11 = index + 5;
-                
-                // next quad duplicate
-                v12 = index + 12;
-                v13 = index + 14;
-                v14 = index + 15;
-                v15 = index + 13;
-                
-#ifdef CELL_DIVER_DRAW_BOTTOM
-                // bottom lower triangle
-                indices.push_back(v00);
-                indices.push_back(v03);
-                indices.push_back(v04);
-                 // bottom upper triangle
-                indices.push_back(v03);
-                indices.push_back(v07);
-                indices.push_back(v04);
-#endif
-#ifdef CELL_DIVER_DRAW_TOP
-                // top lower triangle
-                indices.push_back(v01);
-                indices.push_back(v02);
-                indices.push_back(v05);
-                // bottom upper triangle
-                indices.push_back(v02);
-                indices.push_back(v06);
-                indices.push_back(v05);
-#endif
-#ifdef CELL_DIVER_DRAW_RIGHT
-                // right lower triangle
-                indices.push_back(v08);
-                indices.push_back(v09);
-                indices.push_back(v12);
-                // right upper triangle
-                indices.push_back(v09);
-                indices.push_back(v13);
-                indices.push_back(v12);
-#endif
-#ifdef CELL_DIVER_DRAW_LEFT
-                //left lower triangle
-                indices.push_back(v11);
-                indices.push_back(v10);
-                indices.push_back(v15);
-                 //left upper triangle
-                indices.push_back(v10);
-                indices.push_back(v14);
-                indices.push_back(v15);
-#endif
-                j++;
+            vertexIndex = i * mDiverVerticesLen;
+            j = -1;
+            while (++j < mDiverIndicesLen) {
+                indices.push_back(mDiverIndicesUnfolded[j] + vertexIndex);
             }
-#ifdef CELL_DIVER_DRAW_FRONT_BACK
-            // current diver step 0 + just tube vertices, leaing 8 cap vertices
-            index  = offset + mDiverVerticesTubeLen;
-
-            // front
-            v00 = index;
-            v01 = index+1;
-            v02 = index+2;
-            v03 = index+3;
-            
-            // back
-            v04 = index+4;
-            v05 = index+5;
-            v06 = index+6;
-            v07 = index+7;
-            
-            // front lower triangle
-            indices.push_back(v00);
-            indices.push_back(v02);
-            indices.push_back(v01);
-            // front upper triangle
-            indices.push_back(v02);
-            indices.push_back(v03);
-            indices.push_back(v01);
-      
-            // back lower triangle
-            indices.push_back(v04);
-            indices.push_back(v06);
-            indices.push_back(v05);
-            // back upper triangle
-            indices.push_back(v06);
-            indices.push_back(v07);
-            indices.push_back(v05);
-#endif
         }
         
         mVboMesh.bufferIndices(indices);

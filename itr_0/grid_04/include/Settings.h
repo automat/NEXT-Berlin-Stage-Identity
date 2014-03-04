@@ -75,7 +75,7 @@
 #define WORLD_DRAW_CELL
 
 
-//#define CELL_DEBUG_DRAW_DIVER
+#define CELL_DEBUG_DRAW_DIVER
 //#define CELL_DEBUG_DRAW_PATH
 
 
