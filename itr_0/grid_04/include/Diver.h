@@ -38,6 +38,9 @@ class Diver {
     vector<Vec3f> mNormals;
     vector<Vec3f> mPoints;
     
+    bool   mIsOut;
+    bool   mIsOutPrev;
+    
     
     
     
@@ -49,13 +52,11 @@ public:
         mSpeed(Rand::randFloat(DIVER_MIN_SPEED,DIVER_MAX_SPEED)),
         mLength(Rand::randFloat(DIVER_MIN_LENGTH,DIVER_MAX_LENGTH)),
         mHeight(height){
+            mIsOut = mIsOutPrev = false;
             
             mNormals.resize(DIVER_NUM_POINTS);
             mPoints.resize(DIVER_NUM_POINTS);
             mLengthStep = mLength / (float)(DIVER_NUM_POINTS-1);
-      
-            
-            
     }
     
     inline void debugDraw(){
@@ -123,7 +124,11 @@ public:
     
     //! check if the points summed distance is within visible range
     inline bool isOut(){
-        return (mOffset >= (1.0f + mLength)) || (mOffset <= 0.0f);
+        return mIsOut;
+    }
+    //! check previous out status
+    inline bool isOutPrev(){
+        return mIsOutPrev;
     }
     
     inline void hide(){
@@ -144,6 +149,10 @@ public:
         for(vector<Vec3f>::iterator itr = mPoints.begin(); itr != mPoints.end(); itr++){
             mPath->getPointOn(offsetInv + mLengthStep * float(i++), &(*itr));
         }
+        
+        mIsOutPrev = mIsOut;
+        mIsOut = (mOffset >= (1.0f + mLength)) || (mOffset <= 0.0f);
+        
     };
     
     inline void draw(){

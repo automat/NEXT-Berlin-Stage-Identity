@@ -29,13 +29,22 @@ using namespace ci;
 using namespace std;
 
 class Cell {
+    /*--------------------------------------------------------------------------------------------*/
+    // Member
+    /*--------------------------------------------------------------------------------------------*/
+
     Vec3f  mPos;
     Vec3f  mSize;
     int    mId[2];
    
-    int            mNumDivers;
-    vector<Path*>  mPaths;
-    vector<Diver*> mDivers;
+    int             mNumDivers;
+    vector<Path*>   mPaths;
+    vector<Diver*>  mDivers;
+    
+    
+    vector<uint32_t> mVboMeshFoldIndices;
+    vector<uint32_t> mVboMeshUnfoldIndices;
+    vector<uint32_t> mVboMeshBufferIndices;
     
     vector<Vec3f>  mPathData;
     
@@ -56,52 +65,76 @@ class Cell {
     gl::VboMesh::Layout mVboMeshLayout;
     gl::VboMesh         mVboMesh;
     
+    //
+    // free all pointer data
+    //
     void freeData(){
         while (!mPaths.empty())  delete mPaths.back(), mPaths.pop_back();
         while (!mDivers.empty()) delete mDivers.back(), mDivers.pop_back();
     }
     
-    // collapse all vertices of a diver into one by setting
-    // its indices to its first index
-    inline void fold(Diver* diver, int index){
-        
+    inline Colorf toColor(const Vec3f& normal){
+        return Colorf(normal.x * 0.5f + 0.5f,normal.y * 0.5f + 0.5f,normal.z * 0.5f + 0.5f);
     }
     
+    /*--------------------------------------------------------------------------------------------*/
+    // Fold / Unfold
+    /*--------------------------------------------------------------------------------------------*/
+
+    //
+    // collapse all vertices of a diver into one vertex by setting
+    // all its indices to its first index
+    //
+    inline void fold(int index){
+        index = index * mDiverIndicesLen;
+        size_t offset = sizeof(uint32_t) * index;
+        size_t size   = sizeof(uint32_t) * mDiverIndicesLen;
+        
+        gl::Vbo& indexBuffer = mVboMesh.getIndexVbo();
+        indexBuffer.bind();
+        indexBuffer.bufferSubData(offset, size, &mVboMeshFoldIndices[0]);
+        indexBuffer.unbind();
+    }
+    
+    //
     // reorder all indices to their vertices,
     // recreating the orignal shape
-    inline void unfold(Diver* diver, int index){
-        int j = 0;
-        
-    }
-    
-    // add new path to path data
-    inline int addPath(Vec3f start, Vec3f end){
-        float a;
-        int i = 0;
-        int index = mPathData.size();
-        mPathData.push_back(start);
-        while (++i < PATH_NUM_POINTS - 1) {
-            a = float(i) / float(PATH_NUM_POINTS - 1);
-            mPathData.push_back(start * (1.0f - a) * end * a);
+    //
+    inline void unfold(int index){
+        int vertexIndex = index * mDiverVerticesLen;
+        int i = -1;
+        while(++i < mDiverIndicesLen){
+            mVboMeshBufferIndices[i] = mVboMeshUnfoldIndices[i] + vertexIndex;
         }
-        mPathData.push_back(end);
-        return index;
-    };
-    
+        
+        size_t offset = sizeof(uint32_t) * vertexIndex;
+        size_t size   = sizeof(uint32_t) * mDiverIndicesLen;
+        
+        gl::Vbo& indexBuffer = mVboMesh.getIndexVbo();
+        indexBuffer.bind();
+        indexBuffer.bufferSubData(offset, size, &mVboMeshBufferIndices[0]);
+        indexBuffer.unbind();
+    }
     
     
 public:
+    
+    /*--------------------------------------------------------------------------------------------*/
+    // Constructor / Destructor
+    /*--------------------------------------------------------------------------------------------*/
+
+    
     Cell(int* id,const Vec3f& pos,Oscillator* oscillator, Vec3f size = Vec3f(1,1,1)) :
         mPos(pos),
+        mOscillator(oscillator),
         mSize(size),
-        mActive(true){
+        mActive(true),
+        mOffset(0.0f){
             mId[0] = id[0];
             mId[1] = id[1];
-            mOffset = 0.0f;
-            mOscillator = oscillator;
             
             mVboMeshLayout.setDynamicPositions();
-            mVboMeshLayout.setStaticIndices();
+            mVboMeshLayout.setDynamicIndices();
             mVboMeshLayout.setStaticColorsRGB();
 
             this->reset();
@@ -111,15 +144,16 @@ public:
         freeData();
     }
     
-    inline Colorf toColor(const Vec3f& normal){
-        return Colorf(normal.x * 0.5f + 0.5f,normal.y * 0.5f + 0.5f,normal.z * 0.5f + 0.5f);
-    }
+    /*--------------------------------------------------------------------------------------------*/
+    // Geom init
+    /*--------------------------------------------------------------------------------------------*/
+    
     
     inline void reset(){
+        freeData();
+        
         mNumDivers  = Rand::randInt(CELL_MIN_NUM_DIVERS,CELL_MAX_NUM_DIVERS);
         mDiverWidth = 1.0f / (float)mNumDivers;
-        
-        freeData();
         
         Vec3f start,end;
         float marginX = -0.5f + mDiverWidth * 0.5f;
@@ -144,18 +178,145 @@ public:
         mVboMeshVerticesLen   = (mDiverVerticesTubeLen + mDiverVerticesCapLen) * mNumDivers;
         mVboMeshIndicesLen    = mDiverIndicesLen  * mNumDivers;
         
+        
+        mVboMeshFoldIndices.resize(0);
+        mVboMeshUnfoldIndices.resize(0);
+        mVboMeshBufferIndices.resize(mDiverIndicesLen);
+        
+        //
+        // setup a vector of 0 indices to use when folding a diver
+        //
+        i = -1;
+        while(++i < mDiverIndicesLen){
+            mVboMeshFoldIndices.push_back(0);
+        }
+        
+        //
+        // setup a vector of unit indices to use when unfolding a diver
+        //
+        int v00,v01,v02,v03;
+        int v04,v05,v06,v07;
+        int v08,v09,v10,v11;
+        int v12,v13,v14,v15;
+        int index;
+        int j;
+        i = -1;
+        while (++i < CELL_DIVER_NUM_POINTS - 1) {
+            index = i * 8;
+            
+            // bottom -> j / top ->j(next step)
+            // the quads are verticaly sliced
+            
+            // first quad
+            v00 = index + 0;
+            v01 = index + 2;
+            v02 = index + 3;
+            v03 = index + 1;
+            
+            // next quad
+            v04 = index + 8;
+            v05 = index + 10;
+            v06 = index + 11;
+            v07 = index + 9;
+            
+            // first quad duplicate
+            v08 = index + 4;
+            v09 = index + 6;
+            v10 = index + 7;
+            v11 = index + 5;
+            
+            // next quad duplicate
+            v12 = index + 12;
+            v13 = index + 14;
+            v14 = index + 15;
+            v15 = index + 13;
+            
+#ifdef CELL_DIVER_DRAW_BOTTOM
+            // bottom lower triangle
+            mVboMeshUnfoldIndices.push_back(v00);
+            mVboMeshUnfoldIndices.push_back(v03);
+            mVboMeshUnfoldIndices.push_back(v04);
+            // bottom upper triangle
+            mVboMeshUnfoldIndices.push_back(v03);
+            mVboMeshUnfoldIndices.push_back(v07);
+            mVboMeshUnfoldIndices.push_back(v04);
+#endif
+#ifdef CELL_DIVER_DRAW_TOP
+            // top lower triangle
+            mVboMeshUnfoldIndices.push_back(v01);
+            mVboMeshUnfoldIndices.push_back(v02);
+            mVboMeshUnfoldIndices.push_back(v05);
+            // bottom upper triangle
+            mVboMeshUnfoldIndices.push_back(v02);
+            mVboMeshUnfoldIndices.push_back(v06);
+            mVboMeshUnfoldIndices.push_back(v05);
+#endif
+#ifdef CELL_DIVER_DRAW_RIGHT
+            // right lower triangle
+            mVboMeshUnfoldIndices.push_back(v08);
+            mVboMeshUnfoldIndices.push_back(v09);
+            mVboMeshUnfoldIndices.push_back(v12);
+            // right upper triangle
+            mVboMeshUnfoldIndices.push_back(v09);
+            mVboMeshUnfoldIndices.push_back(v13);
+            mVboMeshUnfoldIndices.push_back(v12);
+#endif
+#ifdef CELL_DIVER_DRAW_LEFT
+            //left lower triangle
+            mVboMeshUnfoldIndices.push_back(v11);
+            mVboMeshUnfoldIndices.push_back(v10);
+            mVboMeshUnfoldIndices.push_back(v15);
+            //left upper triangle
+            mVboMeshUnfoldIndices.push_back(v10);
+            mVboMeshUnfoldIndices.push_back(v14);
+            mVboMeshUnfoldIndices.push_back(v15);
+#endif
+        }
+#ifdef CELL_DIVER_DRAW_FRONT_BACK
+        // current diver step 0 + just tube vertices, leaving 8 cap vertices
+        index  =  mDiverVerticesTubeLen;
+        
+        // front
+        v00 = index;
+        v01 = index+1;
+        v02 = index+2;
+        v03 = index+3;
+        
+        // back
+        v04 = index+4;
+        v05 = index+5;
+        v06 = index+6;
+        v07 = index+7;
+        
+        // front lower triangle
+        mVboMeshUnfoldIndices.push_back(v00);
+        mVboMeshUnfoldIndices.push_back(v02);
+        mVboMeshUnfoldIndices.push_back(v01);
+        // front upper triangle
+        mVboMeshUnfoldIndices.push_back(v02);
+        mVboMeshUnfoldIndices.push_back(v03);
+        mVboMeshUnfoldIndices.push_back(v01);
+        
+        // back lower triangle
+        mVboMeshUnfoldIndices.push_back(v04);
+        mVboMeshUnfoldIndices.push_back(v06);
+        mVboMeshUnfoldIndices.push_back(v05);
+        // back upper triangle
+        mVboMeshUnfoldIndices.push_back(v06);
+        mVboMeshUnfoldIndices.push_back(v07);
+        mVboMeshUnfoldIndices.push_back(v05);
+#endif
+        
+        //
+        //  Setup vbo mesh
+        //
+        
         mVboMesh.reset();
         mVboMesh = gl::VboMesh(mVboMeshVerticesLen,mVboMeshIndicesLen,mVboMeshLayout,GL_TRIANGLES);
         
         vector<uint32_t> indices; // buffer target
         vector<Colorf>   colors;  // buffer colors for debug
      
-        int j;
-        int v00,v01,v02,v03;
-        int v04,v05,v06,v07;
-        int v08,v09,v10,v11;
-        int v12,v13,v14,v15;
-        int index;
         int offset = 0;
         
         const static Vec3f up(0,1,0);
@@ -196,7 +357,7 @@ public:
             colors.push_back(toColor(back));
 #endif
             // step one complete diver forward
-            offset = mDiverVerticesTubeLen * i + mDiverVerticesCapLen * i;
+            offset = mDiverVerticesLen * i;
             
             j = 0;
             while (j < CELL_DIVER_NUM_POINTS - 1) {
@@ -308,11 +469,20 @@ public:
 #endif
         }
         
-        //cout << "Buffer colors: " << colors.size() << " " << mVboMesh.getNumVertices() <<endl;
-        
         mVboMesh.bufferIndices(indices);
         mVboMesh.bufferColorsRGB(colors);
+        mVboMesh.unbindBuffers();
+        
+        //fold(0);
+        fold(1);
+        unfold(1);
+        //fold(3);
+        //fold(5);
     }
+    
+    /*--------------------------------------------------------------------------------------------*/
+    // Visual Debug
+    /*--------------------------------------------------------------------------------------------*/
     
     inline void debugArea(){
         static const float unitPoints[] = {-0.5,0,-0.5,0.5,0,-0.5,0.5,0, 0.5,-0.5,0, 0.5};
@@ -365,6 +535,10 @@ public:
         glPopMatrix();
     }
     
+    /*--------------------------------------------------------------------------------------------*/
+    // Draw
+    /*--------------------------------------------------------------------------------------------*/
+    
     inline void draw(){
         if(!mActive){
             return;
@@ -377,6 +551,11 @@ public:
         glPopMatrix();
     }
     
+    /*--------------------------------------------------------------------------------------------*/
+    // Update
+    /*--------------------------------------------------------------------------------------------*/
+    
+    //! Update all paths with oscillator
     inline void updatePaths(){
         if(!mActive){
             return;
@@ -392,15 +571,28 @@ public:
                                                 mId[0], mId[1]) * scale;
             }
         }
-        /*
-        for(vector<Vec3f>::iterator itr = mPathData.begin(); itr != mPathData.end(); ++itr){
-            itr->y = mOscillator->getValue(mPos.x + itr->x,
-                                           mPos.z + itr->z + mOffset, 0,
-                                           mId[0], mId[1]) * scale;
-        }
-         */
     }
     
+    inline void updateDiversFolds(){
+        if(!mActive){
+            return;
+        }
+  
+        int vboMeshVertexIndex = 0;
+        for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
+            Diver* const diver = *itr;
+            
+            if(diver->isOut() && !(diver->isOutPrev())){
+              //  fold(vboMeshVertexIndex);
+            } else if (!(diver->isOut()) && diver->isOutPrev()){
+              //  unfold(vboMeshVertexIndex);
+            }
+            
+            vboMeshVertexIndex += mDiverVerticesLen;
+        }
+    }
+    
+    //! Update all divers
     inline void updateDivers(){
         if(!mActive){
             return;
@@ -410,6 +602,7 @@ public:
         }
     }
     
+    //! Update vbo mesh geometry
     inline void update(float t){
         if(!mActive){
             return;
@@ -471,8 +664,8 @@ public:
             // start
             x0 = start.x - diverWidth_2;
             x1 = start.x + diverWidth_2;
-            y0 = start.y   - diverHeight_2;
-            y1 = start.y   + diverHeight_2;
+            y0 = start.y - diverHeight_2;
+            y1 = start.y + diverHeight_2;
             
             vbItr.setPosition(x0,y0,start.z);
             ++vbItr;
@@ -505,11 +698,17 @@ public:
             ++vbItr;
 #endif
         }
+
     }
     
+    //! Check if a cell lies within the orthographics camera frustum
     inline void checkFrustum(const FrustumOrtho& frustum,const Matrix44f& transform){
         mActive = frustum.contains(transform.transformPointAffine(mPos));
     }
+    
+    /*--------------------------------------------------------------------------------------------*/
+    // State
+    /*--------------------------------------------------------------------------------------------*/
     
     inline void activate(){
         mActive = true;

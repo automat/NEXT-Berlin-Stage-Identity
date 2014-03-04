@@ -50,7 +50,7 @@ void grid_04App::prepareSettings(Settings* settings){
 }
 
 void grid_04App::setup(){
-    mInfoPanel = new InfoPanel(Rectf(0,0,300,app::getWindowHeight()));
+    mInfoPanel = new InfoPanel(Rectf(0,0,300,200));
     mInfoPanel->setModelScale(&MODEL_SCALE);
     mInfoPanel->setModelZoom(&MODEL_ZOOM);
     
