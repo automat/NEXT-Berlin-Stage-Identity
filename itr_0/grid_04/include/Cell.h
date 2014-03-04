@@ -146,7 +146,6 @@ public:
         
         mVboMesh.reset();
         mVboMesh = gl::VboMesh(mVboMeshVerticesLen,mVboMeshIndicesLen,mVboMeshLayout,GL_TRIANGLES);
-
         
         vector<uint32_t> indices; // buffer target
         vector<Colorf>   colors;  // buffer colors for debug
@@ -157,16 +156,14 @@ public:
         int v08,v09,v10,v11;
         int v12,v13,v14,v15;
         int index;
-        int uniqueTubeVerticesLen = mDiverVerticesTubeLen / 2;
-        int uniqueCapVerticesLen  = mDiverVerticesCapLen ;
         int offset = 0;
         
-        Vec3f up(0,1,0);
-        Vec3f down(0,-1,0);
-        Vec3f left(-1,0,0);
-        Vec3f right(1,0,0);
-        Vec3f front(0,0,-1);
-        Vec3f back(0,0,1);
+        const static Vec3f up(0,1,0);
+        const static Vec3f down(0,-1,0);
+        const static Vec3f left(-1,0,0);
+        const static Vec3f right(1,0,0);
+        const static Vec3f front(0,0,-1);
+        const static Vec3f back(0,0,1);
         
         i = -1;
         while (++i < mNumDivers) {
@@ -180,9 +177,9 @@ public:
                 colors.push_back(toColor(up));
                 
                 colors.push_back(toColor(left));
-                colors.push_back(toColor(left));
-                
                 colors.push_back(toColor(right));
+                
+                colors.push_back(toColor(left));
                 colors.push_back(toColor(right));
                 
                 ++j;
@@ -198,10 +195,13 @@ public:
             colors.push_back(toColor(back));
             colors.push_back(toColor(back));
 #endif
-            offset = uniqueTubeVerticesLen * i + uniqueCapVerticesLen * i;
+            // step one complete diver forward
+            offset = mDiverVerticesTubeLen * i + mDiverVerticesCapLen * i;
+            
             j = 0;
-            while (j < uniqueTubeVerticesLen - 4) {
-                index = ((i * uniqueTubeVerticesLen) + j) * 2 + uniqueCapVerticesLen * i;
+            while (j < CELL_DIVER_NUM_POINTS - 1) {
+                //current diver beginning + step quads * 2
+                index = offset + j * 8;
         
                 // bottom -> j / top ->j(next step)
                 // the quads are verticaly sliced
@@ -270,16 +270,19 @@ public:
                 indices.push_back(v14);
                 indices.push_back(v15);
 #endif
-                j+=4;
+                j++;
             }
 #ifdef CELL_DIVER_DRAW_FRONT_BACK
-            index = mDiverVerticesTubeLen * (i+1);
-            
+            // current diver step 0 + just tube vertices, leaing 8 cap vertices
+            index  = offset + mDiverVerticesTubeLen;
+
+            // front
             v00 = index;
             v01 = index+1;
             v02 = index+2;
             v03 = index+3;
             
+            // back
             v04 = index+4;
             v05 = index+5;
             v06 = index+6;
@@ -293,7 +296,7 @@ public:
             indices.push_back(v02);
             indices.push_back(v03);
             indices.push_back(v01);
-            
+      
             // back lower triangle
             indices.push_back(v04);
             indices.push_back(v06);
@@ -459,14 +462,29 @@ public:
                 
                 vbItr.setPosition(x1, y1, point.z);
                 ++vbItr;
-                
-                int pos = vbItr.getIndex();
-
             }
             
 #ifdef CELL_DIVER_DRAW_FRONT_BACK
-           
-            const Vec3f& end = points[points.size() - 1];
+            const Vec3f& start = points[0];
+            const Vec3f& end   = points[points.size() - 1];
+            
+            // start
+            x0 = start.x - diverWidth_2;
+            x1 = start.x + diverWidth_2;
+            y0 = start.y   - diverHeight_2;
+            y1 = start.y   + diverHeight_2;
+            
+            vbItr.setPosition(x0,y0,start.z);
+            ++vbItr;
+            
+            vbItr.setPosition(x1,y0,start.z);
+            ++vbItr;
+            
+            vbItr.setPosition(x0,y1,start.z);
+            ++vbItr;
+            
+            vbItr.setPosition(x1,y1,start.z);
+            ++vbItr;
             
             // end
             x0 = end.x - diverWidth_2;
@@ -474,16 +492,16 @@ public:
             y0 = end.y - diverHeight_2;
             y1 = end.y + diverHeight_2;
             
-            vbItr.setPosition(0,0,0);
+            vbItr.setPosition(x0,y0,end.z);
             ++vbItr;
             
-            vbItr.setPosition(0,0,0);
+            vbItr.setPosition(x1,y0,end.z);
             ++vbItr;
             
-            vbItr.setPosition(0,0,0);
+            vbItr.setPosition(x0,y1,end.z);
             ++vbItr;
             
-            vbItr.setPosition(0,0,0);
+            vbItr.setPosition(x1,y1,end.z);
             ++vbItr;
 #endif
         }
