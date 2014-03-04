@@ -24,7 +24,7 @@
 
 
 #define APP_USE_THREADS
-#define APP_CTRL_PATH_THREAD_FPS 40.0f
+#define APP_CTRL_PATH_THREAD_FPS 120.0f
 
 /*--------------------------------------------------------------------------------------------*/
 // WORLD
@@ -39,7 +39,7 @@
 #define WORLD_MODEL_SCALE_INITIAL 2//0.65f
 #define WORLD_MODEL_ZOOM_INITIAL  1
 
-#define WORLD_NUM_CELLS_XY 11
+#define WORLD_NUM_CELLS_XY 1
 
 #define WORLD_UPDATE
 #define WORLD_DRAW
@@ -49,19 +49,19 @@
 #define OSCILLATOR_OCTAVES 1
 #define OSCILLATOR_SEED    clock() & 65535
 
-#define CELL_MIN_NUM_DIVERS   20
-#define CELL_MAX_NUM_DIVERS   50
-#define CELL_DIVER_NUM_POINTS 10
+#define CELL_MIN_NUM_DIVERS   2
+#define CELL_MAX_NUM_DIVERS   2//50
+#define CELL_DIVER_NUM_POINTS 2
 #define CELL_DIVER_MIN_HEIGHT 0.01f
 #define CELL_DIVER_MAX_HEIGHT 0.05f
 
 #define PATH_NUM_POINTS 20
 
-#define DIVER_MIN_OFFSET 0
-#define DIVER_MAX_OFFSET 0
-#define DIVER_MIN_SPEED  0.005f
-#define DIVER_MAX_SPEED  0.006f
-#define DIVER_MIN_LENGTH 0.5f
+#define DIVER_MIN_OFFSET 1
+#define DIVER_MAX_OFFSET 1//0.5f
+#define DIVER_MIN_SPEED  0//0.005f
+#define DIVER_MAX_SPEED  0//0.006f
+#define DIVER_MIN_LENGTH 1.0//0.5f
 #define DIVER_MAX_LENGTH 1.0f
 #define DIVER_NUM_POINTS CELL_DIVER_NUM_POINTS
 
@@ -77,13 +77,13 @@
 
 //#define CELL_DEBUG_DRAW_DIVER
 //#define CELL_DEBUG_DRAW_PATH
-//#define CELL_DEBUG_DRAW_MESH_INDICES
+
 
 #define CELL_DIVER_DRAW_TOP
 #define CELL_DIVER_DRAW_BOTTOM
 #define CELL_DIVER_DRAW_LEFT
 #define CELL_DIVER_DRAW_RIGHT
-//#define CELL_DIVER_DRAW_FRONT_BACK
+#define CELL_DIVER_DRAW_FRONT_BACK
 
 
 #endif

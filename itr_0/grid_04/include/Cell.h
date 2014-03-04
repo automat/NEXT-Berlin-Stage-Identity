@@ -56,11 +56,6 @@ class Cell {
     gl::VboMesh::Layout mVboMeshLayout;
     gl::VboMesh         mVboMesh;
     
-#ifdef CELL_DEBUG_DRAW_MESH_INDICES
-    //  need to copy all vertices, strange bug with mapVertexBuffer followed by gl draw calls
-    vector<Vec3f> mVboMeshVerticesCopy;
-#endif
-    
     void freeData(){
         while (!mPaths.empty())  delete mPaths.back(), mPaths.pop_back();
         while (!mDivers.empty()) delete mDivers.back(), mDivers.pop_back();
@@ -139,7 +134,7 @@ public:
         }
        
 #ifdef CELL_DIVER_DRAW_FRONT_BACK
-        mDiverVerticesCapLen = 0;
+        mDiverVerticesCapLen = 4 * 2;
 #else 
         mDiverVerticesCapLen = 0;
 #endif
@@ -162,28 +157,34 @@ public:
         int v08,v09,v10,v11;
         int v12,v13,v14,v15;
         int index;
-        int uniqueVerticesLen = mDiverVerticesTubeLen / 2;
+        int uniqueTubeVerticesLen = mDiverVerticesTubeLen / 2;
+        int uniqueCapVerticesLen  = mDiverVerticesCapLen ;
+        int offset = 0;
+        
+        Vec3f up(0,1,0);
+        Vec3f down(0,-1,0);
+        Vec3f left(-1,0,0);
+        Vec3f right(1,0,0);
+        Vec3f front(0,0,-1);
+        Vec3f back(0,0,1);
         
         i = -1;
         while (++i < mNumDivers) {
             j = 0;
             while (j < CELL_DIVER_NUM_POINTS) {
                 
-                static const Vec3f up(0,1,0);
-                static const Vec3f down(0,-1,0);
-                static const Vec3f left(-1,0,0);
-                static const Vec3f right(1,0,0);
-                static const Vec3f front(0,0,-1);
-                static const Vec3f back(0,0,1);
+                colors.push_back(toColor(down));
+                colors.push_back(toColor(down));
                 
-                colors.push_back(toColor(down));
-                colors.push_back(toColor(down));
                 colors.push_back(toColor(up));
                 colors.push_back(toColor(up));
+                
                 colors.push_back(toColor(left));
                 colors.push_back(toColor(left));
+                
                 colors.push_back(toColor(right));
                 colors.push_back(toColor(right));
+                
                 ++j;
             }
 #ifdef CELL_DIVER_DRAW_FRONT_BACK
@@ -197,10 +198,10 @@ public:
             colors.push_back(toColor(back));
             colors.push_back(toColor(back));
 #endif
-            
+            offset = uniqueTubeVerticesLen * i + uniqueCapVerticesLen * i;
             j = 0;
-            while (j < uniqueVerticesLen - 4) {
-                index = (i * uniqueVerticesLen + j) * 2;
+            while (j < uniqueTubeVerticesLen - 4) {
+                index = ((i * uniqueTubeVerticesLen) + j) * 2 + uniqueCapVerticesLen * i;
         
                 // bottom -> j / top ->j(next step)
                 // the quads are verticaly sliced
@@ -272,29 +273,35 @@ public:
                 j+=4;
             }
 #ifdef CELL_DIVER_DRAW_FRONT_BACK
-            /*
-            if(mDiverVerticesCapLen == 0)continue;
+            index = mDiverVerticesTubeLen * (i+1);
             
-            index = (mDiverVerticesTubeLen * (i+1)) + (mDiverVerticesCapLen * i);
+            v00 = index;
+            v01 = index+1;
+            v02 = index+2;
+            v03 = index+3;
             
-            v0 = index;
-            v1 = v0 + 1;
-            v2 = v0 + 2;
-            v3 = v2 + 1;
+            v04 = index+4;
+            v05 = index+5;
+            v06 = index+6;
+            v07 = index+7;
             
-            v4 = v0 + 4;
-            v5 = v4 + 1;
-            v6 = v4 + 2;
-            v7 = v6 + 1;
+            // front lower triangle
+            indices.push_back(v00);
+            indices.push_back(v02);
+            indices.push_back(v01);
+            // front upper triangle
+            indices.push_back(v02);
+            indices.push_back(v03);
+            indices.push_back(v01);
             
-            indices.push_back(v0);
-            indices.push_back(v1);
-            indices.push_back(v2);
-            
-            indices.push_back(v2);
-            indices.push_back(v3);
-            indices.push_back(v1);
-             */
+            // back lower triangle
+            indices.push_back(v04);
+            indices.push_back(v06);
+            indices.push_back(v05);
+            // back upper triangle
+            indices.push_back(v06);
+            indices.push_back(v07);
+            indices.push_back(v05);
 #endif
         }
         
