@@ -20,6 +20,8 @@
 
 #include "cinder/gl/Vbo.h"
 
+#include "Utils.h"
+
 #include "FrustumOrtho.h"
 
 #include "Path.h"
@@ -73,9 +75,6 @@ class Cell {
         while (!mDivers.empty()) delete mDivers.back(), mDivers.pop_back();
     }
     
-    inline Colorf toColor(const Vec3f& normal){
-        return Colorf(normal.x * 0.5f + 0.5f,normal.y * 0.5f + 0.5f,normal.z * 0.5f + 0.5f);
-    }
     
     /*--------------------------------------------------------------------------------------------*/
     // Fold / Unfold
@@ -134,6 +133,7 @@ public:
             mId[1] = id[1];
             
             mVboMeshLayout.setDynamicPositions();
+            //mVboMeshLayout.setDynamicNormals();
             mVboMeshLayout.setDynamicIndices();
             mVboMeshLayout.setStaticColorsRGB();
 
@@ -314,7 +314,8 @@ public:
         mVboMesh.reset();
         mVboMesh = gl::VboMesh(mVboMeshVerticesLen,mVboMeshIndicesLen,mVboMeshLayout,GL_TRIANGLES);
         
-        vector<uint32_t> indices; // buffer target
+        vector<uint32_t> indices; // buffer target index
+        vector<Vec3f>    normals; // buufer target normal;
         vector<Colorf>   colors;  // buffer colors for debug
      
         int vertexIndex = 0;
@@ -330,31 +331,52 @@ public:
         while (++i < mNumDivers) {
             j = 0;
             while (j < CELL_DIVER_NUM_POINTS) {
+                colors.push_back(Utils::toColor(down));
+                colors.push_back(Utils::toColor(down));
                 
-                colors.push_back(toColor(down));
-                colors.push_back(toColor(down));
+                colors.push_back(Utils::toColor(up));
+                colors.push_back(Utils::toColor(up));
+               
+                colors.push_back(Utils::toColor(left));
+                colors.push_back(Utils::toColor(right));
                 
-                colors.push_back(toColor(up));
-                colors.push_back(toColor(up));
+                colors.push_back(Utils::toColor(left));
+                colors.push_back(Utils::toColor(right));
                 
-                colors.push_back(toColor(left));
-                colors.push_back(toColor(right));
+                normals.push_back(down);
+                normals.push_back(down);
                 
-                colors.push_back(toColor(left));
-                colors.push_back(toColor(right));
+                normals.push_back(up);
+                normals.push_back(up);
+                
+                normals.push_back(left);
+                normals.push_back(right);
+                
+                normals.push_back(left);
+                normals.push_back(right);
                 
                 ++j;
             }
 #ifdef CELL_DIVER_DRAW_FRONT_BACK
-            colors.push_back(toColor(front));
-            colors.push_back(toColor(front));
-            colors.push_back(toColor(front));
-            colors.push_back(toColor(front));
+            colors.push_back(Utils::toColor(front));
+            colors.push_back(Utils::toColor(front));
+            colors.push_back(Utils::toColor(front));
+            colors.push_back(Utils::toColor(front));
             
-            colors.push_back(toColor(back));
-            colors.push_back(toColor(back));
-            colors.push_back(toColor(back));
-            colors.push_back(toColor(back));
+            colors.push_back(Utils::toColor(back));
+            colors.push_back(Utils::toColor(back));
+            colors.push_back(Utils::toColor(back));
+            colors.push_back(Utils::toColor(back));
+            
+            normals.push_back(front);
+            normals.push_back(front);
+            normals.push_back(front);
+            normals.push_back(front);
+            
+            normals.push_back(back);
+            normals.push_back(back);
+            normals.push_back(back);
+            normals.push_back(back);
 #endif
             vertexIndex = i * mDiverVerticesLen;
             j = -1;
@@ -364,6 +386,7 @@ public:
         }
         
         mVboMesh.bufferIndices(indices);
+        //mVboMesh.bufferNormals(normals);
         mVboMesh.bufferColorsRGB(colors);
         mVboMesh.unbindBuffers();
     }
@@ -480,7 +503,7 @@ public:
         // update geometry
         float diverWidth_2 = mDiverWidth * 0.5f;
         float diverHeight_2;
-        float x0,x1,y0,y1;
+        float x0,x1,y0,y1,z;
         int i;
 
         gl::VboMesh::VertexIter vbItr = mVboMesh.mapVertexBuffer();
@@ -500,33 +523,34 @@ public:
                 x1 = point.x + diverWidth_2;
                 y0 = point.y - diverHeight_2;
                 y1 = point.y + diverHeight_2;
+                z  = point.z;
                 
                 // bottom
-                vbItr.setPosition(x0, y0, point.z);
+                vbItr.setPosition(x0, y0, z);
                 ++vbItr;
                 
-                vbItr.setPosition(x1, y0, point.z);
+                vbItr.setPosition(x1, y0, z);
                 ++vbItr;
                 
                 // top
-                vbItr.setPosition(x0, y1, point.z);
+                vbItr.setPosition(x0, y1, z);
                 ++vbItr;
                 
-                vbItr.setPosition(x1, y1, point.z);
+                vbItr.setPosition(x1, y1, z);
                 ++vbItr;
                 
                 // copy top for left / right
-                vbItr.setPosition(x0, y0, point.z);
+                vbItr.setPosition(x0, y0, z);
                 ++vbItr;
                 
-                vbItr.setPosition(x1, y0, point.z);
+                vbItr.setPosition(x1, y0, z);
                 ++vbItr;
                 
                 // copy bottom for left / right
-                vbItr.setPosition(x0, y1, point.z);
+                vbItr.setPosition(x0, y1, z);
                 ++vbItr;
                 
-                vbItr.setPosition(x1, y1, point.z);
+                vbItr.setPosition(x1, y1, z);
                 ++vbItr;
             }
             
@@ -539,17 +563,18 @@ public:
             x1 = start.x + diverWidth_2;
             y0 = start.y - diverHeight_2;
             y1 = start.y + diverHeight_2;
+            z  = start.z;
             
-            vbItr.setPosition(x0,y0,start.z);
+            vbItr.setPosition(x0,y0,z);
             ++vbItr;
             
-            vbItr.setPosition(x1,y0,start.z);
+            vbItr.setPosition(x1,y0,z);
             ++vbItr;
             
-            vbItr.setPosition(x0,y1,start.z);
+            vbItr.setPosition(x0,y1,z);
             ++vbItr;
             
-            vbItr.setPosition(x1,y1,start.z);
+            vbItr.setPosition(x1,y1,z);
             ++vbItr;
             
             // end
@@ -557,6 +582,7 @@ public:
             x1 = end.x + diverWidth_2;
             y0 = end.y - diverHeight_2;
             y1 = end.y + diverHeight_2;
+            z  = end.z;
             
             vbItr.setPosition(x0,y0,end.z);
             ++vbItr;
