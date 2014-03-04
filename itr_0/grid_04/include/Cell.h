@@ -47,6 +47,9 @@ protected:
     vector<uint32_t> mDiverIndicesUnfolded; // indices order, when unfolded
     vector<uint32_t> mDiverIndicesBuffer;   // indices order, when translated to specific diver
     
+    int mPathDataStart;
+    int mPathDataEnd;
+    
     vector<Vec3f>  mPathData;
     
     float mDiverWidth;
@@ -73,6 +76,11 @@ protected:
         while (!mPaths.empty())  delete mPaths.back(), mPaths.pop_back();
         while (!mDivers.empty()) delete mDivers.back(), mDivers.pop_back();
     }
+    
+    /*--------------------------------------------------------------------------------------------*/
+    // Path Management
+    /*--------------------------------------------------------------------------------------------*/
+    
     
     
     /*--------------------------------------------------------------------------------------------*/

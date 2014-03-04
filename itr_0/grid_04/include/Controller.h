@@ -46,7 +46,9 @@ class Controller {
     mutex         mPathWriteMutex;
     mutex         mDiverWriteMutex;
     
-    vector<Vec3f> mBufferPaths;
+    vector<Vec3f> mPathDataUpdateDiver; // path data accessed by diver thread
+    vector<Vec3f> mPathDataUpdatePath;  // path data accessed by path thread
+    vector<Vec3f> mPathDataMiddle;      // path data to pass between both threads
 #endif
     
     
