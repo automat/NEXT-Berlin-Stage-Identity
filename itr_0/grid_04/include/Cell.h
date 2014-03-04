@@ -167,11 +167,7 @@ public:
             mDivers.push_back(new Diver(mPaths.back(),Rand::randFloat(CELL_DIVER_MIN_HEIGHT,CELL_DIVER_MAX_HEIGHT)));
         }
        
-#ifdef CELL_DIVER_DRAW_FRONT_BACK
-        mDiverVerticesCapLen = 4 * 2;
-#else 
-        mDiverVerticesCapLen = 0;
-#endif
+        mDiverVerticesCapLen  = 4 * 2;
         mDiverVerticesTubeLen = (CELL_DIVER_NUM_POINTS * 4) * 2; //(top , bottom , left, right ) * 2 ,
         mDiverVerticesLen     = mDiverVerticesTubeLen + mDiverVerticesCapLen;
         mDiverIndicesLen      = (CELL_DIVER_NUM_POINTS - 1) * 6  * 2 * 2 + (mDiverVerticesCapLen/2 * 3);// + ((mDiverVerticesCapLen / 2 - 1) * 3);
@@ -192,13 +188,16 @@ public:
         }
         
         //
+        // Start unfolded indices
         // setup a vector of unit indices to use when unfolding a diver
         //
-        int v00,v01,v02,v03;
-        int v04,v05,v06,v07;
-        int v08,v09,v10,v11;
-        int v12,v13,v14,v15;
+        
+        int v00,v01,v02,v03,
+            v04,v05,v06,v07,
+            v08,v09,v10,v11,
+            v12,v13,v14,v15;
         int index;
+        
         int j;
         i = -1;
         while (++i < CELL_DIVER_NUM_POINTS - 1) {
@@ -230,8 +229,7 @@ public:
             v13 = index + 14;
             v14 = index + 15;
             v15 = index + 13;
-            
-#ifdef CELL_DIVER_DRAW_BOTTOM
+
             // bottom lower triangle
             mDiverIndicesUnfolded.push_back(v00);
             mDiverIndicesUnfolded.push_back(v03);
@@ -240,8 +238,7 @@ public:
             mDiverIndicesUnfolded.push_back(v03);
             mDiverIndicesUnfolded.push_back(v07);
             mDiverIndicesUnfolded.push_back(v04);
-#endif
-#ifdef CELL_DIVER_DRAW_TOP
+
             // top lower triangle
             mDiverIndicesUnfolded.push_back(v01);
             mDiverIndicesUnfolded.push_back(v02);
@@ -250,8 +247,7 @@ public:
             mDiverIndicesUnfolded.push_back(v02);
             mDiverIndicesUnfolded.push_back(v06);
             mDiverIndicesUnfolded.push_back(v05);
-#endif
-#ifdef CELL_DIVER_DRAW_RIGHT
+
             // right lower triangle
             mDiverIndicesUnfolded.push_back(v08);
             mDiverIndicesUnfolded.push_back(v09);
@@ -260,8 +256,7 @@ public:
             mDiverIndicesUnfolded.push_back(v09);
             mDiverIndicesUnfolded.push_back(v13);
             mDiverIndicesUnfolded.push_back(v12);
-#endif
-#ifdef CELL_DIVER_DRAW_LEFT
+
             //left lower triangle
             mDiverIndicesUnfolded.push_back(v11);
             mDiverIndicesUnfolded.push_back(v10);
@@ -270,9 +265,8 @@ public:
             mDiverIndicesUnfolded.push_back(v10);
             mDiverIndicesUnfolded.push_back(v14);
             mDiverIndicesUnfolded.push_back(v15);
-#endif
         }
-#ifdef CELL_DIVER_DRAW_FRONT_BACK
+
         // current diver step 0 + just tube vertices, leaving 8 cap vertices
         index  =  mDiverVerticesTubeLen;
         
@@ -305,7 +299,10 @@ public:
         mDiverIndicesUnfolded.push_back(v06);
         mDiverIndicesUnfolded.push_back(v07);
         mDiverIndicesUnfolded.push_back(v05);
-#endif
+        
+        //
+        //  End unfolded indices
+        //
         
         //
         //  Setup vbo mesh
@@ -357,7 +354,7 @@ public:
                 
                 ++j;
             }
-#ifdef CELL_DIVER_DRAW_FRONT_BACK
+
             colors.push_back(Utils::toColor(front));
             colors.push_back(Utils::toColor(front));
             colors.push_back(Utils::toColor(front));
@@ -377,7 +374,7 @@ public:
             normals.push_back(back);
             normals.push_back(back);
             normals.push_back(back);
-#endif
+
             vertexIndex = i * mDiverVerticesLen;
             j = -1;
             while (++j < mDiverIndicesLen) {
@@ -553,8 +550,7 @@ public:
                 vbItr.setPosition(x1, y1, z);
                 ++vbItr;
             }
-            
-#ifdef CELL_DIVER_DRAW_FRONT_BACK
+
             const Vec3f& start = points[0];
             const Vec3f& end   = points[points.size() - 1];
             
@@ -595,7 +591,7 @@ public:
             
             vbItr.setPosition(x1,y1,end.z);
             ++vbItr;
-#endif
+
             // update if in or out,
             // need to be on same thread, otherwise in update
             diver->updateInOut();
