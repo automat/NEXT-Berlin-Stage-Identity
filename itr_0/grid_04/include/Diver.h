@@ -20,14 +20,9 @@ using namespace std;
 
 class Diver {
     Path* mPath;
-    
-    Vec3f  mStart;
-    Vec3f  mEnd;
     Vec3f  mPos;
     
-    Vec3f  mVel;
     float  mSpeed;
-    
     float  mOffset;
     float  mLength;
     float  mLengthStep;
@@ -35,40 +30,32 @@ class Diver {
     float  mWidth;
     float  mHeight;
     
-    vector<Vec3f> mNormals;
-    vector<Vec3f> mPoints;
-    
     bool   mIsOut;
     bool   mIsOutPrev;
-    
-    
-    
+
+    vector<Vec3f> mPoints;
     
     
 public:
-    Diver(Path* path, float height = 0.125f) :
+    Diver(Path* path,float offset, float speed, float length, float height = 0.125f) :
         mPath(path),
-        mOffset(Rand::randFloat(DIVER_MIN_OFFSET,DIVER_MAX_OFFSET)),
-        mSpeed(Rand::randFloat(DIVER_MIN_SPEED,DIVER_MAX_SPEED)),
-        mLength(Rand::randFloat(DIVER_MIN_LENGTH,DIVER_MAX_LENGTH)),
+        mOffset(offset),
+        mSpeed(speed),
+        mLength(length),
         mHeight(height){
-            mIsOut = mIsOutPrev = false;
             
-            mNormals.resize(DIVER_NUM_POINTS);
+            mIsOut = mIsOutPrev = false;
             mPoints.resize(DIVER_NUM_POINTS);
             mLengthStep = mLength / (float)(DIVER_NUM_POINTS-1);
     }
     
     inline void debugDraw(){
-        
-        glColor3f(0, 0, 1);
-        gl::drawLine(mStart, mEnd);
-        
-        if (isOut())return;
+        if (isOut()){
+            return;
+        }
        
         float prevPointSize;
         glGetFloatv(GL_CURRENT_POINT_SIZE_APPLE, &prevPointSize);
-        
         
         glPointSize(3);
         glColor3f(1, 1, 1);
@@ -110,16 +97,16 @@ public:
         glPointSize(prevPointSize);
     }
     
-    inline const Vec3f& getStart() const{
-        return mStart;
-    }
-    
-    inline const Vec3f& getEnd() const{
-        return mEnd;
-    }
-    
     inline const Vec3f& getPos() const{
         return mPos;
+    }
+    
+    inline const vector<Vec3f>& getPoints(){
+        return mPoints;
+    }
+    
+    inline int getNumPoints(){
+        return mPoints.size();
     }
     
     //! check if the points summed distance is within visible range
@@ -130,11 +117,6 @@ public:
     inline bool isOutPrev(){
         return mIsOutPrev;
     }
-    
-    inline void hide(){
-        
-    }
-    
     
     
     inline void update(){
@@ -149,27 +131,25 @@ public:
         for(vector<Vec3f>::iterator itr = mPoints.begin(); itr != mPoints.end(); itr++){
             mPath->getPointOn(offsetInv + mLengthStep * float(i++), &(*itr));
         }
-    };
+    }
+    
+    inline void hide(){
+        
+    }
+    
+    inline void show(){
+        
+    }
     
     inline void updateInOut(){
         mIsOutPrev = mIsOut;
         mIsOut = (mOffset >= (1.0f + mLength)) || (mOffset <= 0.0f);
     }
     
-    inline void draw(){
-    }
-    
-    float getHeight(){
+    inline float getHeight(){
         return mHeight;
     }
-    
-    const vector<Vec3f>& getPoints(){
-        return mPoints;
-    }
-    
-    inline int getNumPoints(){
-        return mPoints.size();
-    }
+  
 };
 
 

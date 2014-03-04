@@ -21,9 +21,7 @@
 #include "cinder/gl/Vbo.h"
 
 #include "Utils.h"
-
 #include "FrustumOrtho.h"
-
 #include "Path.h"
 #include "Diver.h"
 
@@ -34,7 +32,8 @@ class Cell {
     /*--------------------------------------------------------------------------------------------*/
     // Member
     /*--------------------------------------------------------------------------------------------*/
-
+protected:
+    
     Vec3f  mPos;    // global position of cell
     Vec3f  mSize;   // global size of cell, 1
     int    mId[2];  // x,y id of cell
@@ -162,15 +161,19 @@ public:
         while (++i < mNumDivers) {
             Vec3f end(marginX + float(i) / float(mNumDivers), 0.0, -0.5f);
             Vec3f start(end.x, end.y, 0.5f);
-            //mPaths.push_back(new Path(&mPathData,addPath(start, end),mDiverWidth));
+
             mPaths.push_back(new Path(start, end, mDiverWidth));
-            mDivers.push_back(new Diver(mPaths.back(),Rand::randFloat(CELL_DIVER_MIN_HEIGHT,CELL_DIVER_MAX_HEIGHT)));
+            mDivers.push_back(new Diver(mPaths.back(),                                                  // path
+                                        Rand::randFloat(DIVER_MIN_OFFSET, DIVER_MAX_OFFSET),            // offset
+                                        Rand::randFloat(DIVER_MIN_SPEED, DIVER_MAX_SPEED),              // speed
+                                        Rand::randFloat(DIVER_MIN_LENGTH,DIVER_MAX_LENGTH),             // length
+                                        Rand::randFloat(CELL_DIVER_MIN_HEIGHT,CELL_DIVER_MAX_HEIGHT))); // height
         }
        
-        mDiverVerticesCapLen  = 4 * 2;
+        mDiverVerticesCapLen  = 8; // top + back
         mDiverVerticesTubeLen = (CELL_DIVER_NUM_POINTS * 4) * 2; //(top , bottom , left, right ) * 2 ,
         mDiverVerticesLen     = mDiverVerticesTubeLen + mDiverVerticesCapLen;
-        mDiverIndicesLen      = (CELL_DIVER_NUM_POINTS - 1) * 6  * 2 * 2 + (mDiverVerticesCapLen/2 * 3);// + ((mDiverVerticesCapLen / 2 - 1) * 3);
+        mDiverIndicesLen      = (CELL_DIVER_NUM_POINTS - 1) * 6  * 2 * 2 + (mDiverVerticesCapLen/2 * 3);
         mVboMeshVerticesLen   = (mDiverVerticesTubeLen + mDiverVerticesCapLen) * mNumDivers;
         mVboMeshIndicesLen    = mDiverIndicesLen  * mNumDivers;
         

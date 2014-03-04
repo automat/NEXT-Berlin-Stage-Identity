@@ -45,6 +45,7 @@
 		CDC6D80718C64A4500C5DEB6 /* Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Path.h; path = ../../grid_04/include/Path.h; sourceTree = "<group>"; };
 		CDC6D80818C64A4500C5DEB6 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = ../../grid_04/include/Settings.h; sourceTree = "<group>"; };
 		CDC6D80918C64A4500C5DEB6 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = ../../grid_04/include/Utils.h; sourceTree = "<group>"; };
+		CDC6D80C18C651FE00C5DEB6 /* StringDiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringDiver.h; path = ../include/StringDiver.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +161,7 @@
 			children = (
 				CDC6D80118C64A4500C5DEB6 /* Cell.h */,
 				CDC6D80218C64A4500C5DEB6 /* Controller.h */,
+				CDC6D80C18C651FE00C5DEB6 /* StringDiver.h */,
 				CDC6D80318C64A4500C5DEB6 /* Diver.h */,
 				CDC6D80618C64A4500C5DEB6 /* Oscillator.h */,
 				CDC6D80718C64A4500C5DEB6 /* Path.h */,
