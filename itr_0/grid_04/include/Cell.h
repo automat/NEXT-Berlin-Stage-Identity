@@ -609,14 +609,13 @@ public:
     }
     
     inline void updateNormals(){
-        //mMeshNormalBuffer.assign(mMeshNormalBuffer.size(),Vec3f::zero());
         static const Vec3f zero(0,0,0);
+
         size_t size = mMeshIndexScheme.size();
         int i = -1;
         while (++i < size) {
             mMeshNormalBuffer[mMeshIndexScheme[i]].set(zero);
         }
-        
         
         size_t numTriangles = size / 3;
         int index0,index1,index2;
@@ -630,20 +629,17 @@ public:
             index2 = mMeshIndexScheme[i3 + 2];
             e0.set(mMeshVertexBuffer[ index1 ] - mMeshVertexBuffer[ index0 ]);
             e1.set(mMeshVertexBuffer[ index2 ] - mMeshVertexBuffer[ index0 ]);
-            normal.set(e0.cross(e1).normalized());
-            //Vec3f normal = e0.cross(e1).normalized();
-            
+            normal.set(e0.cross(e1).safeNormalized());
+
             mMeshNormalBuffer[ index0 ] += normal;
             mMeshNormalBuffer[ index1 ] += normal;
             mMeshNormalBuffer[ index2 ] += normal;
-            
-            
         }
         
-        std::for_each(mMeshNormalBuffer.begin(),
-                      mMeshNormalBuffer.end(),
-                      std::mem_fun_ref(&Vec3f::normalize));
-        
+        i = -1;
+        while(++i < size){
+            mMeshNormalBuffer[mMeshIndexScheme[i]].safeNormalize();
+        }
         
     }
     
