@@ -27,7 +27,7 @@
 //  rate quite high to hide lags
 //
 #define APP_USE_THREADS
-#define APP_CTRL_PATH_THREAD_FPS 120.0f//120.0f//240.0f
+#define APP_CTRL_PATH_THREAD_FPS 240.0f//120.0f//240.0f
 
 /*--------------------------------------------------------------------------------------------*/
 // WORLD
@@ -49,7 +49,7 @@
 #define OSCILLATOR_OCTAVES 1
 #define OSCILLATOR_SEED    clock() & 65535
 
-#define CELL_MIN_NUM_DIVERS   1
+#define CELL_MIN_NUM_DIVERS   2
 #define CELL_MAX_NUM_DIVERS   50
 #define CELL_OFFSET_SPEED     0.0001f
 #define CELL_DIVER_NUM_POINTS 10

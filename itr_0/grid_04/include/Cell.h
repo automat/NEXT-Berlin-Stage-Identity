@@ -486,13 +486,13 @@ public:
                 diver->updateInOut();
                 i = -1;
                 while(++i < DIVER_NUM_POINTS){
-                    ++vbItr;++vbItr;++vbItr;++vbItr;
+                    ++vbItr;++vbItr;++vbItr;++vbItr; // step body forward
                     ++vbItr;++vbItr;++vbItr;++vbItr;
 #ifdef CELL_CALCULATE_NORMALS
                     vertexIndex += 8;
 #endif
                 }
-                ++vbItr;++vbItr;++vbItr;++vbItr;
+                ++vbItr;++vbItr;++vbItr;++vbItr; // step cap forward
                 ++vbItr;++vbItr;++vbItr;++vbItr;
 #ifdef CELL_CALCULATE_NORMALS
                 vertexIndex += 8;
@@ -617,10 +617,12 @@ public:
             mMeshNormalBuffer[mMeshIndexScheme[i]].set(zero);
         }
         
-        size_t numTriangles = size / 3;
-        int index0,index1,index2;
+        size_t numTriangles         = size / 3;
+        
         Vec3f e0,e1,normal;
+        int index0,index1,index2;
         int i3;
+        
         i = -1;
         while(++i < numTriangles){
             i3 = i * 3;
@@ -636,10 +638,12 @@ public:
             mMeshNormalBuffer[ index2 ] += normal;
         }
         
+        
         i = -1;
         while(++i < size){
             mMeshNormalBuffer[mMeshIndexScheme[i]].safeNormalize();
         }
+        
         
     }
     
