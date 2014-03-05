@@ -22,9 +22,12 @@
 #define APP_FPS 36.0f
 
 
-
+//
+//  Threads currently dont get syncronized, threrefore we keep the update
+//  rate quite high to hide lags
+//
 #define APP_USE_THREADS
-#define APP_CTRL_PATH_THREAD_FPS 120.0f
+#define APP_CTRL_PATH_THREAD_FPS 120.0f//240.0f
 
 /*--------------------------------------------------------------------------------------------*/
 // WORLD
@@ -46,8 +49,9 @@
 #define OSCILLATOR_OCTAVES 1
 #define OSCILLATOR_SEED    clock() & 65535
 
-#define CELL_MIN_NUM_DIVERS   5
-#define CELL_MAX_NUM_DIVERS   50//50
+#define CELL_MIN_NUM_DIVERS   1
+#define CELL_MAX_NUM_DIVERS   100//50
+#define CELL_OFFSET_SPEED     0.0001f
 #define CELL_DIVER_NUM_POINTS 10
 #define CELL_DIVER_MIN_HEIGHT 0.01f
 #define CELL_DIVER_MAX_HEIGHT 0.05f

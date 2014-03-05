@@ -30,17 +30,24 @@ class Diver {
     float  mWidth;
     float  mHeight;
     
-    bool   mIsOut;
-    bool   mIsOutPrev;
+    bool   mIsHidden;   // diver wont loop anymore
+    bool   mIsOut;      // diver is outside of visible area
+    bool   mIsOutPrev;  // diver previous visibility state
 
     vector<Vec3f> mPoints;
     
     
 public:
-    Diver(Path* path,float offset, float speed, float length, float height = 0.125f) :
+    Diver(Path* path,
+          float offset,
+          float speed,
+          float width,
+          float length,
+          float height = 0.125f) :
         mPath(path),
         mOffset(offset),
         mSpeed(speed),
+        mWidth(width),
         mLength(length),
         mHeight(height){
             
@@ -49,11 +56,72 @@ public:
             mLengthStep = mLength / (float)(DIVER_NUM_POINTS-1);
     }
     
+    inline const Vec3f& getPos() const{
+        return mPos;
+    }
+    
+    inline const vector<Vec3f>& getPoints() const{
+        return mPoints;
+    }
+    
+    inline int getNumPoints(){
+        return mPoints.size();
+    }
+    
+    //! check if the points summed distance is within visible range
+    inline bool isOut(){
+        return mIsOut;
+    }
+    //! check previous out status
+    inline bool isOutPrev(){
+        return mIsOutPrev;
+    }
+    
+    
+    inline void update(){
+        if (mIsOut && mIsHidden) { //should hide and is hidden
+            return;
+        }
+        // reset if offset reaches double the distance from start
+        if(mOffset >= 2.0f){
+            mOffset = -1;
+        }
+
+        mOffset += mSpeed;
+        float offsetInv = 1.0f - mOffset;
+        int i = 0;
+        for(vector<Vec3f>::iterator itr = mPoints.begin(); itr != mPoints.end(); itr++){
+            mPath->getPointOn(offsetInv + mLengthStep * float(i++), &(*itr));
+        }
+    }
+    
+    inline void hide(){
+        mIsHidden = true;
+    }
+    
+    inline void show(){
+        mIsHidden = false;
+    }
+    
+    inline void updateInOut(){
+        mIsOutPrev = mIsOut;
+        mIsOut = (mOffset >= (1.0f + mLength)) || (mOffset <= 0.0f);
+    }
+    
+    inline float getWidth(){
+        return mWidth;
+    }
+    
+    inline float getHeight(){
+        return mHeight;
+    }
+    
+    
     inline void debugDraw(){
         if (isOut()){
             return;
         }
-       
+        
         float prevPointSize;
         glGetFloatv(GL_CURRENT_POINT_SIZE_APPLE, &prevPointSize);
         
@@ -64,8 +132,8 @@ public:
         glDrawArrays(GL_POINTS, 0, mPoints.size());
         
         Vec3f line[4];
-        float pathWidth  = mPath->getWidth() * 0.5f;
-        float height     = mHeight * 0.5f;
+        float pathWidth = mWidth * 0.5f;
+        float height    = mHeight * 0.5f;
         
         glColor3f(0.75f, 0, 0.15f);
         int i = 0;
@@ -96,59 +164,9 @@ public:
         glDisableClientState(GL_VERTEX_ARRAY);
         glPointSize(prevPointSize);
     }
-    
-    inline const Vec3f& getPos() const{
-        return mPos;
-    }
-    
-    inline const vector<Vec3f>& getPoints(){
-        return mPoints;
-    }
-    
-    inline int getNumPoints(){
-        return mPoints.size();
-    }
-    
-    //! check if the points summed distance is within visible range
-    inline bool isOut(){
-        return mIsOut;
-    }
-    //! check previous out status
-    inline bool isOutPrev(){
-        return mIsOutPrev;
-    }
-    
-    
-    inline void update(){
-        // reset if offset reaches double the distance from start
-        if(mOffset >= 2.0f){
-            mOffset = -1;
-        }
 
-        mOffset += mSpeed;
-        float offsetInv = 1.0f - mOffset;
-        int i = 0;
-        for(vector<Vec3f>::iterator itr = mPoints.begin(); itr != mPoints.end(); itr++){
-            mPath->getPointOn(offsetInv + mLengthStep * float(i++), &(*itr));
-        }
-    }
     
-    inline void hide(){
-        
-    }
     
-    inline void show(){
-        
-    }
-    
-    inline void updateInOut(){
-        mIsOutPrev = mIsOut;
-        mIsOut = (mOffset >= (1.0f + mLength)) || (mOffset <= 0.0f);
-    }
-    
-    inline float getHeight(){
-        return mHeight;
-    }
   
 };
 

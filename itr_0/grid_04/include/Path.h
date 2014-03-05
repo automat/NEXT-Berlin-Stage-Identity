@@ -23,12 +23,11 @@ using namespace ci;
 
 class Path {
     vector<Vec3f> mPoints;
-    float         mWidth;
     
 public:
-    Path(Vec3f start, Vec3f end, float width){
+    Path(Vec3f start, Vec3f end){
         mPoints.push_back(start);
-        mWidth = width;
+        
         int i = 0;
         float a;
         while (++i < PATH_NUM_POINTS - 1) {
@@ -57,10 +56,6 @@ public:
     
     inline vector<Vec3f>& getPoints(){
         return mPoints;
-    }
-    
-    float getWidth(){
-        return mWidth;
     }
     
     inline void getPointOn(float intrpl, Vec3f* out){

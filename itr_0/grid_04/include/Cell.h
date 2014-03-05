@@ -46,6 +46,7 @@ protected:
     vector<uint32_t> mDiverIndicesFolded;   // indices order, when folded
     vector<uint32_t> mDiverIndicesUnfolded; // indices order, when unfolded
     vector<uint32_t> mDiverIndicesBuffer;   // indices order, when translated to specific diver
+    vector<uint32_t> mDiverIndicesTarget;   // indices order, send to buffer object concatenated
     
     int mPathDataStart;
     int mPathDataEnd;
@@ -92,14 +93,10 @@ protected:
     // all its indices to its first index
     //
     inline void fold(int index){
-        index = index * mDiverIndicesLen;
-        size_t offset = sizeof(uint32_t) * index;
-        size_t size   = sizeof(uint32_t) * mDiverIndicesLen;
-        
-        gl::Vbo& indexBuffer = mVboMesh.getIndexVbo();
-        indexBuffer.bind();
-        indexBuffer.bufferSubData(offset, size, &mDiverIndicesFolded[0]);
-        indexBuffer.unbind();
+        // copy to target buffer
+        copy(mDiverIndicesFolded.begin(),
+             mDiverIndicesFolded.end(),
+             mDiverIndicesTarget.begin() + index * mDiverIndicesLen);
     }
     
     //
@@ -112,14 +109,10 @@ protected:
         while(++i < mDiverIndicesLen){
             mDiverIndicesBuffer[i] = mDiverIndicesUnfolded[i] + vertexIndex;
         }
-        
-        size_t offset = sizeof(uint32_t) * index * mDiverIndicesLen;
-        size_t size   = sizeof(uint32_t) * mDiverIndicesLen;
-        
-        gl::Vbo& indexBuffer = mVboMesh.getIndexVbo();
-        indexBuffer.bind();
-        indexBuffer.bufferSubData(offset, size, &mDiverIndicesBuffer[0]);
-        indexBuffer.unbind();
+        // copy to target buffer
+        copy(mDiverIndicesBuffer.begin(),
+             mDiverIndicesBuffer.end(),
+             mDiverIndicesTarget.begin() + index * mDiverIndicesLen);
     }
     
     
@@ -170,10 +163,11 @@ public:
             Vec3f end(marginX + float(i) / float(mNumDivers), 0.0, -0.5f);
             Vec3f start(end.x, end.y, 0.5f);
 
-            mPaths.push_back(new Path(start, end, mDiverWidth));
+            mPaths.push_back(new Path(start, end));
             mDivers.push_back(new Diver(mPaths.back(),                                                  // path
                                         Rand::randFloat(DIVER_MIN_OFFSET, DIVER_MAX_OFFSET),            // offset
                                         Rand::randFloat(DIVER_MIN_SPEED, DIVER_MAX_SPEED),              // speed
+                                        mDiverWidth,
                                         Rand::randFloat(DIVER_MIN_LENGTH,DIVER_MAX_LENGTH),             // length
                                         Rand::randFloat(CELL_DIVER_MIN_HEIGHT,CELL_DIVER_MAX_HEIGHT))); // height
         }
@@ -189,6 +183,8 @@ public:
         mDiverIndicesFolded.resize(0);
         mDiverIndicesUnfolded.resize(0);
         mDiverIndicesBuffer.resize(mDiverIndicesLen);
+        mDiverIndicesTarget.resize(mVboMeshIndicesLen);
+    
         
         //
         // setup a vector of 0 indices to use when folding a diver
@@ -481,7 +477,7 @@ public:
         }
         
         static const float scale  = 0.75f;
-        mOffset += 0.01f;
+        mOffset += CELL_OFFSET_SPEED;
         
         for(vector<Path*>::const_iterator itr = mPaths.begin(); itr != mPaths.end(); ++itr){
             for(vector<Vec3f>::iterator _itr = (*itr)->getPoints().begin(); _itr != (*itr)->getPoints().end(); _itr++){
@@ -618,6 +614,18 @@ public:
                
             diverIndex++;
         }
+    
+        
+        // send all indices to the buffer
+        
+        size_t offset = 0;
+        size_t size   = mDiverIndicesTarget.size() * sizeof(uint32_t);
+        
+        gl::Vbo& indexBuffer = mVboMesh.getIndexVbo();
+        indexBuffer.bind();
+        indexBuffer.bufferSubData(offset, size, &mDiverIndicesTarget[0]);
+        indexBuffer.unbind();
+
     }
     
     //! Check if a cell lies within the orthographics camera frustum
@@ -631,10 +639,16 @@ public:
     
     inline void activate(){
         mActive = true;
+        for (vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr) {
+            (*itr)->show();
+        }
     }
     
     inline void deactivate(){
         mActive = false;
+        for (vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
+            (*itr)->hide();
+        }
     }
 };
 
