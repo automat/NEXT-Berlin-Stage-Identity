@@ -9,6 +9,7 @@
 #ifndef grid_01_GridCell_h
 #define grid_01_GridCell_h
 
+#include <boost/assign/std/vector.hpp>
 #include "Settings.h"
 #include <OpenGL/OpenGL.h>
 #include "cinder/gl/gl.h"
@@ -27,6 +28,7 @@
 
 using namespace ci;
 using namespace std;
+using namespace boost::assign;
 
 class Cell {
     /*--------------------------------------------------------------------------------------------*/
@@ -62,6 +64,7 @@ protected:
     vector<Vec3f>    mMeshVertexBuffer; // keep copy of vertices
 #endif
     vector<Vec3f>    mMeshNormalBuffer;     // buffer for normals
+    vector<Vec3f>    mMeshNormalTopBuffer;  // buffer for all top normals
     vector<uint32_t> mMeshIndexScheme;      // indices order, used for normal calculation
     vector<uint32_t> mMeshIndexBuffer;      // indices order, send to buffer object concatenated
     
@@ -183,7 +186,8 @@ public:
         mDiverIndicesUnfolded.resize(0);
         mDiverIndicesBuffer.resize(mDiverIndicesLen);
         mMeshIndexBuffer.resize(mMeshIndicesLen);
-        mMeshIndexScheme.resize(mMeshIndicesLen);
+        mMeshIndexScheme.resize(0);
+        
 #ifdef CELL_CALCULATE_NORMALS
         mMeshNormalBuffer.resize(0);
         mMeshVertexBuffer.resize(mMeshVerticesLen);
@@ -193,6 +197,7 @@ public:
         // setup a vector of 0 indices to use when folding a diver
         //
         mDiverIndicesFolded.resize(mDiverIndicesLen);
+        
         fill(mDiverIndicesFolded.begin(), mDiverIndicesFolded.end(), 0);
         
         //
@@ -215,102 +220,81 @@ public:
             // the quads are verticaly sliced
             
             // first quad
-            v00 = index + 0;
-            v01 = index + 2;
-            v02 = index + 3;
-            v03 = index + 1;
+            v00 = index +  0; v01 = index + 2;
+            v02 = index +  3; v03 = index + 1;
             
             // next quad
-            v04 = index + 8;
-            v05 = index + 10;
-            v06 = index + 11;
-            v07 = index + 9;
+            v04 = index +  8; v05 = index + 10;
+            v06 = index + 11; v07 = index + 9;
             
             // first quad duplicate
-            v08 = index + 4;
-            v09 = index + 6;
-            v10 = index + 7;
-            v11 = index + 5;
+            v08 = index +  4; v09 = index + 6;
+            v10 = index +  7; v11 = index + 5;
             
             // next quad duplicate
-            v12 = index + 12;
-            v13 = index + 14;
-            v14 = index + 15;
-            v15 = index + 13;
+            v12 = index + 12; v13 = index + 14;
+            v14 = index + 15; v15 = index + 13;
 
-            // bottom lower triangle
-            mDiverIndicesUnfolded.push_back(v00);
-            mDiverIndicesUnfolded.push_back(v03);
-            mDiverIndicesUnfolded.push_back(v04);
-            // bottom upper triangle
-            mDiverIndicesUnfolded.push_back(v03);
-            mDiverIndicesUnfolded.push_back(v07);
-            mDiverIndicesUnfolded.push_back(v04);
-
-            // top lower triangle
-            mDiverIndicesUnfolded.push_back(v01);
-            mDiverIndicesUnfolded.push_back(v02);
-            mDiverIndicesUnfolded.push_back(v05);
-            // bottom upper triangle
-            mDiverIndicesUnfolded.push_back(v02);
-            mDiverIndicesUnfolded.push_back(v06);
-            mDiverIndicesUnfolded.push_back(v05);
-
-            // right lower triangle
-            mDiverIndicesUnfolded.push_back(v08);
-            mDiverIndicesUnfolded.push_back(v09);
-            mDiverIndicesUnfolded.push_back(v12);
-            // right upper triangle
-            mDiverIndicesUnfolded.push_back(v09);
-            mDiverIndicesUnfolded.push_back(v13);
-            mDiverIndicesUnfolded.push_back(v12);
-
-            //left lower triangle
-            mDiverIndicesUnfolded.push_back(v11);
-            mDiverIndicesUnfolded.push_back(v10);
-            mDiverIndicesUnfolded.push_back(v15);
-            //left upper triangle
-            mDiverIndicesUnfolded.push_back(v10);
-            mDiverIndicesUnfolded.push_back(v14);
-            mDiverIndicesUnfolded.push_back(v15);
+            // bottom lower & upper triangle
+            mDiverIndicesUnfolded += v00,v03,v04;
+            mDiverIndicesUnfolded += v03,v07,v04;
+            
+            // top lower & upper triangle
+            mDiverIndicesUnfolded += v01,v02,v05;
+            mDiverIndicesUnfolded += v02,v06,v05;
+            
+            // right lower & upper triangle
+            mDiverIndicesUnfolded += v08,v09,v12;
+            mDiverIndicesUnfolded += v09,v13,v12;
+            
+            // left lower & upper triangle
+            mDiverIndicesUnfolded += v11,v10,v15;
+            mDiverIndicesUnfolded += v10,v14,v15;
         }
 
         // current diver step 0 + just tube vertices, leaving 8 cap vertices
-        index  =  mDiverVerticesBodyLen;
+        index = mDiverVerticesBodyLen;
         
         // front
-        v00 = index;
-        v01 = index+1;
-        v02 = index+2;
-        v03 = index+3;
-        
+        v00 = index    ; v01 = index + 1;
+        v02 = index + 2; v03 = index + 3;
         // back
-        v04 = index+4;
-        v05 = index+5;
-        v06 = index+6;
-        v07 = index+7;
+        v04 = index + 4; v05 = index + 5;
+        v06 = index + 6; v07 = index + 7;
         
-        // front lower triangle
-        mDiverIndicesUnfolded.push_back(v00);
-        mDiverIndicesUnfolded.push_back(v02);
-        mDiverIndicesUnfolded.push_back(v01);
-        // front upper triangle
-        mDiverIndicesUnfolded.push_back(v02);
-        mDiverIndicesUnfolded.push_back(v03);
-        mDiverIndicesUnfolded.push_back(v01);
+        // front lower & upper triangle
+        mDiverIndicesUnfolded += v00,v02,v01;
+        mDiverIndicesUnfolded += v02,v03,v01;
         
-        // back lower triangle
-        mDiverIndicesUnfolded.push_back(v04);
-        mDiverIndicesUnfolded.push_back(v06);
-        mDiverIndicesUnfolded.push_back(v05);
-        // back upper triangle
-        mDiverIndicesUnfolded.push_back(v06);
-        mDiverIndicesUnfolded.push_back(v07);
-        mDiverIndicesUnfolded.push_back(v05);
+        // back lower & upper triangle
+        mDiverIndicesUnfolded += v04,v06,v05;
+        mDiverIndicesUnfolded += v06,v07,v05;
         
         //
         //  End unfolded indices
         //
+        
+        //
+        //  Redo all for the top
+        //
+        
+        i = -1;
+        while (++i < mNumDivers) {
+            j = -1;
+            while (++j < CELL_DIVER_NUM_POINTS - 1) {
+                index = (i * CELL_DIVER_NUM_POINTS + j + i) * 8;
+                // first quad
+                v00 = index + 0; v01 = index + 2;
+                v02 = index + 3; v03 = index + 1;
+                // next quad
+                v04 = index + 8; v05 = index + 10;
+                v06 = index + 11;v07 = index + 9;
+                // top lower & upper triangle
+                mMeshIndexScheme += v01,v02,v05;
+                mMeshIndexScheme += v02,v06,v05;
+            }
+        }
+        
         
         //
         //  Setup vbo mesh
@@ -321,68 +305,37 @@ public:
         
         vector<Colorf> meshColors;  // buffer colors for debug
      
-        const static Vec3f up(0,1,0);
-        const static Vec3f down(0,-1,0);
-        const static Vec3f left(-1,0,0);
-        const static Vec3f right(1,0,0);
-        const static Vec3f front(0,0,-1);
-        const static Vec3f back(0,0,1);
+        static const Vec3f up(0,1,0),down(0,-1,0);
+        static const Vec3f left(-1,0,0),right(1,0,0);
+        static const Vec3f front(0,0,-1),back(0,0,1);
         
         i = -1;
         while (++i < mNumDivers) {
             j = 0;
             while (j < CELL_DIVER_NUM_POINTS) {
-                meshColors.push_back(Utils::toColor(down));
-                meshColors.push_back(Utils::toColor(down));
+                meshColors += Utils::toColor(down),Utils::toColor(down);
+                meshColors += Utils::toColor(  up),Utils::toColor(  up);
+                meshColors += Utils::toColor(left),Utils::toColor(right);
+                meshColors += Utils::toColor(left),Utils::toColor(right);
                 
-                meshColors.push_back(Utils::toColor(up));
-                meshColors.push_back(Utils::toColor(up));
-               
-                meshColors.push_back(Utils::toColor(left));
-                meshColors.push_back(Utils::toColor(right));
-                
-                meshColors.push_back(Utils::toColor(left));
-                meshColors.push_back(Utils::toColor(right));
-                
-                mMeshNormalBuffer.push_back(down);
-                mMeshNormalBuffer.push_back(down);
-                mMeshNormalBuffer.push_back(up);
-                mMeshNormalBuffer.push_back(up);
-                mMeshNormalBuffer.push_back(left);
-                mMeshNormalBuffer.push_back(right);
-                mMeshNormalBuffer.push_back(left);
-                mMeshNormalBuffer.push_back(right);
+                mMeshNormalBuffer += down,down;
+                mMeshNormalBuffer += up,up;
+                mMeshNormalBuffer += left,right;
+                mMeshNormalBuffer += left,right;
                 
                 ++j;
             }
-
-            meshColors.push_back(Utils::toColor(front));
-            meshColors.push_back(Utils::toColor(front));
-            meshColors.push_back(Utils::toColor(front));
-            meshColors.push_back(Utils::toColor(front));
             
-            meshColors.push_back(Utils::toColor(back));
-            meshColors.push_back(Utils::toColor(back));
-            meshColors.push_back(Utils::toColor(back));
-            meshColors.push_back(Utils::toColor(back));
+            meshColors += Utils::toColor(front),Utils::toColor(front);
+            meshColors += Utils::toColor(front),Utils::toColor(front);
+            meshColors += Utils::toColor( back),Utils::toColor( back);
+            meshColors += Utils::toColor( back),Utils::toColor( back);
             
-            mMeshNormalBuffer.push_back(front);
-            mMeshNormalBuffer.push_back(front);
-            mMeshNormalBuffer.push_back(front);
-            mMeshNormalBuffer.push_back(front);
-            
-            mMeshNormalBuffer.push_back(back);
-            mMeshNormalBuffer.push_back(back);
-            mMeshNormalBuffer.push_back(back);
-            mMeshNormalBuffer.push_back(back);
+            mMeshNormalBuffer += front,front,front,front;
+            mMeshNormalBuffer += back,back,back,back;
             
             unfold(i);
         }
-        
-        vector<uint32_t> indexBufferCopy(mMeshIndexBuffer);
-        mMeshIndexScheme = indexBufferCopy;
-
-
         
         mMesh.bufferColorsRGB(meshColors);
         mMesh.bufferIndices(mMeshIndexBuffer);
@@ -498,12 +451,9 @@ public:
             return;
         }
         
-        static const Vec3f up(0,1,0);
-        static const Vec3f down(0,-1,0);
-        static const Vec3f left(-1,0,0);
-        static const Vec3f right(1,0,0);
-        static const Vec3f front(0,0,-1);
-        static const Vec3f back(0,0,1);
+        static const Vec3f up(0,1,0),down(0,-1,0);
+        static const Vec3f left(-1,0,0),right(1,0,0);
+        static const Vec3f front(0,0,-1),back(0,0,1);
         Vec3f tempNormal;
         
         // update geometry
@@ -532,7 +482,6 @@ public:
             // diver is not visible,
             // skip to next
             //
-            /*
             if(diver->isOut()){
                 diver->updateInOut();
                 i = -1;
@@ -554,7 +503,7 @@ public:
                 diverIndex++;
                 continue;
             }
-             */
+             
              
             //
             //  diver is visible,
@@ -660,22 +609,29 @@ public:
     }
     
     inline void updateNormals(){
-        mMeshNormalBuffer.assign(mMeshNormalBuffer.size(),Vec3f::zero());
+        //mMeshNormalBuffer.assign(mMeshNormalBuffer.size(),Vec3f::zero());
+        static const Vec3f zero(0,0,0);
+        size_t size = mMeshIndexScheme.size();
+        int i = -1;
+        while (++i < size) {
+            mMeshNormalBuffer[mMeshIndexScheme[i]].set(zero);
+        }
         
-        size_t numTriangles = mMeshIndicesLen / 3;
+        
+        size_t numTriangles = size / 3;
         int index0,index1,index2;
-        int i, i3;
+        Vec3f e0,e1,normal;
+        int i3;
         i = -1;
         while(++i < numTriangles){
             i3 = i * 3;
             index0 = mMeshIndexScheme[i3    ];
             index1 = mMeshIndexScheme[i3 + 1];
             index2 = mMeshIndexScheme[i3 + 2];
-            
-            
-            Vec3f e0 = mMeshVertexBuffer[ index1 ] - mMeshVertexBuffer[ index0 ];
-            Vec3f e1 = mMeshVertexBuffer[ index2 ] - mMeshVertexBuffer[ index0 ];
-            Vec3f normal = e0.cross(e1).normalized();
+            e0.set(mMeshVertexBuffer[ index1 ] - mMeshVertexBuffer[ index0 ]);
+            e1.set(mMeshVertexBuffer[ index2 ] - mMeshVertexBuffer[ index0 ]);
+            normal.set(e0.cross(e1).normalized());
+            //Vec3f normal = e0.cross(e1).normalized();
             
             mMeshNormalBuffer[ index0 ] += normal;
             mMeshNormalBuffer[ index1 ] += normal;
@@ -687,6 +643,7 @@ public:
         std::for_each(mMeshNormalBuffer.begin(),
                       mMeshNormalBuffer.end(),
                       std::mem_fun_ref(&Vec3f::normalize));
+        
         
     }
     
