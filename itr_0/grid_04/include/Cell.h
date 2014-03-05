@@ -48,6 +48,8 @@ protected:
     vector<uint32_t> mDiverIndicesBuffer;   // indices order, when translated to specific diver
     vector<uint32_t> mDiverIndicesTarget;   // indices order, send to buffer object concatenated
     
+    vector<Vec3f>    mVboMeshNormalBuffer;
+    
     int mPathDataStart;
     int mPathDataEnd;
     
@@ -91,7 +93,7 @@ protected:
     //
     // collapse all vertices of a diver into one vertex by setting
     // all its indices to its first index
-    //
+    
     inline void fold(int index){
         // copy to target buffer
         copy(mDiverIndicesFolded.begin(),
@@ -133,7 +135,7 @@ public:
             mId[1] = id[1];
             
             mVboMeshLayout.setDynamicPositions();
-            //mVboMeshLayout.setDynamicNormals();
+            mVboMeshLayout.setStaticNormals();
             mVboMeshLayout.setDynamicIndices();
             mVboMeshLayout.setStaticColorsRGB();
 
@@ -184,6 +186,7 @@ public:
         mDiverIndicesUnfolded.resize(0);
         mDiverIndicesBuffer.resize(mDiverIndicesLen);
         mDiverIndicesTarget.resize(mVboMeshIndicesLen);
+        mVboMeshNormalBuffer.resize(0);
     
         
         //
@@ -318,12 +321,8 @@ public:
         mVboMesh.reset();
         mVboMesh = gl::VboMesh(mVboMeshVerticesLen,mVboMeshIndicesLen,mVboMeshLayout,GL_TRIANGLES);
         
-        vector<uint32_t> indices; // buffer target index
-        vector<Vec3f>    normals; // buufer target normal;
         vector<Colorf>   colors;  // buffer colors for debug
      
-        int vertexIndex = 0;
-        
         const static Vec3f up(0,1,0);
         const static Vec3f down(0,-1,0);
         const static Vec3f left(-1,0,0);
@@ -347,17 +346,14 @@ public:
                 colors.push_back(Utils::toColor(left));
                 colors.push_back(Utils::toColor(right));
                 
-                normals.push_back(down);
-                normals.push_back(down);
-                
-                normals.push_back(up);
-                normals.push_back(up);
-                
-                normals.push_back(left);
-                normals.push_back(right);
-                
-                normals.push_back(left);
-                normals.push_back(right);
+                mVboMeshNormalBuffer.push_back(down);
+                mVboMeshNormalBuffer.push_back(down);
+                mVboMeshNormalBuffer.push_back(up);
+                mVboMeshNormalBuffer.push_back(up);
+                mVboMeshNormalBuffer.push_back(left);
+                mVboMeshNormalBuffer.push_back(right);
+                mVboMeshNormalBuffer.push_back(left);
+                mVboMeshNormalBuffer.push_back(right);
                 
                 ++j;
             }
@@ -372,26 +368,22 @@ public:
             colors.push_back(Utils::toColor(back));
             colors.push_back(Utils::toColor(back));
             
-            normals.push_back(front);
-            normals.push_back(front);
-            normals.push_back(front);
-            normals.push_back(front);
+            mVboMeshNormalBuffer.push_back(front);
+            mVboMeshNormalBuffer.push_back(front);
+            mVboMeshNormalBuffer.push_back(front);
+            mVboMeshNormalBuffer.push_back(front);
             
-            normals.push_back(back);
-            normals.push_back(back);
-            normals.push_back(back);
-            normals.push_back(back);
-
-            vertexIndex = i * mDiverVerticesLen;
-            j = -1;
-            while (++j < mDiverIndicesLen) {
-                indices.push_back(mDiverIndicesUnfolded[j] + vertexIndex);
-            }
+            mVboMeshNormalBuffer.push_back(back);
+            mVboMeshNormalBuffer.push_back(back);
+            mVboMeshNormalBuffer.push_back(back);
+            mVboMeshNormalBuffer.push_back(back);
+            
+            unfold(i);
         }
-        
-        mVboMesh.bufferIndices(indices);
+
         //mVboMesh.bufferNormals(normals);
         mVboMesh.bufferColorsRGB(colors);
+        mVboMesh.bufferIndices(mDiverIndicesTarget);
         mVboMesh.unbindBuffers();
     }
     
@@ -504,6 +496,14 @@ public:
             return;
         }
         
+        static const Vec3f up(0,1,0);
+        static const Vec3f down(0,-1,0);
+        static const Vec3f left(-1,0,0);
+        static const Vec3f right(1,0,0);
+        static const Vec3f front(0,0,-1);
+        static const Vec3f back(0,0,1);
+        Vec3f tempNormal;
+        
         // update geometry
         float diverWidth_2 = mDiverWidth * 0.5f;
         float diverHeight_2;
@@ -531,30 +531,38 @@ public:
                 
                 // bottom
                 vbItr.setPosition(x0, y0, z);
+               // vbItr.setNormal(tempNormal);
                 ++vbItr;
                 
                 vbItr.setPosition(x1, y0, z);
+              //  vbItr.setNormal(tempNormal);
                 ++vbItr;
                 
                 // top
                 vbItr.setPosition(x0, y1, z);
+              //  vbItr.setNormal(tempNormal);
                 ++vbItr;
                 
                 vbItr.setPosition(x1, y1, z);
+              //  vbItr.setNormal(tempNormal);
                 ++vbItr;
                 
                 // copy top for left / right
                 vbItr.setPosition(x0, y0, z);
+              //  vbItr.setNormal(left);
                 ++vbItr;
                 
                 vbItr.setPosition(x1, y0, z);
+              //  vbItr.setNormal(right);
                 ++vbItr;
                 
                 // copy bottom for left / right
                 vbItr.setPosition(x0, y1, z);
+              //  vbItr.setNormal(left);
                 ++vbItr;
                 
                 vbItr.setPosition(x1, y1, z);
+              //  vbItr.setNormal(right);
                 ++vbItr;
             }
 
@@ -569,15 +577,19 @@ public:
             z  = start.z;
             
             vbItr.setPosition(x0,y0,z);
+           // vbItr.setNormal(front);
             ++vbItr;
             
             vbItr.setPosition(x1,y0,z);
+          //  vbItr.setNormal(front);
             ++vbItr;
             
             vbItr.setPosition(x0,y1,z);
+          //  vbItr.setNormal(front);
             ++vbItr;
             
             vbItr.setPosition(x1,y1,z);
+          //  vbItr.setNormal(front);
             ++vbItr;
             
             // end
@@ -588,15 +600,19 @@ public:
             z  = end.z;
             
             vbItr.setPosition(x0,y0,end.z);
+          //  vbItr.setNormal(back);
             ++vbItr;
             
             vbItr.setPosition(x1,y0,end.z);
+          //  vbItr.setNormal(back);
             ++vbItr;
             
             vbItr.setPosition(x0,y1,end.z);
+          //  vbItr.setNormal(back);
             ++vbItr;
             
             vbItr.setPosition(x1,y1,end.z);
+          //  vbItr.setNormal(back);
             ++vbItr;
 
             // update if in or out,
@@ -614,18 +630,47 @@ public:
                
             diverIndex++;
         }
-    
         
-        // send all indices to the buffer
+        // upload all indices to the buffer
         
         size_t offset = 0;
         size_t size   = mDiverIndicesTarget.size() * sizeof(uint32_t);
-        
         gl::Vbo& indexBuffer = mVboMesh.getIndexVbo();
         indexBuffer.bind();
         indexBuffer.bufferSubData(offset, size, &mDiverIndicesTarget[0]);
         indexBuffer.unbind();
 
+        /*
+        // calculate top / bottom normals
+        int index;
+        int j;
+        i = -1;
+        while(++i < mNumDivers){
+            // skip any calculations if the diver is not visible
+            if (mDivers[i]->isOut()) {
+                continue;
+            }
+            j = 0;
+            while(j < mDiverIndicesLen){
+                index = i * mDiverIndicesLen + j;
+                
+                mVboMeshNormalBuffer[index+0].set(up);
+                mVboMeshNormalBuffer[index+1].set(up);
+                mVboMeshNormalBuffer[index+2].set(up);
+                
+                j+=3;
+            }
+        }
+         */
+        
+
+        // upload all normals to the mesh
+        mVboMesh.bufferNormals(mVboMeshNormalBuffer);
+        
+
+
+        
+        
     }
     
     //! Check if a cell lies within the orthographics camera frustum

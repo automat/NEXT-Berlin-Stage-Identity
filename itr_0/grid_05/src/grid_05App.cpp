@@ -1,6 +1,8 @@
 #include "cinder/app/AppNative.h"
+#include "Resources.h"
 #include "Settings.h"
 #include "cinder/gl/gl.h"
+#include "cinder/gl/GlslProg.h"
 #include "cinder/Camera.h"
 #include "cinder/Utilities.h"
 #include "cinder/Frustum.h"
@@ -25,6 +27,8 @@ class grid_05App : public AppNative {
 public:
     void prepareSettings(Settings* settings);
 	void setup();
+    void initShaders();
+    void loadShader(DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog);
     void resize();
 	void mouseDown( MouseEvent event );
     void keyDown(KeyEvent event);
@@ -40,6 +44,11 @@ public:
     CameraOrtho    mCamera;
     CameraOrtho    mCameraDebug;
     Controller*    mController;
+    
+#ifdef APP_USE_NORMAL_DEBUG_SHADER
+    gl::GlslProg   mShaderNormalDebug;
+#endif
+    
     
     
 };
@@ -63,6 +72,10 @@ void grid_05App::setup(){
     mCameraDebug.lookAt(Vec3f(0,1,0), Vec3f::zero());
     
     mController     = new Controller(WORLD_NUM_CELLS_XY,WORLD_NUM_CELLS_XY);
+
+#ifdef APP_USE_NORMAL_DEBUG_SHADER
+    initShaders();
+#endif
     
     gl::enableDepthRead();
     glEnable(GL_SCISSOR_TEST);
@@ -97,7 +110,13 @@ void grid_05App::draw(){
     mController->debugDraw();
 #endif
 #ifdef WORLD_DRAW_CELL
-    mController->draw();
+    #ifdef APP_USE_NORMAL_DEBUG_SHADER
+        mShaderNormalDebug.bind();
+        mController->draw();
+        mShaderNormalDebug.unbind();
+    #else
+        mController->draw();
+    #endif
 #endif
     glPopMatrix();
     
@@ -173,6 +192,22 @@ void grid_05App::updateView(){
 void grid_05App::resize(){
     this->updateView();
     
+}
+
+void grid_05App::initShaders(){
+#ifdef APP_USE_NORMAL_DEBUG_SHADER
+    this->loadShader(loadResource(GLSL_NORMAL_VERT), loadResource(GLSL_NORMAL_FRAG), &mShaderNormalDebug);
+#endif
+}
+
+void grid_05App::loadShader(DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg *prog){
+    try {
+        *prog = gl::GlslProg(refVertGLSL,refFragGLSL);
+    } catch (gl::GlslProgCompileExc &exc) {
+        cout << exc.what() << endl;
+    } catch (...){
+        throw "Can't load shader.";
+    }
 }
 
 CINDER_APP_NATIVE( grid_05App, RendererGl )
