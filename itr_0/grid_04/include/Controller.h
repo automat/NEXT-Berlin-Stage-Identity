@@ -40,11 +40,14 @@ class Controller {
 #ifdef APP_USE_THREADS
     thread        mUpdatePathsThread;
     thread        mUpdateDiversThread;
+    thread        mUpdateNormalsThread;
     float         mUpdateInterval;
     bool          mUpdatePathsThreadIsDead;
     bool          mUpdateDiversThreadIsDead;
+    bool          mUpdateNormalsThreadIsDead;
     mutex         mPathWriteMutex;
     mutex         mDiverWriteMutex;
+    mutex         mNormalWriteMutex;
     
     vector<Vec3f> mPathDataUpdateDiver; // path data accessed by diver thread
     vector<Vec3f> mPathDataUpdatePath;  // path data accessed by path thread
@@ -79,11 +82,13 @@ public:
             mBounds.x2 = mBounds.x1 + sizeX;
             mBounds.y2 = mBounds.y1 + sizeY;
 #ifdef APP_USE_THREADS
-            mUpdateInterval     = (1.0f / APP_CTRL_PATH_THREAD_FPS) * 1000.0f;
-            mUpdatePathsThread  = thread(bind(&Controller::updatePaths,this));
-            mUpdateDiversThread = thread(bind(&Controller::updateDivers,this));
+            mUpdateInterval      = (1.0f / APP_CTRL_PATH_THREAD_FPS) * 1000.0f;
+            mUpdatePathsThread   = thread(bind(&Controller::updatePaths,this));
+            mUpdateDiversThread  = thread(bind(&Controller::updateDivers,this));
+          //  mUpdateNormalsThread = thread(bind(&Controller::updateNormals,this));
             mUpdatePathsThreadIsDead = false;
             mUpdateDiversThreadIsDead = false;
+          //  mUpdateNormalsThreadIsDead = false;
 #endif
     }
     
@@ -91,8 +96,10 @@ public:
 #ifdef APP_USE_THREADS
         mUpdatePathsThreadIsDead = true;
         mUpdateDiversThreadIsDead = true;
+      //  mUpdateNormalsThreadIsDead = true;
         mUpdatePathsThread.join();
         mUpdateDiversThread.join();
+      //  mUpdateNormalsThread.join();
         sleep(1000.0f);
 #endif
     }
@@ -105,6 +112,22 @@ public:
         }
         glPopMatrix();
     }
+    /*
+    inline void updateNormals(){
+        while (!mUpdateNormalsThreadIsDead) {
+            
+            mNormalWriteMutex.lock(); //naak
+            //more stuff here, soon
+            for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
+                (*itr)->updateNormals();
+            }
+            mNormalWriteMutex.unlock();
+            
+            sleep(mUpdateInterval);
+        }
+        
+    }
+     */
     
     inline void updatePaths(){
 #ifdef APP_USE_THREADS
@@ -190,7 +213,7 @@ public:
 #endif
         
         for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
-            (*itr)->update(t);
+            (*itr)->update();
         }
     }
     

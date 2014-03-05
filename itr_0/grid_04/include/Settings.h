@@ -27,7 +27,7 @@
 //  rate quite high to hide lags
 //
 #define APP_USE_THREADS
-#define APP_CTRL_PATH_THREAD_FPS 120.0f//240.0f
+#define APP_CTRL_PATH_THREAD_FPS 120.0f//120.0f//240.0f
 
 /*--------------------------------------------------------------------------------------------*/
 // WORLD
@@ -50,7 +50,7 @@
 #define OSCILLATOR_SEED    clock() & 65535
 
 #define CELL_MIN_NUM_DIVERS   2
-#define CELL_MAX_NUM_DIVERS   2//50
+#define CELL_MAX_NUM_DIVERS   2
 #define CELL_OFFSET_SPEED     0.0001f
 #define CELL_DIVER_NUM_POINTS 10
 #define CELL_DIVER_MIN_HEIGHT 0.01f
@@ -59,10 +59,10 @@
 #define PATH_NUM_POINTS 20
 
 #define DIVER_MIN_OFFSET 1
-#define DIVER_MAX_OFFSET 0.5f
-#define DIVER_MIN_SPEED  0.005f
-#define DIVER_MAX_SPEED  0.006f
-#define DIVER_MIN_LENGTH 0.5f
+#define DIVER_MAX_OFFSET 1//0.5f
+#define DIVER_MIN_SPEED  0//0.02f
+#define DIVER_MAX_SPEED  0.01f//0.03f
+#define DIVER_MIN_LENGTH 1.0f//0.5f
 #define DIVER_MAX_LENGTH 1.0f
 #define DIVER_NUM_POINTS CELL_DIVER_NUM_POINTS
 
@@ -72,11 +72,12 @@
 /*--------------------------------------------------------------------------------------------*/
 
 #define WORLD_DEBUG_DRAW_CELL_AREA
-#define WORLD_DEBUG_DRAW_CELL
+//#define WORLD_DEBUG_DRAW_CELL
 #define WORLD_DRAW_CELL
 
 #define APP_USE_NORMAL_DEBUG_SHADER
 
+#define CELL_CALCULATE_NORMALS
 
 //#define CELL_DEBUG_DRAW_DIVER
 //#define CELL_DEBUG_DRAW_PATH
