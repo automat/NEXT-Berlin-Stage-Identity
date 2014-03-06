@@ -16,6 +16,8 @@
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		AB3023677B1743AAAB347F30 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 258AF6677ADE4C4C8A7D863C /* CinderApp.icns */; };
+		CD72A86518C87A340079722E /* cell_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD72A86318C87A340079722E /* cell_frag.glsl */; };
+		CD72A86618C87A340079722E /* cell_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD72A86418C87A340079722E /* cell_vert.glsl */; };
 		CDA742EB18C7E57A006A1379 /* normal_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDA742E918C7E57A006A1379 /* normal_frag.glsl */; };
 		CDA742EC18C7E57A006A1379 /* normal_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDA742EA18C7E57A006A1379 /* normal_vert.glsl */; };
 		D97853E14CD5486DB3713368 /* grid_06App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A4AD612ABA894010A875F573 /* grid_06App.cpp */; };
@@ -37,6 +39,8 @@
 		A4AD612ABA894010A875F573 /* grid_06App.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = grid_06App.cpp; path = ../src/grid_06App.cpp; sourceTree = "<group>"; };
 		B176512586DD4B09B51B200A /* grid_06_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = grid_06_Prefix.pch; sourceTree = "<group>"; };
 		BE40A3535B6546AE92318D34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD72A86318C87A340079722E /* cell_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cell_frag.glsl; path = ../resources/cell_frag.glsl; sourceTree = "<group>"; };
+		CD72A86418C87A340079722E /* cell_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cell_vert.glsl; path = ../resources/cell_vert.glsl; sourceTree = "<group>"; };
 		CDA742DE18C7E569006A1379 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cell.h; path = ../include/Cell.h; sourceTree = "<group>"; };
 		CDA742DF18C7E569006A1379 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = ../include/Controller.h; sourceTree = "<group>"; };
 		CDA742E018C7E569006A1379 /* Diver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Diver.h; path = ../include/Diver.h; sourceTree = "<group>"; };
@@ -144,6 +148,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CD72A86318C87A340079722E /* cell_frag.glsl */,
+				CD72A86418C87A340079722E /* cell_vert.glsl */,
 				CDA742E918C7E57A006A1379 /* normal_frag.glsl */,
 				CDA742EA18C7E57A006A1379 /* normal_vert.glsl */,
 				258AF6677ADE4C4C8A7D863C /* CinderApp.icns */,
@@ -240,7 +246,9 @@
 			files = (
 				CDA742EB18C7E57A006A1379 /* normal_frag.glsl in Resources */,
 				CDA742EC18C7E57A006A1379 /* normal_vert.glsl in Resources */,
+				CD72A86518C87A340079722E /* cell_frag.glsl in Resources */,
 				AB3023677B1743AAAB347F30 /* CinderApp.icns in Resources */,
+				CD72A86618C87A340079722E /* cell_vert.glsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

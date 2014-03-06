@@ -29,6 +29,9 @@
 #define APP_USE_THREADS
 #define APP_CTRL_PATH_THREAD_FPS 240.0f//120.0f//240.0f
 
+#define RES_SHADOW_MAP 2048
+#define TEXEL_SIZE 1.0f / (float)RES_SHADOW_MAP
+
 /*--------------------------------------------------------------------------------------------*/
 // WORLD
 /*--------------------------------------------------------------------------------------------*/
@@ -49,12 +52,12 @@
 #define OSCILLATOR_OCTAVES 1
 #define OSCILLATOR_SEED    clock() & 65535
 
-#define CELL_MIN_NUM_DIVERS   2
+#define CELL_MIN_NUM_DIVERS   5
 #define CELL_MAX_NUM_DIVERS   50
-#define CELL_OFFSET_SPEED     0.0001f
+#define CELL_OFFSET_SPEED     0.01f
 #define CELL_DIVER_NUM_POINTS 10
 #define CELL_DIVER_MIN_HEIGHT 0.01f
-#define CELL_DIVER_MAX_HEIGHT 0.05f
+#define CELL_DIVER_MAX_HEIGHT 0.085f//0.05f
 
 #define PATH_NUM_POINTS 20
 
@@ -71,11 +74,10 @@
 // DRAW/DEBUG
 /*--------------------------------------------------------------------------------------------*/
 
-#define WORLD_DEBUG_DRAW_CELL_AREA
+//#define WORLD_DEBUG_DRAW_CELL_AREA
 //#define WORLD_DEBUG_DRAW_CELL
 #define WORLD_DRAW_CELL
-
-#define APP_USE_NORMAL_DEBUG_SHADER
+//#define APP_USE_NORMAL_DEBUG_SHADER
 
 #define CELL_CALCULATE_NORMALS
 

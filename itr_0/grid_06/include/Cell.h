@@ -81,9 +81,24 @@ protected:
     }
     
     /*--------------------------------------------------------------------------------------------*/
-    // Path Management
+    // Buffer Management
     /*--------------------------------------------------------------------------------------------*/
     
+public:
+    inline int getNumDivers(){
+        return mNumDivers;
+    }
+    
+    inline vector<Vec3f> copyNormalTopBuffer(){
+        return mMeshNormalTopBuffer;
+    }
+    
+    inline void swapNormalTopBuffer(const vector<Vec3f>& buffer){
+        mMeshNormalTopBuffer = vector<Vec3f>(buffer);
+    }
+    
+    
+protected:
     
     
     /*--------------------------------------------------------------------------------------------*/

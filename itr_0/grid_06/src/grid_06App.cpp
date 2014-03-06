@@ -1,14 +1,31 @@
-#include "cinder/app/AppNative.h"
 #include "Resources.h"
-#include "Settings.h"
+
+#include "cinder/Cinder.h"
+#include "cinder/app/AppBasic.h"
+#include "cinder/Rand.h"
 #include "cinder/gl/gl.h"
 #include "cinder/gl/GlslProg.h"
-#include "cinder/Camera.h"
+#include "cinder/gl/Texture.h"
+#include "cinder/gl/Material.h"
+#include "cinder/gl/Fbo.h"
+#include "cinder/gl/Light.h"
+#include "cinder/gl/DisplayList.h"
+#include "cinder/ImageIo.h"
 #include "cinder/Utilities.h"
-#include "cinder/Frustum.h"
+#include "cinder/ip/Hdr.h"
+#include "cinder/TriMesh.h"
+
+#include "Settings.h"
 #include "Controller.h"
 #include "FrustumOrtho.h"
 #include "InfoPanel.h"
+
+
+
+#include "cinder/Utilities.h"
+
+#include <iostream>
+#include <math.h>
 
 using namespace ci;
 using namespace ci::app;
@@ -19,38 +36,49 @@ using namespace std;
 static int   MODEL_ZOOM(WORLD_MODEL_ZOOM_INITIAL);
 static float MODEL_SCALE(WORLD_MODEL_SCALE_INITIAL); //0.65
 
-static bool SHOW_INFO(true);
+static bool SHOW_INFO(false);
 
 /*--------------------------------------------------------------------------------------------*/
 
-class grid_06App : public AppNative {
+
+
+class grid_06App : public AppBasic {
 public:
-    void prepareSettings(Settings* settings);
 	void setup();
-    void initShaders();
-    void loadShader(DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog);
-    void resize();
-	void mouseDown( MouseEvent event );
+    void prepareSettings(Settings* settings);
+	void resize();
+	void initShadowMap();
+	void drawDepthLight(gl::Fbo& fbo, gl::Light* light);
     void keyDown(KeyEvent event);
-	void update();
 	void draw();
+    void drawScene();
+	void update();
     
+    void loadShader(DataSourceRef vertRef, DataSourceRef pathRef, gl::GlslProg* shader);
+    void loadFboRender();
     void updateView();
     
-    InfoPanel*   mInfoPanel;
     
-    //mem
     FrustumOrtho   mFrustum;
     CameraOrtho    mCamera;
     CameraOrtho    mCameraDebug;
     Controller*    mController;
     
-#ifdef APP_USE_NORMAL_DEBUG_SHADER
-    gl::GlslProg   mShaderNormalDebug;
-#endif
+    /*--------------------------------------------------------------------------------------------*/
     
+    gl::GlslProg mShaderDepth;
+	gl::GlslProg mShader;
     
+	gl::Fbo      mFboLight0Depth;
+    gl::Fbo      mFboLight1Depth;
     
+    gl::Fbo      mFboPost;
+
+	gl::Light*   mLight0; //light up
+    gl::Light*   mLight1; //light scatter
+    
+    float mTime;
+    int   mFrame;
 };
 
 void grid_06App::prepareSettings(Settings* settings){
@@ -59,10 +87,6 @@ void grid_06App::prepareSettings(Settings* settings){
 }
 
 void grid_06App::setup(){
-    mInfoPanel = new InfoPanel(Rectf(0,0,300,200));
-    mInfoPanel->setModelScale(&MODEL_SCALE);
-    mInfoPanel->setModelZoom(&MODEL_ZOOM);
-    
     float aspectRatio = app::getWindowAspectRatio();
     mCamera.setOrtho(-aspectRatio, aspectRatio, -1, 1, -10, 1.0f);
     mCamera.lookAt(Vec3f(-1,1,-1), Vec3f::zero());
@@ -70,77 +94,78 @@ void grid_06App::setup(){
     float cameraDebugZoom = 6.0f;
     mCameraDebug.setOrtho(-aspectRatio * cameraDebugZoom, aspectRatio * cameraDebugZoom, -cameraDebugZoom, cameraDebugZoom, -10, 100.0f);
     mCameraDebug.lookAt(Vec3f(0,1,0), Vec3f::zero());
+	
+    /*--------------------------------------------------------------------------------------------*/
     
-    mController     = new Controller(WORLD_NUM_CELLS_XY,WORLD_NUM_CELLS_XY);
     
-#ifdef APP_USE_NORMAL_DEBUG_SHADER
-    initShaders();
-#endif
+	mLight0 = new gl::Light( gl::Light::POINT, 0 );
+	mLight0->setAmbient( Color( 0.3f, 0.3f, 0.3f ) );
+	mLight0->setDiffuse( Color( 0.5f, 0.5f, 0.5f ) );
+	mLight0->setSpecular( Color( 1,1,1 ) );
+	mLight0->setShadowParams( 120.0f, 0.5f, 8.0f ); //fov, near, far
     
-    gl::enableDepthRead();
-    glEnable(GL_SCISSOR_TEST);
+    mLight1 = new gl::Light( gl::Light::POINT, 1 );
+    mLight1->lookAt(Vec3f(-2,2,2), Vec3f::zero());
+    mLight1->setAmbient( Color( 0.1f, 0.1f, 0.1f ) );
+	mLight1->setDiffuse( Color( 0.2f, 0.2f, 0.2f ) );
+	mLight1->setSpecular( Color( 1,1,1 ) );
+    mLight1->setShadowParams( 120.0f, 0.5f, 16.0f );
+    
+    this->loadFboRender();
+    this->loadShader(loadResource(GLSL_SHADOW_MAP_VERT),
+                     loadResource(GLSL_SHADOW_MAP_FRAG), &mShader);
+
+    /*--------------------------------------------------------------------------------------------*/
+
+     mController = new Controller(WORLD_NUM_CELLS_XY,WORLD_NUM_CELLS_XY);
 }
 
-void grid_06App::mouseDown( MouseEvent event ){
+
+void grid_06App::drawScene(){
+    glPushMatrix();
+    glScalef(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
+    mController->draw();
+    glPopMatrix();
 }
+
 
 void grid_06App::update(){
     mFrustum.set(mCamera,1.1f);
+    
     mController->update(app::getElapsedSeconds());
     mController->checkFrustum(mFrustum);
     mController->transform(MODEL_SCALE);
-    
-    
-    mInfoPanel->setFps(getAverageFps());
 }
 
 void grid_06App::draw(){
-    glScissor(0, 0, app::getWindowWidth(), app::getWindowHeight());
-	gl::clear( Color( 0, 0, 0 ) );
-    gl::setMatrices(mCamera);
-    glMatrixMode(GL_MODELVIEW_MATRIX);
-    glEnable(GL_DEPTH_TEST);
+    mFboPost.bindFramebuffer();
+    mFboPost.bindTexture(0);
     
-    glPushMatrix();
-    glScalef(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
-#ifdef WORLD_DEBUG_DRAW_CELL_AREA
-    mController->debugArea();
-#endif
-#ifdef WORLD_DEBUG_DRAW_CELL
-    mController->debugDraw();
-#endif
-#ifdef WORLD_DRAW_CELL
-#ifdef APP_USE_NORMAL_DEBUG_SHADER
-    mShaderNormalDebug.bind();
-    mController->draw();
-    mShaderNormalDebug.unbind();
-#else
-    mController->draw();
-#endif
-#endif
-    glPopMatrix();
+    glClearColor(0, 0, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    gl::enableDepthRead();
     
-    if(SHOW_INFO){
-        mInfoPanel->draw();
-        //  debug frustum
-        glPushAttrib(GL_VIEWPORT_BIT);
-        static const float frustumViewBoxWidth = 300;
-        float aspectRatio = 1.0f / app::getWindowAspectRatio();
-        glScissor(0, 0, frustumViewBoxWidth  ,frustumViewBoxWidth * aspectRatio);
-        glViewport(0, 0, frustumViewBoxWidth ,frustumViewBoxWidth * aspectRatio);
-        gl::clear(Color(0,0,0));
-        gl::setMatrices(mCameraDebug);
-        mFrustum.draw();
-        
-        //draw frustum plane intersection
-        glPushMatrix();
-        glScalef(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
-        mController->debugArea();
-        glPopMatrix();
-        glPopAttrib();
-        
-    }
+    glEnable( GL_LIGHTING );
+    gl::setMatrices(mCamera );
+    mLight0->update(mCamera );
+    mLight1->update(mCamera);
+    mShader.bind();
+	
+    this->drawScene();
+	mShader.unbind();
+	
+    glDisable( GL_LIGHTING );
+    mFboPost.unbindFramebuffer();
+
+    // Draw Fbo
+    
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(0,0,0, 1);
+    gl::setMatricesWindow( getWindowSize(),false );
+    gl::draw(mFboPost.getTexture(), app::getWindowBounds());
 }
+
+/*--------------------------------------------------------------------------------------------*/
 
 void grid_06App::keyDown(KeyEvent event){
     
@@ -184,20 +209,16 @@ void grid_06App::keyDown(KeyEvent event){
     }
 }
 
+/*--------------------------------------------------------------------------------------------*/
+
 void grid_06App::updateView(){
     float aspectRatio = app::getWindowAspectRatio();
-    mCamera.setOrtho(-aspectRatio*MODEL_ZOOM, aspectRatio*MODEL_ZOOM, -MODEL_ZOOM, MODEL_ZOOM, 0.0001, 5.0f);
+    mCamera.setOrtho(-aspectRatio * MODEL_ZOOM, aspectRatio * MODEL_ZOOM, -MODEL_ZOOM, MODEL_ZOOM, 0.0001, 5.0f);
 }
 
 void grid_06App::resize(){
-    this->updateView();
-    
-}
-
-void grid_06App::initShaders(){
-#ifdef APP_USE_NORMAL_DEBUG_SHADER
-    this->loadShader(loadResource(GLSL_NORMAL_VERT), loadResource(GLSL_NORMAL_FRAG), &mShaderNormalDebug);
-#endif
+	updateView();
+    this->loadFboRender();
 }
 
 void grid_06App::loadShader(DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg *prog){
@@ -210,4 +231,11 @@ void grid_06App::loadShader(DataSourceRef refVertGLSL, DataSourceRef refFragGLSL
     }
 }
 
-CINDER_APP_NATIVE( grid_06App, RendererGl )
+void grid_06App::loadFboRender(){
+    gl::Fbo::Format formatFboRender;
+    formatFboRender.setSamples(4);
+    
+    mFboPost = gl::Fbo(app::getWindowWidth(),app::getWindowHeight(),formatFboRender);
+}
+
+CINDER_APP_BASIC( grid_06App, RendererGl )

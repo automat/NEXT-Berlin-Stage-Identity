@@ -22,6 +22,7 @@
 
 #include "Cell.h"
 
+#include <boost/thread.hpp>
 #include "cinder/Thread.h"
 
 using namespace std;
@@ -30,9 +31,11 @@ using namespace cinder;
 class Controller {
     int mSizeX;
     int mSizeY;
+    size_t mNumCells;
     
     Matrix44f mTransform;
     Rectf     mBounds;
+    
     
     vector<Cell*> mCells;
     Oscillator    mOscillator;
@@ -47,11 +50,16 @@ class Controller {
     bool          mUpdateNormalsThreadIsDead;
     mutex         mPathWriteMutex;
     mutex         mDiverWriteMutex;
-    mutex         mNormalWriteMutex;
+    mutex         mMutexNormal;
+    /*
+    vector<vector<Vec3f>>    mCellMeshVertexMiddleBuffer;
+    vector<vector<Vec3f>>    mCellMeshNormalMiddleBuffer;
+    vecotr<vector<uint32_t>> mCellMeshSchemeMiddleBuffer;
     
-    vector<Vec3f> mPathDataUpdateDiver; // path data accessed by diver thread
-    vector<Vec3f> mPathDataUpdatePath;  // path data accessed by path thread
-    vector<Vec3f> mPathDataMiddle;      // path data to pass between both threads
+    vector<vector<Vec3f>>    mCellMeshVertexUpdateBuffer;
+    vector<vector<Vec3f>>    mCellMeshNormalUpdateBuffer;
+    vecotr<vector<uint32_t>> mCellMeshSchemeUpdateBuffer;
+     */
 #endif
     
     
@@ -59,7 +67,7 @@ public:
     Controller(int sizeX = 3, int sizeY = 3) :
         mSizeX(sizeX),
         mSizeY(sizeY){
-
+            mNumCells = sizeX * sizeY;
             int sizeX_2 = mSizeX / 2;
             int sizeY_2 = mSizeY / 2;
             //  init
@@ -74,6 +82,8 @@ public:
                     pos.x = -sizeX_2 + j;
                     pos.z = -sizeY_2 + i;
                     mCells.push_back(new Cell(id,pos,&mOscillator));
+                    
+                   // mCellMeshNormalMiddleBuffer.push_back(vector<Vec3f>(mCells.back()->copyNormalTopBuffer()));
                 }
             }
             
@@ -85,7 +95,7 @@ public:
             mUpdateInterval      = (1.0f / APP_CTRL_PATH_THREAD_FPS) * 1000.0f;
             mUpdatePathsThread   = thread(bind(&Controller::updatePaths,this));
             mUpdateDiversThread  = thread(bind(&Controller::updateDivers,this));
-          //  mUpdateNormalsThread = thread(bind(&Controller::updateNormals,this));
+           // mUpdateNormalsThread = thread(bind(&Controller::updateNormals,this));
             mUpdatePathsThreadIsDead = false;
             mUpdateDiversThreadIsDead = false;
           //  mUpdateNormalsThreadIsDead = false;
@@ -96,10 +106,10 @@ public:
 #ifdef APP_USE_THREADS
         mUpdatePathsThreadIsDead = true;
         mUpdateDiversThreadIsDead = true;
-      //  mUpdateNormalsThreadIsDead = true;
+        mUpdateNormalsThreadIsDead = true;
         mUpdatePathsThread.join();
         mUpdateDiversThread.join();
-      //  mUpdateNormalsThread.join();
+        mUpdateNormalsThread.join();
         sleep(1000.0f);
 #endif
     }
@@ -112,22 +122,88 @@ public:
         }
         glPopMatrix();
     }
+
     /*
     inline void updateNormals(){
         while (!mUpdateNormalsThreadIsDead) {
-            
-            mNormalWriteMutex.lock(); //naak
-            //more stuff here, soon
-            for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
-                (*itr)->updateNormals();
+            int i = -1;
+            while (++i < mNumCells) {
+                updateCellNormals( mCellMeshVertexUpdateBuffer[i],
+                                   mCellMeshSchemeUpdateBuffer[i],
+                                  &mCellMeshNormalMiddleBuffer[i]);
             }
-            mNormalWriteMutex.unlock();
+            
+            mMutexNormal.lock();
+            i = -1;
+            while (++i < mNumCells) {
+                mCellMeshVertexMiddleBuffer[i] = mCellMeshVertexUpdateBuffer[i];
+                mCellMeshSchemeMiddleBuffer[i] = mCellMeshSchemeUpdateBuffer[i];
+                mCellMeshNormalMiddleBuffer[i] = mCellMeshNormalUpdateBuffer[i];
+            }
+            mMutexNormal.unlock();
             
             sleep(mUpdateInterval);
         }
-        
     }
      */
+    
+private:
+    inline void updateCellNormals(const vector<Vec3f>& vertices,    // all vertices
+                                  const vector<uint32_t>& scheme,   // indices of top
+                                  vector<Vec3f>* normals){          // target normals
+        static const Vec3f zero(0,0,0);
+        
+        size_t size = scheme.size();
+        int i = -1;
+        while(++i < size){
+            (*normals)[scheme[i]].set(zero);
+        }
+        
+        size_t numTriangles = size / 3;
+        Vec3f e0,e1,normal;
+        int index0,index1,index2;
+        int i3;
+        
+        i = -1;
+        while(++i < numTriangles){
+            i3 = i * 3;
+            
+            index0 = scheme[i3    ];
+            index1 = scheme[i3 + 1];
+            index2 = scheme[i3 + 2];
+            e0.set(vertices[ index1 ] - vertices[ index0 ]);
+            e1.set(vertices[ index2 ] - vertices[ index0 ]);
+            normal.set(e0.cross(e1).safeNormalized());
+            
+            (*normals)[ index0 ] += normal;
+            (*normals)[ index1 ] += normal;
+            (*normals)[ index2 ] += normal;
+        }
+        
+        i = -1;
+        while(++i < size){
+            (*normals)[scheme[i]].safeNormalize();
+        }
+    }
+    
+public:
+    
+    
+    inline void update(float t){
+#ifndef APP_USE_THREADS
+        updatePaths();
+        updateDivers();
+#endif
+        
+        mMutexNormal.lock();
+        // get buffer copy
+        mMutexNormal.unlock();
+        
+        for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
+            (*itr)->update();
+        }
+    }
+    
     
     inline void updatePaths(){
 #ifdef APP_USE_THREADS
@@ -206,16 +282,7 @@ public:
         glPopMatrix();
     }
     
-    inline void update(float t){
-#ifndef APP_USE_THREADS
-        updatePaths();
-        updateDivers();
-#endif
-        
-        for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
-            (*itr)->update();
-        }
-    }
+
     
     //! check if cells are within the orthographic frustum
     inline void checkFrustum(const FrustumOrtho& frustum){
