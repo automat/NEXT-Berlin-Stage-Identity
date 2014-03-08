@@ -14,16 +14,14 @@
 #include "cinder/Utilities.h"
 #include "cinder/ip/Hdr.h"
 #include "cinder/TriMesh.h"
+#include "cinder/Json.h"
+
+#include "Config.h"
 
 #include "FileWatcher.h"
-#include "Settings.h"
 #include "Controller.h"
 #include "FrustumOrtho.h"
 #include "InfoPanel.h"
-
-#include "ScriptJS.h"
-
-
 
 #include "cinder/Utilities.h"
 
@@ -34,30 +32,15 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
+#define PATH_CONFIG_JSON "/Users/automat/Projects/next/itr_0/grid_07/resources/config.json"
+
 /*--------------------------------------------------------------------------------------------*/
 
-static int   MODEL_ZOOM(WORLD_MODEL_ZOOM_INITIAL);
-static float MODEL_SCALE(WORLD_MODEL_SCALE_INITIAL); //0.65
+static int   MODEL_ZOOM;
+static float MODEL_SCALE;
 
 static bool SHOW_INFO(false);
 
-/*--------------------------------------------------------------------------------------------*/
-
-// Global Module
-
-// Accessor
-static void GetIntValue(Local<String> property,
-                              const PropertyCallbackInfo<Value>& info){
-    int* value = static_cast<int*>(Handle<External>::Cast(info.Data())->Value());
-    info.GetReturnValue().Set(scriptjs::ToV8Int(*value));
-}
-
-static void SetIntValue(Local<String> property,
-                              Local<Value> value,
-                              const PropertyCallbackInfo<Value>& info){
-    int* field = static_cast<int*>(Handle<External>::Cast(info.Data())->Value());
-    *field = value->Int32Value();
-}
 /*--------------------------------------------------------------------------------------------*/
 
 
@@ -77,8 +60,10 @@ public:
     void loadFboRender();
     void updateView();
     
-    FileWatcher             mFileWatcher;
-    scriptjs::ScriptContext mScriptContext;
+
+    
+    FileWatcher    mFileWatcher;
+    void           reloadConfig();
     
     FrustumOrtho   mFrustum;
     CameraOrtho    mCamera;
@@ -108,11 +93,14 @@ public:
 };
 
 void grid_07App::prepareSettings(Settings* settings){
+    config::Load(PATH_CONFIG_JSON);
     settings->setWindowSize(APP_WIDTH,APP_HEIGHT);
     settings->setFrameRate(APP_FPS);
 }
 
 void grid_07App::setup(){
+    /*--------------------------------------------------------------------------------------------*/
+    
     float aspectRatio = app::getWindowAspectRatio();
     mCamera.setOrtho(-aspectRatio, aspectRatio, -1, 1, -10, 1.0f);
     mCamera.lookAt(Vec3f(-1,1,-1), Vec3f::zero());
@@ -125,17 +113,7 @@ void grid_07App::setup(){
     
     
 	mLight0 = new gl::Light( gl::Light::POINT, 0 );
-	mLight0->setAmbient( Color( 0.3f, 0.3f, 0.3f ) );
-	mLight0->setDiffuse( Color( 0.5f, 0.5f, 0.5f ) );
-	mLight0->setSpecular( Color( 1,1,1 ) );
-	mLight0->setShadowParams( 120.0f, 0.5f, 8.0f ); //fov, near, far
-    
     mLight1 = new gl::Light( gl::Light::POINT, 1 );
-    mLight1->lookAt(Vec3f(-2,2,2), Vec3f::zero());
-    mLight1->setAmbient( Color( 0.1f, 0.1f, 0.1f ) );
-	mLight1->setDiffuse( Color( 0.2f, 0.2f, 0.2f ) );
-	mLight1->setSpecular( Color( 1,1,1 ) );
-    mLight1->setShadowParams( 120.0f, 0.5f, 16.0f );
     
     this->loadFboRender();
     this->loadShader(loadResource(GLSL_SHADOW_MAP_VERT),
@@ -143,13 +121,30 @@ void grid_07App::setup(){
     
     /*--------------------------------------------------------------------------------------------*/
    
-    //ENTER_CONTEXT(mScriptContext);
+    reloadConfig();
     
-    
-    
-    //mScriptContext.loadScript("/Users/automat/Projects/next/itr_0/grid_07/resources/script.js");
+    mFileWatcher.addFile(PATH_CONFIG_JSON);
     mController = new Controller(WORLD_NUM_CELLS_XY,WORLD_NUM_CELLS_XY);
+}
+
+void grid_07App::reloadConfig(){
+    config::Load(PATH_CONFIG_JSON);
     
+    using namespace config;
+    
+    MODEL_SCALE = WORLD_MODEL_SCALE_INITIAL;
+    MODEL_ZOOM  = WORLD_MODEL_ZOOM_INITIAL;
+    
+    
+    mLight0->lookAt(LIGHT0_EYE, LIGHT0_TARGET);
+	mLight0->setAmbient( LIGHT0_AMBIENT );
+	mLight0->setDiffuse( LIGHT0_DIFFUSE );
+	mLight0->setSpecular(LIGHT0_SPECULAR );
+    
+    mLight1->lookAt(LIGHT1_EYE, LIGHT1_TARGET);
+	mLight1->setAmbient( LIGHT1_AMBIENT );
+	mLight1->setDiffuse( LIGHT1_DIFFUSE );
+	mLight1->setSpecular(LIGHT1_SPECULAR );
 }
 
 
@@ -167,6 +162,11 @@ void grid_07App::update(){
     mController->update(app::getElapsedSeconds());
     mController->checkFrustum(mFrustum);
     mController->transform(MODEL_SCALE);
+    
+    if(mFileWatcher.fileDidChange(PATH_CONFIG_JSON)){
+        reloadConfig();
+        mController->reset();
+    }
 }
 
 void grid_07App::draw(){

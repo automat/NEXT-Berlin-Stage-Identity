@@ -9,7 +9,7 @@
 #ifndef grid_01_GridDiver_h
 #define grid_01_GridDiver_h
 
-#include "Settings.h"
+#include "Config.h"
 #include "cinder/Vector.h"
 #include "cinder/Rand.h"
 #include "Path.h"
@@ -17,6 +17,7 @@
 
 using namespace ci;
 using namespace std;
+using namespace config;
 
 class Diver {
     Path* mPath;

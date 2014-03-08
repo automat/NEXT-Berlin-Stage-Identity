@@ -10,7 +10,7 @@
 #define grid_01_GridCell_h
 
 #include <boost/assign/std/vector.hpp>
-#include "Settings.h"
+#include "Config.h"
 #include <OpenGL/OpenGL.h>
 #include "cinder/gl/gl.h"
 
@@ -76,8 +76,9 @@ protected:
     // free all pointer data
     //
     void freeData(){
-        while (!mPaths.empty())  delete mPaths.back(), mPaths.pop_back();
         while (!mDivers.empty()) delete mDivers.back(), mDivers.pop_back();
+        while (!mPaths.empty())  delete mPaths.back(), mPaths.pop_back();
+        
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -104,7 +105,7 @@ protected:
     /*--------------------------------------------------------------------------------------------*/
     // Fold / Unfold
     /*--------------------------------------------------------------------------------------------*/
-
+    
     //
     // collapse all vertices of a diver into one vertex by setting
     // all its indices to its first index
@@ -138,23 +139,23 @@ public:
     /*--------------------------------------------------------------------------------------------*/
     // Constructor / Destructor
     /*--------------------------------------------------------------------------------------------*/
-
+    
     
     Cell(int* id,const Vec3f& pos,Oscillator* oscillator, Vec3f size = Vec3f(1,1,1)) :
-        mPos(pos),
-        mOscillator(oscillator),
-        mSize(size),
-        mActive(true),
-        mOffset(0.0f){
-            mId[0] = id[0];
-            mId[1] = id[1];
-            
-            mMeshLayout.setDynamicPositions();
-            mMeshLayout.setStaticNormals();
-            mMeshLayout.setDynamicIndices();
-            mMeshLayout.setStaticColorsRGB();
-
-            this->reset();
+    mPos(pos),
+    mOscillator(oscillator),
+    mSize(size),
+    mActive(true),
+    mOffset(0.0f){
+        mId[0] = id[0];
+        mId[1] = id[1];
+        
+        mMeshLayout.setDynamicPositions();
+        mMeshLayout.setStaticNormals();
+        mMeshLayout.setDynamicIndices();
+        mMeshLayout.setStaticColorsRGB();
+        
+        this->reset();
     }
     
     ~Cell(){
@@ -179,20 +180,20 @@ public:
         while (++i < mNumDivers) {
             Vec3f end(marginX + float(i) / float(mNumDivers), 0.0, -0.5f);
             Vec3f start(end.x, end.y, 0.5f);
-
+            
             mPaths.push_back(new Path(start, end));
             mDivers.push_back(new Diver(mPaths.back(),                                                  // path
-                                        Rand::randFloat(DIVER_MIN_OFFSET, DIVER_MAX_OFFSET),            // offset
+                                        Rand::randFloat(DIVER_MIN_OFFSET,DIVER_MAX_OFFSET),            // offset
                                         Rand::randFloat(DIVER_MIN_SPEED, DIVER_MAX_SPEED),              // speed
                                         mDiverWidth,
                                         Rand::randFloat(DIVER_MIN_LENGTH,DIVER_MAX_LENGTH),             // length
-                                        Rand::randFloat(CELL_DIVER_MIN_HEIGHT,CELL_DIVER_MAX_HEIGHT))); // height
+                                        Rand::randFloat(DIVER_MIN_HEIGHT,DIVER_MAX_HEIGHT))); // height
         }
-       
+        
         mDiverVerticesCapLen  = 8; // top + back
-        mDiverVerticesBodyLen = (CELL_DIVER_NUM_POINTS * 4) * 2; //(top , bottom , left, right ) * 2 ,
+        mDiverVerticesBodyLen = (DIVER_NUM_POINTS * 4) * 2; //(top , bottom , left, right ) * 2 ,
         mDiverVerticesLen     = mDiverVerticesBodyLen + mDiverVerticesCapLen;
-        mDiverIndicesLen      = (CELL_DIVER_NUM_POINTS - 1) * 6  * 2 * 2 + (mDiverVerticesCapLen/2 * 3);
+        mDiverIndicesLen      = (DIVER_NUM_POINTS - 1) * 6  * 2 * 2 + (mDiverVerticesCapLen/2 * 3);
         mMeshVerticesLen      = (mDiverVerticesBodyLen + mDiverVerticesCapLen) * mNumDivers;
         mMeshIndicesLen       = mDiverIndicesLen  * mNumDivers;
         
@@ -221,14 +222,14 @@ public:
         //
         
         int v00,v01,v02,v03,
-            v04,v05,v06,v07,
-            v08,v09,v10,v11,
-            v12,v13,v14,v15;
+        v04,v05,v06,v07,
+        v08,v09,v10,v11,
+        v12,v13,v14,v15;
         int index;
         
         int j;
         i = -1;
-        while (++i < CELL_DIVER_NUM_POINTS - 1) {
+        while (++i < DIVER_NUM_POINTS - 1) {
             index = i * 8;
             
             // bottom -> j / top ->j(next step)
@@ -249,7 +250,7 @@ public:
             // next quad duplicate
             v12 = index + 12; v13 = index + 14;
             v14 = index + 15; v15 = index + 13;
-
+            
             // bottom lower & upper triangle
             mDiverIndicesUnfolded += v00,v03,v04;
             mDiverIndicesUnfolded += v03,v07,v04;
@@ -266,7 +267,7 @@ public:
             mDiverIndicesUnfolded += v11,v10,v15;
             mDiverIndicesUnfolded += v10,v14,v15;
         }
-
+        
         // current diver step 0 + just tube vertices, leaving 8 cap vertices
         index = mDiverVerticesBodyLen;
         
@@ -296,8 +297,8 @@ public:
         i = -1;
         while (++i < mNumDivers) {
             j = -1;
-            while (++j < CELL_DIVER_NUM_POINTS - 1) {
-                index = (i * CELL_DIVER_NUM_POINTS + j + i) * 8;
+            while (++j < DIVER_NUM_POINTS - 1) {
+                index = (i * DIVER_NUM_POINTS + j + i) * 8;
                 // first quad
                 v00 = index + 0; v01 = index + 2;
                 v02 = index + 3; v03 = index + 1;
@@ -315,11 +316,12 @@ public:
         //  Setup vbo mesh
         //
         
+        //mMesh.reset();
         mMesh.reset();
         mMesh = gl::VboMesh(mMeshVerticesLen,mMeshIndicesLen,mMeshLayout,GL_TRIANGLES);
         
         vector<Colorf> meshColors;  // buffer colors for debug
-     
+        
         static const Vec3f up(0,1,0),down(0,-1,0);
         static const Vec3f left(-1,0,0),right(1,0,0);
         static const Vec3f front(0,0,-1),back(0,0,1);
@@ -327,7 +329,7 @@ public:
         i = -1;
         while (++i < mNumDivers) {
             j = 0;
-            while (j < CELL_DIVER_NUM_POINTS) {
+            while (j < DIVER_NUM_POINTS) {
                 meshColors += Utils::toColor(down),Utils::toColor(down);
                 meshColors += Utils::toColor(  up),Utils::toColor(  up);
                 meshColors += Utils::toColor(left),Utils::toColor(right);
@@ -440,7 +442,7 @@ public:
         
         static const float scale  = 0.75f;
         mOffset += CELL_OFFSET_SPEED;
-      
+        
         for(vector<Path*>::const_iterator itr = mPaths.begin(); itr != mPaths.end(); ++itr){
             for(vector<Vec3f>::iterator _itr = (*itr)->getPoints().begin(); _itr != (*itr)->getPoints().end(); _itr++){
                 _itr->y = mOscillator->getValue(mPos.x + _itr->x,
@@ -477,7 +479,7 @@ public:
         bool  diverIsOut;
         bool  diverIsOutPrev;
         int   diverIndex = 0;
-   
+        
 #ifdef CELL_CALCULATE_NORMALS
         int   vertexIndex = 0;
 #endif
@@ -518,8 +520,8 @@ public:
                 diverIndex++;
                 continue;
             }
-             
-             
+            
+            
             //
             //  diver is visible,
             //  update all vertices, copies and normals
@@ -557,7 +559,7 @@ public:
                 mMeshVertexBuffer[vertexIndex++].set(x1,y1,z);
 #endif
             }
-
+            
             const Vec3f& start = points[0];
             const Vec3f& end   = points[points.size() - 1];
             
@@ -605,7 +607,7 @@ public:
             } else if(!diverIsOut && diverIsOutPrev){
                 unfold(diverIndex);
             }
-
+            
             diverIndex++;
         }
         
@@ -625,7 +627,7 @@ public:
     
     inline void updateNormals(){
         static const Vec3f zero(0,0,0);
-
+        
         size_t size = mMeshIndexScheme.size();
         int i = -1;
         while (++i < size) {
@@ -647,7 +649,7 @@ public:
             e0.set(mMeshVertexBuffer[ index1 ] - mMeshVertexBuffer[ index0 ]);
             e1.set(mMeshVertexBuffer[ index2 ] - mMeshVertexBuffer[ index0 ]);
             normal.set(e0.cross(e1).safeNormalized());
-
+            
             mMeshNormalBuffer[ index0 ] += normal;
             mMeshNormalBuffer[ index1 ] += normal;
             mMeshNormalBuffer[ index2 ] += normal;

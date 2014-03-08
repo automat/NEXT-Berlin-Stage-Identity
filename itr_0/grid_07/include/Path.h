@@ -13,12 +13,13 @@
 #include "cinder/gl/gl.h"
 #include <OpenGL/OpenGL.h>
 
-#include "Settings.h"
+#include "Config.h"
 
 #include <math.h>
 
 using namespace std;
 using namespace ci;
+using namespace config;
 
 
 class Path {

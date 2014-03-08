@@ -20,7 +20,7 @@
 		CD72A87F18C9F8220079722E /* cell_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD72A87B18C9F8220079722E /* cell_vert.glsl */; };
 		CD72A88018C9F8220079722E /* normal_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD72A87C18C9F8220079722E /* normal_frag.glsl */; };
 		CD72A88118C9F8220079722E /* normal_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD72A87D18C9F8220079722E /* normal_vert.glsl */; };
-		CD72A8A418CA26E80079722E /* script.js in Sources */ = {isa = PBXBuildFile; fileRef = CD72A8A318CA26E80079722E /* script.js */; };
+		CD72A8A618CB3AB80079722E /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = CD72A8A518CB3AB80079722E /* config.json */; };
 		D028CC73DFE5483DA6446A3B /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = A7C7F3D894F743559B135F41 /* CinderApp.icns */; };
 /* End PBXBuildFile section */
 
@@ -53,11 +53,11 @@
 		CD72A88718C9F8310079722E /* Oscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Oscillator.h; path = ../include/Oscillator.h; sourceTree = "<group>"; };
 		CD72A88818C9F8310079722E /* Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Path.h; path = ../include/Path.h; sourceTree = "<group>"; };
 		CD72A88918C9F8310079722E /* Resources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
-		CD72A88A18C9F8310079722E /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = ../include/Settings.h; sourceTree = "<group>"; };
 		CD72A88B18C9F8310079722E /* StringCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringCell.h; path = ../include/StringCell.h; sourceTree = "<group>"; };
 		CD72A88C18C9F8310079722E /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = ../include/Utils.h; sourceTree = "<group>"; };
 		CD72A88F18C9F91F0079722E /* FileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileWatcher.h; path = ../include/FileWatcher.h; sourceTree = "<group>"; };
-		CD72A8A318CA26E80079722E /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = script.js; path = ../resources/script.js; sourceTree = "<group>"; };
+		CD72A8A518CB3AB80079722E /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../resources/config.json; sourceTree = "<group>"; };
+		CD72A8A718CB49080079722E /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,8 +144,8 @@
 			children = (
 				CD72A88D18C9F8490079722E /* World */,
 				CD72A88E18C9F8550079722E /* Utils */,
+				CD72A8A718CB49080079722E /* Config.h */,
 				CD72A88918C9F8310079722E /* Resources.h */,
-				CD72A88A18C9F8310079722E /* Settings.h */,
 				6146CEB6C77E493DBD129DB2 /* Resources.h */,
 				86F177BEF68E45FCA75A0EA5 /* grid_07_Prefix.pch */,
 			);
@@ -161,7 +161,7 @@
 				CD72A87D18C9F8220079722E /* normal_vert.glsl */,
 				A7C7F3D894F743559B135F41 /* CinderApp.icns */,
 				3FB0E912B3F74A02B866E568 /* Info.plist */,
-				CD72A8A318CA26E80079722E /* script.js */,
+				CD72A8A518CB3AB80079722E /* config.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -256,6 +256,7 @@
 				D028CC73DFE5483DA6446A3B /* CinderApp.icns in Resources */,
 				CD72A87E18C9F8220079722E /* cell_frag.glsl in Resources */,
 				CD72A87F18C9F8220079722E /* cell_vert.glsl in Resources */,
+				CD72A8A618CB3AB80079722E /* config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,7 +268,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCE59B2EAA134C378249D930 /* grid_07App.cpp in Sources */,
-				CD72A8A418CA26E80079722E /* script.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
