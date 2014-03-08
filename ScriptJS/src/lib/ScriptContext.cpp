@@ -13,6 +13,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <map>
 
 //  Get v8 instance
 //      Enter isolate scope
@@ -32,6 +33,9 @@ namespace scriptjs {
     using namespace std;
     /*------------------------------------------------------------------------------------------------------------*/
     
+    
+    
+    
     ScriptContext::~ScriptContext(){
         this->dispose();
     }
@@ -39,6 +43,7 @@ namespace scriptjs {
     // TODO: This should be mapped to a created ScriptContext
     static string scriptDir = "";
     static map<string,Persistent<Context>> requiredModules;
+    static Local<ObjectTemplate>           globalTemplShared;
     
     
     void ScriptContext::dispose(){

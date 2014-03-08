@@ -9,7 +9,7 @@
 #ifndef ScriptJS_ScriptJS_Prefix_h
 #define ScriptJS_ScriptJS_Prefix_h
 
-#include <v8.h>
+#include "v8.h"
 
 using namespace v8;
 

@@ -22,22 +22,26 @@
 		CD3E7DD3189EDFBF0052ED59 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DD1189EDFBF0052ED59 /* Logger.cpp */; };
 		CD3E7DD7189F0A0E0052ED59 /* script.js in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DD6189F0A0E0052ED59 /* script.js */; };
 		CD582EDA18AA48E20078C683 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDC967A018AA3A7A000C50A7 /* Light.cpp */; };
-		CD80544F18A2DB10007D6970 /* ScriptContext.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3E7DD5189EE2480052ED59 /* ScriptContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD80545018A2DB10007D6970 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3E7DD4189EE0AE0052ED59 /* Logger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD80545118A2DB10007D6970 /* ScriptJS_Prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3E7DC8189EC1AF0052ED59 /* ScriptJS_Prefix.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD72A89A18CA20D90079722E /* v8-debug.h in Headers */ = {isa = PBXBuildFile; fileRef = CD72A89218CA20D90079722E /* v8-debug.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CD72A89B18CA20D90079722E /* v8-defaults.h in Headers */ = {isa = PBXBuildFile; fileRef = CD72A89318CA20D90079722E /* v8-defaults.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CD72A89C18CA20D90079722E /* v8-preparser.h in Headers */ = {isa = PBXBuildFile; fileRef = CD72A89418CA20D90079722E /* v8-preparser.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CD72A89D18CA20D90079722E /* v8-profiler.h in Headers */ = {isa = PBXBuildFile; fileRef = CD72A89518CA20D90079722E /* v8-profiler.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CD72A89E18CA20D90079722E /* v8-testing.h in Headers */ = {isa = PBXBuildFile; fileRef = CD72A89618CA20D90079722E /* v8-testing.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CD72A89F18CA20D90079722E /* v8.h in Headers */ = {isa = PBXBuildFile; fileRef = CD72A89718CA20D90079722E /* v8.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CD72A8A018CA20D90079722E /* v8config.h in Headers */ = {isa = PBXBuildFile; fileRef = CD72A89818CA20D90079722E /* v8config.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CD72A8A118CA20D90079722E /* v8stdint.h in Headers */ = {isa = PBXBuildFile; fileRef = CD72A89918CA20D90079722E /* v8stdint.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CD80544F18A2DB10007D6970 /* ScriptContext.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3E7DD5189EE2480052ED59 /* ScriptContext.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CD80545018A2DB10007D6970 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3E7DD4189EE0AE0052ED59 /* Logger.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CD80545118A2DB10007D6970 /* ScriptJS_Prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3E7DC8189EC1AF0052ED59 /* ScriptJS_Prefix.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		CD80545218A2DB10007D6970 /* ScriptJS.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3E7DC9189EC3690052ED59 /* ScriptJS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD80545318A2DB10007D6970 /* ObjectWrap.h in Headers */ = {isa = PBXBuildFile; fileRef = CDDC9A44189FB6850002D878 /* ObjectWrap.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD80545418A2DB10007D6970 /* Module.h in Headers */ = {isa = PBXBuildFile; fileRef = CDDC9A45189FB8C40002D878 /* Module.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD80545318A2DB10007D6970 /* ObjectWrap.h in Headers */ = {isa = PBXBuildFile; fileRef = CDDC9A44189FB6850002D878 /* ObjectWrap.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CD80545418A2DB10007D6970 /* Module.h in Headers */ = {isa = PBXBuildFile; fileRef = CDDC9A45189FB8C40002D878 /* Module.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		CD80545518A2DB27007D6970 /* ScriptJS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DCB189EC4050052ED59 /* ScriptJS.cpp */; };
 		CD80545618A2DB27007D6970 /* ScriptContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DCD189ED0D80052ED59 /* ScriptContext.cpp */; };
 		CD80545718A2DB27007D6970 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD3E7DD1189EDFBF0052ED59 /* Logger.cpp */; };
 		CD9C09DB18A27EDD007516AF /* ModuleClassCpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9C09DA18A27EDD007516AF /* ModuleClassCpp.cpp */; };
-		CDC9679A18A97024000C50A7 /* gl.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC9679918A97024000C50A7 /* gl.h */; };
 		CDC9679C18A97113000C50A7 /* gl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDC9679B18A97113000C50A7 /* gl.cpp */; };
 		CDC9679D18A97113000C50A7 /* gl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDC9679B18A97113000C50A7 /* gl.cpp */; };
-		CDC9679F18AA3A50000C50A7 /* Light.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC9679E18AA3A50000C50A7 /* Light.h */; };
-		CDC967A118AA3A7A000C50A7 /* Light.cpp in Headers */ = {isa = PBXBuildFile; fileRef = CDC967A018AA3A7A000C50A7 /* Light.cpp */; };
-		CDC967A318AA3AE0000C50A7 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC967A218AA3AE0000C50A7 /* Material.h */; };
 		CDCD71BC18A3C84800EEC8F7 /* module.js in Sources */ = {isa = PBXBuildFile; fileRef = CDCD71BB18A3C84800EEC8F7 /* module.js */; };
 		CDCD71BE18A40A1400EEC8F7 /* anotherModule.js in Sources */ = {isa = PBXBuildFile; fileRef = CDCD71BD18A40A1400EEC8F7 /* anotherModule.js */; };
 /* End PBXBuildFile section */
@@ -66,6 +70,14 @@
 		CD3E7DD4189EE0AE0052ED59 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		CD3E7DD5189EE2480052ED59 /* ScriptContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptContext.h; sourceTree = "<group>"; };
 		CD3E7DD6189F0A0E0052ED59 /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = script.js; path = ../resources/script.js; sourceTree = "<group>"; };
+		CD72A89218CA20D90079722E /* v8-debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "v8-debug.h"; path = "../../../v8/include/v8-debug.h"; sourceTree = "<group>"; };
+		CD72A89318CA20D90079722E /* v8-defaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "v8-defaults.h"; path = "../../../v8/include/v8-defaults.h"; sourceTree = "<group>"; };
+		CD72A89418CA20D90079722E /* v8-preparser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "v8-preparser.h"; path = "../../../v8/include/v8-preparser.h"; sourceTree = "<group>"; };
+		CD72A89518CA20D90079722E /* v8-profiler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "v8-profiler.h"; path = "../../../v8/include/v8-profiler.h"; sourceTree = "<group>"; };
+		CD72A89618CA20D90079722E /* v8-testing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "v8-testing.h"; path = "../../../v8/include/v8-testing.h"; sourceTree = "<group>"; };
+		CD72A89718CA20D90079722E /* v8.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = v8.h; path = ../../../v8/include/v8.h; sourceTree = "<group>"; };
+		CD72A89818CA20D90079722E /* v8config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = v8config.h; path = ../../../v8/include/v8config.h; sourceTree = "<group>"; };
+		CD72A89918CA20D90079722E /* v8stdint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = v8stdint.h; path = ../../../v8/include/v8stdint.h; sourceTree = "<group>"; };
 		CD9C09DA18A27EDD007516AF /* ModuleClassCpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ModuleClassCpp.cpp; path = ../src/ModuleClassCpp.cpp; sourceTree = "<group>"; };
 		CD9C0A0918A2D8DC007516AF /* liblibScriptJS_d.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibScriptJS_d.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDC9679918A97024000C50A7 /* gl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gl.h; sourceTree = "<group>"; };
@@ -173,6 +185,7 @@
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				CD72A8A218CA212B0079722E /* v8 */,
 				CD3E7DC7189EC1880052ED59 /* lib */,
 				511D577079F24A3C831CDC0C /* Resources.h */,
 				41A9D93DC84946ADAFF1C55A /* ScriptJS_Prefix.pch */,
@@ -229,6 +242,21 @@
 			path = ../src/lib;
 			sourceTree = "<group>";
 		};
+		CD72A8A218CA212B0079722E /* v8 */ = {
+			isa = PBXGroup;
+			children = (
+				CD72A89218CA20D90079722E /* v8-debug.h */,
+				CD72A89318CA20D90079722E /* v8-defaults.h */,
+				CD72A89418CA20D90079722E /* v8-preparser.h */,
+				CD72A89518CA20D90079722E /* v8-profiler.h */,
+				CD72A89618CA20D90079722E /* v8-testing.h */,
+				CD72A89718CA20D90079722E /* v8.h */,
+				CD72A89818CA20D90079722E /* v8config.h */,
+				CD72A89918CA20D90079722E /* v8stdint.h */,
+			);
+			name = v8;
+			sourceTree = "<group>";
+		};
 		CDC9679718A96FA4000C50A7 /* module */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,16 +283,20 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDC967A118AA3A7A000C50A7 /* Light.cpp in Headers */,
+				CD80545218A2DB10007D6970 /* ScriptJS.h in Headers */,
+				CD72A89A18CA20D90079722E /* v8-debug.h in Headers */,
+				CD72A89B18CA20D90079722E /* v8-defaults.h in Headers */,
+				CD72A89C18CA20D90079722E /* v8-preparser.h in Headers */,
+				CD72A89D18CA20D90079722E /* v8-profiler.h in Headers */,
+				CD72A89E18CA20D90079722E /* v8-testing.h in Headers */,
+				CD72A89F18CA20D90079722E /* v8.h in Headers */,
+				CD72A8A018CA20D90079722E /* v8config.h in Headers */,
+				CD72A8A118CA20D90079722E /* v8stdint.h in Headers */,
 				CD80544F18A2DB10007D6970 /* ScriptContext.h in Headers */,
+				CD80545318A2DB10007D6970 /* ObjectWrap.h in Headers */,
+				CD80545418A2DB10007D6970 /* Module.h in Headers */,
 				CD80545018A2DB10007D6970 /* Logger.h in Headers */,
 				CD80545118A2DB10007D6970 /* ScriptJS_Prefix.h in Headers */,
-				CD80545218A2DB10007D6970 /* ScriptJS.h in Headers */,
-				CD80545318A2DB10007D6970 /* ObjectWrap.h in Headers */,
-				CDC9679F18AA3A50000C50A7 /* Light.h in Headers */,
-				CDC9679A18A97024000C50A7 /* gl.h in Headers */,
-				CD80545418A2DB10007D6970 /* Module.h in Headers */,
-				CDC967A318AA3AE0000C50A7 /* Material.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,7 +533,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/";
 				COPY_PHASE_STRIP = NO;
-				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_PREFIX = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -516,6 +548,8 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				GENERATE_MASTER_OBJECT_FILE = YES;
+				KEEP_PRIVATE_EXTERNS = YES;
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
@@ -543,7 +577,7 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
-				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_PREFIX = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -551,10 +585,12 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				GENERATE_MASTER_OBJECT_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"$(CINDER_PATH)/boost\"",
 					"\"$(V8_PATH)/include\"",
 				);
+				KEEP_PRIVATE_EXTERNS = YES;
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -31,7 +31,7 @@ ContextJS.prototype.draw = function(){
     gl.clear();
     gl.clearColor(0.5 + Math.sin(time) * 0.5,0,1);
 
-    var numi = 50,
+    var numi = 200,
     numj = numi;
     var ni,nj;
     var i = -1;
