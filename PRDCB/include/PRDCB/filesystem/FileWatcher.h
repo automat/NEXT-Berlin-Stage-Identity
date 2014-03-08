@@ -21,21 +21,21 @@ class FileWatcherRemovedExc : public std::exception {
     std::string mMessage;
 public:
     FileWatcherRemovedExc(const std::string& msg) : mMessage("File has been removed: " + msg){};
-	virtual const char* what() const throw(){return mMessage.c_str();}
+	inline virtual const char* what() const throw(){return mMessage.c_str();}
 };
 
 class FileWatcherNotAddedExc : public std::exception {
     std::string mMessage;
 public:
     FileWatcherNotAddedExc(const std::string& msg) : mMessage("File not added to watcher: " + msg){};
-	virtual const char* what() const throw(){return mMessage.c_str();}
+	inline virtual const char* what() const throw(){return mMessage.c_str();}
 };
 
 class FileWatcherNotExistExc : public std::exception {
     std::string mMessage;
 public:
 	FileWatcherNotExistExc( const std::string &msg) : mMessage("File does not exist: " + msg){};
-    virtual const char* what() const throw(){return mMessage.c_str();}
+    inline virtual const char* what() const throw(){return mMessage.c_str();}
 };
 
 
@@ -44,11 +44,13 @@ class FileWatcher {
         string path;
         time_t timeModifiedNew = -1;
         time_t timeModifiedOld = -1;
+        File(){};
+        File(const string& path) : path(path){}
     };
     
     map<string,File> mFilesToWatch;
     
-    void getFileWriteTime(File& file){
+    inline void getFileWriteTime(File& file){
         if (!filesystem::exists(file.path)) {
             throw FileWatcherRemovedExc(file.path);
         }
@@ -60,29 +62,25 @@ class FileWatcher {
 public:
     FileWatcher(){}
     
-    void addFile(const string& filePath){
+    inline void addFile(const string& filePath){
         if(!filesystem::exists(filePath)){
             throw FileWatcherNotExistExc(filePath);
         }
         
-        if (mFilesToWatch.count(filePath) == 1) { //check if key already exist
+        if (this->hasFile(filePath)) { //check if key already exist
             return;
         }
-        
-        File file;
-        file.path = filePath;
-
-        mFilesToWatch[filePath] = file;
+        mFilesToWatch[filePath] = File(filePath);
     }
     
-    void removeFile(const string& filePath){
-        if(mFilesToWatch.count(filePath) == 0){
+    inline void removeFile(const string& filePath){
+        if(!this->hasFile(filePath)){
             throw FileWatcherNotAddedExc(filePath);
         }
         mFilesToWatch.erase(mFilesToWatch.find(filePath));
     }
     
-    bool filesDidChange(){
+    inline bool filesDidChange(){
         for(map<string,File>::iterator itr = mFilesToWatch.begin();itr != mFilesToWatch.end();itr++){
             this->getFileWriteTime(itr->second);
             if(itr->second.timeModifiedNew != itr->second.timeModifiedOld){
@@ -92,13 +90,17 @@ public:
         return false;
     }
     
-    bool fileDidChange(const string& filePath){
+    inline bool fileDidChange(const string& filePath){
         if(mFilesToWatch.count(filePath) == 0){
             throw FileWatcherNotAddedExc(filePath);
         }
         File& file = mFilesToWatch[filePath];
         getFileWriteTime(file);
         return file.timeModifiedOld != -1 && file.timeModifiedNew != file.timeModifiedOld;
+    }
+    
+    inline bool hasFile(const string& filePath){
+        return mFilesToWatch.count(filePath) == 1;
     }
 };
 
