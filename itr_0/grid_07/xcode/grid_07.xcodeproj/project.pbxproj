@@ -37,7 +37,6 @@
 		3FB0E912B3F74A02B866E568 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
-		6146CEB6C77E493DBD129DB2 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		86F177BEF68E45FCA75A0EA5 /* grid_07_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = grid_07_Prefix.pch; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* grid_07.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = grid_07.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C7F3D894F743559B135F41 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
@@ -58,6 +57,7 @@
 		CD72A88F18C9F91F0079722E /* FileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileWatcher.h; path = ../include/FileWatcher.h; sourceTree = "<group>"; };
 		CD72A8A518CB3AB80079722E /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../resources/config.json; sourceTree = "<group>"; };
 		CD72A8A718CB49080079722E /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
+		CDF701D318CBC36D00F08123 /* AbstractCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AbstractCell.h; path = ../include/AbstractCell.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,7 +146,6 @@
 				CD72A88E18C9F8550079722E /* Utils */,
 				CD72A8A718CB49080079722E /* Config.h */,
 				CD72A88918C9F8310079722E /* Resources.h */,
-				6146CEB6C77E493DBD129DB2 /* Resources.h */,
 				86F177BEF68E45FCA75A0EA5 /* grid_07_Prefix.pch */,
 			);
 			name = Headers;
@@ -178,12 +177,13 @@
 		CD72A88D18C9F8490079722E /* World */ = {
 			isa = PBXGroup;
 			children = (
+				CDF701D318CBC36D00F08123 /* AbstractCell.h */,
 				CD72A88218C9F8310079722E /* Cell.h */,
+				CD72A88B18C9F8310079722E /* StringCell.h */,
 				CD72A88318C9F8310079722E /* Controller.h */,
 				CD72A88418C9F8310079722E /* Diver.h */,
 				CD72A88718C9F8310079722E /* Oscillator.h */,
 				CD72A88818C9F8310079722E /* Path.h */,
-				CD72A88B18C9F8310079722E /* StringCell.h */,
 			);
 			name = World;
 			sourceTree = "<group>";

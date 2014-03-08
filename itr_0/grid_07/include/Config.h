@@ -9,16 +9,6 @@
 #ifndef grid_07_Config_h
 #define grid_07_Config_h
 
-#include <iostream>
-#include <string>
-#include "cinder/Json.h"
-#include "cinder/Color.h"
-#include "cinder/gl/Material.h"
-
-using namespace ci;
-using namespace std;
-using namespace gl;
-
 /*--------------------------------------------------------------------------------------------*/
 // DEFINES
 /*--------------------------------------------------------------------------------------------*/
@@ -43,9 +33,9 @@ using namespace gl;
 #define APP_USE_THREADS
 #define APP_CTRL_PATH_THREAD_FPS 240.0f//120.0f//240.0f
 
-//
-//  World
-//
+/*--------------------------------------------------------------------------------------------*/
+// WORLD
+/*--------------------------------------------------------------------------------------------*/
 
 #define WORLD_MODEL_ZOOM_MIN   1
 #define WORLD_MODEL_ZOOM_MAX   1
@@ -62,24 +52,34 @@ using namespace gl;
 #define OSCILLATOR_OCTAVES 1
 #define OSCILLATOR_SEED    clock() & 65535
 
-//
-//  Draw / Debug
-//
+/*--------------------------------------------------------------------------------------------*/
+// DRAW / DEBUG
+/*--------------------------------------------------------------------------------------------*/
 
 //#define WORLD_DEBUG_DRAW_CELL_AREA
-//#define WORLD_DEBUG_DRAW_CELL
+#define WORLD_DEBUG_DRAW_CELL
 #define WORLD_DRAW_CELL
 //#define APP_USE_NORMAL_DEBUG_SHADER
 
-#define CELL_CALCULATE_NORMALS
 
 //#define CELL_DEBUG_DRAW_DIVER
 //#define CELL_DEBUG_DRAW_PATH
 
 
 /*--------------------------------------------------------------------------------------------*/
-// WORLD
+// CONFIGURABLES
 /*--------------------------------------------------------------------------------------------*/
+
+#include <iostream>
+#include <string>
+#include "cinder/Json.h"
+#include "cinder/Color.h"
+#include "cinder/gl/Material.h"
+
+using namespace ci;
+using namespace std;
+using namespace gl;
+
 
 static Vec3f    LIGHT0_EYE;
 static Vec3f    LIGHT0_TARGET;
@@ -98,6 +98,28 @@ static Material CELL_MATERIAL1;
 static int      CELL_MIN_NUM_DIVERS;
 static int      CELL_MAX_NUM_DIVERS;
 static float    CELL_OFFSET_SPEED;
+static float    CELL_PATH_AMPLITUDE;
+static float    CELL_DIVER_MIN_HEIGHT;
+static float    CELL_DIVER_MAX_HEIGHT;
+static float    CELL_DIVER_MIN_OFFSET;
+static float    CELL_DIVER_MAX_OFFSET;
+static float    CELL_DIVER_MIN_SPEED;
+static float    CELL_DIVER_MAX_SPEED;
+static float    CELL_DIVER_MIN_LENGTH;
+static float    CELL_DIVER_MAX_LENGTH;
+
+static int      STRING_CELL_MIN_NUM_DIVERS;
+static int      STRING_CELL_MAX_NUM_DIVERS;
+static float    STRING_CELL_OFFSET_SPEED;
+static float    STRING_CELL_PATH_AMPLITUDE;
+static float    STRING_CELL_DIVER_MIN_HEIGHT;
+static float    STRING_CELL_DIVER_MAX_HEIGHT;
+static float    STRING_CELL_DIVER_MIN_OFFSET;
+static float    STRING_CELL_DIVER_MAX_OFFSET;
+static float    STRING_CELL_DIVER_MIN_SPEED;
+static float    STRING_CELL_DIVER_MAX_SPEED;
+static float    STRING_CELL_DIVER_MIN_LENGTH;
+static float    STRING_CELL_DIVER_MAX_LENGTH;
 
 static int      PATH_NUM_POINTS;
 
@@ -187,6 +209,29 @@ namespace config {
             int      cell_min_num_divers;
             int      cell_max_num_divers;
             float    cell_offset_speed;
+            float    cell_path_amplitude;
+            float    cell_diver_min_height;
+            float    cell_diver_max_height;
+            float    cell_diver_min_offset;
+            float    cell_diver_max_offset;
+            float    cell_diver_min_speed;
+            float    cell_diver_max_speed;
+            float    cell_diver_min_length;
+            float    cell_diver_max_length;
+            
+            int      string_cell_min_num_divers;
+            int      string_cell_max_num_divers;
+            float    string_cell_offset_speed;
+            float    string_cell_path_amplitude;
+            float    string_cell_diver_min_height;
+            float    string_cell_diver_max_height;
+            float    string_cell_diver_min_offset;
+            float    string_cell_diver_max_offset;
+            float    string_cell_diver_min_speed;
+            float    string_cell_diver_max_speed;
+            float    string_cell_diver_min_length;
+            float    string_cell_diver_max_length;
+            
             
             int      path_num_points;
             
@@ -216,9 +261,31 @@ namespace config {
                 parse::SetColor(jsonData.getChild("Scene.Light1.diffuse"),  &light1_diffuse);
                 parse::SetColor(jsonData.getChild("Scene.Light1.specular"), &light1_specular);
                 
-                cell_min_num_divers = jsonData.getChild("Scene.Cell.MinNumDivers").getValue<int>();
-                cell_max_num_divers = jsonData.getChild("Scene.Cell.MaxNumDivers").getValue<int>();
-                cell_offset_speed   = jsonData.getChild("Scene.Cell.OffsetSpeed").getValue<float>();
+                cell_min_num_divers   = jsonData.getChild("Scene.Cell.MinNumDivers").getValue<int>();
+                cell_max_num_divers   = jsonData.getChild("Scene.Cell.MaxNumDivers").getValue<int>();
+                cell_offset_speed     = jsonData.getChild("Scene.Cell.OffsetSpeed").getValue<float>();
+                cell_path_amplitude   = jsonData.getChild("Scene.Cell.PathAmplitude").getValue<float>();
+                cell_diver_min_height = jsonData.getChild("Scene.Cell.Diver.MinHeight").getValue<float>();
+                cell_diver_max_height = jsonData.getChild("Scene.Cell.Diver.MaxHeight").getValue<float>();
+                cell_diver_min_offset = jsonData.getChild("Scene.Cell.Diver.MinOffset").getValue<float>();
+                cell_diver_max_offset = jsonData.getChild("Scene.Cell.Diver.MaxOffset").getValue<float>();
+                cell_diver_min_speed  = jsonData.getChild("Scene.Cell.Diver.MinSpeed").getValue<float>();
+                cell_diver_max_speed  = jsonData.getChild("Scene.Cell.Diver.MaxSpeed").getValue<float>();
+                cell_diver_min_length = jsonData.getChild("Scene.Cell.Diver.MinLength").getValue<float>();
+                cell_diver_max_length = jsonData.getChild("Scene.Cell.Diver.MaxLength").getValue<float>();
+                
+                string_cell_min_num_divers   = jsonData.getChild("Scene.StringCell.MinNumDivers").getValue<int>();
+                string_cell_max_num_divers   = jsonData.getChild("Scene.StringCell.MaxNumDivers").getValue<int>();
+                string_cell_offset_speed     = jsonData.getChild("Scene.StringCell.OffsetSpeed").getValue<float>();
+                string_cell_path_amplitude   = jsonData.getChild("Scene.StringCell.PathAmplitude").getValue<float>();
+                string_cell_diver_min_height = jsonData.getChild("Scene.StringCell.Diver.MinHeight").getValue<float>();
+                string_cell_diver_max_height = jsonData.getChild("Scene.StringCell.Diver.MaxHeight").getValue<float>();
+                string_cell_diver_min_offset = jsonData.getChild("Scene.StringCell.Diver.MinOffset").getValue<float>();
+                string_cell_diver_max_offset = jsonData.getChild("Scene.StringCell.Diver.MaxOffset").getValue<float>();
+                string_cell_diver_min_speed  = jsonData.getChild("Scene.StringCell.Diver.MinSpeed").getValue<float>();
+                string_cell_diver_max_speed  = jsonData.getChild("Scene.StringCell.Diver.MaxSpeed").getValue<float>();
+                string_cell_diver_min_length = jsonData.getChild("Scene.StringCell.Diver.MinLength").getValue<float>();
+                string_cell_diver_max_length = jsonData.getChild("Scene.StringCell.Diver.MaxLength").getValue<float>();
                 
                 path_num_points  = jsonData.getChild("Scene.Path.NumPoints").getValue<int>();
                 
@@ -254,9 +321,32 @@ namespace config {
                 LIGHT1_DIFFUSE  = light1_diffuse;
                 LIGHT1_SPECULAR = light1_specular;
                 
-                CELL_MIN_NUM_DIVERS = cell_min_num_divers;
-                CELL_MAX_NUM_DIVERS = cell_max_num_divers;
-                CELL_OFFSET_SPEED   = cell_offset_speed;
+                CELL_MIN_NUM_DIVERS   = cell_min_num_divers;
+                CELL_MAX_NUM_DIVERS   = cell_max_num_divers;
+                CELL_OFFSET_SPEED     = cell_offset_speed;
+                CELL_PATH_AMPLITUDE   = cell_path_amplitude;
+                CELL_DIVER_MIN_HEIGHT = cell_diver_min_height;
+                CELL_DIVER_MAX_HEIGHT = cell_diver_max_height;
+                CELL_DIVER_MIN_OFFSET = cell_diver_min_offset;
+                CELL_DIVER_MAX_OFFSET = cell_diver_max_offset;
+                CELL_DIVER_MIN_SPEED  = cell_diver_min_speed;
+                CELL_DIVER_MAX_SPEED  = cell_diver_max_speed;
+                CELL_DIVER_MIN_LENGTH = cell_diver_min_length;
+                CELL_DIVER_MAX_LENGTH = cell_diver_max_length;
+                
+                STRING_CELL_MIN_NUM_DIVERS   = string_cell_min_num_divers;
+                STRING_CELL_MAX_NUM_DIVERS   = string_cell_max_num_divers;
+                STRING_CELL_OFFSET_SPEED     = string_cell_offset_speed;
+                STRING_CELL_PATH_AMPLITUDE   = string_cell_path_amplitude;
+                STRING_CELL_DIVER_MIN_HEIGHT = string_cell_diver_min_height;
+                STRING_CELL_DIVER_MAX_HEIGHT = string_cell_diver_max_height;
+                STRING_CELL_DIVER_MIN_OFFSET = string_cell_diver_min_offset;
+                STRING_CELL_DIVER_MAX_OFFSET = string_cell_diver_max_offset;
+                STRING_CELL_DIVER_MIN_SPEED  = string_cell_diver_min_speed;
+                STRING_CELL_DIVER_MAX_SPEED  = string_cell_diver_max_speed;
+                STRING_CELL_DIVER_MIN_LENGTH = string_cell_diver_min_length;
+                STRING_CELL_DIVER_MAX_LENGTH = string_cell_diver_max_length;
+                
                 
                 PATH_NUM_POINTS = path_num_points;
                 

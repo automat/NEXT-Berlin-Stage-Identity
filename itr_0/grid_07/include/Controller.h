@@ -10,18 +10,21 @@
 #define grid_01_GridController_h
 
 #include "Config.h"
-#include "cinder/gl/gl.h"
-#include <OpenGL/OpenGL.h>
-#include "cinder/Frustum.h"
-#include "FrustumOrtho.h"
-#include <vector>
+
+#include "cinder/Thread.h"
 #include "cinder/Rect.h"
 #include "cinder/Matrix44.h"
 #include "cinder/Perlin.h"
+#include "cinder/gl/gl.h"
+
+#include <OpenGL/OpenGL.h>
+#include <vector>
+
+#include "FrustumOrtho.h"
 #include "Oscillator.h"
 
 #include "Cell.h"
-#include "cinder/Thread.h"
+#include "StringCell.h"
 
 using namespace std;
 using namespace cinder;
@@ -35,8 +38,9 @@ class Controller {
     Rectf     mBounds;
     
     
-    vector<Cell*> mCells;
-    Oscillator    mOscillator;
+    vector<Cell*>       mCells;
+    vector<StringCell*> mStringCells;
+    Oscillator          mOscillator;
     
     thread        mUpdatePathsThread;
     thread        mUpdateDiversThread;
@@ -66,36 +70,55 @@ public:
                 pos.x = -sizeX_2 + j;
                 pos.z = -sizeY_2 + i;
                 mCells.push_back(new Cell(id,pos,&mOscillator));
-                
-                // mCellMeshNormalMiddleBuffer.push_back(vector<Vec3f>(mCells.back()->copyNormalTopBuffer()));
             }
         }
+        int id[] = {0,0};
+        //test draw string
+        mStringCells.push_back(new StringCell(id,Vec3f(1,0,-3),&mOscillator,Vec3f(4,1,1)));
+        mStringCells.push_back(new StringCell(id,Vec3f(0,0,-2),&mOscillator,Vec3f(5,1,1)));
+        mStringCells.push_back(new StringCell(id,Vec3f(-1,0,-1),&mOscillator,Vec3f(5,1,1)));
         
         mBounds.x1 = -sizeX_2 - 0.5f;
         mBounds.y1 = -sizeX_2 - 0.5f;
         mBounds.x2 = mBounds.x1 + sizeX;
         mBounds.y2 = mBounds.y1 + sizeY;
         
-        mUpdateInterval      = (1.0f / APP_CTRL_PATH_THREAD_FPS) * 1000.0f;
+        mUpdateInterval = (1.0f / APP_CTRL_PATH_THREAD_FPS) * 1000.0f;
         startThreads();
     }
+    
+  
     
     ~Controller(){}
     
     inline void draw(){
         glPushMatrix();
         glMultMatrixf(&mTransform[0]);
+        
         for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
             (*itr)->draw();
         }
+        
+        for(vector<StringCell*>::const_iterator itr = mStringCells.begin(); itr != mStringCells.end(); ++itr){
+            (*itr)->draw();
+        }
+        
+        
         glPopMatrix();
     }
     
     inline void reset(){
         joinThreads();
+        
         for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
             (*itr)->reset();
         }
+        
+        for(vector<StringCell*>::const_iterator itr = mStringCells.begin(); itr != mStringCells.end(); ++itr){
+            (*itr)->reset();
+        }
+        
+        
         mOscillator.reset();
         startThreads();
     }
@@ -116,17 +139,23 @@ private:
         sleep(1000.0f);
     }
     
-    inline void resetCells(){
-        
+    inline void freeCells(){
+        while (!mCells.empty()) delete mCells.back(), mCells.pop_back();
+        while (!mStringCells.empty()) delete mStringCells.back(), mStringCells.pop_back();
     }
     
 public:
     
     
-    inline void update(float t){
+    inline void update(){
         for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
             (*itr)->update();
         }
+        
+        for(vector<StringCell*>::const_iterator itr = mStringCells.begin(); itr != mStringCells.end(); ++itr){
+            (*itr)->update();
+        }
+        
     }
     
     
@@ -138,6 +167,11 @@ public:
             for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
                 (*itr)->updatePaths();
             }
+            
+            for(vector<StringCell*>::const_iterator itr = mStringCells.begin(); itr != mStringCells.end(); ++itr){
+                (*itr)->updatePaths();
+            }
+            
             mPathWriteMutex.unlock();
             
             sleep(mUpdateInterval);
@@ -152,6 +186,11 @@ public:
             for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
                 (*itr)->updateDivers();
             }
+            
+            for(vector<StringCell*>::const_iterator itr = mStringCells.begin(); itr != mStringCells.end(); ++itr){
+                (*itr)->updateDivers();
+            }
+            
             mDiverWriteMutex.unlock();
             
             sleep(mUpdateInterval);
@@ -182,6 +221,11 @@ public:
         for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
             (*itr)->debugArea();
         }
+        
+        for(vector<StringCell*>::const_iterator itr = mStringCells.begin(); itr != mStringCells.end(); ++itr){
+            (*itr)->debugArea();
+        }
+        
         glPopMatrix();
     }
     
@@ -192,6 +236,11 @@ public:
         for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
             (*itr)->debugDraw();
         }
+        
+        for(vector<StringCell*>::const_iterator itr = mStringCells.begin(); itr != mStringCells.end(); ++itr){
+            (*itr)->debugDraw();
+        }
+         
         glPopMatrix();
     }
     
@@ -202,6 +251,11 @@ public:
         for(vector<Cell*>::const_iterator itr = mCells.begin(); itr != mCells.end(); ++itr){
             (*itr)->checkFrustum(frustum,mTransform);
         }
+        
+        for(vector<StringCell*>::const_iterator itr = mStringCells.begin(); itr != mStringCells.end(); ++itr){
+            (*itr)->checkFrustum(frustum,mTransform);
+        }
+         
     }
     
     //! scale the the world

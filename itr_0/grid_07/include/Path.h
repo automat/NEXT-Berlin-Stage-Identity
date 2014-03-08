@@ -23,20 +23,27 @@ using namespace config;
 
 
 class Path {
+    float         mLength;
+    int           mNumPoints;
     vector<Vec3f> mPoints;
     
 public:
     Path(Vec3f start, Vec3f end){
+        mLength    = start.z - end.z;
+        mNumPoints = mLength * PATH_NUM_POINTS;
+        
         mPoints.push_back(start);
         
         int i = 0;
         float a;
-        while (++i < PATH_NUM_POINTS - 1) {
-            a = float(i)/float(PATH_NUM_POINTS-1);
+        while (++i < mNumPoints - 1) {
+            a = float(i)/float(mNumPoints-1);
             mPoints.push_back(start * (1.0f - a) + end * a);
         }
-        
+
         mPoints.push_back(end);
+
+        
     }
     
     inline void debugDraw(){
@@ -59,6 +66,14 @@ public:
         return mPoints;
     }
     
+    inline int getNumPoints(){
+        return mNumPoints;
+    }
+    
+    inline float getLength(){
+        return mLength;
+    }
+    
     inline void getPointOn(float intrpl, Vec3f* out){
         intrpl = max(0.0f, min(intrpl,1.0f));
 
@@ -72,58 +87,6 @@ public:
         
         out->set(mPoints[index] * localIntrplInv + mPoints[index1] * localIntrpl);
     }
-    
-    
-    
-    
-    
-    
-    
-    
 };
-/*
-class Path {
-    vector<Vec3f>* mData;
-    int            mIndex;
-    float          mWidth;
-    
-public:
-    Path(vector<Vec3f>* data, int index, float width) :
-        mData(data),
-        mIndex(index),
-        mWidth(width){
-    }
-    
-    inline void debugDraw(){
-        glColor3f(0.25f, 0.15f, 0.25f);
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, &(*mData)[0].x);
-        glDrawArrays(3, mIndex, mIndex + PATH_NUM_POINTS);
-        glDisableClientState(GL_VERTEX_ARRAY);
-    }
-    
-    float getWidth(){
-        return mWidth;
-    }
-    
-    inline void getPointOn(float intrpl, Vec3f* out){
-        intrpl = max(0.0f, min(intrpl,1.0f));
-        
-        int size = PATH_NUM_POINTS;
-        int len  = size - 1;
-        
-        uint  index  = (uint)floorf((float)len * intrpl),
-        index1 = (uint)min((uint)index + 1, (uint)len);
-        float localIntrpl    = fmodf(intrpl, 1.0f / (float)len) * (float)len,
-        localIntrplInv = 1.0f - localIntrpl;
-        
-        //index  += mIndex;
-        //index1 += mIndex;
-        
-        out->set((*mData)[index] * localIntrplInv + (*mData)[index1] * localIntrpl);
-    }
-};
-*/
-
 
 #endif

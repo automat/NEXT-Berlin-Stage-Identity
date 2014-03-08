@@ -20,7 +20,7 @@ using namespace std;
 using namespace config;
 
 class Diver {
-    Path* mPath;
+    Path*  mPath;
     Vec3f  mPos;
     
     float  mSpeed;
@@ -35,6 +35,7 @@ class Diver {
     bool   mIsOut;      // diver is outside of visible area
     bool   mIsOutPrev;  // diver previous visibility state
 
+    int           mNumPoints;
     vector<Vec3f> mPoints;
     
     
@@ -52,9 +53,12 @@ public:
         mLength(length),
         mHeight(height){
             
+            float pathLength = path->getLength();
+            mNumPoints = DIVER_NUM_POINTS * pathLength;
+            
             mIsOut = mIsOutPrev = false;
-            mPoints.resize(DIVER_NUM_POINTS);
-            mLengthStep = mLength / (float)(DIVER_NUM_POINTS-1);
+            mPoints.resize(mNumPoints);
+            mLengthStep = mLength / (float)(mNumPoints-1) * 1.0f/path->getLength(); //scale unit to path length
     }
     
     inline const Vec3f& getPos() const{
@@ -138,7 +142,7 @@ public:
         
         glColor3f(0.75f, 0, 0.15f);
         int i = 0;
-        while(i < DIVER_NUM_POINTS){
+        while(i < mNumPoints){
             line[0].set(mPoints[i]);
             line[1].set(line[0]);
             line[0].y += height;

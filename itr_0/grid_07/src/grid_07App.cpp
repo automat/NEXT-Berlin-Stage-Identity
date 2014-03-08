@@ -159,7 +159,7 @@ void grid_07App::drawScene(){
 void grid_07App::update(){
     mFrustum.set(mCamera,1.1f);
     
-    mController->update(app::getElapsedSeconds());
+    mController->update();
     mController->checkFrustum(mFrustum);
     mController->transform(MODEL_SCALE);
     
@@ -170,12 +170,25 @@ void grid_07App::update(){
 }
 
 void grid_07App::draw(){
-    mFboPost.bindFramebuffer();
-    mFboPost.bindTexture(0);
+    //mFboPost.bindFramebuffer();
     
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     gl::enableDepthRead();
+    
+#ifdef WORLD_DEBUG_DRAW_CELL_AREA
+    glPushMatrix();
+    glScalef(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
+    mController->debugArea();
+    glPopMatrix();
+#endif
+#ifdef WORLD_DEBUG_DRAW_CELL
+    glPushMatrix();
+    glScalef(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
+    mController->debugDraw();
+    glPopMatrix();
+#endif
+    
     
     glEnable( GL_LIGHTING );
     gl::setMatrices(mCamera );
@@ -187,14 +200,14 @@ void grid_07App::draw(){
 	mShader.unbind();
 	
     glDisable( GL_LIGHTING );
-    mFboPost.unbindFramebuffer();
+    //mFboPost.unbindFramebuffer();
     
     // Draw Fbo
-    
+    /*
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(0,0,0, 1);
     gl::setMatricesWindow( getWindowSize(),false );
-    gl::draw(mFboPost.getTexture(), app::getWindowBounds());
+    gl::draw(mFboPost.getTexture(), app::getWindowBounds());*/
 }
 
 /*--------------------------------------------------------------------------------------------*/

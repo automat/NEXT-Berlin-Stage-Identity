@@ -1,44 +1,13 @@
 //
-//  GridCell.h
-//  grid_01
+//  AbstractCell.h
+//  grid_07
 //
-//  Created by Henryk Wollik on 23/02/14.
+//  Created by Henryk Wollik on 08/03/14.
 //
 //
 
-#ifndef grid_01_GridCell_h
-#define grid_01_GridCell_h
-
-#include "AbstractCell.h"
-#include "Config.h"
-
-class Cell : public AbstractCell {
-public:
-    Cell(int* id, const Vec3f& pos, Oscillator* oscillator) :
-        AbstractCell(id,pos,oscillator,Vec3f(1,1,1)){
-            
-            reset();
-    }
-    
-    inline void reset(){
-        mNumDiversMin   = CELL_MIN_NUM_DIVERS;
-        mNumDiversMax   = CELL_MAX_NUM_DIVERS;
-        mPathAmplitude  = CELL_PATH_AMPLITUDE;
-        mOffsetSpeed    = CELL_OFFSET_SPEED;
-        mDiverHeightMin = CELL_DIVER_MIN_HEIGHT;
-        mDiverHeightMax = CELL_DIVER_MAX_HEIGHT;
-        mDiverOffsetMin = CELL_DIVER_MIN_OFFSET;
-        mDiverOffsetMax = CELL_DIVER_MAX_OFFSET;
-        mDiverSpeedMin  = CELL_DIVER_MIN_SPEED;
-        mDiverSpeedMax  = CELL_DIVER_MAX_SPEED;
-        mDiverLengthMin = CELL_DIVER_MIN_LENGTH;
-        mDiverLengthMax = CELL_DIVER_MAX_LENGTH;
-        
-        reset_internal();
-    }
-};
-
-/*
+#ifndef grid_07_AbstractCell_h
+#define grid_07_AbstractCell_h
 
 #include <boost/assign/std/vector.hpp>
 #include "Config.h"
@@ -61,13 +30,22 @@ using namespace ci;
 using namespace std;
 using namespace boost::assign;
 
-class Cell {
-
+class AbstractCell {
 protected:
     int   mNumDiversMin;
     int   mNumDiversMax;
+    
     float mPathAmplitude;
     float mOffsetSpeed;
+    float mDiverOffsetMin;
+    float mDiverOffsetMax;
+    float mDiverSpeedMin;
+    float mDiverSpeedMax;
+    float mDiverLengthMin;
+    float mDiverLengthMax;
+    float mDiverHeightMin;
+    float mDiverHeightMax;
+    
     
     
     Vec3f  mPos;    // global position of cell
@@ -114,24 +92,9 @@ protected:
         
     }
     
-    
-public:
-    inline int getNumDivers(){
-        return mNumDivers;
-    }
-    
-    inline vector<Vec3f> copyNormalTopBuffer(){
-        return mMeshNormalTopBuffer;
-    }
-    
-    inline void swapNormalTopBuffer(const vector<Vec3f>& buffer){
-        mMeshNormalTopBuffer = vector<Vec3f>(buffer);
-    }
-    
-    
-protected:
-    
-    
+    /*--------------------------------------------------------------------------------------------*/
+    // Fold / Unfold
+    /*--------------------------------------------------------------------------------------------*/
     
     //
     // collapse all vertices of a diver into one vertex by setting
@@ -160,45 +123,17 @@ protected:
              mMeshIndexBuffer.begin() + index * mDiverIndicesLen);
     }
     
-    
-public:
-    
-    
-    Cell(int* id,const Vec3f& pos,Oscillator* oscillator, Vec3f size = Vec3f(1,1,1)) :
-        mPos(pos),
-        mOscillator(oscillator),
-        mSize(size),
-        mActive(true),
-        mOffset(0.0f),
-        mNumDiversMin(CELL_MIN_NUM_DIVERS),
-        mNumDiversMax(CELL_MAX_NUM_DIVERS){
-        
-            mId[0] = id[0];
-            mId[1] = id[1];
-        
-            mMeshLayout.setDynamicPositions();
-            mMeshLayout.setStaticNormals();
-            mMeshLayout.setDynamicIndices();
-            mMeshLayout.setStaticColorsRGB();
-    }
-    
-    inline void init(){
-        this->reset();
-    }
-    
-    ~Cell(){
-        freeData();
-    }
+    /*--------------------------------------------------------------------------------------------*/
+    // Geom init
+    /*--------------------------------------------------------------------------------------------*/
     
     
-    inline void reset(){
+    inline void reset_internal(){
         freeData();
         
         mNumDivers  = Rand::randInt(mNumDiversMin,mNumDiversMax);
         mDiverWidth = 1.0f / (float)mNumDivers;
         
-        
-    
         Vec3f start,end;
         float marginX = -0.5f + mDiverWidth * 0.5f;
         
@@ -209,11 +144,11 @@ public:
             
             mPaths.push_back(new Path(start, end));
             mDivers.push_back(new Diver(mPaths.back(),                                                  // path
-                                        Rand::randFloat(DIVER_MIN_OFFSET,DIVER_MAX_OFFSET),            // offset
-                                        Rand::randFloat(DIVER_MIN_SPEED, DIVER_MAX_SPEED),              // speed
+                                        Rand::randFloat(mDiverOffsetMin,mDiverOffsetMax),            // offset
+                                        Rand::randFloat(mDiverSpeedMin, mDiverSpeedMax),              // speed
                                         mDiverWidth,
-                                        Rand::randFloat(DIVER_MIN_LENGTH,DIVER_MAX_LENGTH),             // length
-                                        Rand::randFloat(DIVER_MIN_HEIGHT,DIVER_MAX_HEIGHT))); // height
+                                        Rand::randFloat(mDiverLengthMin,mDiverLengthMax),             // length
+                                        Rand::randFloat(mDiverHeightMin,mDiverHeightMax))); // height
         }
         
         mDiverNumPoints = mDivers[0]->getNumPoints();
@@ -232,7 +167,7 @@ public:
         mDiverIndicesBuffer.resize(mDiverIndicesLen);
         mMeshIndexBuffer.resize(mMeshIndicesLen);
         mMeshIndexScheme.resize(0);
-
+        
         mMeshNormalBuffer.resize(0);
         mMeshVertexBuffer.resize(mMeshVerticesLen);
         
@@ -386,6 +321,33 @@ public:
         mMesh.unbindBuffers();
     }
     
+public:
+    
+    AbstractCell(int* id, const Vec3f& pos, Oscillator* oscillator, const Vec3f& size) :
+        mPos(pos),
+        mOscillator(oscillator),
+        mSize(size),
+        mOffset(0.0f),
+        mActive(true){
+            
+            mId[0] = id[0];
+            mId[1] = id[1];
+            
+            mMeshLayout.setDynamicPositions();
+            mMeshLayout.setStaticNormals();
+            mMeshLayout.setDynamicIndices();
+            mMeshLayout.setStaticColorsRGB();
+    }
+    
+    ~AbstractCell(){
+        freeData();
+    }
+   
+    virtual void reset() = 0;
+    
+    /*--------------------------------------------------------------------------------------------*/
+    // Visual Debug
+    /*--------------------------------------------------------------------------------------------*/
     
     inline void debugArea(){
         static const float unitPoints[] = {-0.5,0,-0.5,0.5,0,-0.5,0.5,0, 0.5,-0.5,0, 0.5};
@@ -438,6 +400,10 @@ public:
         glPopMatrix();
     }
     
+    /*--------------------------------------------------------------------------------------------*/
+    // Draw
+    /*--------------------------------------------------------------------------------------------*/
+    
     inline void draw(){
         if(!mActive){
             return;
@@ -450,6 +416,9 @@ public:
         glPopMatrix();
     }
     
+    /*--------------------------------------------------------------------------------------------*/
+    // Update
+    /*--------------------------------------------------------------------------------------------*/
     
     //! Update all paths with oscillator
     inline void updatePaths(){
@@ -458,13 +427,11 @@ public:
         }
         
         static const float scale  = 0.75f;
-        mOffset += CELL_OFFSET_SPEED;
-        float pathLength;
+        mOffset += mOffsetSpeed;
         for(vector<Path*>::const_iterator itr = mPaths.begin(); itr != mPaths.end(); ++itr){
-            pathLength = 1.0f / (*itr)->getLength() * 2;
             for(vector<Vec3f>::iterator _itr = (*itr)->getPoints().begin(); _itr != (*itr)->getPoints().end(); _itr++){
-                _itr->y = mOscillator->getValue(mPos.x + _itr->x / pathLength,
-                                                mPos.z + _itr->z / pathLength + mOffset,0,
+                _itr->y = mOscillator->getValue(mPos.x + _itr->x * mPathAmplitude,
+                                                mPos.z + _itr->z * mPathAmplitude + mOffset,0,
                                                 mId[0], mId[1]) * scale;
             }
         }
@@ -526,7 +493,7 @@ public:
                 ++vbItr;++vbItr;++vbItr;++vbItr; // step cap forward
                 ++vbItr;++vbItr;++vbItr;++vbItr;
                 vertexIndex += 8;
-
+                
                 if(diverIsOut && !diverIsOutPrev){
                     fold(diverIndex);
                 }
@@ -591,7 +558,7 @@ public:
             mMeshVertexBuffer[vertexIndex++].set(x1,y0,z);
             mMeshVertexBuffer[vertexIndex++].set(x0,y1,z);
             mMeshVertexBuffer[vertexIndex++].set(x1,y1,z);
-
+            
             // back
             x0 = end.x - diverWidth_2;
             x1 = end.x + diverWidth_2;
@@ -678,6 +645,10 @@ public:
         mActive = frustum.contains(transform.transformPointAffine(mPos));
     }
     
+    /*--------------------------------------------------------------------------------------------*/
+    // State
+    /*--------------------------------------------------------------------------------------------*/
+    
     inline void activate(){
         mActive = true;
         for (vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr) {
@@ -691,9 +662,16 @@ public:
             (*itr)->hide();
         }
     }
+
+
+
+
+    inline int getNumDivers(){
+        return mNumDivers;
+    }
+
+    
 };
- 
- */
 
 
 
