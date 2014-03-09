@@ -51,7 +51,7 @@
 
 			"Material0" : {
 				"emissive"  : [0,0,0,0],	// 0,0,0,0
-        		"ambient"  	: [0.25,0,0,1],	// 0.25,0,0,1
+        		"ambient"  	: [0.45,0,0.125,1],	// 0.25,0,0,1
         		"diffuse"  	: [1,0,1,1],	// 1,0,1,1
         		"specular" 	: [1,1,1,1],	// 1,1,1,1
         		"shininess"	: 100.0 		// 100.0
@@ -62,7 +62,7 @@
     		"MinNumDivers"  : 10, // 100
     		"MaxNumDivers"  : 60, // 100
     		"OffsetSpeed"   : 0.001,
-    		"PathAmplitude" : 1,
+    		"PathAmplitude" : 0.85,
 
     		"Material0" : {
 				"emissive"  : [0,0,0,0],	// 0,0,0,0
@@ -78,9 +78,9 @@
 				"MaxHeight" 	: 0.085, // 0.085
 				"MinOffset" 	: 0,
 				"MaxOffset" 	: 0,
-				"MinSpeed"  	: 0.001,//0.001,
-				"MaxSpeed"		: 0.00125,//0.002,// 0.01,
-				"MinLength" 	: 3.0,//0.4, // 0.1,
+				"MinSpeed"  	: 0.0005,//0.001,
+				"MaxSpeed"		: 0.000605,//0.002,// 0.01,
+				"MinLength" 	: 3.8,//0.4, // 0.1,
 				"MaxLength" 	: 4.0 // 0.25
 			}
     	},
