@@ -86,6 +86,7 @@ static Vec3f    LIGHT0_TARGET;
 static Colorf   LIGHT0_AMBIENT;
 static Colorf   LIGHT0_DIFFUSE;
 static Colorf   LIGHT0_SPECULAR;
+
 static Vec3f    LIGHT1_EYE;
 static Vec3f    LIGHT1_TARGET;
 static Colorf   LIGHT1_AMBIENT;
@@ -93,12 +94,13 @@ static Colorf   LIGHT1_DIFFUSE;
 static Colorf   LIGHT1_SPECULAR;
 
 static Material CELL_MATERIAL0;
-static Material CELL_MATERIAL1;
+static Material STRING_CELL_MATERIAL0;
 
 static int      CELL_MIN_NUM_DIVERS;
 static int      CELL_MAX_NUM_DIVERS;
 static float    CELL_OFFSET_SPEED;
 static float    CELL_PATH_AMPLITUDE;
+static int      CELL_DIVER_NUM_POINTS;
 static float    CELL_DIVER_MIN_HEIGHT;
 static float    CELL_DIVER_MAX_HEIGHT;
 static float    CELL_DIVER_MIN_OFFSET;
@@ -112,6 +114,7 @@ static int      STRING_CELL_MIN_NUM_DIVERS;
 static int      STRING_CELL_MAX_NUM_DIVERS;
 static float    STRING_CELL_OFFSET_SPEED;
 static float    STRING_CELL_PATH_AMPLITUDE;
+static int      STRING_CELL_DIVER_NUM_POINTS;
 static float    STRING_CELL_DIVER_MIN_HEIGHT;
 static float    STRING_CELL_DIVER_MAX_HEIGHT;
 static float    STRING_CELL_DIVER_MIN_OFFSET;
@@ -122,17 +125,6 @@ static float    STRING_CELL_DIVER_MIN_LENGTH;
 static float    STRING_CELL_DIVER_MAX_LENGTH;
 
 static int      PATH_NUM_POINTS;
-
-static int      DIVER_NUM_POINTS;
-static float    DIVER_MIN_HEIGHT;
-static float    DIVER_MAX_HEIGHT;
-static float    DIVER_MIN_OFFSET;
-static float    DIVER_MAX_OFFSET;
-static float    DIVER_MIN_SPEED;
-static float    DIVER_MAX_SPEED;
-static float    DIVER_MIN_LENGTH;
-static float    DIVER_MAX_LENGTH;
-
 
 namespace config {
     
@@ -192,7 +184,7 @@ namespace config {
             bool setSuccess = true;
 
             Material cell_material0;
-            Material cell_material1;
+            Material string_cell_material0;
             
             Vec3f    light0_eye;
             Vec3f    light0_target;
@@ -210,6 +202,7 @@ namespace config {
             int      cell_max_num_divers;
             float    cell_offset_speed;
             float    cell_path_amplitude;
+            int      cell_diver_num_points;
             float    cell_diver_min_height;
             float    cell_diver_max_height;
             float    cell_diver_min_offset;
@@ -223,6 +216,7 @@ namespace config {
             int      string_cell_max_num_divers;
             float    string_cell_offset_speed;
             float    string_cell_path_amplitude;
+            int      string_cell_diver_num_points;
             float    string_cell_diver_min_height;
             float    string_cell_diver_max_height;
             float    string_cell_diver_min_offset;
@@ -232,22 +226,11 @@ namespace config {
             float    string_cell_diver_min_length;
             float    string_cell_diver_max_length;
             
-            
             int      path_num_points;
-            
-            int      diver_num_points;
-            float    diver_min_height;
-            float    diver_max_height;
-            float    diver_min_offset;
-            float    diver_max_offset;
-            float    diver_min_speed;
-            float    diver_max_speed;
-            float    diver_min_length;
-            float    diver_max_length;
             
             try {
                 parse::SetMaterial(jsonData.getChild("Scene.Cell.Material0"), &cell_material0);
-                parse::SetMaterial(jsonData.getChild("Scene.Cell.Material1"), &cell_material1);
+                parse::SetMaterial(jsonData.getChild("Scene.StringCell.Material0"), &string_cell_material0);
                 
                 parse::SetVec3f(jsonData.getChild("Scene.Light0.eye"),      &light0_eye);
                 parse::SetVec3f(jsonData.getChild("Scene.Light0.target"),   &light0_target);
@@ -265,6 +248,7 @@ namespace config {
                 cell_max_num_divers   = jsonData.getChild("Scene.Cell.MaxNumDivers").getValue<int>();
                 cell_offset_speed     = jsonData.getChild("Scene.Cell.OffsetSpeed").getValue<float>();
                 cell_path_amplitude   = jsonData.getChild("Scene.Cell.PathAmplitude").getValue<float>();
+                cell_diver_num_points = jsonData.getChild("Scene.Cell.Diver.NumPoints").getValue<int>();
                 cell_diver_min_height = jsonData.getChild("Scene.Cell.Diver.MinHeight").getValue<float>();
                 cell_diver_max_height = jsonData.getChild("Scene.Cell.Diver.MaxHeight").getValue<float>();
                 cell_diver_min_offset = jsonData.getChild("Scene.Cell.Diver.MinOffset").getValue<float>();
@@ -278,6 +262,7 @@ namespace config {
                 string_cell_max_num_divers   = jsonData.getChild("Scene.StringCell.MaxNumDivers").getValue<int>();
                 string_cell_offset_speed     = jsonData.getChild("Scene.StringCell.OffsetSpeed").getValue<float>();
                 string_cell_path_amplitude   = jsonData.getChild("Scene.StringCell.PathAmplitude").getValue<float>();
+                string_cell_diver_num_points = jsonData.getChild("Scene.StringCell.Diver.NumPoints").getValue<int>();
                 string_cell_diver_min_height = jsonData.getChild("Scene.StringCell.Diver.MinHeight").getValue<float>();
                 string_cell_diver_max_height = jsonData.getChild("Scene.StringCell.Diver.MaxHeight").getValue<float>();
                 string_cell_diver_min_offset = jsonData.getChild("Scene.StringCell.Diver.MinOffset").getValue<float>();
@@ -289,17 +274,6 @@ namespace config {
                 
                 path_num_points  = jsonData.getChild("Scene.Path.NumPoints").getValue<int>();
                 
-                diver_num_points = jsonData.getChild("Scene.Diver.NumPoints").getValue<int>();
-                diver_min_height = jsonData.getChild("Scene.Diver.MinHeight").getValue<float>();
-                diver_max_height = jsonData.getChild("Scene.Diver.MaxHeight").getValue<float>();
-                diver_min_offset = jsonData.getChild("Scene.Diver.MinOffset").getValue<float>();
-                diver_max_offset = jsonData.getChild("Scene.Diver.MaxOffset").getValue<float>();
-                diver_min_speed  = jsonData.getChild("Scene.Diver.MinSpeed").getValue<float>();
-                diver_max_speed  = jsonData.getChild("Scene.Diver.MaxSpeed").getValue<float>();
-                diver_min_length = jsonData.getChild("Scene.Diver.MinLength").getValue<float>();
-                diver_max_length = jsonData.getChild("Scene.Diver.MaxLength").getValue<float>();
-                
-                
             } catch (JsonTree::Exception& exc) {
                 cout << exc.what() << endl;
                 setSuccess = false;
@@ -307,7 +281,7 @@ namespace config {
             
             if(setSuccess){
                 CELL_MATERIAL0  = cell_material0;
-                CELL_MATERIAL1  = cell_material1;
+                STRING_CELL_MATERIAL0  = string_cell_material0;
                 
                 LIGHT0_EYE      = light0_eye;
                 LIGHT0_TARGET   = light0_target;
@@ -325,6 +299,8 @@ namespace config {
                 CELL_MAX_NUM_DIVERS   = cell_max_num_divers;
                 CELL_OFFSET_SPEED     = cell_offset_speed;
                 CELL_PATH_AMPLITUDE   = cell_path_amplitude;
+                
+                CELL_DIVER_NUM_POINTS = cell_diver_num_points;
                 CELL_DIVER_MIN_HEIGHT = cell_diver_min_height;
                 CELL_DIVER_MAX_HEIGHT = cell_diver_max_height;
                 CELL_DIVER_MIN_OFFSET = cell_diver_min_offset;
@@ -338,6 +314,8 @@ namespace config {
                 STRING_CELL_MAX_NUM_DIVERS   = string_cell_max_num_divers;
                 STRING_CELL_OFFSET_SPEED     = string_cell_offset_speed;
                 STRING_CELL_PATH_AMPLITUDE   = string_cell_path_amplitude;
+                
+                STRING_CELL_DIVER_NUM_POINTS = string_cell_diver_num_points;
                 STRING_CELL_DIVER_MIN_HEIGHT = string_cell_diver_min_height;
                 STRING_CELL_DIVER_MAX_HEIGHT = string_cell_diver_max_height;
                 STRING_CELL_DIVER_MIN_OFFSET = string_cell_diver_min_offset;
@@ -347,18 +325,7 @@ namespace config {
                 STRING_CELL_DIVER_MIN_LENGTH = string_cell_diver_min_length;
                 STRING_CELL_DIVER_MAX_LENGTH = string_cell_diver_max_length;
                 
-                
                 PATH_NUM_POINTS = path_num_points;
-                
-                DIVER_NUM_POINTS = diver_num_points;
-                DIVER_MIN_HEIGHT = diver_min_height;
-                DIVER_MAX_HEIGHT = diver_max_height;
-                DIVER_MIN_OFFSET = diver_min_offset;
-                DIVER_MAX_OFFSET = diver_max_offset;
-                DIVER_MIN_SPEED  = diver_min_speed;
-                DIVER_MAX_SPEED  = diver_max_speed;
-                DIVER_MIN_LENGTH = diver_min_length;
-                DIVER_MAX_LENGTH = diver_max_length;
                 
                 cout << path << " updated." << endl;
             }

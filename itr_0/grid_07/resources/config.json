@@ -38,6 +38,7 @@
 			"PathAmplitude" : 1.0,
 
 			"Diver" : {
+				"NumPoints"     : 10, // 10
 				"MinHeight" 	: 0.015, // 0.01	
 				"MaxHeight" 	: 0.065, // 0.085
 				"MinOffset" 	: 0,
@@ -49,32 +50,36 @@
 			},
 
 			"Material0" : {
-        		"ambient"  	: [0,0,0,1],
-        		"diffuse"  	: [0,0,0,1],
-        		"specular" 	: [0,0,0,1],
-        		"shininess"	: 2.0
-        	},
-        	"Material1" : {
-        		"ambient"   : [0,0,0,1],
-        		"diffuse"   : [0,0,0,1],
-        		"specular"  : [0,0,0,1],
-        		"shininess" : 2.0
+				"emissive"  : [0,0,0,0],	// 0,0,0,0
+        		"ambient"  	: [0.25,0,0,1],	// 0.25,0,0,1
+        		"diffuse"  	: [1,0,1,1],	// 1,0,1,1
+        		"specular" 	: [1,1,1,1],	// 1,1,1,1
+        		"shininess"	: 100.0 		// 100.0
         	}
     	},
 
     	"StringCell" : {
-    		"MinNumDivers"  : 100,
-    		"MaxNumDivers"  : 100,
+    		"MinNumDivers"  : 10, // 100
+    		"MaxNumDivers"  : 60, // 100
     		"OffsetSpeed"   : 0.001,
     		"PathAmplitude" : 1,
 
+    		"Material0" : {
+				"emissive"  : [0,0,0,0],	// 0,0,0,0
+        		"ambient"  	: [1,0,0,1],	// 0.25,0,0,1
+        		"diffuse"  	: [1,0,1,1],	// 1,0,1,1
+        		"specular" 	: [1,1,1,1],	// 1,1,1,1
+        		"shininess"	: 100.0 		// 100.0
+        	},
+
     		"Diver" : {
+    			"NumPoints"     : 10, // 10
 				"MinHeight" 	: 0.01, // 0.01	
 				"MaxHeight" 	: 0.085, // 0.085
 				"MinOffset" 	: 0,
-				"MaxOffset" 	: 4,
+				"MaxOffset" 	: 0,
 				"MinSpeed"  	: 0.001,//0.001,
-				"MaxSpeed"		: 0.001,//0.002,// 0.01,
+				"MaxSpeed"		: 0.00125,//0.002,// 0.01,
 				"MinLength" 	: 3.0,//0.4, // 0.1,
 				"MaxLength" 	: 4.0 // 0.25
 			}
@@ -86,22 +91,6 @@
 
 		"Path" : {
 			"NumPoints" : 20 // 20
-		},
-
-/*-------------------------------------------------------------------------------------------------*/
-// Diver
-/*-------------------------------------------------------------------------------------------------*/
-		
-		"Diver" : {
-			"NumPoints"     : 10, // 10
-			"MinHeight" 	: 0.01, // 0.01	
-			"MaxHeight" 	: 0.085, // 0.085
-			"MinOffset" 	: 0,
-			"MaxOffset" 	: 1,
-			"MinSpeed"  	: 0,//0.001,
-			"MaxSpeed"		: 0.001,//0.002,// 0.01,
-			"MinLength" 	: 1.0,//0.4, // 0.1,
-			"MaxLength" 	: 1.0 // 0.25
 		}
 
 	}

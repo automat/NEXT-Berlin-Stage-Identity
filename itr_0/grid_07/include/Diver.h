@@ -41,6 +41,7 @@ class Diver {
     
 public:
     Diver(Path* path,
+          int   numPoints,
           float offset,
           float speed,
           float width,
@@ -54,7 +55,7 @@ public:
         mHeight(height){
             
             float pathLength = path->getLength();
-            mNumPoints = DIVER_NUM_POINTS * pathLength;
+            mNumPoints = numPoints * pathLength;
             
             mIsOut = mIsOutPrev = false;
             mPoints.resize(mNumPoints);

@@ -37,6 +37,7 @@ protected:
     
     float mPathAmplitude;
     float mOffsetSpeed;
+    int   mDiverUnitNumPoints;
     float mDiverOffsetMin;
     float mDiverOffsetMax;
     float mDiverSpeedMin;
@@ -144,6 +145,7 @@ protected:
             
             mPaths.push_back(new Path(start, end));
             mDivers.push_back(new Diver(mPaths.back(),                                                  // path
+                                        mDiverUnitNumPoints,
                                         Rand::randFloat(mDiverOffsetMin,mDiverOffsetMax),            // offset
                                         Rand::randFloat(mDiverSpeedMin, mDiverSpeedMax),              // speed
                                         mDiverWidth,
@@ -350,7 +352,17 @@ public:
     /*--------------------------------------------------------------------------------------------*/
     
     inline void debugArea(){
-        static const float unitPoints[] = {-0.5,0,-0.5,0.5,0,-0.5,0.5,0, 0.5,-0.5,0, 0.5};
+        float points[12];
+        
+        points[ 1] = points[ 4] = points[ 7] = points[10] = 0;
+        points[ 0] = -0.5f;
+        points[ 2] = mSize.x - 0.5f;
+        points[ 3] = 0.5f;
+        points[ 5] = mSize.x - 0.5f;
+        points[ 6] = 0.5f;
+        points[ 8] = -0.5f;
+        points[ 9] = -0.5f;
+        points[11] = -0.5f;
         
         glColor3f(1,0,0);
         glPushMatrix();
@@ -359,7 +371,7 @@ public:
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnable(GL_LINE_STIPPLE);
         glLineStipple(6, 0xAAAA);
-        glVertexPointer(3, GL_FLOAT, 0, &unitPoints[0]);
+        glVertexPointer(3, GL_FLOAT, 0, &points[0]);
         glDrawArrays(GL_LINE_LOOP, 0, 4);
         glDisable(GL_LINE_STIPPLE);
         

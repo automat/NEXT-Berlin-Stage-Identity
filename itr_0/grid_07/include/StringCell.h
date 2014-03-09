@@ -31,14 +31,15 @@ public:
         mPathAmplitude = STRING_CELL_PATH_AMPLITUDE;
         mOffsetSpeed   = STRING_CELL_OFFSET_SPEED;
         
-        mDiverHeightMin = STRING_CELL_DIVER_MIN_HEIGHT;
-        mDiverHeightMax = STRING_CELL_DIVER_MAX_HEIGHT;
-        mDiverOffsetMin = STRING_CELL_DIVER_MIN_OFFSET;
-        mDiverOffsetMax = STRING_CELL_DIVER_MAX_OFFSET;
-        mDiverSpeedMin  = STRING_CELL_DIVER_MIN_SPEED;
-        mDiverSpeedMax  = STRING_CELL_DIVER_MAX_SPEED;
-        mDiverLengthMin = STRING_CELL_DIVER_MIN_LENGTH;
-        mDiverLengthMax = STRING_CELL_DIVER_MAX_LENGTH;
+        mDiverUnitNumPoints = STRING_CELL_DIVER_NUM_POINTS;
+        mDiverHeightMin     = STRING_CELL_DIVER_MIN_HEIGHT;
+        mDiverHeightMax     = STRING_CELL_DIVER_MAX_HEIGHT;
+        mDiverOffsetMin     = STRING_CELL_DIVER_MIN_OFFSET;
+        mDiverOffsetMax     = STRING_CELL_DIVER_MAX_OFFSET;
+        mDiverSpeedMin      = STRING_CELL_DIVER_MIN_SPEED;
+        mDiverSpeedMax      = STRING_CELL_DIVER_MAX_SPEED;
+        mDiverLengthMin     = STRING_CELL_DIVER_MIN_LENGTH;
+        mDiverLengthMax     = STRING_CELL_DIVER_MAX_LENGTH;
         
         reset_internal();
     }

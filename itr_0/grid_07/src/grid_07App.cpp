@@ -34,6 +34,9 @@ using namespace std;
 
 #define PATH_CONFIG_JSON "/Users/automat/Projects/next/itr_0/grid_07/resources/config.json"
 
+#define PATH_GLSL_CELL_VERT "/Users/automat/Projects/next/itr_0/grid_07/resources/cell_vert.glsl"
+#define PATH_GLSL_CELL_FRAG "/Users/automat/Projects/next/itr_0/grid_07/resources/cell_frag.glsl"
+
 /*--------------------------------------------------------------------------------------------*/
 
 static int   MODEL_ZOOM;
@@ -116,14 +119,16 @@ void grid_07App::setup(){
     mLight1 = new gl::Light( gl::Light::POINT, 1 );
     
     this->loadFboRender();
-    this->loadShader(loadResource(GLSL_SHADOW_MAP_VERT),
-                     loadResource(GLSL_SHADOW_MAP_FRAG), &mShader);
+    this->loadShader(loadFile(PATH_GLSL_CELL_VERT),
+                     loadFile(PATH_GLSL_CELL_FRAG), &mShader);
     
     /*--------------------------------------------------------------------------------------------*/
    
     reloadConfig();
     
     mFileWatcher.addFile(PATH_CONFIG_JSON);
+    mFileWatcher.addFile(PATH_GLSL_CELL_FRAG);
+    mFileWatcher.addFile(PATH_GLSL_CELL_VERT);
     mController = new Controller(WORLD_NUM_CELLS_XY,WORLD_NUM_CELLS_XY);
 }
 
@@ -166,6 +171,11 @@ void grid_07App::update(){
     if(mFileWatcher.fileDidChange(PATH_CONFIG_JSON)){
         reloadConfig();
         mController->reset();
+    }
+    
+    if(mFileWatcher.fileDidChange(PATH_GLSL_CELL_VERT) ||
+       mFileWatcher.fileDidChange(PATH_GLSL_CELL_FRAG)){
+        loadShader(loadFile(PATH_GLSL_CELL_VERT), loadFile(PATH_GLSL_CELL_FRAG), &mShader);
     }
 }
 
