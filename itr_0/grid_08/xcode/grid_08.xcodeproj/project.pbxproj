@@ -23,6 +23,7 @@
 		CDE8BE5C18CDF70A006E3E0E /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = CDE8BE5718CDF70A006E3E0E /* config.json */; };
 		CDE8BE5D18CDF70A006E3E0E /* normal_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDE8BE5818CDF70A006E3E0E /* normal_frag.glsl */; };
 		CDE8BE5E18CDF70A006E3E0E /* normal_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDE8BE5918CDF70A006E3E0E /* normal_vert.glsl */; };
+		CDE8BE6318CE009D006E3E0E /* quote.json in Resources */ = {isa = PBXBuildFile; fileRef = CDE8BE6218CE009D006E3E0E /* quote.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,8 @@
 		CDE8BE5718CDF70A006E3E0E /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../resources/config.json; sourceTree = "<group>"; };
 		CDE8BE5818CDF70A006E3E0E /* normal_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = normal_frag.glsl; path = ../resources/normal_frag.glsl; sourceTree = "<group>"; };
 		CDE8BE5918CDF70A006E3E0E /* normal_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = normal_vert.glsl; path = ../resources/normal_vert.glsl; sourceTree = "<group>"; };
+		CDE8BE6118CDF995006E3E0E /* QuoteField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuoteField.h; path = ../include/QuoteField.h; sourceTree = "<group>"; };
+		CDE8BE6218CE009D006E3E0E /* quote.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = quote.json; path = ../resources/quote.json; sourceTree = "<group>"; };
 		D21815888AB444C08366105F /* Cairo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Cairo.h; path = ../../../../Cinder/blocks/Cairo/include/cinder/cairo/Cairo.h; sourceTree = "<group>"; };
 		D48F330C382A40E8AE179596 /* Cairo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Cairo.cpp; path = ../../../../Cinder/blocks/Cairo/src/Cairo.cpp; sourceTree = "<group>"; };
 		D9F51E87DF6342EB96BC1DF0 /* grid_08App.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = grid_08App.cpp; path = ../src/grid_08App.cpp; sourceTree = "<group>"; };
@@ -154,18 +157,9 @@
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				CDE8BE4918CDF6F1006E3E0E /* AbstractCell.h */,
-				CDE8BE4A18CDF6F2006E3E0E /* Cell.h */,
+				CDE8BE6018CDF93C006E3E0E /* World */,
+				CDE8BE5F18CDF924006E3E0E /* Utils */,
 				CDE8BE4B18CDF6F2006E3E0E /* Config.h */,
-				CDE8BE4C18CDF6F2006E3E0E /* Controller.h */,
-				CDE8BE4D18CDF6F2006E3E0E /* Diver.h */,
-				CDE8BE4E18CDF6F2006E3E0E /* FileWatcher.h */,
-				CDE8BE4F18CDF6F2006E3E0E /* FrustumOrtho.h */,
-				CDE8BE5018CDF6F2006E3E0E /* InfoPanel.h */,
-				CDE8BE5118CDF6F2006E3E0E /* Oscillator.h */,
-				CDE8BE5218CDF6F2006E3E0E /* Path.h */,
-				CDE8BE5318CDF6F2006E3E0E /* StringCell.h */,
-				CDE8BE5418CDF6F2006E3E0E /* Utils.h */,
 				76F4C77DC3934C19BE6B36DC /* Resources.h */,
 				3AE4396D49C6412FB9867ECA /* grid_08_Prefix.pch */,
 			);
@@ -182,6 +176,7 @@
 				CDE8BE5918CDF70A006E3E0E /* normal_vert.glsl */,
 				47AEE8C0EA914B448D2C0D8E /* CinderApp.icns */,
 				3AF9B713E49D42C79816F3F4 /* Info.plist */,
+				CDE8BE6218CE009D006E3E0E /* quote.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -218,6 +213,32 @@
 				D48F330C382A40E8AE179596 /* Cairo.cpp */,
 			);
 			name = src;
+			sourceTree = "<group>";
+		};
+		CDE8BE5F18CDF924006E3E0E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CDE8BE4E18CDF6F2006E3E0E /* FileWatcher.h */,
+				CDE8BE4F18CDF6F2006E3E0E /* FrustumOrtho.h */,
+				CDE8BE5018CDF6F2006E3E0E /* InfoPanel.h */,
+				CDE8BE5418CDF6F2006E3E0E /* Utils.h */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		CDE8BE6018CDF93C006E3E0E /* World */ = {
+			isa = PBXGroup;
+			children = (
+				CDE8BE5318CDF6F2006E3E0E /* StringCell.h */,
+				CDE8BE4918CDF6F1006E3E0E /* AbstractCell.h */,
+				CDE8BE4A18CDF6F2006E3E0E /* Cell.h */,
+				CDE8BE4C18CDF6F2006E3E0E /* Controller.h */,
+				CDE8BE4D18CDF6F2006E3E0E /* Diver.h */,
+				CDE8BE5118CDF6F2006E3E0E /* Oscillator.h */,
+				CDE8BE6118CDF995006E3E0E /* QuoteField.h */,
+				CDE8BE5218CDF6F2006E3E0E /* Path.h */,
+			);
+			name = World;
 			sourceTree = "<group>";
 		};
 		D7972D7CEEFB432E9D1070FC /* cairo */ = {
@@ -283,6 +304,7 @@
 				19177982EB094B03A9D348B1 /* CinderApp.icns in Resources */,
 				CDE8BE5E18CDF70A006E3E0E /* normal_vert.glsl in Resources */,
 				CDE8BE5C18CDF70A006E3E0E /* config.json in Resources */,
+				CDE8BE6318CE009D006E3E0E /* quote.json in Resources */,
 				CDE8BE5D18CDF70A006E3E0E /* normal_frag.glsl in Resources */,
 				CDE8BE5A18CDF70A006E3E0E /* cell_frag.glsl in Resources */,
 				CDE8BE5B18CDF70A006E3E0E /* cell_vert.glsl in Resources */,

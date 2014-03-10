@@ -27,6 +27,8 @@
 #include "Cell.h"
 #include "StringCell.h"
 
+#include "QuoteField.h"
+
 using namespace std;
 using namespace cinder;
 
@@ -53,6 +55,9 @@ class Controller {
     bool          mUpdateDiversThreadIsDead;
     mutex         mPathWriteMutex;
     mutex         mDiverWriteMutex;
+    
+    //temp
+    QuoteField  mQuoteField;
     
     
 public:
@@ -93,6 +98,9 @@ public:
         
         mUpdateInterval = (1.0f / APP_CTRL_PATH_THREAD_FPS) * 1000.0f;
         startThreads();
+        
+        mQuoteField.setSize(4, 4);
+        mQuoteField.gen("Hello Bello" , 0);
     }
     
   

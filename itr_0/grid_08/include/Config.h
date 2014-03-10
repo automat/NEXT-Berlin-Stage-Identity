@@ -75,6 +75,7 @@
 #include "cinder/Json.h"
 #include "cinder/Color.h"
 #include "cinder/gl/Material.h"
+#include "cinder/Font.h"
 
 using namespace ci;
 using namespace std;
@@ -126,10 +127,12 @@ static float    STRING_CELL_DIVER_MAX_LENGTH;
 
 static int      PATH_NUM_POINTS;
 
+static float    QUOTE_PADDING[4];
+static ColorAf  QUOTE_FONT_COLOR;
+static Font     QUOTE_FONT;
+static Font     QUOTE_AUTHOR_FONT;
+
 namespace config {
-    
-   
-    
     namespace parse{
         inline static void SetVec3f(const JsonTree& node, Vec3f* vec){
             *vec = Vec3f(node[0].getValue<float>(),
@@ -228,6 +231,14 @@ namespace config {
             
             int      path_num_points;
             
+            float    quote_padding[4];
+            string   quote_font_family;
+            float    quote_font_size;
+            ColorAf  quote_font_color;
+            
+            
+            
+            
             try {
                 parse::SetMaterial(jsonData.getChild("Scene.Cell.Material0"), &cell_material0);
                 parse::SetMaterial(jsonData.getChild("Scene.StringCell.Material0"), &string_cell_material0);
@@ -273,6 +284,22 @@ namespace config {
                 string_cell_diver_max_length = jsonData.getChild("Scene.StringCell.Diver.MaxLength").getValue<float>();
                 
                 path_num_points  = jsonData.getChild("Scene.Path.NumPoints").getValue<int>();
+                
+                quote_padding[0] = jsonData.getChild("Scene.Quote.Padding")[0].getValue<float>();
+                quote_padding[1] = jsonData.getChild("Scene.Quote.Padding")[1].getValue<float>();
+                quote_padding[2] = jsonData.getChild("Scene.Quote.Padding")[2].getValue<float>();
+                quote_padding[3] = jsonData.getChild("Scene.Quote.Padding")[3].getValue<float>();
+                
+                
+                quote_font_family = jsonData.getChild("Scene.Quote.Font.Family").getValue<string>();
+                quote_font_size   = jsonData.getChild("Scene.Quote.Font.Size").getValue<float>();
+                quote_font_color  = ColorAf(jsonData.getChild("Scene.Quote.Font.Color")[0].getValue<float>(),
+                                           jsonData.getChild("Scene.Quote.Font.Color")[1].getValue<float>(),
+                                           jsonData.getChild("Scene.Quote.Font.Color")[2].getValue<float>(),
+                                           jsonData.getChild("Scene.Quote.Font.Color")[3].getValue<float>());
+                
+                
+                
                 
             } catch (JsonTree::Exception& exc) {
                 cout << exc.what() << endl;
@@ -326,6 +353,17 @@ namespace config {
                 STRING_CELL_DIVER_MAX_LENGTH = string_cell_diver_max_length;
                 
                 PATH_NUM_POINTS = path_num_points;
+                
+                QUOTE_PADDING[0] = quote_padding[0];
+                QUOTE_PADDING[1] = quote_padding[1];
+                QUOTE_PADDING[2] = quote_padding[2];
+                QUOTE_PADDING[3] = quote_padding[3];
+                
+                QUOTE_FONT_COLOR = quote_font_color;
+                QUOTE_FONT = Font(quote_font_family,quote_font_size);
+                
+                
+            
                 
                 cout << path << " updated." << endl;
             }

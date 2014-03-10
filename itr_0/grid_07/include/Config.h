@@ -274,6 +274,8 @@ namespace config {
                 
                 path_num_points  = jsonData.getChild("Scene.Path.NumPoints").getValue<int>();
                 
+                
+                
             } catch (JsonTree::Exception& exc) {
                 cout << exc.what() << endl;
                 setSuccess = false;

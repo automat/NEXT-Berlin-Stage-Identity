@@ -199,14 +199,14 @@ void grid_08App::draw(){
     glPopMatrix();
 #endif
     
-    
     glEnable( GL_LIGHTING );
     gl::setMatrices(mCamera );
     mLight0->update(mCamera );
     mLight1->update(mCamera);
     mShader.bind();
-	
+#ifdef WORLD_DRAW_CELL
     this->drawScene();
+#endif
 	mShader.unbind();
 	
     glDisable( GL_LIGHTING );
