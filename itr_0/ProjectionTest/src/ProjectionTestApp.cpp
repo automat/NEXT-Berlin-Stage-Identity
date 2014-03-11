@@ -56,7 +56,8 @@ void ProjectionTestApp::prepareSettings(Settings* settings){
     settings->setWindowSize(APP_WIDTH, APP_HEIGHT);
     settings->setWindowPos(WINDOW_DISPLAY_POSITION);
     settings->setResizable(WINDOW_RESIZABLE);
-    settings->setAlwaysOnTop(true);
+    //settings->setFullScreen();
+   settings->setAlwaysOnTop(true);
     
     settings->setFrameRate(APP_FPS);
 }

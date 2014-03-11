@@ -15,7 +15,7 @@
 	},
 
 	"App" : {
-		"invScale"   : 2,
+		"invScale"   : 1,
 		"fps"		 : 36.0
 	}
     

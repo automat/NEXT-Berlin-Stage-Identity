@@ -17,6 +17,7 @@
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		81F0F9F16FA34E1E82B46D91 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 19D4C7CCEADE4F428BBB4203 /* CinderApp.icns */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		CD7EC6B418CF111500CEB260 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = CD7EC6B318CF111500CEB260 /* config.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		8D1107320486CEB800E47090 /* ProjectionSplitMerger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectionSplitMerger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5708CE0447D4DE1ADAEE597 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		C724432FAFC84DAA9B14F67E /* ProjectionSplitMergerApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ProjectionSplitMergerApp.cpp; path = ../src/ProjectionSplitMergerApp.cpp; sourceTree = "<group>"; };
+		CD7EC6B318CF111500CEB260 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../resources/config.json; sourceTree = "<group>"; };
 		CDE8BE6418CE3C24006E3E0E /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,6 +135,7 @@
 			children = (
 				19D4C7CCEADE4F428BBB4203 /* CinderApp.icns */,
 				19770D117B9349FD94EF7204 /* Info.plist */,
+				CD7EC6B318CF111500CEB260 /* config.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81F0F9F16FA34E1E82B46D91 /* CinderApp.icns in Resources */,
+				CD7EC6B418CF111500CEB260 /* config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
