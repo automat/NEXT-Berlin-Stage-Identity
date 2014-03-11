@@ -67,14 +67,13 @@ namespace config {
         JsonTree json = JsonTree(loadFile(path));
         
         // Projection
-        int projectionWidth  = json.getChild("Projection.Width").getValue<int>();
-        int projectionHeight = json.getChild("Projection.Height").getValue<int>();
+        int projectionWidth     = json.getChild("Projection.Width").getValue<int>();
+        int projectionHeight    = json.getChild("Projection.Height").getValue<int>();
+        int projectionEdgeWidth = json.getChild("Projection.Edge.Width").getValue<int>();
         
         
         // Window
         WINDOW_PROJECTION_SCALE = json.getChild("Window.ProjectionScale").getValue<int>();
-        WINDOW_WIDTH            = projectionWidth;
-        WINDOW_HEIGHT           = projectionHeight;
         WINDOW_REZISABLE        = json.getChild("Window.Rezisable").getValue<bool>();
         WINDOW_BORDERLESS       = json.getChild("Window.Borderless").getValue<bool>();
         WINDOW_FIXED_POSITION   = json.getChild("Window.FixedPosition").getValue<bool>();
@@ -82,10 +81,13 @@ namespace config {
         WINDOW_POSITION_X       = json.getChild("Window.Position.x").getValue<int>();
         WINDOW_POSITION_Y       = json.getChild("Window.Position.y").getValue<int>();
         
-        PROJECTION_EDGE_WIDTH  = json.getChild("Projection.Edge.Width").getValue<int>();
+        PROJECTION_EDGE_WIDTH  = projectionEdgeWidth / WINDOW_PROJECTION_SCALE;
         PROJECTION_EDGE_WEIGHT = json.getChild("Projection.Edge.Weight").getValue<int>();
         
-        DISPLAY_WIDTH = ( projectionWidth + PROJECTION_EDGE_WIDTH ) / 2;
+        WINDOW_WIDTH            = (projectionWidth + projectionEdgeWidth)  / WINDOW_PROJECTION_SCALE;
+        WINDOW_HEIGHT           = projectionHeight / WINDOW_PROJECTION_SCALE;
+        
+        DISPLAY_WIDTH = WINDOW_WIDTH / 2;
         
         
         // App
@@ -95,12 +97,12 @@ namespace config {
         APP_ANTIALIASING    = json.getChild("App.Antialiasing").getValue<int>();
         
         DISPLAY0_RECT = Rectf(0,0,DISPLAY_WIDTH,WINDOW_HEIGHT);
-        DISPLAY1_RECT = Rectf(DISPLAY_WIDTH,0,DISPLAY_WIDTH + DISPLAY_WIDTH - PROJECTION_EDGE_WIDTH, WINDOW_HEIGHT);
+        DISPLAY1_RECT = Rectf(DISPLAY_WIDTH,0,DISPLAY_WIDTH + DISPLAY_WIDTH , WINDOW_HEIGHT);
         
         FBO_DISPLAY0_AREA = Area(Vec2f(),
                                  Vec2f(DISPLAY_WIDTH, APP_VIEWPORT_HEIGHT));
         FBO_DISPLAY1_AREA = Area(Vec2f(DISPLAY_WIDTH - PROJECTION_EDGE_WIDTH,0),
-                                 Vec2f(DISPLAY_WIDTH - PROJECTION_EDGE_WIDTH + APP_VIEWPORT_WIDTH / 2, APP_VIEWPORT_HEIGHT));
+                                 Vec2f(DISPLAY_WIDTH - PROJECTION_EDGE_WIDTH + DISPLAY_WIDTH, APP_VIEWPORT_HEIGHT));
     
     }
 }

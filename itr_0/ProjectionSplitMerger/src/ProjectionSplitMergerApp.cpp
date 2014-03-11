@@ -60,10 +60,12 @@ void ProjectionSplitMergerApp::prepareSettings(Settings* settings){
     // Set settings
     settings->setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     settings->setFrameRate(APP_FPS);
+    
+    cout << WINDOW_WIDTH << endl;
 }
 
 void ProjectionSplitMergerApp::setup(){
-    mDebugTexFont60 = gl::TextureFont::create(Font("Apercu Mono", 40));
+    mDebugTexFont60 = gl::TextureFont::create(Font("Apercu Mono", 20));
     
     float aspectRatio = float(APP_VIEWPORT_WIDTH) / float(APP_VIEWPORT_HEIGHT);//app::getWindowAspectRatio();
     mCamera.setOrtho(-aspectRatio, aspectRatio, -1, 1, -10.0f, 10.0f);
@@ -89,18 +91,11 @@ void ProjectionSplitMergerApp::drawScene(){
     
     static const Vec3f zero;
     static const Vec3f unit(1,1,1);
-    int num    = 10;
-    float step = float(M_PI * 2) / float(num) ;
+
     glPushMatrix();
-    glRotatef(app::getElapsedSeconds() * 100, 0, 1, 0);
-    for(int i = 0; i < num; ++i){
-        glPushMatrix();
-        glTranslatef(cosf(step *  float(i) ), 0, sin(step * float(i) ));
-        gl::drawColorCube(zero, unit * 0.125f);
-        glPopMatrix();
-        
-    }
+    gl::drawColorCube(zero, unit );
     glPopMatrix();
+  
     
     glDisable(GL_DEPTH_TEST);
     glPopAttrib();
@@ -151,7 +146,7 @@ void ProjectionSplitMergerApp::draw(){
     glColor3f(1,1,1);
     gl::draw(mFbo.getTexture(),FBO_DISPLAY0_AREA,DISPLAY0_RECT);
     glPushMatrix();
-    //glTranslatef(-(0.5f + sinf(app::getElapsedSeconds()) * 0.5f) * float(PROJECTION_EDGE_WIDTH), 0, 0);
+    //glTranslatef(-PROJECTION_EDGE_WIDTH, 0, 0);
     gl::draw(mFbo.getTexture(),FBO_DISPLAY1_AREA,DISPLAY1_RECT);
     glPopMatrix();
     
@@ -167,19 +162,19 @@ void ProjectionSplitMergerApp::draw(){
     gl::enableAlphaBlending();
     
     glPushMatrix();
-    //glTranslatef(-(0.5f + sinf(app::getElapsedSeconds()) * 0.5f) * float(PROJECTION_EDGE_WIDTH), 0, 0);
+    //glTranslatef(-PROJECTION_EDGE_WIDTH, 0, 0);
     glColor3f(1,0,0);
     gl::drawStrokedRect(Rectf(DISPLAY_WIDTH,0,
                               DISPLAY_WIDTH + PROJECTION_EDGE_WIDTH, APP_VIEWPORT_HEIGHT));
-    glColor4f(0, 0, 0, 0.75f);
+    glColor4f(0, 0, 0, 0.25f);
     gl::drawSolidRect(Rectf(DISPLAY_WIDTH, 0,
                             DISPLAY_WIDTH + PROJECTION_EDGE_WIDTH, APP_VIEWPORT_HEIGHT));
-    drawStringWithBg(mDebugTexFont60, "Edge: " + toString(PROJECTION_EDGE_WIDTH), Vec2f(DISPLAY_WIDTH + PROJECTION_EDGE_WIDTH * 0.5f,APP_VIEWPORT_HEIGHT * 0.5f));
     glLineWidth(10);
     glColor3f(0, 1, 0);
     gl::drawStrokedRect(DISPLAY1_RECT); // draw area display1
     glLineWidth(1);
-
+    drawStringWithBg(mDebugTexFont60, "Edge: " + toString(PROJECTION_EDGE_WIDTH), Vec2f(DISPLAY_WIDTH + PROJECTION_EDGE_WIDTH * 0.5f,APP_VIEWPORT_HEIGHT * 0.5f));
+    
     glPopMatrix();
     
     glColor3f(1, 1, 1);
@@ -191,9 +186,9 @@ void ProjectionSplitMergerApp::draw(){
     static const Vec2f  display1Center     = Vec2f(DISPLAY_WIDTH + DISPLAY_WIDTH * 0.5f, display0Center.y);
     
     drawStringWithBg(mDebugTexFont60, display0String, display0Center);
-    drawStringWithBg(mDebugTexFont60, "Viewport 0: " + toString(DISPLAY_WIDTH) + " x " + toString(APP_VIEWPORT_HEIGHT), Vec2f(display0Center.x,display0Center.y - 80));
+    drawStringWithBg(mDebugTexFont60, "Viewport 0: " + toString(DISPLAY_WIDTH) + " x " + toString(APP_VIEWPORT_HEIGHT), Vec2f(display0Center.x,display0Center.y - 40));
     drawStringWithBg(mDebugTexFont60, display1String, display1Center);
-    drawStringWithBg(mDebugTexFont60, "Viewport 1: " + toString(DISPLAY_WIDTH - PROJECTION_EDGE_WIDTH) + " x " + toString(APP_VIEWPORT_HEIGHT), Vec2f(display1Center.x,display1Center.y - 80));
+    drawStringWithBg(mDebugTexFont60, "Viewport 1: " + toString(DISPLAY_WIDTH - PROJECTION_EDGE_WIDTH) + " x " + toString(APP_VIEWPORT_HEIGHT), Vec2f(display1Center.x,display1Center.y - 40));
     
     
     gl::disableAlphaBlending();
