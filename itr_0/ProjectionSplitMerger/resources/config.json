@@ -11,10 +11,10 @@
     "Window" : {
         "ProjectionScale" : 1,     // for dev, inv scaling the projection size to screen
         "Rezisable"       : false, // for dev
-        "Borderless"      : false,  // for dev
+        "Borderless"      : true,  // for dev
         "Display"         : 0,     // Main display, 2nd screen right
         "FixedPosition"   : true,  // ensure fixed pos for hardware setup
-        "AlwaysOnTop"     : false,
+        "AlwaysOnTop"     : true,
         "Position"        : {
             "x" : 0,
             "y" : 0

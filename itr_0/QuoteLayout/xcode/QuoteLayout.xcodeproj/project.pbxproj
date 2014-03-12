@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 44;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,14 +12,11 @@
 		00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */; };
 		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
+		10E33C2768944AEDB7CBA57A /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = B859A380691C40F58EFF96D8 /* CinderApp.icns */; };
+		49CB7BE6BA624510B397E0FF /* Cairo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E3913E3144A39AF2AD0AE /* Cairo.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		38BE831EC1114405A1A5D5AC /* Cairo.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DAA700C0F344D18A8DCA366 /* Cairo.h */; };
-		49CB7BE6BA624510B397E0FF /* Cairo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E5E3913E3144A39AF2AD0AE /* Cairo.cpp */; };
-		63EDC3373834491593C53E12 /* QuoteLayout_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = DC8265132F0646D78DA06AA1 /* QuoteLayout_Prefix.pch */; };
-		10E33C2768944AEDB7CBA57A /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = B859A380691C40F58EFF96D8 /* CinderApp.icns */; };
-		882A2C33380944B8B1B7C8C4 /* Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = C087B731E1A84697B41D5BE7 /* Resources.h */; };
 		A9387726CB894B2E8C935ACB /* QuoteLayoutApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9C068AAA4204E2795451217 /* QuoteLayoutApp.cpp */; };
 /* End PBXBuildFile section */
 
@@ -32,16 +29,19 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4E5E3913E3144A39AF2AD0AE /* Cairo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Cairo.cpp; path = ../../../../Cinder/blocks/Cairo/src/Cairo.cpp; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
+		5DAA700C0F344D18A8DCA366 /* Cairo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Cairo.h; path = ../../../../Cinder/blocks/Cairo/include/cinder/cairo/Cairo.h; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* QuoteLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuoteLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C9C068AAA4204E2795451217 /* QuoteLayoutApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../src/QuoteLayoutApp.cpp; sourceTree = "<group>"; name = QuoteLayoutApp.cpp; };
-		C087B731E1A84697B41D5BE7 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../include/Resources.h; sourceTree = "<group>"; name = Resources.h; };
-		B859A380691C40F58EFF96D8 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; name = CinderApp.icns; };
-		D2B2AD222195440EB23F42FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; name = Info.plist; };
-		DC8265132F0646D78DA06AA1 /* QuoteLayout_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = QuoteLayout_Prefix.pch; sourceTree = "<group>"; name = QuoteLayout_Prefix.pch; };
-		4E5E3913E3144A39AF2AD0AE /* Cairo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../../../../Cinder/blocks/Cairo/src/Cairo.cpp; sourceTree = "<group>"; name = Cairo.cpp; };
-		5DAA700C0F344D18A8DCA366 /* Cairo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../../Cinder/blocks/Cairo/include/cinder/cairo/Cairo.h; sourceTree = "<group>"; name = Cairo.h; };
+		B859A380691C40F58EFF96D8 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
+		C087B731E1A84697B41D5BE7 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
+		C9C068AAA4204E2795451217 /* QuoteLayoutApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = QuoteLayoutApp.cpp; path = ../src/QuoteLayoutApp.cpp; sourceTree = "<group>"; };
+		CDAF0BD518D0769E00D17EF8 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
+		CDAF0BD618D0785C00D17EF8 /* QuoteTypesetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuoteTypesetter.h; path = ../include/QuoteTypesetter.h; sourceTree = "<group>"; };
+		CDAF0BD718D086F000D17EF8 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cell.h; path = ../include/Cell.h; sourceTree = "<group>"; };
+		D2B2AD222195440EB23F42FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC8265132F0646D78DA06AA1 /* QuoteLayout_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = QuoteLayout_Prefix.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +63,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01B97315FEAEA392516A2CEA /* Blocks */ = {
+			isa = PBXGroup;
+			children = (
+				5E5ACADCE69540CCACEB8136 /* Cairo */,
+			);
+			name = Blocks;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,60 +124,14 @@
 			name = QuoteLayout;
 			sourceTree = "<group>";
 		};
-		9EC9E33EDC8B476EBD4D317F /* src */ = {
-			isa = PBXGroup;
-			children = (
-				4E5E3913E3144A39AF2AD0AE /* Cairo.cpp */,
-			);
-			name = src;
-			sourceTree = "<group>";
-		};
-		421405BC6CC84DAC8EDCCFD3 /* cairo */ = {
-			isa = PBXGroup;
-			children = (
-				5DAA700C0F344D18A8DCA366 /* Cairo.h */,
-			);
-			name = cairo;
-			sourceTree = "<group>";
-		};
-		C950B78EC55B472ABC9B26CB /* cinder */ = {
-			isa = PBXGroup;
-			children = (
-				421405BC6CC84DAC8EDCCFD3 /* cairo */,
-			);
-			name = cinder;
-			sourceTree = "<group>";
-		};
-		EEE137482D4346CE83722B3E /* include */ = {
-			isa = PBXGroup;
-			children = (
-				C950B78EC55B472ABC9B26CB /* cinder */,
-			);
-			name = include;
-			sourceTree = "<group>";
-		};
-		5E5ACADCE69540CCACEB8136 /* Cairo */ = {
-			isa = PBXGroup;
-			children = (
-				9EC9E33EDC8B476EBD4D317F /* src */,
-				EEE137482D4346CE83722B3E /* include */,
-			);
-			name = Cairo;
-			sourceTree = "<group>";
-		};
-		01B97315FEAEA392516A2CEA /* Blocks */ = {
-			isa = PBXGroup;
-			children = (
-				5E5ACADCE69540CCACEB8136 /* Cairo */,
-			);
-			name = Blocks;
-			sourceTree = "<group>";
-		};
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
 				C087B731E1A84697B41D5BE7 /* Resources.h */,
 				DC8265132F0646D78DA06AA1 /* QuoteLayout_Prefix.pch */,
+				CDAF0BD518D0769E00D17EF8 /* Config.h */,
+				CDAF0BD618D0785C00D17EF8 /* QuoteTypesetter.h */,
+				CDAF0BD718D086F000D17EF8 /* Cell.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -190,6 +152,47 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		421405BC6CC84DAC8EDCCFD3 /* cairo */ = {
+			isa = PBXGroup;
+			children = (
+				5DAA700C0F344D18A8DCA366 /* Cairo.h */,
+			);
+			name = cairo;
+			sourceTree = "<group>";
+		};
+		5E5ACADCE69540CCACEB8136 /* Cairo */ = {
+			isa = PBXGroup;
+			children = (
+				9EC9E33EDC8B476EBD4D317F /* src */,
+				EEE137482D4346CE83722B3E /* include */,
+			);
+			name = Cairo;
+			sourceTree = "<group>";
+		};
+		9EC9E33EDC8B476EBD4D317F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				4E5E3913E3144A39AF2AD0AE /* Cairo.cpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		C950B78EC55B472ABC9B26CB /* cinder */ = {
+			isa = PBXGroup;
+			children = (
+				421405BC6CC84DAC8EDCCFD3 /* cairo */,
+			);
+			name = cinder;
+			sourceTree = "<group>";
+		};
+		EEE137482D4346CE83722B3E /* include */ = {
+			isa = PBXGroup;
+			children = (
+				C950B78EC55B472ABC9B26CB /* cinder */,
+			);
+			name = include;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +221,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "QuoteLayout" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -265,17 +270,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				DEAD_CODE_STRIPPING = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = QuoteLayout_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = QuoteLayout_Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -286,8 +291,8 @@
 					../../../../Cinder/blocks/Cairo/lib/macosx/libpng14.a,
 				);
 				PRODUCT_NAME = QuoteLayout;
-				WRAPPER_EXTENSION = app;
 				SYMROOT = ./build;
+				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
@@ -314,19 +319,19 @@
 				);
 				PRODUCT_NAME = QuoteLayout;
 				STRIP_INSTALLED_PRODUCT = YES;
-				WRAPPER_EXTENSION = app;
 				SYMROOT = ./build;
+				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = i386;
-				CINDER_PATH = "../../../../Cinder";
+				CINDER_PATH = ../../../../Cinder;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -335,21 +340,18 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = (
-					"\"$(CINDER_PATH)/include\" ../include",
-					../../../../Cinder/blocks/Cairo/include,
-				);
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../../Cinder/blocks/Cairo/include";
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
-				CLANG_CXX_LIBRARY = "libc++";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = i386;
-				CINDER_PATH = "../../../../Cinder";
+				CINDER_PATH = ../../../../Cinder;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -358,10 +360,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
-				USER_HEADER_SEARCH_PATHS = (
-					"\"$(CINDER_PATH)/include\" ../include",
-					../../../../Cinder/blocks/Cairo/include,
-				);
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include ../../../../Cinder/blocks/Cairo/include";
 			};
 			name = Release;
 		};
