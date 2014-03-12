@@ -55,7 +55,7 @@ void QuoteLayoutApp::setup(){
     }
     
     //define area for layout
-    float rectWidth = 5, rectHeight = 2;
+    float rectWidth = 5, rectHeight = 1;
     Vec3f tl(-rectWidth * 0.5f,0,-rectHeight * 0.5f),
           tr( rectWidth * 0.5f,0,-rectHeight * 0.5f),
           bl(-rectWidth * 0.5f,0, rectHeight * 0.5f),
@@ -65,22 +65,14 @@ void QuoteLayoutApp::setup(){
     Matrix44f mat;
     mat *= Matrix44f::createRotation(Vec3f::yAxis(), M_PI / 4);
     
-    rect += mat.transformPointAffine(tl);
-    rect += mat.transformPointAffine(tr);
-    rect += mat.transformPointAffine(bl);
-    rect += mat.transformPointAffine(br);
+    QuoteLayoutArea area(mat.transformPointAffine(tl),
+                         mat.transformPointAffine(tr),
+                         mat.transformPointAffine(bl),
+                         mat.transformPointAffine(br));
     
     
-    //MatrixAffine2f mat;
-    /*
-    mat *= Matrix44f::createTranslation(Vec3f(-2,0,-2));
-    mat *= Matrix44f::createRotation(Vec3f::zAxis(), M_PI_2);
-    */
-    //mat *= MatrixAffine2f::makeTranslate(Vec2f(-2,2));
-    //mat *= MatrixAffine2f::makeRotate(M_PI_2);
-    //rect = rectRef.transformCopy(mat);
     
-    mTypesetter = new QuoteTypesetter(&mCells, rect);
+    mTypesetter = new QuoteTypesetter(&mCells, area);
     
     
     

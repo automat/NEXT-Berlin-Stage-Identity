@@ -53,7 +53,7 @@ public:
         glDrawArrays(GL_LINE_LOOP, 0, 4);
         glVertexPointer(3, GL_FLOAT, 0, &zero[0]);
         glPointSize(10);
-        glDrawArrays(GL_POINTS, 0, 1);
+        //glDrawArrays(GL_POINTS, 0, 1);
         glPointSize(1);
         glDisableClientState(GL_VERTEX_ARRAY);
         glPopMatrix();
@@ -87,6 +87,14 @@ public:
     
     inline const Rectf& getBounds() const{
         return mRect;
+    }
+    
+    inline const Vec3f& getCenter() {
+        return mPos;
+    }
+    
+    inline const int (&getId())[2] {
+        return mId;
     }
 };
 
