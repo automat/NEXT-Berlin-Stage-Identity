@@ -12,7 +12,7 @@
 
 #include "Config.h"
 #include "cinder/gl/TextureFont.h"
-#include "cinder/Rect.h"
+#include "QuoteLayoutArea.h"
 #include "Cell.h"
 
 #include <vector>
@@ -22,39 +22,7 @@ using namespace std;
 using namespace ci;
 using namespace boost::assign;
 
-class QuoteLayoutArea {
-    Vec3f mTl,mTr,
-          mBl,mBr;
-private:
-    inline float area(const Vec3f& a, const Vec3f& b, const Vec3f& c){
-        return (a-b).cross(a-c).length() * 0.5f;
-    }
-    
-    inline float area(const Vec3f& a, const Vec3f& b, const Vec3f& c, const Vec3f& d){
-        return area(a,b,c) + area(b,d,c);
-    }
-    
-public:
-    QuoteLayoutArea(const Vec3f& tl, const Vec3f& tr, const Vec3f& bl, const Vec3f& br) :
-        mTl(tl),mTr(tr),
-        mBl(bl),mBr(br){}
-    
-    //! assuming y = 0
-    inline bool contains(const Vec3f& point){
-        float areaABCD = area(mTl, mTr, mBl, mBr),
-              areaAPD  = area(mTl, point, mBr),
-              areaDPC  = area(mBr, point, mBl),
-              areaCPB  = area(mBl, point, mTr),
-              areaPBA  = area(point, mTr, mTl);
-        
-        return (areaAPD + areaDPC + areaCPB + areaPBA) <= areaABCD;
-    }
-    
-    const Vec3f& getTL(){return mTl;}
-    const Vec3f& getTR(){return mTr;}
-    const Vec3f& getBL(){return mBl;}
-    const Vec3f& getBR(){return mBr;}
-};
+
 
 
 class QuoteTypesetter {

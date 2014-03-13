@@ -4,6 +4,7 @@
 #include "Config.h"
 #include <vector>
 #include "Cell.h"
+#include "QuoteLayoutArea.h"
 #include "QuoteTypesetter.h"
 
 #include <boost/assign/std/vector.hpp>
@@ -55,22 +56,14 @@ void QuoteLayoutApp::setup(){
     }
     
     //define area for layout
-    float rectWidth = 5, rectHeight = 1;
+    float rectWidth = 1, rectHeight = 5;
     Vec3f tl(-rectWidth * 0.5f,0,-rectHeight * 0.5f),
           tr( rectWidth * 0.5f,0,-rectHeight * 0.5f),
           bl(-rectWidth * 0.5f,0, rectHeight * 0.5f),
           br( rectWidth * 0.5f,0, rectHeight * 0.5f);
-    vector<Vec3f> rect;
     
-    Matrix44f mat;
-    mat *= Matrix44f::createRotation(Vec3f::yAxis(), M_PI / 4);
-    
-    QuoteLayoutArea area(mat.transformPointAffine(tl),
-                         mat.transformPointAffine(tr),
-                         mat.transformPointAffine(bl),
-                         mat.transformPointAffine(br));
-    
-    
+    QuoteLayoutArea area(tl, tr, bl, br);
+    area *= Matrix44f::createRotation(Vec3f::yAxis(), M_PI / 4);
     
     mTypesetter = new QuoteTypesetter(&mCells, area);
     
