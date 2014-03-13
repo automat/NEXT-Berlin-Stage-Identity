@@ -56,7 +56,7 @@ void QuoteLayoutApp::setup(){
     }
     
     //define area for layout
-    float rectWidth = 1, rectHeight = 5;
+    float rectWidth = 10, rectHeight = 5;
     Vec3f tl(-rectWidth * 0.5f,0,-rectHeight * 0.5f),
           tr( rectWidth * 0.5f,0,-rectHeight * 0.5f),
           bl(-rectWidth * 0.5f,0, rectHeight * 0.5f),

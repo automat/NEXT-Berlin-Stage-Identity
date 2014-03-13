@@ -10,6 +10,7 @@
 #define QuoteLayout_Cell_h
 
 #include <OpenGL/OpenGL.h>
+#include "Config.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Vector.h"
 #include "cinder/Rect.h"
@@ -80,6 +81,8 @@ public:
         glPushMatrix();
         glMultMatrixf(mat);
         gl::drawString(toString(mId[0]) + " , " + toString(mId[1]), Vec2f::zero());
+        glColor3f(1, 0, 0);
+        gl::drawString(toString(mId[1] * GRID_NUM_XY + mId[0]),Vec2f(0,20));
         glPopMatrix();
         gl::disableAlphaBlending();
         gl::disableAlphaTest();
@@ -94,6 +97,10 @@ public:
     }
     
     inline const int (&getId())[2] {
+        return mId;
+    }
+    
+    inline const int (&getId() const)[2]  {
         return mId;
     }
 };
