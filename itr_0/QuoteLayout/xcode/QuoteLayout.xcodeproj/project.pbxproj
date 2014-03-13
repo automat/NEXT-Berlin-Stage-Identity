@@ -37,7 +37,7 @@
 		B859A380691C40F58EFF96D8 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		C087B731E1A84697B41D5BE7 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		C9C068AAA4204E2795451217 /* QuoteLayoutApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = QuoteLayoutApp.cpp; path = ../src/QuoteLayoutApp.cpp; sourceTree = "<group>"; };
-		CD6DC7C518D1978600A3A66E /* QuoteLayoutArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuoteLayoutArea.h; path = ../include/QuoteLayoutArea.h; sourceTree = "<group>"; };
+		CD6DC7C518D1978600A3A66E /* LayoutArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayoutArea.h; path = ../include/LayoutArea.h; sourceTree = "<group>"; };
 		CDAF0BD518D0769E00D17EF8 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
 		CDAF0BD618D0785C00D17EF8 /* QuoteTypesetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuoteTypesetter.h; path = ../include/QuoteTypesetter.h; sourceTree = "<group>"; };
 		CDAF0BD718D086F000D17EF8 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cell.h; path = ../include/Cell.h; sourceTree = "<group>"; };
@@ -128,12 +128,11 @@
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				CDB7246418D2490400B634CA /* World */,
 				C087B731E1A84697B41D5BE7 /* Resources.h */,
 				DC8265132F0646D78DA06AA1 /* QuoteLayout_Prefix.pch */,
 				CDAF0BD518D0769E00D17EF8 /* Config.h */,
-				CDAF0BD618D0785C00D17EF8 /* QuoteTypesetter.h */,
-				CDAF0BD718D086F000D17EF8 /* Cell.h */,
-				CD6DC7C518D1978600A3A66E /* QuoteLayoutArea.h */,
+				CDB7246318D247AC00B634CA /* Quote */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -187,6 +186,23 @@
 				421405BC6CC84DAC8EDCCFD3 /* cairo */,
 			);
 			name = cinder;
+			sourceTree = "<group>";
+		};
+		CDB7246318D247AC00B634CA /* Quote */ = {
+			isa = PBXGroup;
+			children = (
+				CDAF0BD618D0785C00D17EF8 /* QuoteTypesetter.h */,
+				CD6DC7C518D1978600A3A66E /* LayoutArea.h */,
+			);
+			name = Quote;
+			sourceTree = "<group>";
+		};
+		CDB7246418D2490400B634CA /* World */ = {
+			isa = PBXGroup;
+			children = (
+				CDAF0BD718D086F000D17EF8 /* Cell.h */,
+			);
+			name = World;
 			sourceTree = "<group>";
 		};
 		EEE137482D4346CE83722B3E /* include */ = {

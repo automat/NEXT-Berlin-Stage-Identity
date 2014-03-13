@@ -16,8 +16,10 @@
 #include "cinder/Rect.h"
 #include "cinder/Utilities.h"
 #include "cinder/Camera.h"
+#include "cinder/gl/TextureFont.h"
 
 using namespace ci;
+using namespace std;
 
 class Cell {
     int   mId[2];
@@ -32,7 +34,8 @@ public:
         mRect(pos.x-0.5f, pos.y-0.5f, pos.x+0.5f, pos.y+0.5f){
             mId[0] = id[0];
             mId[1] = id[1];
-    
+            
+            
     }
     
     inline void debugDrawArea(const CameraOrtho& camera){
@@ -59,7 +62,7 @@ public:
         glDisableClientState(GL_VERTEX_ARRAY);
         glPopMatrix();
         
-        static const float fontScale = 0.0125f;
+        static const float fontScale = 0.0085f;
         
         Vec3f v;
         Vec3f w;
@@ -75,14 +78,19 @@ public:
         mat *= Matrix44f::createRotation(Vec3f::zAxis(), M_PI_2);
         mat *= Matrix44f::createScale(Vec3f(fontScale,fontScale,fontScale));
         
+        const static gl::TextureFontRef debugFont = gl::TextureFont::create(Font("Arial",20));
+        
+        
         gl::enableAlphaTest();
         gl::enableAlphaBlending();
         glColor3f(1, 1, 1);
         glPushMatrix();
         glMultMatrixf(mat);
-        gl::drawString(toString(mId[0]) + " , " + toString(mId[1]), Vec2f::zero());
+        debugFont->drawString(toString(mId[0]) + " , " + toString(mId[1]), Vec2f::zero());
+        //gl::drawString(toString(mId[0]) + " , " + toString(mId[1]), Vec2f::zero());
         glColor3f(1, 0, 0);
-        gl::drawString(toString(mId[1] * GRID_NUM_XY + mId[0]),Vec2f(0,20));
+        debugFont->drawString(toString(mId[1] * GRID_NUM_XY + mId[0]), Vec2f(0,20));
+        //gl::drawString(toString(mId[1] * GRID_NUM_XY + mId[0]),Vec2f(0,20));
         glPopMatrix();
         gl::disableAlphaBlending();
         gl::disableAlphaTest();

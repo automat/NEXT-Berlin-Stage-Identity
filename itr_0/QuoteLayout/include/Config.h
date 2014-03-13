@@ -9,11 +9,12 @@
 #ifndef QuoteLayout_Config_h
 #define QuoteLayout_Config_h
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 800
+#define SCALE 2
+#define WINDOW_WIDTH  1000//3552 / SCALE
+#define WINDOW_HEIGHT 1000//1105 / SCALE
 #define APP_FPS 30.0f
 
-#define GRID_NUM_XY 7
+#define GRID_NUM_XY 11
 #define FONT_NAME "Transcript-Bold"
 #define FONT_SIZE 30
 

@@ -13,21 +13,33 @@
 #include "cinder/Matrix44.h"
 using namespace ci;
 
-class QuoteLayoutArea {
+class LayoutArea {
+protected:
     Vec3f mA,mB,mC,mD;
     
 public:
-    QuoteLayoutArea(const Vec3f& tl, const Vec3f& tr, const Vec3f& bl, const Vec3f& br) :
+    LayoutArea(const Vec3f& tl, const Vec3f& tr, const Vec3f& bl, const Vec3f& br) :
         mA(tl),mB(tr),mC(bl),mD(br){}
     
-    QuoteLayoutArea(float width, float height) :
+    LayoutArea(float width, float height) :
         mB(width,0,0),mC(0,0,height),mD(width,0,height){}
     
-    inline QuoteLayoutArea& operator*=(const Matrix44f& rhs ){
+    LayoutArea(const LayoutArea& area) :
+        mA(area.mA),mB(area.mB),mC(area.mC),mD(area.mD){}
+    
+    inline LayoutArea& operator*=(const Matrix44f& rhs ){
         mA = rhs.transformPointAffine(mA);
         mB = rhs.transformPointAffine(mB);
         mC = rhs.transformPointAffine(mC);
         mD = rhs.transformPointAffine(mD);
+        return *this;
+    }
+    
+    inline LayoutArea& operator*=(float rhs){
+        mA *= rhs;
+        mB *= rhs;
+        mC *= rhs;
+        mD *= rhs;
         return *this;
     }
     

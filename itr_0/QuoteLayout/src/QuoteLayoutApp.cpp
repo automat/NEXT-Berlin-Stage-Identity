@@ -4,7 +4,7 @@
 #include "Config.h"
 #include <vector>
 #include "Cell.h"
-#include "QuoteLayoutArea.h"
+#include "LayoutArea.h"
 #include "QuoteTypesetter.h"
 
 #include <boost/assign/std/vector.hpp>
@@ -40,7 +40,7 @@ void QuoteLayoutApp::prepareSettings(Settings* settings){
 }
 
 void QuoteLayoutApp::setup(){
-    mCameraZoom = 4;
+    mCameraZoom = 6;
     mCamera.lookAt(Vec3f(0,1,0), Vec3f::zero());
     updateView();
     
@@ -62,10 +62,12 @@ void QuoteLayoutApp::setup(){
           bl(-rectWidth * 0.5f,0, rectHeight * 0.5f),
           br( rectWidth * 0.5f,0, rectHeight * 0.5f);
     
-    QuoteLayoutArea area(tl, tr, bl, br);
+    LayoutArea area(tl, tr, bl, br);
     area *= Matrix44f::createRotation(Vec3f::yAxis(), M_PI / 4);
     
     mTypesetter = new QuoteTypesetter(&mCells, area);
+    mTypesetter->setFont(Font(FONT_NAME,200),0.75f);
+    mTypesetter->setString("This is the");
     
     
     
@@ -80,11 +82,11 @@ void QuoteLayoutApp::keyDown(KeyEvent event){
             mCamera.lookAt(Vec3f(1,1,1),Vec3f::zero());
             break;
         case KeyEvent::KEY_UP:
-            mCameraZoom = MAX(2,MIN(mCameraZoom+1, 5));
+            mCameraZoom = MAX(1,MIN(mCameraZoom+1, 8));
             updateView();
             break;
         case KeyEvent::KEY_DOWN:
-            mCameraZoom = MAX(2,MIN(mCameraZoom-1, 5));
+            mCameraZoom = MAX(1,MIN(mCameraZoom-1, 8));
             updateView();
             break;
         case KeyEvent::KEY_ESCAPE:
@@ -114,13 +116,25 @@ void QuoteLayoutApp::draw(){
 	gl::clear( Color( 0, 0, 0 ) );
     gl::setMatrices(mCamera);
     gl::drawCoordinateFrame();
+    glPushMatrix();
+   // glScalef(0.65f, 0.65f, 0.65f);
     
     mTypesetter->debugDrawArea();
+    
     
     for (auto* cell : mCells) {
         cell->debugDrawArea(mCamera);
     }
-
+    
+    gl::enableAlphaTest();
+    gl::enableAlphaBlending();
+    gl::enableAdditiveBlending();
+    glColor3f(1,1,1);
+    mTypesetter->debugDrawString();
+    gl::enableAdditiveBlending();
+    gl::disableAlphaBlending();
+    gl::disableAlphaTest();
+    glPopMatrix();
 
 
 }
