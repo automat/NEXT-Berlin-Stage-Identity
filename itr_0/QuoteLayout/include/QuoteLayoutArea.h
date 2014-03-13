@@ -15,14 +15,6 @@ using namespace ci;
 
 class QuoteLayoutArea {
     Vec3f mA,mB,mC,mD;
-private:
-    inline float area(const Vec3f& a, const Vec3f& b, const Vec3f& c){
-        return (a-b).cross(a-c).length() * 0.5f;
-    }
-    
-    inline float area(const Vec3f& a, const Vec3f& b, const Vec3f& c, const Vec3f& d){
-        return area(a,b,c) + area(b,d,c);
-    }
     
 public:
     QuoteLayoutArea(const Vec3f& tl, const Vec3f& tr, const Vec3f& bl, const Vec3f& br) :
