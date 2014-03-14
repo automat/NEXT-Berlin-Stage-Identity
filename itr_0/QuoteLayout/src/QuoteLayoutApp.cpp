@@ -28,7 +28,6 @@ class QuoteLayoutApp : public AppNative {
     vector<Cell*>    mCells;
     QuoteTypesetter* mTypesetter;
     
-    
     CameraOrtho mCamera;
     float       mCameraZoom;
     
@@ -40,8 +39,8 @@ void QuoteLayoutApp::prepareSettings(Settings* settings){
 }
 
 void QuoteLayoutApp::setup(){
-    mCameraZoom = 6;
-    mCamera.lookAt(Vec3f(0,1,0), Vec3f::zero());
+    mCameraZoom = 1;
+    mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
     updateView();
     
     int size_2 = GRID_NUM_XY / 2;
@@ -56,21 +55,12 @@ void QuoteLayoutApp::setup(){
     }
     
     //define area for layout
-    float rectWidth = 10, rectHeight = 5;
-    Vec3f tl(-rectWidth * 0.5f,0,-rectHeight * 0.5f),
-          tr( rectWidth * 0.5f,0,-rectHeight * 0.5f),
-          bl(-rectWidth * 0.5f,0, rectHeight * 0.5f),
-          br( rectWidth * 0.5f,0, rectHeight * 0.5f);
-    
-    LayoutArea area(tl, tr, bl, br);
+    LayoutArea area(10,5,true);
     area *= Matrix44f::createRotation(Vec3f::yAxis(), M_PI / 4);
     
     mTypesetter = new QuoteTypesetter(&mCells, area);
-    mTypesetter->setFont(Font(FONT_NAME,200),0.75f);
-    mTypesetter->setString("This is the");
-    
-    
-    
+    mTypesetter->setFont(Font(FONT_NAME,200),0.85f);
+    mTypesetter->setString("Knowing what");
 }
 
 void QuoteLayoutApp::keyDown(KeyEvent event){
@@ -117,14 +107,16 @@ void QuoteLayoutApp::draw(){
     gl::setMatrices(mCamera);
     gl::drawCoordinateFrame();
     glPushMatrix();
-   // glScalef(0.65f, 0.65f, 0.65f);
+    glScalef(0.65f, 0.65f, 0.65f);
+
     
+    glDisable(GL_DEPTH_TEST);
     mTypesetter->debugDrawArea();
-    
-    
+ 
     for (auto* cell : mCells) {
         cell->debugDrawArea(mCamera);
     }
+    glEnable(GL_DEPTH_TEST);
     
     gl::enableAlphaTest();
     gl::enableAlphaBlending();

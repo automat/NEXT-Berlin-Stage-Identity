@@ -17,25 +17,23 @@
 #include "cinder/Utilities.h"
 #include "cinder/Camera.h"
 #include "cinder/gl/TextureFont.h"
+#include "LayoutArea.h"
 
 using namespace ci;
 using namespace std;
 
 class Cell {
-    int   mId[2];
-    Vec3f mPos;
-    Rectf mRect;
+    int        mId[2];
+    Vec3f      mPos;
+    LayoutArea mArea;
     
     
     
 public:
     Cell(int* id, const Vec3f& pos) :
-        mPos(pos),
-        mRect(pos.x-0.5f, pos.y-0.5f, pos.x+0.5f, pos.y+0.5f){
+        mPos(pos),mArea(pos,1,1,true){
             mId[0] = id[0];
             mId[1] = id[1];
-            
-            
     }
     
     inline void debugDrawArea(const CameraOrtho& camera){
@@ -49,7 +47,7 @@ public:
             -0.5f,0, 0.5f
         };
         
-        glColor3f(0, 0, 1);
+        glColor3f(0, 0, 0.25f);
         glPushMatrix();
         glTranslatef(mPos.x, mPos.y, mPos.z);
         glEnableClientState(GL_VERTEX_ARRAY);
@@ -62,7 +60,7 @@ public:
         glDisableClientState(GL_VERTEX_ARRAY);
         glPopMatrix();
         
-        static const float fontScale = 0.0085f;
+        static const float fontScale = 0.005f;
         
         Vec3f v;
         Vec3f w;
@@ -83,21 +81,19 @@ public:
         
         gl::enableAlphaTest();
         gl::enableAlphaBlending();
-        glColor3f(1, 1, 1);
+        glColor3f(0.65f,0.65f,0.65f);
         glPushMatrix();
         glMultMatrixf(mat);
         debugFont->drawString(toString(mId[0]) + " , " + toString(mId[1]), Vec2f::zero());
-        //gl::drawString(toString(mId[0]) + " , " + toString(mId[1]), Vec2f::zero());
-        glColor3f(1, 0, 0);
+        glColor3f(0.85f, 0, 0);
         debugFont->drawString(toString(mId[1] * GRID_NUM_XY + mId[0]), Vec2f(0,20));
-        //gl::drawString(toString(mId[1] * GRID_NUM_XY + mId[0]),Vec2f(0,20));
         glPopMatrix();
         gl::disableAlphaBlending();
         gl::disableAlphaTest();
     }
     
-    inline const Rectf& getBounds() const{
-        return mRect;
+    inline const LayoutArea& getArea() const{
+        return mArea;
     }
     
     inline const Vec3f& getCenter() {
