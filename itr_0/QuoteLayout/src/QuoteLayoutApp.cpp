@@ -67,10 +67,10 @@ void QuoteLayoutApp::setup(){
     area *= Matrix44f::createRotation(Vec3f::yAxis(), M_PI / 4);
     
     mTypesetter = new QuoteTypesetter(&mCells, area);
-    mTypesetter->setFont(Font(FONT_NAME,200),0.85f);
-    mTypesetter->setPadding(0, 0, 1, 0);
+    mTypesetter->setFont(Font(FONT_NAME,200),0.7f);
+    mTypesetter->setPadding(0, 0, 0, 1);
     
-    if(!mTypesetter->setString(strings[1])){
+    if(!mTypesetter->setString(strings[2])){
         //cout << "Can´t set string: " << strings[3] << endl;
     }
     

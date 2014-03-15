@@ -65,7 +65,9 @@ class QuoteTypesetter {
     
     float                   mStringWidthMax;
     
-    int                     mMinColumnLength;
+    int                     mColLengthMin;
+    
+    bool                    mFontAutoScale;
     
     
     Matrix44f               mFontTransMat;      // font 3d translation matrix
@@ -119,49 +121,70 @@ class QuoteTypesetter {
     }
     
     inline void getCellIndices(){
-        int paddingT = mCellPadding[0],
-            paddingB = mCellPadding[1],
-            paddingL = mCellPadding[2],
-            paddingR = mCellPadding[3];
+        mCellsIndex.resize(0);
+        const vector<Cell*>& cells = (*mCells);
         
         //
         //  Check if cell is within area, if so push to indices to use
         //
-        vector<int> tempCellsIndex;
+        vector<int> cellsIndex;
         for(auto* cell : *mCells){
             if(mArea.contains(cell->getArea())){
-                tempCellsIndex += cell->getId()[0] * GRID_NUM_XY + cell->getId()[1];
+                cellsIndex += cell->getId()[0] * GRID_NUM_XY + cell->getId()[1];
             }
         }
         
-        int countColumn = 0;
-        int currRow,currColumn,nextRow;
-        int i,j;
-        int size = tempCellsIndex.size();
-        int index,indexNext;
+        int index,index1;                   // index cell, next
         
-        i = -1;
+        int rowIndexMin = mCellPadding[0];  // row padding top
+        int rowIndexMax;                    // row padding bottom
+        int rowIndex, rowIndex1;            // index row, next
+        int rowIndexValid = 0;              // index row valid with atleast 1 column
+        
+        int colCount = 0;
+        int colCountMin = mCellPadding[3];
+        int colCountMax;
+        int colPaddingR = mCellPadding[1];
+        
+        
+        int size = cellsIndex.size();
+        int i    = -1;
+        
+        int j;
+
         while (++i < size) {
-            index     = tempCellsIndex[i];          // get current index
-            indexNext = tempCellsIndex[(i+1)%size]; // get next index, 0 if end
+            index     = cellsIndex[i];
+            index1    = cellsIndex[(i+1)%size];    // 0 if end
+            rowIndex  = cells[index ]->getId()[0];
+            rowIndex1 = cells[index1]->getId()[0];
             
-            currColumn = (*mCells)[index    ]->getId()[1];
-            currRow    = (*mCells)[index    ]->getId()[0];
-            nextRow    = (*mCells)[indexNext]->getId()[0];
-            
-            if(nextRow != currRow){ // new row
-                countColumn += 1;
-                if( countColumn >= mMinColumnLength){ // count reaches threshold
-                    mCellsIndex += vector<int>();
-                    j = -1;
-                    while (++j < countColumn) {
-                        mCellsIndex.back() += (index - j * GRID_NUM_XY);
+            if(rowIndex1 != rowIndex){ // new row
+                colCount += 1;
+                // count reaches threshold
+                if( colCount >= mColLengthMin){
+                    // within row min padding range ?
+                    if(rowIndexValid >= rowIndexMin){
+                        mCellsIndex += vector<int>();
+                        // widthin col padding range
+                        colCountMax = colCount - colPaddingR;
+                        j           = colCountMin - 1;
+                        while (++j < colCountMax) {
+                            mCellsIndex.back() += (index - j * GRID_NUM_XY);
+                        }
                     }
+                    rowIndexValid++;
                 }
-                countColumn = 0;
+                colCount = 0;
             } else {
-                countColumn++; //until same row, count columns
+                colCount++; //until same row, count columns
             }
+        }
+        
+        // remove rows from back according to padding
+        // TODO: Dont do it after validating all cells
+        rowIndexMax = mCellsIndex.size() - mCellPadding[2];
+        while(mCellsIndex.size() > rowIndexMax){
+            mCellsIndex.pop_back();
         }
         
         mValid = mCellsIndex.size() != 0;
@@ -172,10 +195,10 @@ public:
     // QuoteTypesetter
     /*--------------------------------------------------------------------------------------------*/
     
-    QuoteTypesetter(vector<Cell*>* cells, const LayoutArea& area, int minColumnLength = 4) :
+    QuoteTypesetter(vector<Cell*>* cells, const LayoutArea& area, int columnLengthMin = 4) :
         mCells(cells),
         mArea(area),
-        mMinColumnLength(minColumnLength){
+        mColLengthMin(columnLengthMin){
             // Init format
             
             mTexFontFormat.enableMipmapping();
@@ -183,14 +206,10 @@ public:
             mTexFontFormat.textureWidth(2048);
             mTexFontFormat.textureHeight(2048);
             
-            //
-            
+            // Init defaults
             setPadding(0, 0, 0, 0);
             setAlign(1);
             setFont(Font("Arial",50),1);
-            
-        
-            
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -268,16 +287,18 @@ public:
         deque<string> words;
         split(words, mSrcString, is_any_of(" "));
         
-        int columnSize;
-        int row      = 0;
-        string line  = "";
-        string space = "";
+        int rowMax = mCellsIndex.size();
+        int row = 0;
+        string comp;
+        string line;
+        string space;
 
         vector<QuoteString> lines;
         
         while (words.size() > 0) {
-            if(measureString((line + space + words.front())) < mCellsIndex[row].size()){
-                line += space + words.front();
+            comp = space + words.front();
+            if(measureString((line + comp)) < mCellsIndex[row].size()){
+                line += comp;
                 space = " ";
                 words.pop_front();
             } else {
@@ -285,6 +306,10 @@ public:
                 line.clear();
                 space = "";
                 row++;
+            }
+            // line breaked string exceeds rows, sorry
+            if(row >= rowMax){
+                return false;
             }
             
             if(words.size() == 0){
@@ -296,7 +321,9 @@ public:
         return true;
     }
     
-    
+    /*--------------------------------------------------------------------------------------------*/
+    // Debug Draw
+    /*--------------------------------------------------------------------------------------------*/
     
     //! Debug draw the area and the cells used for positioning
     inline void debugDrawArea(){
@@ -389,24 +416,6 @@ public:
             glPopMatrix();
         }
     }
-    
-    //! Draw the string
-    inline void draw(){
-        
-    }
-    
-    
-    
-    inline void update(){
-        
-    }
-    
-    
-    
-    
-    
-    
-    
     
 };
 
