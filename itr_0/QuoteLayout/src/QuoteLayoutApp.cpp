@@ -54,13 +54,27 @@ void QuoteLayoutApp::setup(){
         }
     }
     
+    vector<string> strings;
+    strings += "Alghoritms are the new Art Direction.",
+               "Paying by bits but with coins",
+               "Knowing what your customers want before they do.",
+               "You will be disrupted soon.",
+               "You can't choose not to support one device.",
+               "Modular content is the new normal.";
+    
     //define area for layout
     LayoutArea area(10,5,true);
     area *= Matrix44f::createRotation(Vec3f::yAxis(), M_PI / 4);
     
     mTypesetter = new QuoteTypesetter(&mCells, area);
     mTypesetter->setFont(Font(FONT_NAME,200),0.85f);
-    mTypesetter->setString("Knowing what");
+    mTypesetter->setPadding(0, 0, 1, 0);
+    
+    if(!mTypesetter->setString(strings[1])){
+        //cout << "Can´t set string: " << strings[3] << endl;
+    }
+    
+    
 }
 
 void QuoteLayoutApp::keyDown(KeyEvent event){

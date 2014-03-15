@@ -19,6 +19,7 @@
 
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
+#include <boost/foreach.hpp>
 
 #include <vector>
 #include <string>
@@ -61,6 +62,12 @@ class QuoteTypesetter {
     float                   mFontBaseline;
     float                   mFontAscentline;
     float                   mFontDescentline;
+    
+    float                   mStringWidthMax;
+    
+    int                     mMinColumnLength;
+    
+    
     Matrix44f               mFontTransMat;      // font 3d translation matrix
     
     int                     mCellPadding[4];    // padding tblr
@@ -80,16 +87,16 @@ class QuoteTypesetter {
     gl::Texture             mTexture;           // resulting texture
     vector<Rectf>           mCellTexcoords;     // texcoords of cell for texture
     
-    inline void getPos(int row, int column, Vec3f* pos){
-        *pos = (*mCells)[mCellsIndex[row][column]]->getCenter();
+    Vec3f getPos(int row, int column){
+        return (*mCells)[mCellsIndex[row][column]]->getCenter();
     }
     
-    inline float measureText(const string& str){
+    inline float measureString(const string& str){
         return mTexFontRef->measureString(str).x * mFontSizeInv * mFontScale;
     }
     
     inline void drawStringBoundingBox(const string& str){
-        float width = measureText(str);
+        float width = measureString(str);
         float vertices[12] = {
             -0.5f, 0, 0,
             -0.5f, 0, -width,
@@ -111,6 +118,55 @@ class QuoteTypesetter {
         
     }
     
+    inline void getCellIndices(){
+        int paddingT = mCellPadding[0],
+            paddingB = mCellPadding[1],
+            paddingL = mCellPadding[2],
+            paddingR = mCellPadding[3];
+        
+        //
+        //  Check if cell is within area, if so push to indices to use
+        //
+        vector<int> tempCellsIndex;
+        for(auto* cell : *mCells){
+            if(mArea.contains(cell->getArea())){
+                tempCellsIndex += cell->getId()[0] * GRID_NUM_XY + cell->getId()[1];
+            }
+        }
+        
+        int countColumn = 0;
+        int currRow,currColumn,nextRow;
+        int i,j;
+        int size = tempCellsIndex.size();
+        int index,indexNext;
+        
+        i = -1;
+        while (++i < size) {
+            index     = tempCellsIndex[i];          // get current index
+            indexNext = tempCellsIndex[(i+1)%size]; // get next index, 0 if end
+            
+            currColumn = (*mCells)[index    ]->getId()[1];
+            currRow    = (*mCells)[index    ]->getId()[0];
+            nextRow    = (*mCells)[indexNext]->getId()[0];
+            
+            if(nextRow != currRow){ // new row
+                countColumn += 1;
+                if( countColumn >= mMinColumnLength){ // count reaches threshold
+                    mCellsIndex += vector<int>();
+                    j = -1;
+                    while (++j < countColumn) {
+                        mCellsIndex.back() += (index - j * GRID_NUM_XY);
+                    }
+                }
+                countColumn = 0;
+            } else {
+                countColumn++; //until same row, count columns
+            }
+        }
+        
+        mValid = mCellsIndex.size() != 0;
+    }
+    
 public:
     /*--------------------------------------------------------------------------------------------*/
     // QuoteTypesetter
@@ -118,49 +174,8 @@ public:
     
     QuoteTypesetter(vector<Cell*>* cells, const LayoutArea& area, int minColumnLength = 4) :
         mCells(cells),
-        mArea(area){
-            //
-            //  Check if cell is within area, if so push to indices to use
-            //
-            vector<int> tempCellsIndex;
-            for(auto* cell : *mCells){
-                if(mArea.contains(cell->getArea())){
-                    tempCellsIndex += cell->getId()[0] * GRID_NUM_XY + cell->getId()[1];
-                }
-            }
-            
-            int countColumn = 0;
-            int currRow,currColumn,nextRow;
-            int i,j;
-            int size = tempCellsIndex.size();
-            int index,indexNext;
-            
-            i = -1;
-            while (++i < size) {
-                index     = tempCellsIndex[i];          // get current index
-                indexNext = tempCellsIndex[(i+1)%size]; // get next index, 0 if end
-                
-                currColumn = (*mCells)[index    ]->getId()[1];
-                currRow    = (*mCells)[index    ]->getId()[0];
-                nextRow    = (*mCells)[indexNext]->getId()[0];
-                
-                if(nextRow != currRow){ // new row
-                    countColumn += 1;
-                    if( countColumn >= minColumnLength){ // count reaches threshold
-                        mCellsIndex += vector<int>();
-                        j = -1;
-                        while (++j < countColumn) {
-                            mCellsIndex.back() += (index - j * GRID_NUM_XY);
-                        }
-                    }
-                    countColumn = 0;
-                } else {
-                    countColumn++; //until same row, count columns
-                }
-            }
-            
-            mValid = mCellsIndex.size() != 0;
-            
+        mArea(area),
+        mMinColumnLength(minColumnLength){
             // Init format
             
             mTexFontFormat.enableMipmapping();
@@ -170,7 +185,7 @@ public:
             
             //
             
-            setCellPadding(0, 0, 0, 0);
+            setPadding(0, 0, 0, 0);
             setAlign(1);
             setFont(Font("Arial",50),1);
             
@@ -188,11 +203,22 @@ public:
     }
     
     //! Set the cell padding per unit
-    inline void setCellPadding(int top, int right, int bottom, int left){
+    inline void setPadding(int top, int right, int bottom, int left){
         mCellPadding[0] = top;
         mCellPadding[1] = right;
         mCellPadding[2] = bottom;
         mCellPadding[3] = left;
+        
+        // get cell indices
+        getCellIndices();
+  
+        // get maximum cells available
+        mStringWidthMax = 0;
+        int size = mCellsIndex.size();
+        int i    = -1;
+        while(++i < size){
+            mStringWidthMax += mCellsIndex[i].size();
+        }
     }
     
     //! Set the font
@@ -215,38 +241,59 @@ public:
         mFontTransMat *= Matrix44f::createTranslation(Vec3f(0,0,0));
         mFontTransMat *= Matrix44f::createRotation(Vec3f::xAxis(), pi_2);
         mFontTransMat *= Matrix44f::createRotation(Vec3f::yAxis(), pi_2);
+        
      }
     
     //! Set the string
-    inline void setString(const string& str){
-        if(!mSrcString.compare(str)){
-            return;
+    inline bool setString(const string& str){
+        if(!mValid || !mSrcString.compare(str)){
+            return false;
         }
         mSrcString = str;
         mQuoteStrings.resize(0);
         
-        Rectf texBounds; // bounds of resulting texture
+        float stringWidth = measureString(str);
         
-        vector<string> words;
+        // Check if string size exceeds maximum available space
+        if(stringWidth > mStringWidthMax){
+            return false;
+        }
+        
+        // Check if string allready fits first column
+        if(stringWidth <= mCellsIndex[0].size()){
+            mQuoteStrings += QuoteString(str,getPos(0,0));
+            return true;
+        }
+        
+        deque<string> words;
         split(words, mSrcString, is_any_of(" "));
         
-        /*
-        mQuoteStrings += QuoteString("Alghorithms",Vec3f(0,0,2));
-        mQuoteStrings += QuoteString("are the new",Vec3f(1,0,1));
-        mQuoteStrings += QuoteString("Art Directors",Vec3f(2,0,0));
-        */
-        Vec3f pos;
+        int columnSize;
+        int row      = 0;
+        string line  = "";
+        string space = "";
+
+        vector<QuoteString> lines;
         
-        getPos(0, 1, &pos);
-        mQuoteStrings += QuoteString("Knowing",pos);
-        getPos(1, 1, &pos);
-        mQuoteStrings += QuoteString("what your",pos);
-        getPos(2, 1, &pos);
-        mQuoteStrings += QuoteString("customers",pos);
-        getPos(3, 1, &pos);
-        mQuoteStrings += QuoteString("want before",pos);
-        getPos(4, 1, &pos);
-        mQuoteStrings += QuoteString("they do.",pos);
+        while (words.size() > 0) {
+            if(measureString((line + space + words.front())) < mCellsIndex[row].size()){
+                line += space + words.front();
+                space = " ";
+                words.pop_front();
+            } else {
+                lines += QuoteString(line,getPos(row,0));
+                line.clear();
+                space = "";
+                row++;
+            }
+            
+            if(words.size() == 0){
+                lines += QuoteString(line,getPos(row,0));
+            }
+         }
+        
+        mQuoteStrings = lines;
+        return true;
     }
     
     
