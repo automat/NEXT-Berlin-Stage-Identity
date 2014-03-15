@@ -33,6 +33,14 @@ using namespace boost::assign;
 
 
 class QuoteTypesetter {
+public:
+    enum Align {
+        LEFT   = 0,
+        CENTER = 1,
+        RIGHT  = 2
+    };
+    
+private:
     /*--------------------------------------------------------------------------------------------*/
     // Quote String
     /*--------------------------------------------------------------------------------------------*/
@@ -73,7 +81,7 @@ class QuoteTypesetter {
     Matrix44f               mFontTransMat;      // font 3d translation matrix
     
     int                     mCellPadding[4];    // padding tblr
-    int                     mAlign;             // left / right alight
+    Align                    mAlign;             // left / right alight
     
     bool                    mValid;             // valid layout
     
@@ -81,13 +89,17 @@ class QuoteTypesetter {
     vector<vector<int>>     mCellsIndex;        // cells indices defined by area
     
     LayoutArea              mArea;              // area of cells which should be used
+
     
     
     string                  mSrcString;         // current string src
     vector<QuoteString>     mQuoteStrings;      // calculated string segments
     
     gl::Texture             mTexture;           // resulting texture
+    LayoutArea              mTextureArea;
+    
     vector<Rectf>           mCellTexcoords;     // texcoords of cell for texture
+    
     
     Vec3f getPos(int row, int column){
         return (*mCells)[mCellsIndex[row][column]]->getCenter();
@@ -199,7 +211,7 @@ public:
         mCells(cells),
         mArea(area),
         mColLengthMin(columnLengthMin){
-            // Init format
+            // Init props
             
             mTexFontFormat.enableMipmapping();
             mTexFontFormat.premultiply();
@@ -208,7 +220,7 @@ public:
             
             // Init defaults
             setPadding(0, 0, 0, 0);
-            setAlign(1);
+            setAlign(Align::LEFT);
             setFont(Font("Arial",50),1);
     }
     
@@ -217,8 +229,8 @@ public:
     /*--------------------------------------------------------------------------------------------*/
     
     //! Set text align
-    inline void setAlign(int direction){
-        mAlign = direction;
+    inline void setAlign(Align align){
+        mAlign = align;
     }
     
     //! Set the cell padding per unit
@@ -254,13 +266,11 @@ public:
         mFontBaseline    = mFontDescentline - mFontDescent;
         mFontAscentline  = mFontDescentline - mFontAscent;
         
-        const static float pi_2 = float(M_PI) * 0.5f;
-        
+        float pi_2 = float(M_PI) * 0.5f;
         mFontTransMat.identity();
         mFontTransMat *= Matrix44f::createTranslation(Vec3f(0,0,0));
         mFontTransMat *= Matrix44f::createRotation(Vec3f::xAxis(), pi_2);
         mFontTransMat *= Matrix44f::createRotation(Vec3f::yAxis(), pi_2);
-        
      }
     
     //! Set the string
@@ -289,31 +299,52 @@ public:
         
         int rowMax = mCellsIndex.size();
         int row = 0;
-        string comp;
+        string token;
         string line;
         string space;
+        
+        Vec3f offset;
+        float lineWidth;
+        float colWidth;
 
         vector<QuoteString> lines;
         
         while (words.size() > 0) {
-            comp = space + words.front();
-            if(measureString((line + comp)) < mCellsIndex[row].size()){
-                line += comp;
+            token     = space + words.front();
+            colWidth  = float(mCellsIndex[row].size());
+            
+            if(measureString(line + token) < colWidth){
+                line += token;
                 space = " ";
                 words.pop_front();
+                
+                lineWidth = measureString(line);
+                switch (mAlign) {
+                    case Align::LEFT:
+                        offset.z = 0.0f;
+                        break;
+                    case Align::RIGHT:
+                        offset.z = -colWidth + lineWidth;
+                        break;
+                    case Align::CENTER:
+                        offset.z = -(colWidth - lineWidth)*0.5f;
+                        break;
+                }
+            
             } else {
-                lines += QuoteString(line,getPos(row,0));
+                lines += QuoteString(line,getPos(row,0) + offset);
                 line.clear();
                 space = "";
                 row++;
             }
             // line breaked string exceeds rows, sorry
             if(row >= rowMax){
+                // do auto resizing here
                 return false;
             }
             
             if(words.size() == 0){
-                lines += QuoteString(line,getPos(row,0));
+                lines += QuoteString(line,getPos(row,0) + offset);
             }
          }
         

@@ -68,6 +68,7 @@ void QuoteLayoutApp::setup(){
     
     mTypesetter = new QuoteTypesetter(&mCells, area);
     mTypesetter->setFont(Font(FONT_NAME,200),0.7f);
+    mTypesetter->setAlign(QuoteTypesetter::Align::CENTER);
     mTypesetter->setPadding(0, 0, 0, 1);
     
     if(!mTypesetter->setString(strings[2])){
@@ -119,11 +120,11 @@ void QuoteLayoutApp::draw(){
 	// clear out the window with black
 	gl::clear( Color( 0, 0, 0 ) );
     gl::setMatrices(mCamera);
-    gl::drawCoordinateFrame();
+    
+    //gl::drawCoordinateFrame();
     glPushMatrix();
     glScalef(0.65f, 0.65f, 0.65f);
 
-    
     glDisable(GL_DEPTH_TEST);
     mTypesetter->debugDrawArea();
  

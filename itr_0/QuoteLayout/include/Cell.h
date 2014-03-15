@@ -76,7 +76,7 @@ public:
         mat *= Matrix44f::createRotation(Vec3f::zAxis(), M_PI_2);
         mat *= Matrix44f::createScale(Vec3f(fontScale,fontScale,fontScale));
         
-        const static gl::TextureFontRef debugFont = gl::TextureFont::create(Font("Arial",20));
+        const static gl::TextureFontRef debugFont = gl::TextureFont::create(Font("Apercu Mono",18));
         
         
         gl::enableAlphaTest();
@@ -84,7 +84,7 @@ public:
         glColor3f(0.65f,0.65f,0.65f);
         glPushMatrix();
         glMultMatrixf(mat);
-        debugFont->drawString(toString(mId[0]) + " , " + toString(mId[1]), Vec2f::zero());
+        debugFont->drawString(toString(mId[0]) + "," + toString(mId[1]), Vec2f::zero());
         glColor3f(0.85f, 0, 0);
         debugFont->drawString(toString(mId[1] * GRID_NUM_XY + mId[0]), Vec2f(0,20));
         glPopMatrix();
