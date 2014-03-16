@@ -17,8 +17,10 @@
 #include "LayoutArea.h"
 #include "Cell.h"
 
+#include <algorithm>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/erase.hpp>
 #include <boost/foreach.hpp>
 
 #include <vector>
@@ -76,12 +78,13 @@ private:
     int                     mColLengthMin;
     
     bool                    mFontAutoScale;
+    bool                    mManualBr;
     
     
     Matrix44f               mFontTransMat;      // font 3d translation matrix
     
     int                     mCellPadding[4];    // padding tblr
-    Align                    mAlign;             // left / right alight
+    Align                   mAlign;             // left / right / center
     
     bool                    mValid;             // valid layout
     
@@ -89,9 +92,7 @@ private:
     vector<vector<int>>     mCellsIndex;        // cells indices defined by area
     
     LayoutArea              mArea;              // area of cells which should be used
-
-    
-    
+ 
     string                  mSrcString;         // current string src
     vector<QuoteString>     mQuoteStrings;      // calculated string segments
     
@@ -99,16 +100,42 @@ private:
     LayoutArea              mTextureArea;
     
     vector<Rectf>           mCellTexcoords;     // texcoords of cell for texture
+
     
     
-    Vec3f getPos(int row, int column){
+    /*--------------------------------------------------------------------------------------------*/
+    
+    //! Get position of cell from to row + column
+    inline Vec3f getPos(int row, int column){
         return (*mCells)[mCellsIndex[row][column]]->getCenter();
     }
     
+    //! Get width of string
     inline float measureString(const string& str){
         return mTexFontRef->measureString(str).x * mFontSizeInv * mFontScale;
     }
     
+    //! Get string offset on column according to alignment
+    inline void getStringOffset(const string& str, float strWidth, float colWidth, Vec3f* offset){
+        switch (mAlign) {
+            case Align::RIGHT:
+                offset->z = -colWidth + strWidth;
+                break;
+            case Align::CENTER:
+                offset->z = -(colWidth - strWidth)*0.5f;
+                break;
+            default:
+                offset->z = 0.0f;
+                break;
+        }
+    }
+    
+    //! Remove char from string
+    inline void eraseChar(string& str, const char& c){
+        str.erase(remove(str.begin(), str.end(), c), str.end());
+    }
+    
+    //! Draw bounding box of string
     inline void drawStringBoundingBox(const string& str){
         float width = measureString(str);
         float vertices[12] = {
@@ -132,13 +159,11 @@ private:
         
     }
     
+    //! Get indices of cells within the cell area
     inline void getCellIndices(){
         mCellsIndex.resize(0);
         const vector<Cell*>& cells = (*mCells);
         
-        //
-        //  Check if cell is within area, if so push to indices to use
-        //
         vector<int> cellsIndex;
         for(auto* cell : *mCells){
             if(mArea.contains(cell->getArea())){
@@ -199,6 +224,7 @@ private:
             mCellsIndex.pop_back();
         }
         
+        // no cells available...
         mValid = mCellsIndex.size() != 0;
     }
     
@@ -210,9 +236,9 @@ public:
     QuoteTypesetter(vector<Cell*>* cells, const LayoutArea& area, int columnLengthMin = 4) :
         mCells(cells),
         mArea(area),
-        mColLengthMin(columnLengthMin){
+        mColLengthMin(columnLengthMin),
+        mManualBr(false){
             // Init props
-            
             mTexFontFormat.enableMipmapping();
             mTexFontFormat.premultiply();
             mTexFontFormat.textureWidth(2048);
@@ -228,9 +254,13 @@ public:
     // Methods
     /*--------------------------------------------------------------------------------------------*/
     
-    //! Set text align
-    inline void setAlign(Align align){
-        mAlign = align;
+    //! Enable/Disable manual linebreaks
+    inline void enableManualLineBreak(bool b){
+        mManualBr = b;
+    }
+    //! Set text align vertical
+    inline void setAlign(Align horizontal){
+        mAlign = horizontal;
     }
     
     //! Set the cell padding per unit
@@ -275,13 +305,33 @@ public:
     
     //! Set the string
     inline bool setString(const string& str){
-        if(!mValid || !mSrcString.compare(str)){
+        if(!mValid || !mSrcString.compare(str) ){
             return false;
         }
         mSrcString = str;
         mQuoteStrings.resize(0);
         
-        float stringWidth = measureString(str);
+        if (str.size() == 0) {
+            return true;
+        }
+        
+        char br('\n');
+        
+        string input(str);
+        
+        int  numBr = count(input.begin(), input.end(), br);
+        bool hasBr = numBr != 0;
+        
+        if(hasBr && !mManualBr){
+            eraseChar(input, br);
+        } else {
+            // Make sure every linebreak is followed by ' ',
+            // to correctly break the string into seperated tokens
+            
+            
+        }
+        
+        float stringWidth = measureString(input);
         
         // Check if string size exceeds maximum available space
         if(stringWidth > mStringWidthMax){
@@ -289,54 +339,77 @@ public:
         }
         
         // Check if string allready fits first column
-        if(stringWidth <= mCellsIndex[0].size()){
+        if(!hasBr && stringWidth <= mCellsIndex[0].size()){
             mQuoteStrings += QuoteString(str,getPos(0,0));
             return true;
         }
         
         deque<string> words;
-        split(words, mSrcString, is_any_of(" "));
+        split(words, input, is_any_of(" "));
         
-        int rowMax = mCellsIndex.size();
-        int row = 0;
+        int   rowMax = mCellsIndex.size();
+        int   row = 0;
+        float colWidth;
+        
         string token;
+        int    tokenNumBr;
+        bool   tokenHasBr;
+        int    tokenCountBr = 0;
+        
         string line;
+        float  lineWidth;
+        
         string space;
         
         Vec3f offset;
-        float lineWidth;
-        float colWidth;
-
         vector<QuoteString> lines;
         
         while (words.size() > 0) {
             token     = space + words.front();
             colWidth  = float(mCellsIndex[row].size());
             
-            if(measureString(line + token) < colWidth){
-                line += token;
-                space = " ";
-                words.pop_front();
-                
-                lineWidth = measureString(line);
-                switch (mAlign) {
-                    case Align::LEFT:
-                        offset.z = 0.0f;
-                        break;
-                    case Align::RIGHT:
-                        offset.z = -colWidth + lineWidth;
-                        break;
-                    case Align::CENTER:
-                        offset.z = -(colWidth - lineWidth)*0.5f;
-                        break;
+            if(hasBr && tokenCountBr <= numBr){
+                tokenNumBr    = count(token.begin(),token.end(),br);
+                tokenHasBr    = tokenNumBr != 0;
+                if(tokenHasBr){
+                    eraseChar(token, br);
                 }
-            
-            } else {
-                lines += QuoteString(line,getPos(row,0) + offset);
-                line.clear();
-                space = "";
-                row++;
+                tokenCountBr += tokenNumBr;
             }
+            
+            lineWidth = measureString(line + token);
+            
+            if(tokenHasBr){
+                if(lineWidth < colWidth){
+                    line  += token;
+                    getStringOffset(line, lineWidth, colWidth, &offset);
+                    
+                    lines += QuoteString(line, getPos(row,0) + offset);
+                    line.clear();
+                    space.clear();
+                    words.pop_front();
+                    row++;
+                    
+                } else { // manually breaked string exceeds row, sorry
+                    // do auto resizing here
+                    return false;
+                }
+            } else {
+                if(lineWidth< colWidth){
+                    line += token;
+                    getStringOffset(line, lineWidth, colWidth, &offset);
+                    
+                    space = " ";
+                    words.pop_front();
+                
+                } else {
+                    lines += QuoteString(line,getPos(row,0) + offset);
+                    line.clear();
+                    space.clear();
+                    row++;
+                }
+            }
+            
             // line breaked string exceeds rows, sorry
             if(row >= rowMax){
                 // do auto resizing here

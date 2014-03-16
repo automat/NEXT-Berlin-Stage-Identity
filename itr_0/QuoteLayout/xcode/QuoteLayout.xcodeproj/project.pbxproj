@@ -18,6 +18,7 @@
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A9387726CB894B2E8C935ACB /* QuoteLayoutApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9C068AAA4204E2795451217 /* QuoteLayoutApp.cpp */; };
+		CD83491F18D4F73C00621BC1 /* quotes.json in Resources */ = {isa = PBXBuildFile; fileRef = CD83491E18D4F73C00621BC1 /* quotes.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		C087B731E1A84697B41D5BE7 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		C9C068AAA4204E2795451217 /* QuoteLayoutApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = QuoteLayoutApp.cpp; path = ../src/QuoteLayoutApp.cpp; sourceTree = "<group>"; };
 		CD6DC7C518D1978600A3A66E /* LayoutArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayoutArea.h; path = ../include/LayoutArea.h; sourceTree = "<group>"; };
+		CD83491E18D4F73C00621BC1 /* quotes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = quotes.json; path = ../resources/quotes.json; sourceTree = "<group>"; };
 		CDAF0BD518D0769E00D17EF8 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
 		CDAF0BD618D0785C00D17EF8 /* QuoteTypesetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuoteTypesetter.h; path = ../include/QuoteTypesetter.h; sourceTree = "<group>"; };
 		CDAF0BD718D086F000D17EF8 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cell.h; path = ../include/Cell.h; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			children = (
 				B859A380691C40F58EFF96D8 /* CinderApp.icns */,
 				D2B2AD222195440EB23F42FA /* Info.plist */,
+				CD83491E18D4F73C00621BC1 /* quotes.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD83491F18D4F73C00621BC1 /* quotes.json in Resources */,
 				10E33C2768944AEDB7CBA57A /* CinderApp.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

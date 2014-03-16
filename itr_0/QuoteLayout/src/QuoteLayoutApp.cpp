@@ -26,6 +26,7 @@ class QuoteLayoutApp : public AppNative {
 	void draw();
     
     vector<Cell*>    mCells;
+    string           mString;
     QuoteTypesetter* mTypesetter;
     
     CameraOrtho mCamera;
@@ -60,18 +61,20 @@ void QuoteLayoutApp::setup(){
                "Knowing what your customers want before they do.",
                "You will be disrupted soon.",
                "You can't choose not to support one device.",
-               "Modular content is the new normal.";
+               "Modular content is the new normal.",
+               "This\n is\n the\n New\n Normal.";
     
     //define area for layout
     LayoutArea area(10,5,true);
     area *= Matrix44f::createRotation(Vec3f::yAxis(), M_PI / 4);
     
     mTypesetter = new QuoteTypesetter(&mCells, area);
+    mTypesetter->enableManualLineBreak(true);
     mTypesetter->setFont(Font(FONT_NAME,200),0.7f);
     mTypesetter->setAlign(QuoteTypesetter::Align::CENTER);
     mTypesetter->setPadding(0, 0, 0, 1);
     
-    if(!mTypesetter->setString(strings[2])){
+    if(!mTypesetter->setString(strings[6])){
         //cout << "Can´t set string: " << strings[3] << endl;
     }
     
@@ -97,10 +100,26 @@ void QuoteLayoutApp::keyDown(KeyEvent event){
         case KeyEvent::KEY_ESCAPE:
             this->quit();
             break;
+        case KeyEvent::KEY_BACKSPACE:
+            if(mString.size() > 0){
+                mString.pop_back();
+            }
+            break;
+        case KeyEvent::KEY_RETURN:
+            mString+= "\n ";
+            break;
+        
+        case KeyEvent::KEY_RSHIFT:
+            break;
             
         default:
+            mString+= event.getChar();
             break;
     }
+    
+  
+    mTypesetter->setString(mString);
+    
 }
 
 void QuoteLayoutApp::mouseDown( MouseEvent event )
