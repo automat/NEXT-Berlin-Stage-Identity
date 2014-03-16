@@ -62,7 +62,8 @@ void QuoteLayoutApp::setup(){
                "You will be disrupted soon.",
                "You can't choose not to support one device.",
                "Modular content is the new normal.",
-               "This\n is\n the\n New\n Normal.";
+               "ABC\n DEF\n GHI",
+               "This\n\n\nis\n\nthe\nNew\n\nNormal.";
     
     //define area for layout
     LayoutArea area(10,5,true);
@@ -72,7 +73,7 @@ void QuoteLayoutApp::setup(){
     mTypesetter->enableManualLineBreak(true);
     mTypesetter->setFont(Font(FONT_NAME,200),0.7f);
     mTypesetter->setAlign(QuoteTypesetter::Align::CENTER);
-    mTypesetter->setPadding(0, 0, 0, 1);
+    mTypesetter->setPadding(0, 0, 0, 0);
     
     if(!mTypesetter->setString(strings[6])){
         //cout << "Can´t set string: " << strings[3] << endl;

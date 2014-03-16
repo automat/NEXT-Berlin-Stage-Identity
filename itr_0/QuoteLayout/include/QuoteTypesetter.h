@@ -21,6 +21,7 @@
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/erase.hpp>
+#include <boost/tokenizer.hpp>
 #include <boost/foreach.hpp>
 
 #include <vector>
@@ -322,13 +323,37 @@ public:
         int  numBr = count(input.begin(), input.end(), br);
         bool hasBr = numBr != 0;
         
-        if(hasBr && !mManualBr){
-            eraseChar(input, br);
-        } else {
-            // Make sure every linebreak is followed by ' ',
-            // to correctly break the string into seperated tokens
-            
-            
+        if(hasBr){
+            if(!mManualBr){
+                eraseChar(input, br);
+            } else {
+                // front
+                while (input.front() == br) {
+                    input.erase(input.begin());
+                }
+                
+                // back
+                while (input.back() == br) {
+                    input.pop_back();
+                }
+                /*
+                // inbetween
+                for(string::iterator itr = input.begin(); itr != input.end() - 1; ++itr){
+                    if (*itr == br) {   // current is break
+                        string::iterator _itr(itr);
+                        if(*_itr != ' '){
+                            while(*(++_itr) == br){
+                                input.erase(_itr);
+                            }
+                            _itr = itr + 1;
+                            if(*_itr != ' '){
+                                input.insert(_itr, ' ');
+                            }
+                        }
+                    }
+                }
+                */
+            }
         }
         
         float stringWidth = measureString(input);
