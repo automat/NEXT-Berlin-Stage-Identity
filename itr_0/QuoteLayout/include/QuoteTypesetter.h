@@ -104,6 +104,12 @@ private:
     inline Vec3f getStringPos(int row, int column){
         return (*mCells)[mCellsIndex[row][column]]->getCenter();
     }
+    
+    //! Get string offset on column according to alignment
+    inline Vec3f getStringOffset(float strWidth, float colWidth){
+        return Vec3f(0, 0, mAlign == Align::RIGHT  ? (-colWidth + strWidth) :
+                     mAlign == Align::CENTER ? (-(colWidth - strWidth) * 0.5f) : 0);
+    }
 
     //! Get cells indices included by column width in row
     inline vector<Cell::Index> getStringCells(int row, float width, const Vec3f& offset = Vec3f()){
@@ -126,16 +132,14 @@ private:
         return mTexFontRef->measureString(str).x * mFontScale;
     }
     
-    //! Get string offset on column according to alignment
-    inline Vec3f getStringOffset(float strWidth, float colWidth){
-        return Vec3f(0, 0, mAlign == Align::RIGHT  ? (-colWidth + strWidth) :
-                           mAlign == Align::CENTER ? (-(colWidth - strWidth) * 0.5f) : 0);
-    }
-    
     //! Remove char from string
-    inline void eraseChar(string& str, const char& c){
+    inline void removeChar(string& str, const char& c){
         str.erase(remove(str.begin(), str.end(), c), str.end());
     }
+    
+    //! Remove char back / front
+    
+    
     
     //! Draw bounding box of string
     inline void drawStringBoundingBox(const string& str){
@@ -307,30 +311,12 @@ public:
      }
     
 private:
-    inline void addQuoteLine(vector<QuoteString>& target, const string& str, int row){
+    inline void addQuoteLine(vector<QuoteString>& target, const string& str, float strWidth, int row){
         vector<int> rowColumn = mCellsIndex[row];
+        float       colWidth  = rowColumn.size();
         
-        float colWidth = rowColumn.size();
-        float strWidth = measureString(str);
-        
-        Vec3f pos = (*mCells)[rowColumn[0]]->getCenter();
-        Vec3f offset;
-        
-        switch (mAlign) {
-            case Align::RIGHT:
-                offset.z = -colWidth + strWidth;
-                break;
-            case Align::CENTER:
-                offset.z = -(colWidth - strWidth)*0.5f;
-                break;
-            default:
-                break;
-        }
-        
-        pos+= offset;
-       
+        Vec3f pos = (*mCells)[rowColumn[0]]->getCenter() + getStringOffset(strWidth, colWidth);
         vector<Cell::Index> indices = getStringCells(row, strWidth, pos);
-        
         
         target += QuoteString(str, pos, indices);
     }
@@ -358,7 +344,7 @@ public:
         
         if(hasBr){
             if(!mManualBr){
-                eraseChar(input, br);
+                removeChar(input, br);
             } else {
                 // front
                 while (input.front() == br) {
@@ -398,11 +384,15 @@ public:
             return false;
         }
         
+        int   rowMax   = mCellsIndex.size();
+        int   row      = 0;
+        float colWidth = float(mCellsIndex[row].size());
+        
         // Check if string allready fits first column
         if(!hasBr && stringWidth <= mCellsIndex[0].size()){
             offset         = getStringOffset(stringWidth, mCellsIndex[0].size());
             stringPos      = getStringPos(0, 0) + offset;
-            mQuoteStrings += QuoteString(str, stringPos, getStringCells(0, stringWidth));
+            mQuoteStrings  += QuoteString(str, stringPos, getStringCells(0, stringWidth));
             //addQuoteString(mQuoteStrings, str, 0);
             return true;
         }
@@ -410,9 +400,8 @@ public:
         deque<string> words;
         split(words, input, is_any_of(" "));
         
-        int   rowMax = mCellsIndex.size();
-        int   row = 0;
-        float colWidth;
+        
+
         
         string token;
         int    tokenNumBr;
@@ -424,7 +413,6 @@ public:
         
         string space;
         
-        
         vector<QuoteString> lines;
         
         while (words.size() > 0) {
@@ -432,10 +420,10 @@ public:
             colWidth  = float(mCellsIndex[row].size());
             
             if(hasBr && tokenCountBr <= numBr){
-                tokenNumBr    = count(token.begin(),token.end(),br);
-                tokenHasBr    = tokenNumBr != 0;
+                tokenNumBr = count(token.begin(),token.end(),br);
+                tokenHasBr = tokenNumBr != 0;
                 if(tokenHasBr){
-                    eraseChar(token, br);
+                    removeChar(token, br);
                 }
                 tokenCountBr += tokenNumBr;
             }

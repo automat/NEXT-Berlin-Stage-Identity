@@ -48,6 +48,8 @@ void QuoteLayoutApp::setup(){
     mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
     updateView();
     
+    
+    
     int size_2 = GRID_NUM_XY / 2;
     int i,j;
     i = -1;
@@ -78,7 +80,7 @@ void QuoteLayoutApp::setup(){
     mTypesetter->setFont(FONT_NAME,200,0.7f);
     mTypesetter->setAlign(QuoteTypesetter::Align::CENTER);
     mTypesetter->setPadding(0, 0, 0, 1);
-    mTypesetter->setString("I'm not made for love.");
+    mTypesetter->setString("Alghoritms are the");
     /*
     if(!mTypesetter->setString(mStrings[mStringsIndex])){
         //cout << "Can´t set string: " << strings[3] << endl;
