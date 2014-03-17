@@ -259,6 +259,9 @@ void grid_08App::keyDown(KeyEvent event){
         case KeyEvent::KEY_f:
             SHOW_INFO = !SHOW_INFO;
             break;
+        case KeyEvent::KEY_ESCAPE:
+            this->quit();
+            break;
         default:
             break;
     }

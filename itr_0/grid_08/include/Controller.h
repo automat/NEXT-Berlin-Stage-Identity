@@ -105,7 +105,9 @@ public:
     
   
     
-    ~Controller(){}
+    ~Controller(){
+        while (!mCells.empty()) delete mCells.back(), mCells.pop_back();
+    }
     
     inline void draw(){
         glPushMatrix();
