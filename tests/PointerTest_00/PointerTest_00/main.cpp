@@ -91,11 +91,14 @@ int main(int argc, const char * argv[])
     }*/
     
     Class c(666);
-    std::vector<Class> d;
-    i=-1;while(++i < num){
-        d.push_back(Class(c));
-        std::cout << c.getDataPtr().use_count() << std::endl;  // yippie
+    {
+        std::vector<Class> d;
+        i=-1;while(++i < num){
+            d.push_back(Class(c));
+            std::cout << c.getDataPtr().use_count() << std::endl;  // yippie
+        }
     }
+    std::cout << c.getDataPtr().use_count() << std::endl;
     
     
     return 0;
