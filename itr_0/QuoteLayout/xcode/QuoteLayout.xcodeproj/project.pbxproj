@@ -38,7 +38,9 @@
 		B859A380691C40F58EFF96D8 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		C087B731E1A84697B41D5BE7 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		C9C068AAA4204E2795451217 /* QuoteLayoutApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = QuoteLayoutApp.cpp; path = ../src/QuoteLayoutApp.cpp; sourceTree = "<group>"; };
+		CD49FA8118D7427E008FA9AA /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Grid.h; path = ../include/Grid.h; sourceTree = "<group>"; };
 		CD6DC7C518D1978600A3A66E /* LayoutArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayoutArea.h; path = ../include/LayoutArea.h; sourceTree = "<group>"; };
+		CD75EA0218D71335002BE636 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = ../include/Utils.h; sourceTree = "<group>"; };
 		CD83491E18D4F73C00621BC1 /* quotes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = quotes.json; path = ../resources/quotes.json; sourceTree = "<group>"; };
 		CDAF0BD518D0769E00D17EF8 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
 		CDAF0BD618D0785C00D17EF8 /* QuoteTypesetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuoteTypesetter.h; path = ../include/QuoteTypesetter.h; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				DC8265132F0646D78DA06AA1 /* QuoteLayout_Prefix.pch */,
 				CDAF0BD518D0769E00D17EF8 /* Config.h */,
 				CDB7246318D247AC00B634CA /* Quote */,
+				CD75EA0218D71335002BE636 /* Utils.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				CDAF0BD718D086F000D17EF8 /* Cell.h */,
+				CD49FA8118D7427E008FA9AA /* Grid.h */,
 			);
 			name = World;
 			sourceTree = "<group>";

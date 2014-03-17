@@ -25,7 +25,9 @@ class QuoteLayoutApp : public AppNative {
 	void update();
 	void draw();
     
-    vector<Cell*>    mCells;
+    //vector<Cell*>    mCells;
+    Grid*            mGrid;
+    
     vector<string>   mStrings;
     int              mStringsIndex;
     string           mString;
@@ -47,20 +49,9 @@ void QuoteLayoutApp::setup(){
     mCameraZoom = 1;
     mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
     updateView();
-    
-    
-    
-    int size_2 = GRID_NUM_XY / 2;
-    int i,j;
-    i = -1;
-    while (++i < GRID_NUM_XY) {
-        j = -1;
-        while(++j < GRID_NUM_XY){
-            mCells += new Cell(Cell::Index(j,i),Vec3f(-size_2 + j, 0, -size_2 + i));
-        }
-    }
-    
 
+    mGrid = new Grid(GRID_NUM_XY,GRID_NUM_XY);
+    
     mStringsIndex = 0;
     mStrings += "Alghoritms are the new Art Direction.",
                 "Paying by bits but with coins",
@@ -75,20 +66,12 @@ void QuoteLayoutApp::setup(){
     LayoutArea area(10,5,true);
     area *= Matrix44f::createRotation(Vec3f::yAxis(), M_PI / 4);
     
-    mTypesetter = new QuoteTypesetter(&mCells, area);
+    mTypesetter = new QuoteTypesetter(mGrid, area);
     mTypesetter->enableManualLineBreak(true);
     mTypesetter->setFont(FONT_NAME,200,0.7f);
     mTypesetter->setAlign(QuoteTypesetter::Align::CENTER);
     mTypesetter->setPadding(0, 0, 0, 1);
-    mTypesetter->setString("Alghoritms are the");
-    /*
-    if(!mTypesetter->setString(mStrings[mStringsIndex])){
-        //cout << "Can´t set string: " << strings[3] << endl;
-    }
-     */
-    
-    
-    
+    mTypesetter->setString(mStrings[mStringsIndex]);
 }
 
 void QuoteLayoutApp::keyDown(KeyEvent event){
@@ -108,7 +91,7 @@ void QuoteLayoutApp::keyDown(KeyEvent event){
             updateView();
             break;
         case KeyEvent::KEY_LEFT:
-            mStringsIndex = (mStringsIndex + 1) % mStrings.size();
+            mStringsIndex = (mStringsIndex - 1) % mStrings.size();
             mTypesetter->setString(mStrings[mStringsIndex]);
             break;
         case KeyEvent::KEY_RIGHT:
@@ -172,8 +155,10 @@ void QuoteLayoutApp::draw(){
     glDisable(GL_DEPTH_TEST);
     mTypesetter->debugDrawArea();
  
+    const vector<Cell*>& cells = mGrid->getCells();
+    
     glColor3f(0.5f,0,0);
-    for (auto* cell : mCells) {
+    for (auto* cell : cells) {
         cell->debugDrawArea();
         cell->debugDrawIndex(mCamera);
     }

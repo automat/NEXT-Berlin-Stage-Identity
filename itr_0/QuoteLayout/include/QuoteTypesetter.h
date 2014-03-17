@@ -15,9 +15,13 @@
 #include "cinder/gl/Texture.h"
 #include "cinder/gl/TextureFont.h"
 #include "LayoutArea.h"
+
+#include "Grid.h"
 #include "Cell.h"
 
+#include "Utils.h"
 #include <algorithm>
+#include <boost/algorithm/string/trim.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/erase.hpp>
@@ -49,12 +53,12 @@ private:
     // Quote String
     /*--------------------------------------------------------------------------------------------*/
 
-    struct QuoteString{
+    struct QuoteLine{
         Vec3f               pos;
         string              str;
         vector<Cell::Index> indices;
-        QuoteString(){};
-        QuoteString(const string& str, const Vec3f& pos, const vector<Cell::Index> indices) :
+        QuoteLine(){};
+        QuoteLine(const string& str, const Vec3f& pos, const vector<Cell::Index> indices) :
             str(str),pos(pos),indices(indices){}
     };
     
@@ -82,14 +86,15 @@ private:
     Align                   mAlign;             // left / right / center
     
     bool                    mValid;             // valid layout
-    
-    vector<Cell*>*          mCells;             // ref cells
+
+    Grid*                   mGrid;
+    vector<Cell*>*          mCells;
     vector<vector<int>>     mCellsIndex;        // cells indices defined by area
     
     LayoutArea              mArea;              // area of cells which should be used
  
     string                  mSrcString;         // current string src
-    vector<QuoteString>     mQuoteStrings;      // calculated string segments
+    vector<QuoteLine>       mQuoteLines;        // calculated string segments
     
     gl::Texture             mTexture;           // resulting texture
     LayoutArea              mTextureArea;
@@ -101,23 +106,24 @@ private:
     /*--------------------------------------------------------------------------------------------*/
     
     //! Get position of cell from row + column
-    inline Vec3f getStringPos(int row, int column){
-        return (*mCells)[mCellsIndex[row][column]]->getCenter();
+    inline Vec3f getLinePos(int row){
+        return mGrid->getCell(mCellsIndex[row][0])->getCenter();
     }
     
     //! Get string offset on column according to alignment
-    inline Vec3f getStringOffset(float strWidth, float colWidth){
+    inline Vec3f getLineOffset(float strWidth, float colWidth){
         return Vec3f(0, 0, mAlign == Align::RIGHT  ? (-colWidth + strWidth) :
-                     mAlign == Align::CENTER ? (-(colWidth - strWidth) * 0.5f) : 0);
+                           mAlign == Align::CENTER ? (-(colWidth - strWidth) * 0.5f) : 0);
     }
 
     //! Get cells indices included by column width in row
-    inline vector<Cell::Index> getStringCells(int row, float width, const Vec3f& offset = Vec3f()){
+    inline vector<Cell::Index> getLineCells(int row, float width, const Vec3f& offset = Vec3f()){
         vector<Cell::Index> indices;
         Vec3f _offset(offset);
         
+        const vector<Cell*>& cells = mGrid->getCells();
         for(auto& column : mCellsIndex[row]){
-            const Cell* cell = (*mCells)[column];
+            const Cell* cell = cells[column];
             if(cell->getArea().contains(_offset)){
                 indices += cell->getIndex();
             }
@@ -136,10 +142,6 @@ private:
     inline void removeChar(string& str, const char& c){
         str.erase(remove(str.begin(), str.end(), c), str.end());
     }
-    
-    //! Remove char back / front
-    
-    
     
     //! Draw bounding box of string
     inline void drawStringBoundingBox(const string& str){
@@ -165,10 +167,10 @@ private:
     //! Get indices of cells within the cell area
     inline void getCellIndices(){
         mCellsIndex.resize(0);
-        const vector<Cell*>& cells = (*mCells);
+        const vector<Cell*>& cells = mGrid->getCells();
         
         vector<int> cellsIndex;
-        for(auto* cell : *mCells){
+        for(auto* cell : cells){
             if(mArea.contains(cell->getArea())){
                 cellsIndex += cell->getIndex()[0] * GRID_NUM_XY + cell->getIndex()[1];
             }
@@ -236,8 +238,9 @@ public:
     // QuoteTypesetter
     /*--------------------------------------------------------------------------------------------*/
     
-    QuoteTypesetter(vector<Cell*>* cells, const LayoutArea& area, int columnLengthMin = 4) :
-        mCells(cells),
+    QuoteTypesetter(Grid* grid, const LayoutArea& area, int columnLengthMin = 4) :
+        //mCells(cells),
+        mGrid(grid),
         mArea(area),
         mColLengthMin(columnLengthMin),
         mManualBr(false){
@@ -310,18 +313,10 @@ public:
         mFontTransMat *= Matrix44f::createRotation(Vec3f::yAxis(), pi_2);
      }
     
-private:
-    inline void addQuoteLine(vector<QuoteString>& target, const string& str, float strWidth, int row){
-        vector<int> rowColumn = mCellsIndex[row];
-        float       colWidth  = rowColumn.size();
-        
-        Vec3f pos = (*mCells)[rowColumn[0]]->getCenter() + getStringOffset(strWidth, colWidth);
-        vector<Cell::Index> indices = getStringCells(row, strWidth, pos);
-        
-        target += QuoteString(str, pos, indices);
+    //! clear
+    inline void clear(){
+        mQuoteLines.clear();
     }
-    
-public:
     
     //! Set the string
     inline bool setString(const string& str){
@@ -329,29 +324,28 @@ public:
             return false;
         }
         mSrcString = str;
-        mQuoteStrings.resize(0);
+        mQuoteLines.resize(0);
         
         if (str.size() == 0) {
             return true;
         }
         
-        char br('\n');
-        
         string input(str);
+        trim(input);
+
+        const char br('\n');
         
         int  numBr = count(input.begin(), input.end(), br);
         bool hasBr = numBr != 0;
         
         if(hasBr){
             if(!mManualBr){
-                removeChar(input, br);
+                utils::removeChar(input, br);
             } else {
-                // front
+                // front / back
                 while (input.front() == br) {
                     input.erase(input.begin());
                 }
-                
-                // back
                 while (input.back() == br) {
                     input.pop_back();
                 }
@@ -375,12 +369,12 @@ public:
             }
         }
         
-        Vec3f offset;
-        Vec3f stringPos;
-        float stringWidth = measureString(input);
+        Vec3f linePos;
+        Vec3f lineOffset;
+        float lineWidth = measureString(input);
         
         // Check if string size exceeds maximum available space
-        if(stringWidth > mStringWidthMax){
+        if(lineWidth > mStringWidthMax){
             return false;
         }
         
@@ -389,19 +383,15 @@ public:
         float colWidth = float(mCellsIndex[row].size());
         
         // Check if string allready fits first column
-        if(!hasBr && stringWidth <= mCellsIndex[0].size()){
-            offset         = getStringOffset(stringWidth, mCellsIndex[0].size());
-            stringPos      = getStringPos(0, 0) + offset;
-            mQuoteStrings  += QuoteString(str, stringPos, getStringCells(0, stringWidth));
-            //addQuoteString(mQuoteStrings, str, 0);
+        if(!hasBr && lineWidth <= mCellsIndex[0].size()){
+            lineOffset  = getLineOffset(lineWidth, colWidth);
+            linePos     = getLinePos(0) + lineOffset;
+            mQuoteLines+= QuoteLine(str, linePos, getLineCells(0, lineWidth));
             return true;
         }
         
         deque<string> words;
         split(words, input, is_any_of(" "));
-        
-        
-
         
         string token;
         int    tokenNumBr;
@@ -409,11 +399,9 @@ public:
         int    tokenCountBr = 0;
         
         string line;
-        float  lineWidth;
-        
         string space;
         
-        vector<QuoteString> lines;
+        vector<QuoteLine> lines;
         
         while (words.size() > 0) {
             token     = space + words.front();
@@ -423,7 +411,7 @@ public:
                 tokenNumBr = count(token.begin(),token.end(),br);
                 tokenHasBr = tokenNumBr != 0;
                 if(tokenHasBr){
-                    removeChar(token, br);
+                    utils::removeChar(token, br);
                 }
                 tokenCountBr += tokenNumBr;
             }
@@ -432,13 +420,14 @@ public:
             
             if(tokenHasBr){
                 if(lineWidth < colWidth){
-                    line  += token;
-                    offset = getStringOffset(lineWidth, colWidth);
-                    stringPos = getStringPos(row, 0) + offset;
+                    line      += token;
                     
-                    lines += QuoteString(line, stringPos, getStringCells(row, lineWidth, stringPos));
+                    if(!line.empty()){
+                        lineOffset = getLineOffset(lineWidth, colWidth);
+                        linePos    = getLinePos(row) + lineOffset;
+                        lines     += QuoteLine(line, linePos, getLineCells(row, lineWidth, linePos));
+                    }
                     
-                    //addQuoteString(lines, line, row);
                     line.clear();
                     space.clear();
                     words.pop_front();
@@ -450,17 +439,18 @@ public:
                 }
             } else {
                 if(lineWidth< colWidth){
-                    line += token;
-                    offset = getStringOffset(lineWidth, colWidth);
+                    line      += token;
+                    lineOffset = getLineOffset(lineWidth, colWidth);
                     
                     space = " ";
                     words.pop_front();
                 
                 } else {
-                    stringPos = getStringPos(row, 0) + offset;
+                    if(!line.empty()){
+                        linePos = getLinePos(row) + lineOffset;
+                        lines  += QuoteLine(line, linePos, getLineCells(row, lineWidth, linePos));
+                    }
                     
-                    lines += QuoteString(line,stringPos, getStringCells(row, lineWidth, stringPos));
-                    //addQuoteString(lines, line, row);
                     line.clear();
                     space.clear();
                     row++;
@@ -474,13 +464,14 @@ public:
             }
             
             if(words.size() == 0){
-                //addQuoteString(lines, line, row);
-                stringPos = getStringPos(row, 0) + offset;
-                lines += QuoteString(line, stringPos, getStringCells(row, lineWidth, stringPos));
+                if(!line.empty()){
+                    linePos = getLinePos(row) + lineOffset;
+                    lines  += QuoteLine(line, linePos, getLineCells(row, lineWidth, linePos));
+                }
             }
          }
         
-        mQuoteStrings = lines;
+        mQuoteLines = lines;
         return true;
     }
     
@@ -504,10 +495,12 @@ public:
         glVertexPointer(3, GL_FLOAT, 0, &vertices[0].x);
         glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, &indices[0]);
         
+        const vector<Cell*>& cells = mGrid->getCells();
+        
         glPointSize(10);
         for (auto& row : mCellsIndex) {
             for(auto& column : row){
-                glVertexPointer(3, GL_FLOAT, 0, &(*mCells)[column]->getCenter().x);
+                glVertexPointer(3, GL_FLOAT, 0, &cells[column]->getCenter().x);
                 glDrawArrays(GL_POINTS, 0, 1);
             }
         }
@@ -524,8 +517,9 @@ public:
             const vector<int>& column = mCellsIndex[i];
             j = -1;
             while (++j < column.size() - 1) {
-                const Vec3f& c0 = (*mCells)[column[j  ]]->getCenter();
-                const Vec3f& c1 = (*mCells)[column[j+1]]->getCenter();
+                const Vec3f& c0 = cells[column[j  ]]->getCenter();
+                const Vec3f& c1 = cells[column[j+1]]->getCenter();
+                
                 
                 // Draw ascentline
                 p0    = c0;
@@ -559,24 +553,24 @@ public:
     }
     
     inline void debugDrawString(){
-        if(!mValid || mQuoteStrings.empty()){
+        if(!mValid || mQuoteLines.empty()){
             return;
         }
         
         static const Vec2f zero;
         
-        for (auto& str : mQuoteStrings) {
+        for (auto& line : mQuoteLines) {
             glPushMatrix();
-            glTranslatef(str.pos.x,str.pos.y,str.pos.z + 0.5f);
+            glTranslatef(line.pos.x,line.pos.y,line.pos.z + 0.5f);
             glColor3f(0.5,0.25,0.25);
-            drawStringBoundingBox(str.str);
+            drawStringBoundingBox(line.str);
             glPopMatrix();
             glPushMatrix();
-            glTranslatef(str.pos.x + mFontBaseline,str.pos.y,str.pos.z + 0.5f);
+            glTranslatef(line.pos.x + mFontBaseline,line.pos.y,line.pos.z + 0.5f);
             glMultMatrixf(&mFontTransMat[0]);
             glScalef(-mFontScale, mFontScale, mFontScale);
             glColor3f(1, 1, 1);
-            mTexFontRef->drawString(str.str, zero);
+            mTexFontRef->drawString(line.str, zero);
             glPopMatrix();
         }
     }
