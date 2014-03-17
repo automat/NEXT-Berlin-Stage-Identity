@@ -76,7 +76,7 @@ public:
     }
     
     //! assuming y = 0
-    inline bool contains(const Vec3f& point){
+    inline bool contains(const Vec3f& point) const{
         float areaABCD = (mA - mB).cross(mA - mC).length() * 0.5f +
                          (mB - mD).cross(mB - mC).length() * 0.5f;
         float areaAPD  = (mA - point).cross(mA - mD).length() * 0.5f,
@@ -87,7 +87,7 @@ public:
         return (areaAPD + areaDPC + areaCPB + areaPBA) <= areaABCD;
     }
     
-    inline bool contains(const LayoutArea& area){
+    inline bool contains(const LayoutArea& area) const{
         return contains(area.mA) && contains(area.mB) && contains(area.mC) && contains(area.mD);
     }
     

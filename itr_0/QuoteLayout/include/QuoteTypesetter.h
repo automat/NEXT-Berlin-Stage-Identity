@@ -44,19 +44,18 @@ public:
     };
     
 private:
+    
     /*--------------------------------------------------------------------------------------------*/
     // Quote String
     /*--------------------------------------------------------------------------------------------*/
 
     struct QuoteString{
-        Vec3f  pos;
-        string str;
-        Rectf  rect;
+        Vec3f               pos;
+        string              str;
+        vector<Cell::Index> indices;
         QuoteString(){};
-        QuoteString(const string& str, const Vec3f& pos) :
-            str(str),pos(pos){
-                
-            }
+        QuoteString(const string& str, const Vec3f& pos, const vector<Cell::Index> indices) :
+            str(str),pos(pos),indices(indices){}
     };
     
     /*--------------------------------------------------------------------------------------------*/
@@ -64,11 +63,6 @@ private:
     gl::TextureFont::Format mTexFontFormat;
     
     gl::TextureFontRef      mTexFontRef;        // font to be used
-    float                   mFontSize;
-    float                   mFontSizeInv;
-    float                   mFontAscent;
-    float                   mFontDescent;
-    float                   mFontSizeScale;
     float                   mFontScale;
     float                   mFontBaseline;
     float                   mFontAscentline;
@@ -106,14 +100,30 @@ private:
     
     /*--------------------------------------------------------------------------------------------*/
     
-    //! Get position of cell from to row + column
-    inline Vec3f getPos(int row, int column){
+    //! Get position of cell from row + column
+    inline Vec3f getStringPos(int row, int column){
         return (*mCells)[mCellsIndex[row][column]]->getCenter();
     }
+
+    //! Get cells indices included by column width in row
+    inline vector<Cell::Index> getStringCells(int row, float width, const Vec3f& offset = Vec3f()){
+        vector<Cell::Index> indices;
+        Vec3f _offset(offset);
+        
+        for(auto& column : mCellsIndex[row]){
+            const Cell* cell = (*mCells)[column];
+            if(cell->getArea().contains(_offset)){
+                indices += cell->getIndex();
+            }
+            _offset.x++;
+        }
+
+        return indices;
+    };
     
     //! Get width of string
     inline float measureString(const string& str){
-        return mTexFontRef->measureString(str).x * mFontSizeInv * mFontScale;
+        return mTexFontRef->measureString(str).x * mFontScale;
     }
     
     //! Get string offset on column according to alignment
@@ -146,7 +156,6 @@ private:
              0.5f, 0, 0
         };
         
-        glColor3f(1,0.5,0.5);
         glLineWidth(2);
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
@@ -156,8 +165,6 @@ private:
         glDisable(GL_LINE_STIPPLE);
         glDisableClientState(GL_VERTEX_ARRAY);
         glLineWidth(1);
-        
-        
     }
     
     //! Get indices of cells within the cell area
@@ -168,7 +175,7 @@ private:
         vector<int> cellsIndex;
         for(auto* cell : *mCells){
             if(mArea.contains(cell->getArea())){
-                cellsIndex += cell->getId()[0] * GRID_NUM_XY + cell->getId()[1];
+                cellsIndex += cell->getIndex()[0] * GRID_NUM_XY + cell->getIndex()[1];
             }
         }
         
@@ -193,8 +200,8 @@ private:
         while (++i < size) {
             index     = cellsIndex[i];
             index1    = cellsIndex[(i+1)%size];    // 0 if end
-            rowIndex  = cells[index ]->getId()[0];
-            rowIndex1 = cells[index1]->getId()[0];
+            rowIndex  = cells[index ]->getIndex()[0];
+            rowIndex1 = cells[index1]->getIndex()[0];
             
             if(rowIndex1 != rowIndex){ // new row
                 colCount += 1;
@@ -248,7 +255,7 @@ public:
             // Init defaults
             setPadding(0, 0, 0, 0);
             setAlign(Align::LEFT);
-            setFont(Font("Arial",50),1);
+            setFont("Arial");
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -260,8 +267,8 @@ public:
         mManualBr = b;
     }
     //! Set text align vertical
-    inline void setAlign(Align horizontal){
-        mAlign = horizontal;
+    inline void setAlign(Align align){
+        mAlign = align;
     }
     
     //! Set the cell padding per unit
@@ -283,19 +290,23 @@ public:
         }
     }
     
-    //! Set the font
-    inline void setFont(const Font& font, float scale){
-        mTexFontRef      = gl::TextureFont::create(font,mTexFontFormat);
-        mFontSize        = mTexFontRef->getFont().getSize();
-        mFontSizeInv     = 1.0f / mFontSize;
-        mFontSizeScale   = mFontSizeInv;
-        mFontScale       = scale;
-        mFontAscent      = mTexFontRef->getAscent()  / mFontSize * scale;
-        mFontDescent     = mTexFontRef->getDescent() / mFontSize * scale;
+    //! Set font scale
+    inline void setFontScale(float scale){
+        float fontSize = mTexFontRef->getFont().getSize();
+        mFontScale     = 1.0f / fontSize * scale;
+        
+        float ascent  = mTexFontRef->getAscent()  / fontSize * scale;
+        float descent = mTexFontRef->getDescent() / fontSize * scale;
         
         mFontDescentline = 0.5f * scale;
-        mFontBaseline    = mFontDescentline - mFontDescent;
-        mFontAscentline  = mFontDescentline - mFontAscent;
+        mFontBaseline    = mFontDescentline - descent;
+        mFontAscentline  = mFontDescentline - ascent;
+    }
+    
+    //! Set the font
+    inline void setFont(const string& fontName, float fontSize = 50.0f, float fontScale = 1.0f){
+        mTexFontRef = gl::TextureFont::create(Font(fontName,fontSize),mTexFontFormat);
+        setFontScale(fontScale);
         
         float pi_2 = float(M_PI) * 0.5f;
         mFontTransMat.identity();
@@ -303,6 +314,38 @@ public:
         mFontTransMat *= Matrix44f::createRotation(Vec3f::xAxis(), pi_2);
         mFontTransMat *= Matrix44f::createRotation(Vec3f::yAxis(), pi_2);
      }
+    
+private:
+    inline void addQuoteString(vector<QuoteString>& target, const string& str, int row){
+        vector<int> rowColumn = mCellsIndex[row];
+        
+        float colWidth = rowColumn.size();
+        float strWidth = measureString(str);
+        
+        Vec3f pos = (*mCells)[rowColumn[0]]->getCenter();
+        Vec3f offset;
+        
+        switch (mAlign) {
+            case Align::RIGHT:
+                offset.z = -colWidth + strWidth;
+                break;
+            case Align::CENTER:
+                offset.z = -(colWidth - strWidth)*0.5f;
+                break;
+            default:
+                break;
+        }
+        
+        pos+= offset;
+       
+        vector<Cell::Index> indices = getStringCells(row, strWidth, pos);
+        
+        
+        target += QuoteString(str, pos, indices);
+        
+    }
+    
+public:
     
     //! Set the string
     inline bool setString(const string& str){
@@ -356,6 +399,7 @@ public:
             }
         }
         
+        Vec3f stringPos;
         float stringWidth = measureString(input);
         
         // Check if string size exceeds maximum available space
@@ -365,7 +409,9 @@ public:
         
         // Check if string allready fits first column
         if(!hasBr && stringWidth <= mCellsIndex[0].size()){
-            mQuoteStrings += QuoteString(str,getPos(0,0));
+            //stringPos      = getStringPos(0, 0);
+            //mQuoteStrings += QuoteString(str, stringPos, getStringCells(0, stringWidth));
+            addQuoteString(mQuoteStrings, str, 0);
             return true;
         }
         
@@ -407,9 +453,12 @@ public:
             if(tokenHasBr){
                 if(lineWidth < colWidth){
                     line  += token;
-                    getStringOffset(line, lineWidth, colWidth, &offset);
+                    //getStringOffset(line, lineWidth, colWidth, &offset);
+                    //stringPos = getStringPos(row, 0) + offset;
                     
-                    lines += QuoteString(line, getPos(row,0) + offset);
+                    //lines += QuoteString(line, stringPos, getStringCells(row, lineWidth, stringPos));
+                    
+                    addQuoteString(lines, line, row);
                     line.clear();
                     space.clear();
                     words.pop_front();
@@ -428,7 +477,10 @@ public:
                     words.pop_front();
                 
                 } else {
-                    lines += QuoteString(line,getPos(row,0) + offset);
+                    //stringPos = getStringPos(row, 0) + offset;
+                    
+                    //lines += QuoteString(line,stringPos, getStringCells(row, lineWidth, stringPos));
+                    addQuoteString(lines, line, row);
                     line.clear();
                     space.clear();
                     row++;
@@ -442,7 +494,9 @@ public:
             }
             
             if(words.size() == 0){
-                lines += QuoteString(line,getPos(row,0) + offset);
+                addQuoteString(lines, line, row);
+                //stringPos = getStringPos(row, 0) + offset;
+                //lines += QuoteString(line, stringPos, getStringCells(row, lineWidth, stringPos));
             }
          }
         
@@ -534,12 +588,13 @@ public:
         for (auto& str : mQuoteStrings) {
             glPushMatrix();
             glTranslatef(str.pos.x,str.pos.y,str.pos.z + 0.5f);
+            glColor3f(0.5,0.25,0.25);
             drawStringBoundingBox(str.str);
             glPopMatrix();
             glPushMatrix();
             glTranslatef(str.pos.x + mFontBaseline,str.pos.y,str.pos.z + 0.5f);
             glMultMatrixf(&mFontTransMat[0]);
-            glScalef(-mFontSizeInv * mFontScale, mFontSizeInv * mFontScale, mFontSizeInv * mFontScale);
+            glScalef(-mFontScale, mFontScale, mFontScale);
             glColor3f(1, 1, 1);
             mTexFontRef->drawString(str.str, zero);
             glPopMatrix();

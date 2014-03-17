@@ -26,11 +26,15 @@ class QuoteLayoutApp : public AppNative {
 	void draw();
     
     vector<Cell*>    mCells;
+    vector<string>   mStrings;
+    int              mStringsIndex;
     string           mString;
     QuoteTypesetter* mTypesetter;
     
     CameraOrtho mCamera;
     float       mCameraZoom;
+    
+    void updateLayout();
     
 };
 
@@ -50,20 +54,20 @@ void QuoteLayoutApp::setup(){
     while (++i < GRID_NUM_XY) {
         j = -1;
         while(++j < GRID_NUM_XY){
-            int id[] = {j,i};
-            mCells += new Cell(id,Vec3f(-size_2 + j, 0, -size_2 + i));
+            mCells += new Cell(Cell::Index(j,i),Vec3f(-size_2 + j, 0, -size_2 + i));
         }
     }
     
-    vector<string> strings;
-    strings += "Alghoritms are the new Art Direction.",
-               "Paying by bits but with coins",
-               "Knowing what your customers want before they do.",
-               "You will be disrupted soon.",
-               "You can't choose not to support one device.",
-               "Modular content is the new normal.",
-               "ABC\n DEF\n GHI",
-               "This\n\n\nis\n\nthe\nNew\n\nNormal.";
+
+    mStringsIndex = 0;
+    mStrings += "Alghoritms are the new Art Direction.",
+                "Paying by bits but with coins",
+                "Knowing what your customers want before they do.",
+                "You will be disrupted soon.",
+                "You can't choose not to support one device.",
+                "Modular content is the new normal.",
+                "ABC\n DEF\n GHI"/*,
+                "This\n\n\nis\n\nthe\nNew\n\nNormal."*/;
     
     //define area for layout
     LayoutArea area(10,5,true);
@@ -71,11 +75,11 @@ void QuoteLayoutApp::setup(){
     
     mTypesetter = new QuoteTypesetter(&mCells, area);
     mTypesetter->enableManualLineBreak(true);
-    mTypesetter->setFont(Font(FONT_NAME,200),0.7f);
+    mTypesetter->setFont(FONT_NAME,200,0.7f);
     mTypesetter->setAlign(QuoteTypesetter::Align::CENTER);
-    mTypesetter->setPadding(0, 0, 0, 0);
+    mTypesetter->setPadding(0, 0, 0, 1);
     
-    if(!mTypesetter->setString(strings[6])){
+    if(!mTypesetter->setString(mStrings[mStringsIndex])){
         //cout << "Can´t set string: " << strings[3] << endl;
     }
     
@@ -98,6 +102,14 @@ void QuoteLayoutApp::keyDown(KeyEvent event){
             mCameraZoom = MAX(1,MIN(mCameraZoom-1, 8));
             updateView();
             break;
+        case KeyEvent::KEY_LEFT:
+            mStringsIndex = (mStringsIndex + 1) % mStrings.size();
+            mTypesetter->setString(mStrings[mStringsIndex]);
+            break;
+        case KeyEvent::KEY_RIGHT:
+            mStringsIndex = (mStringsIndex + 1) % mStrings.size();
+            mTypesetter->setString(mStrings[mStringsIndex]);
+            break;
         case KeyEvent::KEY_ESCAPE:
             this->quit();
             break;
@@ -105,9 +117,11 @@ void QuoteLayoutApp::keyDown(KeyEvent event){
             if(mString.size() > 0){
                 mString.pop_back();
             }
+            updateLayout();
             break;
         case KeyEvent::KEY_RETURN:
             mString+= "\n ";
+            updateLayout();
             break;
         
         case KeyEvent::KEY_RSHIFT:
@@ -115,12 +129,17 @@ void QuoteLayoutApp::keyDown(KeyEvent event){
             
         default:
             mString+= event.getChar();
+            updateLayout();
             break;
     }
     
   
-    mTypesetter->setString(mString);
+   
     
+}
+
+void QuoteLayoutApp::updateLayout(){
+    mTypesetter->setString(mString);
 }
 
 void QuoteLayoutApp::mouseDown( MouseEvent event )
@@ -148,8 +167,10 @@ void QuoteLayoutApp::draw(){
     glDisable(GL_DEPTH_TEST);
     mTypesetter->debugDrawArea();
  
+    glColor3f(0.5f,0,0);
     for (auto* cell : mCells) {
-        cell->debugDrawArea(mCamera);
+        cell->debugDrawArea();
+        cell->debugDrawIndex(mCamera);
     }
     glEnable(GL_DEPTH_TEST);
     
