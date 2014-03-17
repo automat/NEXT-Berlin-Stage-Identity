@@ -127,18 +127,9 @@ private:
     }
     
     //! Get string offset on column according to alignment
-    inline void getStringOffset(const string& str, float strWidth, float colWidth, Vec3f* offset){
-        switch (mAlign) {
-            case Align::RIGHT:
-                offset->z = -colWidth + strWidth;
-                break;
-            case Align::CENTER:
-                offset->z = -(colWidth - strWidth)*0.5f;
-                break;
-            default:
-                offset->z = 0.0f;
-                break;
-        }
+    inline Vec3f getStringOffset(float strWidth, float colWidth){
+        return Vec3f(0, 0, mAlign == Align::RIGHT  ? (-colWidth + strWidth) :
+                           mAlign == Align::CENTER ? (-(colWidth - strWidth) * 0.5f) : 0);
     }
     
     //! Remove char from string
@@ -316,7 +307,7 @@ public:
      }
     
 private:
-    inline void addQuoteString(vector<QuoteString>& target, const string& str, int row){
+    inline void addQuoteLine(vector<QuoteString>& target, const string& str, int row){
         vector<int> rowColumn = mCellsIndex[row];
         
         float colWidth = rowColumn.size();
@@ -342,7 +333,6 @@ private:
         
         
         target += QuoteString(str, pos, indices);
-        
     }
     
 public:
@@ -399,6 +389,7 @@ public:
             }
         }
         
+        Vec3f offset;
         Vec3f stringPos;
         float stringWidth = measureString(input);
         
@@ -409,9 +400,10 @@ public:
         
         // Check if string allready fits first column
         if(!hasBr && stringWidth <= mCellsIndex[0].size()){
-            //stringPos      = getStringPos(0, 0);
-            //mQuoteStrings += QuoteString(str, stringPos, getStringCells(0, stringWidth));
-            addQuoteString(mQuoteStrings, str, 0);
+            offset         = getStringOffset(stringWidth, mCellsIndex[0].size());
+            stringPos      = getStringPos(0, 0) + offset;
+            mQuoteStrings += QuoteString(str, stringPos, getStringCells(0, stringWidth));
+            //addQuoteString(mQuoteStrings, str, 0);
             return true;
         }
         
@@ -432,7 +424,7 @@ public:
         
         string space;
         
-        Vec3f offset;
+        
         vector<QuoteString> lines;
         
         while (words.size() > 0) {
@@ -453,12 +445,12 @@ public:
             if(tokenHasBr){
                 if(lineWidth < colWidth){
                     line  += token;
-                    //getStringOffset(line, lineWidth, colWidth, &offset);
-                    //stringPos = getStringPos(row, 0) + offset;
+                    offset = getStringOffset(lineWidth, colWidth);
+                    stringPos = getStringPos(row, 0) + offset;
                     
-                    //lines += QuoteString(line, stringPos, getStringCells(row, lineWidth, stringPos));
+                    lines += QuoteString(line, stringPos, getStringCells(row, lineWidth, stringPos));
                     
-                    addQuoteString(lines, line, row);
+                    //addQuoteString(lines, line, row);
                     line.clear();
                     space.clear();
                     words.pop_front();
@@ -471,16 +463,16 @@ public:
             } else {
                 if(lineWidth< colWidth){
                     line += token;
-                    getStringOffset(line, lineWidth, colWidth, &offset);
+                    offset = getStringOffset(lineWidth, colWidth);
                     
                     space = " ";
                     words.pop_front();
                 
                 } else {
-                    //stringPos = getStringPos(row, 0) + offset;
+                    stringPos = getStringPos(row, 0) + offset;
                     
-                    //lines += QuoteString(line,stringPos, getStringCells(row, lineWidth, stringPos));
-                    addQuoteString(lines, line, row);
+                    lines += QuoteString(line,stringPos, getStringCells(row, lineWidth, stringPos));
+                    //addQuoteString(lines, line, row);
                     line.clear();
                     space.clear();
                     row++;
@@ -494,9 +486,9 @@ public:
             }
             
             if(words.size() == 0){
-                addQuoteString(lines, line, row);
-                //stringPos = getStringPos(row, 0) + offset;
-                //lines += QuoteString(line, stringPos, getStringCells(row, lineWidth, stringPos));
+                //addQuoteString(lines, line, row);
+                stringPos = getStringPos(row, 0) + offset;
+                lines += QuoteString(line, stringPos, getStringCells(row, lineWidth, stringPos));
             }
          }
         

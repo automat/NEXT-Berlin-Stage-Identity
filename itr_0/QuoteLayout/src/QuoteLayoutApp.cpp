@@ -78,10 +78,13 @@ void QuoteLayoutApp::setup(){
     mTypesetter->setFont(FONT_NAME,200,0.7f);
     mTypesetter->setAlign(QuoteTypesetter::Align::CENTER);
     mTypesetter->setPadding(0, 0, 0, 1);
-    
+    mTypesetter->setString("I'm not made for love.");
+    /*
     if(!mTypesetter->setString(mStrings[mStringsIndex])){
         //cout << "Can´t set string: " << strings[3] << endl;
     }
+     */
+    
     
     
 }

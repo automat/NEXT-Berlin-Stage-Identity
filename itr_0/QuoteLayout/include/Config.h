@@ -9,7 +9,7 @@
 #ifndef QuoteLayout_Config_h
 #define QuoteLayout_Config_h
 
-#define SCALE 2
+#define SCALE 1
 #define WINDOW_WIDTH  3552 / SCALE
 #define WINDOW_HEIGHT 1105 / SCALE
 #define APP_FPS 30.0f
