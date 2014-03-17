@@ -54,39 +54,6 @@ public:
     Cell(const Index& index, const Vec3f& pos) :
         mIndex(index), mPos(pos),mArea(pos,1,1,true){}
     
-    inline void debugDrawIndex(const CameraOrtho& camera){
-        static const float fontScale = 0.005f;
-        
-        Vec3f v;
-        Vec3f w;
-        Vec3f u;
-        
-        camera.getBillboardVectors(&w, &u);
-        v = w.cross(u);
-        
-        
-        Matrix44f mat;
-        mat *= Matrix44f::createTranslation(mPos);
-        mat *= Matrix44f::createRotationOnb(u, w, v);
-        mat *= Matrix44f::createRotation(Vec3f::zAxis(), M_PI_2);
-        mat *= Matrix44f::createScale(Vec3f(fontScale,fontScale,fontScale));
-        
-        const static gl::TextureFontRef debugFont = gl::TextureFont::create(Font("Apercu Mono",18));
-        
-        
-        gl::enableAlphaTest();
-        gl::enableAlphaBlending();
-        glColor3f(0.65f,0.65f,0.65f);
-        glPushMatrix();
-        glMultMatrixf(mat);
-        debugFont->drawString(toString(mIndex[0]) + "," + toString(mIndex[1]), Vec2f::zero());
-        glColor3f(0.85f, 0, 0);
-        debugFont->drawString(toString(mIndex[1] * GRID_NUM_XY + mIndex[0]), Vec2f(0,20));
-        glPopMatrix();
-        gl::disableAlphaBlending();
-        gl::disableAlphaTest();
-    }
-    
     inline void debugDrawArea(){
         static const float zero[3] = {
             0,0,0

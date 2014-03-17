@@ -160,8 +160,8 @@ void QuoteLayoutApp::draw(){
     glColor3f(0.5f,0,0);
     for (auto* cell : cells) {
         cell->debugDrawArea();
-        cell->debugDrawIndex(mCamera);
     }
+    mGrid->debugDrawIndices(mCamera);
     glEnable(GL_DEPTH_TEST);
     
     gl::enableAlphaTest();

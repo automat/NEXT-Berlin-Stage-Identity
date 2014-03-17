@@ -121,8 +121,10 @@ private:
         vector<Cell::Index> indices;
         Vec3f _offset(offset);
         
-        const vector<Cell*>& cells = mGrid->getCells();
-        for(auto& column : mCellsIndex[row]){
+        const vector<Cell*>& cells      = mGrid->getCells();
+        const vector<int>&   rowColumns = mCellsIndex[row];
+        
+        for(auto& column : rowColumns){
             const Cell* cell = cells[column];
             if(cell->getArea().contains(_offset)){
                 indices += cell->getIndex();
@@ -131,16 +133,11 @@ private:
         }
 
         return indices;
-    };
+    }
     
     //! Get width of string
     inline float measureString(const string& str){
         return mTexFontRef->measureString(str).x * mFontScale;
-    }
-    
-    //! Remove char from string
-    inline void removeChar(string& str, const char& c){
-        str.erase(remove(str.begin(), str.end(), c), str.end());
     }
     
     //! Draw bounding box of string
@@ -167,9 +164,10 @@ private:
     //! Get indices of cells within the cell area
     inline void getCellIndices(){
         mCellsIndex.resize(0);
-        const vector<Cell*>& cells = mGrid->getCells();
         
+        const vector<Cell*>& cells = mGrid->getCells();
         vector<int> cellsIndex;
+        
         for(auto* cell : cells){
             if(mArea.contains(cell->getArea())){
                 cellsIndex += cell->getIndex()[0] * GRID_NUM_XY + cell->getIndex()[1];
@@ -188,6 +186,7 @@ private:
         int colCountMax;
         int colPaddingR = mCellPadding[1];
         
+        int numCellsY = mGrid->getNumCellsY();
         
         int size = cellsIndex.size();
         int i    = -1;
@@ -211,7 +210,7 @@ private:
                         colCountMax = colCount - colPaddingR;
                         j           = colCountMin - 1;
                         while (++j < colCountMax) {
-                            mCellsIndex.back() += (index - j * GRID_NUM_XY);
+                            mCellsIndex.back() += (index - j * numCellsY);
                         }
                     }
                     rowIndexValid++;
@@ -307,7 +306,7 @@ public:
         setFontScale(fontScale);
         
         float pi_2 = float(M_PI) * 0.5f;
-        mFontTransMat.identity();
+        //mFontTransMat.setToIdentity(); // hm
         mFontTransMat *= Matrix44f::createTranslation(Vec3f(0,0,0));
         mFontTransMat *= Matrix44f::createRotation(Vec3f::xAxis(), pi_2);
         mFontTransMat *= Matrix44f::createRotation(Vec3f::yAxis(), pi_2);
@@ -556,7 +555,6 @@ public:
         if(!mValid || mQuoteLines.empty()){
             return;
         }
-        
         static const Vec2f zero;
         
         for (auto& line : mQuoteLines) {
@@ -572,6 +570,13 @@ public:
             glColor3f(1, 1, 1);
             mTexFontRef->drawString(line.str, zero);
             glPopMatrix();
+            
+            glColor3f(0,1,0);
+            glLineWidth(10);
+            for(auto& index : line.indices){
+                mGrid->getCell(index[0], index[1]);
+            }
+            glLineWidth(1);
         }
     }
     
