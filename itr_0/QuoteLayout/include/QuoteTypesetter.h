@@ -14,6 +14,7 @@
 #include "cinder/Font.h"
 #include "cinder/gl/Texture.h"
 #include "cinder/gl/TextureFont.h"
+#include "cinder/gl/Fbo.h"
 #include "LayoutArea.h"
 
 #include "Grid.h"
@@ -64,48 +65,53 @@ private:
     
     /*--------------------------------------------------------------------------------------------*/
     
-    gl::TextureFont::Format mTexFontFormat;
+    // font
     
+    gl::TextureFont::Format mTexFontFormat;
     gl::TextureFontRef      mTexFontRef;        // font to be used
     float                   mFontScale;
     float                   mFontBaseline;
     float                   mFontAscentline;
     float                   mFontDescentline;
-    
-    float                   mStringWidthMax;
-    
-    int                     mColLengthMin;
-    
-    bool                    mFontAutoScale;
-    bool                    mManualBr;
-    
-    
     Matrix44f               mFontTransMat;      // font 3d translation matrix
     
-    int                     mCellPadding[4];    // padding tblr
     Align                   mAlign;             // left / right / center
+    bool                    mManualBr;
     
-    bool                    mValid;             // valid layout
-
-    Grid*                   mGrid;
-    vector<Cell*>*          mCells;
-    vector<vector<int>>     mCellsIndex;        // cells indices defined by area
+    // line length
+    
+    float                   mStringWidthMax;
+    int                     mColLengthMin;
+    
+    // grid / area
     
     LayoutArea              mArea;              // area of cells which should be used
- 
-    string                  mSrcString;         // current string src
+    Grid*                   mGrid;
+    vector<Cell*>*          mCells;
+    int                     mCellPadding[4];    // padding tblr
+    vector<vector<int>>     mCellsIndex;        // cells indices defined by area
+    
+    // string / computed lines
+    
+    bool                    mConstrain;         // string doesnt fit?, draw anyway
     vector<QuoteLine>       mQuoteLines;        // calculated string segments
+    
+    // texture
+    
+    gl::Fbo                 mFbo;
     
     gl::Texture             mTexture;           // resulting texture
     LayoutArea              mTextureArea;
-    
     vector<Rectf>           mCellTexcoords;     // texcoords of cell for texture
 
+    // general
     
+    bool                    mValid;             // valid layout
+
     
     /*--------------------------------------------------------------------------------------------*/
     
-    //! Get position of cell from row + column
+    //! Get position of cell from row
     inline Vec3f getLinePos(int row){
         return mGrid->getCell(mCellsIndex[row][0])->getCenter();
     }
@@ -232,6 +238,10 @@ private:
         mValid = mCellsIndex.size() != 0;
     }
     
+    inline void renderToTexture(){
+        
+    }
+    
 public:
     /*--------------------------------------------------------------------------------------------*/
     // QuoteTypesetter
@@ -242,7 +252,8 @@ public:
         mGrid(grid),
         mArea(area),
         mColLengthMin(columnLengthMin),
-        mManualBr(false){
+        mManualBr(false),
+        mConstrain(true){
             // Init props
             mTexFontFormat.enableMipmapping();
             mTexFontFormat.premultiply();
@@ -260,9 +271,10 @@ public:
     /*--------------------------------------------------------------------------------------------*/
     
     //! Enable/Disable manual linebreaks
-    inline void enableManualLineBreak(bool b){
+    inline void manualLineBreak(bool b){
         mManualBr = b;
     }
+    
     //! Set text align vertical
     inline void setAlign(Align align){
         mAlign = align;
@@ -270,10 +282,14 @@ public:
     
     //! Set the cell padding per unit
     inline void setPadding(int top, int right, int bottom, int left){
-        mCellPadding[0] = top;
-        mCellPadding[1] = right;
-        mCellPadding[2] = bottom;
-        mCellPadding[3] = left;
+        mCellPadding[0] = MAX(0, MIN(top,    mColLengthMin));
+        mCellPadding[1] = MAX(0, MIN(right,  mColLengthMin));
+        mCellPadding[2] = MAX(0, MIN(bottom, mColLengthMin));
+        mCellPadding[3] = MAX(0, MIN(left,   mColLengthMin));
+        
+        if(mCellPadding[1] + mCellPadding[3] > mColLengthMin){
+            return;
+        }
         
         // get cell indices
         getCellIndices();
@@ -312,17 +328,26 @@ public:
         mFontTransMat *= Matrix44f::createRotation(Vec3f::yAxis(), pi_2);
      }
     
-    //! clear
+    //! Clear
     inline void clear(){
         mQuoteLines.clear();
     }
     
+    inline bool isValid(){
+        return mValid;
+    }
+    
+    //! Dont render text that exceeds the available cells
+    inline void constrain(bool b = true){
+        mConstrain = b;
+    }
+    
     //! Set the string
     inline bool setString(const string& str){
-        if(!mValid || !mSrcString.compare(str) ){
+        if(!mValid){
             return false;
         }
-        mSrcString = str;
+        
         mQuoteLines.resize(0);
         
         if (str.size() == 0) {
@@ -373,7 +398,7 @@ public:
         float lineWidth = measureString(input);
         
         // Check if string size exceeds maximum available space
-        if(lineWidth > mStringWidthMax){
+        if(mConstrain && (lineWidth > mStringWidthMax)){
             return false;
         }
         
@@ -434,6 +459,10 @@ public:
                     
                 } else { // manually breaked string exceeds row, sorry
                     // do auto resizing here
+                    if(!mConstrain){
+                        mQuoteLines = lines;
+                        renderToTexture();
+                    }
                     return false;
                 }
             } else {
@@ -459,6 +488,10 @@ public:
             // line breaked string exceeds rows, sorry
             if(row >= rowMax){
                 // do auto resizing here
+                if(!mConstrain){
+                    mQuoteLines = lines;
+                    renderToTexture();
+                }
                 return false;
             }
             
@@ -471,7 +504,13 @@ public:
          }
         
         mQuoteLines = lines;
+        
+        renderToTexture();
         return true;
+    }
+    
+    inline gl::Texture getTexture(){
+        return mTexture;
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -578,6 +617,10 @@ public:
             }
             glLineWidth(1);
         }
+    }
+    
+    inline void debugDrawTexture(){
+        
     }
     
 };
