@@ -11,6 +11,8 @@
 
 #include "cinder/Vector.h"
 #include "cinder/Matrix44.h"
+#include <iostream>
+
 using namespace ci;
 
 class LayoutArea {
@@ -95,6 +97,11 @@ public:
     inline const Vec3f& getTR(){return mB;}
     inline const Vec3f& getBL(){return mC;}
     inline const Vec3f& getBR(){return mD;}
+    
+    inline friend std::ostream& operator<<( std::ostream& lhs, const LayoutArea& rhs ){
+		lhs << "[" << rhs.mA << "," << rhs.mB << "," << rhs.mC << "," << rhs.mD << "]";
+		return lhs;
+	}
 };
 
 
