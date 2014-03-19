@@ -20,24 +20,17 @@ using namespace std;
 using namespace boost::assign;
 
 #ifdef USE_PARAMS
-static float  TYPE_FONT_SCALE_CURR(TYPE_FONT_SCALE);
-static float  TYPE_FONT_SCALE_LAST(TYPE_FONT_SCALE);
-static int    TYPE_CELL_PADDING_T_CURR(TYPE_PADDING_T);
-static int    TYPE_CELL_PADDING_T_LAST(TYPE_PADDING_T);
-static int    TYPE_CELL_PADDING_R_CURR(TYPE_PADDING_R);
-static int    TYPE_CELL_PADDING_R_LAST(TYPE_PADDING_R);
-static int    TYPE_CELL_PADDING_B_CURR(TYPE_PADDING_B);
-static int    TYPE_CELL_PADDING_B_LAST(TYPE_PADDING_B);
-static int    TYPE_CELL_PADDING_L_CURR(TYPE_PADDING_L);
-static int    TYPE_CELL_PADDING_L_LAST(TYPE_PADDING_L);
+static float  PARAM_TYPE_FONT_SCALE(TYPE_FONT_SCALE);
+static int    PARAM_TYPE_PADDING_T(TYPE_PADDING_T);
+static int    PARAM_TYPE_PADDING_R(TYPE_PADDING_R);
+static int    PARAM_TYPE_PADDING_B(TYPE_PADDING_B);
+static int    PARAM_TYPE_PADDING_L(TYPE_PADDING_L);
+
 static string TYPE_STRING_LAST("");
-static bool   TYPE_STRING_CONSTRAIN_CURR(TYPE_CONSTRAIN);
-static bool   TYPE_STRING_CONSTRAIN_LAST(TYPE_CONSTRAIN);
-static bool   TYPE_MANUAL_BREAK_CURR(TYPE_MANUAL_BREAK);
-static bool   TYPE_MANUAL_BREAK_LAST(TYPE_MANUAL_BREAK);
-static int    TYPE_ALIGN_CURR(QuoteTypesetter::Align::CENTER);
-static int    TYPE_ALIGN_LAST(TYPE_ALIGN_CURR);
-static bool   TYPE_SHOW_TEXTURE(true);
+static bool   PARAM_TYPE_STRING_CONSTRAIN(TYPE_CONSTRAIN);
+static bool   PARAM_TYPE_MANUAL_BREAK(TYPE_MANUAL_BREAK);
+static int    PARAM_TYPE_ALIGN(QuoteTypesetter::Align::CENTER);
+static bool   PARAM_TYPE_SHOW_TEXTURE(true);
 #endif
 
 class QuoteLayoutApp : public AppNative {
@@ -99,10 +92,10 @@ void QuoteLayoutApp::setup(){
     
     mTypesetter = new QuoteTypesetter(mGrid, area);
     mTypesetter->setFont(TYPE_FONT_NAME,200,0.7f);
-    mTypesetter->setAlign(static_cast<QuoteTypesetter::Align>(TYPE_ALIGN_CURR));
+    mTypesetter->setAlign(static_cast<QuoteTypesetter::Align>(PARAM_TYPE_ALIGN));
     mTypesetter->setPadding(0, 0, 0, 1);
     mTypesetter->constrain(false);
-    mTypesetter->manualLineBreak(TYPE_MANUAL_BREAK_CURR);
+    mTypesetter->manualLineBreak(PARAM_TYPE_MANUAL_BREAK);
     mTypesetter->debugTexture();
     
     //updateLayout("\n\n\nSmall\n\n\n\nstring\n\n \n\n,and\n\n");
@@ -112,15 +105,15 @@ void QuoteLayoutApp::setup(){
     vector<string> alignEnumNames = {"left","center","right"};
     
     mParams = params::InterfaceGl::create("controls", Vec2f(200,200));
-    mParams->addParam("Font scale", &TYPE_FONT_SCALE_CURR, "min=0 max=1 step=0.001");
-    mParams->addParam("Padding T",  &TYPE_CELL_PADDING_T_CURR, "min=0 max=5 step=1");
-    mParams->addParam("Padding R",  &TYPE_CELL_PADDING_R_CURR, "min=0 max=5 step=1");
-    mParams->addParam("Padding B",  &TYPE_CELL_PADDING_B_CURR, "min=0 max=5 step=1");
-    mParams->addParam("Padding L",  &TYPE_CELL_PADDING_L_CURR, "min=0 max=5 step=1");
-    mParams->addParam("Align", alignEnumNames, &TYPE_ALIGN_CURR);
-    mParams->addParam("Constrain",  &TYPE_STRING_CONSTRAIN_CURR);
-    mParams->addParam("Manual Break", &TYPE_MANUAL_BREAK_CURR);
-    mParams->addParam("Show Texture", &TYPE_SHOW_TEXTURE);
+    mParams->addParam("Font scale", &PARAM_TYPE_FONT_SCALE, "min=0 max=1 step=0.001");
+    mParams->addParam("Padding T",  &PARAM_TYPE_PADDING_T, "min=0 max=5 step=1");
+    mParams->addParam("Padding R",  &PARAM_TYPE_PADDING_R, "min=0 max=5 step=1");
+    mParams->addParam("Padding B",  &PARAM_TYPE_PADDING_B, "min=0 max=5 step=1");
+    mParams->addParam("Padding L",  &PARAM_TYPE_PADDING_L, "min=0 max=5 step=1");
+    mParams->addParam("Align", alignEnumNames, &PARAM_TYPE_ALIGN);
+    mParams->addParam("Constrain",  &PARAM_TYPE_STRING_CONSTRAIN);
+    mParams->addParam("Manual Break", &PARAM_TYPE_MANUAL_BREAK);
+    mParams->addParam("Show Texture", &PARAM_TYPE_SHOW_TEXTURE);
     
     glEnable(GL_SCISSOR_TEST);
     
@@ -212,45 +205,55 @@ void QuoteLayoutApp::update(){
 
 #ifdef USE_PARAMS
 void QuoteLayoutApp::updateParams(){
-    if(TYPE_FONT_SCALE_CURR != TYPE_FONT_SCALE_LAST){
-        mTypesetter->setFontScale(TYPE_FONT_SCALE_CURR);
+    static float paramTypeFontScalePrev       = PARAM_TYPE_FONT_SCALE;
+    static bool  paramTypeStringConstrainPrev = PARAM_TYPE_STRING_CONSTRAIN;
+    static int   paramTypeAlignPrev           = PARAM_TYPE_ALIGN;
+    static bool  paramTypeManualBreak         = PARAM_TYPE_MANUAL_BREAK;
+    static int   paramTypePaddingTPrev        = PARAM_TYPE_PADDING_T;
+    static int   paramTypePaddingRPrev        = PARAM_TYPE_PADDING_R;
+    static int   paramTypePaddingBPrev        = PARAM_TYPE_PADDING_B;
+    static int   paramTypePaddingLPrev        = PARAM_TYPE_PADDING_L;
+    
+    
+    if(PARAM_TYPE_FONT_SCALE != paramTypeFontScalePrev){
+        mTypesetter->setFontScale(PARAM_TYPE_FONT_SCALE);
         updateLayout(TYPE_STRING_LAST);
         
-        TYPE_FONT_SCALE_LAST = TYPE_FONT_SCALE_CURR;
+        paramTypeFontScalePrev = PARAM_TYPE_FONT_SCALE;
     }
     
-    if(TYPE_STRING_CONSTRAIN_CURR != TYPE_STRING_CONSTRAIN_LAST){
-        mTypesetter->constrain(TYPE_STRING_CONSTRAIN_CURR);
+    if(PARAM_TYPE_STRING_CONSTRAIN != paramTypeStringConstrainPrev){
+        mTypesetter->constrain(PARAM_TYPE_STRING_CONSTRAIN);
         updateLayout(TYPE_STRING_LAST);
-        TYPE_STRING_CONSTRAIN_LAST = TYPE_STRING_CONSTRAIN_CURR;
+        paramTypeStringConstrainPrev = PARAM_TYPE_STRING_CONSTRAIN;
     }
     
-    if(TYPE_MANUAL_BREAK_CURR != TYPE_MANUAL_BREAK_LAST){
-        //mTypesetter->manualLineBreak(TYPE_MANUAL_BREAK_CURR);
+    if(PARAM_TYPE_MANUAL_BREAK != paramTypeManualBreak){
+        mTypesetter->manualLineBreak(PARAM_TYPE_MANUAL_BREAK);
         updateLayout(TYPE_STRING_LAST);
-        TYPE_MANUAL_BREAK_LAST = TYPE_MANUAL_BREAK_CURR;
+        paramTypeManualBreak = PARAM_TYPE_MANUAL_BREAK;
     }
     
-    if(TYPE_ALIGN_CURR != TYPE_ALIGN_LAST){
-        mTypesetter->setAlign(static_cast<QuoteTypesetter::Align>(TYPE_ALIGN_CURR));
+    if(PARAM_TYPE_ALIGN != paramTypeAlignPrev){
+        mTypesetter->setAlign(static_cast<QuoteTypesetter::Align>(PARAM_TYPE_ALIGN));
         updateLayout(TYPE_STRING_LAST);
-        TYPE_ALIGN_LAST = TYPE_ALIGN_CURR;
+        paramTypeAlignPrev = PARAM_TYPE_ALIGN;
     }
     
-    if(TYPE_CELL_PADDING_T_CURR != TYPE_CELL_PADDING_T_LAST ||
-       TYPE_CELL_PADDING_R_CURR != TYPE_CELL_PADDING_R_LAST ||
-       TYPE_CELL_PADDING_B_CURR != TYPE_CELL_PADDING_B_LAST ||
-       TYPE_CELL_PADDING_L_CURR != TYPE_CELL_PADDING_L_LAST){
+    if(PARAM_TYPE_PADDING_T != paramTypePaddingTPrev ||
+       PARAM_TYPE_PADDING_R != paramTypePaddingRPrev ||
+       PARAM_TYPE_PADDING_B != paramTypePaddingBPrev ||
+       PARAM_TYPE_PADDING_L != paramTypePaddingLPrev){
         
-        mTypesetter->setPadding(TYPE_CELL_PADDING_T_CURR,
-                                TYPE_CELL_PADDING_R_CURR,
-                                TYPE_CELL_PADDING_B_CURR,
-                                TYPE_CELL_PADDING_L_CURR);
+        mTypesetter->setPadding(PARAM_TYPE_PADDING_T,
+                                PARAM_TYPE_PADDING_R,
+                                PARAM_TYPE_PADDING_B,
+                                PARAM_TYPE_PADDING_L);
         updateLayout(TYPE_STRING_LAST);
-        TYPE_CELL_PADDING_T_LAST = TYPE_CELL_PADDING_T_CURR;
-        TYPE_CELL_PADDING_R_LAST = TYPE_CELL_PADDING_R_CURR;
-        TYPE_CELL_PADDING_B_LAST = TYPE_CELL_PADDING_B_CURR;
-        TYPE_CELL_PADDING_L_LAST = TYPE_CELL_PADDING_L_CURR;
+        paramTypePaddingTPrev = PARAM_TYPE_PADDING_T;
+        paramTypePaddingRPrev = PARAM_TYPE_PADDING_R;
+        paramTypePaddingBPrev = PARAM_TYPE_PADDING_B;
+        paramTypePaddingLPrev = PARAM_TYPE_PADDING_L;
     }
 }
 #endif
@@ -271,9 +274,9 @@ void QuoteLayoutApp::draw(){
     glScissor(0, 0, windowWidth, windowHeight);
     gl::clear(Colorf(0.0125f,0.0125f,0.025f));
 
-    static bool typeShowTexturePrev = !TYPE_SHOW_TEXTURE;
-    if(TYPE_SHOW_TEXTURE != typeShowTexturePrev){
-        if(TYPE_SHOW_TEXTURE){
+    static bool paramTypeShowTexturePrev = !PARAM_TYPE_SHOW_TEXTURE;
+    if(PARAM_TYPE_SHOW_TEXTURE != paramTypeShowTexturePrev){
+        if(PARAM_TYPE_SHOW_TEXTURE){
             viewportWidth  = windowWidth - windowHeight;
             viewportHeight = windowHeight;//viewportWidth *  windowRatio;
             viewportPosX   = 0;
@@ -284,7 +287,7 @@ void QuoteLayoutApp::draw(){
             viewportPosX   = 0;
             viewportPosY   = 0;
         }
-        typeShowTexturePrev = TYPE_SHOW_TEXTURE;
+        paramTypeShowTexturePrev = PARAM_TYPE_SHOW_TEXTURE;
     }
     
     
@@ -339,7 +342,7 @@ void QuoteLayoutApp::draw(){
     glPopAttrib();
     
 	
-    if(TYPE_SHOW_TEXTURE){
+    if(PARAM_TYPE_SHOW_TEXTURE){
         float textureWidth  = windowHeight,
               textureHeight = windowHeight;
         float texturePosX   = windowWidth - textureWidth,
