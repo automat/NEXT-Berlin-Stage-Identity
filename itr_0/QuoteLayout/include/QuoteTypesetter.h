@@ -10,7 +10,9 @@
 #define QuoteLayout_QuoteTypesetter_h
 #include <boost/assign/std/vector.hpp>
 
-#include "Config.h"
+#include <OpenGL/OpenGL.h>
+
+#include "cinder/gl/gl.h"
 #include "cinder/Font.h"
 #include "cinder/gl/Texture.h"
 #include "cinder/gl/TextureFont.h"
@@ -98,7 +100,11 @@ private:
     
     // texture
     
+    int                     mTextureSize;
     gl::Fbo                 mFbo;
+    bool                    mDebugTexture;      // 
+    
+    
     
     gl::Texture             mTexture;           // resulting texture
     LayoutArea              mTextureArea;
@@ -144,10 +150,11 @@ private:
         
         const vector<Cell*>& cells = mGrid->getCells();
         vector<int> cellsIndex;
+        int gridNumCellsX = mGrid->getNumCellsX();
         
         for(auto* cell : cells){
             if(mArea.contains(cell->getArea())){
-                cellsIndex += cell->getIndex()[0] * GRID_NUM_XY + cell->getIndex()[1];
+                cellsIndex += cell->getIndex()[0] * gridNumCellsX + cell->getIndex()[1];
             }
         }
         
@@ -210,7 +217,29 @@ private:
     }
     
     inline void renderToTexture(){
+        int numCellsX = 0;
+        int numCellsY = mQuoteLines.size();
         
+        int numIndices;
+        for(auto& line : mQuoteLines){
+            numIndices = mQuoteLines.size();
+            numCellsX  = MAX(numCellsX, numIndices);
+        }
+        
+        mFbo.bindFramebuffer();
+        glPushAttrib(GL_VIEWPORT_BIT);
+        gl::setMatricesWindow(mFbo.getSize(), true);
+        gl::enableAlphaTest();
+        gl::enableAlphaBlending();
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClearColor(1,0,0,1);
+        
+        
+        
+        glPopAttrib();
+        gl::disableAlphaBlending();
+        gl::disableAlphaTest();
+        mFbo.unbindFramebuffer();
     }
     
 public:
@@ -224,12 +253,22 @@ public:
         mArea(area),
         mColLengthMin(columnLengthMin),
         mManualBr(false),
-        mConstrain(true){
+        mConstrain(true),
+        mTextureSize(2048),
+        mDebugTexture(false){
             // Init props
             mTexFontFormat.enableMipmapping();
             mTexFontFormat.premultiply();
             mTexFontFormat.textureWidth(2048);
             mTexFontFormat.textureHeight(2048);
+            
+            // Init Fbo
+            gl::Fbo::Format fboFormat;
+            fboFormat.setSamples(4);
+            fboFormat.setColorInternalFormat(GL_RGBA_FLOAT32_APPLE);
+            fboFormat.setWrap(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+            
+            mFbo = gl::Fbo(mTextureSize,mTextureSize, fboFormat);
             
             // Init defaults
             setPadding(0, 0, 0, 0);
@@ -321,7 +360,6 @@ private:
     
         const vector<int>&   columns = mCellsIndex[row];
         const vector<Cell*>& cells   = mGrid->getCells();
-    
         
         float lineWidth = measureString(line);
         int   colSize   = columns.size();
@@ -453,7 +491,6 @@ public:
             token     = space + words.front();
             colWidth  = float(mCellsIndex[row].size());
             
-            
             if(hasBr && tokenCountBr <= numBr){
                 tokenNumBr = count(token.begin(),token.end(),br);
                 tokenHasBr = tokenNumBr != 0;
@@ -483,8 +520,6 @@ public:
                     }
                     return false;
                 }
-                
-                
                 
             } else {
                 if(lineWidth< colWidth){
@@ -522,8 +557,13 @@ public:
         return true;
     }
     
-    inline gl::Texture getTexture(){
-        return mTexture;
+    inline const gl::Texture& getTexture(){
+        return mFbo.getTexture();
+    }
+    
+    void debugTexture(bool b = true){
+        mDebugTexture = b;
+        
     }
     
     /*--------------------------------------------------------------------------------------------*/

@@ -35,8 +35,9 @@ static bool   TYPE_STRING_CONSTRAIN_CURR(TYPE_CONSTRAIN);
 static bool   TYPE_STRING_CONSTRAIN_LAST(TYPE_CONSTRAIN);
 static bool   TYPE_MANUAL_BREAK_CURR(TYPE_MANUAL_BREAK);
 static bool   TYPE_MANUAL_BREAK_LAST(TYPE_MANUAL_BREAK);
-static int    TYPE_ALIGN_CURR(QuoteTypesetter::Align::RIGHT);
+static int    TYPE_ALIGN_CURR(QuoteTypesetter::Align::CENTER);
 static int    TYPE_ALIGN_LAST(TYPE_ALIGN_CURR);
+static bool   TYPE_SHOW_TEXTURE(true);
 #endif
 
 class QuoteLayoutApp : public AppNative {
@@ -71,6 +72,7 @@ class QuoteLayoutApp : public AppNative {
 void QuoteLayoutApp::prepareSettings(Settings* settings){
     settings->setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     settings->setFrameRate(APP_FPS);
+    settings->setResizable(false);
 }
 
 void QuoteLayoutApp::setup(){
@@ -101,6 +103,7 @@ void QuoteLayoutApp::setup(){
     mTypesetter->setPadding(0, 0, 0, 1);
     mTypesetter->constrain(false);
     mTypesetter->manualLineBreak(TYPE_MANUAL_BREAK_CURR);
+    mTypesetter->debugTexture();
     
     //updateLayout("\n\n\nSmall\n\n\n\nstring\n\n \n\n,and\n\n");
     updateLayout("Small\nstring");
@@ -117,6 +120,9 @@ void QuoteLayoutApp::setup(){
     mParams->addParam("Align", alignEnumNames, &TYPE_ALIGN_CURR);
     mParams->addParam("Constrain",  &TYPE_STRING_CONSTRAIN_CURR);
     mParams->addParam("Manual Break", &TYPE_MANUAL_BREAK_CURR);
+    mParams->addParam("Show Texture", &TYPE_SHOW_TEXTURE);
+    
+    glEnable(GL_SCISSOR_TEST);
     
 #endif
 }
@@ -182,9 +188,10 @@ void QuoteLayoutApp::updateLayout(const string& str){
 #endif
 }
 
+
 void QuoteLayoutApp::updateView(){
-    float aspectRatio = app::getWindowAspectRatio();
-    mCamera.setOrtho(-aspectRatio * mCameraZoom, aspectRatio * mCameraZoom, -mCameraZoom, mCameraZoom, -10.0f, 10.f);
+    //float aspectRatio = app::getWindowAspectRatio();
+    //mCamera.setOrtho(-aspectRatio * mCameraZoom, aspectRatio * mCameraZoom, -mCameraZoom, mCameraZoom, -10.0f, 10.f);
 }
 
 void QuoteLayoutApp::updateTexture(){
@@ -252,14 +259,59 @@ void QuoteLayoutApp::updateParams(){
 
 
 void QuoteLayoutApp::draw(){
-	// clear out the window with black
+#ifdef USE_PARAMS
+    static const float windowWidth  = getWindowWidth();
+    static const float windowHeight = getWindowHeight();
+
+    static float viewportWidth;
+    static float viewportHeight;
+    static float viewportPosX;
+    static float viewportPosY;
+    
+    glScissor(0, 0, windowWidth, windowHeight);
+    gl::clear(Colorf(0.0125f,0.0125f,0.025f));
+
+    static bool typeShowTexturePrev = !TYPE_SHOW_TEXTURE;
+    if(TYPE_SHOW_TEXTURE != typeShowTexturePrev){
+        if(TYPE_SHOW_TEXTURE){
+            viewportWidth  = windowWidth - windowHeight;
+            viewportHeight = windowHeight;//viewportWidth *  windowRatio;
+            viewportPosX   = 0;
+            viewportPosY   = (windowHeight - viewportHeight) * 0.5f;
+        } else {
+            viewportWidth  = windowWidth;
+            viewportHeight = windowHeight;
+            viewportPosX   = 0;
+            viewportPosY   = 0;
+        }
+        typeShowTexturePrev = TYPE_SHOW_TEXTURE;
+    }
+    
+    
+    static float viewportWidthPrev = -1;
+    
+    if(viewportWidth != viewportWidthPrev){
+        float viewportRatio = viewportWidth / viewportHeight;
+        float cameraMult    = windowWidth / viewportWidth;
+        float cameraZoom    = mCameraZoom * cameraMult;
+
+        mCamera.setOrtho(-viewportRatio * cameraZoom, viewportRatio * cameraZoom, -cameraZoom, cameraZoom, -10.0f, 10.f);
+        viewportWidthPrev = viewportWidth;
+    }
+    
+    glPushAttrib(GL_VIEWPORT_BIT);
+    glScissor(viewportPosX, viewportPosY, viewportWidth, viewportHeight);
+    // clear out the window with black
 	gl::clear( Color( 0, 0, 0 ) );
+    
+    //gl::drawSolidRect(Rectf(0,0,windowWidth,windowHeight));
+    gl::setViewport(Area(Rectf(0,viewportPosY,viewportWidth,viewportPosY+viewportHeight)));
     gl::setMatrices(mCamera);
     
     gl::drawCoordinateFrame(4);
     glPushMatrix();
     glScalef(0.65f, 0.65f, 0.65f);
-
+    
     glDisable(GL_DEPTH_TEST);
     mTypesetter->debugDrawArea();
     
@@ -271,7 +323,7 @@ void QuoteLayoutApp::draw(){
         cell->debugDrawArea();
     }
     mGrid->debugDrawIndices(mCamera);
-
+    
     glEnable(GL_DEPTH_TEST);
     
     gl::enableAlphaTest();
@@ -284,11 +336,54 @@ void QuoteLayoutApp::draw(){
     gl::disableAlphaTest();
     glPopMatrix();
 
+    glPopAttrib();
     
-    mTypesetter->debugDrawTexture();
-    
-#ifdef USE_PARAMS
+	
+    if(TYPE_SHOW_TEXTURE){
+        float textureWidth  = windowHeight,
+              textureHeight = windowHeight;
+        float texturePosX   = windowWidth - textureWidth,
+              texturePosY   = 0;
+        
+        glScissor(texturePosX, texturePosY, textureWidth, textureHeight);
+        glPushAttrib(GL_VIEWPORT_BIT);
+        gl::setMatricesWindow(getWindowSize());
+        gl::draw(mTypeTexture,Rectf(windowWidth-textureWidth,0,windowWidth,textureHeight));
+        glPopAttrib();
+
+    }
     mParams->draw();
+#else
+    // clear out the window with black
+	gl::clear( Color( 0, 0, 0 ) );
+    gl::setMatrices(mCamera);
+    
+    gl::drawCoordinateFrame(4);
+    glPushMatrix();
+    glScalef(0.65f, 0.65f, 0.65f);
+    
+    glDisable(GL_DEPTH_TEST);
+    mTypesetter->debugDrawArea();
+    
+    const vector<Cell*>& cells = mGrid->getCells();
+    
+    glColor3f(0.5f,0,0);
+    for (auto* cell : cells) {
+        cell->debugDrawArea();
+    }
+    mGrid->debugDrawIndices(mCamera);
+    
+    glEnable(GL_DEPTH_TEST);
+    
+    gl::enableAlphaTest();
+    gl::enableAlphaBlending();
+    gl::enableAdditiveBlending();
+    glColor3f(1,1,1);
+    mTypesetter->debugDrawString();
+    gl::enableAdditiveBlending();
+    gl::disableAlphaBlending();
+    gl::disableAlphaTest();
+    glPopMatrix();
 #endif
 
 }
