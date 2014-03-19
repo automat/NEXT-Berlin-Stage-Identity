@@ -74,8 +74,9 @@ void QuoteLayoutApp::prepareSettings(Settings* settings){
 }
 
 void QuoteLayoutApp::setup(){
-    mCameraZoom = 1;
-    mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
+    mCameraZoom = 2;//1;
+    //mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
+    mCamera.lookAt(Vec3f(0,1,0),Vec3f::zero());
     updateView();
 
     mGrid = new Grid(GRID_NUM_XY,GRID_NUM_XY);
@@ -99,14 +100,15 @@ void QuoteLayoutApp::setup(){
     mTypesetter->setAlign(QuoteTypesetter::Align::CENTER);
     mTypesetter->setPadding(0, 0, 0, 1);
     mTypesetter->constrain(false);
+    mTypesetter->manualLineBreak(TYPE_MANUAL_BREAK_CURR);
     
-    updateLayout("Paying by bits");
+    updateLayout("Small string");
     
 #ifdef USE_PARAMS
     vector<string> alignEnumNames = {"left","center","right"};
     
     mParams = params::InterfaceGl::create("controls", Vec2f(200,200));
-    mParams->addParam("Font scale", &TYPE_FONT_SCALE_CURR, "min=0 max=1 step=0.025");
+    mParams->addParam("Font scale", &TYPE_FONT_SCALE_CURR, "min=0 max=1 step=0.001");
     mParams->addParam("Padding T",  &TYPE_CELL_PADDING_T_CURR, "min=0 max=5 step=1");
     mParams->addParam("Padding R",  &TYPE_CELL_PADDING_R_CURR, "min=0 max=5 step=1");
     mParams->addParam("Padding B",  &TYPE_CELL_PADDING_B_CURR, "min=0 max=5 step=1");
@@ -216,7 +218,7 @@ void QuoteLayoutApp::updateParams(){
     }
     
     if(TYPE_MANUAL_BREAK_CURR != TYPE_MANUAL_BREAK_LAST){
-        mTypesetter->manualLineBreak(TYPE_MANUAL_BREAK_CURR);
+        //mTypesetter->manualLineBreak(TYPE_MANUAL_BREAK_CURR);
         updateLayout(TYPE_STRING_LAST);
         TYPE_MANUAL_BREAK_LAST = TYPE_MANUAL_BREAK_CURR;
     }
@@ -237,7 +239,6 @@ void QuoteLayoutApp::updateParams(){
                                 TYPE_CELL_PADDING_B_CURR,
                                 TYPE_CELL_PADDING_L_CURR);
         updateLayout(TYPE_STRING_LAST);
-        
         TYPE_CELL_PADDING_T_LAST = TYPE_CELL_PADDING_T_CURR;
         TYPE_CELL_PADDING_R_LAST = TYPE_CELL_PADDING_R_CURR;
         TYPE_CELL_PADDING_B_LAST = TYPE_CELL_PADDING_B_CURR;
@@ -254,7 +255,7 @@ void QuoteLayoutApp::draw(){
 	gl::clear( Color( 0, 0, 0 ) );
     gl::setMatrices(mCamera);
     
-    //gl::drawCoordinateFrame();
+    gl::drawCoordinateFrame(4);
     glPushMatrix();
     glScalef(0.65f, 0.65f, 0.65f);
 

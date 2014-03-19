@@ -111,35 +111,6 @@ private:
     
     /*--------------------------------------------------------------------------------------------*/
     
-    //! Get position of cell from row
-    inline Vec3f getLinePos(int row){
-        return mGrid->getCell(mCellsIndex[row][0])->getCenter();
-    }
-    
-    //! Get string offset on column according to alignment
-    inline Vec3f getLineOffset(float strWidth, float colWidth){
-        return Vec3f(0, 0, mAlign == Align::RIGHT  ? (-colWidth + strWidth) :
-                           mAlign == Align::CENTER ? (-(colWidth - strWidth) * 0.5f) : 0);
-    }
-
-    //! Get cells indices included by column width in row
-    inline vector<Cell::Index> getLineCells(int row, float width, const Vec3f& offset = Vec3f()){
-        vector<Cell::Index> indices;
-        Vec3f _offset(offset);
-        
-        const vector<Cell*>& cells      = mGrid->getCells();
-        const vector<int>&   rowColumns = mCellsIndex[row];
-        
-        for(auto& column : rowColumns){
-            const Cell* cell = cells[column];
-            if(cell->getArea().contains(_offset)){
-                indices += cell->getIndex();
-            }
-            _offset.x++;
-        }
-
-        return indices;
-    }
     
     //! Get width of string
     inline float measureString(const string& str){
@@ -342,6 +313,37 @@ public:
         mConstrain = b;
     }
     
+private:
+    inline void addQuoteLine(vector<QuoteLine>& target, const string& line, int row){
+        if(line.empty()){
+            return;
+        }
+    
+        const vector<int>&   columns = mCellsIndex[row];
+        const vector<Cell*>& cells   = mGrid->getCells();
+    
+        
+        float lineWidth = measureString(line);
+        float colWidth  = float(columns.size());
+        
+        float offset    = (mAlign == Align::RIGHT  ? (-(colWidth-lineWidth)) :
+                           mAlign == Align::CENTER ? (-(colWidth-lineWidth) * 0.5f) :
+                           0.0f) + 0.5f;
+        
+        vector<Cell::Index> indices;
+        int colIndexBegin = int(round(abs(offset)));
+        int colIndexEnd   = int(round(colWidth - 0.5f)) - colIndexBegin;
+        
+        while(colIndexBegin < colIndexEnd){
+            indices += cells[columns[colIndexBegin++]]->getIndex();
+        }
+        
+        Vec3f posBegin = cells[columns[0]]->getCenter();
+        Vec3f pos = posBegin + Vec3f(0,0,offset);
+        target+= QuoteLine(line, pos, indices);
+    }
+public:
+    
     //! Set the string
     inline bool setString(const string& str){
         if(!mValid){
@@ -402,15 +404,13 @@ public:
             return false;
         }
         
-        int   rowMax   = mCellsIndex.size();
-        int   row      = 0;
-        float colWidth = float(mCellsIndex[row].size());
+        int    rowMax   = mCellsIndex.size();
+        int    row      = 0;
+        float  colWidth = float(mCellsIndex[row].size());
         
         // Check if string allready fits first column
-        if(!hasBr && lineWidth <= mCellsIndex[0].size()){
-            lineOffset  = getLineOffset(lineWidth, colWidth);
-            linePos     = getLinePos(0) + lineOffset;
-            mQuoteLines+= QuoteLine(str, linePos, getLineCells(0, lineWidth));
+        if(!hasBr && lineWidth <= colWidth){
+            addQuoteLine(mQuoteLines, input, row);
             return true;
         }
         
@@ -441,17 +441,12 @@ public:
             }
             
             lineWidth = measureString(line + token);
-            
+            /*
             if(tokenHasBr){
                 if(lineWidth < colWidth){
                     line      += token;
-                    
-                    if(!line.empty()){
-                        lineOffset = getLineOffset(lineWidth, colWidth);
-                        linePos    = getLinePos(row) + lineOffset;
-                        lines     += QuoteLine(line, linePos, getLineCells(row, lineWidth, linePos));
-                    }
-                    
+                    addQuoteLine(lines, line, row)
+       
                     line.clear();
                     space.clear();
                     words.pop_front();
@@ -466,24 +461,21 @@ public:
                     return false;
                 }
             } else {
+             */
+                
                 if(lineWidth< colWidth){
                     line      += token;
-                    lineOffset = getLineOffset(lineWidth, colWidth);
-                    
                     space = " ";
                     words.pop_front();
                 
                 } else {
-                    if(!line.empty()){
-                        linePos = getLinePos(row) + lineOffset;
-                        lines  += QuoteLine(line, linePos, getLineCells(row, lineWidth, linePos));
-                    }
+                    addQuoteLine(lines, line, row);
                     
                     line.clear();
                     space.clear();
                     row++;
                 }
-            }
+            /*}*/
             
             // line breaked string exceeds rows, sorry
             if(row >= rowMax){
@@ -496,10 +488,7 @@ public:
             }
             
             if(words.size() == 0){
-                if(!line.empty()){
-                    linePos = getLinePos(row) + lineOffset;
-                    lines  += QuoteLine(line, linePos, getLineCells(row, lineWidth, linePos));
-                }
+                addQuoteLine(lines, line, row);
             }
          }
         
@@ -598,12 +587,14 @@ public:
         
         for (auto& line : mQuoteLines) {
             glPushMatrix();
-            glTranslatef(line.pos.x,line.pos.y,line.pos.z + 0.5f);
+            //glTranslatef(line.pos.x,line.pos.y,line.pos.z + 0.5f);
+            glTranslatef(line.pos.x,line.pos.y,line.pos.z);
             glColor3f(0.5,0.25,0.25);
             drawStringBoundingBox(line.str);
             glPopMatrix();
             glPushMatrix();
-            glTranslatef(line.pos.x + mFontBaseline,line.pos.y,line.pos.z + 0.5f);
+            //glTranslatef(line.pos.x + mFontBaseline,line.pos.y,line.pos.z + 0.5f);
+            glTranslatef(line.pos.x + mFontBaseline,line.pos.y,line.pos.z);
             glMultMatrixf(&mFontTransMat[0]);
             glScalef(-mFontScale, mFontScale, mFontScale);
             glColor3f(1, 1, 1);
@@ -613,7 +604,7 @@ public:
             glColor3f(0,1,0);
             glLineWidth(10);
             for(auto& index : line.indices){
-                mGrid->getCell(index[0], index[1]);
+                mGrid->getCell(index[0], index[1])->debugDrawArea();
             }
             glLineWidth(1);
         }
