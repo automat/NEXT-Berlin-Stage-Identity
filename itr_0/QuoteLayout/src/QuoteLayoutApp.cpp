@@ -35,7 +35,7 @@ static bool   TYPE_STRING_CONSTRAIN_CURR(TYPE_CONSTRAIN);
 static bool   TYPE_STRING_CONSTRAIN_LAST(TYPE_CONSTRAIN);
 static bool   TYPE_MANUAL_BREAK_CURR(TYPE_MANUAL_BREAK);
 static bool   TYPE_MANUAL_BREAK_LAST(TYPE_MANUAL_BREAK);
-static int    TYPE_ALIGN_CURR(QuoteTypesetter::Align::CENTER);
+static int    TYPE_ALIGN_CURR(QuoteTypesetter::Align::RIGHT);
 static int    TYPE_ALIGN_LAST(TYPE_ALIGN_CURR);
 #endif
 
@@ -74,9 +74,9 @@ void QuoteLayoutApp::prepareSettings(Settings* settings){
 }
 
 void QuoteLayoutApp::setup(){
-    mCameraZoom = 2;//1;
-    //mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
-    mCamera.lookAt(Vec3f(0,1,0),Vec3f::zero());
+    mCameraZoom = 1;
+    mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
+    //mCamera.lookAt(Vec3f(0,1,0),Vec3f::zero());
     updateView();
 
     mGrid = new Grid(GRID_NUM_XY,GRID_NUM_XY);
@@ -97,12 +97,13 @@ void QuoteLayoutApp::setup(){
     
     mTypesetter = new QuoteTypesetter(mGrid, area);
     mTypesetter->setFont(TYPE_FONT_NAME,200,0.7f);
-    mTypesetter->setAlign(QuoteTypesetter::Align::CENTER);
+    mTypesetter->setAlign(static_cast<QuoteTypesetter::Align>(TYPE_ALIGN_CURR));
     mTypesetter->setPadding(0, 0, 0, 1);
     mTypesetter->constrain(false);
     mTypesetter->manualLineBreak(TYPE_MANUAL_BREAK_CURR);
     
-    updateLayout("Small string");
+    //updateLayout("\n\n\nSmall\n\n\n\nstring\n\n \n\n,and\n\n");
+    updateLayout("Small\nstring");
     
 #ifdef USE_PARAMS
     vector<string> alignEnumNames = {"left","center","right"};

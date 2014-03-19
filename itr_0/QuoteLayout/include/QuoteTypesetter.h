@@ -324,22 +324,43 @@ private:
     
         
         float lineWidth = measureString(line);
-        float colWidth  = float(columns.size());
+        int   colSize   = columns.size();
+        float colWidth  = float(colSize);
         
-        float offset    = (mAlign == Align::RIGHT  ? (-(colWidth-lineWidth)) :
-                           mAlign == Align::CENTER ? (-(colWidth-lineWidth) * 0.5f) :
-                           0.0f) + 0.5f;
+        float offsetCenter = 0.5f;
+        
+        float offset = 0.0f;
+        int   colIndexBegin = 0; // first cell of line
+        int   colIndexEnd   = 0; // last cell of line
+        
+        switch (mAlign) {
+            case Align::RIGHT:
+                offset        = -(colWidth-lineWidth);
+                colIndexBegin = int(round(abs(offset + offsetCenter)));
+                colIndexEnd   = MIN(colIndexBegin + colSize,colSize);
+                break;
+                
+            case Align::CENTER:
+                offset        = -(colWidth-lineWidth) * 0.5f;
+                colIndexBegin = int(round(abs(offset + offsetCenter)));
+                colIndexEnd   = colSize - colIndexBegin;
+                break;
+                
+            default:
+                colIndexEnd   = int(round(lineWidth + offsetCenter));
+                break;
+        }
         
         vector<Cell::Index> indices;
-        int colIndexBegin = int(round(abs(offset)));
-        int colIndexEnd   = int(round(colWidth - 0.5f)) - colIndexBegin;
         
         while(colIndexBegin < colIndexEnd){
-            indices += cells[columns[colIndexBegin++]]->getIndex();
+            indices += cells[columns[colIndexBegin]]->getIndex();
+            colIndexBegin++;
         }
         
         Vec3f posBegin = cells[columns[0]]->getCenter();
-        Vec3f pos = posBegin + Vec3f(0,0,offset);
+        Vec3f pos = posBegin + Vec3f(0,0,offset + offsetCenter);
+        
         target+= QuoteLine(line, pos, indices);
     }
 public:
@@ -375,23 +396,24 @@ public:
                 while (input.back() == br) {
                     input.pop_back();
                 }
-                /*
+                
                 // inbetween
                 for(string::iterator itr = input.begin(); itr != input.end() - 1; ++itr){
                     if (*itr == br) {   // current is break
-                        string::iterator _itr(itr);
+                        string::iterator _itr(itr+1);
                         if(*_itr != ' '){
-                            while(*(++_itr) == br){
-                                input.erase(_itr);
+                            //remove double breaks, not seperated by space
+                            while(*(_itr) == br){
+                                input.erase(_itr++);
                             }
-                            _itr = itr + 1;
-                            if(*_itr != ' '){
-                                input.insert(_itr, ' ');
+                            if(*(_itr) != ' ' && *(_itr-1) != ' '){
+                                input.insert(_itr,' ');
                             }
                         }
                     }
                 }
-                */
+                
+                
             }
         }
         
@@ -419,7 +441,7 @@ public:
         
         string token;
         int    tokenNumBr;
-        bool   tokenHasBr;
+        bool   tokenHasBr = false;
         int    tokenCountBr = 0;
         
         string line;
@@ -431,6 +453,7 @@ public:
             token     = space + words.front();
             colWidth  = float(mCellsIndex[row].size());
             
+            
             if(hasBr && tokenCountBr <= numBr){
                 tokenNumBr = count(token.begin(),token.end(),br);
                 tokenHasBr = tokenNumBr != 0;
@@ -441,11 +464,11 @@ public:
             }
             
             lineWidth = measureString(line + token);
-            /*
+            
             if(tokenHasBr){
                 if(lineWidth < colWidth){
                     line      += token;
-                    addQuoteLine(lines, line, row)
+                    addQuoteLine(lines, line, row);
        
                     line.clear();
                     space.clear();
@@ -460,9 +483,10 @@ public:
                     }
                     return false;
                 }
-            } else {
-             */
                 
+                
+                
+            } else {
                 if(lineWidth< colWidth){
                     line      += token;
                     space = " ";
@@ -475,7 +499,7 @@ public:
                     space.clear();
                     row++;
                 }
-            /*}*/
+            }
             
             // line breaked string exceeds rows, sorry
             if(row >= rowMax){
