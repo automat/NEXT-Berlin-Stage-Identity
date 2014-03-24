@@ -10,6 +10,8 @@
 #define QuoteLayout_QuoteTypesetter_h
 #include <boost/assign/std/vector.hpp>
 
+
+
 #include <OpenGL/OpenGL.h>
 
 #include "cinder/gl/gl.h"
@@ -21,8 +23,10 @@
 
 #include "Grid.h"
 #include "Cell.h"
+#include "Quote.h"
 
 #include "Utils.h"
+
 #include <algorithm>
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/algorithm/string/classification.hpp>
@@ -44,6 +48,7 @@ using namespace boost::assign;
 
 class QuoteTypesetter {
 public:
+    
     enum Align {
         LEFT   = 0,
         CENTER = 1,
@@ -56,12 +61,12 @@ private:
     // Quote String
     /*--------------------------------------------------------------------------------------------*/
 
-    struct QuoteLine{
+    struct Line_Internal{
         Vec3f               pos;
         string              str;
         vector<Cell::Index> indices;
-        QuoteLine(){};
-        QuoteLine(const string& str, const Vec3f& pos, const vector<Cell::Index> indices) :
+        Line_Internal(){};
+        Line_Internal(const string& str, const Vec3f& pos, const vector<Cell::Index> indices) :
             str(str),pos(pos),indices(indices){}
     };
     
@@ -96,7 +101,9 @@ private:
     // string / computed lines
     
     bool                    mConstrain;         // string doesnt fit?, draw anyway
-    vector<QuoteLine>       mQuoteLines;        // calculated string segments
+    vector<Line_Internal>   mLines;             // calculated string segments
+    QuoteRef                mQuote;             // current resulting quote
+    
     
     // texture
     
@@ -105,8 +112,6 @@ private:
     bool                    mDebugTexture;      // 
     
     
-    
-    gl::Texture             mTexture;           // resulting texture
     LayoutArea              mTextureArea;
     vector<Rectf>           mCellTexcoords;     // texcoords of cell for texture
 
@@ -220,26 +225,49 @@ public:
     inline void renderToTexture(){
         
         int numCellsX = 0;
-        int numCellsY = mQuoteLines.size();
-        
-        float fboWidth  = mFbo.getWidth(),
-              fboHeight = mFbo.getHeight();
+        int numCellsY = mLines.size();
+        int unitsMax  = 0;
         
         int numIndices;
-        for(auto& line : mQuoteLines){
-            numIndices = mQuoteLines.size();
+        for(auto& line : mLines){
+            numIndices = line.indices.size();
             numCellsX  = MAX(numCellsX, numIndices);
         }
+        
+        unitsMax = MAX(numCellsX,numCellsY);
+        
+        float fboSize   = mFbo.getWidth();
+        float invScale  = fboSize / float(unitsMax);
+        
         
         mFbo.bindFramebuffer();
         
         glPushAttrib(GL_VIEWPORT_BIT);
         gl::setViewport(mFbo.getBounds());
-        gl::setMatricesWindow(mFbo.getSize());
-        gl::clear(Color(1,0,0));
+        gl::setMatricesWindow(mFbo.getSize(),false);
+        gl::clear(ColorA(0,0,0,0));
+        
+        gl::enableAlphaTest();
+        gl::enableAlphaBlending();
+        
+        glPushMatrix();
+        glScalef(invScale,invScale,invScale);
+        
+        glColor3f(1,1,1);
+        Rectf unit(0,0,1,1);
+        gl::drawSolidRect(unit);
+        
+        //gl::drawSolidCircle(Vec2f::zero(), 10);
+        
+        glPopMatrix();
+        
+        gl::disableAlphaBlending();
+        gl::disableAlphaTest();
     
         glPopAttrib();
         mFbo.unbindFramebuffer();
+        
+        mQuote = make_shared<Quote>(vector<Quote::Line>(),mFbo.getTexture());
     }
     
 public:
@@ -344,7 +372,7 @@ public:
     
     //! Clear
     inline void clear(){
-        mQuoteLines.clear();
+        mLines.clear();
     }
     
     inline bool isValid(){
@@ -357,7 +385,7 @@ public:
     }
     
 private:
-    inline void addQuoteLine(vector<QuoteLine>& target, const string& line, int row){
+    inline void addLine_Internal(vector<Line_Internal>& target, const string& line, int row){
         if(line.empty()){
             return;
         }
@@ -403,7 +431,7 @@ private:
         Vec3f posBegin = cells[columns[0]]->getCenter();
         Vec3f pos = posBegin + Vec3f(0,0,offset + offsetCenter);
         
-        target+= QuoteLine(line, pos, indices);
+        target+= Line_Internal(line, pos, indices);
     }
 public:
     
@@ -413,7 +441,7 @@ public:
             return false;
         }
         
-        mQuoteLines.resize(0);
+        mLines.resize(0);
         
         if (str.size() == 0) {
             return true;
@@ -474,7 +502,7 @@ public:
         
         // Check if string allready fits first column
         if(!hasBr && lineWidth <= colWidth){
-            addQuoteLine(mQuoteLines, input, row);
+            addLine_Internal(mLines, input, row);
             return true;
         }
         
@@ -489,7 +517,7 @@ public:
         string line;
         string space;
         
-        vector<QuoteLine> lines;
+        vector<Line_Internal> lines;
         
         while (words.size() > 0) {
             token     = space + words.front();
@@ -509,7 +537,7 @@ public:
             if(tokenHasBr){
                 if(lineWidth < colWidth){
                     line      += token;
-                    addQuoteLine(lines, line, row);
+                    addLine_Internal(lines, line, row);
        
                     line.clear();
                     space.clear();
@@ -519,7 +547,7 @@ public:
                 } else { // manually breaked string exceeds row, sorry
                     // do auto resizing here
                     if(!mConstrain){
-                        mQuoteLines = lines;
+                        mLines = lines;
                         renderToTexture();
                     }
                     return false;
@@ -532,7 +560,7 @@ public:
                     words.pop_front();
                 
                 } else {
-                    addQuoteLine(lines, line, row);
+                    addLine_Internal(lines, line, row);
                     
                     line.clear();
                     space.clear();
@@ -544,25 +572,25 @@ public:
             if(row >= rowMax){
                 // do auto resizing here
                 if(!mConstrain){
-                    mQuoteLines = lines;
+                    mLines = lines;
                     renderToTexture();
                 }
                 return false;
             }
             
             if(words.size() == 0){
-                addQuoteLine(lines, line, row);
+                addLine_Internal(lines, line, row);
             }
          }
         
-        mQuoteLines = lines;
+        mLines = lines;
         
         renderToTexture();
         return true;
     }
     
-    inline const gl::Texture& getTexture(){
-        return mFbo.getTexture();
+    inline QuoteRef getQuote(){
+        return mQuote;
     }
     
     void debugTexture(bool b = true){
@@ -585,14 +613,14 @@ public:
                             mArea.getBL(),
                             mArea.getBR()};
         
-        glColor3f(0, 1, 0);
+        glColor3f(0.5f, 0, 0.125f);
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_FLOAT, 0, &vertices[0].x);
         glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, &indices[0]);
         
         const vector<Cell*>& cells = mGrid->getCells();
         
-        glPointSize(10);
+        glPointSize(5);
         for (auto& row : mCellsIndex) {
             for(auto& column : row){
                 glVertexPointer(3, GL_FLOAT, 0, &cells[column]->getCenter().x);
@@ -648,39 +676,28 @@ public:
     }
     
 private:
-    inline void drawLine(const QuoteLine& line, const Color& color = Color::white(), bool debug = false){
+
+    
+    inline void drawText(const string& str, float scale = 1.0f){
+        scale = mFontScale * scale;
+        
         static const Vec2f zero;
-        if(debug){
-            glPushMatrix();
-            glTranslatef(line.pos.x,0,line.pos.z);
-            glColor3f(0.5f,0.25f,0.25f);
-            glPopMatrix();
-        }
+        
         glPushMatrix();
-            glTranslatef(line.pos.x + mFontBaseline, 0, line.pos.z);
-            glMultMatrixf(&mFontTransMat[0]);
-            glScalef(-mFontScale, mFontScale, mFontScale);
-            glColor3f(color.r,color.g,color.b);
-            mTexFontRef->drawString(line.str, zero);
+        glScalef(-scale, scale, scale);
+        mTexFontRef->drawString(str, zero);
         glPopMatrix();
-        if(debug){
-            glColor3f(0, 1, 0);
-            glLineWidth(10);
-            for(auto& index : line.indices){
-                mGrid->getCell(index[0], index[1])->debugDrawArea();
-            }
-            glLineWidth(1);
-        }
     }
 public:
     
     inline void debugDrawString(){
-        if(!mValid || mQuoteLines.empty()){
+        if(!mValid || mLines.empty()){
             return;
         }
         
-        for (auto& line : mQuoteLines) {
-            /*
+        static const Vec2f zero;
+        
+        for (auto& line : mLines) {
             glPushMatrix();
             //glTranslatef(line.pos.x,line.pos.y,line.pos.z + 0.5f);
             glTranslatef(line.pos.x,line.pos.y,line.pos.z);
@@ -691,9 +708,14 @@ public:
             //glTranslatef(line.pos.x + mFontBaseline,line.pos.y,line.pos.z + 0.5f);
             glTranslatef(line.pos.x + mFontBaseline,line.pos.y,line.pos.z);
             glMultMatrixf(&mFontTransMat[0]);
+            /*
             glScalef(-mFontScale, mFontScale, mFontScale);
             glColor3f(1, 1, 1);
             mTexFontRef->drawString(line.str, zero);
+            
+             */
+            glColor3f(1,1,1);
+            drawText(line.str);
             glPopMatrix();
             
             glColor3f(0,1,0);
@@ -702,8 +724,7 @@ public:
                 mGrid->getCell(index[0], index[1])->debugDrawArea();
             }
             glLineWidth(1);
-            */
-            drawLine(line,Color::white(),true);
+            
         }
     }
     

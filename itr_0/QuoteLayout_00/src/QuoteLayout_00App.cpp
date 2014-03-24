@@ -11,6 +11,7 @@
 #include "LayoutArea.h"
 #include "Cell.h"
 #include "QuoteTypesetter.h"
+#include "Quote.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -31,6 +32,7 @@ static string TYPE_STRING_LAST("");
 static bool   PARAM_TYPE_STRING_CONSTRAIN(TYPE_CONSTRAIN);
 static bool   PARAM_TYPE_MANUAL_BREAK(TYPE_MANUAL_BREAK);
 static int    PARAM_TYPE_ALIGN(QuoteTypesetter::Align::CENTER);
+static bool   PARAM_TYPE_DEBUG_TEXTURE(true);
 static bool   PARAM_TYPE_SHOW_TEXTURE(true);
 
 /*--------------------------------------------------------------------------------------------*/
@@ -50,6 +52,7 @@ public:
     int              mStringsIndex;
     string           mString;
     QuoteTypesetter* mTypesetter;
+    QuoteRef         mQuote;
     gl::Texture      mTypeTexture;
     
     CameraOrtho mCamera;
@@ -125,9 +128,10 @@ void QuoteLayout_00App::setup(){
     mParams->addParam("Padding B",  &PARAM_TYPE_PADDING_B, "min=0 max=5 step=1");
     mParams->addParam("Padding L",  &PARAM_TYPE_PADDING_L, "min=0 max=5 step=1");
     mParams->addParam("Align", alignEnumNames, &PARAM_TYPE_ALIGN);
-    mParams->addParam("Constrain",  &PARAM_TYPE_STRING_CONSTRAIN);
-    mParams->addParam("Manual Break", &PARAM_TYPE_MANUAL_BREAK);
-    mParams->addParam("Show Texture", &PARAM_TYPE_SHOW_TEXTURE);
+    mParams->addParam("Constrain",     &PARAM_TYPE_STRING_CONSTRAIN);
+    mParams->addParam("Manual Break",  &PARAM_TYPE_MANUAL_BREAK);
+    mParams->addParam("Show Texture",  &PARAM_TYPE_SHOW_TEXTURE);
+    mParams->addParam("Debug Texture", &PARAM_TYPE_DEBUG_TEXTURE);
     
     //glEnable(GL_SCISSOR_TEST);
 }
@@ -186,6 +190,7 @@ void QuoteLayout_00App::keyDown(KeyEvent event){
 
 void QuoteLayout_00App::updateLayout(const string& str){
     if(mTypesetter->setString(str)){
+        mQuote = mTypesetter->getQuote();
     }
     TYPE_STRING_LAST = str;
 }
@@ -276,14 +281,14 @@ void QuoteLayout_00App::draw(){
     //  View Texture
     //
     
-    if(PARAM_TYPE_SHOW_TEXTURE){
+    if(PARAM_TYPE_SHOW_TEXTURE && mQuote != nullptr){
         glPushAttrib(GL_VIEWPORT_BIT);
         gl::disableDepthRead();
             gl::setViewport(getWindowBounds());
             gl::setMatricesWindow(getWindowSize());
             glPushMatrix();
             glTranslatef(windowWidth - windowHeight, 0, 0);
-                const gl::Texture& texture = mTypesetter->getTexture();
+                const gl::Texture& texture = mQuote->getTexture();
                 Rectf rect(0,0,windowHeight,windowHeight);
                 glColor3f(1, 0, 1);
                 gl::drawStrokedRect(rect);
@@ -316,7 +321,7 @@ void QuoteLayout_00App::updateParams(){
     static int   paramTypePaddingRPrev        = PARAM_TYPE_PADDING_R;
     static int   paramTypePaddingBPrev        = PARAM_TYPE_PADDING_B;
     static int   paramTypePaddingLPrev        = PARAM_TYPE_PADDING_L;
-    
+    static bool  paramTypeDebugTexturePrev    = PARAM_TYPE_DEBUG_TEXTURE;
     
     if(PARAM_TYPE_FONT_SCALE != paramTypeFontScalePrev){
         mTypesetter->setFontScale(PARAM_TYPE_FONT_SCALE);
@@ -358,6 +363,12 @@ void QuoteLayout_00App::updateParams(){
         paramTypePaddingBPrev = PARAM_TYPE_PADDING_B;
         paramTypePaddingLPrev = PARAM_TYPE_PADDING_L;
     }
+    
+    if(PARAM_TYPE_DEBUG_TEXTURE != paramTypeDebugTexturePrev){
+        mTypesetter->debugTexture(PARAM_TYPE_DEBUG_TEXTURE);
+    }
+    
+    
 }
 
 
