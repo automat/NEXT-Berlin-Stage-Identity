@@ -63,11 +63,12 @@ private:
 
     struct Line_Internal{
         Vec3f               pos;
+        float               offset;
         string              str;
         vector<Cell::Index> indices;
         Line_Internal(){};
-        Line_Internal(const string& str, const Vec3f& pos, const vector<Cell::Index> indices) :
-            str(str),pos(pos),indices(indices){}
+        Line_Internal(const string& str, const Vec3f& pos, float offset, const vector<Cell::Index> indices) :
+            str(str),pos(pos),offset(offset),indices(indices){}
     };
     
     /*--------------------------------------------------------------------------------------------*/
@@ -101,6 +102,7 @@ private:
     // string / computed lines
     
     bool                    mConstrain;         // string doesnt fit?, draw anyway
+    bool                    mBalancedBaseline;  // if ascent is less then descent, shift baselin
     vector<Line_Internal>   mLines;             // calculated string segments
     QuoteRef                mQuote;             // current resulting quote
     
@@ -157,7 +159,7 @@ private:
         vector<int> cellsIndex;
         int gridNumCellsX = mGrid->getNumCellsX();
         
-        for(auto* cell : cells){
+        for(const auto* cell : cells){
             if(mArea.contains(cell->getArea())){
                 cellsIndex += cell->getIndex()[0] * gridNumCellsX + cell->getIndex()[1];
             }
@@ -221,53 +223,101 @@ private:
         mValid = mCellsIndex.size() != 0;
     }
     
-public:
-    inline void renderToTexture(){
+    //! create Quote output
+    inline void createQuote(){
+        int numLines  = mLines.size();
+        vector<int>   indices;
+        vector<Vec2f> texcoords;
         
         int numCellsX = 0;
-        int numCellsY = mLines.size();
-        int unitsMax  = 0;
-        
+        int numCellsY = numLines;
         int numIndices;
-        for(auto& line : mLines){
+       
+        vector<Quote::Line> lines;
+        
+        for(const auto& line : mLines){
             numIndices = line.indices.size();
             numCellsX  = MAX(numCellsX, numIndices);
         }
         
-        unitsMax = MAX(numCellsX,numCellsY);
+        int unitsMax = MAX(numCellsX,numCellsY);
         
         float fboSize   = mFbo.getWidth();
         float invScale  = fboSize / float(unitsMax);
         
+        static const Rectf unit(0,0,1,1);
+        static const Vec2f zero;
+        
+       // vector<Vec2f> texcoords;
         
         mFbo.bindFramebuffer();
         
         glPushAttrib(GL_VIEWPORT_BIT);
-        gl::setViewport(mFbo.getBounds());
-        gl::setMatricesWindow(mFbo.getSize(),false);
-        gl::clear(ColorA(0,0,0,0));
+            gl::setViewport(mFbo.getBounds());
+            gl::setMatricesWindow(mFbo.getSize(),false);
+            gl::clear(ColorA(0,0,0,0));
         
-        gl::enableAlphaTest();
-        gl::enableAlphaBlending();
+            gl::disableDepthRead();
+            gl::enableAlphaTest();
+            gl::enableAlphaBlending();
         
-        glPushMatrix();
-        glScalef(invScale,invScale,invScale);
+            glPushMatrix();
+                glScalef(invScale,invScale,invScale);
         
-        glColor3f(1,1,1);
-        Rectf unit(0,0,1,1);
-        gl::drawSolidRect(unit);
-        
-        //gl::drawSolidCircle(Vec2f::zero(), 10);
-        
-        glPopMatrix();
-        
-        gl::disableAlphaBlending();
-        gl::disableAlphaTest();
+                int i = -1;
+                int j;
+                for(const auto& line : mLines){
+                    numIndices = line.indices.size();
+                    
+                    //
+                    //  Add line data
+                    //
+                    
+                    texcoords.resize(0);
+                    
+                    
+                    
+                    //
+                    // Draw line to texture
+                    //
+                    glPushMatrix();
+                        glTranslatef(0,++i,0);
+                            glColor3f(0,0,0.25f);
+                            glLineWidth(10);
+                            glPushMatrix();
+                                j = -1;
+                                while(++j < numIndices){
+                                    glPushMatrix();
+                                        glTranslatef(j, 0, 0);
+                                        gl::drawStrokedRect(unit);
+                                    glPopMatrix();
+                                }
+                            glPopMatrix();
+                            glLineWidth(1);
+                            glPushMatrix();
+                                glTranslatef(line.offset,0.5f + mFontBaseline,0);
+                                glScalef(mFontScale, mFontScale, mFontScale);
+                                glColor3f(1,1,1);
+                                mTexFontRef->drawString(line.str, zero);
+                            glPopMatrix();
+                    glPopMatrix();
+                    
+                    //
+                    //  push it
+                    //
+                    //lines += Quote::Line(line.indices, texcoords);
+                    
+                    
+                }
+            glPopMatrix();
+      
+            gl::disableAlphaBlending();
+            gl::disableAlphaTest();
     
         glPopAttrib();
         mFbo.unbindFramebuffer();
         
-        mQuote = make_shared<Quote>(vector<Quote::Line>(),mFbo.getTexture());
+        mQuote = make_shared<Quote>(lines,mFbo.getTexture());
     }
     
 public:
@@ -399,18 +449,21 @@ private:
         
         float offsetCenter = 0.5f;
         
+        float offsetNorm = 0.0f;
         float offset = 0.0f;
         int   colIndexBegin = 0; // first cell of line
         int   colIndexEnd   = 0; // last cell of line
         
         switch (mAlign) {
             case Align::RIGHT:
+                offsetNorm    = colWidth;
                 offset        = -(colWidth-lineWidth);
                 colIndexBegin = int(round(abs(offset + offsetCenter)));
                 colIndexEnd   = MIN(colIndexBegin + colSize,colSize);
                 break;
                 
             case Align::CENTER:
+                offsetNorm    = lineWidth;
                 offset        = -(colWidth-lineWidth) * 0.5f;
                 colIndexBegin = int(round(abs(offset + offsetCenter)));
                 colIndexEnd   = colSize - colIndexBegin;
@@ -428,10 +481,22 @@ private:
             colIndexBegin++;
         }
         
+        // for texture
+        switch (mAlign) {
+            case Align::RIGHT:
+                offsetNorm = float(indices.size() - lineWidth);
+                break;
+            case Align::CENTER:
+                offsetNorm = (float(indices.size()) - lineWidth) * 0.5f;
+                break;
+            default:
+                break;
+        }
+       
+        
         Vec3f posBegin = cells[columns[0]]->getCenter();
         Vec3f pos = posBegin + Vec3f(0,0,offset + offsetCenter);
-        
-        target+= Line_Internal(line, pos, indices);
+        target+= Line_Internal(line, pos, offsetNorm, indices);
     }
 public:
     
@@ -444,6 +509,7 @@ public:
         mLines.resize(0);
         
         if (str.size() == 0) {
+            createQuote();
             return true;
         }
         
@@ -482,8 +548,6 @@ public:
                         }
                     }
                 }
-                
-                
             }
         }
         
@@ -503,6 +567,7 @@ public:
         // Check if string allready fits first column
         if(!hasBr && lineWidth <= colWidth){
             addLine_Internal(mLines, input, row);
+            createQuote();
             return true;
         }
         
@@ -548,7 +613,7 @@ public:
                     // do auto resizing here
                     if(!mConstrain){
                         mLines = lines;
-                        renderToTexture();
+                        createQuote();
                     }
                     return false;
                 }
@@ -573,7 +638,7 @@ public:
                 // do auto resizing here
                 if(!mConstrain){
                     mLines = lines;
-                    renderToTexture();
+                    createQuote();
                 }
                 return false;
             }
@@ -585,7 +650,7 @@ public:
         
         mLines = lines;
         
-        renderToTexture();
+        createQuote();
         return true;
     }
     
@@ -621,8 +686,8 @@ public:
         const vector<Cell*>& cells = mGrid->getCells();
         
         glPointSize(5);
-        for (auto& row : mCellsIndex) {
-            for(auto& column : row){
+        for (const auto& row : mCellsIndex) {
+            for(const auto& column : row){
                 glVertexPointer(3, GL_FLOAT, 0, &cells[column]->getCenter().x);
                 glDrawArrays(GL_POINTS, 0, 1);
             }
@@ -697,7 +762,7 @@ public:
         
         static const Vec2f zero;
         
-        for (auto& line : mLines) {
+        for (const auto& line : mLines) {
             glPushMatrix();
             //glTranslatef(line.pos.x,line.pos.y,line.pos.z + 0.5f);
             glTranslatef(line.pos.x,line.pos.y,line.pos.z);
@@ -720,7 +785,7 @@ public:
             
             glColor3f(0,1,0);
             glLineWidth(10);
-            for(auto& index : line.indices){
+            for(const auto& index : line.indices){
                 mGrid->getCell(index[0], index[1])->debugDrawArea();
             }
             glLineWidth(1);

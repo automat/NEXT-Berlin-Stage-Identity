@@ -100,7 +100,7 @@ void QuoteLayout_00App::setup(){
     area *= Matrix44f::createRotation(Vec3f::yAxis(), M_PI / 4);
     
     mTypesetter = new QuoteTypesetter(mGrid, area);
-    mTypesetter->setFont(TYPE_FONT_NAME,200,0.7f);
+    mTypesetter->setFont(TYPE_FONT_NAME,400,0.7f);
     mTypesetter->setAlign(static_cast<QuoteTypesetter::Align>(PARAM_TYPE_ALIGN));
     mTypesetter->setPadding(0, 0, 0, 1);
     mTypesetter->constrain(false);
@@ -249,7 +249,7 @@ void QuoteLayout_00App::draw(){
         gl::setViewport(Area(Rectf(0,viewportPosY,viewportWidth,viewportPosY+viewportHeight)));
         gl::setMatrices(mCamera);
     
-        gl::drawCoordinateFrame(4);
+        // gl::drawCoordinateFrame(4);
     
         glPushMatrix();
             glScalef(0.65f, 0.65f, 0.65f);

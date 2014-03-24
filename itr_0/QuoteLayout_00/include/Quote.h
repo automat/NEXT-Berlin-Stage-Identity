@@ -56,6 +56,10 @@ public:
     inline const gl::Texture& getTexture() const{
         return mTexture;
     }
+    
+    inline bool isEmpty(){
+        return mLines.empty();
+    }
 };
 
 
