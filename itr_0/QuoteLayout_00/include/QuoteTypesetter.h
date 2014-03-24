@@ -231,19 +231,15 @@ public:
             numCellsX  = MAX(numCellsX, numIndices);
         }
         
-       
+        mFbo.bindFramebuffer();
+        
         glPushAttrib(GL_VIEWPORT_BIT);
         gl::setViewport(mFbo.getBounds());
-        mFbo.bindFramebuffer();
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glClearColor(1, 0, 1, 1);
+        gl::setMatricesWindow(mFbo.getSize());
+        gl::clear(Color(1,0,0));
     
-        
-        glColor3f(1,0,0);
-        gl::drawSolidCircle(Vec2f::zero(), 0.25f);
-
-        mFbo.unbindFramebuffer();
         glPopAttrib();
+        mFbo.unbindFramebuffer();
     }
     
 public:
@@ -260,21 +256,23 @@ public:
         mConstrain(true),
         mTextureSize(2048),
         mDebugTexture(false){
+            //
             // Init props
+            //
             mTexFontFormat.enableMipmapping();
             mTexFontFormat.premultiply();
             mTexFontFormat.textureWidth(2048);
             mTexFontFormat.textureHeight(2048);
             
+            //
             // Init Fbo
+            //
             gl::Fbo::Format fboFormat;
             fboFormat.setSamples(4);
             //fboFormat.setColorInternalFormat(GL_RGBA_FLOAT32_APPLE);
             fboFormat.setWrap(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
             
-            //mFbo = gl::Fbo(mTextureSize,mTextureSize, fboFormat);
-            
-            mFbo = gl::Fbo(mTextureSize,mTextureSize);
+            mFbo = gl::Fbo(mTextureSize,mTextureSize, fboFormat);
             
             // Init defaults
             setPadding(0, 0, 0, 0);
