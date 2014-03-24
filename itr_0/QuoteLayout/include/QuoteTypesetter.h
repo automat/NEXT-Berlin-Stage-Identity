@@ -216,9 +216,14 @@ private:
         mValid = mCellsIndex.size() != 0;
     }
     
+public:
     inline void renderToTexture(){
+        /*
         int numCellsX = 0;
         int numCellsY = mQuoteLines.size();
+        
+        float fboWidth  = mFbo.getWidth(),
+              fboHeight = mFbo.getHeight();
         
         int numIndices;
         for(auto& line : mQuoteLines){
@@ -226,19 +231,16 @@ private:
             numCellsX  = MAX(numCellsX, numIndices);
         }
         
+        */
+        
+
+        
         mFbo.bindFramebuffer();
-        glPushAttrib(GL_VIEWPORT_BIT);
-        gl::setMatricesWindow(mFbo.getSize(), true);
-        gl::enableAlphaTest();
-        gl::enableAlphaBlending();
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glClearColor(1,0,0,1);
+        glClearColor(1,0,1,1);
+
         
-        
-        
-        glPopAttrib();
-        gl::disableAlphaBlending();
-        gl::disableAlphaTest();
         mFbo.unbindFramebuffer();
     }
     
@@ -265,10 +267,12 @@ public:
             // Init Fbo
             gl::Fbo::Format fboFormat;
             fboFormat.setSamples(4);
-            fboFormat.setColorInternalFormat(GL_RGBA_FLOAT32_APPLE);
+            //fboFormat.setColorInternalFormat(GL_RGBA_FLOAT32_APPLE);
             fboFormat.setWrap(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
             
-            mFbo = gl::Fbo(mTextureSize,mTextureSize, fboFormat);
+            //mFbo = gl::Fbo(mTextureSize,mTextureSize, fboFormat);
+            
+            mFbo = gl::Fbo(mTextureSize,mTextureSize);
             
             // Init defaults
             setPadding(0, 0, 0, 0);

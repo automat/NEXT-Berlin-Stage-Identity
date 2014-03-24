@@ -54,6 +54,8 @@ class QuoteLayoutApp : public AppNative {
     CameraOrtho mCamera;
     float       mCameraZoom;
     
+    gl::Fbo mFbo;
+    
     void updateLayout(const string& str);
     void updateTexture();
 #ifdef USE_PARAMS
@@ -97,6 +99,13 @@ void QuoteLayoutApp::setup(){
     mTypesetter->constrain(false);
     mTypesetter->manualLineBreak(PARAM_TYPE_MANUAL_BREAK);
     mTypesetter->debugTexture();
+    
+    mFbo = gl::Fbo(1024,1024);
+    mFbo.bindFramebuffer();
+    gl::setViewport(mFbo.getBounds());
+    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    glClearColor(1, 1, 1, 1);
+    mFbo.unbindFramebuffer();
     
     //updateLayout("\n\n\nSmall\n\n\n\nstring\n\n \n\n,and\n\n");
     updateLayout("Small\nstring");
@@ -302,8 +311,8 @@ void QuoteLayoutApp::draw(){
         viewportWidthPrev = viewportWidth;
     }
     
-    glPushAttrib(GL_VIEWPORT_BIT);
-    glScissor(viewportPosX, viewportPosY, viewportWidth, viewportHeight);
+    //glPushAttrib(GL_VIEWPORT_BIT);
+    //glScissor(viewportPosX, viewportPosY, viewportWidth, viewportHeight);
     // clear out the window with black
 	gl::clear( Color( 0, 0, 0 ) );
     
@@ -339,22 +348,20 @@ void QuoteLayoutApp::draw(){
     gl::disableAlphaTest();
     glPopMatrix();
 
-    glPopAttrib();
+    //glPopAttrib();
     
-	
     if(PARAM_TYPE_SHOW_TEXTURE){
-        float textureWidth  = windowHeight,
-              textureHeight = windowHeight;
-        float texturePosX   = windowWidth - textureWidth,
-              texturePosY   = 0;
+        glDisable(GL_DEPTH_TEST);
+        glEnable(GL_TEXTURE_2D);
+        gl::setMatricesWindow(getWindowSize(),true);
+        gl::draw(mFbo.getTexture(), Rectf(0,0,windowHeight,windowHeight));
+        //mTypesetter->renderToTexture();
+        glEnable(GL_DEPTH_TEST);
+        glDisable(GL_TEXTURE_2D);
+        //gl::setWindowMatrices(
         
-        glScissor(texturePosX, texturePosY, textureWidth, textureHeight);
-        glPushAttrib(GL_VIEWPORT_BIT);
-        gl::setMatricesWindow(getWindowSize());
-        gl::draw(mTypeTexture,Rectf(windowWidth-textureWidth,0,windowWidth,textureHeight));
-        glPopAttrib();
-
     }
+    
     mParams->draw();
 #else
     // clear out the window with black

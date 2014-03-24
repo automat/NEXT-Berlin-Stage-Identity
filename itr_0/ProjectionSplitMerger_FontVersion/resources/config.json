@@ -9,7 +9,7 @@
     },
     
     "Window" : {
-        "ProjectionScale" : 2,     // for dev, inv scaling the projection size to screen
+        "ProjectionScale" : 1,     // for dev, inv scaling the projection size to screen
         "Rezisable"       : false, // for dev
         "Borderless"      : true,  // for dev
         "Display"         : 0,     // Main display, 2nd screen right
@@ -17,7 +17,7 @@
         "AlwaysOnTop"     : true,
         "Position"        : {
             "x" : 0,
-            "y" : 0
+            "y" : 50
         }
     },
     
