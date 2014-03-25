@@ -19,8 +19,9 @@
 #include "cinder/gl/Texture.h"
 #include "cinder/gl/TextureFont.h"
 #include "cinder/gl/Fbo.h"
-#include "LayoutArea.h"
+#include "cinder/Utilities.h"
 
+#include "LayoutArea.h"
 #include "Grid.h"
 #include "Cell.h"
 #include "Quote.h"
@@ -80,19 +81,22 @@ private:
     
     gl::TextureFont::Format mTexFontFormat;
     gl::TextureFontRef      mTexFontRef;        // font to be used
+    float                   mFontAscent;        // font ascent
+    float                   mFontDescent;       // font descent
     float                   mFontScale;
-    float                   mFontBaseline;
-    float                   mFontAscentline;
-    float                   mFontDescentline;
+    float                   mFontScaleNorm;
+    float                   mFontBaseline;      // text draw aling baseline
+    float                   mFontAscentline;    // text draw align ascent
+    float                   mFontDescentline;   // text draw align descent
     Matrix44f               mFontTransMat;      // font 3d translation matrix
     
     Align                   mAlign;             // left / right / center
-    bool                    mManualBr;
+    bool                    mManualBr;          // flag, whether manual linbreaks should be processed
     
     // line length
     
-    float                   mStringWidthMax;
-    int                     mColLengthMin;
+    float                   mStringWidthMax;    // maximum length of string according to cells
+    int                     mColLengthMin;      // minumum number of cells a columnt should have
     
     // grid / area
     
@@ -102,7 +106,7 @@ private:
     vector<vector<int>>     mCellsIndex;        // cells indices defined by area
     
     // string / computed lines
-    
+   
     bool                    mConstrain;         // string doesnt fit?, draw anyway
     bool                    mBalancedBaseline;  // if ascent is less then descent, shift baselin
     vector<Line_Internal>   mLines;             // calculated string segments
@@ -111,13 +115,9 @@ private:
     
     // texture
     
-    int                     mTextureSize;
-    gl::Fbo                 mFbo;
-    bool                    mDebugTexture;      //
-    
-    
-    LayoutArea              mTextureArea;
-    vector<Rectf>           mCellTexcoords;     // texcoords of cell for texture
+    int                     mTextureSize;       // Size of output texture
+    gl::Fbo                 mFbo;               // fbo drawn to
+    bool                    mDebugTexture;      // flag, wheter texture should show cells, and type measurements
     
     // general
     
@@ -242,16 +242,15 @@ private:
             numCellsX  = MAX(numCellsX, numIndices);
         }
         
-        int unitsMax = MAX(numCellsX,numCellsY);
+        int   unitsMax  = MAX(numCellsX,numCellsY);
+        float unitsMaxf = float(unitsMax);
         
         float fboSize   = mFbo.getWidth();
-        float invScale  = fboSize / float(unitsMax);
-        float stepUV    = 1.0f / float(unitsMax);
+        float invScale  = fboSize / unitsMaxf;
+        float stepUV    = 1.0f / unitsMaxf;
         
         static const Rectf unit(0,0,1,1);
         static const Vec2f zero;
-        
-        // vector<Vec2f> texcoords;
         
         mFbo.bindFramebuffer();
         
@@ -267,12 +266,11 @@ private:
         glPushMatrix();
         glScalef(invScale,invScale,invScale);
         
-        int i,j;
-        
         //
         //  Put data
         //
         
+        int i,j;
         Vec2f down(0,stepUV);
         
         i = 0;
@@ -290,29 +288,28 @@ private:
         }
         
         //
-        //  Draw
+        //  Draw debug
         //
-        
-        // Debug
         if(mDebugTexture){
+            static const gl::TextureFontRef debugFont = gl::TextureFont::create(Font("Apercu Mono",40));
+            static const Vec2f debugFontOffsetT(0,debugFont->getFont().getSize() - debugFont->getDescent());
+            static const Vec2f debugFontOffsetB(0,-debugFont->getDescent());
+            static const float debugFontScale(0.00075f);
+            
+            int numLines = mLines.size();
             Vec2f lineProperty;
             i = -1;
-            for(const auto& line : mLines){
+            while(++i < numLines){
+                const Line_Internal& line = mLines[i];
+                const Quote::Line& line_ = lines[i];
+                
                 numIndices = line.indices.size();
-                
-                //
-                //  Add line data
-                //
-                
-       
-                
-                
                 
                 //
                 // Draw line to texture
                 //
                 glPushMatrix();
-                glTranslatef(0,++i,0);
+                glTranslatef(0,i,0);
                     glColor3f(0,0,0.25f);
                     glLineWidth(10);
                     glPushMatrix();
@@ -324,14 +321,22 @@ private:
                             glPopMatrix();
                         }
                     glPopMatrix();
+            
                 glLineWidth(1);
                     glPushMatrix();
+                        //
+                        //  Draw ascent / baselin / descent
+                        //
                         glLineWidth(5);
-                        glEnable(GL_LINE_STIPPLE);
-                        glLineStipple(20, 0xAAAA);
-                
                         static const Vec2f p0;
                         Vec2f p1(float(numIndices),0);
+                
+                        glColor3f(0,0.25f,0.25f);
+                        lineProperty.y = 0.5f;
+                        gl::drawLine(p0 + lineProperty, p1 + lineProperty);
+                
+                        glEnable(GL_LINE_STIPPLE);
+                        glLineStipple(20, 0xAAAA);
                 
                         lineProperty.y = mFontAscentline + 0.5f;
                         glColor3f(1,0,0);
@@ -345,31 +350,78 @@ private:
                         glColor3f(1,0,1);
                         gl::drawLine(p0 + lineProperty,p1 + lineProperty);
                 
-                
                         glDisable(GL_LINE_STIPPLE);
                         glLineWidth(1);
                 
+                        //
+                        //  Draw string
+                        //
                         glTranslatef(line.offset,0.5f + mFontBaseline,0);
-                
-                
-
-                
-                
                         glScalef(mFontScale, mFontScale, mFontScale);
                         glColor3f(1,1,1);
                         mTexFontRef->drawString(line.str, zero);
                     glPopMatrix();
                 glPopMatrix();
+                
+                //
+                //  Draw texcoords
+                //
+                glPushMatrix();
+                    glTranslatef(0, i, 0);
+                    glColor3f(0,0.25f,0.25f);
+                    
+                    const Vec2f& tl = line_.getTexcoords()[0];
+                    const Vec2f& tr = line_.getTexcoords()[1];
+                    const Vec2f& bl = line_.getTexcoords()[2];
+                    const Vec2f& br = line_.getTexcoords()[3];
+                    string tls = toString(tl);
+                    string trs = toString(tr);
+                    string bls = toString(bl);
+                    string brs = toString(br);
+                    
+                    glPushMatrix();
+                        glScalef(unitsMaxf,unitsMaxf,unitsMaxf);
+                        glScalef(debugFontScale,debugFontScale,debugFontScale);
+                        debugFont->drawString(tls, debugFontOffsetT);
+                    glPopMatrix();
+                    
+                    glPushMatrix();
+                        glTranslatef(float(numIndices) - debugFont->measureString(trs).x / invScale * 1.5f, 0, 0);
+                        glScalef(unitsMaxf,unitsMaxf,unitsMaxf);
+                        glScalef(debugFontScale,debugFontScale,debugFontScale);
+                        debugFont->drawString(trs, debugFontOffsetT);
+                    glPopMatrix();
+                    
+                    glPushMatrix();
+                        glTranslatef(0, 1, 0);
+                        glScalef(unitsMaxf,unitsMaxf,unitsMaxf);
+                        glScalef(debugFontScale,debugFontScale,debugFontScale);
+                        debugFont->drawString(bls, debugFontOffsetB);
+                    glPopMatrix();
+                    
+                    glPushMatrix();
+                        glTranslatef(float(numIndices) - debugFont->measureString(brs).x / invScale * 1.5f, 1, 0);
+                        glScalef(unitsMaxf,unitsMaxf,unitsMaxf);
+                        glScalef(debugFontScale,debugFontScale,debugFontScale);
+                        debugFont->drawString(brs, debugFontOffsetB);
+                    glPopMatrix();
+           
+                glPopMatrix();
             }
             
         //
-        //  Normal
+        //  Draw Normal
         //
-            
         } else {
-            
-            
-            
+            i = -1;
+            for(const auto& line : mLines){
+                glPushMatrix();
+                    glTranslatef(line.offset, 0.5f + mFontBaseline + (++i), 0);
+                    glScalef(mFontScale, mFontScale, mFontScale);
+                    glColor3f(1,1,1);
+                    mTexFontRef->drawString(line.str, zero);
+                glPopMatrix();
+            }
         }
         
         glPopMatrix();
@@ -453,7 +505,8 @@ public:
     mManualBr(false),
     mConstrain(true),
     mTextureSize(2048),
-    mDebugTexture(false){
+    mDebugTexture(false),
+    mBalancedBaseline(false){
         //
         // Init props
         //
@@ -481,6 +534,21 @@ public:
     /*--------------------------------------------------------------------------------------------*/
     // Methods
     /*--------------------------------------------------------------------------------------------*/
+    
+    //! Enable/Disable balanced baseline
+    inline void balanceBaseline(bool b = true){
+        mBalancedBaseline = b;
+        
+        if(mBalancedBaseline){
+            mFontBaseline    = (abs(mFontAscent) - abs(mFontDescent)) * 0.5f;
+            mFontDescentline = mFontBaseline + mFontDescent;
+            mFontAscentline  = mFontDescentline - mFontAscent;
+        } else {
+            mFontDescentline = 0.5f * mFontScaleNorm;
+            mFontBaseline    = mFontDescentline - mFontDescent;
+            mFontAscentline  = mFontDescentline - mFontAscent;
+        }
+    }
     
     //! Enable/Disable manual linebreaks
     inline void manualLineBreak(bool b){
@@ -518,14 +586,34 @@ public:
     //! Set font scale
     inline void setFontScale(float scale){
         float fontSize = mTexFontRef->getFont().getSize();
-        mFontScale     = 1.0f / fontSize * scale;
+        mFontScaleNorm = scale;
         
-        float ascent  = mTexFontRef->getAscent()  / fontSize * scale;
-        float descent = mTexFontRef->getDescent() / fontSize * scale;
+        if(mBalancedBaseline){
+            float fontScale   = 1.0f / fontSize * mFontScaleNorm;
+            float fontAscent  = mTexFontRef->getAscent() / fontSize * mFontScaleNorm;
+            float fontDescent = mTexFontRef->getDescent() / fontSize * mFontScaleNorm;
+            
+            static const float threshold = 1.0f;
+            static const float scaleStep = 0.9995f;
+            
+            // make sure the descentline doesnt exceed the cells height,
+            // otherwise scale down till it fits
+            while((fontAscent + fontDescent) > threshold){
+                fontScale   *= scaleStep;
+                fontAscent  *= scaleStep;
+                fontDescent *= scaleStep;
+            }
+            
+            mFontScale     = fontScale;
+            mFontAscent    = fontAscent;
+            mFontDescent   = fontDescent;
+        } else {
+            mFontScale     = 1.0f / fontSize * mFontScaleNorm;
+            mFontAscent    = mTexFontRef->getAscent()  / fontSize * mFontScaleNorm;
+            mFontDescent   = mTexFontRef->getDescent() / fontSize * mFontScaleNorm;
+        }
         
-        mFontDescentline = 0.5f * scale;
-        mFontBaseline    = mFontDescentline - descent;
-        mFontAscentline  = mFontDescentline - ascent;
+        balanceBaseline(mBalancedBaseline);
     }
     
     //! Set the font
@@ -845,11 +933,6 @@ public:
             
         }
     }
-    
-    inline void debugDrawTexture(){
-        
-    }
-    
 };
 
 

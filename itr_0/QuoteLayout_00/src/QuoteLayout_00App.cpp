@@ -32,6 +32,7 @@ static string TYPE_STRING_LAST("");
 static bool   PARAM_TYPE_STRING_CONSTRAIN(TYPE_CONSTRAIN);
 static bool   PARAM_TYPE_MANUAL_BREAK(TYPE_MANUAL_BREAK);
 static int    PARAM_TYPE_ALIGN(QuoteTypesetter::Align::CENTER);
+static bool   PARAM_TYPE_BALANCED_BASELINE(true);
 static bool   PARAM_TYPE_DEBUG_TEXTURE(true);
 static bool   PARAM_TYPE_SHOW_TEXTURE(true);
 
@@ -100,12 +101,14 @@ void QuoteLayout_00App::setup(){
     area *= Matrix44f::createRotation(Vec3f::yAxis(), M_PI / 4);
     
     mTypesetter = new QuoteTypesetter(mGrid, area);
-    mTypesetter->setFont(TYPE_FONT_NAME,400,0.7f);
+    mTypesetter->balanceBaseline();
+    mTypesetter->setFont(TYPE_FONT_NAME,200,0.7f);
     mTypesetter->setAlign(static_cast<QuoteTypesetter::Align>(PARAM_TYPE_ALIGN));
     mTypesetter->setPadding(0, 0, 0, 1);
     mTypesetter->constrain(false);
     mTypesetter->manualLineBreak(PARAM_TYPE_MANUAL_BREAK);
     mTypesetter->debugTexture();
+
     
     mFbo = gl::Fbo(100,100);
     mFbo.bindFramebuffer();
@@ -121,17 +124,18 @@ void QuoteLayout_00App::setup(){
     
     vector<string> alignEnumNames = {"left","center","right"};
     
-    mParams = params::InterfaceGl::create("controls", Vec2f(200,200));
+    mParams = params::InterfaceGl::create("controls", Vec2f(200,250));
     mParams->addParam("Font scale", &PARAM_TYPE_FONT_SCALE, "min=0 max=1 step=0.001");
     mParams->addParam("Padding T",  &PARAM_TYPE_PADDING_T, "min=0 max=5 step=1");
     mParams->addParam("Padding R",  &PARAM_TYPE_PADDING_R, "min=0 max=5 step=1");
     mParams->addParam("Padding B",  &PARAM_TYPE_PADDING_B, "min=0 max=5 step=1");
     mParams->addParam("Padding L",  &PARAM_TYPE_PADDING_L, "min=0 max=5 step=1");
     mParams->addParam("Align", alignEnumNames, &PARAM_TYPE_ALIGN);
-    mParams->addParam("Constrain",     &PARAM_TYPE_STRING_CONSTRAIN);
-    mParams->addParam("Manual Break",  &PARAM_TYPE_MANUAL_BREAK);
-    mParams->addParam("Show Texture",  &PARAM_TYPE_SHOW_TEXTURE);
-    mParams->addParam("Debug Texture", &PARAM_TYPE_DEBUG_TEXTURE);
+    mParams->addParam("Constrain",        &PARAM_TYPE_STRING_CONSTRAIN);
+    mParams->addParam("Manual Break",     &PARAM_TYPE_MANUAL_BREAK);
+    mParams->addParam("Show Texture",     &PARAM_TYPE_SHOW_TEXTURE);
+    mParams->addParam("Debug Texture",    &PARAM_TYPE_DEBUG_TEXTURE);
+    mParams->addParam("Balance Baseline", &PARAM_TYPE_BALANCED_BASELINE);
     
     //glEnable(GL_SCISSOR_TEST);
 }
@@ -330,6 +334,7 @@ void QuoteLayout_00App::updateParams(){
     static int   paramTypePaddingRPrev        = PARAM_TYPE_PADDING_R;
     static int   paramTypePaddingBPrev        = PARAM_TYPE_PADDING_B;
     static int   paramTypePaddingLPrev        = PARAM_TYPE_PADDING_L;
+    static bool  paramTypeBalencedBaseline    = PARAM_TYPE_BALANCED_BASELINE;
     static bool  paramTypeDebugTexturePrev    = PARAM_TYPE_DEBUG_TEXTURE;
     
     if(PARAM_TYPE_FONT_SCALE != paramTypeFontScalePrev){
@@ -357,6 +362,12 @@ void QuoteLayout_00App::updateParams(){
         paramTypeAlignPrev = PARAM_TYPE_ALIGN;
     }
     
+    if(PARAM_TYPE_BALANCED_BASELINE != paramTypeBalencedBaseline){
+        mTypesetter->balanceBaseline(PARAM_TYPE_BALANCED_BASELINE);
+        updateLayout(TYPE_STRING_LAST);
+        paramTypeBalencedBaseline = PARAM_TYPE_BALANCED_BASELINE;
+    }
+    
     if(PARAM_TYPE_PADDING_T != paramTypePaddingTPrev ||
        PARAM_TYPE_PADDING_R != paramTypePaddingRPrev ||
        PARAM_TYPE_PADDING_B != paramTypePaddingBPrev ||
@@ -375,6 +386,8 @@ void QuoteLayout_00App::updateParams(){
     
     if(PARAM_TYPE_DEBUG_TEXTURE != paramTypeDebugTexturePrev){
         mTypesetter->debugTexture(PARAM_TYPE_DEBUG_TEXTURE);
+        updateLayout(TYPE_STRING_LAST);
+        paramTypeDebugTexturePrev = PARAM_TYPE_DEBUG_TEXTURE;
     }
     
     
