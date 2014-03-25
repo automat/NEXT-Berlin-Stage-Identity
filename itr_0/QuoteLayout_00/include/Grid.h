@@ -66,6 +66,10 @@ public:
         return mCells[ y * mSize.x + x ];
     }
     
+    inline Cell* getCell(const Cell::Index& index){
+        return getCell(index[0], index[1]);
+    }
+    
     inline const vector<Cell*>& getCells() const{
         return mCells;
     }

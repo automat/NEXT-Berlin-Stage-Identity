@@ -60,15 +60,18 @@ private:
     /*--------------------------------------------------------------------------------------------*/
     // Quote String
     /*--------------------------------------------------------------------------------------------*/
-
+    
     struct Line_Internal{
-        Vec3f               pos;
         float               offset;
         string              str;
         vector<Cell::Index> indices;
         Line_Internal(){};
-        Line_Internal(const string& str, const Vec3f& pos, float offset, const vector<Cell::Index> indices) :
-            str(str),pos(pos),offset(offset),indices(indices){}
+        Line_Internal(const string& str, float offset, const vector<Cell::Index> indices) :
+        str(str),offset(offset),indices(indices){}
+        
+        inline const Cell::Index& getLeft() const{
+            return indices.front();
+        }
     };
     
     /*--------------------------------------------------------------------------------------------*/
@@ -95,7 +98,6 @@ private:
     
     LayoutArea              mArea;              // area of cells which should be used
     Grid*                   mGrid;
-    vector<Cell*>*          mCells;
     int                     mCellPadding[4];    // padding tblr
     vector<vector<int>>     mCellsIndex;        // cells indices defined by area
     
@@ -111,16 +113,16 @@ private:
     
     int                     mTextureSize;
     gl::Fbo                 mFbo;
-    bool                    mDebugTexture;      // 
+    bool                    mDebugTexture;      //
     
     
     LayoutArea              mTextureArea;
     vector<Rectf>           mCellTexcoords;     // texcoords of cell for texture
-
+    
     // general
     
     bool                    mValid;             // valid layout
-
+    
     
     /*--------------------------------------------------------------------------------------------*/
     
@@ -136,8 +138,8 @@ private:
         float vertices[12] = {
             -0.5f, 0, 0,
             -0.5f, 0, -width,
-             0.5f, 0, -width,
-             0.5f, 0, 0
+            0.5f, 0, -width,
+            0.5f, 0, 0
         };
         
         glLineWidth(2);
@@ -183,7 +185,7 @@ private:
         int i    = -1;
         
         int j;
-
+        
         while (++i < size) {
             index     = cellsIndex[i];
             index1    = cellsIndex[(i+1)%size];    // 0 if end
@@ -232,7 +234,7 @@ private:
         int numCellsX = 0;
         int numCellsY = numLines;
         int numIndices;
-       
+        
         vector<Quote::Line> lines;
         
         for(const auto& line : mLines){
@@ -244,81 +246,199 @@ private:
         
         float fboSize   = mFbo.getWidth();
         float invScale  = fboSize / float(unitsMax);
+        float stepUV    = 1.0f / float(unitsMax);
         
         static const Rectf unit(0,0,1,1);
         static const Vec2f zero;
         
-       // vector<Vec2f> texcoords;
+        // vector<Vec2f> texcoords;
         
         mFbo.bindFramebuffer();
         
         glPushAttrib(GL_VIEWPORT_BIT);
-            gl::setViewport(mFbo.getBounds());
-            gl::setMatricesWindow(mFbo.getSize(),false);
-            gl::clear(ColorA(0,0,0,0));
+        gl::setViewport(mFbo.getBounds());
+        gl::setMatricesWindow(mFbo.getSize(),false);
+        gl::clear(ColorA(0,0,0,0));
         
-            gl::disableDepthRead();
-            gl::enableAlphaTest();
-            gl::enableAlphaBlending();
+        gl::disableDepthRead();
+        gl::enableAlphaTest();
+        gl::enableAlphaBlending();
         
-            glPushMatrix();
-                glScalef(invScale,invScale,invScale);
+        glPushMatrix();
+        glScalef(invScale,invScale,invScale);
         
-                int i = -1;
-                int j;
-                for(const auto& line : mLines){
-                    numIndices = line.indices.size();
-                    
-                    //
-                    //  Add line data
-                    //
-                    
-                    texcoords.resize(0);
-                    
-                    
-                    
-                    //
-                    // Draw line to texture
-                    //
+        int i,j;
+        
+        //
+        //  Put data
+        //
+        
+        Vec2f down(0,stepUV);
+        
+        i = 0;
+        for(const auto& line : mLines){
+            numIndices = line.indices.size();
+            texcoords.resize(0);
+            
+            texcoords += down * float(i);                                              // upper left
+            texcoords += Vec2f(float(numIndices) * stepUV, 0) + *(texcoords.end()-1);  // upper right
+            texcoords += *(texcoords.end() - 2) + down;                                // lower left
+            texcoords += *(texcoords.end() - 2) + down;                                // lower right
+            
+            lines += Quote::Line(line.indices,texcoords);
+            i++;
+        }
+        
+        //
+        //  Draw
+        //
+        
+        // Debug
+        if(mDebugTexture){
+            Vec2f lineProperty;
+            i = -1;
+            for(const auto& line : mLines){
+                numIndices = line.indices.size();
+                
+                //
+                //  Add line data
+                //
+                
+       
+                
+                
+                
+                //
+                // Draw line to texture
+                //
+                glPushMatrix();
+                glTranslatef(0,++i,0);
+                    glColor3f(0,0,0.25f);
+                    glLineWidth(10);
                     glPushMatrix();
-                        glTranslatef(0,++i,0);
-                            glColor3f(0,0,0.25f);
-                            glLineWidth(10);
+                        j = -1;
+                        while(++j < numIndices){
                             glPushMatrix();
-                                j = -1;
-                                while(++j < numIndices){
-                                    glPushMatrix();
-                                        glTranslatef(j, 0, 0);
-                                        gl::drawStrokedRect(unit);
-                                    glPopMatrix();
-                                }
+                                glTranslatef(j, 0, 0);
+                                gl::drawStrokedRect(unit);
                             glPopMatrix();
-                            glLineWidth(1);
-                            glPushMatrix();
-                                glTranslatef(line.offset,0.5f + mFontBaseline,0);
-                                glScalef(mFontScale, mFontScale, mFontScale);
-                                glColor3f(1,1,1);
-                                mTexFontRef->drawString(line.str, zero);
-                            glPopMatrix();
+                        }
                     glPopMatrix();
-                    
-                    //
-                    //  push it
-                    //
-                    //lines += Quote::Line(line.indices, texcoords);
-                    
-                    
-                }
-            glPopMatrix();
-      
-            gl::disableAlphaBlending();
-            gl::disableAlphaTest();
-    
+                glLineWidth(1);
+                    glPushMatrix();
+                        glLineWidth(5);
+                        glEnable(GL_LINE_STIPPLE);
+                        glLineStipple(20, 0xAAAA);
+                
+                        static const Vec2f p0;
+                        Vec2f p1(float(numIndices),0);
+                
+                        lineProperty.y = mFontAscentline + 0.5f;
+                        glColor3f(1,0,0);
+                        gl::drawLine(p0 + lineProperty,p1 + lineProperty);
+                
+                        lineProperty.y = mFontDescentline + 0.5f;
+                        glColor3f(0,0,1);
+                        gl::drawLine(p0 + lineProperty,p1 + lineProperty);
+                
+                        lineProperty.y = mFontBaseline + 0.5f;
+                        glColor3f(1,0,1);
+                        gl::drawLine(p0 + lineProperty,p1 + lineProperty);
+                
+                
+                        glDisable(GL_LINE_STIPPLE);
+                        glLineWidth(1);
+                
+                        glTranslatef(line.offset,0.5f + mFontBaseline,0);
+                
+                
+
+                
+                
+                        glScalef(mFontScale, mFontScale, mFontScale);
+                        glColor3f(1,1,1);
+                        mTexFontRef->drawString(line.str, zero);
+                    glPopMatrix();
+                glPopMatrix();
+            }
+            
+        //
+        //  Normal
+        //
+            
+        } else {
+            
+            
+            
+        }
+        
+        glPopMatrix();
+        
+        gl::disableAlphaBlending();
+        gl::disableAlphaTest();
+        
         glPopAttrib();
         mFbo.unbindFramebuffer();
         
         mQuote = make_shared<Quote>(lines,mFbo.getTexture());
     }
+    
+    inline void addLine_Internal(vector<Line_Internal>& target, const string& line, int row){
+        if(line.empty()){
+            return;
+        }
+        
+        const vector<int>&   columns = mCellsIndex[row];
+        const vector<Cell*>& cells   = mGrid->getCells();
+        
+        float lineWidth = measureString(line);
+        
+        if(lineWidth == 0){ // in case of char doesnt have any physical size, eg. cmd
+            return;
+        }
+        
+        int   colSize   = columns.size();
+        float colWidth  = float(colSize);
+        
+        float offsetCenter = 0.5f;
+        
+        float offset        = 0.0f;
+        float offsetScale   = 0.0f;
+        float colOffset     = 0.0f;
+        int   colIndexBegin = 0; // first cell of line
+        int   colIndexEnd   = 0; // last cell of line
+        
+        switch (mAlign) {
+            case Align::RIGHT:
+                colOffset     = -(colWidth-lineWidth);
+                colIndexBegin = int(round(abs(colOffset + offsetCenter)));
+                colIndexEnd   = MIN(colIndexBegin + colSize,colSize);
+                offsetScale   = 1;
+                break;
+                
+            case Align::CENTER:
+                colOffset     = -(colWidth-lineWidth) * 0.5f;
+                colIndexBegin = int(round(abs(colOffset + offsetCenter)));
+                colIndexEnd   = colSize - colIndexBegin;
+                offsetScale   = 0.5f;
+                break;
+                
+            default:
+                colIndexEnd   = int(round(lineWidth + offsetCenter));
+                break;
+        }
+        
+        vector<Cell::Index> indices;
+        
+        while(colIndexBegin < colIndexEnd){
+            indices += cells[columns[colIndexBegin]]->getIndex();
+            colIndexBegin++;
+        }
+        
+        offset = offsetScale * (float(indices.size()) - lineWidth);
+        target+= Line_Internal(line, offset, indices);
+    }
+
     
 public:
     /*--------------------------------------------------------------------------------------------*/
@@ -326,36 +446,36 @@ public:
     /*--------------------------------------------------------------------------------------------*/
     
     QuoteTypesetter(Grid* grid, const LayoutArea& area, int columnLengthMin = 4) :
-        //mCells(cells),
-        mGrid(grid),
-        mArea(area),
-        mColLengthMin(columnLengthMin),
-        mManualBr(false),
-        mConstrain(true),
-        mTextureSize(2048),
-        mDebugTexture(false){
-            //
-            // Init props
-            //
-            mTexFontFormat.enableMipmapping();
-            mTexFontFormat.premultiply();
-            mTexFontFormat.textureWidth(2048);
-            mTexFontFormat.textureHeight(2048);
-            
-            //
-            // Init Fbo
-            //
-            gl::Fbo::Format fboFormat;
-            fboFormat.setSamples(4);
-            //fboFormat.setColorInternalFormat(GL_RGBA_FLOAT32_APPLE);
-            fboFormat.setWrap(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
-            
-            mFbo = gl::Fbo(mTextureSize,mTextureSize, fboFormat);
-            
-            // Init defaults
-            setPadding(0, 0, 0, 0);
-            setAlign(Align::LEFT);
-            setFont("Arial");
+    //mCells(cells),
+    mGrid(grid),
+    mArea(area),
+    mColLengthMin(columnLengthMin),
+    mManualBr(false),
+    mConstrain(true),
+    mTextureSize(2048),
+    mDebugTexture(false){
+        //
+        // Init props
+        //
+        mTexFontFormat.enableMipmapping();
+        mTexFontFormat.premultiply();
+        mTexFontFormat.textureWidth(2048);
+        mTexFontFormat.textureHeight(2048);
+        
+        //
+        // Init Fbo
+        //
+        gl::Fbo::Format fboFormat;
+        fboFormat.setSamples(4);
+        //fboFormat.setColorInternalFormat(GL_RGBA_FLOAT32_APPLE);
+        fboFormat.setWrap(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+        
+        mFbo = gl::Fbo(mTextureSize,mTextureSize, fboFormat);
+        
+        // Init defaults
+        setPadding(0, 0, 0, 0);
+        setAlign(Align::LEFT);
+        setFont("Arial");
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -385,7 +505,7 @@ public:
         
         // get cell indices
         getCellIndices();
-  
+        
         // get maximum cells available
         mStringWidthMax = 0;
         int size = mCellsIndex.size();
@@ -418,7 +538,7 @@ public:
         mFontTransMat *= Matrix44f::createTranslation(Vec3f(0,0,0));
         mFontTransMat *= Matrix44f::createRotation(Vec3f::xAxis(), pi_2);
         mFontTransMat *= Matrix44f::createRotation(Vec3f::yAxis(), pi_2);
-     }
+    }
     
     //! Clear
     inline void clear(){
@@ -433,72 +553,6 @@ public:
     inline void constrain(bool b = true){
         mConstrain = b;
     }
-    
-private:
-    inline void addLine_Internal(vector<Line_Internal>& target, const string& line, int row){
-        if(line.empty()){
-            return;
-        }
-    
-        const vector<int>&   columns = mCellsIndex[row];
-        const vector<Cell*>& cells   = mGrid->getCells();
-        
-        float lineWidth = measureString(line);
-        int   colSize   = columns.size();
-        float colWidth  = float(colSize);
-        
-        float offsetCenter = 0.5f;
-        
-        float offsetNorm = 0.0f;
-        float offset = 0.0f;
-        int   colIndexBegin = 0; // first cell of line
-        int   colIndexEnd   = 0; // last cell of line
-        
-        switch (mAlign) {
-            case Align::RIGHT:
-                offsetNorm    = colWidth;
-                offset        = -(colWidth-lineWidth);
-                colIndexBegin = int(round(abs(offset + offsetCenter)));
-                colIndexEnd   = MIN(colIndexBegin + colSize,colSize);
-                break;
-                
-            case Align::CENTER:
-                offsetNorm    = lineWidth;
-                offset        = -(colWidth-lineWidth) * 0.5f;
-                colIndexBegin = int(round(abs(offset + offsetCenter)));
-                colIndexEnd   = colSize - colIndexBegin;
-                break;
-                
-            default:
-                colIndexEnd   = int(round(lineWidth + offsetCenter));
-                break;
-        }
-        
-        vector<Cell::Index> indices;
-        
-        while(colIndexBegin < colIndexEnd){
-            indices += cells[columns[colIndexBegin]]->getIndex();
-            colIndexBegin++;
-        }
-        
-        // for texture
-        switch (mAlign) {
-            case Align::RIGHT:
-                offsetNorm = float(indices.size() - lineWidth);
-                break;
-            case Align::CENTER:
-                offsetNorm = (float(indices.size()) - lineWidth) * 0.5f;
-                break;
-            default:
-                break;
-        }
-       
-        
-        Vec3f posBegin = cells[columns[0]]->getCenter();
-        Vec3f pos = posBegin + Vec3f(0,0,offset + offsetCenter);
-        target+= Line_Internal(line, pos, offsetNorm, indices);
-    }
-public:
     
     //! Set the string
     inline bool setString(const string& str){
@@ -515,7 +569,7 @@ public:
         
         string input(str);
         trim(input);
-
+        
         const char br('\n');
         
         int  numBr = count(input.begin(), input.end(), br);
@@ -603,7 +657,7 @@ public:
                 if(lineWidth < colWidth){
                     line      += token;
                     addLine_Internal(lines, line, row);
-       
+                    
                     line.clear();
                     space.clear();
                     words.pop_front();
@@ -623,7 +677,7 @@ public:
                     line      += token;
                     space = " ";
                     words.pop_front();
-                
+                    
                 } else {
                     addLine_Internal(lines, line, row);
                     
@@ -646,7 +700,7 @@ public:
             if(words.size() == 0){
                 addLine_Internal(lines, line, row);
             }
-         }
+        }
         
         mLines = lines;
         
@@ -674,9 +728,9 @@ public:
         }
         static int indices[] = {0,1,3,2};
         Vec3f vertices[] = {mArea.getTL(),
-                            mArea.getTR(),
-                            mArea.getBL(),
-                            mArea.getBR()};
+            mArea.getTR(),
+            mArea.getBL(),
+            mArea.getBR()};
         
         glColor3f(0.5f, 0, 0.125f);
         glEnableClientState(GL_VERTEX_ARRAY);
@@ -697,7 +751,7 @@ public:
         glLineWidth(1);
         glEnable(GL_LINE_STIPPLE);
         glLineStipple(5, 0xAAAA);
-
+        
         Vec3f p0,p1;
         int i,j;
         i = -1;
@@ -741,7 +795,7 @@ public:
     }
     
 private:
-
+    
     
     inline void drawText(const string& str, float scale = 1.0f){
         scale = mFontScale * scale;
@@ -760,33 +814,32 @@ public:
             return;
         }
         
-        static const Vec2f zero;
+        Vec3f linePos;
+        Vec3f textPos;
         
         for (const auto& line : mLines) {
+            const Vec3f& first = mGrid->getCell(line.getLeft())->getCenter();
+            
+            linePos.x = first.x;
+            linePos.z = first.z - line.offset + 0.5f;
+            textPos.x = linePos.x + mFontBaseline;
+            textPos.z = linePos.z;
+            
             glPushMatrix();
-            //glTranslatef(line.pos.x,line.pos.y,line.pos.z + 0.5f);
-            glTranslatef(line.pos.x,line.pos.y,line.pos.z);
-            glColor3f(0.5,0.25,0.25);
-            drawStringBoundingBox(line.str);
+            glTranslatef(linePos.x, linePos.y, linePos.z);
+                glColor3f(0.5,0.25,0.25);
+                drawStringBoundingBox(line.str);
             glPopMatrix();
             glPushMatrix();
-            //glTranslatef(line.pos.x + mFontBaseline,line.pos.y,line.pos.z + 0.5f);
-            glTranslatef(line.pos.x + mFontBaseline,line.pos.y,line.pos.z);
-            glMultMatrixf(&mFontTransMat[0]);
-            /*
-            glScalef(-mFontScale, mFontScale, mFontScale);
-            glColor3f(1, 1, 1);
-            mTexFontRef->drawString(line.str, zero);
-            
-             */
-            glColor3f(1,1,1);
-            drawText(line.str);
+                glTranslatef(textPos.x, textPos.y, textPos.z);
+                glMultMatrixf(&mFontTransMat[0]);
+                glColor3f(1,1,1);
+                drawText(line.str);
             glPopMatrix();
-            
             glColor3f(0,1,0);
-            glLineWidth(10);
+            glLineWidth(2);
             for(const auto& index : line.indices){
-                mGrid->getCell(index[0], index[1])->debugDrawArea();
+                mGrid->getCell(index)->debugDrawArea();
             }
             glLineWidth(1);
             

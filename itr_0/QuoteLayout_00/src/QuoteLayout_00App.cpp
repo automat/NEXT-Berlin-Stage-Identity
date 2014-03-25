@@ -141,6 +141,11 @@ void QuoteLayout_00App::setup(){
 /*--------------------------------------------------------------------------------------------*/
 
 void QuoteLayout_00App::keyDown(KeyEvent event){
+    /*
+    if(event.getNativeKeyCode() == 55){ // cmd key
+        return;
+    }*/
+    
     switch (event.getCode()) {
         case KeyEvent::KEY_1:
             mCamera.lookAt(Vec3f(0,1,0),Vec3f::zero());
@@ -171,6 +176,7 @@ void QuoteLayout_00App::keyDown(KeyEvent event){
             }
             updateLayout(mString);
             break;
+  
         case KeyEvent::KEY_RETURN:
             mString+= "\n ";
             updateLayout(mString);
@@ -282,15 +288,18 @@ void QuoteLayout_00App::draw(){
     //
     
     if(PARAM_TYPE_SHOW_TEXTURE && mQuote != nullptr){
+        static const float padding = 50.0f;
+        static const Vec2f trans   = Vec2f(windowWidth - windowHeight + padding, padding);
+        static const Rectf rect    = Rectf(0,0,windowHeight - padding * 2, windowHeight - padding * 2);
+        
         glPushAttrib(GL_VIEWPORT_BIT);
         gl::disableDepthRead();
             gl::setViewport(getWindowBounds());
             gl::setMatricesWindow(getWindowSize());
             glPushMatrix();
-            glTranslatef(windowWidth - windowHeight, 0, 0);
+            glTranslatef(trans.x,trans.y,0);
                 const gl::Texture& texture = mQuote->getTexture();
-                Rectf rect(0,0,windowHeight,windowHeight);
-                glColor3f(1, 0, 1);
+                glColor3f(0.5f, 0, 0.125f);
                 gl::drawStrokedRect(rect);
                 glEnable(GL_TEXTURE_2D);
                 glColor3f(1, 1, 1);

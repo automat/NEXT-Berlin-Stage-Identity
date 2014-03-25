@@ -12,6 +12,7 @@
 #include <vector>
 #include "cinder/Vector.h"
 #include "cinder/gl/Texture.h"
+#include "Cell.h"
 
 
 using namespace std;
@@ -24,14 +25,14 @@ class Quote {
 public:
     class Line{
     private:
-        vector<int> mIndices;
+        vector<Cell::Index> mIndices;
         vector<Vec2f> mTexcoords;
     public:
         Line(){};
-        Line(const vector<int>& indices, const vector<Vec2f>& texcoords) :
+        Line(const vector<Cell::Index>& indices, const vector<Vec2f>& texcoords) :
             mIndices(indices), mTexcoords(texcoords){}
         
-        inline const vector<int>& getIndices() const{
+        inline const vector<Cell::Index>& getIndices() const{
             return mIndices;
         }
         
