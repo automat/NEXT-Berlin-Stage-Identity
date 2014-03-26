@@ -10,8 +10,8 @@
 #define QuoteLayout_Config_h
 
 #define SCALE 2
-#define WINDOW_WIDTH  3552 / SCALE
-#define WINDOW_HEIGHT 1105 / SCALE
+#define WINDOW_WIDTH  1280// 3552 / SCALE
+#define WINDOW_HEIGHT 1024//1105 / SCALE
 #define APP_FPS 30.0f
 
 #define GRID_NUM_XY 11

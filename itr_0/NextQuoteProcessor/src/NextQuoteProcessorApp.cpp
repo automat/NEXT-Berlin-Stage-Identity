@@ -1,7 +1,7 @@
 #include <vector>
 #include <boost/assign/std/vector.hpp>
 #include "Config.h"
-#include "Interface.h"
+#include "Controller.h"
 #include "Properties.h"
 
 
@@ -16,6 +16,8 @@
 #include "Cell.h"
 #include "QuoteTypesetter.h"
 #include "Quote.h"
+
+#import "cinder/cocoa/CinderCocoa.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -48,22 +50,24 @@ public:
     void prepareSettings(Settings* settins);
 	void setup();
     void resize();
+    
     void keyDown(KeyEvent event);
-	void update();
+	void fileDrop(FileDropEvent event);
+    
+    void update();
 	void draw();
     
-    InterfaceRef     mInterface;
+    
+    
+    
+    ControllerRef    mController;
     Grid*            mGrid;
     
     vector<string>   mStrings;
     int              mStringsIndex;
     string           mString;
-    QuoteTypesetter* mTypesetter;
-    QuoteRef         mQuote;
-    gl::Texture      mTypeTexture;
     
-    CameraOrtho mCamera;
-    float       mCameraZoom;
+    QuoteTypesetter* mTypesetter;
     
     void updateLayout(const string& str);
     params::InterfaceGlRef mParams;
@@ -80,7 +84,7 @@ void NextQuoteProcessorApp::prepareSettings(Settings* settings){
 }
 
 void NextQuoteProcessorApp::resize(){
-    mInterface->setCanvasSize(app::getWindowWidth(), app::getWindowHeight());
+    mController->setCanvasSize(app::getWindowWidth(), app::getWindowHeight());
 }
 
 void NextQuoteProcessorApp::setup(){
@@ -88,10 +92,6 @@ void NextQuoteProcessorApp::setup(){
     //  Setup props
     //
     
-    mCameraZoom = 1;
-    mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
-    
-    mGrid = new Grid(GRID_NUM_XY,GRID_NUM_XY);
     
     mStringsIndex = 0;
     mStrings += "Alghoritms are the new Art Direction.",
@@ -103,6 +103,8 @@ void NextQuoteProcessorApp::setup(){
     "ABC\n DEF\n GHI"/*,
                       "This\n\n\nis\n\nthe\nNew\n\nNormal."*/;
     
+    mGrid = new Grid(GRID_NUM_XY,GRID_NUM_XY);
+
     //define area for layout
     LayoutArea area(10,5,true);
     area *= Matrix44f::createRotation(Vec3f::yAxis(), M_PI / 4);
@@ -118,32 +120,11 @@ void NextQuoteProcessorApp::setup(){
     
     updateLayout("You can't choose not to support one device.");
     
-    //
-    //  Setup params
-    //
-    
-    vector<string> alignEnumNames = {"left","center","right"};
-    
-    mParams = params::InterfaceGl::create("controls", Vec2f(200,250));
-    mParams->addParam("Font scale", &PARAM_TYPE_FONT_SCALE, "min=0 max=1 step=0.001");
-    mParams->addParam("Padding T",  &PARAM_TYPE_PADDING_T, "min=0 max=5 step=1");
-    mParams->addParam("Padding R",  &PARAM_TYPE_PADDING_R, "min=0 max=5 step=1");
-    mParams->addParam("Padding B",  &PARAM_TYPE_PADDING_B, "min=0 max=5 step=1");
-    mParams->addParam("Padding L",  &PARAM_TYPE_PADDING_L, "min=0 max=5 step=1");
-    mParams->addParam("Align", alignEnumNames, &PARAM_TYPE_ALIGN);
-    mParams->addParam("Constrain",        &PARAM_TYPE_STRING_CONSTRAIN);
-    mParams->addParam("Manual Break",     &PARAM_TYPE_MANUAL_BREAK);
-    mParams->addParam("Show Texture",     &PARAM_TYPE_SHOW_TEXTURE);
-    mParams->addParam("Debug Texture",    &PARAM_TYPE_DEBUG_TEXTURE);
-    mParams->addParam("Balance Baseline", &PARAM_TYPE_BALANCED_BASELINE);
-    
-    //glEnable(GL_SCISSOR_TEST);
 
     // Init interface
-    mInterface = Interface::create();
-    mInterface->connect(mGrid, mTypesetter);
-    mInterface->updateLayout();
-
+    mController = Controller::create();
+    mController->connect(mGrid, mTypesetter);
+    mController->updateLayout();
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -225,116 +206,10 @@ void NextQuoteProcessorApp::update(){
 /*--------------------------------------------------------------------------------------------*/
 
 void NextQuoteProcessorApp::draw(){
-    /*
-    static const float windowWidth  = getWindowWidth();
-    static const float windowHeight = getWindowHeight();
-    
-    static float viewportWidth;
-    static float viewportHeight;
-    static float viewportPosX;
-    static float viewportPosY;
-    
-    static bool paramTypeShowTexturePrev = !PARAM_TYPE_SHOW_TEXTURE;
-    if(PARAM_TYPE_SHOW_TEXTURE != paramTypeShowTexturePrev){
-        if(PARAM_TYPE_SHOW_TEXTURE){
-            viewportWidth  = windowWidth - windowHeight;
-            viewportHeight = windowHeight;//viewportWidth *  windowRatio;
-            viewportPosX   = 0;
-            viewportPosY   = (windowHeight - viewportHeight) * 0.5f;
-        } else {
-            viewportWidth  = windowWidth;
-            viewportHeight = windowHeight;
-            viewportPosX   = 0;
-            viewportPosY   = 0;
-        }
-        paramTypeShowTexturePrev = PARAM_TYPE_SHOW_TEXTURE;
-    }
-    
-    static float viewportWidthPrev = -1;
-    
-    if(viewportWidth != viewportWidthPrev){
-        float viewportRatio = viewportWidth / viewportHeight;
-        float cameraMult    = windowWidth / viewportWidth;
-        float cameraZoom    = mCameraZoom * cameraMult;
-        
-        mCamera.setOrtho(-viewportRatio * cameraZoom, viewportRatio * cameraZoom, -cameraZoom, cameraZoom, -10.0f, 10.f);
-        viewportWidthPrev = viewportWidth;
-    }
-    
-    //
-    //  View Debug
-    //
-    
-    glPushAttrib(GL_VIEWPORT_BIT);
-    gl::clear( Color( 0, 0, 0 ) );
-    
-    gl::setViewport(Area(Rectf(0,viewportPosY,viewportWidth,viewportPosY+viewportHeight)));
-    gl::setMatrices(mCamera);
-    
-    // gl::drawCoordinateFrame(4);
-    
-    glPushMatrix();
-    glScalef(0.65f, 0.65f, 0.65f);
-    
-    gl::disableDepthRead();
-    mTypesetter->debugDrawArea();
-    const vector<Cell*>& cells = mGrid->getCells();
-    
-    glColor3f(0.5f,0,0);
-    for (auto* cell : cells) {
-        cell->debugDrawArea();
-    }
-    mGrid->debugDrawIndices(mCamera);
-    
-    gl::enableDepthRead();
-    gl::enableAlphaTest();
-    gl::enableAlphaBlending();
-    gl::enableAdditiveBlending();
-    glColor3f(1,1,1);
-    mTypesetter->debugDrawString();
-    gl::disableAlphaBlending();
-    gl::disableAlphaTest();
-    gl::disableDepthRead();
-    
-    glPopMatrix();
-    glPopAttrib();
-    
-    //
-    //  View Texture
-    //
-    
-    if(PARAM_TYPE_SHOW_TEXTURE && mQuote != nullptr){
-        static const float padding = 50.0f;
-        static const Vec2f trans   = Vec2f(windowWidth - windowHeight + padding, padding);
-        static const Rectf rect    = Rectf(0,0,windowHeight - padding * 2, windowHeight - padding * 2);
-        
-        glPushAttrib(GL_VIEWPORT_BIT);
-        gl::disableDepthRead();
-        gl::setViewport(getWindowBounds());
-        gl::setMatricesWindow(getWindowSize());
-        glPushMatrix();
-        glTranslatef(trans.x,trans.y,0);
-        const gl::Texture& texture = mQuote->getTexture();
-        glColor3f(0.5f, 0, 0.125f);
-        gl::drawStrokedRect(rect);
-        glEnable(GL_TEXTURE_2D);
-        glColor3f(1, 1, 1);
-        gl::draw(texture,rect);
-        //texture.bind();
-        //gl::drawSolidRect(rect);
-        //texture.unbind();
-        glDisable(GL_TEXTURE_2D);
-        glPopMatrix();
-        gl::enableDepthRead();
-        glPopAttrib();
-    }
-    
-    mParams->draw();
-     */
-    //glScissor(0, 0, getWindowWidth(), getWindowHeight());
+  
     gl::clear(Color(0,0,0));
     gl::setMatricesWindow(getWindowSize());
-    mInterface->draw();
+    mController->draw();
 }
 
 
@@ -408,6 +283,10 @@ void NextQuoteProcessorApp::updateParams(){
     }
     
     
+}
+
+void NextQuoteProcessorApp::fileDrop(cinder::app::FileDropEvent event){
+    mController->onAppFileDrop(event);
 }
 
 

@@ -269,8 +269,9 @@
 		CD3C50F018E1DED0008095FE /* Quote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Quote.h; path = ../include/Quote.h; sourceTree = "<group>"; };
 		CD3C50F118E1DED0008095FE /* QuoteTypesetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuoteTypesetter.h; path = ../include/QuoteTypesetter.h; sourceTree = "<group>"; };
 		CD3C50F218E1DED0008095FE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = ../include/Utils.h; sourceTree = "<group>"; };
-		CD3C50F518E1E324008095FE /* Interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Interface.h; path = ../include/Interface.h; sourceTree = "<group>"; };
+		CD3C50F518E1E324008095FE /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = ../include/Controller.h; sourceTree = "<group>"; };
 		CD3C50F618E1E337008095FE /* Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Properties.h; path = ../include/Properties.h; sourceTree = "<group>"; };
+		CD58389A18E3389D00BE38B8 /* FileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWatcher.h; sourceTree = "<group>"; };
 		CD66E9CC18E218DE003DC6BC /* WindowPreviewIso.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WindowPreviewIso.h; path = ../include/WindowPreviewIso.h; sourceTree = "<group>"; };
 		CD66E9CD18E225AF003DC6BC /* WindowPreviewTex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WindowPreviewTex.h; path = ../include/WindowPreviewTex.h; sourceTree = "<group>"; };
 		CD8CA2A7E8A54A46827E6F14 /* UserData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UserData.h; path = "../../../../Cinder/blocks/Cinder-Gwen/gwen/gwen/include/Gwen/UserData.h"; sourceTree = "<group>"; };
@@ -413,7 +414,7 @@
 			isa = PBXGroup;
 			children = (
 				CD3C50ED18E1DED0008095FE /* Config.h */,
-				CD3C50F418E1E22F008095FE /* Controls */,
+				CD3C50F418E1E22F008095FE /* Controller */,
 				CD3C50F318E1DEE5008095FE /* Layout */,
 				BA304659EAFD4EE4BDA4E8F7 /* Resources.h */,
 				9F773E320B4542BD8B3140E1 /* NextQuoteProcessor_Prefix.pch */,
@@ -687,15 +688,16 @@
 			name = Layout;
 			sourceTree = "<group>";
 		};
-		CD3C50F418E1E22F008095FE /* Controls */ = {
+		CD3C50F418E1E22F008095FE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				CD3C50F518E1E324008095FE /* Interface.h */,
+				CD58389A18E3389D00BE38B8 /* FileWatcher.h */,
+				CD3C50F518E1E324008095FE /* Controller.h */,
 				CD3C50F618E1E337008095FE /* Properties.h */,
 				CD66E9CC18E218DE003DC6BC /* WindowPreviewIso.h */,
 				CD66E9CD18E225AF003DC6BC /* WindowPreviewTex.h */,
 			);
-			name = Controls;
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		D76AD9E159B14465AC527E67 /* Dialogs */ = {

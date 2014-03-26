@@ -48,12 +48,16 @@ public:
     
     
     inline void Render( Gwen::Skin::Base* skin ){
-        Gwen::Controls::WindowControl::Render(skin);
+        //Gwen::Controls::WindowControl::Render(skin);
         
-        static const float paddingT  = 25.0f;
+        static const float paddingT  = 0.0f;
         
+        float windowHeight   = app::getWindowHeight();
         float viewportWidth  = this->GetSize().x;
         float viewportHeight = this->GetSize().y - paddingT;
+        float globalPosX     = LocalPosToCanvas().x;
+        float globalPosY     = LocalPosToCanvas().y + paddingT;
+        
         Area  viewport;
         
         static float viewportWidthPrev  = -1;
@@ -62,19 +66,19 @@ public:
         if(viewportWidth != viewportWidthPrev || viewportHeight != viewportHeightPrev){
             float viewportRatio = viewportHeight / viewportWidth;
             mCamera.setOrtho(-mCameraZoom, mCameraZoom, -mCameraZoom * viewportRatio, mCameraZoom * viewportRatio, -10.0f, 10.f);
-            viewport = Area(Rectf(0,0,viewportWidth,viewportHeight));
-            
+        
             viewportWidthPrev  = viewportWidth;
             viewportHeightPrev = viewportHeight;
         }
         
+        viewport = Area(Rectf(globalPosX,                 windowHeight - globalPosY,
+                              globalPosX + viewportWidth, windowHeight - viewportHeight - globalPosY ));
         
-        viewport = Area(Rectf(0,0,viewportWidth,viewportHeight));
         
         glPushAttrib(GL_VIEWPORT_BIT);
       
         gl::setViewport(viewport);
-        gl::setMatricesWindow(viewportWidth, viewportHeight);
+        gl::setMatricesWindow(viewportWidth, viewportHeight,true);
 
         glColor3f(0,0,0);
         gl::drawSolidRect(Rectf(0,0,viewportWidth,viewportHeight));

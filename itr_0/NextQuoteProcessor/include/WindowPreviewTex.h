@@ -37,23 +37,26 @@ public:
     }
     
     inline void Render( Gwen::Skin::Base* skin){
-        Gwen::Controls::WindowControl::Render(skin);
+        //Gwen::Controls::WindowControl::Render(skin);
 
         if(mQuote == nullptr){
             return;
         }
         
-        static const float paddingT = 25.0f;
+        static const float paddingT = 0.0f;
         
+        float windowHeight   = app::getWindowHeight();
         float viewportWidth  = this->GetSize().x;
         float viewportHeight = this->GetSize().y - paddingT;
         float globalPosX     = LocalPosToCanvas().x;
+        float globalPosY     = LocalPosToCanvas().y + paddingT;
         
-        Area viewport(Rectf(globalPosX,0,globalPosX+viewportWidth,viewportHeight));
+        Area viewport(Rectf(globalPosX,                windowHeight - globalPosY,
+                            globalPosX + viewportWidth,windowHeight - viewportHeight - globalPosY));
 
         glPushAttrib(GL_VIEWPORT_BIT);
         gl::setViewport(viewport);
-        gl::setMatricesWindow(viewportWidth, viewportHeight);
+        gl::setMatricesWindow(viewportWidth, viewportHeight, true);
         
         glColor3f(0,0,0);
         gl::drawSolidRect(Rectf(0,0,viewportWidth,viewportHeight));
