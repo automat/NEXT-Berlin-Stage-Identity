@@ -31,19 +31,31 @@ class WindowPreviewIso : public Gwen::Controls::WindowControl {
     Grid* mGrid;
     QuoteTypesetter* mTypesetter;
     
+    bool mDrawQuote;
     
     
 public:
-    WindowPreviewIso(Gwen::Controls::Base* base) : Gwen::Controls::WindowControl(base){
+    WindowPreviewIso(Gwen::Controls::Base* base) : Gwen::Controls::WindowControl(base),
+    mDrawQuote(false){
+        
+        SetTitle("Isometric View");
+        SetWidth(ci::app::getWindowWidth() * 0.5f);
+        SetClosable(false);
+        SetTabable(false);
+        Dock(Gwen::Pos::Left);
+        
+        
         mCameraZoom = 3.25f;
         mCamera.lookAt(Vec3f(1,1,1),Vec3f::zero());
-        
-        
     }
     
     inline void connect(Grid* grid, QuoteTypesetter* typesetter){
         mGrid = grid;
         mTypesetter = typesetter;
+    }
+    
+    inline void drawQuote(bool b){
+        mDrawQuote = b;
     }
     
     
@@ -91,7 +103,10 @@ public:
         glScalef(0.65f, 0.65f, 0.65f);
         
         gl::disableDepthRead();
-        mTypesetter->debugDrawArea();
+        if(mDrawQuote){
+            mTypesetter->debugDrawArea();
+        }
+        
         const vector<Cell*>& cells = mGrid->getCells();
         
         glColor3f(0.5f,0,0);
@@ -105,7 +120,9 @@ public:
         gl::enableAlphaBlending();
         gl::enableAdditiveBlending();
         glColor3f(1,1,1);
-        mTypesetter->debugDrawString();
+        if(mDrawQuote){
+            mTypesetter->debugDrawString();
+        }
         gl::disableAlphaBlending();
         gl::disableAlphaTest();
         gl::disableDepthRead();

@@ -705,11 +705,16 @@ public:
                             while(*(_itr) == br){
                                 input.erase(_itr++);
                             }
-                            if(*(_itr) != ' ' && *(_itr-1) != ' '){
-                                input.insert(_itr,' ');
-                            }
                         }
                     }
+                }
+            
+                // add space after linebreak
+                for(int i = 0; i < input.size(); ++i){
+                    if(input[i] == br && input[i+1] != ' '){
+                        input.insert(++i, " ");
+                    }
+                    
                 }
             }
         }
@@ -820,6 +825,7 @@ public:
     inline QuoteRef getQuote(){
         return mQuote;
     }
+    
     
     void debugTexture(bool b = true){
         mDebugTexture = b;

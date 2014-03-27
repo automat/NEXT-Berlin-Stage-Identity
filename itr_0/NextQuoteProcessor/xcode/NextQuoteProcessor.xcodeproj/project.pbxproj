@@ -260,6 +260,7 @@
 		CAD7F88E2B9C46CB931D1F0A /* GroupBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GroupBox.h; path = "../../../../Cinder/blocks/Cinder-Gwen/gwen/gwen/include/Gwen/Controls/GroupBox.h"; sourceTree = "<group>"; };
 		CC5D38F191F24E21B17EF5BC /* DockedTabControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DockedTabControl.h; path = "../../../../Cinder/blocks/Cinder-Gwen/gwen/gwen/include/Gwen/Controls/DockedTabControl.h"; sourceTree = "<group>"; };
 		CD0E7F11D1EF45CAAAD0647F /* ColorControls.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ColorControls.h; path = "../../../../Cinder/blocks/Cinder-Gwen/gwen/gwen/include/Gwen/Controls/ColorControls.h"; sourceTree = "<group>"; };
+		CD203CB718E4963C00DEA7A7 /* WindowParseError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WindowParseError.h; path = ../include/WindowParseError.h; sourceTree = "<group>"; };
 		CD3C50E818E1DDB5008095FE /* Apercu_Mono.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Apercu_Mono.otf; path = ../resources/Apercu_Mono.otf; sourceTree = "<group>"; };
 		CD3C50E918E1DDB5008095FE /* transcript_bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = transcript_bold.otf; path = ../resources/transcript_bold.otf; sourceTree = "<group>"; };
 		CD3C50EC18E1DED0008095FE /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cell.h; path = ../include/Cell.h; sourceTree = "<group>"; };
@@ -270,7 +271,6 @@
 		CD3C50F118E1DED0008095FE /* QuoteTypesetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuoteTypesetter.h; path = ../include/QuoteTypesetter.h; sourceTree = "<group>"; };
 		CD3C50F218E1DED0008095FE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = ../include/Utils.h; sourceTree = "<group>"; };
 		CD3C50F518E1E324008095FE /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = ../include/Controller.h; sourceTree = "<group>"; };
-		CD3C50F618E1E337008095FE /* Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Properties.h; path = ../include/Properties.h; sourceTree = "<group>"; };
 		CD58389A18E3389D00BE38B8 /* FileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWatcher.h; sourceTree = "<group>"; };
 		CD66E9CC18E218DE003DC6BC /* WindowPreviewIso.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WindowPreviewIso.h; path = ../include/WindowPreviewIso.h; sourceTree = "<group>"; };
 		CD66E9CD18E225AF003DC6BC /* WindowPreviewTex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WindowPreviewTex.h; path = ../include/WindowPreviewTex.h; sourceTree = "<group>"; };
@@ -693,9 +693,9 @@
 			children = (
 				CD58389A18E3389D00BE38B8 /* FileWatcher.h */,
 				CD3C50F518E1E324008095FE /* Controller.h */,
-				CD3C50F618E1E337008095FE /* Properties.h */,
 				CD66E9CC18E218DE003DC6BC /* WindowPreviewIso.h */,
 				CD66E9CD18E225AF003DC6BC /* WindowPreviewTex.h */,
+				CD203CB718E4963C00DEA7A7 /* WindowParseError.h */,
 			);
 			name = Controller;
 			sourceTree = "<group>";

@@ -24,12 +24,24 @@ using namespace ci;
 class WindowPreviewTex : public Gwen::Controls::WindowControl {
     QuoteRef mQuote;
     QuoteTypesetter* mTypesetter;
+    bool mDrawQuote;
     
 public:
-    WindowPreviewTex(Gwen::Controls::Base* base) : Gwen::Controls::WindowControl(base){}
+    WindowPreviewTex(Gwen::Controls::Base* base) : Gwen::Controls::WindowControl(base),
+    mDrawQuote(false){
+        SetTitle("Texture View");
+        SetClosable(false);
+        SetTabable(false);
+        Dock(Gwen::Pos::Fill);
+        
+    }
     
     inline void connect(QuoteTypesetter* typesetter){
         mTypesetter = typesetter;
+    }
+    
+    inline void drawQuote(bool b){
+        mDrawQuote = b;
     }
     
     inline void updateLayout(){
@@ -39,10 +51,6 @@ public:
     inline void Render( Gwen::Skin::Base* skin){
         //Gwen::Controls::WindowControl::Render(skin);
 
-        if(mQuote == nullptr){
-            return;
-        }
-        
         static const float paddingT = 0.0f;
         
         float windowHeight   = app::getWindowHeight();
@@ -62,6 +70,12 @@ public:
         gl::drawSolidRect(Rectf(0,0,viewportWidth,viewportHeight));
         gl::setMatricesWindow(viewport.getWidth(),viewport.getHeight());
         
+        if(mQuote == nullptr){
+            gl::setMatricesWindow(app::getWindowSize());
+            glPopAttrib();
+            return;
+        }
+        
         float unit = MIN(viewportWidth,viewportHeight);
         
         static const float padding = 25.0f;
@@ -75,10 +89,12 @@ public:
         glColor3f(0.5f, 0, 0.125f);
         gl::drawStrokedRect(rect);
         
-        glEnable(GL_TEXTURE_2D);
-        glColor3f(1, 1, 1);
-        gl::draw(mQuote->getTexture(),rect);
-        glDisable(GL_TEXTURE_2D);
+        if(mDrawQuote){
+            glEnable(GL_TEXTURE_2D);
+            glColor3f(1, 1, 1);
+            gl::draw(mQuote->getTexture(),rect);
+            glDisable(GL_TEXTURE_2D);
+        }
         
         glPopMatrix();
         gl::setMatricesWindow(app::getWindowSize());
