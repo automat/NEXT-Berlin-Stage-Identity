@@ -116,7 +116,7 @@ void QuoteLayout_00App::setup(){
     gl::clear(Color(1,0,1));
     mFbo.unbindFramebuffer();
     
-    updateLayout("Small\nstring");
+    updateLayout("s\ns\ns\ns\na");
 
     //
     //  Setup params
