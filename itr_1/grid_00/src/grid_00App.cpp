@@ -1,34 +1,78 @@
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
 
+#include "Config.h"
+#include "world/World.h"
+
+#include "Controller.h"
+
+/*--------------------------------------------------------------------------------------------*/
+
+
 using namespace ci;
 using namespace ci::app;
 using namespace std;
 
+/*--------------------------------------------------------------------------------------------*/
+
 class grid_00App : public AppNative {
   public:
+    void prepareSettings(Settings* settings);
 	void setup();
-	void mouseDown( MouseEvent event );	
-	void update();
+	void keyDown( KeyEvent event);
+    void update();
 	void draw();
+    
+    WorldRef mWorld;
+    
+    Controller* mController;
+    
+    
 };
 
-void grid_00App::setup()
-{
+/*--------------------------------------------------------------------------------------------*/
+// Setup
+/*--------------------------------------------------------------------------------------------*/
+
+void grid_00App::prepareSettings(Settings* settings){
+    settings->setWindowSize(APP_WIDTH,APP_HEIGHT);
+    settings->setFrameRate(APP_FPS);
 }
 
-void grid_00App::mouseDown( MouseEvent event )
-{
+void grid_00App::setup(){
+    mWorld = World::create();
+    mController = new Controller(mWorld);
 }
 
-void grid_00App::update()
-{
+
+/*--------------------------------------------------------------------------------------------*/
+// Input
+/*--------------------------------------------------------------------------------------------*/
+
+void grid_00App::keyDown( KeyEvent event ){
+    switch (event.getCode()) {
+        case KeyEvent::KEY_ESCAPE:
+            quit();
+            break;
+        default:
+            break;
+    }
+    
+    mController->keyDown(event);
 }
 
-void grid_00App::draw()
-{
+/*--------------------------------------------------------------------------------------------*/
+// Update / Draw
+/*--------------------------------------------------------------------------------------------*/
+
+void grid_00App::update(){
+    mWorld->update();
+}
+
+void grid_00App::draw(){
 	// clear out the window with black
-	gl::clear( Color( 0, 0, 0 ) ); 
+	gl::clear( Color( 0, 0, 0 ) );
+    mWorld->draw();
 }
 
 CINDER_APP_NATIVE( grid_00App, RendererGl )
