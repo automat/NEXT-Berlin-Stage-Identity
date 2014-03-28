@@ -72,6 +72,7 @@
 		C8D0E9C3A1AC48A7B6D9BD50 /* Anim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EC92168EB50142F5B7230BDF /* Anim.cpp */; };
 		CD3C50EA18E1DDB5008095FE /* Apercu_Mono.otf in Resources */ = {isa = PBXBuildFile; fileRef = CD3C50E818E1DDB5008095FE /* Apercu_Mono.otf */; };
 		CD3C50EB18E1DDB5008095FE /* transcript_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CD3C50E918E1DDB5008095FE /* transcript_bold.otf */; };
+		CDF2A8EB18E58C1A0075F282 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CDF2A8EA18E58C1A0075F282 /* logo.png */; };
 		D030013225364C82B25758E4 /* ColorPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2ACD13E3FCB641FEAAEE0135 /* ColorPicker.cpp */; };
 		D13D26A38927400CAA44D685 /* WindowCanvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4A0AFFA41F3F4B9B9F920385 /* WindowCanvas.cpp */; };
 		D547E8C9583F4C47A9570D2D /* inputhandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A2E3080C22884F99AE0990D0 /* inputhandler.cpp */; };
@@ -275,6 +276,7 @@
 		CD66E9CC18E218DE003DC6BC /* WindowPreviewIso.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WindowPreviewIso.h; path = ../include/WindowPreviewIso.h; sourceTree = "<group>"; };
 		CD66E9CD18E225AF003DC6BC /* WindowPreviewTex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WindowPreviewTex.h; path = ../include/WindowPreviewTex.h; sourceTree = "<group>"; };
 		CD8CA2A7E8A54A46827E6F14 /* UserData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UserData.h; path = "../../../../Cinder/blocks/Cinder-Gwen/gwen/gwen/include/Gwen/UserData.h"; sourceTree = "<group>"; };
+		CDF2A8EA18E58C1A0075F282 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		CF549A38D454469789C0E59D /* ScrollBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScrollBar.h; path = "../../../../Cinder/blocks/Cinder-Gwen/gwen/gwen/include/Gwen/Controls/ScrollBar.h"; sourceTree = "<group>"; };
 		CFA1BE56FB5844C5A6D4E4F3 /* BaseRender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BaseRender.h; path = "../../../../Cinder/blocks/Cinder-Gwen/gwen/gwen/include/Gwen/BaseRender.h"; sourceTree = "<group>"; };
 		D028138B10E842B594183734 /* Gwen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Gwen.h; path = "../../../../Cinder/blocks/Cinder-Gwen/gwen/gwen/include/Gwen/Gwen.h"; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CDF2A8EA18E58C1A0075F282 /* logo.png */,
 				CD3C50E818E1DDB5008095FE /* Apercu_Mono.otf */,
 				CD3C50E918E1DDB5008095FE /* transcript_bold.otf */,
 				F63E6EB639254153BD111126 /* CinderApp.icns */,
@@ -808,6 +811,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD3C50EB18E1DDB5008095FE /* transcript_bold.otf in Resources */,
+				CDF2A8EB18E58C1A0075F282 /* logo.png in Resources */,
 				DFA00195BF084F8EB5AF1159 /* CinderApp.icns in Resources */,
 				7A4718F0E34949888AD45934 /* DefaultSkin.png in Resources */,
 				CD3C50EA18E1DDB5008095FE /* Apercu_Mono.otf in Resources */,

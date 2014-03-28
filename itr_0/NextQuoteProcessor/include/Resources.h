@@ -10,8 +10,11 @@
 
 #define RES_GWEN_SKIN_DEFAULT   CINDER_RESOURCE( ../../../../Cinder/blocks/Cinder-Gwen/assets/, DefaultSkin.png, 128, IMAGE )
 #define RES_GWEN_SKIN_DARK      CINDER_RESOURCE( ../../../../Cinder/blocks/Cinder-Gwen/assets/, DefaultSkin_Dark.png, 129, IMAGE )
+#define RES_LOGO                CINDER_RESOURCE( ../resources/, logo.png, 130, IMAGE )
+
+
+#define RES_FONT_TRANSCRIPT     CINDER_RESOURCE( ../resources/, transcript_bold.otf, 131, FONT)
+#define RES_FONT_APERCU         CINDER_RESOURCE( ../resources/, Apercu_Mono.otf, 132, FONT)
 
 
 
-#define RES_FONT_TRANSCRIPT     CINDER_RESOURCE( ../resources/, transcript_bold.otf, 130, FONT)
-#define RES_FONT_APERCU         CINDER_RESOURCE( ../resources/, Apercu_Mono.otf, 131, FONT)

@@ -84,7 +84,7 @@ class Controller : public Gwen::Event::Handler {
         int    padding[4];
         string align;
         bool   balance;
-        QuoteFormat() : scale(0.7f), align("center"), balance(false){
+        QuoteFormat() : scale(0.70f), align("center"), balance(false){
             padding[0] = padding[1] = padding[2] = padding[3] = 0;
             
         }
@@ -108,12 +108,12 @@ class Controller : public Gwen::Event::Handler {
         
         // Create new JSON template
         if(menuItemIdentifier == "New"){
-            mFileWatcher->clear();
             vector<string> exts = {"json"};
-            
             fs::path filePath = app::getSaveFilePath(app::getAppPath().parent_path(),exts);
             
             if(!filePath.empty()){
+                mFileWatcher->clear();
+                
                 string filePathStr = filePath.string();
                 JsonTree _templateObj(JsonTree::makeObject());
                 JsonTree _templateArr(JsonTree::makeArray("quotes"));
@@ -142,12 +142,11 @@ class Controller : public Gwen::Event::Handler {
         
         // Load JSON
         if(menuItemIdentifier == "Load"){
-            mFileWatcher->clear();
             vector<string> exts = {"json"};
-            
             fs::path filePath = app::getOpenFilePath(app::getAppPath().parent_path(),exts);
             
             if(!filePath.empty()){
+                mFileWatcher->clear();
                 string filePathStr = filePath.string();
                 
                 // open file with default application
@@ -166,8 +165,15 @@ class Controller : public Gwen::Event::Handler {
         
         // Unwatch JSON
         if(menuItemIdentifier == "Close"){
+            mFilePath.clear();
             mFileWatcher->clear();
+            mQuoteTypesetter->clear();
             mJson.clear();
+            mWindowPreviewIso->drawQuote(true);
+            mWindowPreviewTex->drawQuote(true);
+            mQuoteTypesetter->setString("No\nJson\nfile\nto\nwatch.");
+            mWindowParseError->setMessage("No Json file to watch.");
+            mWindowParseError->Show();
             mValid = false;
         }
        
@@ -212,7 +218,7 @@ class Controller : public Gwen::Event::Handler {
             mJson = temp;
             JsonTree& quotes = mJson.getChild("quotes");
             mJsonNumQuotes   = quotes.getChildren().size();
-            mJsonQuoteIndex  = MAX(0,MIN(mJsonQuoteIndex,mJsonNumQuotes));
+            mJsonQuoteIndex  = MAX(0,MIN(mJsonQuoteIndex,mJsonNumQuotes-1));
             
             JsonTree& quote  = quotes.getChild(mJsonQuoteIndex);
             JsonTree& format = quote.getChild("format");
@@ -229,7 +235,7 @@ class Controller : public Gwen::Event::Handler {
                                          format.getChild("padding")[1].getValue<int>(),
                                          format.getChild("padding")[2].getValue<int>(),
                                          format.getChild("padding")[3].getValue<int>());
-            mQuoteTypesetter->setFontScale(MAX(0,MIN(format.getChild("scale").getValue<float>(),0.7f)));
+            mQuoteTypesetter->setFontScale(MAX(0,MIN(format.getChild("scale").getValue<float>(),1.0f)));
             mQuoteTypesetter->setString(quote.getChild("string").getValue<string>());
             
             mWindowParseError->Hide();
@@ -409,7 +415,7 @@ public:
         mWindowPreviewTex->connect(mQuoteTypesetter);
         
         mQuoteTypesetter->setString("No\nJson\nfile\nto\nwatch.");
-        mValid = true;
+        mValid = false;
         mWindowPreviewIso->drawQuote(true);
         mWindowPreviewTex->updateLayout();
         mWindowPreviewTex->drawQuote(true);
@@ -421,7 +427,7 @@ public:
     
     inline void update(){
         if(!mFilePath.empty() && mFileWatcher->fileDidChange(mFilePath)){
-            loadJson(mFilePath);
+            loadJson(mFilePath,mJsonQuoteIndex);
         }
     }
     
@@ -429,7 +435,23 @@ public:
         mCanvas->RenderCanvas();
     }
     
-   
+    inline void next(){
+        if(!mValid){
+            return;
+        }
+        mJsonQuoteIndex = (mJsonQuoteIndex+1)%mJsonNumQuotes;
+        loadJson(mFilePath,mJsonQuoteIndex);
+    }
+    
+    inline void prev(){
+        if(!mValid){
+            return;
+        }
+        mJsonQuoteIndex = (mJsonQuoteIndex-1+mJsonNumQuotes)%mJsonNumQuotes;
+        loadJson(mFilePath,mJsonQuoteIndex);
+    }
+    
+    
     
 private:
     

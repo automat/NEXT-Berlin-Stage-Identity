@@ -11,6 +11,7 @@
 #include "QuoteTypesetter.h"
 #include "Quote.h"
 
+
 #import "cinder/cocoa/CinderCocoa.h"
 
 using namespace ci;
@@ -30,7 +31,7 @@ public:
 
     void update();
 	void draw();
-    
+
     ControllerRef    mController;
     Grid*            mGrid;
     
@@ -52,7 +53,6 @@ void NextQuoteProcessorApp::resize(){
 }
 
 void NextQuoteProcessorApp::setup(){
- 
     mGrid = new Grid(GRID_NUM_XY,GRID_NUM_XY);
 
     //define area for layout
@@ -85,7 +85,13 @@ void NextQuoteProcessorApp::keyDown(KeyEvent event){
         case KeyEvent::KEY_ESCAPE:
             this->quit();
             break;
-              default:
+        case KeyEvent::KEY_LEFT:
+            mController->prev();
+            break;
+        case KeyEvent::KEY_RIGHT:
+            mController->next();
+            break;
+        default:
             break;
     }
 }
