@@ -9,6 +9,8 @@
 #ifndef grid_00_Index_h
 #define grid_00_Index_h
 
+#include <iostream>
+
 class Index{
 private:
     int x,y;
@@ -20,6 +22,20 @@ public:
         assert( n >= 0 && n <= 1);
         return (&x)[n];
     }
+
+    inline friend std::ostream& operator<<( std::ostream& lhs, const Index& rhs ){
+		lhs << "[" << rhs.x << "," << rhs.y << "]";
+		return lhs;
+	}
+    
+    inline bool operator < (const Index& rhs) const{
+        if(x == rhs.x){
+            return y < rhs.y;
+        }
+        return x < rhs.x;
+    }
+
+    
 };
 
 

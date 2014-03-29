@@ -9,7 +9,6 @@
 #ifndef grid_00_Oscillator_h
 #define grid_00_Oscillator_h
 
-#include "Config.h"
 #include "cinder/Perlin.h"
 
 using namespace ci;
@@ -18,9 +17,7 @@ class Oscillator {
     Perlin mPerlin;
     
 public:
-    Oscillator(){
-    
-    }
+    Oscillator();
     
 };
 

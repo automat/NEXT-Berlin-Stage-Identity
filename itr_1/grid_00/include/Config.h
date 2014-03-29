@@ -34,10 +34,17 @@
 
 #define WORLD_GRID_NUM_CELLS_XY 11
 
+//#define DEBUG_WORLD_COORDINATE_FRAME
 #define DEBUG_WORLD_CAM_FRUSTUM
 #define DEBUG_WORLD_GRID_DRAW_INDICES
 #define DEBUG_WORLD_GRID_CELL_DRAW
 #define DEBUG_WORLD_AREA_DRAW
+
+/*--------------------------------------------------------------------------------------------*/
+// Board
+/*--------------------------------------------------------------------------------------------*/
+
+#define DEBUG_BOARD_FIELD_DIVER_DRAW
 
 /*--------------------------------------------------------------------------------------------*/
 // Oscillator

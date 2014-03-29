@@ -9,15 +9,38 @@
 #ifndef grid_00_Board_h
 #define grid_00_Board_h
 
+#include <vector>
+
+
+#include "layout/geom/LayoutArea.h"
+
 #include "world/Index.h"
 #include "world/grid/Grid.h"
+#include "world/Oscillator.h"
+#include "world/Index.h"
 
+#include "world/board/field/DiverField.h"
+
+
+using namespace std;
+using namespace ci;
 
 class Board{
+    DiverFieldMap mDiverFieldMap;
+    
+    Grid* mGrid;
+    Oscillator* mOscillator;
+    
+    
+    
+    
     
 public:
-    Board(){}
-    ~Board(){}
+    Board(Grid* grid, const LayoutArea& area);
+    ~Board();
+
+    void draw();
+    void update();
 };
 
 

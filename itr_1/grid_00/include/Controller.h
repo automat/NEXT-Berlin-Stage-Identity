@@ -19,32 +19,8 @@ class Controller {
     WorldRef mWorld;
     
 public:
-    Controller(WorldRef world) :
-        mWorld(world){
-            
-
-            
-    }
-    
-    inline void keyDown(KeyEvent event){
-        switch (event.getCode()) {
-            case KeyEvent::KEY_UP:
-                mWorld->zoomModelIn();
-                break;
-            case KeyEvent::KEY_DOWN:
-                mWorld->zoomModelOut();
-                break;
-            case KeyEvent::KEY_LEFT:
-                mWorld->viewOrtho();
-                break;
-            case KeyEvent::KEY_RIGHT:
-                mWorld->viewTop();
-                break;
-                
-            default:
-                break;
-        }
-    }
+    Controller(WorldRef world);
+    void keyDown(KeyEvent event);
 };
 
 
