@@ -48,21 +48,27 @@ Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int 
             
             indices += index_0_0, index_1_0, index_1_1;
             indices += index_0_0, index_1_1, index_0_1;
+            //indices += index_0_0, index_1_1, index_0_1;
         }
     }
-    
     //
     //  A little noise
     //
     float scale  = 0.5f;
-    float factor = 0.25f;
+    float factor = 0.125f;
     float angle  = 0.0125f;
+    
+    utils::subdivide(vertices, indices, 1);
+    
     i = -1;
     while(++i < vertices.size()){
         Vec3f& vertex = vertices[i];
         vertex.y = osc->getValue(vertex.x * scale, vertex.z * scale, angle) * factor;
     }
     utils::randomSubdivide(vertices, indices, 4, 0.15f);
+    utils::genUniqueFaces(vertices, indices, normals);
+    
+    //utils::randomSubdivide(vertices, indices, 4, 0.15f);
     mMesh.recalculateNormals();
     
     
@@ -179,8 +185,13 @@ void Background::renderGradient(){
 
 void Background::renderMesh(){
     mFboMesh.bindFramebuffer();
-    gl::clear(Color::white());
+    mShaderMesh.bind();
+    mShaderMesh.uniform("uColor0", COLOR_BLUE_0);
+    mShaderMesh.uniform("uColor1", COLOR_BLUE_1);
+    mShaderMesh.uniform("uColor2", COLOR_BLUE_2);
+    gl::clear(Color::black());
     gl::draw(mMesh);
+    mShaderMesh.unbind();
     mFboMesh.unbindFramebuffer();
 }
 
@@ -189,6 +200,6 @@ void Background::renderTexture(){
     
     
     
-    mTexture = mFboGradient.getTexture();
+    mTexture = mFboMesh.getTexture();
     
 }

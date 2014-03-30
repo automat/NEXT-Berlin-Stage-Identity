@@ -80,6 +80,7 @@ namespace utils {
         vector<uint32_t> tempIndices;
         int numTriangles = indices.size() / 3;
         
+        uint32_t indexA, indexB, indexC;
         
         int i,j;
         i = -1;
@@ -88,9 +89,13 @@ namespace utils {
             j = -1;
             numTriangles = indices.size() / 3;
             while (++j < numTriangles) {
-                subdivideTriangle(indices[j*3  ],
-                                  indices[j*3+1],
-                                  indices[j*3+2],
+                indexA = indices[j*3  ];
+                indexB = indices[j*3+1];
+                indexC = indices[j*3+2];
+                
+                subdivideTriangle(indexA,
+                                  indexB,
+                                  indexC,
                                   vertices, tempIndices, normalize);
             }
 
@@ -118,5 +123,34 @@ namespace utils {
                 }
             }
         }
+    }
+    
+    void genUniqueFaces(vector<Vec3f>& vertices, vector<uint32_t>& indices, vector<Vec3f>& normals){
+        vector<Vec3f>    tempVertices;
+        vector<uint32_t> tempIndices;
+        vector<Vec3f>    tempNormals;
+        int numTriangles = indices.size() / 3;
+        int i = -1;
+        int j = 0;
+        
+        uint32_t indexA,indexB,indexC;
+        
+        while (++i < numTriangles) {
+            indexA = indices[i*3  ];
+            indexB = indices[i*3+1];
+            indexC = indices[i*3+2];
+            tempVertices += vertices[indexA];
+            tempVertices += vertices[indexB];
+            tempVertices += vertices[indexC];
+            tempIndices  += j++;
+            tempIndices  += j++;
+            tempIndices  += j++;
+        }
+        
+        tempNormals.resize(tempVertices.size());
+        
+        vertices.swap(tempVertices);
+        indices.swap(tempIndices);
+        normals.swap(tempNormals);
     }
 }
