@@ -41,14 +41,16 @@ Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int 
     while (++i < gridSizeY - 1) {
         j = -1;
         while(++j < gridSizeX - 1 ){
-            index_0_0 = i * gridSizeX + j;
-            index_1_0 = index_0_0 + 1;
-            index_0_1 = index_0_0 + gridSizeX;
-            index_1_1 = index_0_1 + 1;
+            index_0_0 = i * gridSizeX + j;          // 0
+            index_1_0 = index_0_0 + 1;              // 1
+            index_1_1 = index_0_0 + gridSizeX + 1;  // 2
+            index_0_1 = index_0_0 + gridSizeX;      // 3
+            
             
             indices += index_0_0, index_1_0, index_1_1;
-            indices += index_0_0, index_1_1, index_0_1;
             //indices += index_0_0, index_1_1, index_0_1;
+            indices += index_1_1, index_0_1, index_0_0;
+            //indices += index_0_1, index_1_1, index_0_0;
         }
     }
     //
@@ -65,12 +67,10 @@ Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int 
         Vec3f& vertex = vertices[i];
         vertex.y = osc->getValue(vertex.x * scale, vertex.z * scale, angle) * factor;
     }
-    utils::randomSubdivide(vertices, indices, 4, 0.15f);
+    
     utils::genUniqueFaces(vertices, indices, normals);
     
-    //utils::randomSubdivide(vertices, indices, 4, 0.15f);
     mMesh.recalculateNormals();
-    
     
     /*--------------------------------------------------------------------------------------------*/
     // setup shaders
@@ -121,7 +121,9 @@ void Background::draw(){
     if(mTextureIsDirty){
         //renderGradient();
         renderMesh();
+        renderGradient();
         renderTexture();
+        
         mTextureIsDirty = false;
     }
     glColor3f(1,1,1);
@@ -167,19 +169,20 @@ void Background::renderGradient(){
     Vec2f windowSize(app::getWindowSize());
 
     mFboGradient.bindFramebuffer();
+    mFboMesh.bindTexture();
     mShaderGradient.bind();
     mShaderGradient.uniform("uScreenWidth", windowSize.x);
     mShaderGradient.uniform("uScreenHeight", windowSize.y);
     mShaderGradient.uniform("uColor0", COLOR_BLUE_0);
     mShaderGradient.uniform("uColor1", COLOR_BLUE_1);
-    
+    mShaderGradient.uniform("uTexture",0);;
     gl::pushMatrices();
     gl::setMatricesWindow(1,1,true);
     gl::clear(Color::white());
     utils::drawUnitQuad();
     gl::popMatrices();
-    
     mShaderGradient.unbind();
+    mFboMesh.unbindTexture();
     mFboGradient.unbindFramebuffer();
 }
 
@@ -189,10 +192,13 @@ void Background::renderMesh(){
     mShaderMesh.uniform("uColor0", COLOR_BLUE_0);
     mShaderMesh.uniform("uColor1", COLOR_BLUE_1);
     mShaderMesh.uniform("uColor2", COLOR_BLUE_2);
+    
     gl::clear(Color::black());
     gl::draw(mMesh);
     mShaderMesh.unbind();
     mFboMesh.unbindFramebuffer();
+    
+    
 }
 
 void Background::renderTexture(){
@@ -200,6 +206,6 @@ void Background::renderTexture(){
     
     
     
-    mTexture = mFboMesh.getTexture();
+    mTexture = mFboGradient.getTexture();
     
 }
