@@ -13,18 +13,19 @@
 
 #include "util/GeomUtil.h"
 #include "util/ShaderUtil.h"
+#include "util/DrawUtil.h"
 
 using namespace boost::assign;
 
 Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int width, int height){
     mTransform = Matrix44f::createTranslation(Vec3f::yAxis() * -0.05f);
     
-    //
-    //  Setup grid
-    //
+    /*--------------------------------------------------------------------------------------------*/
+    // setup mesh
+    /*--------------------------------------------------------------------------------------------*/
+
     vector<Vec3f>&    vertices = mMesh.getVertices();
     vector<uint32_t>& indices  = mMesh.getIndices();
-    vector<Color>&    colors   = mMesh.getColorsRGB();
     vector<Vec3f>&    normals  = mMesh.getNormals();
     
     const vector<Cell*>& gridCells = grid->getCells();
@@ -63,79 +64,90 @@ Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int 
     }
     utils::randomSubdivide(vertices, indices, 4, 0.15f);
     mMesh.recalculateNormals();
+    
+    
+    /*--------------------------------------------------------------------------------------------*/
+    // setup shaders
+    /*--------------------------------------------------------------------------------------------*/
 
-    //
-    //  Setup material
-    //
-    mMaterial.setAmbient(COLOR_BLUE_0);
-    mMaterial.setDiffuse(COLOR_BLUE_1);
-    
-    //
-    //  Setup gradient
-    //
-    gl::Fbo::Format gradientFboFormat;
-    gradientFboFormat.setSamples(4);
-    gradientFboFormat.setWrapS(GL_CLAMP_TO_EDGE);
-    gradientFboFormat.setWrapT(GL_CLAMP_TO_EDGE);
-
-    mGradientFbo  = gl::Fbo(app::getWindowWidth(),app::getWindowHeight(),gradientFboFormat);
-    
-    
-    
-    //mNormalShader = gl::GlslProg(app::loadResource(RES_GLSL_NORMAL_VERT),app::loadResource(RES_GLSL_NORMAL_FRAG));
-    
-    
-    
-    
-    
 #ifdef BACKGROUND_LIVE_EDIT_SHADER
     mSharedFileWatcher = SharedFileWatcher::Get();
-    mSharedFileWatcher->addFile(RES_ABS_GLSL_BG_GRADIENT_FRAG);
-    mSharedFileWatcher->addFile(RES_ABS_GLSL_BG_GRADIENT_VERT);
-    utils::loadShader(loadFile(RES_ABS_GLSL_BG_GRADIENT_VERT),loadFile(RES_ABS_GLSL_BG_GRADIENT_FRAG), &mGradientShader);
+    utils::loadShader(loadFile(RES_ABS_GLSL_PASS_THRU_VERT),
+                      loadFile(RES_ABS_GLSL_BG_GRADIENT_FRAG),
+                      &mShaderGradient);
 #else
-    utils::loadShader(LoadResource(RES_GLSL_BG_GRADIENT_VERT),LoadResource(RES_GLSL_BG_GRADIENT_FRAG), &mGradientShader);
+    utils::loadShader(LoadResource(RES_GLSL_PASS_THRU_VERT),
+                      LoadResource(RES_GLSL_BG_GRADIENT_FRAG),
+                      &mShaderGradient);
 #endif
     
-   
-
-}
-
-void Background::drawGradientFbo(){
+    gl::Fbo::Format format;
+    format.setWrap(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+    format.setSamples(4);
     
+    Vec2f windowSize(app::getWindowSize());
+    mFboGradient = gl::Fbo(windowSize.x, windowSize.y, format);
+    
+    renderTexture();
 }
+
+/*--------------------------------------------------------------------------------------------*/
+// draw / update
+/*--------------------------------------------------------------------------------------------*/
 
 void Background::draw(){
     const static Vec2f windowSize(app::getWindowSize());
     gl::disableDepthRead();
+    
     gl::pushMatrices();
-    gl::setMatricesWindow(windowSize.x, windowSize.y);
-    
+    gl::setMatricesWindow(windowSize.x, windowSize.y, true);
+    gl::draw(mTexture, app::getWindowBounds());
     gl::popMatrices();
-    gl::enableDepthRead();
     
-    glPushMatrix();
-    glMultMatrixf(&mTransform[0]);
-    glColor3f(1, 1, 1);
-    gl::draw(mMesh);
-    glPopMatrix();
+    gl::enableDepthRead();
 }
 
 void Background::update(){
 #ifdef BACKGROUND_LIVE_EDIT_SHADER
-    if(mSharedFileWatcher->fileDidChange(RES_ABS_GLSL_BG_GRADIENT_FRAG) ||
-       mSharedFileWatcher->fileDidChange(RES_ABS_GLSL_BG_GRADIENT_VERT)){
-        if(utils::reloadShader(&mGradientShader, RES_ABS_GLSL_BG_GRADIENT_VERT, RES_ABS_GLSL_BG_GRADIENT_FRAG)){
-            onGradientShaderChanged();
-        };
-        
-    }
+    //onShaderChanged();
 #endif
+}
+
+
+/*--------------------------------------------------------------------------------------------*/
+// Texture
+/*--------------------------------------------------------------------------------------------*/
+
+
+void Background::renderTexture(){
+    Vec2f windowSize(app::getWindowSize());
+    mFboGradient.bindFramebuffer();
+    mShaderGradient.bind();
+    mShaderGradient.uniform("uScreenWidth", windowSize.x);
+    mShaderGradient.uniform("uScreenHeight", windowSize.y);
+    mShaderGradient.uniform("uColor0", COLOR_BLUE_0);
+    mShaderGradient.uniform("uColor1", COLOR_BLUE_1);
     
+    gl::pushMatrices();
+    gl::setMatricesWindow(1,1,true);
+    gl::clear(Color(0,1,1));
+    utils::drawUnitQuad();
+    gl::popMatrices();
+    
+    mShaderGradient.unbind();
+    mFboGradient.unbindFramebuffer();
+    
+    mTexture = mFboGradient.getTexture();
 }
 
 #ifdef BACKGROUND_LIVE_EDIT_SHADER
-void Background::onGradientShaderChanged(){
-    drawGradientFbo();
+void Background::onShaderChanged(){
+    if(utils::shaderDidChange(*mSharedFileWatcher.get(),
+                              loadFile(RES_ABS_GLSL_PASS_THRU_VERT),
+                              loadFile(RES_ABS_GLSL_BG_GRADIENT_FRAG),
+                              &mShaderGradient)){
+        renderTexture();
+    }
 }
 #endif
+

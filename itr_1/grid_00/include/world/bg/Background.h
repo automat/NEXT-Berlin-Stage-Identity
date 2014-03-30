@@ -34,26 +34,16 @@ class Background {
     Oscillator*  mOsc;
     TriMesh      mMesh;
     Matrix44f    mTransform;
-    
-    
-    gl::Material mMaterial;
-    
-    gl::GlslProg mShader;
-    gl::GlslProg mGradientShader;
-    //gl::GlslProg mNormalShader;
-    
-    gl::Fbo      mGradientFbo;
-    gl::Texture  mGradientTexture;
-    
-    
+
+    gl::Fbo      mFboGradient;
+    gl::GlslProg mShaderGradient;
+    gl::Texture  mTexture; // resulting texture
     
 #ifdef BACKGROUND_LIVE_EDIT_SHADER
     SharedFileWatcherRef mSharedFileWatcher;
 #endif
     
-    
-    void drawGradientFbo();
-    
+    void renderTexture();
     
 public:
     Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int width, int height);
@@ -62,7 +52,7 @@ public:
     void update();
     
 #ifdef BACKGROUND_LIVE_EDIT_SHADER
-    void onGradientShaderChanged();
+    void onShaderChanged();
 #endif
 };
 

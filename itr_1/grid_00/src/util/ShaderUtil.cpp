@@ -1,4 +1,5 @@
 #include "util/ShaderUtil.h"
+#include "cinder/app/App.h"
 
 namespace utils {
     using namespace ci;
@@ -14,12 +15,12 @@ namespace utils {
         }
     }
     
-    bool reloadShader(gl::GlslProg* prog,  const string& pathVertAbs, const string& pathFragAbs){
+    bool reloadShader(DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog){
         gl::GlslProg temp;
         bool success = true;
         
         try {
-            temp = gl::GlslProg(loadFile(pathVertAbs),loadFile(pathFragAbs));
+            temp = gl::GlslProg(refVertGLSL,refFragGLSL);
         } catch (gl::GlslProgCompileExc &exc) {
             cout << exc.what() << endl;
             success = false;
@@ -36,23 +37,30 @@ namespace utils {
         return success;
     }
     
-    void watchShaderSource(FileWatcher& fileWatcher, const string& pathVertAbs, const string& pathFragAbs, gl::GlslProg* shader){
-        if(!fileWatcher.hasFile(pathVertAbs)){
-            fileWatcher.addFile(pathVertAbs);
+    bool shaderDidChange(FileWatcher& fileWatcher, DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog){
+        string absPathVertGLSL = refVertGLSL.get()->getFilePath().string();
+        string absPathFragGLSL = refFragGLSL.get()->getFilePath().string();
+        bool didChange = false;
+        if(!fileWatcher.hasFile(absPathVertGLSL)){
+            fileWatcher.addFile(absPathVertGLSL);
         }
         
-        if(!fileWatcher.hasFile(pathFragAbs)){
-            fileWatcher.addFile(pathFragAbs);
+        if(!fileWatcher.hasFile(absPathFragGLSL)){
+            fileWatcher.addFile(absPathFragGLSL);
         }
         
-        if (fileWatcher.fileDidChange(pathVertAbs)) {
-            cout << pathVertAbs << " modified." << endl;
-            reloadShader(shader, pathVertAbs, pathFragAbs);
+        if (fileWatcher.fileDidChange(absPathVertGLSL)) {
+            cout << absPathVertGLSL << " modified." << endl;
+            reloadShader(refVertGLSL, refFragGLSL, prog);
+            didChange = true;
         }
         
-        if (fileWatcher.fileDidChange(pathFragAbs)) {
-            cout << pathFragAbs << " modified." << endl;
-            reloadShader(shader, pathVertAbs, pathFragAbs);
+        if (fileWatcher.fileDidChange(absPathFragGLSL)) {
+            cout << absPathFragGLSL << " modified." << endl;
+            reloadShader(refVertGLSL, refFragGLSL, prog);
+            didChange = true;
         }
+        
+        return didChange;
     }
 }

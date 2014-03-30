@@ -21,8 +21,9 @@ namespace utils {
     using namespace std;
     
     void loadShader(DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg *prog);
-    bool reloadShader(gl::GlslProg* prog,  const string& pathVertAbs, const string& pathFragAbs);
-    void watchShaderSource(FileWatcher& fileWatcher, const string& pathVertAbs, const string& pathFragAbs, gl::GlslProg* shader);
+    bool reloadShader(DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog);
+    bool shaderDidChange(FileWatcher& fileWatcher, DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog);
+
 }
 
 
