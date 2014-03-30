@@ -18,6 +18,8 @@ class Oscillator {
     
 public:
     Oscillator();
+    float getValue(float x, float y, float t);
+    float getValue(float x, float y, float offsetX, float offsetY, float t);
     
 };
 

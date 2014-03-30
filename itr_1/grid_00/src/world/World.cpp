@@ -1,4 +1,6 @@
 #include "world/World.h"
+#include "cinder/Plane.h"
+#include "util/GeomUtil.h"
 
 /*--------------------------------------------------------------------------------------------*/
 // Constructor
@@ -22,8 +24,14 @@ World::World(){
     //
     //  Environment
     //
+    
+    //  Init Grid
     mGrid = new Grid(WORLD_GRID_NUM_CELLS_XY,WORLD_GRID_NUM_CELLS_XY);
     
+    //  Init osc
+    mOscillator = new Oscillator();
+    
+   
     // get Area from initial frustum
     const vector<Vec3f>& frPlaneNear = mFrustum.getNearPlane();
     const vector<Vec3f>& frPlaneFar  = mFrustum.getFarPlane();
@@ -38,6 +46,11 @@ World::World(){
     mAreaN= mArea;
     mArea*= Matrix44f::createScale(Vec3f(1.125f,1.125f,1.125f)); // scaled to include adjacent cells
     
+    //  Init Bg
+    mBackground = new Background(mGrid, mArea, mOscillator, app::getWindowWidth(), app::getWindowHeight());
+    
+    
+    //Init Board
     mBoard = new Board(mGrid,mArea);
     
     //
@@ -56,6 +69,7 @@ World::World(){
 
 World::~World(){
     delete mBoard;
+    delete mBackground;
     delete mOscillator;
     delete mTypesetter;
     delete mGrid;
@@ -75,6 +89,7 @@ void World::initCells(){
 
 
 void World::drawScene(){
+    mBackground->draw();
 #ifdef DEBUG_WORLD_GRID_DRAW_INDICES
     mGrid->debugDrawIndices(mCamera);
 #endif
@@ -127,6 +142,7 @@ void World::drawScene(){
 /*--------------------------------------------------------------------------------------------*/
 
 void World::update(){
+    mBackground->update();
     mBoard->update();
     
 }

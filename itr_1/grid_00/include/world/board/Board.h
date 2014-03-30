@@ -11,7 +11,6 @@
 
 #include <vector>
 
-
 #include "layout/geom/LayoutArea.h"
 
 #include "world/Index.h"
@@ -26,12 +25,11 @@ using namespace std;
 using namespace ci;
 
 class Board{
-    DiverFieldMap mDiverFieldMap;
+    vector<DiverField*> mDiverFields;           // diverfields
+    IndexDiverFieldMap  mIndexDiverFieldMap;    // index / diverfield map
     
-    Grid* mGrid;
+    Grid*       mGrid;
     Oscillator* mOscillator;
-    
-    
     
     
     

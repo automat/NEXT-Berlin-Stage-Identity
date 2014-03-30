@@ -12,7 +12,7 @@
 #include "world/board/field/AbstractField.h"
 #include <map>
 
-typedef std::map<const Index,class DiverField*> DiverFieldMap;
+typedef std::map<const Index,class DiverField*> IndexDiverFieldMap;
 
 class DiverField : public AbstractField {
     

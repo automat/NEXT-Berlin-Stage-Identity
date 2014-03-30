@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 
+#include <boost/assign/std/vector.hpp>
 #include <boost/assign/list_inserter.hpp>
 #include <boost/assert.hpp>
 
@@ -27,14 +28,23 @@ Board::Board(Grid* grid, const LayoutArea& area){
         const Vec3f& pos =cell->getCenter();
         if(area.contains(pos)){
             const Index index = cell->getIndex();
-            mDiverFieldMap[index] = new DiverField(index,pos);
+            mDiverFields += new DiverField(index,pos);
+            mIndexDiverFieldMap[index] = mDiverFields.back();
         }
     }
     
     
 }
 
+/*--------------------------------------------------------------------------------------------*/
+// Destructor
+/*--------------------------------------------------------------------------------------------*/
+
+
 Board::~Board(){
+    mIndexDiverFieldMap.clear();
+    while (!mDiverFields.empty()) delete mDiverFields.back(), mDiverFields.pop_back();
+    
     delete mOscillator;
 }
 
@@ -47,7 +57,7 @@ Board::~Board(){
 void Board::draw(){
 #ifdef DEBUG_BOARD_FIELD_DIVER_DRAW
     gl::disableDepthRead();
-    for (DiverFieldMap::const_iterator itr = mDiverFieldMap.begin(); itr != mDiverFieldMap.end(); ++itr) {
+    for (IndexDiverFieldMap::const_iterator itr = mIndexDiverFieldMap.begin(); itr != mIndexDiverFieldMap.end(); ++itr) {
         itr->second->debugDrawArea();
     }
     gl::enableDepthRead();

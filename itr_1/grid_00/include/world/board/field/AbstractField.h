@@ -32,6 +32,7 @@ using namespace std;
 
 class AbstractField : public Cell {
 protected:
+    bool mActive;
    
     
 public:

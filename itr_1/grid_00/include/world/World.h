@@ -14,10 +14,8 @@
 #include "cinder/Camera.h"
 #include "util/FrustumOrtho.h"
 
-#include "util/Utils.h"
 #include "layout/geom/LayoutArea.h"
 #include "layout/quote/QuoteTypesetter.h"
-
 
 #include "cinder/Matrix44.h"
 #include "cinder/Vector.h"
@@ -25,6 +23,7 @@
 #include "Config.h"
 
 #include "world/Oscillator.h"
+#include "world/bg/Background.h"
 #include "world/grid/Grid.h"
 #include "world/board/Board.h"
 
@@ -43,12 +42,15 @@ class World {
     Matrix44f    mTransform;
     FrustumOrtho mFrustum;
     
+    Background* mBackground;
+    
     LayoutArea       mArea;
     LayoutArea       mAreaN; // area unscaled
     Grid*            mGrid;
     Board*           mBoard;
     Oscillator*      mOscillator;
     QuoteTypesetter* mTypesetter;
+    
     
     void initCells();
     void drawScene();
