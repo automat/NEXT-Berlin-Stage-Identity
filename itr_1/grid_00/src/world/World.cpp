@@ -90,7 +90,7 @@ void World::initCells(){
 
 void World::drawScene(){
     mBackground->draw();
-    /*
+
 #ifdef DEBUG_WORLD_GRID_DRAW_INDICES
     mGrid->debugDrawIndices(mCamera);
 #endif
@@ -137,7 +137,7 @@ void World::drawScene(){
     }
 #endif
     mBoard->draw();
-       */
+   
 }
 
 /*--------------------------------------------------------------------------------------------*/

@@ -12,7 +12,6 @@ float rand(vec2 co){
 float scalar = 2.0;
 float randScalar = 0.25;
 
-
 void main(){
     vec2 coord = gl_FragCoord.xy;
 	float xmid = uScreenWidth * 0.5;

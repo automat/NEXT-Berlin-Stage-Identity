@@ -75,10 +75,22 @@ Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int 
     utils::loadShader(loadFile(RES_ABS_GLSL_PASS_THRU_VERT),
                       loadFile(RES_ABS_GLSL_BG_GRADIENT_FRAG),
                       &mShaderGradient);
+    utils::loadShader(loadFile(RES_ABS_GLSL_BG_MESH_VERT),
+                      loadFile(RES_ABS_GLSL_BG_MESH_FRAG),
+                      &mShaderMesh);
+    utils::loadShader(loadFile(RES_ABS_GLSL_PASS_THRU_VERT),
+                      loadFile(RES_ABS_GLSL_BG_MIX_FRAG),
+                      &mShaderMix);
 #else
     utils::loadShader(LoadResource(RES_GLSL_PASS_THRU_VERT),
                       LoadResource(RES_GLSL_BG_GRADIENT_FRAG),
                       &mShaderGradient);
+    utils::loadShader(LoadResource(RES_GLSL_BG_MESH_VERT),
+                      LoadResource(RES_GLSL_BG_MESH_FRAG),
+                      &mShaderMesh);
+    utils::loadShader(LoadResource(RES_GLSL_PASS_THRU_VERT),
+                      LoadResource(RES_GLSL_BG_MIX_FRAG),
+                      &mShaderMix);
 #endif
     
     gl::Fbo::Format format;
@@ -87,8 +99,12 @@ Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int 
     
     Vec2f windowSize(app::getWindowSize());
     mFboGradient = gl::Fbo(windowSize.x, windowSize.y, format);
+    mFboMesh     = gl::Fbo(windowSize.x, windowSize.y, format);
+    mFboMix      = gl::Fbo(windowSize.x, windowSize.y, format);
     
-    renderTexture();
+    mTextureIsDirty = true;
+    renderGradient();
+    
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -96,6 +112,14 @@ Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int 
 /*--------------------------------------------------------------------------------------------*/
 
 void Background::draw(){
+    if(mTextureIsDirty){
+        //renderGradient();
+        renderMesh();
+        renderTexture();
+        mTextureIsDirty = false;
+    }
+    glColor3f(1,1,1);
+    
     const static Vec2f windowSize(app::getWindowSize());
     gl::disableDepthRead();
     
@@ -109,7 +133,21 @@ void Background::draw(){
 
 void Background::update(){
 #ifdef BACKGROUND_LIVE_EDIT_SHADER
-    //onShaderChanged();
+    
+    if(utils::shaderDidChange(mSharedFileWatcher,
+                              loadFile(RES_ABS_GLSL_PASS_THRU_VERT),
+                              loadFile(RES_ABS_GLSL_BG_GRADIENT_FRAG),
+                              &mShaderGradient) ||
+       utils::shaderDidChange(mSharedFileWatcher,
+                              loadFile(RES_ABS_GLSL_BG_MESH_VERT),
+                              loadFile(RES_ABS_GLSL_BG_MESH_FRAG),
+                              &mShaderMesh) ||
+       utils::shaderDidChange(mSharedFileWatcher,
+                              loadFile(RES_ABS_GLSL_PASS_THRU_VERT),
+                              loadFile(RES_ABS_GLSL_BG_MIX_FRAG),
+                              &mShaderMix)){
+        mTextureIsDirty = true;
+    }
 #endif
 }
 
@@ -119,8 +157,9 @@ void Background::update(){
 /*--------------------------------------------------------------------------------------------*/
 
 
-void Background::renderTexture(){
+void Background::renderGradient(){
     Vec2f windowSize(app::getWindowSize());
+
     mFboGradient.bindFramebuffer();
     mShaderGradient.bind();
     mShaderGradient.uniform("uScreenWidth", windowSize.x);
@@ -130,24 +169,26 @@ void Background::renderTexture(){
     
     gl::pushMatrices();
     gl::setMatricesWindow(1,1,true);
-    gl::clear(Color(0,1,1));
+    gl::clear(Color::white());
     utils::drawUnitQuad();
     gl::popMatrices();
     
     mShaderGradient.unbind();
     mFboGradient.unbindFramebuffer();
+}
+
+void Background::renderMesh(){
+    mFboMesh.bindFramebuffer();
+    gl::clear(Color::white());
+    gl::draw(mMesh);
+    mFboMesh.unbindFramebuffer();
+}
+
+void Background::renderTexture(){
+    Vec2f windowSize(app::getWindowSize());
+    
+    
     
     mTexture = mFboGradient.getTexture();
+    
 }
-
-#ifdef BACKGROUND_LIVE_EDIT_SHADER
-void Background::onShaderChanged(){
-    if(utils::shaderDidChange(*mSharedFileWatcher.get(),
-                              loadFile(RES_ABS_GLSL_PASS_THRU_VERT),
-                              loadFile(RES_ABS_GLSL_BG_GRADIENT_FRAG),
-                              &mShaderGradient)){
-        renderTexture();
-    }
-}
-#endif
-

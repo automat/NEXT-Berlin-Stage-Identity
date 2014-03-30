@@ -63,4 +63,9 @@ namespace utils {
         
         return didChange;
     }
+    
+    
+    bool shaderDidChange(const std::shared_ptr<FileWatcher>& fileWatcher, DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog){
+        return shaderDidChange(*fileWatcher.get(), refVertGLSL, refFragGLSL, prog);
+    }
 }

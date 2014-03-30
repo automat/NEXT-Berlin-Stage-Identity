@@ -31,8 +31,7 @@
 		CD9642C118E70D7900AF7760 /* Board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9642C018E70D7900AF7760 /* Board.cpp */; };
 		CD9642C318E7102300AF7760 /* DiverField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9642C218E7102300AF7760 /* DiverField.cpp */; };
 		CD9642C718E7336500AF7760 /* Background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9642C618E7336500AF7760 /* Background.cpp */; };
-		CD9642CA18E74D2600AF7760 /* bg_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD9642C918E74D2600AF7760 /* bg_frag.glsl */; };
-		CD9642CC18E74D3700AF7760 /* bg_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD9642CB18E74D3700AF7760 /* bg_vert.glsl */; };
+		CD9642CA18E74D2600AF7760 /* bg_mix_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD9642C918E74D2600AF7760 /* bg_mix_frag.glsl */; };
 		CD9642D118E754C800AF7760 /* FileWatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9642D018E754C800AF7760 /* FileWatcher.cpp */; };
 		CD9642D418E755E900AF7760 /* GeomUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9642D318E755E900AF7760 /* GeomUtil.cpp */; };
 		CD9642D818E7721F00AF7760 /* srdnoise23.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9642D718E7721F00AF7760 /* srdnoise23.cpp */; };
@@ -87,8 +86,7 @@
 		CD9642C418E7327000AF7760 /* Background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Background.h; sourceTree = "<group>"; };
 		CD9642C618E7336500AF7760 /* Background.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Background.cpp; sourceTree = "<group>"; };
 		CD9642C818E739C500AF7760 /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Colors.h; path = ../include/Colors.h; sourceTree = "<group>"; };
-		CD9642C918E74D2600AF7760 /* bg_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = bg_frag.glsl; path = ../resources/bg_frag.glsl; sourceTree = "<group>"; };
-		CD9642CB18E74D3700AF7760 /* bg_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = bg_vert.glsl; path = ../resources/bg_vert.glsl; sourceTree = "<group>"; };
+		CD9642C918E74D2600AF7760 /* bg_mix_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = bg_mix_frag.glsl; path = ../resources/bg_mix_frag.glsl; sourceTree = "<group>"; };
 		CD9642CD18E74E9F00AF7760 /* FileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWatcher.h; sourceTree = "<group>"; };
 		CD9642CE18E74F2600AF7760 /* ShaderUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderUtil.h; sourceTree = "<group>"; };
 		CD9642CF18E753F300AF7760 /* ShaderUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderUtil.cpp; sourceTree = "<group>"; };
@@ -255,8 +253,7 @@
 		CD5CE26818E84F1900D5E5BC /* background */ = {
 			isa = PBXGroup;
 			children = (
-				CD9642C918E74D2600AF7760 /* bg_frag.glsl */,
-				CD9642CB18E74D3700AF7760 /* bg_vert.glsl */,
+				CD9642C918E74D2600AF7760 /* bg_mix_frag.glsl */,
 				CD5CE26218E84B7C00D5E5BC /* bg_gradient_frag.glsl */,
 				CD5CE26418E84EBC00D5E5BC /* bg_mesh_vert.glsl */,
 				CD5CE26618E84EF800D5E5BC /* bg_mesh_frag.glsl */,
@@ -508,10 +505,9 @@
 				CD5CE26518E84EE000D5E5BC /* bg_mesh_vert.glsl in Resources */,
 				CD9642DF18E78C4900AF7760 /* normal_frag.glsl in Resources */,
 				CD5CE26318E84B7C00D5E5BC /* bg_gradient_frag.glsl in Resources */,
-				CD9642CA18E74D2600AF7760 /* bg_frag.glsl in Resources */,
+				CD9642CA18E74D2600AF7760 /* bg_mix_frag.glsl in Resources */,
 				CDF2A90218E5C8F40075F282 /* Apercu_Mono.otf in Resources */,
 				D90C57D05BB24F809A8969E6 /* CinderApp.icns in Resources */,
-				CD9642CC18E74D3700AF7760 /* bg_vert.glsl in Resources */,
 				CD5CE26718E84EF800D5E5BC /* bg_mesh_frag.glsl in Resources */,
 				CD5CE26118E842BC00D5E5BC /* pass_thru.glsl in Resources */,
 				CDF2A90318E5C8F40075F282 /* transcript_bold.otf in Resources */,

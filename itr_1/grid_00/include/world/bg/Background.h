@@ -37,12 +37,23 @@ class Background {
 
     gl::Fbo      mFboGradient;
     gl::GlslProg mShaderGradient;
+    
+    gl::Fbo      mFboMesh;
+    gl::GlslProg mShaderMesh;
+    
+    gl::Fbo      mFboMix;
+    gl::GlslProg mShaderMix;
+    
+    
+    bool         mTextureIsDirty;
     gl::Texture  mTexture; // resulting texture
     
 #ifdef BACKGROUND_LIVE_EDIT_SHADER
     SharedFileWatcherRef mSharedFileWatcher;
 #endif
     
+    void renderGradient();
+    void renderMesh();
     void renderTexture();
     
 public:
@@ -50,10 +61,7 @@ public:
     
     void draw();
     void update();
-    
-#ifdef BACKGROUND_LIVE_EDIT_SHADER
-    void onShaderChanged();
-#endif
+
 };
 
 #endif
