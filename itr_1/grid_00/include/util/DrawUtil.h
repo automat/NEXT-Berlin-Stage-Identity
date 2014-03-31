@@ -15,7 +15,7 @@
 #include "cinder/gl/gl.h"
 
 namespace utils {
-    void drawUnitQuad(){
+    inline void drawUnitQuad(){
         static float vertices[] = {0,0,1,0,1,1,0,1};
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -25,8 +25,9 @@ namespace utils {
         glDisableClientState(GL_VERTEX_ARRAY);
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     }
+    
     using namespace ci;
-    void drawTexture(const gl::Texture& texture){
+    inline void drawTexture(const gl::Texture& texture){
         const Vec2f windowSize(app::getWindowSize());
         
         gl::disableDepthRead();
