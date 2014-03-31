@@ -6,8 +6,7 @@
 //
 //
 
-#ifndef grid_00_Config_h
-#define grid_00_Config_h
+#pragma once
 
 /*--------------------------------------------------------------------------------------------*/
 // Overall
@@ -21,6 +20,7 @@
 #define APP_HEIGHT STAGE_HEIGHT / STAGE_SCALE
 #define APP_FPS 36.0f
 
+//#define DEBUG_SINGLE_DIVER_FIELD
 
 /*--------------------------------------------------------------------------------------------*/
 // World
@@ -45,9 +45,9 @@
 // Board
 /*--------------------------------------------------------------------------------------------*/
 
-#define DEBUG_BOARD_FIELD_DIVER_DRAW
-//#define DEBUG_BOARD_FIELD_DIVER_PATH_AREA_DRAW
+#define DEBUG_BOARD_FIELD_DIVER_AREA_DRAW
 #define DEBUG_BOARD_FIELD_DIVER_PATH_SURFACE_DRAW
+#define DEBUG_BOARD_FIELD_DIVER_DIVER
 
 /*--------------------------------------------------------------------------------------------*/
 // Background
@@ -74,15 +74,30 @@
 // DiverField
 /*--------------------------------------------------------------------------------------------*/
 
-#define DIVER_FIELD_NUM_DIVERS_MIN 10
+#define DIVER_FIELD_NUM_DIVERS_MIN 5
 #define DIVER_FIELD_NUM_DIVERS_MAX 50
 #define DIVER_FIELD_SURFACE_PATH_DENSITY 1.0f
 #define DIVER_FIELD_SURFACE_PATH_OFFSET_SPEED   0.025f
 #define DIVER_FIELD_SURFACE_PATH_AMPLITUDE 0.325f
 
 
-#define DIVER_FIELD_
+#define DIVER_FIELD_DIVER_NUM_POINTS 10 //10
+#define DIVER_FIELD_DIVER_MIN_HEIGHT 0.015f
+#define DIVER_FIELD_DIVER_MAX_HEIGHT 0.065f
+#define DIVER_FIELD_DIVER_MIN_OFFSET 0.0f
+#define DIVER_FIELD_DIVER_MAX_OFFSET 1.0f
+#define DIVER_FIELD_DIVER_MIN_SPEED  0.001f
+#define DIVER_FIELD_DIVER_MAX_SPEED  0.0045f
+#define DIVER_FIELD_DIVER_MIN_LENGTH 1.0f//0.1f
+#define DIVER_FIELD_DIVER_MAX_LENGTH 1.0f//0.275f
 
 
+/*--------------------------------------------------------------------------------------------*/
+// JSON
+/*--------------------------------------------------------------------------------------------*/
 
-#endif
+namespace config {
+    void inline Load(){}
+}
+
+

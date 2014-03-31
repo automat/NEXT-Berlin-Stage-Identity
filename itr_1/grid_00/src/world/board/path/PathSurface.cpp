@@ -28,13 +28,13 @@ void PathSurface::set(const Vec3f &pos, int numSlices, int size){
     //
     //  Init points
     //
-    mDistance       = float(mSize);             // cell border left to cell border right + width
+    mDistance       = float(mSize);                                // cell border left to cell border right + width
     mNumPointsSlice = mDistance * 0.5f * PATH_SLICE_NUM_POINTS;    // number of points per slice, relative to distance
     mNumPoints      = mNumSlices * mNumPointsSlice;
     
     int   numPointsSlice_1 = mNumPointsSlice - 1;
-    float sliceWidth       = 1.0f/ float(mNumSlices);
-    float marginX          = -0.5f - sliceWidth * 0.5f;
+    mSliceWidth            = 1.0f/ float(mNumSlices);
+    float marginX          = -0.5f - mSliceWidth * 0.5f;
     
     Vec3f start = Vec3f(marginX,0,mSize-0.5f); // to border right
     Vec3f end   = Vec3f(marginX,0,-0.5f);       // to border left
@@ -44,7 +44,7 @@ void PathSurface::set(const Vec3f &pos, int numSlices, int size){
     int i,j;
     i = -1;
     while (++i < mNumSlices){
-        start.x = end.x = end.x + sliceWidth;
+        start.x = end.x = end.x + mSliceWidth;
         
         mPoints += start; // add start
         j = 0;
@@ -54,7 +54,7 @@ void PathSurface::set(const Vec3f &pos, int numSlices, int size){
         }
         mPoints += end; // add end
         
-        mSlices += PathSlice(this,i,sliceWidth,mNumPointsSlice);
+        mSlices += PathSlice(this,i,mSliceWidth,mNumPointsSlice);
     }
 }
 
@@ -84,10 +84,7 @@ void PathSurface::update(Oscillator* osc, const Vec3f& pos, float density, float
 
 void PathSurface::debugDraw(){
     static const Vec3f zero;
-    
-    glColor3f(1,0,1);
-    glPushMatrix();
-    glTranslatef(mPos.x, mPos.y, mPos.z);
+
     glColor3f(0,0,1);
     glPointSize(2);
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -95,8 +92,11 @@ void PathSurface::debugDraw(){
     glDrawArrays(GL_POINTS, 0, mPoints.size());
     glDisableClientState(GL_VERTEX_ARRAY);
     glPointSize(1);
-    glPopMatrix();
-   
+}
+
+
+PathSlice* PathSurface::getSlicePtr(int index){
+    return &mSlices[index];
 }
 
 const vector<PathSlice>& PathSurface::getSlices(){

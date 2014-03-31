@@ -26,6 +26,7 @@ class PathSurface {
     int   mNumPointsSlice;  //  num points per slices
     int   mNumPoints;       //  mNumSlices * mNumPointsSlice
     float mDistance;        //  distance from left to right
+    float mSliceWidth;      //  width of slice
     
     vector<Vec3f>     mPoints;
     vector<Vec3f>     mTexcoords;
@@ -52,9 +53,15 @@ public:
         return mSize;
     }
     
-    const vector<Vec3f>& getPoints(){
+    inline const vector<Vec3f>& getPoints(){
         return mPoints;
     }
+    
+    //! get width of a single slice
+    inline float getSliceWidth(){
+        return mSliceWidth;
+    }
+    
     
     const vector<PathSlice>& getSlices();
     const Vec3f& getStart(int slice);
@@ -62,7 +69,7 @@ public:
     const Vec3f& getPoint(int slice, int index);
     const PathSlice& getSlice(int index);
     
-    
+    PathSlice* getSlicePtr(int index);
     
     
     

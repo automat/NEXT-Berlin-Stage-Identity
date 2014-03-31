@@ -22,6 +22,7 @@
 
 #include "world/grid/Cell.h"
 #include "world/board/path/PathSurface.h"
+#include "world/board/diver/Diver.h"
 
 
 using namespace ci;
@@ -33,10 +34,22 @@ class Oscillator;
 class AbstractField{
 protected:
     
+    /*--------------------------------------------------------------------------------------------*/
+    //  General
+    /*--------------------------------------------------------------------------------------------*/
+    
     bool        mActive;
     Vec3f       mPos;
     int         mSize;
     
+    Matrix44f   mTransform;
+    
+    
+    /*--------------------------------------------------------------------------------------------*/
+    //  Path Surface
+    /*--------------------------------------------------------------------------------------------*/
+    
+    int         mSurfaceNumSlices;
     Vec3f       mSurfaceDisplacement;   //  field random pos offset
     float       mSurfaceDensity;        //  field density, low/high freq
     float       mSurfaceAmplitude;      //  field amplitude scale
@@ -48,13 +61,52 @@ protected:
     void updatePathSurface(Oscillator* osc,float t);
     void debugDrawArea_Internal();
     
+    /*--------------------------------------------------------------------------------------------*/
+    //  Diver
+    /*--------------------------------------------------------------------------------------------*/
+    
+    vector<Diver*> mDivers;
+    int            mNumDivers;
+    int            mNumDiversMin;
+    int            mNumDiversMax;
+    int            mDiverUnitNumPoints;
+    float          mDiverOffsetMin;
+    float          mDiverOffsetMax;
+    float          mDiverSpeedMin;
+    float          mDiverSpeedMax;
+    float          mDiverLengthMin;
+    float          mDiverLengthMax;
+    float          mDiverHeightMin;
+    float          mDiverHeightMax;
+    
+    void updateDivers();
+    
+    /*--------------------------------------------------------------------------------------------*/
+    //  Geometry
+    /*--------------------------------------------------------------------------------------------*/
+    
+    
+    
+    
+    
+    /*--------------------------------------------------------------------------------------------*/
+    //  Internal
+    /*--------------------------------------------------------------------------------------------*/
+    
+    // free all allocated data
+    void freeData();
+    // init all
+    void reset_Internal();
+    
 public:
     AbstractField(const Vec3f& pos, int size, int numPathSlices);
     ~AbstractField();
     
     virtual void debugDrawArea() = 0;
-    void debugDrawPathSurface();
     
+    void debugDrawPathSurface();
+    void debugDrawDivers();
+
     virtual void draw() = 0;
     virtual void update(Oscillator* osc, float t)= 0;
     

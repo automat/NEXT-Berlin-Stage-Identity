@@ -20,7 +20,7 @@ void main(){
 	float xmid    = uScreenWidth * 0.5;
 	float ymid    = uScreenHeight * 0.5;
 	float x    	  = (coord.x - xmid) / uScreenWidth * scalar;
-	float y    	  = (coord.y - ymid) / uScreenWidth * scalar;
+	float y    	  = (coord.y - ymid) / uScreenHeight * scalar;
 	float n0   	  = max(0.0,min(sqrt(x * x + y * y) + rand(coord) * randScalar,1.0));
 	float n1      = 0.75;
 	vec4 texColor = texture2D(uTexture,vec2(gl_TexCoord[0].x,1.0 - gl_TexCoord[0].y));

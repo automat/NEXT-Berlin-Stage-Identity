@@ -40,6 +40,7 @@
 		CD9642DF18E78C4900AF7760 /* normal_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD9642DD18E78C4900AF7760 /* normal_frag.glsl */; };
 		CD9642E018E78C4900AF7760 /* normal_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD9642DE18E78C4900AF7760 /* normal_vert.glsl */; };
 		CD9642E318E791BF00AF7760 /* ShaderUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9642CF18E753F300AF7760 /* ShaderUtil.cpp */; };
+		CDBE660B18EA0CEA002F29A6 /* Diver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDBE660A18EA0CEA002F29A6 /* Diver.cpp */; };
 		CDF2A90218E5C8F40075F282 /* Apercu_Mono.otf in Resources */ = {isa = PBXBuildFile; fileRef = CDF2A90018E5C8F40075F282 /* Apercu_Mono.otf */; };
 		CDF2A90318E5C8F40075F282 /* transcript_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CDF2A90118E5C8F40075F282 /* transcript_bold.otf */; };
 		D90C57D05BB24F809A8969E6 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0AFB0B8142E14E61B033F6F7 /* CinderApp.icns */; };
@@ -103,6 +104,7 @@
 		CD9642D718E7721F00AF7760 /* srdnoise23.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = srdnoise23.cpp; sourceTree = "<group>"; };
 		CD9642DD18E78C4900AF7760 /* normal_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = normal_frag.glsl; path = ../resources/normal_frag.glsl; sourceTree = "<group>"; };
 		CD9642DE18E78C4900AF7760 /* normal_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = normal_vert.glsl; path = ../resources/normal_vert.glsl; sourceTree = "<group>"; };
+		CDBE660A18EA0CEA002F29A6 /* Diver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Diver.cpp; sourceTree = "<group>"; };
 		CDF2A8EF18E5963A0075F282 /* World.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = World.h; sourceTree = "<group>"; };
 		CDF2A8F018E599430075F282 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
 		CDF2A8F418E59AF30075F282 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 		CD9642A018E6FE5100AF7760 /* diver */ = {
 			isa = PBXGroup;
 			children = (
+				CDBE660A18EA0CEA002F29A6 /* Diver.cpp */,
 			);
 			path = diver;
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 				CD9642BD18E70D0300AF7760 /* Controller.cpp in Sources */,
 				CD9642D418E755E900AF7760 /* GeomUtil.cpp in Sources */,
 				CD9642C318E7102300AF7760 /* DiverField.cpp in Sources */,
+				CDBE660B18EA0CEA002F29A6 /* Diver.cpp in Sources */,
 				CD9642B718E7084F00AF7760 /* LayoutArea.cpp in Sources */,
 				CD9642AB18E7039600AF7760 /* Cell.cpp in Sources */,
 				CD9642D818E7721F00AF7760 /* srdnoise23.cpp in Sources */,

@@ -22,18 +22,28 @@ using namespace ci;
 
 Board::Board(Grid* grid, const LayoutArea& area){
     mOscillator = new Oscillator();
-    
-    // Create diverfields according to layoutarea
     const vector<Cell*>& gridCells = grid->getCells();
+#ifdef DEBUG_SINGLE_DIVER_FIELD
+    Cell* cell = gridCells[84];
+    mDiverFields += new DiverField(cell->getCenter(),2);
+    mIndexDiverFieldMap[cell->getIndex()] = mDiverFields.back();
+    
+    cell = gridCells[85];
+    mDiverFields += new DiverField(cell->getCenter(),10);
+    mIndexDiverFieldMap[cell->getIndex()] = mDiverFields.back();
+    
+#else
+    // Create diverfields according to layoutarea
     for(vector<Cell*>::const_iterator itr = gridCells.begin(); itr != gridCells.end(); ++itr){
         const Cell* cell = *itr;
         const Vec3f& pos =cell->getCenter();
         if(area.contains(pos)){
-            const Index index = cell->getIndex();
+            const Index& index = cell->getIndex();
             mDiverFields += new DiverField(pos,Rand::randInt(DIVER_FIELD_NUM_DIVERS_MIN, DIVER_FIELD_NUM_DIVERS_MAX));
             mIndexDiverFieldMap[index] = mDiverFields.back();
         }
     }
+#endif
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -55,14 +65,19 @@ Board::~Board(){
 
 
 void Board::draw(){
-#ifdef DEBUG_BOARD_FIELD_DIVER_DRAW
+#if defined(DEBUG_BOARD_FIELD_DIVER_AREA_DRAW) || \
+    defined(DEBUG_BOARD_FIELD_DIVER_PATH_SURFACE_DRAW) || \
+    defined(DEBUG_BOARD_FIELD_DIVER_DIVER)
     gl::disableDepthRead();
     for(vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr){
-#ifdef DEBUG_BOARD_FIELD_DIVER_PATH_AREA_DRAW
+#ifdef DEBUG_BOARD_FIELD_DIVER_AREA_DRAW
         (*itr)->debugDrawArea();
 #endif
 #ifdef DEBUG_BOARD_FIELD_DIVER_PATH_SURFACE_DRAW
         (*itr)->debugDrawPathSurface();
+#endif
+#ifdef DEBUG_BOARD_FIELD_DIVER_DIVER
+        (*itr)->debugDrawDivers();
 #endif
     }
     gl::enableDepthRead();
