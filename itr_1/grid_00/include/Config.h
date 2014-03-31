@@ -37,8 +37,8 @@
 
 //#define DEBUG_WORLD_COORDINATE_FRAME
 //#define DEBUG_WORLD_CAM_FRUSTUM
-//#define DEBUG_WORLD_GRID_DRAW_INDICES
-//#define DEBUG_WORLD_GRID_CELL_DRAW
+#define DEBUG_WORLD_GRID_DRAW_INDICES
+#define DEBUG_WORLD_GRID_CELL_DRAW
 //#define DEBUG_WORLD_AREA_DRAW
 
 /*--------------------------------------------------------------------------------------------*/
@@ -59,6 +59,13 @@
 
 #define OSCILLATOR_PERLIN_NUM_OCTAVES 1
 #define OSCILLATOR_PERLIN_SEED clock() & 65535
+
+
+/*--------------------------------------------------------------------------------------------*/
+// Pathsurface
+/*--------------------------------------------------------------------------------------------*/
+
+#define PATH_SLICE_NUM_POINTS 20
 
 
 #endif

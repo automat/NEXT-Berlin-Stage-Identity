@@ -192,20 +192,12 @@ void Background::renderMesh(){
     mShaderMesh.uniform("uColor0", COLOR_BLUE_0);
     mShaderMesh.uniform("uColor1", COLOR_BLUE_1);
     mShaderMesh.uniform("uColor2", COLOR_BLUE_2);
-    
     gl::clear(Color::black());
     gl::draw(mMesh);
     mShaderMesh.unbind();
     mFboMesh.unbindFramebuffer();
-    
-    
 }
 
 void Background::renderTexture(){
-    Vec2f windowSize(app::getWindowSize());
-    
-    
-    
     mTexture = mFboGradient.getTexture();
-    
 }

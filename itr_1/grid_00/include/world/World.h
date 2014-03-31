@@ -33,6 +33,8 @@ typedef std::shared_ptr<class World> WorldRef;
 
 /*--------------------------------------------------------------------------------------------*/
 
+class PathSurface;
+
 using namespace ci;
 class World {
     
@@ -50,7 +52,6 @@ class World {
     Board*           mBoard;
     Oscillator*      mOscillator;
     QuoteTypesetter* mTypesetter;
-    
     
     void initCells();
     void drawScene();

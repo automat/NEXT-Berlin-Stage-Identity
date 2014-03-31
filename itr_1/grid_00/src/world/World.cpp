@@ -1,6 +1,7 @@
 #include "world/World.h"
 #include "cinder/Plane.h"
 #include "util/GeomUtil.h"
+#include "world/board/path/PathSurface.h"
 
 /*--------------------------------------------------------------------------------------------*/
 // Constructor
@@ -63,7 +64,6 @@ World::World(){
     mTypesetter->setAlign(QuoteTypesetter::Align::CENTER);
     mTypesetter->debugTexture();
 
-
     
 }
 
@@ -72,7 +72,10 @@ World::~World(){
     delete mBackground;
     delete mOscillator;
     delete mTypesetter;
+    //delete mTestSurface;
     delete mGrid;
+    
+    cout << "World destructed." << endl;
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -147,7 +150,6 @@ void World::drawScene(){
 void World::update(){
     mBackground->update();
     mBoard->update();
-    
 }
 
 void World::draw(){

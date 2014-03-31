@@ -20,6 +20,8 @@
 		CD5CE26318E84B7C00D5E5BC /* bg_gradient_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD5CE26218E84B7C00D5E5BC /* bg_gradient_frag.glsl */; };
 		CD5CE26518E84EE000D5E5BC /* bg_mesh_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD5CE26418E84EBC00D5E5BC /* bg_mesh_vert.glsl */; };
 		CD5CE26718E84EF800D5E5BC /* bg_mesh_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD5CE26618E84EF800D5E5BC /* bg_mesh_frag.glsl */; };
+		CD5CE27118E8CE6100D5E5BC /* PathSurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD5CE27018E8CE6100D5E5BC /* PathSurface.cpp */; };
+		CD780DFA18E95A790090C01A /* PathSlice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD780DF918E95A790090C01A /* PathSlice.cpp */; };
 		CD9642A318E6FE7B00AF7760 /* AbstractField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9642A218E6FE7B00AF7760 /* AbstractField.cpp */; };
 		CD9642A618E6FF7500AF7760 /* FrustumOrtho.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9642A518E6FF7500AF7760 /* FrustumOrtho.cpp */; };
 		CD9642A918E7013A00AF7760 /* Grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9642A818E7013A00AF7760 /* Grid.cpp */; };
@@ -68,7 +70,10 @@
 		CD5CE26218E84B7C00D5E5BC /* bg_gradient_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = bg_gradient_frag.glsl; path = ../resources/bg_gradient_frag.glsl; sourceTree = "<group>"; };
 		CD5CE26418E84EBC00D5E5BC /* bg_mesh_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = bg_mesh_vert.glsl; path = ../resources/bg_mesh_vert.glsl; sourceTree = "<group>"; };
 		CD5CE26618E84EF800D5E5BC /* bg_mesh_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = bg_mesh_frag.glsl; path = ../resources/bg_mesh_frag.glsl; sourceTree = "<group>"; };
-		CD96429618E6332900AF7760 /* PathSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathSurface.h; sourceTree = "<group>"; };
+		CD5CE26E18E8CD8700D5E5BC /* PathSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathSurface.h; sourceTree = "<group>"; };
+		CD5CE27018E8CE6100D5E5BC /* PathSurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathSurface.cpp; sourceTree = "<group>"; };
+		CD780DF818E959960090C01A /* PathSlice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathSlice.h; sourceTree = "<group>"; };
+		CD780DF918E95A790090C01A /* PathSlice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathSlice.cpp; sourceTree = "<group>"; };
 		CD96429818E635A500AF7760 /* Diver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Diver.h; sourceTree = "<group>"; };
 		CD96429B18E6FA6600AF7760 /* AbstractField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractField.h; sourceTree = "<group>"; };
 		CD96429C18E6FA6600AF7760 /* DiverField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiverField.h; sourceTree = "<group>"; };
@@ -233,10 +238,10 @@
 		CD363CBF18E619060037CE81 /* board */ = {
 			isa = PBXGroup;
 			children = (
+				CD5CE26D18E8CD6F00D5E5BC /* path */,
 				CD96429A18E6FA4E00AF7760 /* field */,
 				CD96429718E6359A00AF7760 /* diver */,
 				CD363CC118E619060037CE81 /* Board.h */,
-				CD96429618E6332900AF7760 /* PathSurface.h */,
 			);
 			path = board;
 			sourceTree = "<group>";
@@ -259,6 +264,24 @@
 				CD5CE26618E84EF800D5E5BC /* bg_mesh_frag.glsl */,
 			);
 			name = background;
+			sourceTree = "<group>";
+		};
+		CD5CE26D18E8CD6F00D5E5BC /* path */ = {
+			isa = PBXGroup;
+			children = (
+				CD5CE26E18E8CD8700D5E5BC /* PathSurface.h */,
+				CD780DF818E959960090C01A /* PathSlice.h */,
+			);
+			path = path;
+			sourceTree = "<group>";
+		};
+		CD5CE26F18E8CE6100D5E5BC /* path */ = {
+			isa = PBXGroup;
+			children = (
+				CD5CE27018E8CE6100D5E5BC /* PathSurface.cpp */,
+				CD780DF918E95A790090C01A /* PathSlice.cpp */,
+			);
+			path = path;
 			sourceTree = "<group>";
 		};
 		CD96429718E6359A00AF7760 /* diver */ = {
@@ -303,6 +326,7 @@
 		CD96429F18E6FE5100AF7760 /* board */ = {
 			isa = PBXGroup;
 			children = (
+				CD5CE26F18E8CE6100D5E5BC /* path */,
 				CD9642A018E6FE5100AF7760 /* diver */,
 				CD9642A118E6FE5100AF7760 /* field */,
 				CD9642C018E70D7900AF7760 /* Board.cpp */,
@@ -528,7 +552,9 @@
 				CD9642AF18E7044800AF7760 /* World.cpp in Sources */,
 				CD9642E318E791BF00AF7760 /* ShaderUtil.cpp in Sources */,
 				15E80D8CEDD046D1A08950CA /* grid_00App.cpp in Sources */,
+				CD5CE27118E8CE6100D5E5BC /* PathSurface.cpp in Sources */,
 				CD9642B918E70B8700AF7760 /* Oscillator.cpp in Sources */,
+				CD780DFA18E95A790090C01A /* PathSlice.cpp in Sources */,
 				CD9642C718E7336500AF7760 /* Background.cpp in Sources */,
 				CD9642A918E7013A00AF7760 /* Grid.cpp in Sources */,
 				CD9642C118E70D7900AF7760 /* Board.cpp in Sources */,

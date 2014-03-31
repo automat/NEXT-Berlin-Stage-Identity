@@ -23,12 +23,11 @@
 #include "world/Index.h"
 #include "world/grid/Cell.h"
 #include "world/Oscillator.h"
-#include "world/board/PathSurface.h"
+#include "world/board/path/PathSurface.h"
 #include "world/board/diver/Diver.h"
 
 using namespace ci;
 using namespace std;
-
 
 class AbstractField : public Cell {
 protected:
