@@ -37,15 +37,17 @@
 
 //#define DEBUG_WORLD_COORDINATE_FRAME
 //#define DEBUG_WORLD_CAM_FRUSTUM
-#define DEBUG_WORLD_GRID_DRAW_INDICES
-#define DEBUG_WORLD_GRID_CELL_DRAW
-//#define DEBUG_WORLD_AREA_DRAW
+//#define DEBUG_WORLD_GRID_DRAW_INDICES
+//#define DEBUG_WORLD_GRID_CELL_DRAW
+#define DEBUG_WORLD_AREA_DRAW
 
 /*--------------------------------------------------------------------------------------------*/
 // Board
 /*--------------------------------------------------------------------------------------------*/
 
-//#define DEBUG_BOARD_FIELD_DIVER_DRAW
+#define DEBUG_BOARD_FIELD_DIVER_DRAW
+//#define DEBUG_BOARD_FIELD_DIVER_PATH_AREA_DRAW
+#define DEBUG_BOARD_FIELD_DIVER_PATH_SURFACE_DRAW
 
 /*--------------------------------------------------------------------------------------------*/
 // Background
@@ -66,6 +68,21 @@
 /*--------------------------------------------------------------------------------------------*/
 
 #define PATH_SLICE_NUM_POINTS 20
+
+
+/*--------------------------------------------------------------------------------------------*/
+// DiverField
+/*--------------------------------------------------------------------------------------------*/
+
+#define DIVER_FIELD_NUM_DIVERS_MIN 10
+#define DIVER_FIELD_NUM_DIVERS_MAX 50
+#define DIVER_FIELD_SURFACE_PATH_DENSITY 1.0f
+#define DIVER_FIELD_SURFACE_PATH_OFFSET_SPEED   0.025f
+#define DIVER_FIELD_SURFACE_PATH_AMPLITUDE 0.325f
+
+
+#define DIVER_FIELD_
+
 
 
 #endif
