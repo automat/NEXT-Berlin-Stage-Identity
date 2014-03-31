@@ -20,23 +20,44 @@
 
 #include "Config.h"
 
-#include "world/Index.h"
 #include "world/grid/Cell.h"
-#include "world/Oscillator.h"
 #include "world/board/path/PathSurface.h"
-#include "world/board/diver/Diver.h"
+
 
 using namespace ci;
 using namespace std;
 
-class AbstractField : public Cell {
+class Oscillator;
+
+
+class AbstractField{
 protected:
-    bool mActive;
-   
+    
+    bool        mActive;
+    Vec3f       mPos;
+    int         mSize;
+    
+    Vec3f       mSurfaceDisplacement;   //  field random pos offset
+    float       mSurfaceDensity;        //  field density, low/high freq
+    float       mSurfaceAmplitude;      //  field amplitude scale
+    float       mSurfaceOffset;
+    float       mSurfaceOffsetSpeed;
+    
+    PathSurface mPathSurface;
+    
+    void updatePathSurface(Oscillator* osc,float t);
+    void debugDrawArea_Internal();
     
 public:
-    AbstractField(const Index& index, const Vec3f& pos);
+    AbstractField(const Vec3f& pos, int size, int numPathSlices);
     ~AbstractField();
+    
+    virtual void debugDrawArea() = 0;
+    void debugDrawPathSurface();
+    
+    virtual void draw() = 0;
+    virtual void update(Oscillator* osc, float t)= 0;
+    
 };
 
 #endif

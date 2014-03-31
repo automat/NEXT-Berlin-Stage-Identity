@@ -10,7 +10,7 @@ vec4 lightSpecular = vec4(1,1,1,1);
 vec4  matAmbient   = vec4(17.0/255.0, 7.0/255.0,  22.0/255.0, 1);
 vec4  matDiffuse   = vec4(52.0/255.0, 22.0/255.0, 66.0/255.0, 1);
 vec4  matSpecular  = vec4(158.0/255.0, 205.0/255.0, 239.0/255.0, 1);
-float matShininess = 10.0;
+float matShininess = 10.0; // 1.0
 
 float scalar = 0.7;
 

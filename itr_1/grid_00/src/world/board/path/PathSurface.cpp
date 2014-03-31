@@ -11,14 +11,24 @@
 
 using namespace boost::assign;
 
-PathSurface::PathSurface(){mNumSlices = -1;}
+PathSurface::PathSurface(){}
 
-PathSurface::PathSurface(const Vec3f& pos, int numSlices, int width) :
-mPos(pos),mNumSlices(numSlices),mWidth(width){
+PathSurface::PathSurface(const Vec3f& pos, int numSlices, int size){
+    set(pos,numSlices,size);
+}
+
+void PathSurface::set(const Vec3f &pos, int numSlices, int size){
+    mSlices.clear();
+    mPoints.clear();
+    
+    mPos       = pos;
+    mNumSlices = numSlices;
+    mSize      = size;
+    
     //
     //  Init points
     //
-    mDistance       = pos.z + float(width) + 1;             // cell border left to cell border right + width
+    mDistance       = float(mSize);             // cell border left to cell border right + width
     mNumPointsSlice = mDistance * 0.5f * PATH_SLICE_NUM_POINTS;    // number of points per slice, relative to distance
     mNumPoints      = mNumSlices * mNumPointsSlice;
     
@@ -26,7 +36,7 @@ mPos(pos),mNumSlices(numSlices),mWidth(width){
     float sliceWidth       = 1.0f/ float(mNumSlices);
     float marginX          = -0.5f - sliceWidth * 0.5f;
     
-    Vec3f start = Vec3f(marginX,0,mWidth-0.5f); // to border right
+    Vec3f start = Vec3f(marginX,0,mSize-0.5f); // to border right
     Vec3f end   = Vec3f(marginX,0,-0.5f);       // to border left
     float a;
     
@@ -36,13 +46,13 @@ mPos(pos),mNumSlices(numSlices),mWidth(width){
     while (++i < mNumSlices){
         start.x = end.x = end.x + sliceWidth;
         
-        mPoints += start;
+        mPoints += start; // add start
         j = 0;
         while (++j < numPointsSlice_1) {
             a = float(j) / float(numPointsSlice_1);
-            mPoints += start * (1.0f - a) + end * a;
+            mPoints += start * (1.0f - a) + end * a;  // add between start end
         }
-        mPoints += end;
+        mPoints += end; // add end
         
         mSlices += PathSlice(this,i,sliceWidth,mNumPointsSlice);
     }
@@ -52,7 +62,7 @@ PathSurface& PathSurface::operator=(const PathSurface &rhs){
     if(this != &rhs){
         mPos = rhs.mPos;
         mNumSlices = rhs.mNumSlices;
-        mWidth = rhs.mWidth;
+        mSize = rhs.mSize;
         mDistance = rhs.mDistance;
         mNumPointsSlice = rhs.mNumPointsSlice;
         mPoints = rhs.mPoints;
@@ -64,37 +74,20 @@ PathSurface& PathSurface::operator=(const PathSurface &rhs){
     return *this;
 }
 
-void PathSurface::update(Oscillator* osc, const Vec3f& pos, float amplitude, float offset){
-    static const float scale = 0.75f;
+void PathSurface::update(Oscillator* osc, const Vec3f& pos, float density, float amplitude, float offset){
     for (vector<Vec3f>::iterator itr = mPoints.begin(); itr != mPoints.end(); ++itr) {
-        itr->y = osc->getValue(pos.x + itr->x * amplitude,
-                               pos.z + itr->z * amplitude,
-                               offset) * scale;
+        itr->y = osc->getValue(pos.x + itr->x * density,
+                               pos.z + itr->z * density,
+                               offset) * amplitude;
     }
 }
 
 void PathSurface::debugDraw(){
     static const Vec3f zero;
     
-    const float verticesArea[12] = {
-        -0.5f,0,-0.5f,
-        0.5f,0,-0.5f,
-        0.5f,0,  mWidth - 0.5f,
-        -0.5f,0, mWidth - 0.5f
-    };
-    
-    glLineWidth(3);
-    glColor3f(0,0,1);
+    glColor3f(1,0,1);
     glPushMatrix();
     glTranslatef(mPos.x, mPos.y, mPos.z);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(3, GL_FLOAT, 0, &verticesArea[0]);
-    glDrawArrays(GL_LINE_LOOP, 0, 4);
-    glVertexPointer(3, GL_FLOAT, 0, &zero.x);
-    glDisableClientState(GL_VERTEX_ARRAY);
-    glPopMatrix();
-    glLineWidth(1);
-    
     glColor3f(0,0,1);
     glPointSize(2);
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -102,6 +95,8 @@ void PathSurface::debugDraw(){
     glDrawArrays(GL_POINTS, 0, mPoints.size());
     glDisableClientState(GL_VERTEX_ARRAY);
     glPointSize(1);
+    glPopMatrix();
+   
 }
 
 const vector<PathSlice>& PathSurface::getSlices(){

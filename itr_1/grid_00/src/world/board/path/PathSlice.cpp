@@ -17,8 +17,8 @@ const Vec3f& PathSlice::getPoint(int index) const{
     return mSurface->getPoint(mIndex, index);
 }
 
-int PathSlice::getSurfaceWidth() const{
-    return mSurface->getWidth();
+int PathSlice::getSurfaceSize() const{
+    return mSurface->getSize();
 }
 
 void PathSlice::getPointOn(float intrpl, Vec3f *out) const{

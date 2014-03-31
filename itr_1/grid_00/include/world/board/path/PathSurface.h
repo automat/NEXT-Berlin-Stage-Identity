@@ -21,7 +21,7 @@ class Oscillator;
 
 class PathSurface {
     Vec3f mPos;             //  center position in cell
-    int   mWidth;           //  width of surface to the left
+    int   mSize;            //  size of surface to the left
     int   mNumSlices;       //  overall num slices
     int   mNumPointsSlice;  //  num points per slices
     int   mNumPoints;       //  mNumSlices * mNumPointsSlice
@@ -34,19 +34,22 @@ class PathSurface {
     
 public:
     PathSurface();
-    PathSurface(const Vec3f& pos, int numSlices = 1, int width = 1);
+    PathSurface(const Vec3f& pos, int numSlices = 1, int size = 1);
+    
+    void set(const Vec3f& pos, int numSlices = 1, int size = 1);
     
     PathSurface& operator=(const PathSurface& rhs);
     
-    void update(Oscillator* osc, const Vec3f& pos, float amplitude, float offset);
+    void update(Oscillator* osc, const Vec3f& pos, float density, float amplitude, float offset);
     void debugDraw();
     
     inline int getNumSlices(){
         return mNumSlices;
     }
     
-    inline int getWidth(){
-        return mWidth;
+    //! get size to the left
+    inline int getSize(){
+        return mSize;
     }
     
     const vector<Vec3f>& getPoints(){

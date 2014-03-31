@@ -17,9 +17,11 @@ typedef std::map<const Index,class DiverField*> IndexDiverFieldMap;
 class DiverField : public AbstractField {
     
 public:
-    DiverField(const Index& index, const Vec3f& pos);
+    DiverField(const Vec3f& pos, int numPathSlices);
     void debugDrawArea();
     
+    void draw();
+    void update(Oscillator* osc, float t);
 };
 
 

@@ -8,6 +8,7 @@
 #include <boost/assert.hpp>
 
 #include "cinder/gl/gl.h"
+#include "cinder/Rand.h"
 
 #include "Config.h"
 
@@ -20,6 +21,7 @@ using namespace ci;
 /*--------------------------------------------------------------------------------------------*/
 
 Board::Board(Grid* grid, const LayoutArea& area){
+    mOscillator = new Oscillator();
     
     // Create diverfields according to layoutarea
     const vector<Cell*>& gridCells = grid->getCells();
@@ -28,12 +30,10 @@ Board::Board(Grid* grid, const LayoutArea& area){
         const Vec3f& pos =cell->getCenter();
         if(area.contains(pos)){
             const Index index = cell->getIndex();
-            mDiverFields += new DiverField(index,pos);
+            mDiverFields += new DiverField(pos,Rand::randInt(DIVER_FIELD_NUM_DIVERS_MIN, DIVER_FIELD_NUM_DIVERS_MAX));
             mIndexDiverFieldMap[index] = mDiverFields.back();
         }
     }
-    
-    
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -57,14 +57,23 @@ Board::~Board(){
 void Board::draw(){
 #ifdef DEBUG_BOARD_FIELD_DIVER_DRAW
     gl::disableDepthRead();
-    for (IndexDiverFieldMap::const_iterator itr = mIndexDiverFieldMap.begin(); itr != mIndexDiverFieldMap.end(); ++itr) {
-        itr->second->debugDrawArea();
+    for(vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr){
+#ifdef DEBUG_BOARD_FIELD_DIVER_PATH_AREA_DRAW
+        (*itr)->debugDrawArea();
+#endif
+#ifdef DEBUG_BOARD_FIELD_DIVER_PATH_SURFACE_DRAW
+        (*itr)->debugDrawPathSurface();
+#endif
     }
     gl::enableDepthRead();
 #endif
-    
 }
 
 void Board::update(){
+    float t = app::getElapsedSeconds();
+    
+    for (vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr) {
+        (*itr)->update(mOscillator,t);
+    }
     
 }

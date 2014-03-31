@@ -10,8 +10,8 @@
 #define grid_00_Slice_h
 
 #include "cinder/Vector.h"
-
 using namespace ci;
+
 
 class PathSurface;
 
@@ -31,21 +31,26 @@ public:
     const Vec3f& getEnd() const;
     const Vec3f& getPoint(int index) const;
     
-    
+    //! get point on sliced path
     void getPointOn(float intrpl, Vec3f* out) const;
     
+    //! get number of of slice points
     inline int getNumPoints() const{
         return mNumPoints;
     }
     
+    //! get width of slice
     inline float getWidth() const{
         return mWidth;
     }
     
-    int getSurfaceWidth() const;
+    //! get size of surface to the left
+    int getSurfaceSize() const;
     
-    
+    //! get summed distance of slice
     float getLength() const;
+    
+    //! get summed distance of slice squared
     float getLengthSq() const;
 };
 
