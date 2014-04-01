@@ -19,10 +19,7 @@ Diver::Diver(PathSlice* pathSlice,
         
         mIsOut = mIsOutPrev = false;
         mPoints.resize(mNumPoints);
-        //mLengthStep = mLength / (float)(mNumPoints-1) * 1.0f/mPathSlice->getWidth(); //scale unit to path length
-        mLengthStep = mLength / float(mNumPoints-1);
-        //cout << mLength << endl;
-        //cout << mOffset << endl;
+        mLengthStep = mLength / float(mNumPoints-1) * 1.0f/pathLength; //scale unit to path length
 }
 
 
@@ -37,11 +34,11 @@ void Diver::update(){
     }
     
     mOffset += mSpeed;
+
     float offsetInv = 1.0f - mOffset;
     int i = 0;
     for(vector<Vec3f>::iterator itr = mPoints.begin(); itr != mPoints.end(); itr++){
-        //mPathSlice->getPointOn(offsetInv + mLengthStep * float(i++), &(*itr));
-        mPathSlice->getPointOn(1.0f - mLengthStep * float(i++), &(*itr));
+        mPathSlice->getPointOn(offsetInv + mLengthStep * float(i++), &(*itr));
     }
 }
 

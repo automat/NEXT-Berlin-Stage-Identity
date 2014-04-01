@@ -25,13 +25,13 @@ Board::Board(Grid* grid, const LayoutArea& area){
     const vector<Cell*>& gridCells = grid->getCells();
 #ifdef DEBUG_SINGLE_DIVER_FIELD
     Cell* cell = gridCells[84];
-    mDiverFields += new DiverField(cell->getCenter(),2);
+    mDiverFields += new DiverField(cell->getCenter(),1);
     mIndexDiverFieldMap[cell->getIndex()] = mDiverFields.back();
-    
+    /*
     cell = gridCells[85];
     mDiverFields += new DiverField(cell->getCenter(),10);
     mIndexDiverFieldMap[cell->getIndex()] = mDiverFields.back();
-    
+    */
 #else
     // Create diverfields according to layoutarea
     for(vector<Cell*>::const_iterator itr = gridCells.begin(); itr != gridCells.end(); ++itr){

@@ -20,7 +20,7 @@
 #define APP_HEIGHT STAGE_HEIGHT / STAGE_SCALE
 #define APP_FPS 36.0f
 
-//#define DEBUG_SINGLE_DIVER_FIELD
+#define DEBUG_SINGLE_DIVER_FIELD
 
 /*--------------------------------------------------------------------------------------------*/
 // World
@@ -86,8 +86,8 @@
 #define DIVER_FIELD_DIVER_MAX_HEIGHT 0.065f
 #define DIVER_FIELD_DIVER_MIN_OFFSET 0.0f
 #define DIVER_FIELD_DIVER_MAX_OFFSET 1.0f
-#define DIVER_FIELD_DIVER_MIN_SPEED  0.001f
-#define DIVER_FIELD_DIVER_MAX_SPEED  0.0045f
+#define DIVER_FIELD_DIVER_MIN_SPEED  0.0025f
+#define DIVER_FIELD_DIVER_MAX_SPEED  0.008f//0.0045f
 #define DIVER_FIELD_DIVER_MIN_LENGTH 1.0f//0.1f
 #define DIVER_FIELD_DIVER_MAX_LENGTH 1.0f//0.275f
 
@@ -97,7 +97,7 @@
 /*--------------------------------------------------------------------------------------------*/
 
 namespace config {
-    void inline Load(){}
+    inline void Load(){}
 }
 
 
