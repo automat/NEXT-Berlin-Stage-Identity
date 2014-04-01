@@ -3,7 +3,7 @@
 #include "cinder/Rand.h"
 
 DiverField::DiverField(const Vec3f& pos, int numPathSlices) :
-    AbstractField(pos, 1, numPathSlices){
+    AbstractField(pos, 2, numPathSlices){
         mSurfaceDisplacement = Vec3f(Rand::randInt(0, WORLD_GRID_NUM_CELLS_XY),0,Rand::randInt(0, WORLD_GRID_NUM_CELLS_XY));
         mSurfaceAmplitude    = DIVER_FIELD_SURFACE_PATH_AMPLITUDE;
         mSurfaceDensity      = DIVER_FIELD_SURFACE_PATH_DENSITY;

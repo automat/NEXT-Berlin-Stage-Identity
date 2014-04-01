@@ -68,8 +68,6 @@ protected:
     
     vector<Diver*> mDivers;
     int            mNumDivers;
-    int            mNumDiversMin;       //  lower bound num divers
-    int            mNumDiversMax;       //  upper bound num divers
     int            mDiverUnitNumPoints; //  number of points per cell
     int            mDiverNumPoints;     //  unit points * number of cells
     float          mDiverOffsetMin;     //  lower bound initial diver offset

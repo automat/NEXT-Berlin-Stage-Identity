@@ -100,7 +100,7 @@ void AbstractField::updateMesh(){
             vertexIndex += 8;
             
             if(diverIsOut && !diverIsOutPrev){
-                fold(diverIndex);
+               fold(diverIndex);
             }
             diverIndex++;
             continue;
@@ -280,10 +280,10 @@ void AbstractField::reset_Internal(){
         length = Rand::randFloat(mDiverLengthMin, mDiverLengthMax);
         height = Rand::randFloat(mDiverHeightMin, mDiverHeightMax);
 
-        mDivers += new Diver(mPathSurface.getSlicePtr(i),mDiverUnitNumPoints,offset,speed,length,height);
+        mDivers += new Diver(mPathSurface.getSlicePtr(i),mDiverNumPoints,offset,speed,length,height);
     }
     
-    mNumDivers            = mDiverNumPoints;
+    mNumDivers            = mSurfaceNumSlices;
     mDiverVerticesCapLen  = 8; // top + back
     mDiverVerticesBodyLen = (mDiverNumPoints * 4) * 2; //(top , bottom , left, right ) * 2 ,
     mDiverVerticesLen     = mDiverVerticesBodyLen + mDiverVerticesCapLen;

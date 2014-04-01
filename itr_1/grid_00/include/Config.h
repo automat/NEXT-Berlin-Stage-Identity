@@ -46,8 +46,8 @@
 /*--------------------------------------------------------------------------------------------*/
 
 #define DEBUG_BOARD_FIELD_DIVER_AREA_DRAW
-#define DEBUG_BOARD_FIELD_DIVER_PATH_SURFACE_DRAW
-#define DEBUG_BOARD_FIELD_DIVER_DIVER
+//#define DEBUG_BOARD_FIELD_DIVER_PATH_SURFACE_DRAW
+//#define DEBUG_BOARD_FIELD_DIVER_DIVER
 
 /*--------------------------------------------------------------------------------------------*/
 // Background
@@ -67,7 +67,7 @@
 // Pathsurface
 /*--------------------------------------------------------------------------------------------*/
 
-#define PATH_SLICE_NUM_POINTS 20
+#define PATH_SLICE_NUM_POINTS 40
 
 
 /*--------------------------------------------------------------------------------------------*/
@@ -77,15 +77,15 @@
 #define DIVER_FIELD_NUM_DIVERS_MIN 5
 #define DIVER_FIELD_NUM_DIVERS_MAX 50
 #define DIVER_FIELD_SURFACE_PATH_DENSITY 1.0f
-#define DIVER_FIELD_SURFACE_PATH_OFFSET_SPEED   0.025f
-#define DIVER_FIELD_SURFACE_PATH_AMPLITUDE 0//0.325f
+#define DIVER_FIELD_SURFACE_PATH_OFFSET_SPEED   0.0025f
+#define DIVER_FIELD_SURFACE_PATH_AMPLITUDE 0.125f//0.325f
 
 
-#define DIVER_FIELD_DIVER_NUM_POINTS 4 //10
+#define DIVER_FIELD_DIVER_NUM_POINTS 20 //10
 #define DIVER_FIELD_DIVER_MIN_HEIGHT 0.015f
 #define DIVER_FIELD_DIVER_MAX_HEIGHT 0.065f
-#define DIVER_FIELD_DIVER_MIN_OFFSET 1.0f
-#define DIVER_FIELD_DIVER_MAX_OFFSET 1.0f
+#define DIVER_FIELD_DIVER_MIN_OFFSET -0.9f//1.0f
+#define DIVER_FIELD_DIVER_MAX_OFFSET -1.0f
 #define DIVER_FIELD_DIVER_MIN_SPEED  0.0025f
 #define DIVER_FIELD_DIVER_MAX_SPEED  0.0045f
 #define DIVER_FIELD_DIVER_MIN_LENGTH 1.0f//0.1f
