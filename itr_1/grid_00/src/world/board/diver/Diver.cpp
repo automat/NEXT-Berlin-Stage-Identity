@@ -18,44 +18,9 @@ Diver::Diver(PathSlice* pathSlice,
         
         mIsOut = mIsOutPrev = false;
         mPoints.resize(mNumPoints);
-     
         
         mLengthStep = float(mLength) / float(mNumPoints-1);
-        
-        //mLengthStep = mLength / float(mNumPoints-1);// * mPathLengthInv; //scale unit to path length
-    
     }
-
-
-/*
-void Diver::update(){
-    if (mIsOut && mIsHidden) { //should hide and is hidden
-        return;
-    }
-    
-    // reset if offset reaches double the distance from start
-    if(mOffset >= 2.0f){
-        mOffset = -1;
-    }
-    
-    mOffset += mSpeed;
-    //cout << mOffset << " / " << mLength * mPathLengthInv << endl;
-    //cout << mOffset << endl;
-
-    float offsetInv = 1.0f - mOffset;
-    int i = 0;
-    float mmm = mLength / float(mPoints.size() - 1);
-    float step = mLength / float(mNumPoints - 1);
-    cout << mLengthStep << endl;
-    float intrpl;
-    for(vector<Vec3f>::iterator itr = mPoints.begin(); itr != mPoints.end(); itr++){
-        //mPathSlice->getPointOn(offsetInv + mLengthStep * float(i++), &(*itr));
-        intrpl = mOffset + mLengthStep * float(i++);
-        
-        mPathSlice->getPointOn(1.0f - intrpl, &(*itr));
-    }
-}*/
-
 
 void Diver::update(){
     if (mIsOut && mIsHidden) {

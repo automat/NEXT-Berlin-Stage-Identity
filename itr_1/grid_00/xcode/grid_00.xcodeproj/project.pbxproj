@@ -104,6 +104,7 @@
 		CD9642D718E7721F00AF7760 /* srdnoise23.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = srdnoise23.cpp; sourceTree = "<group>"; };
 		CD9642DD18E78C4900AF7760 /* normal_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = normal_frag.glsl; path = ../resources/normal_frag.glsl; sourceTree = "<group>"; };
 		CD9642DE18E78C4900AF7760 /* normal_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = normal_vert.glsl; path = ../resources/normal_vert.glsl; sourceTree = "<group>"; };
+		CDA67CE418EB018D00A8A118 /* ColorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorUtil.h; sourceTree = "<group>"; };
 		CDBE660A18EA0CEA002F29A6 /* Diver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Diver.cpp; sourceTree = "<group>"; };
 		CDF2A8EF18E5963A0075F282 /* World.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = World.h; sourceTree = "<group>"; };
 		CDF2A8F018E599430075F282 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
@@ -431,6 +432,7 @@
 				CD9642D218E7559300AF7760 /* GeomUtil.h */,
 				CD9642D618E771CB00AF7760 /* srdnoise23.h */,
 				CD5CE25F18E83F9F00D5E5BC /* DrawUtil.h */,
+				CDA67CE418EB018D00A8A118 /* ColorUtil.h */,
 			);
 			name = util;
 			path = ../include/util;

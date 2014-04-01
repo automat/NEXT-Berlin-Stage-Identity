@@ -55,6 +55,7 @@ protected:
     float       mSurfaceAmplitude;      //  field amplitude scale
     float       mSurfaceOffset;
     float       mSurfaceOffsetSpeed;
+    float       mSurfaceSliceWidth;
     
     PathSurface mPathSurface;
     
@@ -67,17 +68,18 @@ protected:
     
     vector<Diver*> mDivers;
     int            mNumDivers;
-    int            mNumDiversMin;
-    int            mNumDiversMax;
-    int            mDiverUnitNumPoints;
-    float          mDiverOffsetMin;
-    float          mDiverOffsetMax;
-    float          mDiverSpeedMin;
-    float          mDiverSpeedMax;
-    float          mDiverLengthMin;
-    float          mDiverLengthMax;
-    float          mDiverHeightMin;
-    float          mDiverHeightMax;
+    int            mNumDiversMin;       //  lower bound num divers
+    int            mNumDiversMax;       //  upper bound num divers
+    int            mDiverUnitNumPoints; //  number of points per cell
+    int            mDiverNumPoints;     //  unit points * number of cells
+    float          mDiverOffsetMin;     //  lower bound initial diver offset
+    float          mDiverOffsetMax;     //  upper bound initial diver offset
+    float          mDiverSpeedMin;      //  lower bound diver speed
+    float          mDiverSpeedMax;      //  upper bound diver speed
+    float          mDiverLengthMin;     //  lower bound diver trail length
+    float          mDiverLengthMax;     //  upper bound diver trail length
+    float          mDiverHeightMin;     //  lower bound diver height
+    float          mDiverHeightMax;     //  upper bound diver height
     
     void updateDivers();
     
@@ -118,7 +120,9 @@ protected:
     //
     void unfold(int index);
 
-    
+    void updateMeshNormals();
+    void updateMesh();
+    void drawMesh();
     
     
     /*--------------------------------------------------------------------------------------------*/
@@ -138,9 +142,12 @@ public:
     
     void debugDrawPathSurface();
     void debugDrawDivers();
-
+    
     virtual void draw() = 0;
     virtual void update(Oscillator* osc, float t)= 0;
+    
+    void activate();
+    void deactivate();
     
 };
 

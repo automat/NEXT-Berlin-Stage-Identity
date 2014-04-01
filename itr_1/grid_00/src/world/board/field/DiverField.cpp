@@ -28,11 +28,14 @@ void DiverField::debugDrawArea(){
 }
 
 void DiverField::draw(){
-    
+    drawMesh();
 }
 
 void DiverField::update(Oscillator* osc, float t){
     mSurfaceOffset += mSurfaceOffsetSpeed;
     updatePathSurface(osc, mSurfaceOffset);
     updateDivers();
+    
+    updateMesh();
+    updateMeshNormals();
 }

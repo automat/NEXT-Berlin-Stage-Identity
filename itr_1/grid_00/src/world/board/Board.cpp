@@ -83,6 +83,9 @@ void Board::draw(){
     }
     gl::enableDepthRead();
 #endif
+    for(vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr){
+        (*itr)->draw();
+    }
 }
 
 void Board::update(){
