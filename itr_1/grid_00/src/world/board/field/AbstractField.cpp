@@ -21,6 +21,29 @@ AbstractField::~AbstractField(){
 }
 
 /*--------------------------------------------------------------------------------------------*/
+//  Geometry
+/*--------------------------------------------------------------------------------------------*/
+
+void AbstractField::fold(int index){
+    // copy to target buffer
+    copy(mDiverIndicesFolded.begin(),
+         mDiverIndicesFolded.end(),
+         mMeshIndexBuffer.begin() + index * mDiverIndicesLen);
+}
+
+void AbstractField::unfold(int index){
+    int vertexIndex = index * mDiverVerticesLen;
+    int i = -1;
+    while(++i < mDiverIndicesLen){
+        mDiverIndicesBuffer[i] = mDiverIndicesUnfolded[i] + vertexIndex;
+    }
+    // copy to target buffer
+    copy(mDiverIndicesBuffer.begin(),
+         mDiverIndicesBuffer.end(),
+         mMeshIndexBuffer.begin() + index * mDiverIndicesLen);
+}
+
+/*--------------------------------------------------------------------------------------------*/
 //  Internal
 /*--------------------------------------------------------------------------------------------*/
 
@@ -34,6 +57,7 @@ void AbstractField::reset_Internal(){
     mPathSurface.set(mPos,mSurfaceNumSlices,mSize);
     
     float offset,speed,length,height;
+    int   numPoints = mDiverUnitNumPoints * mPathSurface.getSize();
     
     int i = -1;
     while(++i < mSurfaceNumSlices){
@@ -42,7 +66,7 @@ void AbstractField::reset_Internal(){
         length = Rand::randFloat(mDiverLengthMin, mDiverLengthMax);
         height = Rand::randFloat(mDiverHeightMin, mDiverHeightMax);
 
-        mDivers += new Diver(mPathSurface.getSlicePtr(i),mDiverUnitNumPoints,offset,speed,length,height);
+        mDivers += new Diver(mPathSurface.getSlicePtr(i),numPoints,offset,speed,length,height);
     }
 }
 
@@ -67,20 +91,26 @@ void AbstractField::updateDivers(){
 void AbstractField::debugDrawArea_Internal(){
     static const Vec3f zero;
     
-    float verticesArea[12] = {
+    static const float verticesArea[12] = {
         -0.5f, 0,-0.5f,
         0.5f,  0,-0.5f,
-        0.5f,  0, mSize - 0.5f,
-        -0.5f, 0, mSize - 0.5f
+        0.5f,  0, 0.5f,
+        -0.5f, 0, 0.5f
     };
     
     glPushMatrix();
     glMultMatrixf(&mTransform[0]);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(3, GL_FLOAT, 0, &verticesArea[0]);
-    glDrawArrays(GL_LINE_LOOP, 0, 4);
-    glVertexPointer(3, GL_FLOAT, 0, &zero.x);
-    glDisableClientState(GL_VERTEX_ARRAY);
+    int i = -1;
+    while (++i < mSize) {
+        glPushMatrix();
+        glTranslatef(0, 0, i);
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, &verticesArea[0]);
+        glDrawArrays(GL_LINE_LOOP, 0, 4);
+        glVertexPointer(3, GL_FLOAT, 0, &zero.x);
+        glDisableClientState(GL_VERTEX_ARRAY);
+        glPopMatrix();
+    }
     glPopMatrix();
 }
 

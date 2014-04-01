@@ -85,7 +85,39 @@ protected:
     //  Geometry
     /*--------------------------------------------------------------------------------------------*/
     
+    int mDiverVerticesBodyLen;
+    int mDiverVerticesCapLen;
+    int mDiverVerticesLen;
+    int mDiverIndicesLen;
     
+    int mMeshVerticesLen;
+    int mMeshIndicesLen;
+    
+    gl::VboMesh::Layout mMeshLayout;
+    gl::VboMesh         mMesh;
+    
+    vector<Vec3f>    mMeshVertexBuffer;     // keep copy of vertices
+    vector<Vec3f>    mMeshNormalBuffer;     // buffer for normals
+    vector<Vec3f>    mMeshNormalTopBuffer;  // buffer for all top normals
+    vector<uint32_t> mMeshIndexScheme;      // indices order, used for normal calculation
+    vector<uint32_t> mMeshIndexBuffer;      // indices order, send to buffer object concatenated
+    
+    vector<uint32_t> mDiverIndicesFolded;   // indices order, when folded
+    vector<uint32_t> mDiverIndicesUnfolded; // indices order, when unfolded
+    vector<uint32_t> mDiverIndicesBuffer;   // indices order, when translated to specific diver
+    
+    //
+    // collapse all vertices of a diver into one vertex by setting
+    // all its indices to its first index
+    //
+    void fold(int index);
+    
+    //
+    // reorder all indices to their vertices,
+    // recreating the orignal shape
+    //
+    void unfold(int index);
+
     
     
     

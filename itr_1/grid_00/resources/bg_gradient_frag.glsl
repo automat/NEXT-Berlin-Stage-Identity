@@ -11,7 +11,7 @@ float rand(vec2 co){
 
 #define BlendOverlayf(base, blend) 	(base < 0.5 ? (2.0 * base * blend) : (1.0 - 2.0 * (1.0 - base) * (1.0 - blend)))
 
-float scalar     = 2.0;
+float scalar     = 1.5;
 float randScalar = 0.25;
 float mixScalar  = 0.5;
 

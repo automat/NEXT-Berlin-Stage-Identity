@@ -6,23 +6,28 @@ Diver::Diver(PathSlice* pathSlice,
              float      speed,
              float      length,
              float      height) :
+    mNumPoints(numPoints),
     mPathSlice(pathSlice),
     mOffset(offset),
     mSpeed(speed),
     mWidth(pathSlice->getWidth()),
     mLength(length),
     mHeight(height){
-        
-        float pathLength = mPathSlice->getSurfaceSize();
-        mNumPoints = numPoints * pathLength;
-        
+        mPathLength = mPathSlice->getSurfaceSize();
+        mPathLengthInv = 1.0f / mPathLength;
         
         mIsOut = mIsOutPrev = false;
         mPoints.resize(mNumPoints);
-        mLengthStep = mLength / float(mNumPoints-1) * 1.0f/pathLength; //scale unit to path length
-}
+     
+        
+        mLengthStep = float(mLength) / float(mNumPoints-1);
+        
+        //mLengthStep = mLength / float(mNumPoints-1);// * mPathLengthInv; //scale unit to path length
+    
+    }
 
 
+/*
 void Diver::update(){
     if (mIsOut && mIsHidden) { //should hide and is hidden
         return;
@@ -34,11 +39,38 @@ void Diver::update(){
     }
     
     mOffset += mSpeed;
+    //cout << mOffset << " / " << mLength * mPathLengthInv << endl;
+    //cout << mOffset << endl;
 
     float offsetInv = 1.0f - mOffset;
     int i = 0;
+    float mmm = mLength / float(mPoints.size() - 1);
+    float step = mLength / float(mNumPoints - 1);
+    cout << mLengthStep << endl;
+    float intrpl;
     for(vector<Vec3f>::iterator itr = mPoints.begin(); itr != mPoints.end(); itr++){
-        mPathSlice->getPointOn(offsetInv + mLengthStep * float(i++), &(*itr));
+        //mPathSlice->getPointOn(offsetInv + mLengthStep * float(i++), &(*itr));
+        intrpl = mOffset + mLengthStep * float(i++);
+        
+        mPathSlice->getPointOn(1.0f - intrpl, &(*itr));
+    }
+}*/
+
+
+void Diver::update(){
+    if (mIsOut && mIsHidden) {
+        return;
+    }
+    
+    if(mOffset >= 2.0f){
+        mOffset = -1;
+    }
+    
+    mOffset += mSpeed;
+    
+    int i = -1;
+    for(vector<Vec3f>::iterator itr = mPoints.begin(); itr != mPoints.end(); itr++){
+        mPathSlice->getPointOn(1.0 - mOffset + mLengthStep * float(++i), &(*itr));
     }
 }
 

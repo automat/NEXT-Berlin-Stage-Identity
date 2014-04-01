@@ -30,6 +30,9 @@ class Diver{
     float      mLength;
     float      mLengthStep;
     
+    float      mPathLength;
+    float      mPathLengthInv;
+    
     float      mWidth;
     float      mHeight;
     

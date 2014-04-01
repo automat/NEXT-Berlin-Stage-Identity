@@ -22,15 +22,16 @@ int PathSlice::getSurfaceSize() const{
 }
 
 void PathSlice::getPointOn(float intrpl, Vec3f *out) const{
+    intrpl+= 0.0000001f; //prevent strange rounding errors
     intrpl = max(0.0f, min(intrpl,1.0f));
     
     int size = mNumPoints;
     int len  = size - 1;
     
-    uint  index  = (uint)floorf((float)len * intrpl),
-          index1 = (uint)min((uint)index + 1, (uint)len);
-    float localIntrpl    = fmodf(intrpl, 1.0f / (float)len) * (float)len,
-          localIntrplInv = 1.0f - localIntrpl;
+    uint   index  = uint(floorf(float(len) * intrpl));
+    uint   index1 = uint(min(index + 1, uint(len)));
+    float  localIntrpl    = fmodf(intrpl, 1.0f / float(len) ) * float(len);
+    float  localIntrplInv = 1.0f - localIntrpl;
     
     const Vec3f& p0 = mSurface->getPoint(mIndex, index);
     const Vec3f& p1 = mSurface->getPoint(mIndex, index1);
