@@ -8,6 +8,7 @@
 #include "cinder/Utilities.h"
 
 using namespace ci;
+using namespace boost::assign;
 
 Grid::Grid(int numCellsX, int numCellsY) :
 mSize(numCellsX,numCellsY){
@@ -17,7 +18,7 @@ mSize(numCellsX,numCellsY){
     while (++i < mSize.y) {
         j = -1;
         while(++j < mSize.x){
-            mCells.push_back(new Cell(Index(j,i),Vec3f(-size_2 + j, 0, -size_2 + i)));
+            mCells += new Cell(Index(j,i),Vec3f(-size_2 + j, 0, -size_2 + i));
         }
     }
 }

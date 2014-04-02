@@ -217,7 +217,7 @@ void AbstractField::updateMeshNormals(){
         mMeshNormalBuffer[mMeshIndexScheme[i]].set(zero);
     }
     
-    size_t numTriangles         = size / 3;
+    size_t numTriangles = size / 3;
     
     Vec3f e0,e1,normal;
     int index0,index1,index2;
@@ -237,8 +237,7 @@ void AbstractField::updateMeshNormals(){
         mMeshNormalBuffer[ index1 ] += normal;
         mMeshNormalBuffer[ index2 ] += normal;
     }
-    
-    
+
     i = -1;
     while(++i < size){
         mMeshNormalBuffer[mMeshIndexScheme[i]].safeNormalize();

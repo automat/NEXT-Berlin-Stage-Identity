@@ -26,7 +26,9 @@
 #include "cinder/Utilities.h"
 
 #include "layout/geom/LayoutArea.h"
+#include "layout/quote/QuoteAlign.h"
 #include "layout/quote/Quote.h"
+#include "layout/quote/QuoteLine.h"
 
 #include "world/grid/Grid.h"
 #include "world/grid/Cell.h"
@@ -54,14 +56,6 @@ using namespace boost::assign;
 
 
 class QuoteTypesetter {
-public:
-    
-    enum Align {
-        LEFT   = 0,
-        CENTER = 1,
-        RIGHT  = 2
-    };
-    
 private:
     
     /*--------------------------------------------------------------------------------------------*/
@@ -96,7 +90,7 @@ private:
     float                   mFontDescentline;   // text draw align descent
     Matrix44f               mFontTransMat;      // font 3d translation matrix
     
-    Align                   mAlign;             // left / right / center
+    QuoteAlign              mAlign;             // left / right / center
     bool                    mManualBr;          // flag, whether manual linbreaks should be processed
     
     // line length
@@ -241,7 +235,7 @@ private:
         int numCellsY = numLines;
         int numIndices;
         
-        vector<Quote::Line> lines;
+        vector<QuoteLine> lines;
         
         for(const auto& line : mLines){
             numIndices = line.indices.size();
@@ -289,7 +283,7 @@ private:
             texcoords += *(texcoords.end() - 2) + down;                                // lower left
             texcoords += *(texcoords.end() - 2) + down;                                // lower right
             
-            lines += Quote::Line(line.indices,texcoords);
+            lines += QuoteLine(line.indices,texcoords,mAlign);
             i++;
         }
         
@@ -307,7 +301,7 @@ private:
             i = -1;
             while(++i < numLines){
                 const Line_Internal& line = mLines[i];
-                const Quote::Line& line_ = lines[i];
+                const QuoteLine& line_ = lines[i];
                 
                 numIndices = line.indices.size();
                 
@@ -466,14 +460,14 @@ private:
         int   colIndexEnd   = 0; // last cell of line
         
         switch (mAlign) {
-            case Align::RIGHT:
+            case QuoteAlign::RIGHT:
                 colOffset     = -(colWidth-lineWidth);
                 colIndexBegin = int(round(abs(colOffset + offsetCenter)));
                 colIndexEnd   = MIN(colIndexBegin + colSize,colSize);
                 offsetScale   = 1;
                 break;
                 
-            case Align::CENTER:
+            case QuoteAlign::CENTER:
                 colOffset     = -(colWidth-lineWidth) * 0.5f;
                 colIndexBegin = int(round(abs(colOffset + offsetCenter)));
                 colIndexEnd   = colSize - colIndexBegin;
@@ -532,7 +526,7 @@ public:
         
         // Init defaults
         setPadding(0, 0, 0, 0);
-        setAlign(Align::LEFT);
+        setAlign(QuoteAlign::LEFT);
         setFont("Arial");
     }
     
@@ -561,7 +555,7 @@ public:
     }
     
     //! Set text align vertical
-    inline void setAlign(Align align){
+    inline void setAlign(QuoteAlign align){
         mAlign = align;
     }
     

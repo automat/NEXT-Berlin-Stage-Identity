@@ -2,6 +2,7 @@
 #include "cinder/Plane.h"
 #include "util/GeomUtil.h"
 #include "world/board/path/PathSurface.h"
+#include "layout/quote/QuoteAlign.h"
 
 /*--------------------------------------------------------------------------------------------*/
 // Constructor
@@ -61,7 +62,7 @@ World::World(){
     mTypesetter->setFont(Font(app::loadResource(RES_FONT_TRANSCRIPT),400.0f),0.7f);
     mTypesetter->constrain(false);
     mTypesetter->manualLineBreak(true);
-    mTypesetter->setAlign(QuoteTypesetter::Align::CENTER);
+    mTypesetter->setAlign(QuoteAlign::CENTER);
     mTypesetter->debugTexture();
 
     

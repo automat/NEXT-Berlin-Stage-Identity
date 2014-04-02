@@ -30,7 +30,7 @@ Board::Board(Grid* grid, const LayoutArea& area){
     mIndexDiverFieldMap[cell->getIndex()] = mDiverFields.back();
     */
     Cell* cell = gridCells[84];
-    mDiverFields += new DiverField(cell->getCenter(),40);
+    mDiverFields += new DiverField(cell->getCenter(),2);
     mIndexDiverFieldMap[cell->getIndex()] = mDiverFields.back();
     
 #else

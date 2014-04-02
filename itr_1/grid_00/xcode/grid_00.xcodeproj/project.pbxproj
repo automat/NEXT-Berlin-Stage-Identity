@@ -40,6 +40,7 @@
 		CD9642DF18E78C4900AF7760 /* normal_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD9642DD18E78C4900AF7760 /* normal_frag.glsl */; };
 		CD9642E018E78C4900AF7760 /* normal_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD9642DE18E78C4900AF7760 /* normal_vert.glsl */; };
 		CD9642E318E791BF00AF7760 /* ShaderUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9642CF18E753F300AF7760 /* ShaderUtil.cpp */; };
+		CDA67CE618EB413000A8A118 /* QuoteField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA67CE518EB413000A8A118 /* QuoteField.cpp */; };
 		CDBE660B18EA0CEA002F29A6 /* Diver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDBE660A18EA0CEA002F29A6 /* Diver.cpp */; };
 		CDF2A90218E5C8F40075F282 /* Apercu_Mono.otf in Resources */ = {isa = PBXBuildFile; fileRef = CDF2A90018E5C8F40075F282 /* Apercu_Mono.otf */; };
 		CDF2A90318E5C8F40075F282 /* transcript_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CDF2A90118E5C8F40075F282 /* transcript_bold.otf */; };
@@ -105,6 +106,10 @@
 		CD9642DD18E78C4900AF7760 /* normal_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = normal_frag.glsl; path = ../resources/normal_frag.glsl; sourceTree = "<group>"; };
 		CD9642DE18E78C4900AF7760 /* normal_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = normal_vert.glsl; path = ../resources/normal_vert.glsl; sourceTree = "<group>"; };
 		CDA67CE418EB018D00A8A118 /* ColorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorUtil.h; sourceTree = "<group>"; };
+		CDA67CE518EB413000A8A118 /* QuoteField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuoteField.cpp; sourceTree = "<group>"; };
+		CDA67CE718EB454400A8A118 /* QuoteLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteLine.h; sourceTree = "<group>"; };
+		CDA67CE818EB554F00A8A118 /* QuoteAlign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteAlign.h; sourceTree = "<group>"; };
+		CDA8093F18EC114000296B4B /* PingPongFbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongFbo.h; sourceTree = "<group>"; };
 		CDBE660A18EA0CEA002F29A6 /* Diver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Diver.cpp; sourceTree = "<group>"; };
 		CDF2A8EF18E5963A0075F282 /* World.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = World.h; sourceTree = "<group>"; };
 		CDF2A8F018E599430075F282 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
@@ -350,6 +355,7 @@
 			children = (
 				CD9642A218E6FE7B00AF7760 /* AbstractField.cpp */,
 				CD9642C218E7102300AF7760 /* DiverField.cpp */,
+				CDA67CE518EB413000A8A118 /* QuoteField.cpp */,
 			);
 			path = field;
 			sourceTree = "<group>";
@@ -433,6 +439,7 @@
 				CD9642D618E771CB00AF7760 /* srdnoise23.h */,
 				CD5CE25F18E83F9F00D5E5BC /* DrawUtil.h */,
 				CDA67CE418EB018D00A8A118 /* ColorUtil.h */,
+				CDA8093F18EC114000296B4B /* PingPongFbo.h */,
 			);
 			name = util;
 			path = ../include/util;
@@ -467,6 +474,8 @@
 			children = (
 				CDF2A8FA18E59BFC0075F282 /* Quote.h */,
 				CDF2A8FB18E59C080075F282 /* QuoteTypesetter.h */,
+				CDA67CE718EB454400A8A118 /* QuoteLine.h */,
+				CDA67CE818EB554F00A8A118 /* QuoteAlign.h */,
 			);
 			path = quote;
 			sourceTree = "<group>";
@@ -552,6 +561,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD9642D118E754C800AF7760 /* FileWatcher.cpp in Sources */,
+				CDA67CE618EB413000A8A118 /* QuoteField.cpp in Sources */,
 				CD9642A618E6FF7500AF7760 /* FrustumOrtho.cpp in Sources */,
 				CD9642A318E6FE7B00AF7760 /* AbstractField.cpp in Sources */,
 				CD9642AF18E7044800AF7760 /* World.cpp in Sources */,

@@ -1,26 +1,47 @@
 #include "world/board/diver/Diver.h"
+#include "cinder/Matrix44.h"
+#include "cinder/gl/TextureFont.h"
+
+using namespace ci;
 
 Diver::Diver(PathSlice* pathSlice,
              int        numPoints,
              float      offset,
              float      speed,
              float      length,
-             float      height) :
-    mNumPoints(numPoints),
-    mPathSlice(pathSlice),
-    mOffset(offset),
-    mSpeed(speed),
-    mWidth(pathSlice->getWidth()),
-    mLength(length),
-    mHeight(height){
-        mPathLength = mPathSlice->getSurfaceSize();
-        mPathLengthInv = 1.0f / mPathLength;
-        
-        mIsOut = mIsOutPrev = false;
-        mPoints.resize(mNumPoints);
-        
-        mLengthStep = float(mLength) / float(mNumPoints-1);
-    }
+             float      height){
+    reset(pathSlice,
+          numPoints,
+          offset,
+          speed,
+          length,
+          height);
+}
+
+void Diver::reset(PathSlice* pathSlice,
+                  int        numPoints,
+                  float      offset,
+                  float      speed,
+                  float      length,
+                  float      height){
+    mPathSlice = pathSlice;
+    mNumPoints = numPoints;
+    mOffset    = offset;
+    mSpeed     = speed;
+    mWidth     = pathSlice->getWidth();
+    mLength    = length;
+    mHeight    = height;
+    
+    mPathSurfaceSize = mPathSlice->getSurfaceSize();
+    mPathLength = mPathSurfaceSize;
+    mPathLengthInv = 1.0f / mPathLength;
+    
+    mIsOut = mIsOutPrev = false;
+    mPoints.resize(mNumPoints);
+    mTexcoords.resize(mNumPoints);
+    
+    mLengthStep = float(mLength) / float(mNumPoints-1);
+}
 
 void Diver::update(){
     if (mIsOut && mIsHidden) {
@@ -36,6 +57,12 @@ void Diver::update(){
     int i = -1;
     for(vector<Vec3f>::iterator itr = mPoints.begin(); itr != mPoints.end(); itr++){
         mPathSlice->getPointOn(1.0 - mOffset + mLengthStep * float(++i), &(*itr));
+    }
+}
+
+void Diver::updateTexcoords(){
+    for(vector<float>::iterator itr = mTexcoords.begin(); itr != mTexcoords.end(); itr++){
+        
     }
 }
 
@@ -90,4 +117,9 @@ void Diver::debugDraw(){
     
     glDisableClientState(GL_VERTEX_ARRAY);
     glPointSize(prevPointSize);
+}
+
+
+void Diver::debugDraw(const CameraOrtho &camera){
+    
 }

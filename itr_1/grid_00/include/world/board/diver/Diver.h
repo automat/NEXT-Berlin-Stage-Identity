@@ -13,16 +13,20 @@
 
 #include "cinder/Vector.h"
 #include "cinder/Rand.h"
+#include "cinder/Camera.h"
 
 #include "Config.h"
 #include "world/board/path/PathSlice.h"
 
+
 using namespace ci;
 using namespace std;
 
-
 class Diver{
+protected:
+    
     PathSlice* mPathSlice;
+    int        mPathSurfaceSize;
     Vec3f      mPos;
     
     float      mSpeed;
@@ -42,6 +46,7 @@ class Diver{
     
     int           mNumPoints;
     vector<Vec3f> mPoints;
+    vector<float> mTexcoords;
     
 public:
     Diver(PathSlice* pathSlice,
@@ -51,12 +56,23 @@ public:
           float      length,
           float      height = 0.125f);
     
+    void reset(PathSlice* pathSlice,
+               int        numPoints,
+               float      offset,
+               float      speed,
+               float      length,
+               float      height);
+    
     inline const Vec3f& getPos() const{
         return mPos;
     }
     
     inline const vector<Vec3f>& getPoints() const{
         return mPoints;
+    }
+    
+    inline const vector<float>& getTexcoords() const{
+        return mTexcoords;
     }
     
     inline int getNumPoints(){
@@ -74,8 +90,10 @@ public:
     
     void update();
     void updateInOut();
-    void debugDraw();
+    void updateTexcoords();
     
+    void debugDraw();
+    void debugDraw(const CameraOrtho& camera);
     
     inline void hide(){
         mIsHidden = true;
@@ -92,6 +110,8 @@ public:
     inline float getHeight(){
         return mHeight;
     }
+    
+    
     
     
     

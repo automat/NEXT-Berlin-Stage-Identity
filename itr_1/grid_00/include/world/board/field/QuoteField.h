@@ -9,5 +9,25 @@
 #ifndef grid_00_QuoteField_h
 #define grid_00_QuoteField_h
 
+#include "world/board/field/AbstractField.h"
+#include "layout/quote/QuoteLine.h"
+#include <map>
+#include "cinder/Camera.h"
+
+typedef std::map<const Index, class QuoteField*> QuoteDiverFieldMap;
+
+class QuoteField : public AbstractField {
+    QuoteLine* mQuote;
+public:
+    QuoteField(const Vec3f& pos, int numPathSlices, QuoteLine* quoteLine);
+    
+    void debugDrawArea();
+    void draw();
+    void update(Oscillator* osc, float t);
+    void reset(const Vec3f& pos, int numPathSlices, QuoteLine* quoteLine);
+    
+    
+    void debugDrawIndices(const CameraOrtho& camera);
+};
 
 #endif
