@@ -140,7 +140,7 @@ void World::drawScene(){
         }
     }
 #endif
-    mBoard->draw();
+    mBoard->draw(mCamera);
    
 }
 

@@ -4,7 +4,7 @@
 #include <cassert>
 
 #include "Resources.h"
-#include "cinder/gl/TextureFont.h"
+#include "util/SharedTextureFont.h"
 #include "cinder/Utilities.h"
 
 using namespace ci;
@@ -60,8 +60,7 @@ void Grid::debugDrawIndices(const CameraOrtho& camera){
     camera.getBillboardVectors(&w, &u);
     v = w.cross(u);
     
-    const static gl::TextureFontRef debugFont = gl::TextureFont::create(ci::Font(app::loadResource(RES_FONT_APERCU_MONO),18));
-    const static Vec2f zero;
+   const static Vec2f zero;
     
     Matrix44f mat;
     Matrix44f rot = Matrix44f::createRotationOnb(u,w,v);
@@ -81,9 +80,9 @@ void Grid::debugDrawIndices(const CameraOrtho& camera){
         glColor3f(0.65f,0.65f,0.65f);
         glPushMatrix();
         glMultMatrixf(mat);
-        debugFont->drawString(toString(index[0]) + "," + toString(index[1]), zero);
+        SharedTextureFont::Get()->drawString(toString(index[0]) + "," + toString(index[1]), zero);
         glColor3f(0.85f, 0, 0);
-        debugFont->drawString(toString(index[1] * mSize.x + index[0]), Vec2f(0,20));
+        SharedTextureFont::Get()->drawString(toString(index[1] * mSize.x + index[0]), Vec2f(0,20));
         glPopMatrix();
     }
     

@@ -26,7 +26,7 @@ private:
     
 public:
     QuoteLine(){};
-    QuoteLine(const vector<Index>& indices, const vector<Vec2f>& texcoords, const QuoteAlign align = QuoteAlign::CENTER) :
+    QuoteLine(const vector<Index>& indices, const vector<Vec2f>& texcoords, QuoteAlign align = QuoteAlign::CENTER) :
         mIndices(indices), mTexcoords(texcoords),mAlignment(align){}
     
     inline const vector<Index>& getIndices() const{

@@ -34,8 +34,6 @@ public:
         }
         return x < rhs.x;
     }
-
-    
 };
 
 

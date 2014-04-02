@@ -6,6 +6,8 @@
 #define RES_FONT_TRANSCRIPT  CINDER_RESOURCE( ../resources/, transcript_bold.otf, 128, FONT )
 #define RES_FONT_APERCU_MONO CINDER_RESOURCE( ../resources/, Apercu_Mono.otf, 129, FONT )
 
+#define RES_TEXTURE_2x2 CINDER_RESOURCE( ../resources/, test_texture_2x2.png, 130, DATA )
+
 //
 //  Abs
 //
@@ -23,15 +25,15 @@
 //
 //  Resource relative
 //
-#define RES_GLSL_PASS_THRU CINDER_RESOURCE( ../resources/, pass_thru.glsl, 130, GLSL )
+#define RES_GLSL_PASS_THRU CINDER_RESOURCE( ../resources/, pass_thru.glsl, 131, GLSL )
 
-#define RES_GLSL_NORMAL_VERT CINDER_RESOURCE( ../resources/, normal_vert.glsl, 131, GLSL )
-#define RES_GLSL_NORMAL_FRAG CINDER_RESOURCE( ../resources/, normal_frag.glsl, 132, GLSL )
+#define RES_GLSL_NORMAL_VERT CINDER_RESOURCE( ../resources/, normal_vert.glsl, 132, GLSL )
+#define RES_GLSL_NORMAL_FRAG CINDER_RESOURCE( ../resources/, normal_frag.glsl, 133, GLSL )
 
-#define RES_GLSL_BG_GRADIENT_FRAG CINDER_RESOURCE( ../resources/, bg_gradient_frag.glsl, 133, GLSL )
+#define RES_GLSL_BG_GRADIENT_FRAG CINDER_RESOURCE( ../resources/, bg_gradient_frag.glsl, 134, GLSL )
 
-#define RES_GLSL_BG_MESH_VERT CINDER_RESOURCE( ../resources/, bg_mesh_vert.glsl, 134, GLSL )
-#define RES_GLSL_BG_MESH_FRAG CINDER_RESOURCE( ../resources/, bg_mesh_frag.glsl, 135, GLSL )
+#define RES_GLSL_BG_MESH_VERT CINDER_RESOURCE( ../resources/, bg_mesh_vert.glsl, 135, GLSL )
+#define RES_GLSL_BG_MESH_FRAG CINDER_RESOURCE( ../resources/, bg_mesh_frag.glsl, 136, GLSL )
 
-#define RES_GLSL_BG_MIX_FRAG CINDER_RESOURCE( ../resources/, bg_mix_frag.glsl, 136, GLSL )
+#define RES_GLSL_BG_MIX_FRAG CINDER_RESOURCE( ../resources/, bg_mix_frag.glsl, 137, GLSL )
 

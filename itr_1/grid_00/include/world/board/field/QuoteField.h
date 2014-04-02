@@ -14,20 +14,28 @@
 #include <map>
 #include "cinder/Camera.h"
 
-typedef std::map<const Index, class QuoteField*> QuoteDiverFieldMap;
+typedef std::map<const Index, class QuoteField*> IndexQuoteFieldMap;
 
 class QuoteField : public AbstractField {
     QuoteLine* mQuote;
+    
+    void updateMeshTexcoords();
+    void updateDivers();
+    
 public:
     QuoteField(const Vec3f& pos, int numPathSlices, QuoteLine* quoteLine);
     
     void debugDrawArea();
+    
+
+    
     void draw();
     void update(Oscillator* osc, float t);
     void reset(const Vec3f& pos, int numPathSlices, QuoteLine* quoteLine);
     
     
     void debugDrawIndices(const CameraOrtho& camera);
+    void debugDrawDiverIndices(const CameraOrtho& camera);
 };
 
 #endif

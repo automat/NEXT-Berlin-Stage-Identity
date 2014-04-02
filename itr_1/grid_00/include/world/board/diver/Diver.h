@@ -93,7 +93,7 @@ public:
     void updateTexcoords();
     
     void debugDraw();
-    void debugDraw(const CameraOrtho& camera);
+    void debugDrawIndices(const CameraOrtho& camera);
     
     inline void hide(){
         mIsHidden = true;
