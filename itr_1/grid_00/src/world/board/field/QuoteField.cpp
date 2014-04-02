@@ -40,6 +40,7 @@ void QuoteField::reset(const Vec3f &pos, int numPathSlices, QuoteLine* quoteLine
     mPos              = pos;
     mSurfaceNumSlices = numPathSlices;
     mSize             = quoteLine->getIndices().size();
+    mTexcoordVStep    = 1.0f / float(mSurfaceNumSlices);
     
     mTransform.setToIdentity();
     mTransform.translate(pos);
@@ -64,7 +65,7 @@ void QuoteField::updateDivers(){
 }
 
 void QuoteField::draw(){
-    static const gl::Texture testTex2x2 =  loadImage( app::loadResource( "test_texture_1024x1024.jpg" ) );
+    static const gl::Texture testTex2x2 =  loadImage( app::loadResource( "test_texture_font_black.jpg" ) );
     
     testTex2x2.enableAndBind();
     drawMesh();
@@ -81,18 +82,19 @@ void QuoteField::update(Oscillator *osc, float t){
 
 void QuoteField::updateMeshTexcoords(){
     const static Vec2f zero;
-    Vec2f tex_0(0,0);   //upper tex coord
-    Vec2f tex_1(0,1);   //lower tex coord
+    Vec2f tex_0;   //upper tex coord
+    Vec2f tex_1;   //lower tex coord
     
-    int i;
-    
+    int i,j;
+    i = 0;
     gl::VboMesh::VertexIter vbItr = mMesh.mapVertexBuffer();
     for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
         const vector<float>& texcoords = (*itr)->getTexcoords();
-        
-        i = -1;
-        while (++i < mDiverNumPoints) {
-            tex_0.x = tex_1.x = texcoords[i];       //  get sliced hotizontal
+        tex_0.y = mTexcoordVStep * (i++);
+        tex_1.y = tex_0.y + mTexcoordVStep;
+        j = -1;
+        while (++j < mDiverNumPoints) {
+            tex_0.x = tex_1.x = texcoords[j];       //  get sliced hotizontal
             
             ++vbItr; ++vbItr;                       //  skip bottom
             vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top

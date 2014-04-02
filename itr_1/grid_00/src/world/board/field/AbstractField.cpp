@@ -419,7 +419,7 @@ void AbstractField::reset_Internal(){
     vector<Colorf> meshColors;  // buffer colors for debug
 #endif
     
-    static const Vec3f up(0,1,0),down(0,-1,0);
+    static const Vec3f up(1,1,1),down(0,-1,0);
     static const Vec3f left(-1,0,0),right(1,0,0);
     static const Vec3f front(0,0,-1),back(0,0,1);
     

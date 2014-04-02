@@ -14,7 +14,7 @@
 
 #define STAGE_WIDTH  3552
 #define STAGE_HEIGHT 1105
-#define STAGE_SCALE  2
+#define STAGE_SCALE  1
 
 #define APP_WIDTH  STAGE_WIDTH / STAGE_SCALE
 #define APP_HEIGHT STAGE_HEIGHT / STAGE_SCALE
@@ -50,9 +50,9 @@
 //#define DEBUG_BOARD_FIELD_DIVER_PATH_SURFACE_DRAW
 //#define DEBUG_BOARD_FIELD_DIVER_DIVER
 
-#define DEBUG_BOARD_FIELD_QUOTE_AREA_DRAW
-#define DEBUG_BOARD_FIELD_QUOTE_PATH_SURFACE_DRAW
-#define DEBUG_BOARD_FIELD_QUOTE_DIVER
+//#define DEBUG_BOARD_FIELD_QUOTE_AREA_DRAW
+//#define DEBUG_BOARD_FIELD_QUOTE_PATH_SURFACE_DRAW
+//#define DEBUG_BOARD_FIELD_QUOTE_DIVER
 //#define DEBUG_BOARD_FIELD_QUOTE_DIVER_TEXCOORDS
 //#define DEBUG_BOARD_FIELD_QUOTE_TEXCOORDS
 
@@ -80,7 +80,7 @@
 /*--------------------------------------------------------------------------------------------*/
 // Abstract Field
 /*--------------------------------------------------------------------------------------------*/
-//#define ABSTRACT_FIELD_PUT_NORMAL_COLORS
+#define ABSTRACT_FIELD_PUT_NORMAL_COLORS
 
 /*--------------------------------------------------------------------------------------------*/
 // DiverField
@@ -109,8 +109,8 @@
 
 #define QUOTE_FIELD_NUM_DIVERS_MIN 5
 #define QUOTE_FIELD_NUM_DIVERS_MAX 50
-#define QUOTE_FIELD_SURFACE_PATH_DENSITY 1.0f
-#define QUOTE_FIELD_SURFACE_PATH_OFFSET_SPEED   0.01f
+#define QUOTE_FIELD_SURFACE_PATH_DENSITY 0.75f
+#define QUOTE_FIELD_SURFACE_PATH_OFFSET_SPEED   0.001f
 #define QUOTE_FIELD_SURFACE_PATH_AMPLITUDE 0.25f//0.25f//0.125f//0.325f
 
 
@@ -118,7 +118,7 @@
 #define QUOTE_FIELD_DIVER_MIN_HEIGHT 0.015f
 #define QUOTE_FIELD_DIVER_MAX_HEIGHT 0.065f
 #define QUOTE_FIELD_DIVER_MIN_OFFSET -1.0f//-0.9f//1.0f
-#define QUOTE_FIELD_DIVER_MAX_OFFSET 1.0f//-1.0f
+#define QUOTE_FIELD_DIVER_MAX_OFFSET -0.1f//-1.0f
 #define QUOTE_FIELD_DIVER_MIN_SPEED  0.01f//0.0025f
 #define QUOTE_FIELD_DIVER_MAX_SPEED  0.01f//0.0045f
 #define QUOTE_FIELD_DIVER_MIN_LENGTH 1.0f//0.1f

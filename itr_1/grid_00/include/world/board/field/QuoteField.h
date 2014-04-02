@@ -18,6 +18,7 @@ typedef std::map<const Index, class QuoteField*> IndexQuoteFieldMap;
 
 class QuoteField : public AbstractField {
     QuoteLine* mQuote;
+    float mTexcoordVStep;
     
     void updateMeshTexcoords();
     void updateDivers();

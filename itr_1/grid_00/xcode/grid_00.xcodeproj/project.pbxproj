@@ -44,6 +44,7 @@
 		CDA8094218EC6EEC00296B4B /* test_texture_2x2.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA8094118EC6EEC00296B4B /* test_texture_2x2.png */; };
 		CDA8094518EC72BA00296B4B /* test_texture_1024x1024.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDA8094418EC72BA00296B4B /* test_texture_1024x1024.jpg */; };
 		CDA8094718EC777500296B4B /* test_texture_2x2_red.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA8094618EC777500296B4B /* test_texture_2x2_red.png */; };
+		CDA8094B18EC8D0700296B4B /* test_texture_font_black.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDA8094A18EC8D0700296B4B /* test_texture_font_black.jpg */; };
 		CDBE660B18EA0CEA002F29A6 /* Diver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDBE660A18EA0CEA002F29A6 /* Diver.cpp */; };
 		CDF2A90218E5C8F40075F282 /* Apercu_Mono.otf in Resources */ = {isa = PBXBuildFile; fileRef = CDF2A90018E5C8F40075F282 /* Apercu_Mono.otf */; };
 		CDF2A90318E5C8F40075F282 /* transcript_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CDF2A90118E5C8F40075F282 /* transcript_bold.otf */; };
@@ -117,6 +118,7 @@
 		CDA8094118EC6EEC00296B4B /* test_texture_2x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = test_texture_2x2.png; path = ../resources/test_texture_2x2.png; sourceTree = "<group>"; };
 		CDA8094418EC72BA00296B4B /* test_texture_1024x1024.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = test_texture_1024x1024.jpg; path = ../resources/test_texture_1024x1024.jpg; sourceTree = "<group>"; };
 		CDA8094618EC777500296B4B /* test_texture_2x2_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = test_texture_2x2_red.png; path = ../resources/test_texture_2x2_red.png; sourceTree = "<group>"; };
+		CDA8094A18EC8D0700296B4B /* test_texture_font_black.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = test_texture_font_black.jpg; path = ../resources/test_texture_font_black.jpg; sourceTree = "<group>"; };
 		CDBE660A18EA0CEA002F29A6 /* Diver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Diver.cpp; sourceTree = "<group>"; };
 		CDF2A8EF18E5963A0075F282 /* World.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = World.h; sourceTree = "<group>"; };
 		CDF2A8F018E599430075F282 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 		CDA8094318EC6EF500296B4B /* texture */ = {
 			isa = PBXGroup;
 			children = (
+				CDA8094A18EC8D0700296B4B /* test_texture_font_black.jpg */,
 				CDA8094618EC777500296B4B /* test_texture_2x2_red.png */,
 				CDA8094418EC72BA00296B4B /* test_texture_1024x1024.jpg */,
 				CDA8094118EC6EEC00296B4B /* test_texture_2x2.png */,
@@ -561,6 +564,7 @@
 			files = (
 				CD5CE26518E84EE000D5E5BC /* bg_mesh_vert.glsl in Resources */,
 				CD9642DF18E78C4900AF7760 /* normal_frag.glsl in Resources */,
+				CDA8094B18EC8D0700296B4B /* test_texture_font_black.jpg in Resources */,
 				CD5CE26318E84B7C00D5E5BC /* bg_gradient_frag.glsl in Resources */,
 				CD9642CA18E74D2600AF7760 /* bg_mix_frag.glsl in Resources */,
 				CDF2A90218E5C8F40075F282 /* Apercu_Mono.otf in Resources */,
