@@ -15,7 +15,6 @@ mSize(numCellsX,numCellsY){
     int size_2 = mSize.x / 2;
     int i,j;
     
-    
     i = -1;
     while (++i < mSize.y) {
         j = -1;
@@ -23,14 +22,6 @@ mSize(numCellsX,numCellsY){
             mCells += new Cell(Index(j,i),Vec3f(-size_2 + j, 0, -size_2 + i));
         }
     }
-    /*
-    i = mSize.y;
-    while(--i > -1){
-        j = mSize.x;
-        while(--j > -1){
-            mCells += new Cell(Index(j,i),Vec3f(-size_2 + j, 0, -size_2 + i));
-        }
-    }*/
 }
 
 Grid::~Grid(){
