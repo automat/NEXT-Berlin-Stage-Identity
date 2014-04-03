@@ -36,8 +36,8 @@ void PathSurface::set(const Vec3f &pos, int numSlices, int size){
     mSliceWidth            = 1.0f/ float(mNumSlices);
     float marginX          = -0.5f - mSliceWidth * 0.5f;
     
-    Vec3f start = Vec3f(marginX,0,mSize-0.5f); // to border right
-    Vec3f end   = Vec3f(marginX,0,-0.5f);       // to border left
+    Vec3f start = Vec3f(marginX,0, 0.5f); // to border right
+    Vec3f end   = Vec3f(marginX,0,-mSize+0.5f);       // to border left
     float a;
     
     

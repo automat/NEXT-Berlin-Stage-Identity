@@ -32,19 +32,20 @@ Board::Board(Grid* grid, const LayoutArea& area, vector<Quote>* quotes) :
     
 #ifdef DEBUG_SINGLE_DIVER_FIELD
         {
-            Cell* cell = gridCells[84];
+            
+            Cell* cell = grid->getCells()[84];
             mDiverFields += new DiverField(cell->getCenter(),2);
             mIndexDiverFieldMap[cell->getIndex()] = mDiverFields.back();
         }
 #endif
     
-#ifndef DEBUG_TYPESETTER
+
 #ifdef DEBUG_SINGLE_QUOTE_FIELD
         vector<Index> tempQuoteLineIndices   = {Index(6,6),Index(10,0)};
         vector<Vec2f> tempQuoteLineTexcoords = {Vec2f(),Vec2f(1,0),Vec2f(0,1),Vec2f(1,1)};
         mTempQuoteLine = QuoteLine(tempQuoteLineIndices,tempQuoteLineTexcoords,QuoteAlign::CENTER);
     
-        mQuoteFields += new QuoteField(mGrid->getCell(mTempQuoteLine.getIndices().front())->getCenter(),30,&mTempQuoteLine);
+        mQuoteFields += new QuoteField(mGrid->getCell(mTempQuoteLine.getIndices().front())->getCenter(),1,mTempQuoteLine);
 #endif
     
 #else
@@ -59,12 +60,12 @@ Board::Board(Grid* grid, const LayoutArea& area, vector<Quote>* quotes) :
                 mIndexDiverFieldMap[index] = mDiverFields.back();
             }
         }
-        
+
         genQuoteFields((*mQuotes)[0]);
     
     
 #endif
-#endif
+
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -185,7 +186,7 @@ void Board::draw(const CameraOrtho& camera){
 }
 
 void Board::update(){
-#ifndef DEBUG_TYPESETTER
+
     float t = app::getElapsedSeconds();
     
     for (vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr) {
@@ -194,7 +195,6 @@ void Board::update(){
     for (vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr) {
         (*itr)->update(mOscillator,t);
     }
-#endif
 }
 
 /*--------------------------------------------------------------------------------------------*/

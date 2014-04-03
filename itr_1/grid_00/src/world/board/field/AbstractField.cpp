@@ -426,15 +426,15 @@ void AbstractField::reset_Internal(){
         j = 0;
         while (j < mDiverNumPoints) {
 #ifdef ABSTRACT_FIELD_PUT_NORMAL_COLORS
-            meshColors += utils::toColor(down),utils::toColor(down);
-            meshColors += utils::toColor(  up),utils::toColor(  up);
-            meshColors += utils::toColor(left),utils::toColor(right);
-            meshColors += utils::toColor(left),utils::toColor(right);
+            meshColors += utils::toColor(down), utils::toColor(down);
+            meshColors += utils::toColor(  up), utils::toColor(  up);
+            meshColors += utils::toColor(right),utils::toColor(left);
+            meshColors += utils::toColor(right),utils::toColor(left);
 #endif
             mMeshNormalBuffer += down,down;
             mMeshNormalBuffer += up,up;
-            mMeshNormalBuffer += left,right;
-            mMeshNormalBuffer += left,right;
+            mMeshNormalBuffer += right,left;
+            mMeshNormalBuffer += right,left;
             
             ++j;
         }

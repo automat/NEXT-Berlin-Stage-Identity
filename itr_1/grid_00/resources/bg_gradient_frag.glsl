@@ -13,7 +13,7 @@ float rand(vec2 co){
 
 float scalar     = 1.5;
 float randScalar = 0.25;
-float mixScalar  = 0.5;
+float mixScalar  = 0.0;//0.5;
 
 void main(){
     vec2 coord    = gl_FragCoord.xy;
@@ -22,7 +22,7 @@ void main(){
 	float x    	  = (coord.x - xmid) / uScreenWidth * scalar;
 	float y    	  = (coord.y - ymid) / uScreenHeight * scalar;
 	float n0   	  = max(0.0,min(sqrt(x * x + y * y) + rand(coord) * randScalar,1.0));
-	float n1      = 0.75;
+	float n1      = 0.5;
 	vec4 texColor = texture2D(uTexture,vec2(gl_TexCoord[0].x,1.0 - gl_TexCoord[0].y));
 
 	gl_FragColor = mix(mix(texColor,uColor1,n1),uColor0,n0);

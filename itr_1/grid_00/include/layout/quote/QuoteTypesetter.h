@@ -824,9 +824,135 @@ public:
     }
     
     
-    void debugTexture(bool b = true){
+    inline void debugTexture(bool b = true){
         mDebugTexture = b;
         
+    }
+    
+private:
+    
+    
+    inline void drawText(const string& str, float scale = 1.0f){
+        scale = mFontScale * scale;
+        
+        static const Vec2f zero;
+        
+        glPushMatrix();
+        glScalef(-scale, scale, scale);
+        mTexFontRef->drawString(str, zero);
+        glPopMatrix();
+    }
+public:
+    
+    //! Debug draw the area and the cells used for positioning
+    inline void debugDrawArea(){
+        if(!mValid){
+            return;
+        }
+        static int indices[] = {0,1,3,2};
+        Vec3f vertices[] = {mArea.getTL(),
+            mArea.getTR(),
+            mArea.getBL(),
+            mArea.getBR()};
+        
+        glColor3f(0.5f, 0, 0.125f);
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, &vertices[0].x);
+        glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, &indices[0]);
+        
+        const vector<Cell*>& cells = mGrid->getCells();
+        
+        glPointSize(5);
+        for (const auto& row : mCellsIndex) {
+            for(const auto& column : row){
+                glVertexPointer(3, GL_FLOAT, 0, &cells[column]->getCenter().x);
+                glDrawArrays(GL_POINTS, 0, 1);
+            }
+        }
+        glPointSize(1);
+        
+        glLineWidth(1);
+        glEnable(GL_LINE_STIPPLE);
+        glLineStipple(5, 0xAAAA);
+        
+        Vec3f p0,p1;
+        int i,j;
+        i = -1;
+        while (++i < mCellsIndex.size()) {
+            const vector<int>& column = mCellsIndex[i];
+            j = -1;
+            while (++j < column.size() - 1) {
+                const Vec3f& c0 = cells[column[j  ]]->getCenter();
+                const Vec3f& c1 = cells[column[j+1]]->getCenter();
+                
+                
+                // Draw ascentline
+                p0    = c0;
+                p1    = c1;
+                p0.x += mFontAscentline;
+                p1.x += mFontAscentline;
+                glColor3f(1, 0, 0);
+                gl::drawLine(p0,p1);
+                
+                // Draw descentline
+                p0 = c0;
+                p1 = c1;
+                p0.x += mFontDescentline;
+                p1.x += mFontDescentline;
+                glColor3f(0,0,1);
+                gl::drawLine(p0,p1);
+                
+                // Draw baseline
+                p0 = c0;
+                p1 = c1;
+                p0.x += mFontBaseline;
+                p1.x += mFontBaseline;
+                glColor3f(1,0,1);
+                gl::drawLine(p0,p1);
+            }
+        }
+        
+        glDisable(GL_LINE_STIPPLE);
+        glLineWidth(1);
+        glDisableClientState(GL_VERTEX_ARRAY);
+    }
+    
+    
+    inline void debugDrawString(){
+        if(!mValid || mLines.empty()){
+            return;
+        }
+        
+        Vec3f linePos;
+        Vec3f textPos;
+        
+        for (const auto& line : mLines) {
+            const Vec3f& first = mGrid->getCell(line.getLeft())->getCenter();
+            
+            linePos.x = first.x;
+            linePos.z = first.z - line.offset + 0.5f;
+            textPos.x = linePos.x + mFontBaseline;
+            textPos.z = linePos.z;
+            
+            glPushMatrix();
+            glTranslatef(linePos.x, linePos.y, linePos.z);
+            glColor3f(0.5,0.25,0.25);
+            drawStringBoundingBox(line.str);
+            glPopMatrix();
+            glPushMatrix();
+            glTranslatef(textPos.x, textPos.y, textPos.z);
+            glMultMatrixf(&mFontTransMat[0]);
+            glColor3f(1,1,1);
+            drawText(line.str);
+            glPopMatrix();
+            glColor3f(0,1,0);
+            glLineWidth(2);
+            for(const auto& index : line.indices){
+                mGrid->getCell(index)->debugDrawArea();
+            }
+            glLineWidth(1);
+            
+        }
     }
 };
 

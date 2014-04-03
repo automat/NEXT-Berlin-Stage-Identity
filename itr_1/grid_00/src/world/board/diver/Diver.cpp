@@ -62,7 +62,7 @@ void Diver::update(){
     
     int i = -1;
     for(vector<Vec3f>::iterator itr = mPoints.begin(); itr != mPoints.end(); itr++){
-        mPathSlice->getPointOn(1.0 - mOffset + mLengthStep * float(++i), &(*itr));
+        mPathSlice->getPointOn(mOffset - mLengthStep * float(++i), &(*itr));
     }
 }
 

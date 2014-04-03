@@ -53,17 +53,17 @@ World::World(const vector<QuoteJson>& quoteData){
     //
     //  Typesetter
     //
-    mTypesetter = new QuoteTypesetter(mGrid, mArea);
+    mTypesetter = new QuoteTypesetter(mGrid, mAreaN);
     mTypesetter->setFont(Font(app::loadResource(RES_FONT_TRANSCRIPT),400.0f),0.7f);
     mTypesetter->constrain(false);
     mTypesetter->manualLineBreak(true);
     mTypesetter->setAlign(QuoteAlign::CENTER);
     mTypesetter->debugTexture();
     
-    mTypesetter->setString("hello");
-    mQuotes += *mTypesetter->getQuote();
+    //mTypesetter->setString("hello");
+    //mQuotes += *mTypesetter->getQuote();
     
-    /*
+    
     for(auto& data : quoteData){
         const QuoteJson::Format& format = data.format;
         
@@ -73,7 +73,7 @@ World::World(const vector<QuoteJson>& quoteData){
         mTypesetter->setFontScale(format.scale);
         mTypesetter->setString(data.str);
         mQuotes += *mTypesetter->getQuote();
-    } */
+    } 
 
     //  Init osc
     mOscillator = new Oscillator();
@@ -166,7 +166,6 @@ void World::drawScene(){
     }
 #endif
     mBoard->draw(mCamera);
-   
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -181,17 +180,25 @@ void World::update(){
 void World::draw(){
     gl::enableDepthRead();
     gl::setMatrices(mCamera);
-#ifdef DEBUG_WORLD_COORDINATE_FRAME
-    gl::drawCoordinateFrame();
-#endif
 #ifdef DEBUG_WORLD_CAM_FRUSTUM
     mFrustum.draw();
 #endif
     
     glPushMatrix();
     glMultMatrixf(&mTransform[0]);
+    //mTypesetter->debugDrawString();
     drawScene();
+    gl::disableDepthRead();
+    mTypesetter->debugDrawString();
+    gl::enableAlphaTest();
+    gl::enableAdditiveBlending();
+    mTypesetter->debugDrawArea();
+    gl::disableAlphaTest();
+    gl::enableDepthRead();
     glPopMatrix();
+#ifdef DEBUG_WORLD_COORDINATE_FRAME
+    gl::drawCoordinateFrame();
+#endif
     gl::disableDepthRead();
 }
 
@@ -215,5 +222,5 @@ void World::viewTop(){
 }
 
 void World::viewOrtho(){
-    mCamera.lookAt(Vec3f(-1,1,-1), Vec3f::zero());
+    mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
 }
