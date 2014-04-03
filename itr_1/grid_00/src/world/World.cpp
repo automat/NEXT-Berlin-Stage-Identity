@@ -48,8 +48,6 @@ World::World(const vector<QuoteJson>& quoteData){
     mAreaN= mArea;
     mArea*= Matrix44f::createScale(Vec3f(1.125f,1.125f,1.125f)); // scaled to include adjacent cells
     
-    
-    
     //
     //  Typesetter
     //
@@ -59,10 +57,6 @@ World::World(const vector<QuoteJson>& quoteData){
     mTypesetter->manualLineBreak(true);
     mTypesetter->setAlign(QuoteAlign::CENTER);
     mTypesetter->debugTexture();
-    
-    //mTypesetter->setString("hello");
-    //mQuotes += *mTypesetter->getQuote();
-    
     
     for(auto& data : quoteData){
         const QuoteJson::Format& format = data.format;
@@ -81,8 +75,7 @@ World::World(const vector<QuoteJson>& quoteData){
     //  Init Bg
     mBackground = new Background(mGrid, mArea, mOscillator, app::getWindowWidth(), app::getWindowHeight());
     
-    
-    //Init Board
+    //  Init Board
     mBoard = new Board(mGrid,mArea,&mQuotes);
   
     
@@ -123,11 +116,10 @@ void World::drawScene(){
 #ifdef DEBUG_WORLD_GRID_DRAW_INDICES
     mGrid->debugDrawIndices(mCamera);
 #endif
+    
 #ifdef DEBUG_WORLD_AREA_DRAW
     static const int indices[] = {0,1,3,2};
-    
     glEnableClientState(GL_VERTEX_ARRAY);
-    
     {
         Vec3f vertices[] = {
             mArea.getTL(),
@@ -139,7 +131,6 @@ void World::drawScene(){
         glVertexPointer(3, GL_FLOAT, 0, &vertices[0].x);
         glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, &indices[0]);
     }
-    
     {
         Vec3f vertices[] = {
             mAreaN.getTL(),
@@ -151,12 +142,9 @@ void World::drawScene(){
         glVertexPointer(3, GL_FLOAT, 0, &vertices[0].x);
         glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, &indices[0]);
     }
-    
     glDisableClientState(GL_VERTEX_ARRAY);
-   
-    
-    
 #endif
+
 #ifdef DEBUG_WORLD_GRID_CELL_DRAW
     {
         const vector<Cell*> cells = mGrid->getCells();
@@ -165,7 +153,26 @@ void World::drawScene(){
         }
     }
 #endif
+
     mBoard->draw(mCamera);
+
+#ifdef DEBUG_WORLD_TYPESETTER
+    gl::disableDepthRead();
+    mTypesetter->debugDrawArea();
+    gl::enableAlphaTest();
+    gl::enableAdditiveBlending();
+    mTypesetter->debugDrawString();
+    gl::disableAlphaBlending();
+    gl::disableAlphaTest();
+    gl::enableDepthRead();
+#endif
+    
+#ifdef DEBUG_WORLD_COORDINATE_FRAME
+    gl::drawCoordinateFrame();
+#endif
+
+
+
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -180,26 +187,18 @@ void World::update(){
 void World::draw(){
     gl::enableDepthRead();
     gl::setMatrices(mCamera);
+/*
 #ifdef DEBUG_WORLD_CAM_FRUSTUM
     mFrustum.draw();
 #endif
-    
+*/
     glPushMatrix();
     glMultMatrixf(&mTransform[0]);
-    //mTypesetter->debugDrawString();
     drawScene();
-    gl::disableDepthRead();
-    mTypesetter->debugDrawString();
-    gl::enableAlphaTest();
-    gl::enableAdditiveBlending();
-    mTypesetter->debugDrawArea();
-    gl::disableAlphaTest();
-    gl::enableDepthRead();
+ 
     glPopMatrix();
-#ifdef DEBUG_WORLD_COORDINATE_FRAME
-    gl::drawCoordinateFrame();
-#endif
-    gl::disableDepthRead();
+
+    
 }
 
 /*--------------------------------------------------------------------------------------------*/

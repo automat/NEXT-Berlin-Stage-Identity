@@ -57,7 +57,7 @@ Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int 
     //  A little noise
     //
     float scale  = 0.5f;
-    float factor = 0.125f;
+    float factor = 0.25f;
     float angle  = 0.0125f;
     
     utils::subdivide(vertices, indices, 1);
@@ -166,13 +166,10 @@ void Background::update(){
 
 
 void Background::renderGradient(){
-    Vec2f windowSize(app::getWindowSize());
-
     mFboGradient.bindFramebuffer();
     mFboMesh.bindTexture();
     mShaderGradient.bind();
-    mShaderGradient.uniform("uScreenWidth", windowSize.x);
-    mShaderGradient.uniform("uScreenHeight", windowSize.y);
+    mShaderGradient.uniform("uScreenSize", Vec2f(app::getWindowWidth(),app::getWindowHeight()));
     mShaderGradient.uniform("uColor0", COLOR_BLUE_0);
     mShaderGradient.uniform("uColor1", COLOR_BLUE_1);
     mShaderGradient.uniform("uTexture",0);;
