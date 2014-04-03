@@ -36,8 +36,11 @@ public:
         return std::make_shared<Quote>(lines, texture);
     }
     
-    
     inline const vector<QuoteLine>& getLines() const{
+        return mLines;
+    }
+    
+    inline const vector<QuoteLine>& getLines(){
         return mLines;
     }
     

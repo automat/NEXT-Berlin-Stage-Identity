@@ -9,8 +9,8 @@
 #include "Config.h"
 
 
-QuoteField::QuoteField(const Vec3f& pos, int numPathSlices, QuoteLine* quoteLine) :
-AbstractField(pos,numPathSlices,quoteLine->getIndices().size()){
+QuoteField::QuoteField(const Vec3f& pos, int numPathSlices, const QuoteLine& quoteLine) :
+AbstractField(pos,numPathSlices,quoteLine.getIndices().size()){
     mSurfaceDisplacement = Vec3f(Rand::randInt(0, WORLD_GRID_NUM_CELLS_XY),0,Rand::randInt(0, WORLD_GRID_NUM_CELLS_XY));
     mSurfaceAmplitude    = QUOTE_FIELD_SURFACE_PATH_AMPLITUDE;
     mSurfaceDensity      = QUOTE_FIELD_SURFACE_PATH_DENSITY;
@@ -29,17 +29,16 @@ AbstractField(pos,numPathSlices,quoteLine->getIndices().size()){
     mMeshLayout.setDynamicTexCoords2d();
     
     reset(pos, numPathSlices, quoteLine);
-
 }
 
 /*--------------------------------------------------------------------------------------------*/
 //  Reset
 /*--------------------------------------------------------------------------------------------*/
 
-void QuoteField::reset(const Vec3f &pos, int numPathSlices, QuoteLine* quoteLine){
+void QuoteField::reset(const Vec3f &pos, int numPathSlices, const QuoteLine& quoteLine){
     mPos              = pos;
     mSurfaceNumSlices = numPathSlices;
-    mSize             = quoteLine->getIndices().size();
+    mSize             = quoteLine.getIndices().size();
     mTexcoordVStep    = 1.0f / float(mSurfaceNumSlices);
     
     mTransform.setToIdentity();
@@ -65,11 +64,7 @@ void QuoteField::updateDivers(){
 }
 
 void QuoteField::draw(){
-    static const gl::Texture testTex2x2 =  loadImage( app::loadResource( "test_texture_font_black.jpg" ) );
-    
-    testTex2x2.enableAndBind();
     drawMesh();
-    testTex2x2.unbind();
 }
 
 void QuoteField::update(Oscillator *osc, float t){
@@ -90,8 +85,8 @@ void QuoteField::updateMeshTexcoords(){
     gl::VboMesh::VertexIter vbItr = mMesh.mapVertexBuffer();
     for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
         const vector<float>& texcoords = (*itr)->getTexcoords();
-        tex_0.y = mTexcoordVStep * (i++);
-        tex_1.y = tex_0.y + mTexcoordVStep;
+        tex_1.y = 1.0f - mTexcoordVStep * (i++);
+        tex_0.y = tex_1.y + mTexcoordVStep;
         j = -1;
         while (++j < mDiverNumPoints) {
             tex_0.x = tex_1.x = texcoords[j];       //  get sliced hotizontal

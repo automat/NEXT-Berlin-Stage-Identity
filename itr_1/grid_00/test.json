@@ -1,0 +1,49 @@
+{
+   "quotes" : [
+      {
+         "format" : {
+            "align" : "center",
+            "balance" : true,
+            "padding" : [ 1, 0, 0, 0 ],
+            "scale" : 0.9
+         },
+         "string" : "Alghorithms are the new Art Direction."
+      },
+      {
+         "format" : {
+            "align" : "center",
+            "balance" : true,
+            "padding" : [ 0, 0, 0, 0 ],
+            "scale" : 0.84
+         },
+         "string" : "Knowing\n what your costumers want before they do."
+      },
+      {
+         "format" : {
+            "align" : "center",
+            "balance" : true,
+            "padding" : [ 1, 0, 0, 0 ],
+            "scale" : 0.9
+         },
+         "string" : "You will be\n disrupted soon."
+      },
+      {
+         "format" : {
+            "align" : "center",
+            "balance" : true,
+            "padding" : [ 0, 0, 0, 1 ],
+            "scale" : 0.8
+         },
+         "string" : "You can't choose not to support one device."
+      },
+      {
+         "format" : {
+            "align" : "center",
+            "balance" : true,
+            "padding" : [ 1, 0, 0, 0 ],
+            "scale" : 0.8
+         },
+         "string" : "Modular content is the new normal."
+      }
+   ]
+}

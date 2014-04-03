@@ -35,18 +35,27 @@ class Board{
     vector<DiverField*> mDiverFields;           //  diverfields
     IndexDiverFieldMap  mIndexDiverFieldMap;    //  index / diverfield map
     
+    vector<Quote>*      mQuotes;                //  qoute data
+    int                 mQuoteFieldsNumMax;     //  maximun num of quote cells according to quote data
+    int                 mQuoteFieldsNumCurr;    //  current num of quote cells
     vector<QuoteField*> mQuoteFields;           //  quote fields
     IndexQuoteFieldMap  mIndexQuoteFieldMap;    //  index / quotefield map
+    
+    
     
     Grid*       mGrid;
     Oscillator* mOscillator;
     
+    
     QuoteLine mTempQuoteLine;
     
     
+    void deleteQuoteFields();
+    void deleteDiverFields();
+    void genQuoteFields(const Quote& quote);
     
 public:
-    Board(Grid* grid, const LayoutArea& area);
+    Board(Grid* grid, const LayoutArea& area, vector<Quote>* quotes);
     ~Board();
 
     

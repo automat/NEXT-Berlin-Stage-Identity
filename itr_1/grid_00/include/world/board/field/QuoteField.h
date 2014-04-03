@@ -24,7 +24,7 @@ class QuoteField : public AbstractField {
     void updateDivers();
     
 public:
-    QuoteField(const Vec3f& pos, int numPathSlices, QuoteLine* quoteLine);
+    QuoteField(const Vec3f& pos, int numPathSlices, const QuoteLine& quoteLine);
     
     void debugDrawArea();
     
@@ -32,7 +32,7 @@ public:
     
     void draw();
     void update(Oscillator* osc, float t);
-    void reset(const Vec3f& pos, int numPathSlices, QuoteLine* quoteLine);
+    void reset(const Vec3f& pos, int numPathSlices, const QuoteLine& quoteLine);
     
     
     void debugDrawIndices(const CameraOrtho& camera);

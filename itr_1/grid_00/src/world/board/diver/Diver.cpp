@@ -39,18 +39,12 @@ void Diver::reset(PathSlice* pathSlice,
     mIsHidden  = false;
     
     mPathSurfaceSize = mPathSlice->getSurfaceSize();
-    mPathLength = mPathSurfaceSize;
-    mPathLengthInv = 1.0f / mPathLength;
+    mPathLength      = mPathSurfaceSize;
+    mPathLengthInv   = 1.0f / mPathLength;
     
     mIsOut = mIsOutPrev = false;
     mPoints.resize(mNumPoints);
     mTexcoords.resize(mNumPoints);
-    
-    /*
-    int i = -1;
-    while (++i < mNumPoints) {
-        mTexcoords[i] = float(i) / float(mNumPoints-1);
-    } */
     
     mLengthStep = float(mLength) / float(mNumPoints-1);
 }
@@ -121,7 +115,6 @@ void Diver::debugDraw(){
         line[2].x += pathWidth;
         line[3].x -= pathWidth;
         
-        
         glVertexPointer(3, GL_FLOAT, 0, &line[0].x);
         glColor3f(0.75f,0,0.15f);
         glDrawArrays(GL_LINES, 0, 4);
@@ -169,7 +162,7 @@ void Diver::debugDrawIndices(const CameraOrtho &camera){
         
         glPushMatrix();
         glMultMatrixf(&mat[0]);
-        glColor3f(0,0,0);
+        glColor4f(0,0,0,0.75f);
         gl::drawSolidRect(Rectf(0,fontDescent,stringSize.x, stringSize.y * -1+fontDescent));
         glColor3f(1,1,1);
         sharedTextureFont->drawString(stringTexCoord, zero);

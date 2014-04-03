@@ -14,6 +14,8 @@ Grid::Grid(int numCellsX, int numCellsY) :
 mSize(numCellsX,numCellsY){
     int size_2 = mSize.x / 2;
     int i,j;
+    
+    
     i = -1;
     while (++i < mSize.y) {
         j = -1;
@@ -21,6 +23,14 @@ mSize(numCellsX,numCellsY){
             mCells += new Cell(Index(j,i),Vec3f(-size_2 + j, 0, -size_2 + i));
         }
     }
+    /*
+    i = mSize.y;
+    while(--i > -1){
+        j = mSize.x;
+        while(--j > -1){
+            mCells += new Cell(Index(j,i),Vec3f(-size_2 + j, 0, -size_2 + i));
+        }
+    }*/
 }
 
 Grid::~Grid(){
@@ -38,7 +48,6 @@ Cell* Grid::getCell(int n){
 const Cell* Grid::getCell(int n) const{
     return getCell(n);
 }
-
 
 Cell* Grid::getCell(int x, int y){
     assert( x > -1 && x < mSize.x && y > -1 && y < mSize.y);

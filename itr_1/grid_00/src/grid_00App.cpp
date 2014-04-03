@@ -2,9 +2,12 @@
 #include "cinder/gl/gl.h"
 
 #include "Config.h"
+#include "Controller.h"
+#include "layout/quote/json/QuoteJson.h"
+#include "layout/quote/json/QuoteParser.h"
+
 #include "world/World.h"
 
-#include "Controller.h"
 
 /*--------------------------------------------------------------------------------------------*/
 
@@ -40,7 +43,13 @@ void grid_00App::prepareSettings(Settings* settings){
 }
 
 void grid_00App::setup(){
-    mWorld = World::create();
+    vector<QuoteJson> quoteData;
+    string msg;
+    if(!QuoteParser::LoadJson(getAppPath().parent_path().string() + "/test.json", &quoteData, &msg)){
+        throw msg;
+    }
+    
+    mWorld = World::create(quoteData);
     mController = new Controller(mWorld);
 }
 

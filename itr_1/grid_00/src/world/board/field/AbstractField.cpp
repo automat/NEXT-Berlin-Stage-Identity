@@ -406,12 +406,10 @@ void AbstractField::reset_Internal(){
         }
     }
     
-    
     //
     //  Setup vbo mesh
     //
     
-    //mMesh.reset();
     mMesh.reset();
     mMesh = gl::VboMesh(mMeshVerticesLen,mMeshIndicesLen,mMeshLayout,GL_TRIANGLES);
     
@@ -457,8 +455,6 @@ void AbstractField::reset_Internal(){
     
     mMesh.bufferIndices(mMeshIndexBuffer);
     mMesh.unbindBuffers();
-
-    
 }
 
 /*--------------------------------------------------------------------------------------------*/

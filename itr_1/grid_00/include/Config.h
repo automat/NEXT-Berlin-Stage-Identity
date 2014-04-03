@@ -14,14 +14,20 @@
 
 #define STAGE_WIDTH  3552
 #define STAGE_HEIGHT 1105
-#define STAGE_SCALE  1
+#define STAGE_SCALE  2
 
 #define APP_WIDTH  STAGE_WIDTH / STAGE_SCALE
 #define APP_HEIGHT STAGE_HEIGHT / STAGE_SCALE
 #define APP_FPS 36.0f
 
+
+
+#define DEBUG_TYPESETTER
 //#define DEBUG_SINGLE_DIVER_FIELD
-#define DEBUG_SINGLE_QUOTE_FIELD
+//#define DEBUG_SINGLE_QUOTE_FIELD
+
+
+
 
 /*--------------------------------------------------------------------------------------------*/
 // World
@@ -38,9 +44,11 @@
 
 //#define DEBUG_WORLD_COORDINATE_FRAME
 //#define DEBUG_WORLD_CAM_FRUSTUM
-//#define DEBUG_WORLD_GRID_DRAW_INDICES
-//#define DEBUG_WORLD_GRID_CELL_DRAW
+#define DEBUG_WORLD_GRID_DRAW_INDICES
+#define DEBUG_WORLD_GRID_CELL_DRAW
 #define DEBUG_WORLD_AREA_DRAW
+
+
 
 /*--------------------------------------------------------------------------------------------*/
 // Board
@@ -86,35 +94,35 @@
 // DiverField
 /*--------------------------------------------------------------------------------------------*/
 
-#define DIVER_FIELD_NUM_DIVERS_MIN 5
+#define DIVER_FIELD_NUM_DIVERS_MIN 10
 #define DIVER_FIELD_NUM_DIVERS_MAX 50
-#define DIVER_FIELD_SURFACE_PATH_DENSITY 1.0f
-#define DIVER_FIELD_SURFACE_PATH_OFFSET_SPEED   0.0025f
-#define DIVER_FIELD_SURFACE_PATH_AMPLITUDE 0.125f//0.325f
+#define DIVER_FIELD_SURFACE_PATH_DENSITY 1.25f
+#define DIVER_FIELD_SURFACE_PATH_OFFSET_SPEED  0.001f //0.0125f
+#define DIVER_FIELD_SURFACE_PATH_AMPLITUDE 0.65f//0.325f
 
 
-#define DIVER_FIELD_DIVER_NUM_POINTS 3 //10
+#define DIVER_FIELD_DIVER_NUM_POINTS 10
 #define DIVER_FIELD_DIVER_MIN_HEIGHT 0.015f
-#define DIVER_FIELD_DIVER_MAX_HEIGHT 0.065f
-#define DIVER_FIELD_DIVER_MIN_OFFSET 1.0f//-0.9f//1.0f
+#define DIVER_FIELD_DIVER_MAX_HEIGHT 0.045f
+#define DIVER_FIELD_DIVER_MIN_OFFSET -1.0f//1.0f
 #define DIVER_FIELD_DIVER_MAX_OFFSET 1.0f//-1.0f
-#define DIVER_FIELD_DIVER_MIN_SPEED  0.01f//0.0025f
-#define DIVER_FIELD_DIVER_MAX_SPEED  0.01f//0.0045f
-#define DIVER_FIELD_DIVER_MIN_LENGTH 1.0f//0.1f
-#define DIVER_FIELD_DIVER_MAX_LENGTH 1.0f//0.275f
+#define DIVER_FIELD_DIVER_MIN_SPEED  0.0015f
+#define DIVER_FIELD_DIVER_MAX_SPEED  0.0045f
+#define DIVER_FIELD_DIVER_MIN_LENGTH 0.1f//0.1f
+#define DIVER_FIELD_DIVER_MAX_LENGTH 0.275f//0.275f
 
 /*--------------------------------------------------------------------------------------------*/
 // QuoteField
 /*--------------------------------------------------------------------------------------------*/
 
-#define QUOTE_FIELD_NUM_DIVERS_MIN 5
+#define QUOTE_FIELD_NUM_DIVERS_MIN 10
 #define QUOTE_FIELD_NUM_DIVERS_MAX 50
 #define QUOTE_FIELD_SURFACE_PATH_DENSITY 0.75f
-#define QUOTE_FIELD_SURFACE_PATH_OFFSET_SPEED   0.001f
-#define QUOTE_FIELD_SURFACE_PATH_AMPLITUDE 0.25f//0.25f//0.125f//0.325f
+#define QUOTE_FIELD_SURFACE_PATH_OFFSET_SPEED   0.0025f
+#define QUOTE_FIELD_SURFACE_PATH_AMPLITUDE 0.55f//0.25f//0.125f//0.325f
 
 
-#define QUOTE_FIELD_DIVER_NUM_POINTS 10 //10
+#define QUOTE_FIELD_DIVER_NUM_POINTS 20 //10
 #define QUOTE_FIELD_DIVER_MIN_HEIGHT 0.015f
 #define QUOTE_FIELD_DIVER_MAX_HEIGHT 0.065f
 #define QUOTE_FIELD_DIVER_MIN_OFFSET -1.0f//-0.9f//1.0f

@@ -8,8 +8,8 @@ Oscillator::Oscillator(){
 }
 
 float Oscillator::getValue(float x, float y, float t){
-    //return mPerlin.fBm(x, y, t);
-    return srdnoise2(x, y, t, 0, 0);
+    return mPerlin.fBm(x, y, t);
+    //return srdnoise2(x, y, t, 0, 0);
 }
 
 float Oscillator::getValue(float x, float y, float offsetX, float offsetY, float t){

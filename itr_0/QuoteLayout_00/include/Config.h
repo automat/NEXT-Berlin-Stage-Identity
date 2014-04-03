@@ -16,7 +16,7 @@
 
 #define USE_PARAMS
 
-#define GRID_NUM_XY 11
+#define GRID_NUM_XY 13
 #define TYPE_FONT_NAME "Transcript Bold"
 #define TYPE_FONT_SIZE 30
 #define TYPE_FONT_TEXTURE_SIZE 200

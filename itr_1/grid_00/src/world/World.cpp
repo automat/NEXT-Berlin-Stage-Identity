@@ -4,12 +4,16 @@
 #include "world/board/path/PathSurface.h"
 #include "layout/quote/QuoteAlign.h"
 
+#include <boost/assign/std/vector.hpp>
+#include <boost/assign.hpp>
+
+using namespace boost::assign;
+
 /*--------------------------------------------------------------------------------------------*/
 // Constructor
 /*--------------------------------------------------------------------------------------------*/
 
-
-World::World(){
+World::World(const vector<QuoteJson>& quoteData){
     //
     //  Camera
     //
@@ -29,10 +33,6 @@ World::World(){
     
     //  Init Grid
     mGrid = new Grid(WORLD_GRID_NUM_CELLS_XY,WORLD_GRID_NUM_CELLS_XY);
-    
-    //  Init osc
-    mOscillator = new Oscillator();
-    
    
     // get Area from initial frustum
     const vector<Vec3f>& frPlaneNear = mFrustum.getNearPlane();
@@ -48,12 +48,7 @@ World::World(){
     mAreaN= mArea;
     mArea*= Matrix44f::createScale(Vec3f(1.125f,1.125f,1.125f)); // scaled to include adjacent cells
     
-    //  Init Bg
-    mBackground = new Background(mGrid, mArea, mOscillator, app::getWindowWidth(), app::getWindowHeight());
     
-    
-    //Init Board
-    mBoard = new Board(mGrid,mArea);
     
     //
     //  Typesetter
@@ -64,6 +59,36 @@ World::World(){
     mTypesetter->manualLineBreak(true);
     mTypesetter->setAlign(QuoteAlign::CENTER);
     mTypesetter->debugTexture();
+    
+    mTypesetter->setString("hello");
+    mQuotes += *mTypesetter->getQuote();
+    
+    /*
+    for(auto& data : quoteData){
+        const QuoteJson::Format& format = data.format;
+        
+        mTypesetter->balanceBaseline(format.balance);
+        mTypesetter->setAlign(format.align);
+        mTypesetter->setPadding(format.padding[0],format.padding[1],format.padding[2],format.padding[3]);
+        mTypesetter->setFontScale(format.scale);
+        mTypesetter->setString(data.str);
+        mQuotes += *mTypesetter->getQuote();
+    } */
+
+    //  Init osc
+    mOscillator = new Oscillator();
+    
+    //  Init Bg
+    mBackground = new Background(mGrid, mArea, mOscillator, app::getWindowWidth(), app::getWindowHeight());
+    
+    
+    //Init Board
+    mBoard = new Board(mGrid,mArea,&mQuotes);
+  
+    
+    //
+    //
+    //
 
     
 }
@@ -80,10 +105,10 @@ World::~World(){
 }
 
 /*--------------------------------------------------------------------------------------------*/
-// Init Cells
+// Quote handling
 /*--------------------------------------------------------------------------------------------*/
 
-void World::initCells(){
+void World::playNextQuote(){
     
 }
 

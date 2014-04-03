@@ -23,40 +23,47 @@ using namespace ci;
 
 
 
-Board::Board(Grid* grid, const LayoutArea& area) :
-    mGrid(grid){
+Board::Board(Grid* grid, const LayoutArea& area, vector<Quote>* quotes) :
+    mGrid(grid),
+    mQuotes(quotes){
     mOscillator = new Oscillator();
-    const vector<Cell*>& gridCells = grid->getCells();
 #if defined(DEBUG_SINGLE_DIVER_FIELD) || \
     defined(DEBUG_SINGLE_QUOTE_FIELD)
     
 #ifdef DEBUG_SINGLE_DIVER_FIELD
-    {
-        Cell* cell = gridCells[84];
-        mDiverFields += new DiverField(cell->getCenter(),2);
-        mIndexDiverFieldMap[cell->getIndex()] = mDiverFields.back();
-    }
+        {
+            Cell* cell = gridCells[84];
+            mDiverFields += new DiverField(cell->getCenter(),2);
+            mIndexDiverFieldMap[cell->getIndex()] = mDiverFields.back();
+        }
 #endif
     
+#ifndef DEBUG_TYPESETTER
 #ifdef DEBUG_SINGLE_QUOTE_FIELD
-    vector<Index> tempQuoteLineIndices   = {Index(6,6),Index(10,0)};
-    vector<Vec2f> tempQuoteLineTexcoords = {Vec2f(),Vec2f(1,0),Vec2f(0,1),Vec2f(1,1)};
-    mTempQuoteLine = QuoteLine(tempQuoteLineIndices,tempQuoteLineTexcoords,QuoteAlign::CENTER);
+        vector<Index> tempQuoteLineIndices   = {Index(6,6),Index(10,0)};
+        vector<Vec2f> tempQuoteLineTexcoords = {Vec2f(),Vec2f(1,0),Vec2f(0,1),Vec2f(1,1)};
+        mTempQuoteLine = QuoteLine(tempQuoteLineIndices,tempQuoteLineTexcoords,QuoteAlign::CENTER);
     
-    mQuoteFields += new QuoteField(mGrid->getCell(mTempQuoteLine.getIndices().front())->getCenter(),10,&mTempQuoteLine);
+        mQuoteFields += new QuoteField(mGrid->getCell(mTempQuoteLine.getIndices().front())->getCenter(),30,&mTempQuoteLine);
 #endif
     
 #else
-    // Create diverfields according to layoutarea
-    for(vector<Cell*>::const_iterator itr = gridCells.begin(); itr != gridCells.end(); ++itr){
-        const Cell* cell = *itr;
-        const Vec3f& pos =cell->getCenter();
-        if(area.contains(pos)){
-            const Index& index = cell->getIndex();
-            mDiverFields += new DiverField(pos,Rand::randInt(DIVER_FIELD_NUM_DIVERS_MIN, DIVER_FIELD_NUM_DIVERS_MAX));
-            mIndexDiverFieldMap[index] = mDiverFields.back();
+        const vector<Cell*>& gridCells = mGrid->getCells();
+        // Create diverfields according to layoutarea
+        for(vector<Cell*>::const_iterator itr = gridCells.begin(); itr != gridCells.end(); ++itr){
+            const Cell* cell = *itr;
+            const Vec3f& pos =cell->getCenter();
+            if(area.contains(pos)){
+                const Index& index = cell->getIndex();
+                mDiverFields += new DiverField(pos,Rand::randInt(DIVER_FIELD_NUM_DIVERS_MIN, DIVER_FIELD_NUM_DIVERS_MAX));
+                mIndexDiverFieldMap[index] = mDiverFields.back();
+            }
         }
-    }
+        
+        genQuoteFields((*mQuotes)[0]);
+    
+    
+#endif
 #endif
 }
 
@@ -64,16 +71,48 @@ Board::Board(Grid* grid, const LayoutArea& area) :
 // Destructor
 /*--------------------------------------------------------------------------------------------*/
 
-
-Board::~Board(){
+void Board::deleteDiverFields(){
     mIndexDiverFieldMap.clear();
     while (!mDiverFields.empty()) delete mDiverFields.back(), mDiverFields.pop_back();
+}
+
+void Board::deleteQuoteFields(){
     mIndexQuoteFieldMap.clear();
     while (!mQuoteFields.empty()) delete mQuoteFields.back(), mQuoteFields.pop_back();
-    
+}
+
+Board::~Board(){
+    deleteDiverFields();
+    deleteQuoteFields();
     delete mOscillator;
 }
 
+/*--------------------------------------------------------------------------------------------*/
+//  Gen
+/*--------------------------------------------------------------------------------------------*/
+
+void Board::genQuoteFields(const Quote &quote){
+    deleteQuoteFields();
+
+    /*
+    for(vector<Quote>::const_iterator itr = mQuotes->begin(); itr != mQuotes->end(); ++itr){
+        const vector<QuoteLine>& lines = itr->getLines();
+        //for(vector<QuoteLine>::const_iterator _itr = lines.begin(); _itr != lines.end(); ++_itr){
+            mQuoteFields += new QuoteField( mGrid->getCell(_itr->getIndices().front())->getCenter(),
+                                            Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
+                                            *_itr );
+        //}
+    }*/
+    
+    const vector<QuoteLine>& lines = quote.getLines();
+    for(vector<QuoteLine>::const_iterator itr = lines.begin(); itr != lines.end(); ++itr){
+        cout << itr->getIndices().front() << endl;
+        mQuoteFields += new QuoteField( mGrid->getCell(itr->getIndices().front())->getCenter(),
+                                        Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
+                                       *itr );
+    }
+
+}
 
 /*--------------------------------------------------------------------------------------------*/
 //  Draw / Update
@@ -81,6 +120,7 @@ Board::~Board(){
 
 
 void Board::draw(const CameraOrtho& camera){
+#ifndef DEBUG_TYPESETTER
 #if defined(DEBUG_BOARD_FIELD_DIVER_AREA_DRAW) || \
     defined(DEBUG_BOARD_FIELD_DIVER_PATH_SURFACE_DRAW) || \
     defined(DEBUG_BOARD_FIELD_DIVER_DIVER) || \
@@ -141,9 +181,11 @@ void Board::draw(const CameraOrtho& camera){
     }
     gl::enableDepthRead();
 #endif
+#endif
 }
 
 void Board::update(){
+#ifndef DEBUG_TYPESETTER
     float t = app::getElapsedSeconds();
     
     for (vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr) {
@@ -152,6 +194,7 @@ void Board::update(){
     for (vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr) {
         (*itr)->update(mOscillator,t);
     }
+#endif
 }
 
 /*--------------------------------------------------------------------------------------------*/

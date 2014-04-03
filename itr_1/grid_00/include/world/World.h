@@ -9,6 +9,8 @@
 #ifndef grid_00_World_h
 #define grid_00_World_h
 
+#include <vector>
+
 #include "cinder/app/App.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Camera.h"
@@ -16,6 +18,7 @@
 
 #include "layout/geom/LayoutArea.h"
 #include "layout/quote/QuoteTypesetter.h"
+#include "layout/quote/json/QuoteJson.h"
 
 #include "cinder/Matrix44.h"
 #include "cinder/Vector.h"
@@ -27,6 +30,8 @@
 #include "world/grid/Grid.h"
 #include "world/board/Board.h"
 
+
+
 /*--------------------------------------------------------------------------------------------*/
 
 typedef std::shared_ptr<class World> WorldRef;
@@ -35,6 +40,7 @@ typedef std::shared_ptr<class World> WorldRef;
 
 class PathSurface;
 
+using namespace std;
 using namespace ci;
 class World {
     
@@ -52,13 +58,15 @@ class World {
     Board*           mBoard;
     Oscillator*      mOscillator;
     QuoteTypesetter* mTypesetter;
+  
+    vector<Quote>    mQuotes;
     
     void initCells();
     void drawScene();
 
 public:
     
-    World();
+    World(const vector<QuoteJson>& quoteData);
     ~World();
     
     void update();
@@ -69,11 +77,13 @@ public:
     
     void viewTop();
     void viewOrtho();
+    
+    void playNextQuote();
 
     /*--------------------------------------------------------------------------------------------*/
 
-    inline static WorldRef create(){
-        return std::make_shared<World>();
+    inline static WorldRef create(const vector<QuoteJson>& quoteData){
+        return std::make_shared<World>(quoteData);
     }
 };
 
