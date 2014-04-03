@@ -14,7 +14,6 @@
 
 #include "Resources.h"
 #include "Config.h"
-#include "Properties.h"
 
 #include "cinder/app/App.h"
 
