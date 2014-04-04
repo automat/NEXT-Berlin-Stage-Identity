@@ -53,8 +53,6 @@ using namespace boost;
 using namespace boost::assign;
 
 
-
-
 class QuoteTypesetter {
 private:
     

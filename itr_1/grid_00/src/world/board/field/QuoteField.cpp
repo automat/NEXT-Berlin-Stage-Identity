@@ -39,7 +39,12 @@ void QuoteField::reset(const Vec3f &pos, int numPathSlices, const QuoteLine& quo
     mPos              = pos;
     mSurfaceNumSlices = numPathSlices;
     mSize             = quoteLine.getIndices().size();
-    mTexcoordVStep    = 1.0f / float(mSurfaceNumSlices);
+    mTexcoordStart    = quoteLine.getTexcoords()[0];
+    mTexcoordStep     = Vec2f((quoteLine.getTexcoords()[1].x - mTexcoordStart.x),
+                              (quoteLine.getTexcoords()[2].y - mTexcoordStart.y) / mSurfaceNumSlices);
+    
+    mTexcoordVStart   = quoteLine.getTexcoords()[0].y;
+    mTexcoordVStep    = (quoteLine.getTexcoords()[2].y - mTexcoordVStart) / mSurfaceNumSlices;
     
     mTransform.setToIdentity();
     mTransform.translate(pos);
@@ -68,7 +73,7 @@ void QuoteField::draw(){
 }
 
 void QuoteField::update(Oscillator *osc, float t){
-    mSurfaceOffset += mSurfaceOffsetSpeed;
+    mSurfaceOffset -= mSurfaceOffsetSpeed;
     updatePathSurface(osc, mSurfaceOffset);
     updateDivers();
     updateMeshTexcoords();
@@ -85,16 +90,20 @@ void QuoteField::updateMeshTexcoords(){
     gl::VboMesh::VertexIter vbItr = mMesh.mapVertexBuffer();
     for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
         const vector<float>& texcoords = (*itr)->getTexcoords();
-        tex_1.y = 1.0f - mTexcoordVStep * (i++);
-        tex_0.y = tex_1.y + mTexcoordVStep;
+        tex_0.y = mTexcoordStart.y + mTexcoordStep.y * (i++);
+        tex_1.y = tex_0.y + mTexcoordStep.y;
         j = -1;
         while (++j < mDiverNumPoints) {
-            tex_0.x = tex_1.x = texcoords[j];       //  get sliced hotizontal
+            tex_0.x = tex_1.x = mTexcoordStart.x + mTexcoordStep.x * texcoords[j];  //  get sliced hotizontal
             
             ++vbItr; ++vbItr;                       //  skip bottom
+
             vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top
             vbItr.setTexCoord2d0(tex_1); ++vbItr;
-            ++vbItr; ++vbItr; ++vbItr; ++vbItr;     //  skip top / bottom left / right
+            vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top / bottom left
+            vbItr.setTexCoord2d0(tex_1); ++vbItr;
+            vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top / bottom right
+            vbItr.setTexCoord2d0(tex_1); ++vbItr;
         }
         
         ++vbItr; ++vbItr; ++vbItr; ++vbItr;         //  skip front

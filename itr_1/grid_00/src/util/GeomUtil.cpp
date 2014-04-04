@@ -78,8 +78,8 @@ namespace utils {
     using namespace std;
     void subdivide(vector<Vec3f>& vertices, vector<uint32_t>& indices, int numSubDivisions, bool normalize){
         vector<uint32_t> tempIndices;
-        int numTriangles = indices.size() / 3;
         
+        int numTriangles;
         uint32_t indexA, indexB, indexC;
         
         int i,j;
@@ -105,8 +105,8 @@ namespace utils {
     
     void randomSubdivide(vector<Vec3f>& vertices, vector<uint32_t>& indices, int numSubDivisions, float threshold, bool normalize){
         vector<uint32_t> tempIndices;
-        int numTriangles = indices.size() / 3;
-        
+       
+        int numTriangles;
         int i,j;
         i = -1;
         while (++i < numSubDivisions) {

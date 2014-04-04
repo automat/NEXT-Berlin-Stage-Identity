@@ -257,6 +257,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CD11E25318EED61E0013FDEE /* material */ = {
+			isa = PBXGroup;
+			children = (
+				CD9642DD18E78C4900AF7760 /* normal_frag.glsl */,
+				CD9642DE18E78C4900AF7760 /* normal_vert.glsl */,
+			);
+			name = material;
+			sourceTree = "<group>";
+		};
 		CD363CBF18E619060037CE81 /* board */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,8 +460,7 @@
 			isa = PBXGroup;
 			children = (
 				CD5CE26818E84F1900D5E5BC /* background */,
-				CD9642DD18E78C4900AF7760 /* normal_frag.glsl */,
-				CD9642DE18E78C4900AF7760 /* normal_vert.glsl */,
+				CD11E25318EED61E0013FDEE /* material */,
 				CD5CE26018E842AE00D5E5BC /* pass_thru.glsl */,
 			);
 			name = shader;

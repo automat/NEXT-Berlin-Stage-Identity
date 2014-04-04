@@ -32,7 +32,7 @@ void DiverField::draw(){
 }
 
 void DiverField::update(Oscillator* osc, float t){
-    mSurfaceOffset += mSurfaceOffsetSpeed;
+    mSurfaceOffset -= mSurfaceOffsetSpeed;
     updatePathSurface(osc, mSurfaceOffset);
     updateDivers();
     

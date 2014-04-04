@@ -55,6 +55,11 @@ public:
     inline const Vec3f& getBL(){return mC;}
     inline const Vec3f& getBR(){return mD;}
     
+    inline const Vec3f& getTL() const{return mA;}
+    inline const Vec3f& getTR() const{return mB;}
+    inline const Vec3f& getBL() const{return mC;}
+    inline const Vec3f& getBR() const{return mD;}
+    
     inline friend std::ostream& operator<<( std::ostream& lhs, const LayoutArea& rhs ){
 		lhs << "[" << rhs.mA << "," << rhs.mB << "," << rhs.mC << "," << rhs.mD << "]";
 		return lhs;

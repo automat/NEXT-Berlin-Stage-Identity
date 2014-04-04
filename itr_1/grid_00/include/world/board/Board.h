@@ -32,37 +32,48 @@ using namespace std;
 using namespace ci;
 
 class Board{
+    LayoutArea          mArea;
+    
     vector<DiverField*> mDiverFields;           //  diverfields
     IndexDiverFieldMap  mIndexDiverFieldMap;    //  index / diverfield map
     
     vector<Quote>*      mQuotes;                //  qoute data
+    Quote*              mQuoteCurrent;          //  current quote beeing used
     int                 mQuoteFieldsNumMax;     //  maximun num of quote cells according to quote data
     int                 mQuoteFieldsNumCurr;    //  current num of quote cells
     vector<QuoteField*> mQuoteFields;           //  quote fields
     IndexQuoteFieldMap  mIndexQuoteFieldMap;    //  index / quotefield map
     
-    
-    
     Grid*       mGrid;
     Oscillator* mOscillator;
-    
     
     QuoteLine mTempQuoteLine;
     
     
     void deleteQuoteFields();
     void deleteDiverFields();
-    void genQuoteFields(const Quote& quote);
+    void setQuote(Quote& quote);
     
 public:
     Board(Grid* grid, const LayoutArea& area, vector<Quote>* quotes);
     ~Board();
 
-    
     void setQuote(const Quote& quote, float duration);
     
     void draw(const CameraOrtho& camera);
     void update();
+
+    inline const LayoutArea& getArea(){
+        return mArea;
+    }
+    
+    inline const LayoutArea& getArea() const{
+        return mArea;
+    }
+    
+    inline const Quote* getCurrentQuote() const{
+        return mQuoteCurrent;
+    }
 };
 
 

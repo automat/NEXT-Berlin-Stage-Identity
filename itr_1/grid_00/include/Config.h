@@ -21,7 +21,6 @@
 #define APP_FPS 36.0f
 
 
-
 //#define DEBUG_SINGLE_DIVER_FIELD
 //#define DEBUG_SINGLE_QUOTE_FIELD
 
@@ -41,18 +40,28 @@
 
 #define WORLD_GRID_NUM_CELLS_XY 13
 
-#define DEBUG_WORLD_TYPESETTER
+#define WORLD_TYPESETTER_FONT_SIZE 400.0f
+#define WORLD_TYPESETTER_FONT_SCALE 0.7f
+//#define DEBUG_WORLD_TYPESETTER_TEXCOORDS
+
+//#define DEBUG_WORLD_TYPESETTER
+//#define DEBUG_WORLD_TYPESETTER_TEXTURE
+//#define DEBUG_WORLD_AREA_DRAW
+
+
 //#define DEBUG_WORLD_COORDINATE_FRAME
 //#define DEBUG_WORLD_CAM_FRUSTUM
 //#define DEBUG_WORLD_GRID_DRAW_INDICES
 //#define DEBUG_WORLD_GRID_CELL_DRAW
-//#define DEBUG_WORLD_AREA_DRAW
 
 
 
 /*--------------------------------------------------------------------------------------------*/
 // Board
 /*--------------------------------------------------------------------------------------------*/
+
+//#define BOARD_SKIP_DRAW_FIELD_DIVER
+//#define BOARD_SKIP_DRAW_QUOTE_DIVER
 
 //#define DEBUG_BOARD_FIELD_DIVER_AREA_DRAW
 //#define DEBUG_BOARD_FIELD_DIVER_PATH_SURFACE_DRAW
@@ -63,6 +72,8 @@
 //#define DEBUG_BOARD_FIELD_QUOTE_DIVER
 //#define DEBUG_BOARD_FIELD_QUOTE_DIVER_TEXCOORDS
 //#define DEBUG_BOARD_FIELD_QUOTE_TEXCOORDS
+
+
 
 /*--------------------------------------------------------------------------------------------*/
 // Background
@@ -115,10 +126,10 @@
 // QuoteField
 /*--------------------------------------------------------------------------------------------*/
 
-#define QUOTE_FIELD_NUM_DIVERS_MIN 10
-#define QUOTE_FIELD_NUM_DIVERS_MAX 50
+#define QUOTE_FIELD_NUM_DIVERS_MIN 30//10
+#define QUOTE_FIELD_NUM_DIVERS_MAX 70//50
 #define QUOTE_FIELD_SURFACE_PATH_DENSITY 0.75f
-#define QUOTE_FIELD_SURFACE_PATH_OFFSET_SPEED   0.0025f
+#define QUOTE_FIELD_SURFACE_PATH_OFFSET_SPEED   0.0075f
 #define QUOTE_FIELD_SURFACE_PATH_AMPLITUDE 0.55f//0.25f//0.125f//0.325f
 
 
@@ -126,9 +137,9 @@
 #define QUOTE_FIELD_DIVER_MIN_HEIGHT 0.015f
 #define QUOTE_FIELD_DIVER_MAX_HEIGHT 0.065f
 #define QUOTE_FIELD_DIVER_MIN_OFFSET -1.0f//-0.9f//1.0f
-#define QUOTE_FIELD_DIVER_MAX_OFFSET -0.1f//-1.0f
-#define QUOTE_FIELD_DIVER_MIN_SPEED  0.01f//0.0025f
-#define QUOTE_FIELD_DIVER_MAX_SPEED  0.01f//0.0045f
+#define QUOTE_FIELD_DIVER_MAX_OFFSET -0.8f//-1.0f
+#define QUOTE_FIELD_DIVER_MIN_SPEED  0.0135f//0.01f//0.0025f
+#define QUOTE_FIELD_DIVER_MAX_SPEED  0.015f//0.01f//0.0045f
 #define QUOTE_FIELD_DIVER_MIN_LENGTH 1.0f//0.1f
 #define QUOTE_FIELD_DIVER_MAX_LENGTH 1.0f//0.275f
 

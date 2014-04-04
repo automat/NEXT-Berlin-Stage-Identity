@@ -52,8 +52,6 @@ class World {
     
     Background* mBackground;
     
-    LayoutArea       mArea;
-    LayoutArea       mAreaN; // area unscaled
     Grid*            mGrid;
     Board*           mBoard;
     Oscillator*      mOscillator;
@@ -78,6 +76,7 @@ public:
     void viewTop();
     void viewOrtho();
     
+    void playPrevQuote();
     void playNextQuote();
 
     /*--------------------------------------------------------------------------------------------*/

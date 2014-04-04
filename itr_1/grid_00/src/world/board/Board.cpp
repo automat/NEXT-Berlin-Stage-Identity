@@ -25,6 +25,7 @@ using namespace ci;
 
 Board::Board(Grid* grid, const LayoutArea& area, vector<Quote>* quotes) :
     mGrid(grid),
+    mArea(area),
     mQuotes(quotes){
     mOscillator = new Oscillator();
 #if defined(DEBUG_SINGLE_DIVER_FIELD) || \
@@ -32,13 +33,11 @@ Board::Board(Grid* grid, const LayoutArea& area, vector<Quote>* quotes) :
     
 #ifdef DEBUG_SINGLE_DIVER_FIELD
         {
-            
             Cell* cell = grid->getCells()[84];
             mDiverFields += new DiverField(cell->getCenter(),2);
             mIndexDiverFieldMap[cell->getIndex()] = mDiverFields.back();
         }
 #endif
-    
 
 #ifdef DEBUG_SINGLE_QUOTE_FIELD
         vector<Index> tempQuoteLineIndices   = {Index(6,6),Index(10,0)};
@@ -61,9 +60,7 @@ Board::Board(Grid* grid, const LayoutArea& area, vector<Quote>* quotes) :
             }
         }
 
-        genQuoteFields((*mQuotes)[0]);
-    
-    
+        setQuote((*mQuotes)[0]);
 #endif
 
 }
@@ -92,18 +89,8 @@ Board::~Board(){
 //  Gen
 /*--------------------------------------------------------------------------------------------*/
 
-void Board::genQuoteFields(const Quote &quote){
+void Board::setQuote(Quote& quote){
     deleteQuoteFields();
-
-    /*
-    for(vector<Quote>::const_iterator itr = mQuotes->begin(); itr != mQuotes->end(); ++itr){
-        const vector<QuoteLine>& lines = itr->getLines();
-        //for(vector<QuoteLine>::const_iterator _itr = lines.begin(); _itr != lines.end(); ++_itr){
-            mQuoteFields += new QuoteField( mGrid->getCell(_itr->getIndices().front())->getCenter(),
-                                            Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
-                                            *_itr );
-        //}
-    }*/
     
     const vector<QuoteLine>& lines = quote.getLines();
     for(vector<QuoteLine>::const_iterator itr = lines.begin(); itr != lines.end(); ++itr){
@@ -112,15 +99,16 @@ void Board::genQuoteFields(const Quote &quote){
                                         Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
                                        *itr );
     }
-
+    
+    mQuoteCurrent = &quote;
 }
 
 /*--------------------------------------------------------------------------------------------*/
-//  Draw / Update
+//  Draw
 /*--------------------------------------------------------------------------------------------*/
 
-
 void Board::draw(const CameraOrtho& camera){
+    //  Debug Draw
 #ifndef DEBUG_TYPESETTER
 #if defined(DEBUG_BOARD_FIELD_DIVER_AREA_DRAW) || \
     defined(DEBUG_BOARD_FIELD_DIVER_PATH_SURFACE_DRAW) || \
@@ -163,13 +151,23 @@ void Board::draw(const CameraOrtho& camera){
 #endif
     gl::enableDepthRead();
 #endif
+
+    //  Draw
+#ifndef BOARD_SKIP_DRAW_FIELD_DIVER
     for(vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr){
         (*itr)->draw();
     }
+#endif
+    
+#ifndef BOARD_SKIP_DRAW_QUOTE_DIVER
+    mQuoteCurrent->getTexture().enableAndBind();
     for(vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr){
         (*itr)->draw();
     }
+    mQuoteCurrent->getTexture().unbind();
+#endif
     
+    //  Debug draw indices
 #if defined(DEBUG_BOARD_FIELD_QUOTE_DIVER_TEXCOORDS) || \
     defined(DEBUG_BOARD_FIELD_QUOTE_TEXCOORDS)
     gl::disableDepthRead();
@@ -182,11 +180,16 @@ void Board::draw(const CameraOrtho& camera){
     }
     gl::enableDepthRead();
 #endif
+    
+    
 #endif
 }
 
-void Board::update(){
+/*--------------------------------------------------------------------------------------------*/
+//  Update
+/*--------------------------------------------------------------------------------------------*/
 
+void Board::update(){
     float t = app::getElapsedSeconds();
     
     for (vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr) {

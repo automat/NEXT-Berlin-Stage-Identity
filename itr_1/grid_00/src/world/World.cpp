@@ -10,13 +10,13 @@
 using namespace boost::assign;
 
 /*--------------------------------------------------------------------------------------------*/
-// Constructor
-/*--------------------------------------------------------------------------------------------*/
 
 World::World(const vector<QuoteJson>& quoteData){
-    //
-    //  Camera
-    //
+    
+    /*--------------------------------------------------------------------------------------------*/
+    // Camera
+    /*--------------------------------------------------------------------------------------------*/
+    
     mCameraAspectRatio = app::getWindowAspectRatio();
     mCamera.setOrtho(-mCameraAspectRatio * WORLD_MODEL_CAM_ZOOM, mCameraAspectRatio * WORLD_MODEL_CAM_ZOOM,
                      -WORLD_MODEL_CAM_ZOOM, WORLD_MODEL_CAM_ZOOM, WORLD_MODEL_CAM_NEAR_CLIP, WORLD_MODEL_CAM_FAR_CLIP);
@@ -26,10 +26,11 @@ World::World(const vector<QuoteJson>& quoteData){
     mTransform  = Matrix44f::createScale(Vec3f(mModelScale,mModelScale,mModelScale));
     mFrustum.set(mCamera);
     
-    
-    //
-    //  Environment
-    //
+   
+    /*--------------------------------------------------------------------------------------------*/
+    // Environment
+    /*--------------------------------------------------------------------------------------------*/
+
     
     //  Init Grid
     mGrid = new Grid(WORLD_GRID_NUM_CELLS_XY,WORLD_GRID_NUM_CELLS_XY);
@@ -43,20 +44,25 @@ World::World(const vector<QuoteJson>& quoteData){
     utils::getIntersection(xzPlane, frPlaneNear[1], frPlaneFar[1], &tr);
     utils::getIntersection(xzPlane, frPlaneNear[2], frPlaneFar[2], &br);
     utils::getIntersection(xzPlane, frPlaneNear[3], frPlaneFar[3], &bl);
-    mArea = LayoutArea(tl,tr,bl,br);
-    mArea*= mTransform.inverted();
-    mAreaN= mArea;
-    mArea*= Matrix44f::createScale(Vec3f(1.125f,1.125f,1.125f)); // scaled to include adjacent cells
     
-    //
-    //  Typesetter
-    //
-    mTypesetter = new QuoteTypesetter(mGrid, mAreaN);
-    mTypesetter->setFont(Font(app::loadResource(RES_FONT_TRANSCRIPT),400.0f),0.7f);
+    LayoutArea area(tl,tr,bl,br);
+    LayoutArea areaScaled;
+    
+    area       *= mTransform.inverted();
+    areaScaled  = area;
+    areaScaled *= Matrix44f::createScale(Vec3f(1.125f,1.125f,1.125f));
+    
+    /*--------------------------------------------------------------------------------------------*/
+    // Typesetter
+    /*--------------------------------------------------------------------------------------------*/
+
+    mTypesetter = new QuoteTypesetter(mGrid, area);
+    mTypesetter->setFont(Font(app::loadResource(RES_FONT_TRANSCRIPT),WORLD_TYPESETTER_FONT_SIZE), WORLD_TYPESETTER_FONT_SCALE);
     mTypesetter->constrain(false);
     mTypesetter->manualLineBreak(true);
-    mTypesetter->setAlign(QuoteAlign::CENTER);
+#ifdef DEBUG_WORLD_TYPESETTER_TEXCOORDS
     mTypesetter->debugTexture();
+#endif
     
     for(auto& data : quoteData){
         const QuoteJson::Format& format = data.format;
@@ -67,22 +73,15 @@ World::World(const vector<QuoteJson>& quoteData){
         mTypesetter->setFontScale(format.scale);
         mTypesetter->setString(data.str);
         mQuotes += *mTypesetter->getQuote();
-    } 
+    }
+    
+    /*--------------------------------------------------------------------------------------------*/
+    // Init layers
+    /*--------------------------------------------------------------------------------------------*/
 
-    //  Init osc
     mOscillator = new Oscillator();
-    
-    //  Init Bg
-    mBackground = new Background(mGrid, mArea, mOscillator, app::getWindowWidth(), app::getWindowHeight());
-    
-    //  Init Board
-    mBoard = new Board(mGrid,mArea,&mQuotes);
-  
-    
-    //
-    //
-    //
-
+    mBackground = new Background(mGrid, areaScaled, mOscillator, app::getWindowWidth(), app::getWindowHeight());
+    mBoard      = new Board(mGrid, areaScaled, &mQuotes);
     
 }
 
@@ -91,7 +90,6 @@ World::~World(){
     delete mBackground;
     delete mOscillator;
     delete mTypesetter;
-    //delete mTestSurface;
     delete mGrid;
     
     cout << "World destructed." << endl;
@@ -101,6 +99,10 @@ World::~World(){
 // Quote handling
 /*--------------------------------------------------------------------------------------------*/
 
+void World::playPrevQuote(){
+    
+}
+
 void World::playNextQuote(){
     
 }
@@ -108,7 +110,6 @@ void World::playNextQuote(){
 /*--------------------------------------------------------------------------------------------*/
 // Draw Scene
 /*--------------------------------------------------------------------------------------------*/
-
 
 void World::drawScene(){
     mBackground->draw();
@@ -120,31 +121,18 @@ void World::drawScene(){
 #ifdef DEBUG_WORLD_AREA_DRAW
     static const int indices[] = {0,1,3,2};
     glEnableClientState(GL_VERTEX_ARRAY);
-    {
-        Vec3f vertices[] = {
-            mArea.getTL(),
-            mArea.getTR(),
-            mArea.getBL(),
-            mArea.getBR()
-        };
-        glColor3f(0.5f,0,0.125f);
-        glVertexPointer(3, GL_FLOAT, 0, &vertices[0].x);
-        glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, &indices[0]);
-    }
-    {
-        Vec3f vertices[] = {
-            mAreaN.getTL(),
-            mAreaN.getTR(),
-            mAreaN.getBL(),
-            mAreaN.getBR()
-        };
-        glColor3f(1.0f,0,0.125f);
-        glVertexPointer(3, GL_FLOAT, 0, &vertices[0].x);
-        glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, &indices[0]);
-    }
+    
+    glColor3f(0.5f,0,0.125f);
+    glVertexPointer(3, GL_FLOAT, 0, &mTypesetter->getArea().getTL().x);
+    glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, &indices[0]);
+    
+    glColor3f(1.0f,0,0.125f);
+    glVertexPointer(3, GL_FLOAT, 0, &mBoard->getArea().getTL().x);
+    glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, &indices[0]);
+    
     glDisableClientState(GL_VERTEX_ARRAY);
 #endif
-
+    
 #ifdef DEBUG_WORLD_GRID_CELL_DRAW
     {
         const vector<Cell*> cells = mGrid->getCells();
@@ -155,24 +143,7 @@ void World::drawScene(){
 #endif
 
     mBoard->draw(mCamera);
-
-#ifdef DEBUG_WORLD_TYPESETTER
-    gl::disableDepthRead();
-    mTypesetter->debugDrawArea();
-    gl::enableAlphaTest();
-    gl::enableAdditiveBlending();
-    mTypesetter->debugDrawString();
-    gl::disableAlphaBlending();
-    gl::disableAlphaTest();
-    gl::enableDepthRead();
-#endif
     
-#ifdef DEBUG_WORLD_COORDINATE_FRAME
-    gl::drawCoordinateFrame();
-#endif
-
-
-
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -187,18 +158,46 @@ void World::update(){
 void World::draw(){
     gl::enableDepthRead();
     gl::setMatrices(mCamera);
-/*
+
 #ifdef DEBUG_WORLD_CAM_FRUSTUM
     mFrustum.draw();
 #endif
-*/
+    
     glPushMatrix();
     glMultMatrixf(&mTransform[0]);
     drawScene();
- 
-    glPopMatrix();
-
     
+#ifdef DEBUG_WORLD_TYPESETTER
+    gl::disableDepthRead();
+    mTypesetter->debugDrawArea();
+    gl::enableAlphaTest();
+    gl::enableAdditiveBlending();
+    mTypesetter->debugDrawString();
+    gl::disableAlphaBlending();
+    gl::disableAlphaTest();
+    gl::enableDepthRead();
+#endif
+    
+#ifdef DEBUG_WORLD_COORDINATE_FRAME
+    gl::drawCoordinateFrame();
+#endif
+    
+    glPopMatrix();
+    
+#ifdef DEBUG_WORLD_TYPESETTER_TEXTURE
+    const Quote* currentQuote = mBoard->getCurrentQuote();
+    if(currentQuote != nullptr){
+        gl::disableDepthRead();
+        gl::pushMatrices();
+        gl::setMatricesWindow(app::getWindowSize(),true);
+        static int textureSize = 256;
+        static Rectf pos(app::getWindowWidth() - textureSize,0,app::getWindowWidth(),textureSize);
+        glColor3f(1,1,1);
+        gl::draw(currentQuote->getTexture(),pos);
+        gl::popMatrices();
+        gl::enableDepthRead();
+    }
+#endif
 }
 
 /*--------------------------------------------------------------------------------------------*/

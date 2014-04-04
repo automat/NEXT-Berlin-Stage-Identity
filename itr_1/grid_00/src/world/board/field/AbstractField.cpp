@@ -394,12 +394,20 @@ void AbstractField::reset_Internal(){
         j = -1;
         while (++j < mDiverNumPoints - 1) {
             index = (i * mDiverNumPoints + j + i) * 8;
+            /*
             // first quad
             v00 = index + 0; v01 = index + 2;
             v02 = index + 3; v03 = index + 1;
             // next quad
             v04 = index + 8; v05 = index + 10;
             v06 = index + 11;v07 = index + 9;
+             */
+            // first quad
+            v01 = index + 2;
+            v02 = index + 3;
+            // next quad
+            v05 = index + 10;
+            v06 = index + 11;
             // top lower & upper triangle
             mMeshIndexScheme += v01,v02,v05;
             mMeshIndexScheme += v02,v06,v05;
