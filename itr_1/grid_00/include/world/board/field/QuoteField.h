@@ -21,8 +21,7 @@ class QuoteField : public AbstractField {
     Vec2f      mTexcoordStart;
     Vec2f      mTexcoordStep;
     
-    float mTexcoordVStart;
-    float mTexcoordVStep;
+    void addMeshColors();
     
     void updateMeshTexcoords();
     void updateDivers();
@@ -32,7 +31,7 @@ public:
     
     void debugDrawArea();
     
-
+    
     
     void draw();
     void update(Oscillator* osc, float t);

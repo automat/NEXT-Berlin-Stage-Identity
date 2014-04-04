@@ -99,7 +99,7 @@
 /*--------------------------------------------------------------------------------------------*/
 // Abstract Field
 /*--------------------------------------------------------------------------------------------*/
-#define ABSTRACT_FIELD_PUT_NORMAL_COLORS
+//#define ABSTRACT_FIELD_PUT_NORMAL_COLORS
 
 /*--------------------------------------------------------------------------------------------*/
 // DiverField
@@ -122,6 +122,8 @@
 #define DIVER_FIELD_DIVER_MIN_LENGTH 0.1f//0.1f
 #define DIVER_FIELD_DIVER_MAX_LENGTH 0.275f//0.275f
 
+#define DIVER_FIELD_PUT_NORMAL_COLORS
+
 /*--------------------------------------------------------------------------------------------*/
 // QuoteField
 /*--------------------------------------------------------------------------------------------*/
@@ -142,6 +144,8 @@
 #define QUOTE_FIELD_DIVER_MAX_SPEED  0.015f//0.01f//0.0045f
 #define QUOTE_FIELD_DIVER_MIN_LENGTH 1.0f//0.1f
 #define QUOTE_FIELD_DIVER_MAX_LENGTH 1.0f//0.275f
+
+//#define QUOTE_FIELD_PUT_NORMAL_COLORS
 
 /*--------------------------------------------------------------------------------------------*/
 // JSON

@@ -15,7 +15,8 @@
 typedef std::map<const Index,class DiverField*> IndexDiverFieldMap;
 
 class DiverField : public AbstractField {
-    
+
+    void addMeshColors();
 public:
     DiverField(const Vec3f& pos, int numPathSlices);
     void debugDrawArea();

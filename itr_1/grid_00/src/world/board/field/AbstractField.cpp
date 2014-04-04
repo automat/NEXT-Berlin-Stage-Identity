@@ -23,9 +23,7 @@ AbstractField::AbstractField(const Vec3f& pos, int size, int numPathSlices) :
         mMeshLayout.setDynamicPositions();
         mMeshLayout.setStaticNormals();
         mMeshLayout.setDynamicIndices();
-#ifdef ABSTRACT_FIELD_PUT_NORMAL_COLORS
-       mMeshLayout.setStaticColorsRGB();
-#endif
+        
 }
 
 AbstractField::~AbstractField(){
@@ -421,24 +419,21 @@ void AbstractField::reset_Internal(){
     mMesh.reset();
     mMesh = gl::VboMesh(mMeshVerticesLen,mMeshIndicesLen,mMeshLayout,GL_TRIANGLES);
     
-#ifdef ABSTRACT_FIELD_PUT_NORMAL_COLORS
-    vector<Colorf> meshColors;  // buffer colors for debug
-#endif
+    // unfold mesh
+    i = -1;
+    while (++i < mNumDivers) {
+        unfold(i);
+    }
     
-    static const Vec3f up(1,1,1),down(0,-1,0);
-    static const Vec3f left(-1,0,0),right(1,0,0);
-    static const Vec3f front(0,0,-1),back(0,0,1);
+    // put normals
+    const Vec3f up(0,1,0),down(0,-1,0);
+    const Vec3f left(-1,0,0),right(1,0,0);
+    const Vec3f front(0,0,-1),back(0,0,1);
     
     i = -1;
     while (++i < mNumDivers) {
         j = 0;
         while (j < mDiverNumPoints) {
-#ifdef ABSTRACT_FIELD_PUT_NORMAL_COLORS
-            meshColors += utils::toColor(down), utils::toColor(down);
-            meshColors += utils::toColor(  up), utils::toColor(  up);
-            meshColors += utils::toColor(right),utils::toColor(left);
-            meshColors += utils::toColor(right),utils::toColor(left);
-#endif
             mMeshNormalBuffer += down,down;
             mMeshNormalBuffer += up,up;
             mMeshNormalBuffer += right,left;
@@ -446,21 +441,13 @@ void AbstractField::reset_Internal(){
             
             ++j;
         }
-#ifdef ABSTRACT_FIELD_PUT_NORMAL_COLORS
-        meshColors += utils::toColor(front),utils::toColor(front);
-        meshColors += utils::toColor(front),utils::toColor(front);
-        meshColors += utils::toColor( back),utils::toColor( back);
-        meshColors += utils::toColor( back),utils::toColor( back);
-#endif
         mMeshNormalBuffer += front,front,front,front;
         mMeshNormalBuffer += back,back,back,back;
         
-        unfold(i);
     }
-#ifdef ABSTRACT_FIELD_PUT_NORMAL_COLORS
-    mMesh.bufferColorsRGB(meshColors);
-#endif
-    
+
+    mMesh.bufferNormals(mMeshNormalBuffer);
+    addMeshColors();
     mMesh.bufferIndices(mMeshIndexBuffer);
     mMesh.unbindBuffers();
 }

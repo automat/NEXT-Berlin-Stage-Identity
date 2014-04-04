@@ -1,13 +1,20 @@
 #include "world/board/field/QuoteField.h"
-#include "Resources.h"
 
-#include "cinder/app/App.h"
-#include "cinder/gl/Texture.h"
-#include "util/SharedTextureFont.h"
-#include "cinder/Utilities.h"
+#include <boost/assign/std/vector.hpp>
+#include <boost/assign.hpp>
+
+#include "Resources.h"
 
 #include "Config.h"
 
+#include "cinder/app/App.h"
+#include "cinder/gl/Texture.h"
+#include "cinder/Utilities.h"
+
+#include "util/SharedTextureFont.h"
+#include "util/ColorUtil.h"
+
+using namespace boost::assign;
 
 QuoteField::QuoteField(const Vec3f& pos, int numPathSlices, const QuoteLine& quoteLine) :
 AbstractField(pos - Vec3f(quoteLine.getIndices().size(),0,0),numPathSlices,quoteLine.getIndices().size()){
@@ -27,9 +34,58 @@ AbstractField(pos - Vec3f(quoteLine.getIndices().size(),0,0),numPathSlices,quote
     mDiverLengthMax     = QUOTE_FIELD_DIVER_MAX_LENGTH;
     
     mMeshLayout.setDynamicTexCoords2d();
-    
+    mMeshLayout.setStaticColorsRGBA();
     reset(pos, numPathSlices, quoteLine);
 }
+
+
+void QuoteField::addMeshColors(){
+    const Vec3f up(1,1,1),down(0,-1,0);
+    const Vec3f left(-1,0,0),right(1,0,0);
+    const Vec3f front(0,0,-1),back(0,0,1);
+    
+    float alphaTop    = 1.0f;
+    float alphaBottom = 0.0f;
+    
+#ifndef QUOTE_FIELD_PUT_NORMAL_COLORS
+    Colorf white(1,1,1);
+#endif
+    
+    vector<ColorAf> meshColors;
+    
+    int i,j;
+    i = -1;
+    while (++i < mNumDivers) {
+        j = -1;
+        while(++j < mDiverNumPoints){
+#ifdef QUOTE_FIELD_PUT_NORMAL_COLORS
+            meshColors += utils::toColorA(down), utils::toColorA(down);
+            meshColors += utils::toColorA(up),   utils::toColorA(up);
+            meshColors += utils::toColorA(right),utils::toColorA(left);
+            meshColors += utils::toColorA(right),utils::toColorA(left);
+#else
+            meshColors += utils::toColorA(down), utils::toColorA(down);
+            meshColors += utils::toColorA(up),   utils::toColorA(up);
+            meshColors += utils::toColorA(right,1.0f),utils::toColorA(left,1.0f);
+            meshColors += utils::toColorA(right,0.0f),utils::toColorA(left,0.0f);
+#endif
+        }
+#ifdef QUOTE_FIELD_PUT_NORMAL_COLORS
+        meshColors += utils::toColorA(front),utils::toColorA(front);
+        meshColors += utils::toColorA(front),utils::toColorA(front);
+        meshColors += utils::toColorA( back),utils::toColorA( back);
+        meshColors += utils::toColorA( back),utils::toColorA( back);
+#else
+        meshColors += utils::toColorA(front),utils::toColorA(front);
+        meshColors += utils::toColorA(front),utils::toColorA(front);
+        meshColors += utils::toColorA( back),utils::toColorA( back);
+        meshColors += utils::toColorA( back),utils::toColorA( back);
+#endif
+    }
+    
+    mMesh.bufferColorsRGBA(meshColors);
+}
+
 
 /*--------------------------------------------------------------------------------------------*/
 //  Reset
@@ -42,18 +98,11 @@ void QuoteField::reset(const Vec3f &pos, int numPathSlices, const QuoteLine& quo
     mTexcoordStart    = quoteLine.getTexcoords()[0];
     mTexcoordStep     = Vec2f((quoteLine.getTexcoords()[1].x - mTexcoordStart.x),
                               (quoteLine.getTexcoords()[2].y - mTexcoordStart.y) / mSurfaceNumSlices);
-    
-    mTexcoordVStart   = quoteLine.getTexcoords()[0].y;
-    mTexcoordVStep    = (quoteLine.getTexcoords()[2].y - mTexcoordVStart) / mSurfaceNumSlices;
-    
+  
     mTransform.setToIdentity();
     mTransform.translate(pos);
     
     reset_Internal();
-    
-    
-    
-    // parse quote here
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -85,16 +134,21 @@ void QuoteField::updateMeshTexcoords(){
     Vec2f tex_0;   //upper tex coord
     Vec2f tex_1;   //lower tex coord
     
+    float texcoordStartX = mTexcoordStart.x;
+    float texcoordStartY = mTexcoordStart.y;
+    float texcoordStepX  = mTexcoordStep.x;
+    float texcoordStepY  = mTexcoordStep.y;
+    
     int i,j;
     i = 0;
     gl::VboMesh::VertexIter vbItr = mMesh.mapVertexBuffer();
     for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
         const vector<float>& texcoords = (*itr)->getTexcoords();
-        tex_0.y = mTexcoordStart.y + mTexcoordStep.y * (i++);
-        tex_1.y = tex_0.y + mTexcoordStep.y;
+        tex_0.y = texcoordStartY + texcoordStepY  * (i++);
+        tex_1.y = tex_0.y + texcoordStepY;
         j = -1;
         while (++j < mDiverNumPoints) {
-            tex_0.x = tex_1.x = mTexcoordStart.x + mTexcoordStep.x * texcoords[j];  //  get sliced hotizontal
+            tex_0.x = tex_1.x = texcoordStartX + texcoordStepX * texcoords[j];  //  get sliced hotizontal
             
             ++vbItr; ++vbItr;                       //  skip bottom
 
