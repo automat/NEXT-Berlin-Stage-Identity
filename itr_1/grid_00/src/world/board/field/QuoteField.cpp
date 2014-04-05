@@ -139,30 +139,40 @@ void QuoteField::updateMeshTexcoords(){
     float texcoordStepX  = mTexcoordStep.x;
     float texcoordStepY  = mTexcoordStep.y;
     
+    
+    
     int i,j;
     i = 0;
     gl::VboMesh::VertexIter vbItr = mMesh.mapVertexBuffer();
     for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
-        const vector<float>& texcoords = (*itr)->getTexcoords();
+        
+        //const vector<float>& texcoords = (*itr)->getTexcoords();
         tex_0.y = texcoordStartY + texcoordStepY  * (i++);
         tex_1.y = tex_0.y + texcoordStepY;
+        
         j = -1;
         while (++j < mDiverNumPoints) {
-            tex_0.x = tex_1.x = texcoordStartX + texcoordStepX * texcoords[j];  //  get sliced hotizontal
+            tex_0.x = tex_1.x = texcoordStartX + texcoordStepX * 0.0f;// texcoords[j];  //  get sliced hotizontal
             
             ++vbItr; ++vbItr;                       //  skip bottom
 
             vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top
             vbItr.setTexCoord2d0(tex_1); ++vbItr;
+        
             vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top / bottom left
             vbItr.setTexCoord2d0(tex_1); ++vbItr;
             vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top / bottom right
             vbItr.setTexCoord2d0(tex_1); ++vbItr;
+            
+            
+            //cout << texcoords[j] << endl;
         }
         
         ++vbItr; ++vbItr; ++vbItr; ++vbItr;         //  skip front
         ++vbItr; ++vbItr; ++vbItr; ++vbItr;         //  skip back
+        
     }
+    
 }
 
 

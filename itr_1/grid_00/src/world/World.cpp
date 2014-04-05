@@ -112,7 +112,7 @@ void World::playNextQuote(){
 /*--------------------------------------------------------------------------------------------*/
 
 void World::drawScene(){
-    mBackground->draw();
+    //mBackground->draw();
 
 #ifdef DEBUG_WORLD_GRID_DRAW_INDICES
     mGrid->debugDrawIndices(mCamera);

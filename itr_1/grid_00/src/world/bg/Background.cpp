@@ -167,12 +167,12 @@ void Background::update(){
 
 void Background::renderGradient(){
     mFboGradient.bindFramebuffer();
-    mFboMesh.bindTexture();
+    mFboMesh.bindTexture(1);
     mShaderGradient.bind();
     mShaderGradient.uniform("uScreenSize", Vec2f(app::getWindowWidth(),app::getWindowHeight()));
     mShaderGradient.uniform("uColor0", COLOR_BLUE_0);
     mShaderGradient.uniform("uColor1", COLOR_BLUE_1);
-    mShaderGradient.uniform("uTexture",0);;
+    mShaderGradient.uniform("uTexture",1);;
     gl::pushMatrices();
     gl::setMatricesWindow(1,1,true);
     gl::clear(Color::white());

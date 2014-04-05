@@ -62,6 +62,8 @@ Board::Board(Grid* grid, const LayoutArea& area, vector<Quote>* quotes) :
 
         setQuote((*mQuotes)[0]);
 #endif
+        
+        mTestTexture = loadImage( app::loadResource( "test_texture_1024x1024.jpg" ) );
 
 }
 
@@ -94,7 +96,6 @@ void Board::setQuote(Quote& quote){
     
     const vector<QuoteLine>& lines = quote.getLines();
     for(vector<QuoteLine>::const_iterator itr = lines.begin(); itr != lines.end(); ++itr){
-        cout << itr->getIndices().front() << endl;
         mQuoteFields += new QuoteField( mGrid->getCell(itr->getIndices().front())->getCenter(),
                                         Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
                                        *itr );
@@ -164,11 +165,16 @@ void Board::draw(const CameraOrtho& camera){
     //gl::enableAdditiveBlending();
 
    // glEnable(GL_ALPHA_TEST);
-    mQuoteCurrent->getTexture().enableAndBind();
+    const gl::Texture& texture = mTestTexture;
+    
+    texture.enableAndBind();
     for(vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr){
         (*itr)->draw();
     }
-    mQuoteCurrent->getTexture().unbind();
+    texture.disable();
+
+    
+    //mQuoteCurrent->getTexture().unbind();
    // glDisable(GL_ALPHA_TEST);
     //gl::disableAlphaBlending();
     //gl::disableAlphaTest();

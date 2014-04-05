@@ -49,6 +49,8 @@ class Board{
     
     QuoteLine mTempQuoteLine;
     
+    gl::Texture mTestTexture;
+    
     
     void deleteQuoteFields();
     void deleteDiverFields();
