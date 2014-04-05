@@ -16,6 +16,8 @@
 #include "cinder/Camera.h"
 #include "util/FrustumOrtho.h"
 
+#include "cinder/gl/Fbo.h"
+
 #include "layout/geom/LayoutArea.h"
 #include "layout/quote/QuoteTypesetter.h"
 #include "layout/quote/json/QuoteJson.h"
@@ -58,6 +60,8 @@ class World {
     QuoteTypesetter* mTypesetter;
   
     vector<Quote>    mQuotes;
+    
+    gl::Fbo     mFboRender;
     
     void initCells();
     void drawScene();

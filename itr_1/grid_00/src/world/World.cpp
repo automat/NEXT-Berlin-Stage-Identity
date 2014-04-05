@@ -83,6 +83,8 @@ World::World(const vector<QuoteJson>& quoteData){
     mBackground = new Background(mGrid, areaScaled, mOscillator, app::getWindowWidth(), app::getWindowHeight());
     mBoard      = new Board(mGrid, areaScaled, &mQuotes);
     
+    mFboRender = gl::Fbo(app::getWindowWidth(),app::getWindowHeight());
+    
 }
 
 World::~World(){
@@ -112,7 +114,7 @@ void World::playNextQuote(){
 /*--------------------------------------------------------------------------------------------*/
 
 void World::drawScene(){
-    //mBackground->draw();
+    mBackground->draw();
 
 #ifdef DEBUG_WORLD_GRID_DRAW_INDICES
     mGrid->debugDrawIndices(mCamera);

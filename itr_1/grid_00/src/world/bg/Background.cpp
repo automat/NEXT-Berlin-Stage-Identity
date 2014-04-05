@@ -142,18 +142,18 @@ void Background::draw(){
 void Background::update(){
 #ifdef BACKGROUND_LIVE_EDIT_SHADER
     
-    if(utils::shaderDidChange(mSharedFileWatcher,
-                              loadFile(RES_ABS_GLSL_PASS_THRU_VERT),
-                              loadFile(RES_ABS_GLSL_BG_GRADIENT_FRAG),
-                              &mShaderGradient) ||
-       utils::shaderDidChange(mSharedFileWatcher,
-                              loadFile(RES_ABS_GLSL_BG_MESH_VERT),
-                              loadFile(RES_ABS_GLSL_BG_MESH_FRAG),
-                              &mShaderMesh) ||
-       utils::shaderDidChange(mSharedFileWatcher,
-                              loadFile(RES_ABS_GLSL_PASS_THRU_VERT),
-                              loadFile(RES_ABS_GLSL_BG_MIX_FRAG),
-                              &mShaderMix)){
+    if(utils::watchShaderSource(mSharedFileWatcher,
+                                loadFile(RES_ABS_GLSL_PASS_THRU_VERT),
+                                loadFile(RES_ABS_GLSL_BG_GRADIENT_FRAG),
+                                &mShaderGradient) ||
+       utils::watchShaderSource(mSharedFileWatcher,
+                                loadFile(RES_ABS_GLSL_BG_MESH_VERT),
+                                loadFile(RES_ABS_GLSL_BG_MESH_FRAG),
+                                &mShaderMesh) ||
+       utils::watchShaderSource(mSharedFileWatcher,
+                                loadFile(RES_ABS_GLSL_PASS_THRU_VERT),
+                                loadFile(RES_ABS_GLSL_BG_MIX_FRAG),
+                                &mShaderMix)){
         mTextureIsDirty = true;
     }
 #endif
@@ -167,12 +167,12 @@ void Background::update(){
 
 void Background::renderGradient(){
     mFboGradient.bindFramebuffer();
-    mFboMesh.bindTexture(1);
+    mFboMesh.bindTexture();
     mShaderGradient.bind();
     mShaderGradient.uniform("uScreenSize", Vec2f(app::getWindowWidth(),app::getWindowHeight()));
     mShaderGradient.uniform("uColor0", COLOR_BLUE_0);
     mShaderGradient.uniform("uColor1", COLOR_BLUE_1);
-    mShaderGradient.uniform("uTexture",1);;
+    mShaderGradient.uniform("uTexture",0);;
     gl::pushMatrices();
     gl::setMatricesWindow(1,1,true);
     gl::clear(Color::white());

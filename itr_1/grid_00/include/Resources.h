@@ -19,7 +19,8 @@
 #define RES_ABS_GLSL_BG_MESH_FRAG "/Users/automat/Projects/next/itr_1/grid_00/resources/bg_mesh_frag.glsl"
 #define RES_ABS_GLSL_BG_MIX_FRAG "/Users/automat/Projects/next/itr_1/grid_00/resources/bg_mix_frag.glsl"
 
-
+#define RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG "/Users/automat/Projects/next/itr_1/grid_00/resources/quote_field_frag.glsl"
+#define RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT "/Users/automat/Projects/next/itr_1/grid_00/resources/quote_field_vert.glsl"
 
 
 //
@@ -31,9 +32,11 @@
 #define RES_GLSL_NORMAL_FRAG CINDER_RESOURCE( ../resources/, normal_frag.glsl, 133, GLSL )
 
 #define RES_GLSL_BG_GRADIENT_FRAG CINDER_RESOURCE( ../resources/, bg_gradient_frag.glsl, 134, GLSL )
-
 #define RES_GLSL_BG_MESH_VERT CINDER_RESOURCE( ../resources/, bg_mesh_vert.glsl, 135, GLSL )
 #define RES_GLSL_BG_MESH_FRAG CINDER_RESOURCE( ../resources/, bg_mesh_frag.glsl, 136, GLSL )
-
 #define RES_GLSL_BG_MIX_FRAG CINDER_RESOURCE( ../resources/, bg_mix_frag.glsl, 137, GLSL )
+
+#define RES_GLSL_BOARD_QUOTE_FIELD_FRAG CINDER_RESOURCE( ../resources/, quote_field_frag.glsl, 138, GLSL )
+#define RES_GLSL_BOARD_QUOTE_FIELD_VERT CINDER_RESOURCE( ../resources/, quote_field_vert.glsl, 139, GLSL )
+
 

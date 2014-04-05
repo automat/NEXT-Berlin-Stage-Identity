@@ -12,7 +12,9 @@
 #include <vector>
 
 #include "cinder/Camera.h"
+#include "cinder/gl/GlslProg.h"
 
+#include "util/SharedFileWatcher.h"
 #include "layout/geom/LayoutArea.h"
 #include "layout/quote/Quote.h"
 #include "layout/quote/QuoteLine.h"
@@ -44,12 +46,22 @@ class Board{
     vector<QuoteField*> mQuoteFields;           //  quote fields
     IndexQuoteFieldMap  mIndexQuoteFieldMap;    //  index / quotefield map
     
+    
     Grid*       mGrid;
     Oscillator* mOscillator;
     
     QuoteLine mTempQuoteLine;
     
     gl::Texture mTestTexture;
+    
+
+    gl::GlslProg mShaderQuoteDivers;
+    gl::GlslProg mShaderQuoteFields;
+    
+#ifdef BOARD_LIVE_EDIT_SHADER
+    SharedFileWatcherRef mSharedFileWatcher;
+#endif
+
     
     
     void deleteQuoteFields();

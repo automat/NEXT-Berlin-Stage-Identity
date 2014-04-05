@@ -10,7 +10,9 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Rand.h"
 
+#include "Resources.h"
 #include "Config.h"
+#include "util/ShaderUtil.h"
 #include "layout/quote/QuoteAlign.h"
 
 using namespace std;
@@ -62,8 +64,22 @@ Board::Board(Grid* grid, const LayoutArea& area, vector<Quote>* quotes) :
 
         setQuote((*mQuotes)[0]);
 #endif
+        /*--------------------------------------------------------------------------------------------*/
+        // setup shaders
+        /*--------------------------------------------------------------------------------------------*/
+
+        mTestTexture = gl::Texture(loadImage(app::loadResource("test_texture_1024x1024.jpg")));
         
-        mTestTexture = loadImage( app::loadResource( "test_texture_1024x1024.jpg" ) );
+#ifdef BOARD_LIVE_EDIT_SHADER
+        mSharedFileWatcher = SharedFileWatcher::Get();
+        utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
+                          loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
+                          &mShaderQuoteFields);
+#else
+        utils::loadShader(LoadResource(RES_GLSL_BOARD_QUOTE_FIELD_VERT),
+                          LoadResource(RES_GLSL_BOARD_QUOTE_FIELD_FRAG),
+                          &mShaderQuoteFields);
+#endif
 
 }
 
@@ -165,15 +181,21 @@ void Board::draw(const CameraOrtho& camera){
     //gl::enableAdditiveBlending();
 
    // glEnable(GL_ALPHA_TEST);
-    const gl::Texture& texture = mTestTexture;
+    //mQuoteCurrent->getTexture().enableAndBind();
+    //mShaderQuoteFields.bind();
+    //mQuoteCurrent->getTexture().bind(1);
+    //mShaderQuoteFields.uniform("uTexture", 1);
     
-    texture.enableAndBind();
+    mQuoteCurrent->getTexture().enableAndBind();
+   // mTestTexture.enableAndBind();
     for(vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr){
         (*itr)->draw();
     }
-    texture.disable();
-
-    
+    //mTestTexture.disable();
+    mQuoteCurrent->getTexture().disable();
+    //mQuoteCurrent->getTexture().unbind();
+    //mQuoteCurrent->getTexture().unbind();
+    //mShaderQuoteFields.unbind();
     //mQuoteCurrent->getTexture().unbind();
    // glDisable(GL_ALPHA_TEST);
     //gl::disableAlphaBlending();
@@ -203,6 +225,12 @@ void Board::draw(const CameraOrtho& camera){
 /*--------------------------------------------------------------------------------------------*/
 
 void Board::update(){
+#ifdef BOARD_LIVE_EDIT_SHADER
+    utils::watchShaderSource(mSharedFileWatcher,
+                             loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
+                             loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
+                             &mShaderQuoteFields);
+#endif
     float t = app::getElapsedSeconds();
     
     for (vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr) {

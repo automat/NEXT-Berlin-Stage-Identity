@@ -49,6 +49,8 @@
 		CDBE660B18EA0CEA002F29A6 /* Diver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDBE660A18EA0CEA002F29A6 /* Diver.cpp */; };
 		CDF2A90218E5C8F40075F282 /* Apercu_Mono.otf in Resources */ = {isa = PBXBuildFile; fileRef = CDF2A90018E5C8F40075F282 /* Apercu_Mono.otf */; };
 		CDF2A90318E5C8F40075F282 /* transcript_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CDF2A90118E5C8F40075F282 /* transcript_bold.otf */; };
+		CDFD26A518F0921100598643 /* quote_field_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD26A318F0921100598643 /* quote_field_frag.glsl */; };
+		CDFD26A618F0921100598643 /* quote_field_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD26A418F0921100598643 /* quote_field_vert.glsl */; };
 		D90C57D05BB24F809A8969E6 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 0AFB0B8142E14E61B033F6F7 /* CinderApp.icns */; };
 /* End PBXBuildFile section */
 
@@ -135,6 +137,8 @@
 		CDF2A90018E5C8F40075F282 /* Apercu_Mono.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Apercu_Mono.otf; path = ../resources/Apercu_Mono.otf; sourceTree = "<group>"; };
 		CDF2A90118E5C8F40075F282 /* transcript_bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = transcript_bold.otf; path = ../resources/transcript_bold.otf; sourceTree = "<group>"; };
 		CDF6640418E60A9800386D5A /* Oscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Oscillator.h; sourceTree = "<group>"; };
+		CDFD26A318F0921100598643 /* quote_field_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = quote_field_frag.glsl; path = ../resources/quote_field_frag.glsl; sourceTree = "<group>"; };
+		CDFD26A418F0921100598643 /* quote_field_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = quote_field_vert.glsl; path = ../resources/quote_field_vert.glsl; sourceTree = "<group>"; };
 		D9164E2C09ED493F9F572EA1 /* grid_00App.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = grid_00App.cpp; path = ../src/grid_00App.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -459,6 +463,8 @@
 		CD9642E118E78C5400AF7760 /* shader */ = {
 			isa = PBXGroup;
 			children = (
+				CDFD26A318F0921100598643 /* quote_field_frag.glsl */,
+				CDFD26A418F0921100598643 /* quote_field_vert.glsl */,
 				CD5CE26818E84F1900D5E5BC /* background */,
 				CD11E25318EED61E0013FDEE /* material */,
 				CD5CE26018E842AE00D5E5BC /* pass_thru.glsl */,
@@ -601,11 +607,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDFD26A518F0921100598643 /* quote_field_frag.glsl in Resources */,
 				CD5CE26518E84EE000D5E5BC /* bg_mesh_vert.glsl in Resources */,
 				CD9642DF18E78C4900AF7760 /* normal_frag.glsl in Resources */,
 				CDA8094B18EC8D0700296B4B /* test_texture_font_black.jpg in Resources */,
 				CD5CE26318E84B7C00D5E5BC /* bg_gradient_frag.glsl in Resources */,
 				CD9642CA18E74D2600AF7760 /* bg_mix_frag.glsl in Resources */,
+				CDFD26A618F0921100598643 /* quote_field_vert.glsl in Resources */,
 				CDF2A90218E5C8F40075F282 /* Apercu_Mono.otf in Resources */,
 				D90C57D05BB24F809A8969E6 /* CinderApp.icns in Resources */,
 				CDA8094518EC72BA00296B4B /* test_texture_1024x1024.jpg in Resources */,

@@ -95,10 +95,14 @@ void QuoteField::reset(const Vec3f &pos, int numPathSlices, const QuoteLine& quo
     mPos              = pos;
     mSurfaceNumSlices = numPathSlices;
     mSize             = quoteLine.getIndices().size();
+
     mTexcoordStart    = quoteLine.getTexcoords()[0];
     mTexcoordStep     = Vec2f((quoteLine.getTexcoords()[1].x - mTexcoordStart.x),
                               (quoteLine.getTexcoords()[2].y - mTexcoordStart.y) / mSurfaceNumSlices);
   
+
+    
+
     mTransform.setToIdentity();
     mTransform.translate(pos);
     
@@ -130,6 +134,21 @@ void QuoteField::update(Oscillator *osc, float t){
 }
 
 void QuoteField::updateMeshTexcoords(){
+    /*
+    int i;
+    gl::VboMesh::VertexIter vbItr = mMesh.mapVertexBuffer();
+    for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
+        i = -1;
+        while(++i < mDiverVerticesBodyLen){
+            vbItr.setTexCoord2d0(Vec2f::zero()); ++vbItr;
+        }
+        i = -1;
+        while(++i < mDiverVerticesCapLen){
+            vbItr.setTexCoord2d0(Vec2f::zero()); ++vbItr;
+        }
+    } */
+    
+    
     const static Vec2f zero;
     Vec2f tex_0;   //upper tex coord
     Vec2f tex_1;   //lower tex coord
@@ -139,40 +158,35 @@ void QuoteField::updateMeshTexcoords(){
     float texcoordStepX  = mTexcoordStep.x;
     float texcoordStepY  = mTexcoordStep.y;
     
-    
-    
     int i,j;
     i = 0;
     gl::VboMesh::VertexIter vbItr = mMesh.mapVertexBuffer();
     for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
-        
-        //const vector<float>& texcoords = (*itr)->getTexcoords();
+        const vector<float>& texcoords = (*itr)->getTexcoords();
         tex_0.y = texcoordStartY + texcoordStepY  * (i++);
         tex_1.y = tex_0.y + texcoordStepY;
         
         j = -1;
         while (++j < mDiverNumPoints) {
-            tex_0.x = tex_1.x = texcoordStartX + texcoordStepX * 0.0f;// texcoords[j];  //  get sliced hotizontal
+            
+            tex_0.x = tex_1.x = texcoordStartX + texcoordStepX * texcoords[j];  //  get sliced hotizontal
+
             
             ++vbItr; ++vbItr;                       //  skip bottom
-
             vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top
             vbItr.setTexCoord2d0(tex_1); ++vbItr;
-        
+            
+     
             vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top / bottom left
             vbItr.setTexCoord2d0(tex_1); ++vbItr;
             vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top / bottom right
             vbItr.setTexCoord2d0(tex_1); ++vbItr;
-            
-            
-            //cout << texcoords[j] << endl;
+
         }
         
         ++vbItr; ++vbItr; ++vbItr; ++vbItr;         //  skip front
         ++vbItr; ++vbItr; ++vbItr; ++vbItr;         //  skip back
-        
     }
-    
 }
 
 

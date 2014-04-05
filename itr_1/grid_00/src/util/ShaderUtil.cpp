@@ -37,7 +37,7 @@ namespace utils {
         return success;
     }
     
-    bool shaderDidChange(FileWatcher& fileWatcher, DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog){
+    bool watchShaderSource(FileWatcher& fileWatcher, DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog){
         string absPathVertGLSL = refVertGLSL.get()->getFilePath().string();
         string absPathFragGLSL = refFragGLSL.get()->getFilePath().string();
         bool didChange = false;
@@ -65,7 +65,7 @@ namespace utils {
     }
     
     
-    bool shaderDidChange(const std::shared_ptr<FileWatcher>& fileWatcher, DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog){
-        return shaderDidChange(*fileWatcher.get(), refVertGLSL, refFragGLSL, prog);
+    bool watchShaderSource(const std::shared_ptr<FileWatcher>& fileWatcher, DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog){
+        return watchShaderSource(*fileWatcher.get(), refVertGLSL, refFragGLSL, prog);
     }
 }

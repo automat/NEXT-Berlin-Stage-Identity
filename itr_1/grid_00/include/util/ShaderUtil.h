@@ -22,8 +22,8 @@ namespace utils {
     
     void loadShader(DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg *prog);
     bool reloadShader(DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog);
-    bool shaderDidChange(FileWatcher& fileWatcher, DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog);
-    bool shaderDidChange(const std::shared_ptr<FileWatcher>& fileWatcher, DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog);
+    bool watchShaderSource(FileWatcher& fileWatcher, DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog);
+    bool watchShaderSource(const std::shared_ptr<FileWatcher>& fileWatcher, DataSourceRef refVertGLSL, DataSourceRef refFragGLSL, gl::GlslProg* prog);
 }
 
 
