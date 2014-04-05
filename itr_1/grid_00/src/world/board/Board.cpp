@@ -163,13 +163,13 @@ void Board::draw(const CameraOrtho& camera){
     //gl::enableAlphaTest();
     //gl::enableAdditiveBlending();
 
-    glEnable(GL_ALPHA_TEST);
-    //mQuoteCurrent->getTexture().enableAndBind();
+   // glEnable(GL_ALPHA_TEST);
+    mQuoteCurrent->getTexture().enableAndBind();
     for(vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr){
         (*itr)->draw();
     }
-    glDisable(GL_ALPHA_TEST);
-    //mQuoteCurrent->getTexture().unbind();
+    mQuoteCurrent->getTexture().unbind();
+   // glDisable(GL_ALPHA_TEST);
     //gl::disableAlphaBlending();
     //gl::disableAlphaTest();
 #endif
