@@ -1,6 +1,7 @@
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
 
+#include "Resources.h"
 #include "Config.h"
 #include "Controller.h"
 #include "layout/quote/json/QuoteJson.h"
@@ -45,7 +46,7 @@ void grid_00App::prepareSettings(Settings* settings){
 void grid_00App::setup(){
     vector<QuoteJson> quoteData;
     string msg;
-    if(!QuoteParser::LoadJson(getAppPath().parent_path().string() + "/test.json", &quoteData, &msg)){
+    if(!QuoteParser::LoadJson("/Users/automat/Projects/next/itr_1/grid_01/resources/test.json", &quoteData, &msg)){
         throw msg;
     }
     

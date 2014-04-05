@@ -3,20 +3,23 @@
 #include "util/GeomUtil.h"
 #include "world/board/path/PathSurface.h"
 #include "layout/quote/QuoteAlign.h"
+#include "layout/quote/Quote.h"
 
 #include <boost/assign/std/vector.hpp>
 #include <boost/assign.hpp>
+
+#include "Resources.h"
 
 using namespace boost::assign;
 
 /*--------------------------------------------------------------------------------------------*/
 
+
 World::World(const vector<QuoteJson>& quoteData){
-    
     /*--------------------------------------------------------------------------------------------*/
-    // Camera
+    //  View
     /*--------------------------------------------------------------------------------------------*/
-    
+
     mCameraAspectRatio = app::getWindowAspectRatio();
     mCamera.setOrtho(-mCameraAspectRatio * WORLD_MODEL_CAM_ZOOM, mCameraAspectRatio * WORLD_MODEL_CAM_ZOOM,
                      -WORLD_MODEL_CAM_ZOOM, WORLD_MODEL_CAM_ZOOM, WORLD_MODEL_CAM_NEAR_CLIP, WORLD_MODEL_CAM_FAR_CLIP);
@@ -26,15 +29,13 @@ World::World(const vector<QuoteJson>& quoteData){
     mTransform  = Matrix44f::createScale(Vec3f(mModelScale,mModelScale,mModelScale));
     mFrustum.set(mCamera);
     
-   
+    
     /*--------------------------------------------------------------------------------------------*/
-    // Environment
+    //  Environment
     /*--------------------------------------------------------------------------------------------*/
 
-    
-    //  Init Grid
     mGrid = new Grid(WORLD_GRID_NUM_CELLS_XY,WORLD_GRID_NUM_CELLS_XY);
-   
+    
     // get Area from initial frustum
     const vector<Vec3f>& frPlaneNear = mFrustum.getNearPlane();
     const vector<Vec3f>& frPlaneFar  = mFrustum.getFarPlane();
@@ -52,10 +53,8 @@ World::World(const vector<QuoteJson>& quoteData){
     areaScaled  = area;
     areaScaled *= Matrix44f::createScale(Vec3f(1.125f,1.125f,1.125f));
     
-    /*--------------------------------------------------------------------------------------------*/
-    // Typesetter
-    /*--------------------------------------------------------------------------------------------*/
-
+    //  Typesetter init
+    
     mTypesetter = new QuoteTypesetter(mGrid, area);
     mTypesetter->setFont(Font(app::loadResource(RES_FONT_TRANSCRIPT),WORLD_TYPESETTER_FONT_SIZE), WORLD_TYPESETTER_FONT_SCALE);
     mTypesetter->constrain(false);
@@ -75,21 +74,31 @@ World::World(const vector<QuoteJson>& quoteData){
         mQuotes += *mTypesetter->getQuote();
     }
     
-    /*--------------------------------------------------------------------------------------------*/
-    // Init layers
-    /*--------------------------------------------------------------------------------------------*/
-
+    int windowWidth  = app::getWindowWidth();
+    int windowHeight = app::getWindowHeight();
+    
     mOscillator = new Oscillator();
     mBackground = new Background(mGrid, areaScaled, mOscillator, app::getWindowWidth(), app::getWindowHeight());
-    mBoard      = new Board(mGrid, areaScaled, &mQuotes);
+    mBoard      = new Board(mGrid, areaScaled, mOscillator, &mQuotes);
+
     
-    mFboRender = gl::Fbo(app::getWindowWidth(),app::getWindowHeight());
+    /*--------------------------------------------------------------------------------------------*/
+    //  Fbo + Post Process
+    /*--------------------------------------------------------------------------------------------*/
+
+    gl::Fbo::Format fboFormat;
+    fboFormat.setSamples(8);
+    mFboScene = gl::Fbo(windowWidth, windowHeight, fboFormat);
     
 }
 
+/*--------------------------------------------------------------------------------------------*/
+//  Destructor
+/*--------------------------------------------------------------------------------------------*/
+
 World::~World(){
-    delete mBoard;
     delete mBackground;
+    delete mBoard;
     delete mOscillator;
     delete mTypesetter;
     delete mGrid;
@@ -98,114 +107,71 @@ World::~World(){
 }
 
 /*--------------------------------------------------------------------------------------------*/
-// Quote handling
+//  Draw / Update
 /*--------------------------------------------------------------------------------------------*/
 
-void World::playPrevQuote(){
-    
-}
-
-void World::playNextQuote(){
-    
-}
-
-/*--------------------------------------------------------------------------------------------*/
-// Draw Scene
-/*--------------------------------------------------------------------------------------------*/
 
 void World::drawScene(){
-    mBackground->draw();
-
-#ifdef DEBUG_WORLD_GRID_DRAW_INDICES
-    mGrid->debugDrawIndices(mCamera);
-#endif
-    
-#ifdef DEBUG_WORLD_AREA_DRAW
-    static const int indices[] = {0,1,3,2};
-    glEnableClientState(GL_VERTEX_ARRAY);
-    
-    glColor3f(0.5f,0,0.125f);
-    glVertexPointer(3, GL_FLOAT, 0, &mTypesetter->getArea().getTL().x);
-    glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, &indices[0]);
-    
-    glColor3f(1.0f,0,0.125f);
-    glVertexPointer(3, GL_FLOAT, 0, &mBoard->getArea().getTL().x);
-    glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, &indices[0]);
-    
-    glDisableClientState(GL_VERTEX_ARRAY);
-#endif
-    
-#ifdef DEBUG_WORLD_GRID_CELL_DRAW
-    {
-        const vector<Cell*> cells = mGrid->getCells();
-        for(vector<Cell*>::const_iterator itr = cells.begin(); itr != cells.end(); ++itr){
-            (*itr)->debugDrawArea();
-        }
-    }
-#endif
-
-    mBoard->draw(mCamera);
-    
-}
-
-/*--------------------------------------------------------------------------------------------*/
-// Update / Draw
-/*--------------------------------------------------------------------------------------------*/
-
-void World::update(){
-    mBackground->update();
-    mBoard->update();
-}
-
-void World::draw(){
+    mFboScene.bindFramebuffer();
     gl::enableDepthRead();
+    
+    gl::clear(Color(0,0,0));
+    gl::pushMatrices();
     gl::setMatrices(mCamera);
-
+    
+    mBackground->draw();
+    
 #ifdef DEBUG_WORLD_CAM_FRUSTUM
     mFrustum.draw();
 #endif
-    
-    glPushMatrix();
     glMultMatrixf(&mTransform[0]);
-    drawScene();
-    
-#ifdef DEBUG_WORLD_TYPESETTER
-    gl::disableDepthRead();
-    mTypesetter->debugDrawArea();
-    gl::enableAlphaTest();
-    gl::enableAdditiveBlending();
-    mTypesetter->debugDrawString();
-    gl::disableAlphaBlending();
-    gl::disableAlphaTest();
-    gl::enableDepthRead();
-#endif
     
 #ifdef DEBUG_WORLD_COORDINATE_FRAME
     gl::drawCoordinateFrame();
 #endif
-    
-    glPopMatrix();
-    
-#ifdef DEBUG_WORLD_TYPESETTER_TEXTURE
-    const Quote* currentQuote = mBoard->getCurrentQuote();
-    if(currentQuote != nullptr){
-        gl::disableDepthRead();
-        gl::pushMatrices();
-        gl::setMatricesWindow(app::getWindowSize(),true);
-        static int textureSize = 256;
-        static Rectf pos(app::getWindowWidth() - textureSize,0,app::getWindowWidth(),textureSize);
-        glColor3f(1,1,1);
-        gl::draw(currentQuote->getTexture(),pos);
-        gl::popMatrices();
-        gl::enableDepthRead();
-    }
+
+    mBoard->draw(mCamera);
+
+#ifdef DEBUG_WORLD_GRID_DRAW_INDICES
+    gl::disableDepthRead();
+    mGrid->debugDrawIndices(mCamera);
+    gl::enableDepthRead();
 #endif
+    gl::popMatrices();
+    gl::disableDepthRead();
+    
+    mFboScene.unbindFramebuffer();
 }
 
-/*--------------------------------------------------------------------------------------------*/
-// Model zoom / Camera ortho,top
-/*--------------------------------------------------------------------------------------------*/
+void World::update(){
+    mBoard->update();
+}
 
+void World::draw(){
+    const static Vec2i windowSize(app::getWindowSize());
+    drawScene();
+    
+    gl::pushMatrices();
+    gl::setMatricesWindow(windowSize, false);
+    gl::disableDepthRead();
+    glColor3f(1,1,1);
+    gl::draw(mFboScene.getTexture(),mFboScene.getBounds());
+
+#ifdef DEBUG_WORLD_TYPESETTER_TEXTURE
+    gl::setMatricesWindow(windowSize);
+    const Quote* quote = mBoard->getCurrentQuote();
+    if(quote != nullptr){
+        gl::draw(quote->getTexture(),Rectf(windowSize.x - 256, 0, windowSize.x, 256));
+    }
+#endif
+    
+    gl::popMatrices();
+}
+
+
+/*--------------------------------------------------------------------------------------------*/
+//  View
+/*--------------------------------------------------------------------------------------------*/
 
 void World::zoomModelIn(){
     mModelScale = MIN(WORLD_MODEL_SCALE_MIN, mModelScale * 2);

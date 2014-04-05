@@ -52,6 +52,7 @@
 		CDFD272718F09B4600598643 /* test_texture_1024x1024.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDFD271718F09B4600598643 /* test_texture_1024x1024.jpg */; };
 		CDFD272818F09B4600598643 /* test_texture_font_black.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDFD271818F09B4600598643 /* test_texture_font_black.jpg */; };
 		CDFD272918F09B4600598643 /* transcript_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CDFD271918F09B4600598643 /* transcript_bold.otf */; };
+		CDFD272D18F0AB9A00598643 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = CDFD272C18F0AB9A00598643 /* test.json */; };
 		F30AA0D8C13048EAA7C88778 /* grid_01App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5CC83B43D1841659C7F970B /* grid_01App.cpp */; };
 /* End PBXBuildFile section */
 
@@ -141,6 +142,8 @@
 		CDFD271718F09B4600598643 /* test_texture_1024x1024.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = test_texture_1024x1024.jpg; path = ../resources/test_texture_1024x1024.jpg; sourceTree = "<group>"; };
 		CDFD271818F09B4600598643 /* test_texture_font_black.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = test_texture_font_black.jpg; path = ../resources/test_texture_font_black.jpg; sourceTree = "<group>"; };
 		CDFD271918F09B4600598643 /* transcript_bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = transcript_bold.otf; path = ../resources/transcript_bold.otf; sourceTree = "<group>"; };
+		CDFD272B18F0A30400598643 /* VboObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VboObj.h; sourceTree = "<group>"; };
+		CDFD272C18F0AB9A00598643 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test.json; path = ../resources/test.json; sourceTree = "<group>"; };
 		D5CC83B43D1841659C7F970B /* grid_01App.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = grid_01App.cpp; path = ../src/grid_01App.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,6 +233,7 @@
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				CDFD272A18F0A2F400598643 /* debug */,
 				CDFD26AA18F09A6E00598643 /* layout */,
 				CDFD26B618F09A6E00598643 /* util */,
 				CDFD26C218F09A6E00598643 /* world */,
@@ -245,6 +249,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CDFD272C18F0AB9A00598643 /* test.json */,
 				CDFD270A18F09B4600598643 /* Apercu_Mono.otf */,
 				CDFD270B18F09B4600598643 /* bg_gradient_frag.glsl */,
 				CDFD270C18F09B4600598643 /* bg_mesh_frag.glsl */,
@@ -518,6 +523,15 @@
 			path = grid;
 			sourceTree = "<group>";
 		};
+		CDFD272A18F0A2F400598643 /* debug */ = {
+			isa = PBXGroup;
+			children = (
+				CDFD272B18F0A30400598643 /* VboObj.h */,
+			);
+			name = debug;
+			path = ../include/debug;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -587,6 +601,7 @@
 				CDFD272918F09B4600598643 /* transcript_bold.otf in Resources */,
 				CDFD271E18F09B4600598643 /* bg_mix_frag.glsl in Resources */,
 				CDFD272518F09B4600598643 /* test_texture_2x2_red.png in Resources */,
+				CDFD272D18F0AB9A00598643 /* test.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

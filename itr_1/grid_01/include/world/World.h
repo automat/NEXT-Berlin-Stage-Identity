@@ -32,14 +32,52 @@
 #include "world/grid/Grid.h"
 #include "world/board/Board.h"
 
+#include "debug/VboObj.h"
 
 
 /*--------------------------------------------------------------------------------------------*/
 
 typedef std::shared_ptr<class World> WorldRef;
 
-/*--------------------------------------------------------------------------------------------*/
 
+class World {
+    CameraOrtho  mCamera;
+    float        mCameraAspectRatio;
+    float        mModelScale;
+    Matrix44f    mTransform;
+    FrustumOrtho mFrustum;
+    
+    Oscillator*      mOscillator;
+    Background*      mBackground;
+    Grid*            mGrid;
+    Board*           mBoard;
+    QuoteTypesetter* mTypesetter;
+    vector<Quote>    mQuotes;
+    
+    gl::Fbo          mFboScene;
+    
+    void drawScene();
+    
+public:
+    World(const vector<QuoteJson>& quoteData);
+    ~World();
+    
+    void update();
+    void draw();
+    
+    void zoomModelIn();
+    void zoomModelOut();
+    
+    void viewTop();
+    void viewOrtho();
+    
+    inline static WorldRef create(const vector<QuoteJson>& quoteData){
+        return std::make_shared<World>(quoteData);
+    }
+};
+
+
+/*
 class PathSurface;
 
 using namespace std;
@@ -83,11 +121,12 @@ public:
     void playPrevQuote();
     void playNextQuote();
 
-    /*--------------------------------------------------------------------------------------------*/
+
 
     inline static WorldRef create(const vector<QuoteJson>& quoteData){
         return std::make_shared<World>(quoteData);
     }
 };
+ */
 
 #endif

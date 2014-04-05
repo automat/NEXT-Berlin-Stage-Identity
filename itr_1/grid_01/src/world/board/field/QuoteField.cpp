@@ -170,7 +170,6 @@ void QuoteField::updateMeshTexcoords(){
         while (++j < mDiverNumPoints) {
             
             tex_0.x = tex_1.x = texcoordStartX + texcoordStepX * texcoords[j];  //  get sliced hotizontal
-
             
             ++vbItr; ++vbItr;                       //  skip bottom
             vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top

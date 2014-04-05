@@ -40,3 +40,4 @@
 #define RES_GLSL_BOARD_QUOTE_FIELD_VERT CINDER_RESOURCE( ../resources/, quote_field_vert.glsl, 139, GLSL )
 
 
+#define RES_JSON_TEST CINDER_RESOURCE( ../resources/, test.json, 138, DATA );
