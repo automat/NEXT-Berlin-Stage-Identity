@@ -60,7 +60,7 @@
 // Board
 /*--------------------------------------------------------------------------------------------*/
 
-//#define BOARD_SKIP_DRAW_FIELD_DIVER
+#define BOARD_SKIP_DRAW_FIELD_DIVER
 //#define BOARD_SKIP_DRAW_QUOTE_DIVER
 
 //#define DEBUG_BOARD_FIELD_DIVER_AREA_DRAW
