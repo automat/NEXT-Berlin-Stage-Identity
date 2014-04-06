@@ -95,8 +95,10 @@ void Board::draw(const CameraOrtho& camera){
 #ifndef BOARD_SKIP_DRAW_QUOTE_DIVER
     glEnable(GL_POLYGON_OFFSET_FILL);
     glPolygonOffset(0.0, 0.9);
-    
-    mQuoteCurrent->getTexture().enableAndBind();
+    mShaderQuoteFields.bind();
+    //mQuoteCurrent->getTexture().enableAndBind();
+    mQuoteCurrent->getTexture().bind();
+    mShaderQuoteFields.uniform("uTexture", 0);
     for(vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr){
 #ifdef DEBUG_BOARD_FIELD_QUOTE
         (*itr)->debugDrawArea();
@@ -108,7 +110,8 @@ void Board::draw(const CameraOrtho& camera){
 #endif
         (*itr)->draw();
     }
-    mQuoteCurrent->getTexture().unbind();
+    //mQuoteCurrent->getTexture().unbind();
+    mShaderQuoteFields.unbind();
     glDisable(GL_POLYGON_OFFSET_FILL);
     
 #endif

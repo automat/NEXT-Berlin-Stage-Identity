@@ -88,7 +88,8 @@ World::World(const vector<QuoteJson>& quoteData){
 
     gl::Fbo::Format fboFormat;
     fboFormat.setSamples(8);
-    mFboScene = gl::Fbo(windowWidth, windowHeight, fboFormat);
+    mFboScene       = gl::Fbo(windowWidth, windowHeight, fboFormat);
+    mFboFxTiltShift = gl::Fbo(windowWidth, windowHeight);
     
 }
 

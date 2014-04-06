@@ -1,13 +1,13 @@
 {
    "quotes" : [
       {
-         "format" : {
-            "align" : "center",
-            "balance" : true,
-            "padding" : [ 1, 0, 0, 0 ],
-            "scale" : 0.8
-         },
-         "string" : "NEXT FUCK,\n NEXT FUCK,\n NEXT FUCK\n"
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 1 ],
+               "scale" : 0.8
+               },
+               "string" : "You can't choose not to support one device."
       }
    ]
 }

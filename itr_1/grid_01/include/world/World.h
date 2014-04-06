@@ -14,9 +14,11 @@
 #include "cinder/app/App.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Camera.h"
+#include "cinder/gl/Fbo.h"
+
+#include "util/PingPongFbo.h"
 #include "util/FrustumOrtho.h"
 
-#include "cinder/gl/Fbo.h"
 
 #include "layout/geom/LayoutArea.h"
 #include "layout/quote/QuoteTypesetter.h"
@@ -55,6 +57,7 @@ class World {
     vector<Quote>    mQuotes;
     
     gl::Fbo          mFboScene;
+    gl::Fbo          mFboFxTiltShift;
     
     void drawScene();
     
@@ -75,58 +78,5 @@ public:
         return std::make_shared<World>(quoteData);
     }
 };
-
-
-/*
-class PathSurface;
-
-using namespace std;
-using namespace ci;
-class World {
-    
-    CameraOrtho  mCamera;
-    float        mCameraAspectRatio;
-    float        mModelScale;
-    Matrix44f    mTransform;
-    FrustumOrtho mFrustum;
-    
-    Background* mBackground;
-    
-    Grid*            mGrid;
-    Board*           mBoard;
-    Oscillator*      mOscillator;
-    QuoteTypesetter* mTypesetter;
-  
-    vector<Quote>    mQuotes;
-    
-    gl::Fbo     mFboRender;
-    
-    void initCells();
-    void drawScene();
-
-public:
-    
-    World(const vector<QuoteJson>& quoteData);
-    ~World();
-    
-    void update();
-    void draw();
-    
-    void zoomModelIn();
-    void zoomModelOut();
-    
-    void viewTop();
-    void viewOrtho();
-    
-    void playPrevQuote();
-    void playNextQuote();
-
-
-
-    inline static WorldRef create(const vector<QuoteJson>& quoteData){
-        return std::make_shared<World>(quoteData);
-    }
-};
- */
 
 #endif
