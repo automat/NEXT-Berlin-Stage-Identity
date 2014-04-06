@@ -43,10 +43,11 @@
 #define WORLD_TYPESETTER_FONT_SIZE 400.0f
 #define WORLD_TYPESETTER_FONT_SCALE 0.7f
 
+#define WORLD_LIVE_EDIT_FX_SHADER
 
 //#define DEBUG_WORLD_TYPESETTER_TEXCOORDS
 //#define DEBUG_WORLD_TYPESETTER
-#define DEBUG_WORLD_TYPESETTER_TEXTURE
+//#define DEBUG_WORLD_TYPESETTER_TEXTURE
 //#define DEBUG_WORLD_AREA_DRAW
 
 //#define DEBUG_WORLD_COORDINATE_FRAME
@@ -54,12 +55,12 @@
 //#define DEBUG_WORLD_GRID_DRAW_INDICES
 
 
-
 /*--------------------------------------------------------------------------------------------*/
 // Board
 /*--------------------------------------------------------------------------------------------*/
 
-#define BOARD_LIVE_EDIT_SHADER
+#define BOARD_LIVE_EDIT_MATERIAL_SHADER
+
 
 //#define BOARD_SKIP_DRAW_FIELD_DIVER
 //#define BOARD_SKIP_DRAW_QUOTE_DIVER
@@ -143,9 +144,5 @@
 /*--------------------------------------------------------------------------------------------*/
 // JSON
 /*--------------------------------------------------------------------------------------------*/
-
-namespace config {
-    inline void Load(){}
-}
 
 

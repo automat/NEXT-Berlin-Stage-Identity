@@ -15,6 +15,8 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Camera.h"
 #include "cinder/gl/Fbo.h"
+#include "cinder/gl/GlslProg.h"
+#include "cinder/gl/Texture.h"
 
 #include "util/PingPongFbo.h"
 #include "util/FrustumOrtho.h"
@@ -56,10 +58,39 @@ class World {
     QuoteTypesetter* mTypesetter;
     vector<Quote>    mQuotes;
     
+#ifdef WORLD_LIVE_EDIT_FX_SHADER
+    SharedFileWatcherRef mSharedFileWatcher;
+#endif
+    
+    Vec2f            mTexelSize;
+    gl::Texture      mTextureNoise;
+    gl::Texture      mTextureRandom;
+    
     gl::Fbo          mFboScene;
-    gl::Fbo          mFboFxTiltShift;
+    gl::Fbo          mFboNormalDepth;
+    gl::Fbo          mFboSSAO;
+    gl::Fbo          mFboNormal;
+    gl::Fbo          mFboBlurH;
+    gl::Fbo          mFboBlurV;
+    gl::Fbo          mFboMix;
+    
+    PingPongFbo      mFboFx;
+    
+    gl::GlslProg     mShaderNormal;
+    gl::GlslProg     mShaderNormalDepth;
+    gl::GlslProg     mShaderSSAO;
+    gl::GlslProg     mShaderBlurH;
+    gl::GlslProg     mShaderBlurV;
+    gl::GlslProg     mShaderMix;
+    
     
     void drawScene();
+    void renderFboNormal();
+    void renderFboNormalDepth();
+    void renderFboScene();
+    void renderFboSSAO();
+    void renderFboBlur();
+    void renderFboFinal();
     
 public:
     World(const vector<QuoteJson>& quoteData);

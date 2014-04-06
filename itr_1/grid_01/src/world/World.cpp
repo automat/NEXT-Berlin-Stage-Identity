@@ -5,9 +5,12 @@
 #include "layout/quote/QuoteAlign.h"
 #include "layout/quote/Quote.h"
 
+#include "util/ShaderUtil.h"
+
 #include <boost/assign/std/vector.hpp>
 #include <boost/assign.hpp>
 
+#include "Config.h"
 #include "Resources.h"
 
 using namespace boost::assign;
@@ -74,8 +77,10 @@ World::World(const vector<QuoteJson>& quoteData){
         mQuotes += *mTypesetter->getQuote();
     }
     
-    int windowWidth  = app::getWindowWidth();
-    int windowHeight = app::getWindowHeight();
+    int windowWidth    = app::getWindowWidth();
+    int windowHeight   = app::getWindowHeight();
+    int windowWidth_2  = windowWidth / 2;
+    int windowHeight_2 = windowHeight / 2;
     
     mOscillator = new Oscillator();
     mBackground = new Background(mGrid, areaScaled, mOscillator, app::getWindowWidth(), app::getWindowHeight());
@@ -86,10 +91,63 @@ World::World(const vector<QuoteJson>& quoteData){
     //  Fbo + Post Process
     /*--------------------------------------------------------------------------------------------*/
 
+    mTextureNoise  = loadImage(app::loadResource(RES_TEXTURE_NOISE));
+    mTextureRandom = loadImage(app::loadResource(RES_TEXTURE_RANDOM));
+    
     gl::Fbo::Format fboFormat;
     fboFormat.setSamples(8);
     mFboScene       = gl::Fbo(windowWidth, windowHeight, fboFormat);
-    mFboFxTiltShift = gl::Fbo(windowWidth, windowHeight);
+    mFboNormalDepth = gl::Fbo(windowWidth, windowHeight, fboFormat);
+    mFboNormal      = gl::Fbo(windowWidth, windowHeight, fboFormat);
+    mFboBlurH       = gl::Fbo(windowWidth, windowHeight, fboFormat);
+    mFboBlurV       = gl::Fbo(windowWidth, windowHeight, fboFormat);
+    mFboSSAO        = gl::Fbo(windowWidth, windowHeight, fboFormat);
+    mFboMix         = gl::Fbo(windowWidth, windowHeight, fboFormat);
+    mFboFx          = PingPongFbo(windowWidth,windowHeight);
+    
+    mTexelSize      = Vec2f(1.0f / float(windowWidth), 1.0f / float(windowHeight));
+
+    
+#ifdef WORLD_LIVE_EDIT_FX_SHADER
+    mSharedFileWatcher = SharedFileWatcher::Get();
+    utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
+                      loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
+                      &mShaderNormalDepth);
+    utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_NORMAL_VERT),
+                      loadFile(RES_ABS_GLSL_WORLD_NORMAL_FRAG),
+                      &mShaderNormal);
+    utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
+                      loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_H_FRAG),
+                      &mShaderBlurH);
+    utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
+                      loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_V_FRAG),
+                      &mShaderBlurV);
+    utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_VERT),
+                      loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_FRAG),
+                      &mShaderSSAO);
+    utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_MIX_VERT),
+                      loadFile(RES_ABS_GLSL_WORLD_FX_MIX_FRAG),
+                      &mShaderMix);
+#else
+    utils::loadShader(LoadResource(RES_GLSL_WORLD_FX_NORAML_DEPTH_VERT),
+                      LoadResource(RES_GLSL_WORLD_FX_NORAML_DEPTH_FRAG),
+                      &mShaderNormalDepth);
+    utils::loadShader(LoadResource(RES_GLSL_WORLD_NORMAL_VERT),
+                      LoadResource(RES_GLSL_WORLD_NORMAL_FRAG),
+                      &mShaderNormal);
+    utils::loadShader(LoadResource(RES_GLSL_WORLD_FX_BLUR_H_VERT),
+                      LoadResource(RES_GLSL_WORLD_FX_BLUR_H_FRAG),
+                      &mShaderBlurH);
+    utils::loadShader(LoadResource(RES_GLSL_WORLD_FX_BLUR_V_VERT),
+                      LoadResource(RES_GLSL_WORLD_FX_BLUE_V_FRAG),
+                      &mShaderBlurV);
+    utils::loadShader(LoadResource(RES_GLSL_WORLD_FX_SSAO_VERT),
+                      LoadResource(RES_GLSL_WORLD_FX_SSAO_FRAG),
+                      &mShaderSSAO);
+    utils::loadShader(LoadResource(RES_GLSL_WORLD_FX_MIX_VERT),
+                      LoadResource(RES_GLSL_WORLD_FX_MIX_FRAG),
+                      &mShaderMix);
+#endif
     
 }
 
@@ -111,9 +169,7 @@ World::~World(){
 //  Draw / Update
 /*--------------------------------------------------------------------------------------------*/
 
-
 void World::drawScene(){
-    mFboScene.bindFramebuffer();
     gl::enableDepthRead();
     
     gl::clear(Color(0,0,0));
@@ -140,24 +196,159 @@ void World::drawScene(){
 #endif
     gl::popMatrices();
     gl::disableDepthRead();
-    
+}
+
+void World::renderFboNormal(){
+    mFboNormal.bindFramebuffer();
+    mShaderNormal.bind();
+    drawScene();
+    mShaderNormal.unbind();
+    mFboNormal.unbindFramebuffer();
+}
+
+void World::renderFboScene(){
+    mFboScene.bindFramebuffer();
+    drawScene();
     mFboScene.unbindFramebuffer();
 }
 
+void World::renderFboNormalDepth(){
+    mFboNormalDepth.bindFramebuffer();
+    mShaderNormalDepth.bind();
+    drawScene();
+    mShaderNormalDepth.unbind();
+    mFboNormalDepth.unbindFramebuffer();
+}
+
+void World::renderFboBlur(){
+    glPushAttrib(GL_VIEWPORT_BIT);
+    
+    gl::setViewport(mFboBlurH.getBounds());
+    
+    mFboBlurH.bindFramebuffer();
+    glClearColor( 0.5f, 0.5f, 0.5f, 1 );
+	glClearDepth(1.0f);
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	
+    gl::setMatricesWindow(mFboBlurH.getSize());
+    
+    mFboSSAO.getTexture().bind(0);
+	mShaderBlurH.bind();
+	mShaderBlurH.uniform("uTexture", 0);
+    mShaderBlurH.uniform("uTexelSize", mTexelSize.x);
+    gl::drawSolidRect( Rectf( 0, 0, app::getWindowWidth(), app::getWindowHeight()) );
+	mShaderBlurH.unbind();
+	mFboSSAO.getTexture().unbind(0);
+
+    
+	mFboBlurH.unbindFramebuffer();
+    
+    gl::setViewport( mFboBlurV.getBounds() );
+	
+	mFboBlurV.bindFramebuffer();
+	
+	glClearColor( 0.5f, 0.5f, 0.5f, 1 );
+	glClearDepth(1.0f);
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	
+	gl::setMatricesWindow( mFboBlurV.getSize() );
+	
+	mFboBlurH.getTexture().bind(0);
+	mShaderBlurV.bind();
+	mShaderBlurV.uniform("uTexture", 0);
+    mShaderBlurV.uniform("uTexelSize", mTexelSize.x);
+	gl::drawSolidRect( Rectf( 0, 0, app::getWindowWidth(), app::getWindowHeight()) );
+	mShaderBlurV.unbind();
+	mFboBlurH.getTexture().unbind(0);
+	
+	mFboBlurV.unbindFramebuffer();
+    
+    glPopAttrib();
+    
+    
+}
+
+void World::renderFboSSAO(){
+    glPushAttrib(GL_VIEWPORT_BIT);
+    mFboSSAO.bindFramebuffer();
+    glClearDepth(1.0f);
+    gl::clear(Color(0.5f,0.5f,0.5f));
+    gl::setMatricesWindow(mFboSSAO.getSize());
+    
+    mTextureNoise.bind(1);
+    mFboNormalDepth.getTexture().bind(2);
+    mShaderSSAO.bind();
+    
+    mShaderSSAO.uniform("uTextureRandom", 1);
+    mShaderSSAO.uniform("uTextureNormalMap", 2);
+    
+    gl::drawSolidRect(Rectf(0,0,app::getWindowWidth(),app::getWindowHeight()));
+    
+    mShaderSSAO.unbind();
+    
+    mFboNormalDepth.getTexture().unbind(2);
+    mTextureNoise.unbind(1);
+    
+    mFboSSAO.unbindFramebuffer();
+    glPopAttrib();
+}
+
+void World::renderFboFinal(){
+    gl::setMatricesWindow(app::getWindowSize());
+    
+    mFboBlurV.getTexture().bind(0);
+    mFboScene.getTexture().bind(1);
+    
+    mShaderMix.bind();
+    mShaderMix.uniform("uTextureSSAO", 0);
+    mShaderMix.uniform("uTextureBase", 1);
+    gl::drawSolidRect( Rectf( 0, app::getWindowHeight(), app::getWindowWidth(), 0) );
+    mShaderMix.unbind();
+    
+    mFboBlurV.getTexture().unbind(1);
+    mFboBlurV.getTexture().unbind(0);
+}
+
+
 void World::update(){
+#ifdef WORLD_LIVE_EDIT_FX_SHADER
+    utils::watchShaderSource(mSharedFileWatcher,
+                             loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
+                             loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
+                             &mShaderNormalDepth);
+    utils::watchShaderSource(mSharedFileWatcher,
+                             loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_VERT),
+                             loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_FRAG),
+                             &mShaderSSAO);
+    utils::watchShaderSource(mSharedFileWatcher,
+                             loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
+                             loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_H_FRAG),
+                             &mShaderBlurH);
+    utils::watchShaderSource(mSharedFileWatcher,
+                             loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
+                             loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_V_FRAG),
+                             &mShaderBlurV);
+#endif
     mBoard->update();
 }
 
 void World::draw(){
+    renderFboScene();
+    renderFboNormalDepth();
+    //renderFboNormal();
+    renderFboSSAO();
+    renderFboBlur();
+    //renderFboFinal();
+    
     const static Vec2i windowSize(app::getWindowSize());
-    drawScene();
     
     gl::pushMatrices();
     gl::setMatricesWindow(windowSize, false);
     gl::disableDepthRead();
     glColor3f(1,1,1);
-    gl::draw(mFboScene.getTexture(),mFboScene.getBounds());
-
+    gl::draw(mFboBlurV.getTexture(),       mFboScene.getBounds());
+    //gl::draw(mS.getTexture(), mFboNormalDepth.getBounds());
+    //gl::draw(mFboNormal.getTexture(),      mFboNormal.getBounds());
 #ifdef DEBUG_WORLD_TYPESETTER_TEXTURE
     gl::setMatricesWindow(windowSize);
     const Quote* quote = mBoard->getCurrentQuote();

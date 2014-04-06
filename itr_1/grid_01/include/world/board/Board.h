@@ -44,9 +44,10 @@ class Board{
     
     gl::GlslProg mShaderQuoteDivers;
     gl::GlslProg mShaderQuoteFields;
-#ifdef BOARD_LIVE_EDIT_SHADER
+#if defined(BOARD_LIVE_EDIT_MATERIAL_SHADER)
     SharedFileWatcherRef mSharedFileWatcher;
 #endif
+
     
     void deleteQuoteFields();
     void deleteDiverFields();

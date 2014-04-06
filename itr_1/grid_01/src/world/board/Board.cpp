@@ -43,8 +43,7 @@ Board::Board(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<
     
     setQuote((*mQuotes)[0]);
     
-    
-#ifdef BOARD_LIVE_EDIT_SHADER
+#ifdef BOARD_LIVE_EDIT_MATERIAL_SHADER
     mSharedFileWatcher = SharedFileWatcher::Get();
     utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
                       loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
@@ -54,6 +53,7 @@ Board::Board(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<
                       LoadResource(RES_GLSL_BOARD_QUOTE_FIELD_FRAG),
                       &mShaderQuoteFields);
 #endif
+
     
 }
 
@@ -95,10 +95,9 @@ void Board::draw(const CameraOrtho& camera){
 #ifndef BOARD_SKIP_DRAW_QUOTE_DIVER
     glEnable(GL_POLYGON_OFFSET_FILL);
     glPolygonOffset(0.0, 0.9);
-    mShaderQuoteFields.bind();
-    //mQuoteCurrent->getTexture().enableAndBind();
-    mQuoteCurrent->getTexture().bind();
-    mShaderQuoteFields.uniform("uTexture", 0);
+    //mShaderQuoteFields.bind();
+    //mQuoteCurrent->getTexture().bind();
+    //mShaderQuoteFields.uniform("uTexture", 0);
     for(vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr){
 #ifdef DEBUG_BOARD_FIELD_QUOTE
         (*itr)->debugDrawArea();
@@ -111,14 +110,14 @@ void Board::draw(const CameraOrtho& camera){
         (*itr)->draw();
     }
     //mQuoteCurrent->getTexture().unbind();
-    mShaderQuoteFields.unbind();
+    //mShaderQuoteFields.unbind();
     glDisable(GL_POLYGON_OFFSET_FILL);
     
 #endif
 }
 
 void Board::update(){
-#ifdef BOARD_LIVE_EDIT_SHADER
+#ifdef BOARD_LIVE_EDIT_MATERIAL_SHADER
     utils::watchShaderSource(mSharedFileWatcher,
                              loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
                              loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),

@@ -227,11 +227,11 @@ void AbstractField::updateMeshNormals(){
     i = -1;
     while(++i < numTriangles){
         i3 = i * 3;
-        index0 = mMeshIndexScheme[i3    ];
+        index0 = mMeshIndexScheme[i3 + 0];
         index1 = mMeshIndexScheme[i3 + 1];
         index2 = mMeshIndexScheme[i3 + 2];
-        e0.set(mMeshVertexBuffer[ index1 ] - mMeshVertexBuffer[ index0 ]);
-        e1.set(mMeshVertexBuffer[ index2 ] - mMeshVertexBuffer[ index0 ]);
+        e0.set(mMeshVertexBuffer[ index2 ] - mMeshVertexBuffer[ index0 ]);
+        e1.set(mMeshVertexBuffer[ index1 ] - mMeshVertexBuffer[ index0 ]);
         normal.set(e0.cross(e1).safeNormalized());
         
         mMeshNormalBuffer[ index0 ] += normal;
@@ -327,7 +327,7 @@ void AbstractField::reset_Internal(){
         
         // bottom -> j / top ->j(next step)
         // the quads are verticaly sliced
-        
+ 
         // first quad
         v00 = index +  0; v01 = index + 2;
         v02 = index +  3; v03 = index + 1;
@@ -436,8 +436,8 @@ void AbstractField::reset_Internal(){
         while (j < mDiverNumPoints) {
             mMeshNormalBuffer += down,down;
             mMeshNormalBuffer += up,up;
-            mMeshNormalBuffer += right,left;
-            mMeshNormalBuffer += right,left;
+            mMeshNormalBuffer += left,right;
+            mMeshNormalBuffer += left,right;
             
             ++j;
         }

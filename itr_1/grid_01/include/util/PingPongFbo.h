@@ -19,6 +19,7 @@ private:
     int		mCurrentIndex;
 
 public:
+    PingPongFbo(){}
     
     PingPongFbo(int width, int height, gl::Fbo::Format format = gl::Fbo::Format()) {
         mFbo[0] = gl::Fbo(width, height, format);
