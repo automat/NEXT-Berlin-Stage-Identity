@@ -24,7 +24,7 @@ public:
         mFbo[0] = gl::Fbo(width, height, format);
         mFbo[1] = gl::Fbo(width, height, format);
         
-        currentIndex = 0;
+        mCurrentIndex = 0;
     }
     
     inline gl::Fbo& getTarget() {
