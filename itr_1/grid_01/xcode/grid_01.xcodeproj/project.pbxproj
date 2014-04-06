@@ -39,10 +39,10 @@
 		CDFD272D18F0AB9A00598643 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = CDFD272C18F0AB9A00598643 /* test.json */; };
 		CDFD274818F0D11E00598643 /* Apercu_Mono.otf in Resources */ = {isa = PBXBuildFile; fileRef = CDFD273418F0D11E00598643 /* Apercu_Mono.otf */; };
 		CDFD274918F0D11E00598643 /* transcript_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CDFD273518F0D11E00598643 /* transcript_bold.otf */; };
-		CDFD274A18F0D11E00598643 /* bg_gradient_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD273818F0D11E00598643 /* bg_gradient_frag.glsl */; };
-		CDFD274B18F0D11E00598643 /* bg_mesh_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD273918F0D11E00598643 /* bg_mesh_frag.glsl */; };
-		CDFD274C18F0D11E00598643 /* bg_mesh_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD273A18F0D11E00598643 /* bg_mesh_vert.glsl */; };
-		CDFD274D18F0D11E00598643 /* bg_mix_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD273B18F0D11E00598643 /* bg_mix_frag.glsl */; };
+		CDFD274A18F0D11E00598643 /* gradient_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD273818F0D11E00598643 /* gradient_frag.glsl */; };
+		CDFD274B18F0D11E00598643 /* mesh_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD273918F0D11E00598643 /* mesh_frag.glsl */; };
+		CDFD274C18F0D11E00598643 /* mesh_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD273A18F0D11E00598643 /* mesh_vert.glsl */; };
+		CDFD274D18F0D11E00598643 /* mix_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD273B18F0D11E00598643 /* mix_frag.glsl */; };
 		CDFD274E18F0D11E00598643 /* normal_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD273E18F0D11E00598643 /* normal_frag.glsl */; };
 		CDFD274F18F0D11E00598643 /* normal_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD273F18F0D11E00598643 /* normal_vert.glsl */; };
 		CDFD275018F0D11E00598643 /* quote_field_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD274018F0D11E00598643 /* quote_field_frag.glsl */; };
@@ -129,10 +129,10 @@
 		CDFD272C18F0AB9A00598643 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test.json; path = ../resources/test.json; sourceTree = "<group>"; };
 		CDFD273418F0D11E00598643 /* Apercu_Mono.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Apercu_Mono.otf; sourceTree = "<group>"; };
 		CDFD273518F0D11E00598643 /* transcript_bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = transcript_bold.otf; sourceTree = "<group>"; };
-		CDFD273818F0D11E00598643 /* bg_gradient_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bg_gradient_frag.glsl; sourceTree = "<group>"; };
-		CDFD273918F0D11E00598643 /* bg_mesh_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bg_mesh_frag.glsl; sourceTree = "<group>"; };
-		CDFD273A18F0D11E00598643 /* bg_mesh_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bg_mesh_vert.glsl; sourceTree = "<group>"; };
-		CDFD273B18F0D11E00598643 /* bg_mix_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bg_mix_frag.glsl; sourceTree = "<group>"; };
+		CDFD273818F0D11E00598643 /* gradient_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gradient_frag.glsl; sourceTree = "<group>"; };
+		CDFD273918F0D11E00598643 /* mesh_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mesh_frag.glsl; sourceTree = "<group>"; };
+		CDFD273A18F0D11E00598643 /* mesh_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mesh_vert.glsl; sourceTree = "<group>"; };
+		CDFD273B18F0D11E00598643 /* mix_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mix_frag.glsl; sourceTree = "<group>"; };
 		CDFD273E18F0D11E00598643 /* normal_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = normal_frag.glsl; sourceTree = "<group>"; };
 		CDFD273F18F0D11E00598643 /* normal_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = normal_vert.glsl; sourceTree = "<group>"; };
 		CDFD274018F0D11E00598643 /* quote_field_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quote_field_frag.glsl; sourceTree = "<group>"; };
@@ -542,10 +542,10 @@
 		CDFD273718F0D11E00598643 /* bg */ = {
 			isa = PBXGroup;
 			children = (
-				CDFD273818F0D11E00598643 /* bg_gradient_frag.glsl */,
-				CDFD273918F0D11E00598643 /* bg_mesh_frag.glsl */,
-				CDFD273A18F0D11E00598643 /* bg_mesh_vert.glsl */,
-				CDFD273B18F0D11E00598643 /* bg_mix_frag.glsl */,
+				CDFD273818F0D11E00598643 /* gradient_frag.glsl */,
+				CDFD273918F0D11E00598643 /* mesh_frag.glsl */,
+				CDFD273A18F0D11E00598643 /* mesh_vert.glsl */,
+				CDFD273B18F0D11E00598643 /* mix_frag.glsl */,
 			);
 			path = bg;
 			sourceTree = "<group>";
@@ -635,7 +635,7 @@
 				CDFD275518F0D11E00598643 /* test_texture_2x2_red.png in Resources */,
 				CDFD274E18F0D11E00598643 /* normal_frag.glsl in Resources */,
 				CDFD274F18F0D11E00598643 /* normal_vert.glsl in Resources */,
-				CDFD274A18F0D11E00598643 /* bg_gradient_frag.glsl in Resources */,
+				CDFD274A18F0D11E00598643 /* gradient_frag.glsl in Resources */,
 				CDFD274918F0D11E00598643 /* transcript_bold.otf in Resources */,
 				CDFD275318F0D11E00598643 /* test_texture_1024x1024.jpg in Resources */,
 				CDFD275218F0D11E00598643 /* pass_thru.glsl in Resources */,
@@ -645,10 +645,10 @@
 				4DFD9D98DF824428A51447B8 /* CinderApp.icns in Resources */,
 				CDFD275018F0D11E00598643 /* quote_field_frag.glsl in Resources */,
 				CDFD272D18F0AB9A00598643 /* test.json in Resources */,
-				CDFD274D18F0D11E00598643 /* bg_mix_frag.glsl in Resources */,
-				CDFD274C18F0D11E00598643 /* bg_mesh_vert.glsl in Resources */,
+				CDFD274D18F0D11E00598643 /* mix_frag.glsl in Resources */,
+				CDFD274C18F0D11E00598643 /* mesh_vert.glsl in Resources */,
 				CDFD275118F0D11E00598643 /* quote_field_vert.glsl in Resources */,
-				CDFD274B18F0D11E00598643 /* bg_mesh_frag.glsl in Resources */,
+				CDFD274B18F0D11E00598643 /* mesh_frag.glsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
