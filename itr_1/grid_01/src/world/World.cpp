@@ -77,13 +77,12 @@ World::World(const vector<QuoteJson>& quoteData){
         mQuotes += *mTypesetter->getQuote();
     }
     
-    int windowWidth    = app::getWindowWidth();
-    int windowHeight   = app::getWindowHeight();
-    int windowWidth_2  = windowWidth / 2;
-    int windowHeight_2 = windowHeight / 2;
+    mWindowSize   = app::getWindowSize();
+    mWindowSize_2 = mWindowSize / 2;
+    
     
     mOscillator = new Oscillator();
-    mBackground = new Background(mGrid, areaScaled, mOscillator, app::getWindowWidth(), app::getWindowHeight());
+    mBackground = new Background(mGrid, areaScaled, mOscillator, mWindowSize.x, mWindowSize.y);
     mBoard      = new Board(mGrid, areaScaled, mOscillator, &mQuotes);
 
     
@@ -96,16 +95,18 @@ World::World(const vector<QuoteJson>& quoteData){
     
     gl::Fbo::Format fboFormat;
     fboFormat.setSamples(8);
-    mFboScene       = gl::Fbo(windowWidth, windowHeight, fboFormat);
-    mFboNormalDepth = gl::Fbo(windowWidth, windowHeight, fboFormat);
-    mFboNormal      = gl::Fbo(windowWidth, windowHeight, fboFormat);
-    mFboBlurH       = gl::Fbo(windowWidth, windowHeight, fboFormat);
-    mFboBlurV       = gl::Fbo(windowWidth, windowHeight, fboFormat);
-    mFboSSAO        = gl::Fbo(windowWidth, windowHeight, fboFormat);
-    mFboMix         = gl::Fbo(windowWidth, windowHeight, fboFormat);
-    mFboFx          = PingPongFbo(windowWidth,windowHeight);
+    mFboScene       = gl::Fbo(mWindowSize.x, mWindowSize.y, fboFormat);
+    mFboNormalDepth = gl::Fbo(mWindowSize.x, mWindowSize.y, fboFormat);
+    mFboNormal      = gl::Fbo(mWindowSize.x, mWindowSize.y, fboFormat);
+    mFboBlurH       = gl::Fbo(mWindowSize.x, mWindowSize.y, fboFormat);
+    mFboBlurV       = gl::Fbo(mWindowSize.x, mWindowSize.y, fboFormat);
+    mFboSSAO        = gl::Fbo(mWindowSize.x, mWindowSize.y, fboFormat);
+    mFboMix         = gl::Fbo(mWindowSize.x, mWindowSize.y, fboFormat);
     
-    mTexelSize      = Vec2f(1.0f / float(windowWidth), 1.0f / float(windowHeight));
+    mFboFx          = PingPongFbo(mWindowSize.x,mWindowSize.y);
+    
+    mTexelSize      = Vec2f(1.0f / float(mWindowSize.x), 1.0f / float(mWindowSize.y));
+    mTexelSize_2    = mTexelSize * 0.5f;
 
     
 #ifdef WORLD_LIVE_EDIT_FX_SHADER
@@ -223,6 +224,9 @@ void World::renderFboNormalDepth(){
 void World::renderFboBlur(){
     glPushAttrib(GL_VIEWPORT_BIT);
     
+    gl::setViewport(mFboFx.getBounds());
+    
+    
     gl::setViewport(mFboBlurH.getBounds());
     
     mFboBlurH.bindFramebuffer();
@@ -262,6 +266,8 @@ void World::renderFboBlur(){
 	mFboBlurH.getTexture().unbind(0);
 	
 	mFboBlurV.unbindFramebuffer();
+     
+     */
     
     glPopAttrib();
     

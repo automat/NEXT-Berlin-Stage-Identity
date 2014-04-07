@@ -62,7 +62,11 @@ class World {
     SharedFileWatcherRef mSharedFileWatcher;
 #endif
     
+    Vec2i            mWindowSize;
+    Vec2i            mWindowSize_2;
     Vec2f            mTexelSize;
+    Vec2f            mTexelSize_2;
+    
     gl::Texture      mTextureNoise;
     gl::Texture      mTextureRandom;
     
