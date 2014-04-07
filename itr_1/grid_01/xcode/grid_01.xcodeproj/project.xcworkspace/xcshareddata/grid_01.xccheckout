@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B06F1FA9-3F65-4F1A-9DED-D64F662262C9</string>
+	<key>IDESourceControlProjectName</key>
+	<string>grid_01</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3B277BD0-59DC-4D5E-ADDE-33E2B8EB69D1</key>
+		<string>https://github.com/preciousforever/NEXT-Everything.git</string>
+		<key>736E0D02-D19D-44BD-A8D8-F14EAADC4B28</key>
+		<string>https://github.com/preciousforever/NEXT-Everything.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>itr_1/grid_01/xcode/grid_01.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3B277BD0-59DC-4D5E-ADDE-33E2B8EB69D1</key>
+		<string>../../../../../../../projects/next</string>
+		<key>736E0D02-D19D-44BD-A8D8-F14EAADC4B28</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/preciousforever/NEXT-Everything.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>736E0D02-D19D-44BD-A8D8-F14EAADC4B28</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>736E0D02-D19D-44BD-A8D8-F14EAADC4B28</string>
+			<key>IDESourceControlWCCName</key>
+			<string>next</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3B277BD0-59DC-4D5E-ADDE-33E2B8EB69D1</string>
+			<key>IDESourceControlWCCName</key>
+			<string>next</string>
+		</dict>
+	</array>
+</dict>
+</plist>

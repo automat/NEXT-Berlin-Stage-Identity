@@ -60,6 +60,9 @@
 #define RES_ABS_GLSL_WORLD_FX_MIX_VERT          "/Users/automat/Projects/next/itr_1/grid_01/resources/glsl/fx/mix_vert.glsl"
 #define RES_ABS_GLSL_WORLD_FX_MIX_FRAG          "/Users/automat/Projects/next/itr_1/grid_01/resources/glsl/fx/mix_frag.glsl"
 
+#define RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_VERT   "/Users/automat/Projects/next/itr_1/grid_01/resources/glsl/fx/radial_mix_vert.glsl"
+#define RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_FRAG   "/Users/automat/Projects/next/itr_1/grid_01/resources/glsl/fx/radial_mix_frag.glsl"
+
 #define RES_ABS_GLSL_WORLD_NORMAL_VERT          "/Users/automat/Projects/next/itr_1/grid_01/resources/glsl/material/normal_vert.glsl"
 #define RES_ABS_GLSL_WORLD_NORMAL_FRAG          "/Users/automat/Projects/next/itr_1/grid_01/resources/glsl/material/normal_frag.glsl"
 
@@ -109,7 +112,10 @@
 #define RES_GLSL_WORLD_FX_MIX_VERT          CINDER_RESOURCE( ../resources/glsl/fx, mix_vert.glsl, 148, GLSL )
 #define RES_GLSL_WORLD_FX_MIX_FRAG          CINDER_RESOURCE( ../resources/glsl/fx, mix_frag.glsl, 149, GLSL )
 
-#define RES_GLSL_WORLD_NORMAL_VERT          CINDER_RESOURCE( ../resources/glsl/material, normal_vert.glsl, 150, GLSL )
-#define RES_GLSL_WORLD_NORMAL_FRAG          CINDER_RESOURCE( ../resources/glsl/material, normal_frag.glsl, 151, GLSL )
+#define RES_GLSL_WORLD_FX_RADIAL_MIX_VERT   CINDER_RESOURCE( ../resources/glsl/fx, radial_mix_vert.glsl, 150, GLSL )
+#define RES_GLSL_WORLD_FX_RADIAL_MIX_FRAG   CINDER_RESOURCE( ../resources/glsl/fx, radial_mix_frag.glsl, 151, GLSL )
+
+#define RES_GLSL_WORLD_NORMAL_VERT          CINDER_RESOURCE( ../resources/glsl/material, normal_vert.glsl, 152, GLSL )
+#define RES_GLSL_WORLD_NORMAL_FRAG          CINDER_RESOURCE( ../resources/glsl/material, normal_frag.glsl, 153, GLSL )
 
 

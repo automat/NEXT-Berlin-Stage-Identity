@@ -62,39 +62,39 @@ class World {
     SharedFileWatcherRef mSharedFileWatcher;
 #endif
     
-    Vec2i            mWindowSize;
-    Vec2i            mWindowSize_2;
-    Vec2f            mTexelSize;
-    Vec2f            mTexelSize_2;
-    
     gl::Texture      mTextureNoise;
-    gl::Texture      mTextureRandom;
     
     gl::Fbo          mFboScene;
+    gl::Fbo          mFboSceneMix;
     gl::Fbo          mFboNormalDepth;
     gl::Fbo          mFboSSAO;
-    gl::Fbo          mFboNormal;
     gl::Fbo          mFboBlurH;
     gl::Fbo          mFboBlurV;
     gl::Fbo          mFboMix;
     
-    PingPongFbo      mFboFx;
+    gl::Fbo          mFboBlurHRadial;
+    gl::Fbo          mFboBlurVRadial;
+    gl::Fbo          mFboMixRadial;
     
-    gl::GlslProg     mShaderNormal;
     gl::GlslProg     mShaderNormalDepth;
     gl::GlslProg     mShaderSSAO;
     gl::GlslProg     mShaderBlurH;
     gl::GlslProg     mShaderBlurV;
     gl::GlslProg     mShaderMix;
+    gl::GlslProg     mShaderMixRadial;
+    
+    
     
     
     void drawScene(bool useMaterialShaders);
-    void renderFboNormal();
+    void drawSceneFinal();
+   
     void renderFboNormalDepth();
     void renderFboScene();
     void renderFboSSAO();
     void renderFboBlur();
-    void renderFboFinal();
+    void renderFboBlurRadial();
+    void renderFboSceneMix();
     
 public:
     World(const vector<QuoteJson>& quoteData);

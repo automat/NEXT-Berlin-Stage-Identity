@@ -44,8 +44,8 @@ void QuoteField::addMeshColors(){
     const Vec3f left(-1,0,0),right(1,0,0);
     const Vec3f front(0,0,-1),back(0,0,1);
     
-    float alphaTop    = 1.0f;
-    float alphaBottom = 0.0f;
+   // float alphaTop    = 1.0f;
+   // float alphaBottom = 0.0f;
     
 #ifndef QUOTE_FIELD_PUT_NORMAL_COLORS
     Colorf white(1,1,1);
@@ -134,21 +134,6 @@ void QuoteField::update(Oscillator *osc, float t){
 }
 
 void QuoteField::updateMeshTexcoords(){
-    /*
-    int i;
-    gl::VboMesh::VertexIter vbItr = mMesh.mapVertexBuffer();
-    for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
-        i = -1;
-        while(++i < mDiverVerticesBodyLen){
-            vbItr.setTexCoord2d0(Vec2f::zero()); ++vbItr;
-        }
-        i = -1;
-        while(++i < mDiverVerticesCapLen){
-            vbItr.setTexCoord2d0(Vec2f::zero()); ++vbItr;
-        }
-    } */
-    
-    
     const static Vec2f zero;
     Vec2f tex_0;   //upper tex coord
     Vec2f tex_1;   //lower tex coord

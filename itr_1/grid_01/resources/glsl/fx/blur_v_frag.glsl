@@ -1,11 +1,11 @@
 uniform sampler2D uTexture;
 uniform float     uTexelSize;
 varying vec2      vTexcoord;
+uniform float     uScale;
 
-const float scale = 2.0;
 
 void main(){
-    float offset = uTexelSize * scale;
+    float offset = uTexelSize * uScale;
     
     vec4 sum = vec4(0.0);
     sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 4.0 * offset)) * 0.05;
