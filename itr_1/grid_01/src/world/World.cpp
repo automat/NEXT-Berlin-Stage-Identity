@@ -170,7 +170,7 @@ World::~World(){
 //  Draw / Update
 /*--------------------------------------------------------------------------------------------*/
 
-void World::drawScene(){
+void World::drawScene(bool useMaterialShaders){
     gl::enableDepthRead();
     
     gl::clear(Color(0,0,0));
@@ -188,7 +188,7 @@ void World::drawScene(){
     gl::drawCoordinateFrame();
 #endif
 
-    mBoard->draw(mCamera);
+    mBoard->draw(mCamera,useMaterialShaders);
 
 #ifdef DEBUG_WORLD_GRID_DRAW_INDICES
     gl::disableDepthRead();
@@ -202,21 +202,21 @@ void World::drawScene(){
 void World::renderFboNormal(){
     mFboNormal.bindFramebuffer();
     mShaderNormal.bind();
-    drawScene();
+    drawScene(false);
     mShaderNormal.unbind();
     mFboNormal.unbindFramebuffer();
 }
 
 void World::renderFboScene(){
     mFboScene.bindFramebuffer();
-    drawScene();
+    drawScene(true);
     mFboScene.unbindFramebuffer();
 }
 
 void World::renderFboNormalDepth(){
     mFboNormalDepth.bindFramebuffer();
     mShaderNormalDepth.bind();
-    drawScene();
+    drawScene(false);
     mShaderNormalDepth.unbind();
     mFboNormalDepth.unbindFramebuffer();
 }
@@ -267,7 +267,7 @@ void World::renderFboBlur(){
 	
 	mFboBlurV.unbindFramebuffer();
      
-     */
+    
     
     glPopAttrib();
     
@@ -344,7 +344,7 @@ void World::draw(){
     //renderFboNormal();
     renderFboSSAO();
     renderFboBlur();
-    //renderFboFinal();
+    renderFboFinal();
     
     const static Vec2i windowSize(app::getWindowSize());
     
@@ -352,7 +352,7 @@ void World::draw(){
     gl::setMatricesWindow(windowSize, false);
     gl::disableDepthRead();
     glColor3f(1,1,1);
-    gl::draw(mFboBlurV.getTexture(),       mFboScene.getBounds());
+    //gl::draw(mFboBlurV.getTexture(),       mFboScene.getBounds());
     //gl::draw(mS.getTexture(), mFboNormalDepth.getBounds());
     //gl::draw(mFboNormal.getTexture(),      mFboNormal.getBounds());
 #ifdef DEBUG_WORLD_TYPESETTER_TEXTURE

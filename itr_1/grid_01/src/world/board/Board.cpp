@@ -80,7 +80,7 @@ Board::~Board(){
 // Draw / Update
 /*--------------------------------------------------------------------------------------------*/
 
-void Board::draw(const CameraOrtho& camera){
+void Board::draw(const CameraOrtho& camera, bool useMaterialShaders){
 #ifndef BOARD_SKIP_DRAW_FIELD_DIVER
     for(vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr){
 #ifdef DEBUG_BOARD_FIELD_DIVER
@@ -95,9 +95,11 @@ void Board::draw(const CameraOrtho& camera){
 #ifndef BOARD_SKIP_DRAW_QUOTE_DIVER
     glEnable(GL_POLYGON_OFFSET_FILL);
     glPolygonOffset(0.0, 0.9);
-    //mShaderQuoteFields.bind();
-    //mQuoteCurrent->getTexture().bind();
-    //mShaderQuoteFields.uniform("uTexture", 0);
+    if(useMaterialShaders){
+        mShaderQuoteFields.bind();
+        mQuoteCurrent->getTexture().bind();
+        mShaderQuoteFields.uniform("uTexture", 0);
+    }
     for(vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr){
 #ifdef DEBUG_BOARD_FIELD_QUOTE
         (*itr)->debugDrawArea();
@@ -109,8 +111,10 @@ void Board::draw(const CameraOrtho& camera){
 #endif
         (*itr)->draw();
     }
-    //mQuoteCurrent->getTexture().unbind();
-    //mShaderQuoteFields.unbind();
+    if(useMaterialShaders){
+        mQuoteCurrent->getTexture().unbind();
+        mShaderQuoteFields.unbind();
+    }
     glDisable(GL_POLYGON_OFFSET_FILL);
     
 #endif

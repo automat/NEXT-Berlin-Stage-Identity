@@ -5,14 +5,14 @@ uniform sampler2D uTextureNormalMap;
 
 varying vec2 uv;
 
-const float totStrength = 0.138;
+const float totStrength = 0.0138;
 const float strength = 0.13;
 const float offset = 0.0012;
 const float falloff = 0.0;
-const float rad = 0.0125;
+const float rad = 0.00125;
 
 #define SAMPLES 10 // 10 is good
-const float invSamples = -1.0/10.0;
+const float invSamples = -0.45/10.0;
 
 
 float rand(vec2 co){

@@ -88,7 +88,7 @@ class World {
     gl::GlslProg     mShaderMix;
     
     
-    void drawScene();
+    void drawScene(bool useMaterialShaders);
     void renderFboNormal();
     void renderFboNormalDepth();
     void renderFboScene();

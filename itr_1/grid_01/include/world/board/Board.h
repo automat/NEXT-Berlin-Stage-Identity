@@ -59,7 +59,7 @@ public:
     Board(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<Quote>* quotes);
     ~Board();
     
-    void draw(const CameraOrtho& camera);
+    void draw(const CameraOrtho& camera, bool useMaterialShader);
     void update();
     
     inline const Quote* getCurrentQuote() const{

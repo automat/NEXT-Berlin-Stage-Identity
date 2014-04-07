@@ -4,10 +4,10 @@
                "format" : {
                "align" : "center",
                "balance" : true,
-               "padding" : [ 1, 0, 0, 0 ],
-               "scale" : 0.75
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 0.8
                },
-               "string" : "THIS IS\n THE NEW NORMAL"
+               "string" : "Drones\n filming and\n live streaming\n a fashion\n show."
       }
    ]
 }
