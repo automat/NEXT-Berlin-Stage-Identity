@@ -26,7 +26,7 @@
 
 
 
-
+ 
 /*--------------------------------------------------------------------------------------------*/
 // World
 /*--------------------------------------------------------------------------------------------*/
@@ -39,17 +39,17 @@
 #define WORLD_MODEL_CAM_FAR_CLIP 5.0f
 
 #define WORLD_GRID_NUM_CELLS_XY 13
-
 #define WORLD_TYPESETTER_FONT_SIZE 400.0f
 #define WORLD_TYPESETTER_FONT_SCALE 0.7f
 
+//#define WORLD_SKIP_FX_SHADER
 #define WORLD_LIVE_EDIT_FX_SHADER
-
 #define WORLD_FX_SHADER_BLUR_SCALE 1.0f
 #define WORLD_FX_SHADER_BLUR_RADIAL_SCALE 2.0f
 
-//#define DEBUG_WORLD_TYPESETTER_TEXCOORDS
-//#define DEBUG_WORLD_TYPESETTER
+
+#define DEBUG_WORLD_TYPESETTER_TEXCOORDS
+#define DEBUG_WORLD_TYPESETTER
 //#define DEBUG_WORLD_TYPESETTER_TEXTURE
 //#define DEBUG_WORLD_AREA_DRAW
 
@@ -137,8 +137,8 @@
 #define QUOTE_FIELD_DIVER_MAX_HEIGHT 0.025f
 #define QUOTE_FIELD_DIVER_MIN_OFFSET -1.0f
 #define QUOTE_FIELD_DIVER_MAX_OFFSET -0.8f
-#define QUOTE_FIELD_DIVER_MIN_SPEED  0.0015f
-#define QUOTE_FIELD_DIVER_MAX_SPEED  0.00175f
+#define QUOTE_FIELD_DIVER_MIN_SPEED  0.015f
+#define QUOTE_FIELD_DIVER_MAX_SPEED  0.0155f
 #define QUOTE_FIELD_DIVER_MIN_LENGTH 1.0f//0.1f
 #define QUOTE_FIELD_DIVER_MAX_LENGTH 1.0f//0.275f
 

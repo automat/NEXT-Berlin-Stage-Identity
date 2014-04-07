@@ -18,68 +18,58 @@ using namespace ci;
 
 class PingPongFbo{
 private:
-    gl::Fbo mFbo;
-    
-    GLenum  mBuffers[2];
+    gl::Fbo mFbo[2];
     int		mCurrentIndex;
 
 public:
-    PingPongFbo(){}
+    PingPongFbo() :
+    mCurrentIndex(0){
+    }
     
     PingPongFbo(int width, int height, gl::Fbo::Format format = gl::Fbo::Format()){
-        format.enableColorBuffer(true, 2);
-        mFbo = gl::Fbo(width,height,format);
-        mBuffers[0] = GL_COLOR_ATTACHMENT0;
-        mBuffers[1] = GL_COLOR_ATTACHMENT0 + 1;
+        mFbo[0] = gl::Fbo(width,height,format);
+        mFbo[1] = gl::Fbo(width,height,format);
         mCurrentIndex = 0;
     }
     
     inline void bindFramebuffer(){
-        mFbo.bindFramebuffer();
-        //glDrawBuffer(1,getTarget());
-        glDrawBuffer(getTarget());
+        mFbo[mCurrentIndex].bindFramebuffer();
     }
     
     inline void unbindFramebuffer(){
-        mFbo.unbindFramebuffer();
+        mFbo[mCurrentIndex].bindFramebuffer();
     }
     
-    inline GLenum getTarget() {
-        return mBuffers[mCurrentIndex];
+    inline gl::Fbo& getTarget(){
+        return mFbo[mCurrentIndex];
     }
     
-    inline GLenum getSource() {
-        return mBuffers[1-mCurrentIndex];
+    inline gl::Fbo& getSource(){
+        return mFbo[1 - mCurrentIndex];
     }
-    
-    inline void bindTexture(int index, int attachment){
-        mFbo.bindTexture(index, attachment);
-    }
-    
-    inline void unbindTexture(int index){
-        mFbo.unbindTexture();
-    }
-    
-    inline void bindTargetTexture(int index){
-        mFbo.bindTexture(index,getTarget());
-    }
-    
-    inline void bindSourceTexture(int index){
-        //mFbo.bindTexture(index,getSource());
-        //mFbo.bindTexture(index, getTarget());
-    }
-    
-    inline gl::Texture& getTexture(int attachment = 0){
-        return mFbo.getTexture(attachment);
-    }
-    
     
     inline gl::Texture& getTargetTexture(){
-        return mFbo.getTexture(getTarget());
+        return getTarget().getTexture();
     }
     
     inline gl::Texture& getSourceTexture(){
-        return mFbo.getTexture(getSource());
+        return getSource().getTexture();
+    }
+    
+    inline void bindTargetTexture(int index = 0){
+        getTarget().getTexture().bind(index);
+    }
+    
+    inline void bindSourceTexture(int index = 0){
+        getSource().getTexture().bind(index);
+    }
+    
+    inline void unbindTargetTexture(int index = 0){
+        getTarget().getTexture().unbind(index);
+    }
+    
+    inline void unbindSourceTexture(int index = 0){
+        getSource().getTexture().unbind(index);
     }
     
     inline void swap() {
@@ -87,11 +77,19 @@ public:
     }
     
     inline Area getBounds(){
-        return mFbo.getBounds();
+        return getTarget().getBounds();
     }
     
     inline Vec2f getSize(){
-        return mFbo.getSize();
+        return getTarget().getSize();
+    }
+    
+    inline int getWidth(){
+        return getTarget().getWidth();
+    }
+    
+    inline int getHeight(){
+        return getTarget().getHeight();
     }
 };
 

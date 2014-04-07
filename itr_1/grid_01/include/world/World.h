@@ -58,43 +58,37 @@ class World {
     QuoteTypesetter* mTypesetter;
     vector<Quote>    mQuotes;
     
-#ifdef WORLD_LIVE_EDIT_FX_SHADER
+#if defined(WORLD_LIVE_EDIT_FX_SHADER) && !defined(WORLD_SKIP_FX_SHADER)
     SharedFileWatcherRef mSharedFileWatcher;
 #endif
-    
+#ifndef WORLD_SKIP_FX_SHADER
     gl::Texture      mTextureNoise;
     
-    gl::Fbo          mFboScene;
-    gl::Fbo          mFboSceneMix;
-    gl::Fbo          mFboNormalDepth;
-    gl::Fbo          mFboSSAO;
-    gl::Fbo          mFboBlurH;
-    gl::Fbo          mFboBlurV;
-    gl::Fbo          mFboMix;
-    
-    gl::Fbo          mFboBlurHRadial;
-    gl::Fbo          mFboBlurVRadial;
-    gl::Fbo          mFboMixRadial;
-    
+    PingPongFbo      mFboPingPong_1;    //  ping pong fbo with actual screen size
+    PingPongFbo      mFboPingPong_2;    //  ping pong fbo with half the screen size
+    Area             mFboBounds_1;      //  cache area 1
+    Area             mFboBounds_2;      //  cache area 2
+    Vec2f            mFboSize_1f;       //  cache size 1 float
+    Vec2i            mFboSize_2;        //  cache size 2
+    Vec2f            mFboTexelSize_1;   //  cache texelSize 1
+    Vec2f            mFboTexelSize_2;   //  cache texelSize 2
+
+    gl::Fbo          mFboSceneSSAO;     //  original scene + ssao
+    gl::Fbo          mFboSceneFinal;    //  final scene completely post-processed
+
     gl::GlslProg     mShaderNormalDepth;
     gl::GlslProg     mShaderSSAO;
     gl::GlslProg     mShaderBlurH;
     gl::GlslProg     mShaderBlurV;
     gl::GlslProg     mShaderMix;
     gl::GlslProg     mShaderMixRadial;
-    
-    
-    
-    
+
+#endif
+    Vec2i            mFboSize_1;        //  cache size 1
+    gl::Fbo          mFboScene;         //  original scene
+
     void drawScene(bool useMaterialShaders);
-    void drawSceneFinal();
-   
-    void renderFboNormalDepth();
-    void renderFboScene();
-    void renderFboSSAO();
-    void renderFboBlur();
-    void renderFboBlurRadial();
-    void renderFboSceneMix();
+    void processScene();
     
 public:
     World(const vector<QuoteJson>& quoteData);
