@@ -29,38 +29,47 @@ Board::Board(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<
     mOscillator(oscillator),
     mQuotes(quotes){
 
-    const vector<Cell*>& gridCells = mGrid->getCells();
-    // Create diverfields according to layoutarea
-    for(vector<Cell*>::const_iterator itr = gridCells.begin(); itr != gridCells.end(); ++itr){
-        const Cell* cell = *itr;
-        const Vec3f& pos =cell->getCenter();
-        if(area.contains(pos)){
-            //const Index& index = cell->getIndex();
-            mDiverFields += new DiverField(pos,Rand::randInt(DIVER_FIELD_NUM_DIVERS_MIN, DIVER_FIELD_NUM_DIVERS_MAX));
-            //mIndexDiverFieldMap[index] = mDiverFields.back();
+        const vector<Cell*>& gridCells = mGrid->getCells();
+        // Create diverfields according to layoutarea
+        for(vector<Cell*>::const_iterator itr = gridCells.begin(); itr != gridCells.end(); ++itr){
+            const Cell* cell = *itr;
+            const Vec3f& pos =cell->getCenter();
+            if(area.contains(pos)){
+                //const Index& index = cell->getIndex();
+                mDiverFields += new DiverField(pos,Rand::randInt(DIVER_FIELD_NUM_DIVERS_MIN, DIVER_FIELD_NUM_DIVERS_MAX));
+                //mIndexDiverFieldMap[index] = mDiverFields.back();
+            }
         }
-    }
-    
-    setQuote((*mQuotes)[0]);
-    
+        
+        onConfigDidChange();
+        
+        setQuote((*mQuotes)[0]);
+        
 #ifdef BOARD_LIVE_EDIT_MATERIAL_SHADER
-    mSharedFileWatcher = SharedFileWatcher::Get();
-    utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
-                      loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
-                      &mShaderQuoteFields);
-    utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_VERT),
-                      loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_FRAG),
-                      &mShaderDiverFields);
+        mSharedFileWatcher = SharedFileWatcher::Get();
+        utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
+                          loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
+                          &mShaderQuoteFields);
+        utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_VERT),
+                          loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_FRAG),
+                          &mShaderDiverFields);
 #else
-    utils::loadShader(LoadResource(RES_GLSL_BOARD_QUOTE_FIELD_VERT),
-                      LoadResource(RES_GLSL_BOARD_QUOTE_FIELD_FRAG),
-                      &mShaderQuoteFields);
-    utils::loadShader(LoadResource(RES_GLSL_BOARD_DIVER_FIELD_VERT),
-                      LoadResource(RES_GLSL_BOARD_DIVER_FIELD_FRAG),
-                      &mShaderQuoteDivers);
+        utils::loadShader(LoadResource(RES_GLSL_BOARD_QUOTE_FIELD_VERT),
+                          LoadResource(RES_GLSL_BOARD_QUOTE_FIELD_FRAG),
+                          &mShaderQuoteFields);
+        utils::loadShader(LoadResource(RES_GLSL_BOARD_DIVER_FIELD_VERT),
+                          LoadResource(RES_GLSL_BOARD_DIVER_FIELD_FRAG),
+                          &mShaderQuoteDivers);
 #endif
-
+        
     
+}
+
+void Board::onConfigDidChange(){
+    mMaterialDiverFields.setAmbient(  DIVER_FIELD_MATERIAL_AMBIENT);
+    mMaterialDiverFields.setDiffuse(  DIVER_FIELD_MATERIAL_DIFFUSE);
+    mMaterialDiverFields.setSpecular( DIVER_FIELD_MATERIAL_SPECULAR);
+    mMaterialDiverFields.setShininess(DIVER_FIELD_MATERIAL_SHININESS);
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -139,6 +148,10 @@ void Board::draw(const CameraOrtho& camera, bool useMaterialShaders){
 }
 
 void Board::update(){
+    if(Config::DidChange()){
+        onConfigDidChange();
+    }
+    
 #ifdef BOARD_LIVE_EDIT_MATERIAL_SHADER
     utils::watchShaderSource(mSharedFileWatcher,
                              loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),

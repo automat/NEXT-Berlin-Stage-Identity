@@ -35,13 +35,13 @@
 
 				"board" : {
 					"live_edit_material_shader" : false,
-
 					"diver_field" : {
 						"material" : {
 							"ambient"   : [0,0,0,1],
 							"diffuse"   : [0,0,0,1],
 							"specular"  : [0,0,0,1],
 							"shininess" : 1.0
+						}
 					},
 
 					"quote_field" : {
@@ -55,7 +55,7 @@
 				}
 
 			
-			}, 
+			}
 			
 		},
 /*--------------------------------------------------------------------------------------------*/

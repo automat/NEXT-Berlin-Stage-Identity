@@ -25,7 +25,6 @@ DiverField::DiverField(const Vec3f& pos, int numPathSlices) :
         mDiverSpeedMax      = DIVER_FIELD_DIVER_MAX_SPEED;
         mDiverLengthMin     = DIVER_FIELD_DIVER_MIN_LENGTH;
         mDiverLengthMax     = DIVER_FIELD_DIVER_MAX_LENGTH;
-        
         mMeshLayout.setStaticColorsRGB();
         reset_Internal();
 }

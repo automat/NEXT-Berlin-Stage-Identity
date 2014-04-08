@@ -14,6 +14,7 @@
 #include "cinder/Camera.h"
 #include "cinder/gl/GlslProg.h"
 #include "cinder/gl/Texture.h"
+#include "cinder/gl/Material.h"
 
 #include "util/SharedFileWatcher.h"
 #include "layout/geom/LayoutArea.h"
@@ -44,10 +45,17 @@ class Board{
     
     gl::GlslProg mShaderDiverFields;
     gl::GlslProg mShaderQuoteFields;
+    gl::Material mMaterialDiverFields;
+    gl::Material mMaterialQuoteFields;
+
+    
+
 #if defined(BOARD_LIVE_EDIT_MATERIAL_SHADER)
     SharedFileWatcherRef mSharedFileWatcher;
 #endif
-
+    
+    
+    void onConfigDidChange();
     
     void deleteQuoteFields();
     void deleteDiverFields();

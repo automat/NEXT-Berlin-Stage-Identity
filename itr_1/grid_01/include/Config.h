@@ -9,6 +9,7 @@
 #pragma once
 
 #include "cinder/Color.h"
+#include "cinder/Vector.h"
 #include "cinder/CinderResources.h"
 using namespace ci;
 
@@ -32,7 +33,7 @@ using namespace ci;
 
 #define STAGE_WIDTH  3552
 #define STAGE_HEIGHT 1105
-#define STAGE_SCALE  1
+#define STAGE_SCALE  2
 
 /*--------------------------------------------------------------------------------------------*/
 // App
@@ -175,6 +176,11 @@ static float   DIVER_FIELD_MATERIAL_SHININESS;
 #define QUOTE_FIELD_DIVER_MIN_LENGTH 1.0f//0.1f
 #define QUOTE_FIELD_DIVER_MAX_LENGTH 1.0f//0.275f
 
+static ColorAf QUOTE_FIELD_MATERIAL_AMBIENT;
+static ColorAf QUOTE_FIELD_MATERIAL_DIFFUSE;
+static ColorAf QUOTE_FIELD_MATERIAL_SPECULAR;
+static float   QUOTE_FIELD_MATERIAL_SHININESS;
+
 //#define QUOTE_FIELD_PUT_NORMAL_COLORS
 
 /*--------------------------------------------------------------------------------------------*/
@@ -183,36 +189,14 @@ static float   DIVER_FIELD_MATERIAL_SHININESS;
 
 #include <string>
 #include "cinder/Json.h"
+#include "util/SharedFileWatcher.h"
 
 using namespace std;
 using namespace ci;
 
 class Config {
-private:
-    inline static ParseColor(const string& key, Colorf* color, string* msg){
-        JsonTree tree
-    }
-    
 public:
-    inline static bool LoadJson(const string& filepath, string* msg){
-        static bool _init = false;
-        if(!_init){
-            _init = true;
-        } else {
-            return true;
-        }
-
-        JsonTree::ParseOptions parseOptions;
-        parseOptions.ignoreErrors(false);
-        
-        
-        
-        WORLD_LANTERN_0_COLOR_AMBIENT = Colorf(1,1,1);
-        
-        
-        
-        
-        return true;
-    }
+    static bool LoadJson(const string& filepath, string* msg);
+    static bool DidChange(string* msg = 0);
 };
 

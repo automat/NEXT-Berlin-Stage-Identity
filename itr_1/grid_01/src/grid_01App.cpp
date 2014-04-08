@@ -61,6 +61,7 @@ void grid_00App::setup(){
     
     if(!Config::LoadJson(configFilePath, &msg)){
         mValid = false;
+        cout << msg << endl;
         throw msg; // error panel will open here
         return;
     }

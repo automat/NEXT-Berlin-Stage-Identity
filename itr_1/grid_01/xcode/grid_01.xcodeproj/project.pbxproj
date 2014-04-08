@@ -32,6 +32,7 @@
 		CDA8941818F4090D00DFF856 /* diver_field_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDA8941718F4090D00DFF856 /* diver_field_vert.glsl */; };
 		CDA8941A18F4092500DFF856 /* diver_field_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDA8941918F4092500DFF856 /* diver_field_frag.glsl */; };
 		CDA8942318F4342D00DFF856 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = CDA8942218F4342D00DFF856 /* config.json */; };
+		CDEB4CA918F45A97007E30D9 /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDEB4CA818F45A97007E30D9 /* Config.cpp */; };
 		CDFD26F618F09AB200598643 /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDFD26D618F09AB200598643 /* Controller.cpp */; };
 		CDFD26F718F09AB200598643 /* LayoutArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDFD26D918F09AB200598643 /* LayoutArea.cpp */; };
 		CDFD26F818F09AB200598643 /* QuoteParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDFD26DC18F09AB200598643 /* QuoteParser.cpp */; };
@@ -103,6 +104,7 @@
 		CDA8941918F4092500DFF856 /* diver_field_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = diver_field_frag.glsl; sourceTree = "<group>"; };
 		CDA8942118F41FF100DFF856 /* Lantern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lantern.h; sourceTree = "<group>"; };
 		CDA8942218F4342D00DFF856 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
+		CDEB4CA818F45A97007E30D9 /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Config.cpp; path = ../src/world/Config.cpp; sourceTree = "<group>"; };
 		CDFD26A718F09A6E00598643 /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Colors.h; path = ../include/Colors.h; sourceTree = "<group>"; };
 		CDFD26A818F09A6E00598643 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
 		CDFD26A918F09A6E00598643 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = ../include/Controller.h; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				CDFD26DD18F09AB200598643 /* util */,
 				CDFD26E318F09AB200598643 /* world */,
 				CDFD26D618F09AB200598643 /* Controller.cpp */,
+				CDEB4CA818F45A97007E30D9 /* Config.cpp */,
 				D5CC83B43D1841659C7F970B /* grid_01App.cpp */,
 			);
 			name = Source;
@@ -760,6 +763,7 @@
 				CDFD270418F09AB200598643 /* PathSlice.cpp in Sources */,
 				CDFD26FE18F09AB200598643 /* Background.cpp in Sources */,
 				CDFD26F818F09AB200598643 /* QuoteParser.cpp in Sources */,
+				CDEB4CA918F45A97007E30D9 /* Config.cpp in Sources */,
 				CDFD26FD18F09AB200598643 /* srdnoise23.cpp in Sources */,
 				CDFD270218F09AB200598643 /* DiverField.cpp in Sources */,
 			);
