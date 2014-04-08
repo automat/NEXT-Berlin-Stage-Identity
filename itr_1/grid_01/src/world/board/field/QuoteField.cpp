@@ -115,25 +115,6 @@ void QuoteField::reset(const Vec3f &pos, int numPathSlices, const QuoteLine& quo
 
 
 void QuoteField::updateDivers(){
-    for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
-        (*itr)->update();
-        (*itr)->updateTexcoords();
-    }
-}
-
-void QuoteField::draw(){
-    drawMesh();
-}
-
-void QuoteField::update(Oscillator *osc, float t){
-    mSurfaceOffset -= mSurfaceOffsetSpeed;
-    updatePathSurface(osc, mSurfaceOffset);
-    updateDivers();
-    updateMeshTexcoords();
-    updateMesh();
-}
-
-void QuoteField::updateMeshTexcoords(){
     const static Vec2f zero;
     Vec2f tex_0;   //upper tex coord
     Vec2f tex_1;   //lower tex coord
@@ -147,30 +128,48 @@ void QuoteField::updateMeshTexcoords(){
     i = 0;
     gl::VboMesh::VertexIter vbItr = mMesh.mapVertexBuffer();
     for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
+        (*itr)->update();           //  update diver position
+        (*itr)->updateTexcoords();  //  update diver texcooord
+        
+        //
+        //  Update mesh texcoords according to diver texcoords
+        //
+        
         const vector<float>& texcoords = (*itr)->getTexcoords();
         tex_0.y = texcoordStartY + texcoordStepY  * (i++);
         tex_1.y = tex_0.y + texcoordStepY;
         
         j = -1;
         while (++j < mDiverNumPoints) {
-            
             tex_0.x = tex_1.x = texcoordStartX + texcoordStepX * texcoords[j];  //  get sliced hotizontal
             
             ++vbItr; ++vbItr;                       //  skip bottom
             vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top
             vbItr.setTexCoord2d0(tex_1); ++vbItr;
             
-     
+            
             vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top / bottom left
             vbItr.setTexCoord2d0(tex_1); ++vbItr;
             vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top / bottom right
             vbItr.setTexCoord2d0(tex_1); ++vbItr;
-
+            
         }
         
         ++vbItr; ++vbItr; ++vbItr; ++vbItr;         //  skip front
         ++vbItr; ++vbItr; ++vbItr; ++vbItr;         //  skip back
+
     }
+}
+
+void QuoteField::draw(){
+    drawMesh();
+}
+
+void QuoteField::update(Oscillator *osc, float t){
+    mSurfaceOffset -= mSurfaceOffsetSpeed;
+    updatePathSurface(osc, mSurfaceOffset);
+    updateDivers();
+    updateMesh();
 }
 
 

@@ -22,8 +22,6 @@ class QuoteField : public AbstractField {
     Vec2f      mTexcoordStep;
     
     void addMeshColors();
-    
-    void updateMeshTexcoords();
     void updateDivers();
     
 public:
