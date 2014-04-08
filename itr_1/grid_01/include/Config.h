@@ -8,11 +8,23 @@
 
 #pragma once
 
+#include "cinder/Color.h"
+#include "cinder/CinderResources.h"
+using namespace ci;
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //  Oberall
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*--------------------------------------------------------------------------------------------*/
+// Config
+/*--------------------------------------------------------------------------------------------*/
+
+#define CONFIG_USE_BAKED
+#define CONFIG_FILE_PATH_BAKED     CINDER_RESOURCE( ../resources/, config.json, 128, DATA )
+#define CONFIG_FILE_PATH_RELATIVE
 
 /*--------------------------------------------------------------------------------------------*/
 // Stage
@@ -29,6 +41,9 @@
 #define APP_WIDTH  STAGE_WIDTH / STAGE_SCALE
 #define APP_HEIGHT STAGE_HEIGHT / STAGE_SCALE
 #define APP_FPS 36.0f
+
+#define APP_USE_BAKED_CONFIG
+
 
 //#define DEBUG_SINGLE_DIVER_FIELD
 //#define DEBUG_SINGLE_QUOTE_FIELD
@@ -56,16 +71,19 @@
 #define WORLD_FX_SHADER_BLUR_SCALE 1.0f
 #define WORLD_FX_SHADER_BLUR_RADIAL_SCALE 2.0f
 
+static Colorf WORLD_LANTERN_0_COLOR_AMBIENT;
+static Colorf WORLD_LANTERN_0_COLOR_DIFFUSE;
+static Colorf WORLD_LANTERN_0_COLOR_SPECULAR;
+
 
 #define DEBUG_WORLD_TYPESETTER_TEXCOORDS
 #define DEBUG_WORLD_TYPESETTER
 //#define DEBUG_WORLD_TYPESETTER_TEXTURE
-//#define DEBUG_WORLD_AREA_DRAW
+#define DEBUG_WORLD_AREA_DRAW
 
 //#define DEBUG_WORLD_COORDINATE_FRAME
 //#define DEBUG_WORLD_CAM_FRUSTUM
 //#define DEBUG_WORLD_GRID_DRAW_INDICES
-
 
 /*--------------------------------------------------------------------------------------------*/
 // Board
@@ -76,6 +94,7 @@
 //#define BOARD_SKIP_DRAW_FIELD_DIVER
 //#define BOARD_SKIP_DRAW_QUOTE_DIVER
 
+//#define DEBUG_BOARD_FIELD_DIVER_PATH_SURFACE
 //#define DEBUG_BOARD_FIELD_DIVER
 //#define DEBUG_BOARD_FIELD_QUOTE
 //#define DEBUG_BOARD_FIELD_QUOTE_TEXCOORDS
@@ -129,6 +148,12 @@
 
 #define DIVER_FIELD_PUT_NORMAL_COLORS
 
+static ColorAf DIVER_FIELD_MATERIAL_AMBIENT;
+static ColorAf DIVER_FIELD_MATERIAL_DIFFUSE;
+static ColorAf DIVER_FIELD_MATERIAL_SPECULAR;
+static float   DIVER_FIELD_MATERIAL_SHININESS;
+
+
 /*--------------------------------------------------------------------------------------------*/
 // QuoteField
 /*--------------------------------------------------------------------------------------------*/
@@ -146,7 +171,7 @@
 #define QUOTE_FIELD_DIVER_MIN_OFFSET -1.0f
 #define QUOTE_FIELD_DIVER_MAX_OFFSET -0.8f
 #define QUOTE_FIELD_DIVER_MIN_SPEED  0.015f
-#define QUOTE_FIELD_DIVER_MAX_SPEED  0.0155f
+#define QUOTE_FIELD_DIVER_MAX_SPEED  0.0151f
 #define QUOTE_FIELD_DIVER_MIN_LENGTH 1.0f//0.1f
 #define QUOTE_FIELD_DIVER_MAX_LENGTH 1.0f//0.275f
 
@@ -156,4 +181,38 @@
 // JSON
 /*--------------------------------------------------------------------------------------------*/
 
+#include <string>
+#include "cinder/Json.h"
+
+using namespace std;
+using namespace ci;
+
+class Config {
+private:
+    inline static ParseColor(const string& key, Colorf* color, string* msg){
+        JsonTree tree
+    }
+    
+public:
+    inline static bool LoadJson(const string& filepath, string* msg){
+        static bool _init = false;
+        if(!_init){
+            _init = true;
+        } else {
+            return true;
+        }
+
+        JsonTree::ParseOptions parseOptions;
+        parseOptions.ignoreErrors(false);
+        
+        
+        
+        WORLD_LANTERN_0_COLOR_AMBIENT = Colorf(1,1,1);
+        
+        
+        
+        
+        return true;
+    }
+};
 

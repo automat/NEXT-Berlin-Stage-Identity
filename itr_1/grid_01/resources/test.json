@@ -5,9 +5,9 @@
                "align" : "center",
                "balance" : true,
                "padding" : [ 0, 0, 0, 0 ],
-               "scale" : 0.8
+               "scale" : 0.9
                },
-               "string" : "Drones\n filming and\n live streaming\n a fashion\n show."
+               "string" : "Knowing what your customers want before they do."
       }
    ]
 }

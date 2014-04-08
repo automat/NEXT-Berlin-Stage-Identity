@@ -42,7 +42,7 @@ class Board{
     Quote*              mQuoteCurrent;  //  ref to curr qzote
     vector<QuoteField*> mQuoteFields;   //  quote fields
     
-    gl::GlslProg mShaderQuoteDivers;
+    gl::GlslProg mShaderDiverFields;
     gl::GlslProg mShaderQuoteFields;
 #if defined(BOARD_LIVE_EDIT_MATERIAL_SHADER)
     SharedFileWatcherRef mSharedFileWatcher;

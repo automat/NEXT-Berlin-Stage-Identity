@@ -43,6 +43,7 @@ public:
     
     void update(Oscillator* osc, const Vec3f& pos, float density, float amplitude, float offset);
     void debugDraw();
+    void drawSurface();
     
     inline int getNumSlices(){
         return mNumSlices;

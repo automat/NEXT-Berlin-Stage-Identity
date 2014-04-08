@@ -29,6 +29,9 @@
 		CD04632518F1D35500251A70 /* mix_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD04632418F1D35500251A70 /* mix_vert.glsl */; };
 		CD179B5318F2D40600EB1E5A /* radial_mix_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD179B5218F2D40600EB1E5A /* radial_mix_vert.glsl */; };
 		CD179B5518F2D42500EB1E5A /* radial_mix_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD179B5418F2D42500EB1E5A /* radial_mix_frag.glsl */; };
+		CDA8941818F4090D00DFF856 /* diver_field_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDA8941718F4090D00DFF856 /* diver_field_vert.glsl */; };
+		CDA8941A18F4092500DFF856 /* diver_field_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDA8941918F4092500DFF856 /* diver_field_frag.glsl */; };
+		CDA8942318F4342D00DFF856 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = CDA8942218F4342D00DFF856 /* config.json */; };
 		CDFD26F618F09AB200598643 /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDFD26D618F09AB200598643 /* Controller.cpp */; };
 		CDFD26F718F09AB200598643 /* LayoutArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDFD26D918F09AB200598643 /* LayoutArea.cpp */; };
 		CDFD26F818F09AB200598643 /* QuoteParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDFD26DC18F09AB200598643 /* QuoteParser.cpp */; };
@@ -96,6 +99,10 @@
 		CD04632418F1D35500251A70 /* mix_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mix_vert.glsl; sourceTree = "<group>"; };
 		CD179B5218F2D40600EB1E5A /* radial_mix_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = radial_mix_vert.glsl; sourceTree = "<group>"; };
 		CD179B5418F2D42500EB1E5A /* radial_mix_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = radial_mix_frag.glsl; sourceTree = "<group>"; };
+		CDA8941718F4090D00DFF856 /* diver_field_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = diver_field_vert.glsl; sourceTree = "<group>"; };
+		CDA8941918F4092500DFF856 /* diver_field_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = diver_field_frag.glsl; sourceTree = "<group>"; };
+		CDA8942118F41FF100DFF856 /* Lantern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lantern.h; sourceTree = "<group>"; };
+		CDA8942218F4342D00DFF856 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		CDFD26A718F09A6E00598643 /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Colors.h; path = ../include/Colors.h; sourceTree = "<group>"; };
 		CDFD26A818F09A6E00598643 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
 		CDFD26A918F09A6E00598643 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = ../include/Controller.h; sourceTree = "<group>"; };
@@ -277,6 +284,7 @@
 				CDFD273618F0D11E00598643 /* glsl */,
 				CDFD274318F0D11E00598643 /* texture */,
 				CDFD272C18F0AB9A00598643 /* test.json */,
+				CDA8942218F4342D00DFF856 /* config.json */,
 				5E7FE5594F00407CAB1238DB /* CinderApp.icns */,
 				3A8EA2C5BB9F4DA89C1075B6 /* Info.plist */,
 			);
@@ -290,6 +298,21 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CDA8941D18F409C300DFF856 /* env */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = env;
+			sourceTree = "<group>";
+		};
+		CDA8942018F41FE700DFF856 /* env */ = {
+			isa = PBXGroup;
+			children = (
+				CDA8942118F41FF100DFF856 /* Lantern.h */,
+			);
+			path = env;
 			sourceTree = "<group>";
 		};
 		CDFD26AA18F09A6E00598643 /* layout */ = {
@@ -353,6 +376,7 @@
 		CDFD26C218F09A6E00598643 /* world */ = {
 			isa = PBXGroup;
 			children = (
+				CDA8942018F41FE700DFF856 /* env */,
 				CDFD26C318F09A6E00598643 /* bg */,
 				CDFD26C518F09A6E00598643 /* board */,
 				CDFD26D018F09A6E00598643 /* grid */,
@@ -469,6 +493,7 @@
 		CDFD26E318F09AB200598643 /* world */ = {
 			isa = PBXGroup;
 			children = (
+				CDA8941D18F409C300DFF856 /* env */,
 				CDFD26E418F09AB200598643 /* bg */,
 				CDFD26E618F09AB200598643 /* board */,
 				CDFD26F118F09AB200598643 /* grid */,
@@ -601,6 +626,8 @@
 				CDFD273F18F0D11E00598643 /* normal_vert.glsl */,
 				CDFD274018F0D11E00598643 /* quote_field_frag.glsl */,
 				CDFD274118F0D11E00598643 /* quote_field_vert.glsl */,
+				CDA8941718F4090D00DFF856 /* diver_field_vert.glsl */,
+				CDA8941918F4092500DFF856 /* diver_field_frag.glsl */,
 			);
 			path = material;
 			sourceTree = "<group>";
@@ -673,6 +700,7 @@
 			files = (
 				CD04631D18F1B12300251A70 /* blur_vert.glsl in Resources */,
 				CD04631318F18F5500251A70 /* ssao_vert.glsl in Resources */,
+				CDA8942318F4342D00DFF856 /* config.json in Resources */,
 				CDFD275518F0D11E00598643 /* test_texture_2x2_red.png in Resources */,
 				CDFD274E18F0D11E00598643 /* normal_frag.glsl in Resources */,
 				CDFD274F18F0D11E00598643 /* normal_vert.glsl in Resources */,
@@ -688,6 +716,8 @@
 				CDFD275618F0D11E00598643 /* test_texture_font_black.jpg in Resources */,
 				CD04630E18F1749700251A70 /* normal_depth_frag.glsl in Resources */,
 				CD04632018F1B70B00251A70 /* noise.png in Resources */,
+				CDA8941818F4090D00DFF856 /* diver_field_vert.glsl in Resources */,
+				CDA8941A18F4092500DFF856 /* diver_field_frag.glsl in Resources */,
 				CDFD275418F0D11E00598643 /* test_texture_2x2.png in Resources */,
 				CDFD274818F0D11E00598643 /* Apercu_Mono.otf in Resources */,
 				4DFD9D98DF824428A51447B8 /* CinderApp.icns in Resources */,

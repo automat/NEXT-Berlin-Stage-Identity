@@ -35,6 +35,7 @@
 #include "world/bg/Background.h"
 #include "world/grid/Grid.h"
 #include "world/board/Board.h"
+#include "world/env/Lantern.h"
 
 #include "debug/VboObj.h"
 
@@ -50,6 +51,8 @@ class World {
     float        mModelScale;
     Matrix44f    mTransform;
     FrustumOrtho mFrustum;
+    
+    Lantern*     mLantern;
     
     Oscillator*      mOscillator;
     Background*      mBackground;
@@ -102,6 +105,11 @@ public:
     
     void viewTop();
     void viewOrtho();
+    
+    //! stage leaves info layer, enters quote layer
+    void wakeUp();
+    //! stage dims down, enters info layer
+    void tearDown();
     
     inline static WorldRef create(const vector<QuoteJson>& quoteData){
         return std::make_shared<World>(quoteData);

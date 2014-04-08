@@ -33,6 +33,7 @@ World::World(const vector<QuoteJson>& quoteData){
     mTransform  = Matrix44f::createScale(Vec3f(mModelScale,mModelScale,mModelScale));
     mFrustum.set(mCamera);
     
+    mLantern = new Lantern(0);
     
     /*--------------------------------------------------------------------------------------------*/
     //  Environment
@@ -176,7 +177,7 @@ World::~World(){
 void World::drawScene(bool useMaterialShaders){
     gl::enableDepthRead();
     
-    gl::clear(Color(0,0,0));
+    gl::clear(Color(1,1,1));
     gl::pushMatrices();
     gl::setMatrices(mCamera);
     
@@ -189,9 +190,18 @@ void World::drawScene(bool useMaterialShaders){
 #ifdef DEBUG_WORLD_COORDINATE_FRAME
     gl::drawCoordinateFrame();
 #endif
+    if(useMaterialShaders){
+        mLantern->enable();
+    } else {
+        mLantern->disable();
+    }
+    
     mBackground->draw();
     mBoard->draw(mCamera,useMaterialShaders);
-
+    
+    if(useMaterialShaders){
+        mLantern->disable();
+    }
 #ifdef DEBUG_WORLD_GRID_DRAW_INDICES
     gl::disableDepthRead();
     mGrid->debugDrawIndices(mCamera);
@@ -476,4 +486,16 @@ void World::viewTop(){
 
 void World::viewOrtho(){
     mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
+}
+
+/*--------------------------------------------------------------------------------------------*/
+//  Control
+/*--------------------------------------------------------------------------------------------*/
+
+void World::wakeUp(){
+    
+}
+
+void World::tearDown(){
+    
 }

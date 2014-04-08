@@ -48,10 +48,16 @@ Board::Board(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<
     utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
                       loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
                       &mShaderQuoteFields);
+    utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_VERT),
+                      loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_FRAG),
+                      &mShaderDiverFields);
 #else
     utils::loadShader(LoadResource(RES_GLSL_BOARD_QUOTE_FIELD_VERT),
                       LoadResource(RES_GLSL_BOARD_QUOTE_FIELD_FRAG),
                       &mShaderQuoteFields);
+    utils::loadShader(LoadResource(RES_GLSL_BOARD_DIVER_FIELD_VERT),
+                      LoadResource(RES_GLSL_BOARD_DIVER_FIELD_FRAG),
+                      &mShaderQuoteDivers);
 #endif
 
     
@@ -81,16 +87,28 @@ Board::~Board(){
 /*--------------------------------------------------------------------------------------------*/
 
 void Board::draw(const CameraOrtho& camera, bool useMaterialShaders){
+    gl::disableDepthRead();
+    for(vector<DiverField*>::const_iterator itr =mDiverFields.begin(); itr != mDiverFields.end(); ++itr){
+        (*itr)->drawSurface();
+    }
+    gl::enableDepthRead();
+
+    if(useMaterialShaders){
+        mShaderDiverFields.bind();
+    }
 #ifndef BOARD_SKIP_DRAW_FIELD_DIVER
     for(vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr){
 #ifdef DEBUG_BOARD_FIELD_DIVER
         (*itr)->debugDrawArea();
-        (*itr)->debugDrawPathSurface();
         (*itr)->debugDrawDivers();
+        (*itr)->debugDrawPathSurface();
 #endif
         (*itr)->draw();
     }
 #endif
+    if(useMaterialShaders){
+        mShaderDiverFields.unbind();
+    }
     
 #ifndef BOARD_SKIP_DRAW_QUOTE_DIVER
     glEnable(GL_POLYGON_OFFSET_FILL);
@@ -126,6 +144,10 @@ void Board::update(){
                              loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
                              loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
                              &mShaderQuoteFields);
+    utils::watchShaderSource(mSharedFileWatcher,
+                             loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_VERT),
+                             loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_FRAG),
+                             &mShaderDiverFields);
 #endif
     float t = app::getElapsedSeconds();
 #ifndef BOARD_SKIP_DRAW_FIELD_DIVER

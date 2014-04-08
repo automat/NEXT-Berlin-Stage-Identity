@@ -149,6 +149,8 @@ public:
     virtual void draw() = 0;
     virtual void update(Oscillator* osc, float t)= 0;
     
+    void drawSurface();
+    
     void activate();
     void deactivate();
     

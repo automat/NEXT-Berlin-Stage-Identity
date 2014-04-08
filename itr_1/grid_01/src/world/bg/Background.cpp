@@ -61,7 +61,7 @@ Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int 
         vertex.y = osc->getValue(vertex.x * scale, vertex.z * scale, angle) * factor;
     }
    
-    utils::subdivide(vertices, indices, 1);
+    utils::subdivide(vertices, indices, 2);
 
     i = -1;
     while(++i < vertices.size()){

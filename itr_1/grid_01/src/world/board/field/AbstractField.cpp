@@ -256,6 +256,13 @@ void AbstractField::drawMesh(){
     glPopMatrix();
 }
 
+void AbstractField::drawSurface(){
+    glPushMatrix();
+    glMultMatrixf(&mTransform[0]);
+    mPathSurface.drawSurface();
+    glPopMatrix();
+}
+
 /*--------------------------------------------------------------------------------------------*/
 //  Internal
 /*--------------------------------------------------------------------------------------------*/

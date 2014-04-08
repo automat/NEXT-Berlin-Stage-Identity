@@ -82,16 +82,30 @@ void PathSurface::update(Oscillator* osc, const Vec3f& pos, float density, float
     }
 }
 
-void PathSurface::debugDraw(){
+void PathSurface::drawSurface(){
     static const Vec3f zero;
-
-    glColor3f(0,0,1);
+    
+    glColor3f(0.675,0,0.675);
     glPointSize(2);
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, &mPoints[0].x);
     glDrawArrays(GL_POINTS, 0, mPoints.size());
     glDisableClientState(GL_VERTEX_ARRAY);
     glPointSize(1);
+    glColor3f(1,1,1);
+}
+
+void PathSurface::debugDraw(){
+    static const Vec3f zero;
+
+    glColor3f(0.575,0,0.575);
+    glPointSize(2);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, &mPoints[0].x);
+    glDrawArrays(GL_POINTS, 0, mPoints.size());
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glPointSize(1);
+    glColor3f(1,1,1);
 }
 
 
