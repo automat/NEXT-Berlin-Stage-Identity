@@ -24,7 +24,7 @@ using namespace ci;
 /*--------------------------------------------------------------------------------------------*/
 
 #define CONFIG_USE_BAKED
-#define CONFIG_FILE_PATH_BAKED     CINDER_RESOURCE( ../resources/, config.json, 128, DATA )
+#define CONFIG_FILE_PATH_BAKED     "/Users/automat/Projects/next/itr_1/grid_01/xcode/config.json"
 #define CONFIG_FILE_PATH_RELATIVE
 
 /*--------------------------------------------------------------------------------------------*/
@@ -92,8 +92,8 @@ static Colorf WORLD_LANTERN_0_COLOR_SPECULAR;
 
 #define BOARD_LIVE_EDIT_MATERIAL_SHADER
 
-//#define BOARD_SKIP_DRAW_FIELD_DIVER
-//#define BOARD_SKIP_DRAW_QUOTE_DIVER
+#define BOARD_SKIP_DRAW_FIELD_DIVER
+#define BOARD_SKIP_DRAW_QUOTE_DIVER
 
 //#define DEBUG_BOARD_FIELD_DIVER_PATH_SURFACE
 //#define DEBUG_BOARD_FIELD_DIVER
@@ -197,6 +197,7 @@ using namespace ci;
 class Config {
 public:
     static bool LoadJson(const string& filepath, string* msg);
-    static bool DidChange(string* msg = 0);
+    static bool DidChange(string* msg);
+    static bool IsValid();
 };
 

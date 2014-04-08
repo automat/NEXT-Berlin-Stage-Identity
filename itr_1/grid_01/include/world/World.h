@@ -37,7 +37,6 @@
 #include "world/board/Board.h"
 #include "world/env/Lantern.h"
 
-#include "debug/VboObj.h"
 
 
 /*--------------------------------------------------------------------------------------------*/
@@ -105,6 +104,7 @@ public:
     
     void viewTop();
     void viewOrtho();
+    void onConfigDidChange();
     
     //! stage leaves info layer, enters quote layer
     void wakeUp();

@@ -11,10 +11,13 @@ JsonTree::ParseOptions GetParseOptions(){
 
 // lifetime = application time
 
-bool __init;
+bool   __init;
 string __filePath;
-JsonTree::ParseOptions __parseOptions = GetParseOptions();
-SharedFileWatcherRef __sharedFileWatcher = SharedFileWatcher::Get();
+bool   __isValid(false);
+
+JsonTree::ParseOptions __parseOptions      = GetParseOptions();
+SharedFileWatcherRef   __sharedFileWatcher = SharedFileWatcher::Get();
+
 
 bool GetChild(const JsonTree &parent, const string& key, JsonTree* child, string* msg){
     JsonTree _child;
@@ -113,7 +116,7 @@ bool Config::LoadJson(const string &filepath, string *msg){
         configJson = JsonTree(loadFile(filepath), __parseOptions);
     } catch (JsonTree::ExcJsonParserError& exc) {
         *msg = exc.what();
-        return false;
+        return __isValid = false;
     }
     
     JsonTree nodeWindow;
@@ -124,19 +127,18 @@ bool Config::LoadJson(const string &filepath, string *msg){
         nodeWorld  = configJson.getChild("scene.layer_quote.world");
     } catch (JsonTree::Exception& exc) {
         *msg = exc.what();
-        return false;
+        return __isValid = false;
     }
     
     //
     //  Scene
     //
     
-    
     if(!ParseColor(nodeWorld, "board.diver_field.material.ambient",  &DIVER_FIELD_MATERIAL_AMBIENT, msg) ||
        !ParseColor(nodeWorld, "board.diver_field.material.diffuse",   &DIVER_FIELD_MATERIAL_DIFFUSE, msg) ||
        !ParseColor(nodeWorld, "board.diver_field.material.specular",  &DIVER_FIELD_MATERIAL_SPECULAR, msg) ||
        !ParseFloat(nodeWorld, "board.diver_field.material.shininess", &DIVER_FIELD_MATERIAL_SHININESS, msg)){
-        return false;
+        return __isValid = false;
     }
     
     if(filepath != __filePath){
@@ -146,14 +148,18 @@ bool Config::LoadJson(const string &filepath, string *msg){
         __filePath = filepath;
         __sharedFileWatcher->addFile(__filePath);
     }
-    
-    return true;
+    return __isValid = true;
 }
 
 
 bool Config::DidChange(string* msg){
-    if(!__filePath.empty() && __sharedFileWatcher->fileDidChange(__filePath)){
-        return Config::LoadJson(__filePath, msg);
+    if(__sharedFileWatcher->hasFile(__filePath) &&
+       __sharedFileWatcher->fileDidChange(__filePath)){
+        return LoadJson(__filePath, msg);
     }
     return false;
+}
+
+bool Config::IsValid(){
+    return __isValid;
 }

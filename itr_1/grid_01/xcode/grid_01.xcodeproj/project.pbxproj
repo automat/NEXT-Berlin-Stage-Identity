@@ -105,6 +105,7 @@
 		CDA8942118F41FF100DFF856 /* Lantern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lantern.h; sourceTree = "<group>"; };
 		CDA8942218F4342D00DFF856 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		CDEB4CA818F45A97007E30D9 /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Config.cpp; path = ../src/world/Config.cpp; sourceTree = "<group>"; };
+		CDEB4CAB18F4752A007E30D9 /* ExcInfoPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExcInfoPanel.h; sourceTree = "<group>"; };
 		CDFD26A718F09A6E00598643 /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Colors.h; path = ../include/Colors.h; sourceTree = "<group>"; };
 		CDFD26A818F09A6E00598643 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
 		CDFD26A918F09A6E00598643 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = ../include/Controller.h; sourceTree = "<group>"; };
@@ -160,7 +161,6 @@
 		CDFD26F318F09AB200598643 /* Grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Grid.cpp; sourceTree = "<group>"; };
 		CDFD26F418F09AB200598643 /* Oscillator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Oscillator.cpp; sourceTree = "<group>"; };
 		CDFD26F518F09AB200598643 /* World.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = World.cpp; sourceTree = "<group>"; };
-		CDFD272B18F0A30400598643 /* VboObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VboObj.h; sourceTree = "<group>"; };
 		CDFD272C18F0AB9A00598643 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test.json; path = ../resources/test.json; sourceTree = "<group>"; };
 		CDFD273418F0D11E00598643 /* Apercu_Mono.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Apercu_Mono.otf; sourceTree = "<group>"; };
 		CDFD273518F0D11E00598643 /* transcript_bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = transcript_bold.otf; sourceTree = "<group>"; };
@@ -267,7 +267,6 @@
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				CDFD272A18F0A2F400598643 /* debug */,
 				CDFD26AA18F09A6E00598643 /* layout */,
 				CDFD26B618F09A6E00598643 /* util */,
 				CDFD26C218F09A6E00598643 /* world */,
@@ -360,6 +359,7 @@
 		CDFD26B618F09A6E00598643 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				CDEB4CAB18F4752A007E30D9 /* ExcInfoPanel.h */,
 				CDFD26B718F09A6E00598643 /* ColorUtil.h */,
 				CDFD26B818F09A6E00598643 /* DrawUtil.h */,
 				CDFD26B918F09A6E00598643 /* FileWatcher.h */,
@@ -560,15 +560,6 @@
 				CDFD26F318F09AB200598643 /* Grid.cpp */,
 			);
 			path = grid;
-			sourceTree = "<group>";
-		};
-		CDFD272A18F0A2F400598643 /* debug */ = {
-			isa = PBXGroup;
-			children = (
-				CDFD272B18F0A30400598643 /* VboObj.h */,
-			);
-			name = debug;
-			path = ../include/debug;
 			sourceTree = "<group>";
 		};
 		CDFD273318F0D11E00598643 /* font */ = {

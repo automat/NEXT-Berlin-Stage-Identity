@@ -13,7 +13,9 @@
 #include "Resources.h"
 #include "Config.h"
 #include "util/ShaderUtil.h"
+#include "util/ExcInfoPanel.h"
 #include "layout/quote/QuoteAlign.h"
+
 
 using namespace std;
 using namespace boost::assign;
@@ -41,7 +43,7 @@ Board::Board(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<
             }
         }
         
-        onConfigDidChange();
+        loadFieldMaterials();
         
         setQuote((*mQuotes)[0]);
         
@@ -65,11 +67,12 @@ Board::Board(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<
     
 }
 
-void Board::onConfigDidChange(){
+void Board::loadFieldMaterials(){
     mMaterialDiverFields.setAmbient(  DIVER_FIELD_MATERIAL_AMBIENT);
     mMaterialDiverFields.setDiffuse(  DIVER_FIELD_MATERIAL_DIFFUSE);
     mMaterialDiverFields.setSpecular( DIVER_FIELD_MATERIAL_SPECULAR);
     mMaterialDiverFields.setShininess(DIVER_FIELD_MATERIAL_SHININESS);
+    
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -148,10 +151,6 @@ void Board::draw(const CameraOrtho& camera, bool useMaterialShaders){
 }
 
 void Board::update(){
-    if(Config::DidChange()){
-        onConfigDidChange();
-    }
-    
 #ifdef BOARD_LIVE_EDIT_MATERIAL_SHADER
     utils::watchShaderSource(mSharedFileWatcher,
                              loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
@@ -190,4 +189,13 @@ void Board::setQuote(Quote& quote){
     }
     
     mQuoteCurrent = &quote;
+}
+
+
+/*--------------------------------------------------------------------------------------------*/
+// Config Change Handling
+/*--------------------------------------------------------------------------------------------*/
+
+void Board::onConfigDidChange(){
+    loadFieldMaterials();
 }

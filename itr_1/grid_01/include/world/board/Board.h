@@ -54,8 +54,7 @@ class Board{
     SharedFileWatcherRef mSharedFileWatcher;
 #endif
     
-    
-    void onConfigDidChange();
+    void loadFieldMaterials();
     
     void deleteQuoteFields();
     void deleteDiverFields();
@@ -67,6 +66,8 @@ public:
     Board(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<Quote>* quotes);
     ~Board();
     
+    
+    void onConfigDidChange();
     void draw(const CameraOrtho& camera, bool useMaterialShader);
     void update();
     

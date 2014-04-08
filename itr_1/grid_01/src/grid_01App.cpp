@@ -6,31 +6,30 @@
 #include "Controller.h"
 #include "layout/quote/json/QuoteJson.h"
 #include "layout/quote/json/QuoteParser.h"
+#include "util/ExcInfoPanel.h"
 
 #include "world/World.h"
-
-
-/*--------------------------------------------------------------------------------------------*/
-
 
 using namespace ci;
 using namespace ci::app;
 using namespace std;
+using namespace utils;
+
+string excCatch;
 
 /*--------------------------------------------------------------------------------------------*/
 
 class grid_00App : public AppNative {
-private:
-    bool mValid;
 public:
     void prepareSettings(Settings* settings);
 	void setup();
 	void keyDown( KeyEvent event);
     void update();
 	void draw();
-    
-    WorldRef    mWorld;
-    Controller* mController;
+
+    ExcInfoPanel* mExcPanel;
+    WorldRef      mWorld;
+    Controller*   mController;
 };
 
 /*--------------------------------------------------------------------------------------------*/
@@ -44,36 +43,27 @@ void grid_00App::prepareSettings(Settings* settings){
 }
 
 void grid_00App::setup(){
-    mValid = true;
-   
-    string msg;
+    mExcPanel = new ExcInfoPanel();
     string configFilePath;
     
 #ifdef CONFIG_USE_BAKED
-    configFilePath = app::loadResource(CONFIG_FILE_PATH_BAKED)->getFilePath().string();
+    configFilePath = CONFIG_FILE_PATH_BAKED;
 #else
     configFilePath = app::getAppPath() + "/config.json";
 #endif
 
-    //
-    //  Load config & quote json
-    //
-    
-    if(!Config::LoadJson(configFilePath, &msg)){
-        mValid = false;
-        cout << msg << endl;
-        throw msg; // error panel will open here
+    if(!Config::LoadJson(configFilePath, &excCatch)){
+        mExcPanel->setString(excCatch);
         return;
     }
     
     vector<QuoteJson> quoteData;
-    if(!QuoteParser::LoadJson("/Users/automat/Projects/next/itr_1/grid_01/resources/test.json", &quoteData, &msg)){
-        mValid = false;
-        throw msg;  // error panel will open here
+    if(!QuoteParser::LoadJson("/Users/automat/Projects/next/itr_1/grid_01/resources/test.json", &quoteData, &excCatch)){
+        mExcPanel->setString(excCatch);
         return;
     }
     
-    mWorld       = World::create(quoteData);
+    mWorld      = World::create(quoteData);
     mController = new Controller(mWorld);
 }
 
@@ -82,9 +72,6 @@ void grid_00App::setup(){
 /*--------------------------------------------------------------------------------------------*/
 
 void grid_00App::keyDown( KeyEvent event ){
-    if(!mValid){
-        return;
-    }
     switch (event.getCode()) {
         case KeyEvent::KEY_ESCAPE:
             quit();
@@ -101,19 +88,42 @@ void grid_00App::keyDown( KeyEvent event ){
 /*--------------------------------------------------------------------------------------------*/
 
 void grid_00App::update(){
-    if(!mValid){
-        return;
+    if(Config::DidChange(&excCatch)){
+        cout << Config::IsValid() << endl;
+        if(!Config::IsValid()){
+            mExcPanel->setString(excCatch);
+        } else {
+            mExcPanel->clear();
+        }
     }
-    mWorld->update();
+    
+   /*
+    string str;
+    if(Config::DidChange(&str)){
+        // error panel will open here after checking if change was valid
+        mWorld->onConfigDidChange();
+    }
+    
+    if(Config::IsValid()){
+        cout << "hell" << endl;
+    */
+     //   mWorld->update();
+    /*
+    } else {
+        mExcPanel->setString(str);
+    }*/
 }
 
 void grid_00App::draw(){
-    if(!mValid){
-        return;
-    }
-	// clear out the window with black
-	gl::clear( Color( 0, 0, 0 ) );
-    mWorld->draw();
+    gl::clear( Color( 0, 0, 0 ) );
+    /*
+    if(Config::IsValid()){*/
+     //   mWorld->draw();
+    /*} else {
+        mExcPanel->draw();
+    }*/
+    
+    mExcPanel->draw();
 }
 
 CINDER_APP_NATIVE( grid_00App, RendererGl )

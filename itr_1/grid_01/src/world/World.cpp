@@ -401,8 +401,9 @@ void World::processScene(){
 #endif
 }
 
+
 /*--------------------------------------------------------------------------------------------*/
-//  Update / Draw
+//  Update
 /*--------------------------------------------------------------------------------------------*/
 
 void World::update(){
@@ -432,6 +433,11 @@ void World::update(){
     mBoard->update();
 }
 
+
+/*--------------------------------------------------------------------------------------------*/
+//  Draw
+/*--------------------------------------------------------------------------------------------*/
+
 void World::draw(){
     //  Process scene fx pipe
     processScene();
@@ -446,20 +452,14 @@ void World::draw(){
     gl::draw(mFboScene.getTexture(), mFboScene.getBounds());
 #endif
     
-    
-    const static Vec2i windowSize(app::getWindowSize());
-    
-    gl::disableDepthRead();
-    glColor3f(1,1,1);
-    //gl::draw(mFboBlurV.getTexture(),       mFboScene.getBounds());
-    //gl::draw(mS.getTexture(), mFboNormalDepth.getBounds());
-    //gl::draw(mFboNormal.getTexture(),      mFboNormal.getBounds());
 #ifdef DEBUG_WORLD_TYPESETTER_TEXTURE
-    gl::setMatricesWindow(windowSize);
+    gl::disableDepthRead();
+    glColor3f(1, 1, 1);
     const Quote* quote = mBoard->getCurrentQuote();
     if(quote != nullptr){
         gl::draw(quote->getTexture(),Rectf(windowSize.x - 256, 0, windowSize.x, 256));
     }
+    gl::enableDepthRead();
 #endif
     
     gl::popMatrices();
@@ -491,6 +491,10 @@ void World::viewOrtho(){
 /*--------------------------------------------------------------------------------------------*/
 //  Control
 /*--------------------------------------------------------------------------------------------*/
+
+void World::onConfigDidChange(){
+    
+}
 
 void World::wakeUp(){
     
