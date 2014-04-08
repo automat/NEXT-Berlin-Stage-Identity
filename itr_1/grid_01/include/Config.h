@@ -8,28 +8,37 @@
 
 #pragma once
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  Oberall
+//
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 /*--------------------------------------------------------------------------------------------*/
-// Overall
+// Stage
 /*--------------------------------------------------------------------------------------------*/
 
 #define STAGE_WIDTH  3552
 #define STAGE_HEIGHT 1105
 #define STAGE_SCALE  1
 
+/*--------------------------------------------------------------------------------------------*/
+// App
+/*--------------------------------------------------------------------------------------------*/
+
 #define APP_WIDTH  STAGE_WIDTH / STAGE_SCALE
 #define APP_HEIGHT STAGE_HEIGHT / STAGE_SCALE
 #define APP_FPS 36.0f
-
 
 //#define DEBUG_SINGLE_DIVER_FIELD
 //#define DEBUG_SINGLE_QUOTE_FIELD
 
 
-
- 
-/*--------------------------------------------------------------------------------------------*/
-// World
-/*--------------------------------------------------------------------------------------------*/
+////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  World
+//
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 #define WORLD_MODEL_SCALE_MIN 0.65f
 #define WORLD_MODEL_SCALE WORLD_MODEL_SCALE_MIN
@@ -63,7 +72,6 @@
 /*--------------------------------------------------------------------------------------------*/
 
 #define BOARD_LIVE_EDIT_MATERIAL_SHADER
-
 
 //#define BOARD_SKIP_DRAW_FIELD_DIVER
 //#define BOARD_SKIP_DRAW_QUOTE_DIVER
@@ -103,7 +111,7 @@
 /*--------------------------------------------------------------------------------------------*/
 
 #define DIVER_FIELD_NUM_DIVERS_MIN 10
-#define DIVER_FIELD_NUM_DIVERS_MAX 50
+#define DIVER_FIELD_NUM_DIVERS_MAX 40
 #define DIVER_FIELD_SURFACE_PATH_DENSITY 1.25f
 #define DIVER_FIELD_SURFACE_PATH_OFFSET_SPEED  0.001f //0.0125f
 #define DIVER_FIELD_SURFACE_PATH_AMPLITUDE 0.65f//0.325f
@@ -126,7 +134,7 @@
 /*--------------------------------------------------------------------------------------------*/
 
 #define QUOTE_FIELD_NUM_DIVERS_MIN 10//10
-#define QUOTE_FIELD_NUM_DIVERS_MAX 50//50
+#define QUOTE_FIELD_NUM_DIVERS_MAX 30//50
 #define QUOTE_FIELD_SURFACE_PATH_DENSITY 0.75f
 #define QUOTE_FIELD_SURFACE_PATH_OFFSET_SPEED   0.0075f
 #define QUOTE_FIELD_SURFACE_PATH_AMPLITUDE 0.55f//0.25f//0.125f//0.325f
