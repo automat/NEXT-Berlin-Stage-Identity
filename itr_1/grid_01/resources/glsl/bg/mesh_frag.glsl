@@ -5,7 +5,7 @@ vec4 toColor_255(int r, int g, int b, float a){
 	return vec4(float(r) / 255.0, float(g) / 255.0, float(b) / 255.0, a);
 }
 
-vec3 lightPos      = vec3(-2,-5,-10);
+vec3 lightPos      = vec3(-2,-5,-5);
 
 vec4 lightAmbient  = vec4(0,0,0,1);
 vec4 lightDiffuse  = vec4(0.25,0.45,0.5,1);
@@ -30,13 +30,13 @@ void main(){
 
 	vec4 ambient = frontLightProduct_ambient;
 	
-	vec4 diffuse = frontLightProduct_diffuse;
+	vec4 diffuse  = frontLightProduct_diffuse;
          diffuse *= max(dot(vNormal,L),0.0);
          diffuse  = clamp(diffuse,0.0,1.0);
 
-	vec4 specular = frontLightProduct_specular;
+	vec4 specular  = frontLightProduct_specular;
          specular *= pow(max(dot(R,E),0.0), matShininess);
-         specular = clamp(specular, 0.0, 1.0);
+         specular  = clamp(specular, 0.0, 1.0);
 
     
 	vec4 resNormal = vec4(normalize(vNormal) * 0.5 + vec3(0.5),1.0);
