@@ -18,11 +18,132 @@
 using namespace boost::assign;
 
 Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int width, int height){
-    mTransform = Matrix44f::createTranslation(Vec3f::yAxis() * -0.05f);
+    mOsc = osc;
+    mTransform = Matrix44f::createTranslation(Vec3f::yAxis() * -0.5f);
     
-    /*--------------------------------------------------------------------------------------------*/
-    // setup mesh
-    /*--------------------------------------------------------------------------------------------*/
+    vector<Vec3f>&    vertices = mMesh.getVertices();
+    vector<uint32_t>& indices  = mMesh.getIndices();
+    vector<Vec3f>&    normals  = mMesh.getNormals();
+    
+    const vector<Cell*>& gridCells = grid->getCells();
+    for(vector<Cell*>::const_iterator itr = gridCells.begin(); itr != gridCells.end(); ++itr){
+        vertices += (*itr)->getCenter();
+        normals  += Vec3f();
+    }
+    
+    int gridSizeX = grid->getNumCellsX();
+    int gridSizeY = grid->getNumCellsY();
+    int j, i = -1;
+    int index_0_0, index_1_0, index_0_1, index_1_1;
+    while (++i < gridSizeY - 1) {
+        j = -1;
+        while(++j < gridSizeX - 1 ){
+            index_0_0 = i * gridSizeX + j;          // 0
+            index_1_0 = index_0_0 + 1;              // 1
+            index_1_1 = index_0_0 + gridSizeX + 1;  // 2
+            index_0_1 = index_0_0 + gridSizeX;      // 3
+            
+            indices += index_0_0, index_1_0, index_1_1;
+            indices += index_1_1, index_0_1, index_0_0;
+        }
+    }
+    
+    //
+    //  A little noise
+    //
+    float scale  = 0.5f;
+    float factor = 0.5f;
+    float angle  = 0.0125f;
+    
+    i = -1;
+    while(++i < vertices.size()){
+        Vec3f& vertex = vertices[i];
+        vertex.y = osc->getValue(vertex.x * scale, vertex.z * scale, angle) * factor;
+    }
+   
+    utils::subdivide(vertices, indices, 1);
+
+    i = -1;
+    while(++i < vertices.size()){
+        Vec3f& vertex = vertices[i];
+        vertex.y = osc->getValue(vertex.x * scale, vertex.z * scale, angle) * factor;
+    }
+
+    
+    //utils::genUniqueFaces(vertices, indices, normals);
+    
+    mMesh.recalculateNormals();
+    
+    mSharedFileWatcher = SharedFileWatcher::Get();
+    utils::loadShader(loadFile(RES_ABS_GLSL_BG_MESH_VERT),
+                      loadFile(RES_ABS_GLSL_BG_MESH_FRAG),
+                      &mShaderMesh);
+}
+
+void Background::draw(){
+    
+    glPushMatrix();
+    glMultMatrixf(&mTransform[0]);
+    mShaderMesh.bind();
+    mShaderMesh.uniform("uColor0", COLOR_BLUE_0);
+    mShaderMesh.uniform("uColor1", COLOR_BLUE_1);
+    mShaderMesh.uniform("uColor2", COLOR_BLUE_2);
+   
+    gl::draw(mMesh);
+    
+    mShaderMesh.unbind();
+    glPopMatrix();
+   
+    
+    
+}
+
+void Background::update(Oscillator* osc, float t){
+    float scale  = 0.5f;
+    float factor = 0.5f;
+    float angle  = 0.0125f;
+    t *= 0.125f;
+    
+    vector<Vec3f>& vertices = mMesh.getVertices();
+    int i = -1;
+    i = -1;
+    while(++i < vertices.size()){
+        Vec3f& vertex = vertices[i];
+        vertex.y = mOsc->getValue(vertex.x * scale, vertex.z * scale + t, angle) * factor;
+    }
+    
+    mMesh.recalculateNormals();
+    
+    
+#ifdef BACKGROUND_LIVE_EDIT_SHADER
+    /*
+    if(utils::watchShaderSource(mSharedFileWatcher,
+                                loadFile(RES_ABS_GLSL_PASS_THRU_VERT),
+                                loadFile(RES_ABS_GLSL_BG_GRADIENT_FRAG),
+                                &mShaderGradient) ||
+     */
+     utils::watchShaderSource(mSharedFileWatcher,
+                                loadFile(RES_ABS_GLSL_BG_MESH_VERT),
+                                loadFile(RES_ABS_GLSL_BG_MESH_FRAG),
+                              &mShaderMesh);// ||
+
+    /*
+    utils::watchShaderSource(mSharedFileWatcher,
+                                loadFile(RES_ABS_GLSL_PASS_THRU_VERT),
+                                loadFile(RES_ABS_GLSL_BG_MIX_FRAG),
+                                &mShaderMix)){
+           mTextureIsDirty = true;
+       }*/
+#endif
+    
+}
+
+
+/*
+using namespace boost::assign;
+
+Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int width, int height){
+    mTransform = Matrix44f::createTranslation(Vec3f::yAxis() * -0.05f);
 
     vector<Vec3f>&    vertices = mMesh.getVertices();
     vector<uint32_t>& indices  = mMesh.getIndices();
@@ -46,13 +167,11 @@ Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int 
             index_1_1 = index_0_0 + gridSizeX + 1;  // 2
             index_0_1 = index_0_0 + gridSizeX;      // 3
             
-            
             indices += index_0_0, index_1_0, index_1_1;
-            //indices += index_0_0, index_1_1, index_0_1;
             indices += index_1_1, index_0_1, index_0_0;
-            //indices += index_0_1, index_1_1, index_0_0;
         }
     }
+    
     //
     //  A little noise
     //
@@ -71,10 +190,6 @@ Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int 
     utils::genUniqueFaces(vertices, indices, normals);
     
     mMesh.recalculateNormals();
-    
-    /*--------------------------------------------------------------------------------------------*/
-    // setup shaders
-    /*--------------------------------------------------------------------------------------------*/
 
 #ifdef BACKGROUND_LIVE_EDIT_SHADER
     mSharedFileWatcher = SharedFileWatcher::Get();
@@ -113,9 +228,6 @@ Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int 
     
 }
 
-/*--------------------------------------------------------------------------------------------*/
-// draw / update
-/*--------------------------------------------------------------------------------------------*/
 
 void Background::draw(){
     if(mTextureIsDirty){
@@ -160,9 +272,7 @@ void Background::update(){
 }
 
 
-/*--------------------------------------------------------------------------------------------*/
-// Texture
-/*--------------------------------------------------------------------------------------------*/
+
 
 
 void Background::renderGradient(){
@@ -198,3 +308,4 @@ void Background::renderMesh(){
 void Background::renderTexture(){
     mTexture = mFboGradient.getTexture();
 }
+ */

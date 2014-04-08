@@ -12,7 +12,7 @@ const float falloff = 0.0;
 const float rad = 0.00125;
 
 #define SAMPLES 10 // 10 is good
-const float invSamples = -1.0/10.0;
+const float invSamples = -0.5/10.0;
 
 
 float rand(vec2 co){

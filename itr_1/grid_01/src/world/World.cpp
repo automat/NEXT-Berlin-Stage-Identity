@@ -90,8 +90,11 @@ World::World(const vector<QuoteJson>& quoteData){
     //  Fbo + Post Process
     /*--------------------------------------------------------------------------------------------*/
 
-    gl::Fbo::Format fboFormat;
-    fboFormat.setSamples(4);
+    gl::Fbo::Format fboFormat_4;
+    fboFormat_4.setSamples(4);
+    
+    gl::Fbo::Format fboFormat_2;
+    fboFormat_2.setSamples(2);
     
     mFboSize_1      = windowSize;
 #ifndef WORLD_SKIP_FX_SHADER
@@ -104,13 +107,13 @@ World::World(const vector<QuoteJson>& quoteData){
     mFboTexelSize_1 = Vec2f(1.0f / float(mFboSize_1.x), 1.0f / float(mFboSize_1.y));
     mFboTexelSize_2 = Vec2f(1.0f / float(mFboSize_2.x), 1.0f / float(mFboSize_2.y));
     
-    mFboSceneSSAO   = gl::Fbo(mFboSize_1.x, mFboSize_1.y,   fboFormat);
-    mFboPingPong_1  = PingPongFbo(mFboSize_1.x, mFboSize_1.y, fboFormat);
-    mFboPingPong_2  = PingPongFbo(mFboSize_2.x, mFboSize_2.y, fboFormat);
-    mFboSceneFinal  = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat);
+    mFboSceneSSAO   = gl::Fbo(mFboSize_1.x, mFboSize_1.y,   fboFormat_4);
+    mFboPingPong_1  = PingPongFbo(mFboSize_1.x, mFboSize_1.y, fboFormat_4);
+    mFboPingPong_2  = PingPongFbo(mFboSize_2.x, mFboSize_2.y, fboFormat_2);
+    mFboSceneFinal  = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_4);
 #endif
     
-    mFboScene       = gl::Fbo(mFboSize_1.x, mFboSize_1.y,   fboFormat);
+    mFboScene       = gl::Fbo(mFboSize_1.x, mFboSize_1.y,   fboFormat_4);
     
 #if defined(WORLD_LIVE_EDIT_FX_SHADER) && !defined(WORLD_SKIP_FX_SHADER)
     mSharedFileWatcher = SharedFileWatcher::Get();
@@ -177,7 +180,6 @@ void World::drawScene(bool useMaterialShaders){
     gl::pushMatrices();
     gl::setMatrices(mCamera);
     
-    mBackground->draw();
     
 #ifdef DEBUG_WORLD_CAM_FRUSTUM
     mFrustum.draw();
@@ -187,7 +189,7 @@ void World::drawScene(bool useMaterialShaders){
 #ifdef DEBUG_WORLD_COORDINATE_FRAME
     gl::drawCoordinateFrame();
 #endif
-
+    mBackground->draw();
     mBoard->draw(mCamera,useMaterialShaders);
 
 #ifdef DEBUG_WORLD_GRID_DRAW_INDICES
@@ -416,6 +418,7 @@ void World::update(){
                              loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
                              &mShaderMixRadial);
 #endif
+    mBackground->update(mOscillator,app::getElapsedSeconds());
     mBoard->update();
 }
 

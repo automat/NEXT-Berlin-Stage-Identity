@@ -34,6 +34,25 @@ class Background {
     Oscillator*  mOsc;
     TriMesh      mMesh;
     Matrix44f    mTransform;
+    
+    gl::GlslProg mShaderMesh;
+    
+#ifdef BACKGROUND_LIVE_EDIT_SHADER
+    SharedFileWatcherRef mSharedFileWatcher;
+#endif
+    
+public:
+    Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int width, int height);
+    void draw();
+    void update(Oscillator* osc, float t);
+};
+
+/*
+using namespace ci;
+class Background {
+    Oscillator*  mOsc;
+    TriMesh      mMesh;
+    Matrix44f    mTransform;
 
     gl::Fbo      mFboGradient;
     gl::GlslProg mShaderGradient;
@@ -63,5 +82,6 @@ public:
     void update();
 
 };
+ */
 
 #endif
