@@ -12,11 +12,16 @@ JsonTree::ParseOptions GetParseOptions(){
 // lifetime = application time
 
 bool   __init;
-string __filePath;
+string __filePath("");
 bool   __isValid(false);
+bool   __isValidInit(false);
 
 JsonTree::ParseOptions __parseOptions      = GetParseOptions();
 SharedFileWatcherRef   __sharedFileWatcher = SharedFileWatcher::Get();
+
+/*--------------------------------------------------------------------------------------------*/
+//	Helper
+/*--------------------------------------------------------------------------------------------*/
 
 
 bool GetChild(const JsonTree &parent, const string& key, JsonTree* child, string* msg){
@@ -110,6 +115,10 @@ bool ParseFloat(const cinder::JsonTree & parent, const string& key, float* value
 }
 
 
+/*--------------------------------------------------------------------------------------------*/
+//	Load
+/*--------------------------------------------------------------------------------------------*/
+
 bool Config::LoadJson(const string &filepath, string *msg){
     JsonTree configJson;
     try {
@@ -147,17 +156,25 @@ bool Config::LoadJson(const string &filepath, string *msg){
         }
         __filePath = filepath;
         __sharedFileWatcher->addFile(__filePath);
+        __isValidInit = true;
     }
     return __isValid = true;
 }
 
+bool Config::Reload(string* msg){
+    return LoadJson(__filePath, msg);
+}
 
-bool Config::DidChange(string* msg){
-    if(__sharedFileWatcher->hasFile(__filePath) &&
-       __sharedFileWatcher->fileDidChange(__filePath)){
-        return LoadJson(__filePath, msg);
+
+/*--------------------------------------------------------------------------------------------*/
+//	Check state
+/*--------------------------------------------------------------------------------------------*/
+
+bool Config::DidChange(){
+    if(!__isValidInit){
+        return false;
     }
-    return false;
+    return __sharedFileWatcher->fileDidChange(__filePath);
 }
 
 bool Config::IsValid(){

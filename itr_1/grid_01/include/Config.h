@@ -197,7 +197,8 @@ using namespace ci;
 class Config {
 public:
     static bool LoadJson(const string& filepath, string* msg);
-    static bool DidChange(string* msg);
+    static bool Reload(string* msg);
+    static bool DidChange();
     static bool IsValid();
 };
 

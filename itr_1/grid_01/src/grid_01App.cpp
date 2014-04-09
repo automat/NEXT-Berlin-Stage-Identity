@@ -79,6 +79,9 @@ void grid_00App::keyDown( KeyEvent event ){
         default:
             break;
     }
+    if(!Config::IsValid()){
+        return;
+    }
     
     mController->keyDown(event);
 }
@@ -88,42 +91,30 @@ void grid_00App::keyDown( KeyEvent event ){
 /*--------------------------------------------------------------------------------------------*/
 
 void grid_00App::update(){
-    if(Config::DidChange(&excCatch)){
-        cout << Config::IsValid() << endl;
-        if(!Config::IsValid()){
-            mExcPanel->setString(excCatch);
-        } else {
+    if(Config::DidChange()){
+        Config::Reload(&excCatch);
+        if(Config::IsValid()){
+            mWorld->onConfigDidChange();
             mExcPanel->clear();
+        } else {
+            mExcPanel->setString(excCatch);
         }
     }
-    
-   /*
-    string str;
-    if(Config::DidChange(&str)){
-        // error panel will open here after checking if change was valid
-        mWorld->onConfigDidChange();
+    if(!Config::IsValid()){
+        return;
     }
     
-    if(Config::IsValid()){
-        cout << "hell" << endl;
-    */
-     //   mWorld->update();
-    /*
-    } else {
-        mExcPanel->setString(str);
-    }*/
+    mWorld->update();
 }
 
 void grid_00App::draw(){
     gl::clear( Color( 0, 0, 0 ) );
-    /*
-    if(Config::IsValid()){*/
-     //   mWorld->draw();
-    /*} else {
+    if(!Config::IsValid()){
         mExcPanel->draw();
-    }*/
+        return;
+    }
     
-    mExcPanel->draw();
+    mWorld->draw();
 }
 
 CINDER_APP_NATIVE( grid_00App, RendererGl )
