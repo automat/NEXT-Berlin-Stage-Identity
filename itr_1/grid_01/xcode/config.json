@@ -55,8 +55,8 @@
 				//
 				"light" : {
 					"lantern_0" : {
-						"debug_draw" : true,
-						"direction"  : [0,1.0,1],
+						"debug_draw" : false,
+						"direction"  : [-6,1.0,1],
 						"ambient"    : [1,1,1],
 						"diffuse"    : [1,1,1],
 						"specular"   : [1,1,1],
