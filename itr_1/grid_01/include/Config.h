@@ -33,7 +33,7 @@ using namespace ci;
 
 #define STAGE_WIDTH  3552
 #define STAGE_HEIGHT 1105
-#define STAGE_SCALE  2
+#define STAGE_SCALE  1
 
 /*--------------------------------------------------------------------------------------------*/
 // App
@@ -69,13 +69,23 @@ using namespace ci;
 
 //#define WORLD_SKIP_FX_SHADER
 #define WORLD_LIVE_EDIT_FX_SHADER
-#define WORLD_FX_SHADER_BLUR_SCALE 1.0f
-#define WORLD_FX_SHADER_BLUR_RADIAL_SCALE 2.0f
+//#define WORLD_FX_SHADER_BLUR_SCALE 1.0f
+//#define WORLD_FX_SHADER_BLUR_RADIAL_SCALE 2.0f
 
-static Colorf WORLD_LANTERN_0_COLOR_AMBIENT;
-static Colorf WORLD_LANTERN_0_COLOR_DIFFUSE;
-static Colorf WORLD_LANTERN_0_COLOR_SPECULAR;
+extern float  WORLD_FX_SHADER_BLUR_SCALE;
+extern float  WORLD_FX_SHADER_BLUR_RADIAL_SCALE;
+extern float  WORLD_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE;
 
+extern Vec3f  WORLD_LANTERN_0_DIRECTION;
+extern Colorf WORLD_LANTERN_0_COLOR_AMBIENT;
+extern Colorf WORLD_LANTERN_0_COLOR_DIFFUSE;
+extern Colorf WORLD_LANTERN_0_COLOR_SPECULAR;
+extern float  WORLD_LANTERN_0_ATTENUATION;
+extern float  WORLD_LANTERN_0_CONSTANT_ATTENUATION;
+extern float  WORLD_LANTERN_0_LINEAR_ATTENUATION;
+extern float  WORLD_LANTERN_0_QUADRIC_ATTENUATION;
+
+extern bool   WORLD_LANTERN_0_DEBUG_DRAW;
 
 #define DEBUG_WORLD_TYPESETTER_TEXCOORDS
 #define DEBUG_WORLD_TYPESETTER
@@ -92,8 +102,8 @@ static Colorf WORLD_LANTERN_0_COLOR_SPECULAR;
 
 #define BOARD_LIVE_EDIT_MATERIAL_SHADER
 
-#define BOARD_SKIP_DRAW_FIELD_DIVER
-#define BOARD_SKIP_DRAW_QUOTE_DIVER
+//#define BOARD_SKIP_DRAW_FIELD_DIVER
+//#define BOARD_SKIP_DRAW_QUOTE_DIVER
 
 //#define DEBUG_BOARD_FIELD_DIVER_PATH_SURFACE
 //#define DEBUG_BOARD_FIELD_DIVER
@@ -119,7 +129,7 @@ static Colorf WORLD_LANTERN_0_COLOR_SPECULAR;
 /*--------------------------------------------------------------------------------------------*/
 
 #define PATH_SLICE_NUM_POINTS 40
-
+extern ColorAf PATH_SURFACE_COLOR;
 
 /*--------------------------------------------------------------------------------------------*/
 // Abstract Field
@@ -149,11 +159,10 @@ static Colorf WORLD_LANTERN_0_COLOR_SPECULAR;
 
 #define DIVER_FIELD_PUT_NORMAL_COLORS
 
-static ColorAf DIVER_FIELD_MATERIAL_AMBIENT;
-static ColorAf DIVER_FIELD_MATERIAL_DIFFUSE;
-static ColorAf DIVER_FIELD_MATERIAL_SPECULAR;
-static float   DIVER_FIELD_MATERIAL_SHININESS;
-
+extern ColorAf DIVER_FIELD_MATERIAL_AMBIENT;
+extern ColorAf DIVER_FIELD_MATERIAL_DIFFUSE;
+extern ColorAf DIVER_FIELD_MATERIAL_SPECULAR;
+extern float   DIVER_FIELD_MATERIAL_SHININESS;
 
 /*--------------------------------------------------------------------------------------------*/
 // QuoteField
@@ -176,10 +185,10 @@ static float   DIVER_FIELD_MATERIAL_SHININESS;
 #define QUOTE_FIELD_DIVER_MIN_LENGTH 1.0f//0.1f
 #define QUOTE_FIELD_DIVER_MAX_LENGTH 1.0f//0.275f
 
-static ColorAf QUOTE_FIELD_MATERIAL_AMBIENT;
-static ColorAf QUOTE_FIELD_MATERIAL_DIFFUSE;
-static ColorAf QUOTE_FIELD_MATERIAL_SPECULAR;
-static float   QUOTE_FIELD_MATERIAL_SHININESS;
+extern ColorAf QUOTE_FIELD_MATERIAL_AMBIENT;
+extern ColorAf QUOTE_FIELD_MATERIAL_DIFFUSE;
+extern ColorAf QUOTE_FIELD_MATERIAL_SPECULAR;
+extern float   QUOTE_FIELD_MATERIAL_SHININESS;
 
 //#define QUOTE_FIELD_PUT_NORMAL_COLORS
 

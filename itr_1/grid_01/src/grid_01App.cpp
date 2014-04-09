@@ -27,6 +27,7 @@ public:
     void update();
 	void draw();
 
+    bool          mValidInit;
     ExcInfoPanel* mExcPanel;
     WorldRef      mWorld;
     Controller*   mController;
@@ -56,7 +57,7 @@ void grid_00App::setup(){
         mExcPanel->setString(excCatch);
         return;
     }
-    
+        
     vector<QuoteJson> quoteData;
     if(!QuoteParser::LoadJson("/Users/automat/Projects/next/itr_1/grid_01/resources/test.json", &quoteData, &excCatch)){
         mExcPanel->setString(excCatch);

@@ -85,7 +85,7 @@ void PathSurface::update(Oscillator* osc, const Vec3f& pos, float density, float
 void PathSurface::drawSurface(){
     static const Vec3f zero;
     
-    glColor3f(0.675,0,0.675);
+    gl::color(PATH_SURFACE_COLOR);
     glPointSize(2);
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, &mPoints[0].x);

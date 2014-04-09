@@ -52,6 +52,7 @@ class World {
     FrustumOrtho mFrustum;
     
     Lantern*     mLantern;
+    bool         mLanternDebugDraw;
     
     Oscillator*      mOscillator;
     Background*      mBackground;
@@ -91,6 +92,8 @@ class World {
 
     void drawScene(bool useMaterialShaders);
     void processScene();
+    
+    void loadLightProperties();
     
 public:
     World(const vector<QuoteJson>& quoteData);

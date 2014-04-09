@@ -1,5 +1,7 @@
 #include "Config.h"
 #include "util/SharedFileWatcher.h"
+#include <map>
+#include <boost/variant.hpp>
 
 
 //  naaak
@@ -23,7 +25,6 @@ SharedFileWatcherRef   __sharedFileWatcher = SharedFileWatcher::Get();
 //	Helper
 /*--------------------------------------------------------------------------------------------*/
 
-
 bool GetChild(const JsonTree &parent, const string& key, JsonTree* child, string* msg){
     JsonTree _child;
     try {
@@ -36,7 +37,7 @@ bool GetChild(const JsonTree &parent, const string& key, JsonTree* child, string
     return true;
 }
 
-bool ParseColor(const cinder::JsonTree &parent, const string &key, Colorf *color, string *msg){
+bool Parse(const cinder::JsonTree &parent, const string &key, Colorf *color, string *msg){
     JsonTree node;
     if(!GetChild(parent, key, &node, msg)){
         return false;
@@ -56,7 +57,7 @@ bool ParseColor(const cinder::JsonTree &parent, const string &key, Colorf *color
     return true;
 }
 
-bool ParseColor(const cinder::JsonTree &parent, const string &key, ColorAf *color, string *msg){
+bool Parse(const cinder::JsonTree &parent, const string &key, ColorAf *color, string *msg){
     JsonTree node;
     if(!GetChild(parent, key, &node, msg)){
         return false;
@@ -72,12 +73,11 @@ bool ParseColor(const cinder::JsonTree &parent, const string &key, ColorAf *colo
         *msg = exc.what();
         return false;
     }
-    
-    *color = _color;
+    color->set(_color);
     return true;
 }
 
-bool ParseVec3f(const cinder::JsonTree &parent, const string &key, Vec3f *vec3f, string *msg){
+bool Parse(const cinder::JsonTree &parent, const string &key, Vec3f *vec3f, string *msg){
     JsonTree node;
     if(!GetChild(parent, key, &node, msg)){
         return false;
@@ -97,7 +97,7 @@ bool ParseVec3f(const cinder::JsonTree &parent, const string &key, Vec3f *vec3f,
     return true;
 }
 
-bool ParseFloat(const cinder::JsonTree & parent, const string& key, float* value, string* msg){
+bool Parse(const cinder::JsonTree & parent, const string& key, float* value, string* msg){
     JsonTree node;
     if(!GetChild(parent, key, &node, msg)){
         return false;
@@ -114,10 +114,48 @@ bool ParseFloat(const cinder::JsonTree & parent, const string& key, float* value
     return true;
 }
 
+bool Parse(const cinder::JsonTree& parent, const string& key, bool* value, string* msg){
+    JsonTree node;
+    if(!GetChild(parent, key, &node, msg)){
+        return false;
+    }
+    bool _value;
+    try {
+        _value = node.getValue<bool>();
+    } catch (JsonTree::Exception& exc) {
+        *msg = exc.what();
+        return false;
+    }
+    
+    *value = _value;
+    return true;
+};
+
 
 /*--------------------------------------------------------------------------------------------*/
 //	Load
 /*--------------------------------------------------------------------------------------------*/
+
+float   WORLD_FX_SHADER_BLUR_SCALE;
+float   WORLD_FX_SHADER_BLUR_RADIAL_SCALE;
+float   WORLD_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE;
+
+ColorAf PATH_SURFACE_COLOR;
+
+ColorAf DIVER_FIELD_MATERIAL_AMBIENT;
+ColorAf DIVER_FIELD_MATERIAL_DIFFUSE;
+ColorAf DIVER_FIELD_MATERIAL_SPECULAR;
+float   DIVER_FIELD_MATERIAL_SHININESS;
+
+Vec3f   WORLD_LANTERN_0_DIRECTION;
+Colorf  WORLD_LANTERN_0_COLOR_AMBIENT;
+Colorf  WORLD_LANTERN_0_COLOR_DIFFUSE;
+Colorf  WORLD_LANTERN_0_COLOR_SPECULAR;
+float   WORLD_LANTERN_0_ATTENUATION;
+float   WORLD_LANTERN_0_CONSTANT_ATTENUATION;
+float   WORLD_LANTERN_0_LINEAR_ATTENUATION;
+float   WORLD_LANTERN_0_QUADRIC_ATTENUATION;
+bool    WORLD_LANTERN_0_DEBUG_DRAW;
 
 bool Config::LoadJson(const string &filepath, string *msg){
     JsonTree configJson;
@@ -140,16 +178,41 @@ bool Config::LoadJson(const string &filepath, string *msg){
     }
     
     //
-    //  Scene
+    //  Parse Scene
     //
     
-    if(!ParseColor(nodeWorld, "board.diver_field.material.ambient",  &DIVER_FIELD_MATERIAL_AMBIENT, msg) ||
-       !ParseColor(nodeWorld, "board.diver_field.material.diffuse",   &DIVER_FIELD_MATERIAL_DIFFUSE, msg) ||
-       !ParseColor(nodeWorld, "board.diver_field.material.specular",  &DIVER_FIELD_MATERIAL_SPECULAR, msg) ||
-       !ParseFloat(nodeWorld, "board.diver_field.material.shininess", &DIVER_FIELD_MATERIAL_SHININESS, msg)){
+    if(!Parse(nodeWorld, "shader_fx.blur_scale",               &WORLD_FX_SHADER_BLUR_SCALE,               msg) ||
+       !Parse(nodeWorld, "shader_fx.blur_scale_radial",        &WORLD_FX_SHADER_BLUR_RADIAL_SCALE,        msg) ||
+       !Parse(nodeWorld, "shader_fx.blur_radial_radius_scale", &WORLD_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE, msg) ||
+       
+       /*--------------------------------------------------------------------------------------------*/
+       //	World Lantern 0
+       /*--------------------------------------------------------------------------------------------*/
+       !Parse(nodeWorld, "light.lantern_0.direction",              &WORLD_LANTERN_0_DIRECTION, msg) ||
+       !Parse(nodeWorld, "light.lantern_0.ambient",               &WORLD_LANTERN_0_COLOR_AMBIENT,        msg) ||
+       !Parse(nodeWorld, "light.lantern_0.diffuse",               &WORLD_LANTERN_0_COLOR_DIFFUSE,        msg) ||
+       !Parse(nodeWorld, "light.lantern_0.specular",              &WORLD_LANTERN_0_COLOR_SPECULAR,       msg) ||
+       !Parse(nodeWorld, "light.lantern_0.attenuation",           &WORLD_LANTERN_0_ATTENUATION,          msg) ||
+       !Parse(nodeWorld, "light.lantern_0.constant_attenuation",  &WORLD_LANTERN_0_CONSTANT_ATTENUATION, msg) ||
+       !Parse(nodeWorld, "light.lantern_0.linear_attenuation",    &WORLD_LANTERN_0_LINEAR_ATTENUATION,   msg) ||
+       !Parse(nodeWorld, "light.lantern_0.quadric_attenuation",   &WORLD_LANTERN_0_QUADRIC_ATTENUATION,  msg) ||
+       !Parse(nodeWorld, "light.lantern_0.debug_draw",            &WORLD_LANTERN_0_DEBUG_DRAW,           msg) ||
+       
+       /*--------------------------------------------------------------------------------------------*/
+       //	Path Surface
+       /*--------------------------------------------------------------------------------------------*/
+       !Parse(nodeWorld, "board.path_surface.color", &PATH_SURFACE_COLOR, msg) ||
+       
+       /*--------------------------------------------------------------------------------------------*/
+       //   Diver Field Material
+       /*--------------------------------------------------------------------------------------------*/
+       !Parse(nodeWorld, "board.diver_field.material.ambient",   &DIVER_FIELD_MATERIAL_AMBIENT,   msg) ||
+       !Parse(nodeWorld, "board.diver_field.material.diffuse",   &DIVER_FIELD_MATERIAL_DIFFUSE,   msg) ||
+       !Parse(nodeWorld, "board.diver_field.material.specular",  &DIVER_FIELD_MATERIAL_SPECULAR,  msg) ||
+       !Parse(nodeWorld, "board.diver_field.material.shininess", &DIVER_FIELD_MATERIAL_SHININESS, msg)){
         return __isValid = false;
     }
-    
+
     if(filepath != __filePath){
         if(!__filePath.empty() && __sharedFileWatcher->hasFile(__filePath)){
             __sharedFileWatcher->removeFile(__filePath);

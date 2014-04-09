@@ -33,7 +33,9 @@ World::World(const vector<QuoteJson>& quoteData){
     mTransform  = Matrix44f::createScale(Vec3f(mModelScale,mModelScale,mModelScale));
     mFrustum.set(mCamera);
     
-    mLantern = new Lantern(0);
+    mLantern          = new Lantern(0);
+    mLanternDebugDraw = false;
+    loadLightProperties();
     
     /*--------------------------------------------------------------------------------------------*/
     //  Environment
@@ -108,10 +110,10 @@ World::World(const vector<QuoteJson>& quoteData){
     mFboTexelSize_1 = Vec2f(1.0f / float(mFboSize_1.x), 1.0f / float(mFboSize_1.y));
     mFboTexelSize_2 = Vec2f(1.0f / float(mFboSize_2.x), 1.0f / float(mFboSize_2.y));
     
-    mFboSceneSSAO   = gl::Fbo(mFboSize_1.x, mFboSize_1.y,   fboFormat_4);
+    mFboSceneSSAO   = gl::Fbo(    mFboSize_1.x, mFboSize_1.y, fboFormat_4);
     mFboPingPong_1  = PingPongFbo(mFboSize_1.x, mFboSize_1.y, fboFormat_4);
     mFboPingPong_2  = PingPongFbo(mFboSize_2.x, mFboSize_2.y, fboFormat_2);
-    mFboSceneFinal  = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_4);
+    mFboSceneFinal  = gl::Fbo(    mFboSize_1.x, mFboSize_1.y, fboFormat_4);
 #endif
     
     mFboScene       = gl::Fbo(mFboSize_1.x, mFboSize_1.y,   fboFormat_4);
@@ -171,6 +173,25 @@ World::~World(){
 }
 
 /*--------------------------------------------------------------------------------------------*/
+// Load properties
+/*--------------------------------------------------------------------------------------------*/
+
+void World::loadLightProperties(){
+    mLantern->setDirection(WORLD_LANTERN_0_DIRECTION);
+    
+    mLantern->setAmbient( WORLD_LANTERN_0_COLOR_AMBIENT);
+    mLantern->setDiffuse( WORLD_LANTERN_0_COLOR_DIFFUSE);
+    mLantern->setSpecular(WORLD_LANTERN_0_COLOR_SPECULAR);
+    
+    mLantern->setAttenuation(         WORLD_LANTERN_0_ATTENUATION);
+    mLantern->setConstantAttenuation( WORLD_LANTERN_0_CONSTANT_ATTENUATION);
+    mLantern->setLinearAttenuation(   WORLD_LANTERN_0_LINEAR_ATTENUATION);
+    mLantern->setQuadraticAttenuation(WORLD_LANTERN_0_QUADRIC_ATTENUATION);
+    
+    mLanternDebugDraw = WORLD_LANTERN_0_DEBUG_DRAW;
+}
+
+/*--------------------------------------------------------------------------------------------*/
 //  Draw scene
 /*--------------------------------------------------------------------------------------------*/
 
@@ -190,8 +211,10 @@ void World::drawScene(bool useMaterialShaders){
 #ifdef DEBUG_WORLD_COORDINATE_FRAME
     gl::drawCoordinateFrame();
 #endif
+    
     if(useMaterialShaders){
         mLantern->enable();
+        mLantern->update(mCamera);
     } else {
         mLantern->disable();
     }
@@ -207,6 +230,11 @@ void World::drawScene(bool useMaterialShaders){
     mGrid->debugDrawIndices(mCamera);
     gl::enableDepthRead();
 #endif
+    
+    if(mLanternDebugDraw){
+        mLantern->debugDraw();
+    }
+    
     gl::popMatrices();
     gl::disableDepthRead();
 }
@@ -389,6 +417,7 @@ void World::processScene(){
     mShaderMixRadial.uniform("uTexture0", 0);
     mShaderMixRadial.uniform("uTexture1", 1);
     mShaderMixRadial.uniform("uScreenSize", Vec2f(app::getWindowWidth(),app::getWindowHeight()));
+    mShaderMixRadial.uniform("uScaleGradient", WORLD_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE);
     utils::drawClearedScreenRect(mFboSceneFinal.getSize());
     mShaderMixRadial.unbind();
     
@@ -493,7 +522,8 @@ void World::viewOrtho(){
 /*--------------------------------------------------------------------------------------------*/
 
 void World::onConfigDidChange(){
-    
+    loadLightProperties();
+    mBoard->onConfigDidChange();
 }
 
 void World::wakeUp(){

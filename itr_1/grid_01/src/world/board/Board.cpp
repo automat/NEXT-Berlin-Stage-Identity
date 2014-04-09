@@ -43,7 +43,7 @@ Board::Board(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<
             }
         }
         
-        loadFieldMaterials();
+        loadMaterialProperties();
         
         setQuote((*mQuotes)[0]);
         
@@ -67,14 +67,6 @@ Board::Board(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<
     
 }
 
-void Board::loadFieldMaterials(){
-    mMaterialDiverFields.setAmbient(  DIVER_FIELD_MATERIAL_AMBIENT);
-    mMaterialDiverFields.setDiffuse(  DIVER_FIELD_MATERIAL_DIFFUSE);
-    mMaterialDiverFields.setSpecular( DIVER_FIELD_MATERIAL_SPECULAR);
-    mMaterialDiverFields.setShininess(DIVER_FIELD_MATERIAL_SHININESS);
-    
-}
-
 /*--------------------------------------------------------------------------------------------*/
 // Destructor
 /*--------------------------------------------------------------------------------------------*/
@@ -94,19 +86,36 @@ Board::~Board(){
     deleteQuoteFields();
 }
 
+
+/*--------------------------------------------------------------------------------------------*/
+// Load properties
+/*--------------------------------------------------------------------------------------------*/
+
+void Board::loadMaterialProperties(){
+    mMaterialDiverFields.setAmbient(  DIVER_FIELD_MATERIAL_AMBIENT);
+    mMaterialDiverFields.setDiffuse(  DIVER_FIELD_MATERIAL_DIFFUSE);
+    mMaterialDiverFields.setSpecular( DIVER_FIELD_MATERIAL_SPECULAR);
+    mMaterialDiverFields.setShininess(DIVER_FIELD_MATERIAL_SHININESS);
+}
+
 /*--------------------------------------------------------------------------------------------*/
 // Draw / Update
 /*--------------------------------------------------------------------------------------------*/
 
 void Board::draw(const CameraOrtho& camera, bool useMaterialShaders){
     gl::disableDepthRead();
+    gl::enableAlphaTest();
+    gl::enableAlphaBlending();
     for(vector<DiverField*>::const_iterator itr =mDiverFields.begin(); itr != mDiverFields.end(); ++itr){
         (*itr)->drawSurface();
     }
+    gl::disableAlphaBlending();
+    gl::disableAlphaTest();
     gl::enableDepthRead();
 
     if(useMaterialShaders){
         mShaderDiverFields.bind();
+        mMaterialDiverFields.apply();
     }
 #ifndef BOARD_SKIP_DRAW_FIELD_DIVER
     for(vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr){
@@ -197,5 +206,5 @@ void Board::setQuote(Quote& quote){
 /*--------------------------------------------------------------------------------------------*/
 
 void Board::onConfigDidChange(){
-    loadFieldMaterials();
+    loadMaterialProperties();
 }

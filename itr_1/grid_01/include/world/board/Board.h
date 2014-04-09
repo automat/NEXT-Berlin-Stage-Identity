@@ -54,7 +54,7 @@ class Board{
     SharedFileWatcherRef mSharedFileWatcher;
 #endif
     
-    void loadFieldMaterials();
+    void loadMaterialProperties();
     
     void deleteQuoteFields();
     void deleteDiverFields();

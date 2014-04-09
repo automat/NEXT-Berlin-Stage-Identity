@@ -1,8 +1,9 @@
 uniform sampler2D uTexture0;
 uniform sampler2D uTexture1;
 uniform vec2      uScreenSize;
+uniform float     uScaleGradient;
 
-float scaleGradient = uScreenSize.y / 1.0;
+float scaleGradient = uScreenSize.y / uScaleGradient;
 
 void main(){
 	vec2 coord    = gl_FragCoord.xy;
