@@ -48,7 +48,7 @@ Board::Board(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<
         setQuote((*mQuotes)[0]);
         
 #ifdef BOARD_LIVE_EDIT_MATERIAL_SHADER
-        mSharedFileWatcher = SharedFileWatcher::Get();
+        mFileWatcher = FileWatcher::Get();
         utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
                           loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
                           &mShaderQuoteFields);
@@ -161,11 +161,11 @@ void Board::draw(const CameraOrtho& camera, bool useMaterialShaders){
 
 void Board::update(){
 #ifdef BOARD_LIVE_EDIT_MATERIAL_SHADER
-    utils::watchShaderSource(mSharedFileWatcher,
+    utils::watchShaderSource(mFileWatcher,
                              loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
                              loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
                              &mShaderQuoteFields);
-    utils::watchShaderSource(mSharedFileWatcher,
+    utils::watchShaderSource(mFileWatcher,
                              loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_VERT),
                              loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_FRAG),
                              &mShaderDiverFields);

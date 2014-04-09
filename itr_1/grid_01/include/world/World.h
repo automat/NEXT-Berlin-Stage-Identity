@@ -62,7 +62,7 @@ class World {
     vector<Quote>    mQuotes;
     
 #if defined(WORLD_LIVE_EDIT_FX_SHADER) && !defined(WORLD_SKIP_FX_SHADER)
-    SharedFileWatcherRef mSharedFileWatcher;
+    FileWatcherRef mFileWatcher;
 #endif
 #ifndef WORLD_SKIP_FX_SHADER
     gl::Texture      mTextureNoise;

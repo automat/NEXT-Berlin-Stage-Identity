@@ -119,7 +119,7 @@ World::World(const vector<QuoteJson>& quoteData){
     mFboScene       = gl::Fbo(mFboSize_1.x, mFboSize_1.y,   fboFormat_4);
     
 #if defined(WORLD_LIVE_EDIT_FX_SHADER) && !defined(WORLD_SKIP_FX_SHADER)
-    mSharedFileWatcher = SharedFileWatcher::Get();
+    mFileWatcher = FileWatcher::Get();
     utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
                       loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
                       &mShaderNormalDepth);
@@ -437,23 +437,23 @@ void World::processScene(){
 
 void World::update(){
 #if defined(WORLD_LIVE_EDIT_FX_SHADER) && !defined(WORLD_SKIP_FX_SHADER)
-    utils::watchShaderSource(mSharedFileWatcher,
+    utils::watchShaderSource(mFileWatcher,
                              loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
                              loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
                              &mShaderNormalDepth);
-    utils::watchShaderSource(mSharedFileWatcher,
+    utils::watchShaderSource(mFileWatcher,
                              loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_VERT),
                              loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_FRAG),
                              &mShaderSSAO);
-    utils::watchShaderSource(mSharedFileWatcher,
+    utils::watchShaderSource(mFileWatcher,
                              loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
                              loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_H_FRAG),
                              &mShaderBlurH);
-    utils::watchShaderSource(mSharedFileWatcher,
+    utils::watchShaderSource(mFileWatcher,
                              loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
                              loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_V_FRAG),
                              &mShaderBlurV);
-    utils::watchShaderSource(mSharedFileWatcher,
+    utils::watchShaderSource(mFileWatcher,
                              loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_VERT),
                              loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
                              &mShaderMixRadial);

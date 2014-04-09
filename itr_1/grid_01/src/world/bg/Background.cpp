@@ -74,7 +74,7 @@ Background::Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int 
     
     mMesh.recalculateNormals();
     
-    mSharedFileWatcher = SharedFileWatcher::Get();
+    mFileWatcher = FileWatcher::Get();
     utils::loadShader(loadFile(RES_ABS_GLSL_BG_MESH_VERT),
                       loadFile(RES_ABS_GLSL_BG_MESH_FRAG),
                       &mShaderMesh);
@@ -117,18 +117,18 @@ void Background::update(Oscillator* osc, float t){
     
 #ifdef BACKGROUND_LIVE_EDIT_SHADER
     /*
-    if(utils::watchShaderSource(mSharedFileWatcher,
+    if(utils::watchShaderSource(mFileWatcher,
                                 loadFile(RES_ABS_GLSL_PASS_THRU_VERT),
                                 loadFile(RES_ABS_GLSL_BG_GRADIENT_FRAG),
                                 &mShaderGradient) ||
      */
-     utils::watchShaderSource(mSharedFileWatcher,
+     utils::watchShaderSource(mFileWatcher,
                                 loadFile(RES_ABS_GLSL_BG_MESH_VERT),
                                 loadFile(RES_ABS_GLSL_BG_MESH_FRAG),
                               &mShaderMesh);// ||
 
     /*
-    utils::watchShaderSource(mSharedFileWatcher,
+    utils::watchShaderSource(mFileWatcher,
                                 loadFile(RES_ABS_GLSL_PASS_THRU_VERT),
                                 loadFile(RES_ABS_GLSL_BG_MIX_FRAG),
                                 &mShaderMix)){

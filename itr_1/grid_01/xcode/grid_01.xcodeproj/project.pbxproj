@@ -124,7 +124,6 @@
 		CDFD26BB18F09A6E00598643 /* GeomUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeomUtil.h; sourceTree = "<group>"; };
 		CDFD26BC18F09A6E00598643 /* PingPongFbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongFbo.h; sourceTree = "<group>"; };
 		CDFD26BD18F09A6E00598643 /* ShaderUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderUtil.h; sourceTree = "<group>"; };
-		CDFD26BE18F09A6E00598643 /* SharedFileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedFileWatcher.h; sourceTree = "<group>"; };
 		CDFD26BF18F09A6E00598643 /* SharedTextureFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedTextureFont.h; sourceTree = "<group>"; };
 		CDFD26C018F09A6E00598643 /* srdnoise23.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = srdnoise23.h; sourceTree = "<group>"; };
 		CDFD26C118F09A6E00598643 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
@@ -367,7 +366,6 @@
 				CDFD26BB18F09A6E00598643 /* GeomUtil.h */,
 				CDFD26BC18F09A6E00598643 /* PingPongFbo.h */,
 				CDFD26BD18F09A6E00598643 /* ShaderUtil.h */,
-				CDFD26BE18F09A6E00598643 /* SharedFileWatcher.h */,
 				CDFD26BF18F09A6E00598643 /* SharedTextureFont.h */,
 				CDFD26C018F09A6E00598643 /* srdnoise23.h */,
 				CDFD26C118F09A6E00598643 /* Utils.h */,

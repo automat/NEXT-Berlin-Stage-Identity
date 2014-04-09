@@ -16,7 +16,7 @@
 #include "cinder/gl/Texture.h"
 #include "cinder/gl/Material.h"
 
-#include "util/SharedFileWatcher.h"
+#include "util/FileWatcher.h"
 #include "layout/geom/LayoutArea.h"
 #include "layout/quote/Quote.h"
 #include "layout/quote/QuoteLine.h"
@@ -51,7 +51,7 @@ class Board{
     
 
 #if defined(BOARD_LIVE_EDIT_MATERIAL_SHADER)
-    SharedFileWatcherRef mSharedFileWatcher;
+    FileWatcherRef mFileWatcher;
 #endif
     
     void loadMaterialProperties();

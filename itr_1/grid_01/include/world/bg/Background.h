@@ -26,7 +26,7 @@
 #include "Config.h"
 
 #ifdef BACKGROUND_LIVE_EDIT_SHADER
-#include "util/SharedFileWatcher.h"
+#include "util/FileWatcher.h"
 #endif
 
 using namespace ci;
@@ -38,7 +38,7 @@ class Background {
     gl::GlslProg mShaderMesh;
     
 #ifdef BACKGROUND_LIVE_EDIT_SHADER
-    SharedFileWatcherRef mSharedFileWatcher;
+    FileWatcherRef mFileWatcher;
 #endif
     
 public:

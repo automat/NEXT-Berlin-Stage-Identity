@@ -1,5 +1,5 @@
 #include "Config.h"
-#include "util/SharedFileWatcher.h"
+#include "util/FileWatcher.h"
 #include <map>
 #include <boost/variant.hpp>
 
@@ -19,7 +19,7 @@ bool   __isValid(false);
 bool   __isValidInit(false);
 
 JsonTree::ParseOptions __parseOptions      = GetParseOptions();
-SharedFileWatcherRef   __sharedFileWatcher = SharedFileWatcher::Get();
+FileWatcherRef __sharedFileWatcher = FileWatcher::Get();
 
 /*--------------------------------------------------------------------------------------------*/
 //	Helper

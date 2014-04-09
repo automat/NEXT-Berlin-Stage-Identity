@@ -13,6 +13,7 @@
 #include <string>
 #include <map>
 #include <exception>
+#include <memory>
 
 using namespace std;
 using namespace boost;
@@ -38,22 +39,25 @@ public:
     inline virtual const char* what() const throw(){return mMessage.c_str();}
 };
 
+typedef std::shared_ptr<class FileWatcher> FileWatcherRef;
 
 class FileWatcher {
+public:
+   
+private:
     struct File{
         string path;
-        time_t timeModifiedNew = -1;
-        time_t timeModifiedOld = -1;
-        File(){};
-        File(const string& path) : path(path){}
+        time_t timeModifiedNew;
+        time_t timeModifiedOld;
+        File();
+        File(const string& path);
     };
     
     map<string,File> mFilesToWatch;
-    
     void getFileWriteTime(File& file);
+    FileWatcher(){}
     
 public:
-    FileWatcher(){}
     
     void addFile(const string& filePath);
     void removeFile(const string& filePath);
@@ -61,13 +65,27 @@ public:
     bool filesDidChange();
     bool fileDidChange(const string& filePath);
     
-    inline bool hasFile(const string& filePath){
-        return mFilesToWatch.count(filePath) == 1;
+    bool hasFile(const string& filePath);
+    
+    void clear();
+    
+private:
+public:
+    
+    inline static FileWatcherRef Get(){
+        static std::mutex m;
+        static std::weak_ptr<FileWatcher> cache;
+        
+        std::lock_guard<std::mutex> lg(m);
+        std::shared_ptr<FileWatcher> shared = cache.lock();
+        if(cache.expired()){
+            shared.reset(new FileWatcher());
+            cache = shared;
+        }
+        
+        return shared;
     }
     
-    inline void clear(){
-        mFilesToWatch.clear();
-    }
 };
 
 

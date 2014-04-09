@@ -1,5 +1,16 @@
 #include "util/FileWatcher.h"
 
+
+FileWatcher::File::File() :
+    timeModifiedNew(-1),
+    timeModifiedOld(-1){}
+
+FileWatcher::File::File(const string& path) :
+    timeModifiedNew(-1),
+    timeModifiedOld(-1),
+    path(path){}
+
+
 void FileWatcher::getFileWriteTime(FileWatcher::File &file){
     if (!filesystem::exists(file.path)) {
         throw FileWatcherRemovedExc(file.path);
@@ -44,4 +55,12 @@ bool FileWatcher::fileDidChange(const string& filePath){
     File& file = mFilesToWatch[filePath];
     getFileWriteTime(file);
     return file.timeModifiedOld != -1 && file.timeModifiedNew != file.timeModifiedOld;
+}
+
+bool FileWatcher::hasFile(const string &filePath){
+    return mFilesToWatch.count(filePath) == 1;
+}
+
+void FileWatcher::clear(){
+    mFilesToWatch.clear();
 }
