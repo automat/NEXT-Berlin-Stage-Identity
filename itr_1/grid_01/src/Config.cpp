@@ -37,23 +37,23 @@ bool GetChild(const JsonTree &parent, const string& key, JsonTree* child, string
     return true;
 }
 
-bool Parse(const cinder::JsonTree &parent, const string &key, Colorf *color, string *msg){
+bool Parse(const cinder::JsonTree &parent, const string &key, Colorf *value, string *msg){
     JsonTree node;
     if(!GetChild(parent, key, &node, msg)){
         return false;
     }
-    Colorf _color;
+    Colorf _value;
     
     try{
-        _color.r = node[0].getValue<float>();
-        _color.g = node[1].getValue<float>();
-        _color.b = node[2].getValue<float>();
+        _value.r = node[0].getValue<float>();
+        _value.g = node[1].getValue<float>();
+        _value.b = node[2].getValue<float>();
     } catch( JsonTree::Exception& exc){
         *msg = exc.what();
         return false;
     }
     
-    *color = _color;
+    *value = _value;
     return true;
 }
 
@@ -62,38 +62,57 @@ bool Parse(const cinder::JsonTree &parent, const string &key, ColorAf *color, st
     if(!GetChild(parent, key, &node, msg)){
         return false;
     }
-    ColorAf _color;
+    ColorAf _value;
     
     try{
-        _color.r = node[0].getValue<float>();
-        _color.g = node[1].getValue<float>();
-        _color.b = node[2].getValue<float>();
-        _color.a = node[3].getValue<float>();
+        _value.r = node[0].getValue<float>();
+        _value.g = node[1].getValue<float>();
+        _value.b = node[2].getValue<float>();
+        _value.a = node[3].getValue<float>();
     } catch( JsonTree::Exception& exc){
         *msg = exc.what();
         return false;
     }
-    color->set(_color);
+    *color = _value;
     return true;
 }
 
-bool Parse(const cinder::JsonTree &parent, const string &key, Vec3f *vec3f, string *msg){
+bool Parse(const cinder::JsonTree &parent, const string &key, Vec3f *value, string *msg){
     JsonTree node;
     if(!GetChild(parent, key, &node, msg)){
         return false;
     }
-    Vec3f _vec3f;
+    Vec3f _value;
     
     try {
-        _vec3f.x = node[0].getValue<float>();
-        _vec3f.y = node[1].getValue<float>();
-        _vec3f.z = node[2].getValue<float>();
+        _value.x = node[0].getValue<float>();
+        _value.y = node[1].getValue<float>();
+        _value.z = node[2].getValue<float>();
     } catch (JsonTree::Exception& exc) {
         *msg = exc.what();
         return false;
     }
     
-    *vec3f = _vec3f;
+    *value = _value;
+    return true;
+}
+
+bool Parse(const cinder::JsonTree &parent, const string &key, Vec2i *value, string *msg){
+    JsonTree node;
+    if(!GetChild(parent, key, &node, msg)){
+        return false;
+    }
+    Vec2i _value;
+    
+    try {
+        _value.x = node[0].getValue<float>();
+        _value.y = node[1].getValue<float>();
+    } catch (JsonTree::Exception& exc) {
+        *msg = exc.what();
+        return false;
+    }
+    
+    *value = _value;
     return true;
 }
 
@@ -105,6 +124,23 @@ bool Parse(const cinder::JsonTree & parent, const string& key, float* value, str
     float _value;
     try {
         _value = node.getValue<float>();
+    } catch (JsonTree::Exception& exc) {
+        *msg = exc.what();
+        return false;
+    }
+    
+    *value = _value;
+    return true;
+}
+
+bool Parse(const cinder::JsonTree& parent, const string& key, int* value, string* msg){
+    JsonTree node;
+    if(!GetChild(parent, key, &node, msg)){
+        return false;
+    }
+    float _value;
+    try {
+        _value = node.getValue<int>();
     } catch (JsonTree::Exception& exc) {
         *msg = exc.what();
         return false;
@@ -135,6 +171,20 @@ bool Parse(const cinder::JsonTree& parent, const string& key, bool* value, strin
 /*--------------------------------------------------------------------------------------------*/
 //	Load
 /*--------------------------------------------------------------------------------------------*/
+
+// (with default values, in case the initial config.json is not initially parsable)
+int   WINDOW_WIDTH(3840);
+int   WINDOW_HEIGHT(1105);
+bool  WINDOW_BORDERLESS(false);
+int   WINDOW_DISPLAY(0);
+bool  WINDOW_ALWAYS_ON_TOP(false);
+bool  WINDOW_FIXED_POSITION(false);
+Vec2i WINDOW_POSITION(0,0);
+float WINDOW_FPS(36.0f);
+
+float PROJECTION_SCALE;
+bool  PROJECTION_OVERLAP;
+int   PROJECTION_OVERLAP_EDGE;
 
 float   WORLD_FX_SHADER_BLUR_SCALE;
 float   WORLD_FX_SHADER_BLUR_RADIAL_SCALE;
@@ -183,11 +233,13 @@ bool Config::LoadJson(const string &filepath, string *msg){
     }
     
     JsonTree nodeWindow;
+    JsonTree nodeProjection;
     JsonTree nodeWorld;
-
+    
     try {
-        nodeWindow = configJson.getChild("window");
-        nodeWorld  = configJson.getChild("scene.layer_quote.world");
+        nodeWindow     = configJson.getChild("window");
+        nodeProjection = configJson.getChild("projection");
+        nodeWorld      = configJson.getChild("scene.layer_quote.world");
     } catch (JsonTree::Exception& exc) {
         *msg = exc.what();
         return __isValid = false;
@@ -197,37 +249,58 @@ bool Config::LoadJson(const string &filepath, string *msg){
     //  Parse Scene
     //
     
-    if(!Parse(nodeWorld, "shader_fx.blur_scale",               &WORLD_FX_SHADER_BLUR_SCALE,               msg) ||
-       !Parse(nodeWorld, "shader_fx.blur_scale_radial",        &WORLD_FX_SHADER_BLUR_RADIAL_SCALE,        msg) ||
-       !Parse(nodeWorld, "shader_fx.blur_radial_radius_scale", &WORLD_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE, msg) ||
+    if(/*--------------------------------------------------------------------------------------------*/
+       //	Window
+       /*--------------------------------------------------------------------------------------------*/
+       !Parse(nodeWindow, "width", &WINDOW_WIDTH, msg) ||
+       !Parse(nodeWindow, "height", &WINDOW_HEIGHT, msg) ||
+       !Parse(nodeWindow, "borderless", &WINDOW_BORDERLESS, msg) ||
+       !Parse(nodeWindow, "display", &WINDOW_DISPLAY, msg) ||
+       !Parse(nodeWindow, "always_on_top", &WINDOW_ALWAYS_ON_TOP, msg) ||
+       !Parse(nodeWindow, "fixed_position", &WINDOW_FIXED_POSITION, msg) ||
+       !Parse(nodeWindow, "position", &WINDOW_POSITION, msg) ||
+       !Parse(nodeWindow, "fps", &WINDOW_FPS, msg) ||
        
+       /*--------------------------------------------------------------------------------------------*/
+       //	Projection
+       /*--------------------------------------------------------------------------------------------*/
+       !Parse(nodeProjection, "scale", &PROJECTION_SCALE, msg) ||
+       !Parse(nodeProjection, "overlap", &PROJECTION_OVERLAP, msg) ||
+       !Parse(nodeProjection, "overlap_edge", &PROJECTION_OVERLAP_EDGE, msg) ||
+       
+       /*--------------------------------------------------------------------------------------------*/
+       //	World
+       /*--------------------------------------------------------------------------------------------*/
+       !Parse(nodeWorld, "shader_fx.blur_scale", &WORLD_FX_SHADER_BLUR_SCALE, msg) ||
+       !Parse(nodeWorld, "shader_fx.blur_scale_radial", &WORLD_FX_SHADER_BLUR_RADIAL_SCALE,msg) ||
+       !Parse(nodeWorld, "shader_fx.blur_radial_radius_scale", &WORLD_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE, msg) ||
        
        /*--------------------------------------------------------------------------------------------*/
        //	World Lantern 0
        /*--------------------------------------------------------------------------------------------*/
-       !Parse(nodeWorld, "light.lantern_0.direction",              &WORLD_LANTERN_0_DIRECTION,           msg) ||
-       !Parse(nodeWorld, "light.lantern_0.ambient",               &WORLD_LANTERN_0_COLOR_AMBIENT,        msg) ||
-       !Parse(nodeWorld, "light.lantern_0.diffuse",               &WORLD_LANTERN_0_COLOR_DIFFUSE,        msg) ||
-       !Parse(nodeWorld, "light.lantern_0.specular",              &WORLD_LANTERN_0_COLOR_SPECULAR,       msg) ||
-       !Parse(nodeWorld, "light.lantern_0.attenuation",           &WORLD_LANTERN_0_ATTENUATION,          msg) ||
-       !Parse(nodeWorld, "light.lantern_0.constant_attenuation",  &WORLD_LANTERN_0_CONSTANT_ATTENUATION, msg) ||
-       !Parse(nodeWorld, "light.lantern_0.linear_attenuation",    &WORLD_LANTERN_0_LINEAR_ATTENUATION,   msg) ||
-       !Parse(nodeWorld, "light.lantern_0.quadric_attenuation",   &WORLD_LANTERN_0_QUADRIC_ATTENUATION,  msg) ||
-       !Parse(nodeWorld, "light.lantern_0.debug_draw",            &WORLD_LANTERN_0_DEBUG_DRAW,           msg) ||
+       !Parse(nodeWorld, "light.lantern_0.direction", &WORLD_LANTERN_0_DIRECTION, msg) ||
+       !Parse(nodeWorld, "light.lantern_0.ambient", &WORLD_LANTERN_0_COLOR_AMBIENT, msg) ||
+       !Parse(nodeWorld, "light.lantern_0.diffuse", &WORLD_LANTERN_0_COLOR_DIFFUSE, msg) ||
+       !Parse(nodeWorld, "light.lantern_0.specular", &WORLD_LANTERN_0_COLOR_SPECULAR, msg) ||
+       !Parse(nodeWorld, "light.lantern_0.attenuation", &WORLD_LANTERN_0_ATTENUATION, msg) ||
+       !Parse(nodeWorld, "light.lantern_0.constant_attenuation", &WORLD_LANTERN_0_CONSTANT_ATTENUATION, msg) ||
+       !Parse(nodeWorld, "light.lantern_0.linear_attenuation", &WORLD_LANTERN_0_LINEAR_ATTENUATION, msg) ||
+       !Parse(nodeWorld, "light.lantern_0.quadric_attenuation", &WORLD_LANTERN_0_QUADRIC_ATTENUATION, msg) ||
+       !Parse(nodeWorld, "light.lantern_0.debug_draw", &WORLD_LANTERN_0_DEBUG_DRAW, msg) ||
        
        
        /*--------------------------------------------------------------------------------------------*/
        //	World Lantern 1
        /*--------------------------------------------------------------------------------------------*/
-       !Parse(nodeWorld, "light.lantern_1.direction",             &WORLD_LANTERN_1_DIRECTION,            msg) ||
-       !Parse(nodeWorld, "light.lantern_1.ambient",               &WORLD_LANTERN_1_COLOR_AMBIENT,        msg) ||
-       !Parse(nodeWorld, "light.lantern_1.diffuse",               &WORLD_LANTERN_1_COLOR_DIFFUSE,        msg) ||
-       !Parse(nodeWorld, "light.lantern_1.specular",              &WORLD_LANTERN_1_COLOR_SPECULAR,       msg) ||
-       !Parse(nodeWorld, "light.lantern_1.attenuation",           &WORLD_LANTERN_1_ATTENUATION,          msg) ||
-       !Parse(nodeWorld, "light.lantern_1.constant_attenuation",  &WORLD_LANTERN_1_CONSTANT_ATTENUATION, msg) ||
-       !Parse(nodeWorld, "light.lantern_1.linear_attenuation",    &WORLD_LANTERN_1_LINEAR_ATTENUATION,   msg) ||
-       !Parse(nodeWorld, "light.lantern_1.quadric_attenuation",   &WORLD_LANTERN_1_QUADRIC_ATTENUATION,  msg) ||
-       !Parse(nodeWorld, "light.lantern_1.debug_draw",            &WORLD_LANTERN_1_DEBUG_DRAW,           msg) ||
+       !Parse(nodeWorld, "light.lantern_1.direction", &WORLD_LANTERN_1_DIRECTION, msg) ||
+       !Parse(nodeWorld, "light.lantern_1.ambient", &WORLD_LANTERN_1_COLOR_AMBIENT, msg) ||
+       !Parse(nodeWorld, "light.lantern_1.diffuse", &WORLD_LANTERN_1_COLOR_DIFFUSE, msg) ||
+       !Parse(nodeWorld, "light.lantern_1.specular", &WORLD_LANTERN_1_COLOR_SPECULAR, msg) ||
+       !Parse(nodeWorld, "light.lantern_1.attenuation", &WORLD_LANTERN_1_ATTENUATION, msg) ||
+       !Parse(nodeWorld, "light.lantern_1.constant_attenuation", &WORLD_LANTERN_1_CONSTANT_ATTENUATION, msg) ||
+       !Parse(nodeWorld, "light.lantern_1.linear_attenuation", &WORLD_LANTERN_1_LINEAR_ATTENUATION, msg) ||
+       !Parse(nodeWorld, "light.lantern_1.quadric_attenuation", &WORLD_LANTERN_1_QUADRIC_ATTENUATION, msg) ||
+       !Parse(nodeWorld, "light.lantern_1.debug_draw", &WORLD_LANTERN_1_DEBUG_DRAW, msg) ||
        
        
        /*--------------------------------------------------------------------------------------------*/
@@ -239,18 +312,18 @@ bool Config::LoadJson(const string &filepath, string *msg){
        /*--------------------------------------------------------------------------------------------*/
        //   Diver Field Material
        /*--------------------------------------------------------------------------------------------*/
-       !Parse(nodeWorld, "board.diver_field.material.ambient",   &DIVER_FIELD_MATERIAL_AMBIENT,   msg) ||
-       !Parse(nodeWorld, "board.diver_field.material.diffuse",   &DIVER_FIELD_MATERIAL_DIFFUSE,   msg) ||
-       !Parse(nodeWorld, "board.diver_field.material.specular",  &DIVER_FIELD_MATERIAL_SPECULAR,  msg) ||
+       !Parse(nodeWorld, "board.diver_field.material.ambient", &DIVER_FIELD_MATERIAL_AMBIENT, msg) ||
+       !Parse(nodeWorld, "board.diver_field.material.diffuse", &DIVER_FIELD_MATERIAL_DIFFUSE, msg) ||
+       !Parse(nodeWorld, "board.diver_field.material.specular", &DIVER_FIELD_MATERIAL_SPECULAR, msg) ||
        !Parse(nodeWorld, "board.diver_field.material.shininess", &DIVER_FIELD_MATERIAL_SHININESS, msg) ||
        
        
        /*--------------------------------------------------------------------------------------------*/
        //   Quote Field Material
        /*--------------------------------------------------------------------------------------------*/
-       !Parse(nodeWorld, "board.quote_field.material.ambient",   &QUOTE_FIELD_MATERIAL_AMBIENT,   msg) ||
-       !Parse(nodeWorld, "board.quote_field.material.diffuse",   &QUOTE_FIELD_MATERIAL_DIFFUSE,   msg) ||
-       !Parse(nodeWorld, "board.quote_field.material.specular",  &QUOTE_FIELD_MATERIAL_SPECULAR,  msg) ||
+       !Parse(nodeWorld, "board.quote_field.material.ambient", &QUOTE_FIELD_MATERIAL_AMBIENT, msg) ||
+       !Parse(nodeWorld, "board.quote_field.material.diffuse", &QUOTE_FIELD_MATERIAL_DIFFUSE, msg) ||
+       !Parse(nodeWorld, "board.quote_field.material.specular", &QUOTE_FIELD_MATERIAL_SPECULAR, msg) ||
        !Parse(nodeWorld, "board.quote_field.material.shininess", &QUOTE_FIELD_MATERIAL_SHININESS, msg)){
         return __isValid = false;
     }

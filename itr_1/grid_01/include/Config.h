@@ -46,6 +46,28 @@ using namespace ci;
 #define APP_USE_BAKED_CONFIG
 
 
+/*--------------------------------------------------------------------------------------------*/
+// Window
+/*--------------------------------------------------------------------------------------------*/
+
+extern int   WINDOW_WIDTH;
+extern int   WINDOW_HEIGHT;
+extern bool  WINDOW_BORDERLESS;
+extern int   WINDOW_DISPLAY;
+extern bool  WINDOW_ALWAYS_ON_TOP;
+extern bool  WINDOW_FIXED_POSITION;
+extern Vec2i WINDOW_POSITION;
+extern float WINDOW_FPS;
+
+
+/*--------------------------------------------------------------------------------------------*/
+// Projection
+/*--------------------------------------------------------------------------------------------*/
+
+extern float PROJECTION_SCALE;
+extern bool  PROJECTION_OVERLAP;
+extern int   PROJECTION_OVERLAP_EDGE;
+
 //#define DEBUG_SINGLE_DIVER_FIELD
 //#define DEBUG_SINGLE_QUOTE_FIELD
 
@@ -156,7 +178,6 @@ extern ColorAf PATH_SURFACE_COLOR;
 #define DIVER_FIELD_SURFACE_PATH_DENSITY 1.25f
 #define DIVER_FIELD_SURFACE_PATH_OFFSET_SPEED  0.001f //0.0125f
 #define DIVER_FIELD_SURFACE_PATH_AMPLITUDE 0.65f//0.325f
-
 
 #define DIVER_FIELD_DIVER_NUM_POINTS 10
 #define DIVER_FIELD_DIVER_MIN_HEIGHT 0.015f

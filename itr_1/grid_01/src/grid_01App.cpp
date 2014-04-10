@@ -27,7 +27,9 @@ public:
     void update();
 	void draw();
 
-    bool          mValidInit;
+    bool          mInitialConfigIsValid;
+    string        mInitialConfigExcMsg;
+    
     ExcInfoPanel* mExcPanel;
     WorldRef      mWorld;
     Controller*   mController;
@@ -38,6 +40,11 @@ public:
 /*--------------------------------------------------------------------------------------------*/
 
 void grid_00App::prepareSettings(Settings* settings){
+#ifdef CONFIG_USE_BAKED
+    mInitialConfigIsValid = Config::LoadJson(CONFIG_FILE_PATH_BAKED, &mInitialConfigExcMsg);
+#else
+    mInitialConfigIsValid = Config::LoadJson(app::getAppPath() + "/config.json", &mInitialConfigExcMsg);
+#endif
     settings->setWindowSize(APP_WIDTH,APP_HEIGHT);
     settings->setFrameRate(APP_FPS);
     settings->setResizable(false);
@@ -45,19 +52,12 @@ void grid_00App::prepareSettings(Settings* settings){
 
 void grid_00App::setup(){
     mExcPanel = new ExcInfoPanel();
-    string configFilePath;
     
-#ifdef CONFIG_USE_BAKED
-    configFilePath = CONFIG_FILE_PATH_BAKED;
-#else
-    configFilePath = app::getAppPath() + "/config.json";
-#endif
-
-    if(!Config::LoadJson(configFilePath, &excCatch)){
-        mExcPanel->setString(excCatch);
+    if(!mInitialConfigIsValid){
+        mExcPanel->setString(mInitialConfigExcMsg);
         return;
     }
-        
+    
     vector<QuoteJson> quoteData;
     if(!QuoteParser::LoadJson("/Users/automat/Projects/next/itr_1/grid_01/resources/test.json", &quoteData, &excCatch)){
         mExcPanel->setString(excCatch);
