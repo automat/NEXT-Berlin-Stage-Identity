@@ -26,14 +26,14 @@
 #include "world/Oscillator.h"
 #include "world/Index.h"
 
-#include "world/board/field/DiverField.h"
-#include "world/board/field/QuoteField.h"
+#include "world/theme/field/DiverField.h"
+#include "world/theme/field/QuoteField.h"
 
 
 using namespace std;
 using namespace ci;
 
-class Board{
+class Theme{
     LayoutArea mArea;
     vector<DiverField*> mDiverFields;
   
@@ -63,8 +63,8 @@ class Board{
     
     
 public:
-    Board(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<Quote>* quotes);
-    ~Board();
+    Theme(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<Quote>* quotes);
+    ~Theme();
     
     
     void onConfigDidChange();

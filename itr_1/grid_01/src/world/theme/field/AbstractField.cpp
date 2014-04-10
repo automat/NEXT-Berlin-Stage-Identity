@@ -1,10 +1,10 @@
-#include "world/board/field/AbstractField.h"
+#include "world/theme/field/AbstractField.h"
 #include <boost/assign/std/vector.hpp>
 #include <boost/assign.hpp>
 
 #include "Config.h"
 
-#include "world/board/path/PathSlice.h"
+#include "world/theme/path/PathSlice.h"
 #include "util/ColorUtil.h"
 
 using namespace boost::assign;

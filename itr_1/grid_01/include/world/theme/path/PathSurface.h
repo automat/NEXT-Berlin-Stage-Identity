@@ -11,7 +11,7 @@
 
 #include <vector>
 #include "cinder/Vector.h"
-#include "world/board/path/PathSlice.h"
+#include "world/theme/path/PathSlice.h"
 
 using namespace ci;
 using namespace std;

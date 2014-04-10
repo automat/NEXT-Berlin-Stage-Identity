@@ -9,7 +9,7 @@
 #ifndef grid_00_DiverField_h
 #define grid_00_DiverField_h
 
-#include "world/board/field/AbstractField.h"
+#include "world/theme/field/AbstractField.h"
 #include <map>
 
 typedef std::map<const Index,class DiverField*> IndexDiverFieldMap;

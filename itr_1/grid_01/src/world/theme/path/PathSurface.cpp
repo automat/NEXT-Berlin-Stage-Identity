@@ -1,7 +1,7 @@
-#include "world/board/path/PathSurface.h"
+#include "world/theme/path/PathSurface.h"
 #include "Config.h"
 #include "world/Oscillator.h"
-#include "world/board/path/PathSlice.h"
+#include "world/theme/path/PathSlice.h"
 
 #include <OpenGL/OpenGL.h>
 #include <boost/assign/std/vector.hpp>

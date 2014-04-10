@@ -21,8 +21,8 @@
 #include "Config.h"
 
 #include "world/grid/Cell.h"
-#include "world/board/path/PathSurface.h"
-#include "world/board/diver/Diver.h"
+#include "world/theme/path/PathSurface.h"
+#include "world/theme/diver/Diver.h"
 
 
 using namespace ci;

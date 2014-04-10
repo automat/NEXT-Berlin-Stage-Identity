@@ -34,7 +34,7 @@
 #include "world/Oscillator.h"
 #include "world/bg/Background.h"
 #include "world/grid/Grid.h"
-#include "world/board/Board.h"
+#include "world/theme/Theme.h"
 #include "world/env/Lantern.h"
 
 
@@ -59,7 +59,7 @@ class World {
     Oscillator*      mOscillator;
     Background*      mBackground;
     Grid*            mGrid;
-    Board*           mBoard;
+    Theme*           mTheme;
     QuoteTypesetter* mTypesetter;
     vector<Quote>    mQuotes;
     

@@ -33,7 +33,7 @@ using namespace ci;
 
 #define STAGE_WIDTH  3552
 #define STAGE_HEIGHT 1105
-#define STAGE_SCALE  1
+#define STAGE_SCALE  2
 
 /*--------------------------------------------------------------------------------------------*/
 // App

@@ -1,7 +1,7 @@
 #include "world/World.h"
 #include "cinder/Plane.h"
 #include "util/GeomUtil.h"
-#include "world/board/path/PathSurface.h"
+#include "world/theme/path/PathSurface.h"
 #include "layout/quote/QuoteAlign.h"
 #include "layout/quote/Quote.h"
 
@@ -88,7 +88,7 @@ World::World(const vector<QuoteJson>& quoteData){
     
     mOscillator = new Oscillator();
     mBackground = new Background(mGrid, areaScaled, mOscillator, windowSize.x, windowSize.y);
-    mBoard      = new Board(mGrid, areaScaled, mOscillator, &mQuotes);
+    mTheme      = new Theme(mGrid, areaScaled, mOscillator, &mQuotes);
 
     
     /*--------------------------------------------------------------------------------------------*/
@@ -166,7 +166,7 @@ World::World(const vector<QuoteJson>& quoteData){
 
 World::~World(){
     delete mBackground;
-    delete mBoard;
+    delete mTheme;
     delete mOscillator;
     delete mTypesetter;
     delete mGrid;
@@ -245,7 +245,7 @@ void World::drawScene(bool useMaterialShaders){
     }
     
     mBackground->draw();
-    mBoard->draw(mCamera,useMaterialShaders);
+    mTheme->draw(mCamera,useMaterialShaders);
     
     if(useMaterialShaders){
         mLantern0->disable();
@@ -489,7 +489,7 @@ void World::update(){
                              &mShaderMixRadial);
 #endif
     mBackground->update(mOscillator,app::getElapsedSeconds());
-    mBoard->update();
+    mTheme->update();
 }
 
 
@@ -554,7 +554,7 @@ void World::viewOrtho(){
 
 void World::onConfigDidChange(){
     loadLightProperties();
-    mBoard->onConfigDidChange();
+    mTheme->onConfigDidChange();
 }
 
 void World::wakeUp(){

@@ -16,7 +16,7 @@
 #include "cinder/Camera.h"
 
 #include "Config.h"
-#include "world/board/path/PathSlice.h"
+#include "world/theme/path/PathSlice.h"
 
 
 using namespace ci;

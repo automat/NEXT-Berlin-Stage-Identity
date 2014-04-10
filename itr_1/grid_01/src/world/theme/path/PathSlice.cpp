@@ -1,5 +1,5 @@
-#include "world/board/path/PathSlice.h"
-#include "world/board/path/PathSurface.h"
+#include "world/theme/path/PathSlice.h"
+#include "world/theme/path/PathSurface.h"
 
 PathSlice::PathSlice(PathSurface* surface, int index, float width, int numPoints) :
     mSurface(surface),mIndex(index),mWidth(width),mNumPoints(numPoints){

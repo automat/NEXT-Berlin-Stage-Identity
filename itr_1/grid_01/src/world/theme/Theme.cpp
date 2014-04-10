@@ -1,4 +1,4 @@
-#include "world/board/Board.h"
+#include "world/theme/Theme.h"
 
 #include <iostream>
 #include <vector>
@@ -25,7 +25,7 @@ using namespace ci;
 // Constructor
 /*--------------------------------------------------------------------------------------------*/
 
-Board::Board(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<Quote>* quotes) :
+Theme::Theme(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<Quote>* quotes) :
     mGrid(grid),
     mArea(area),
     mOscillator(oscillator),
@@ -71,17 +71,17 @@ Board::Board(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<
 // Destructor
 /*--------------------------------------------------------------------------------------------*/
 
-void Board::deleteDiverFields(){
+void Theme::deleteDiverFields(){
     //mIndexDiverFieldMap.clear();
     while (!mDiverFields.empty()) delete mDiverFields.back(), mDiverFields.pop_back();
 }
 
-void Board::deleteQuoteFields(){
+void Theme::deleteQuoteFields(){
     //mIndexQuoteFieldMap.clear();
     while (!mQuoteFields.empty()) delete mQuoteFields.back(), mQuoteFields.pop_back();
 }
 
-Board::~Board(){
+Theme::~Theme(){
     deleteDiverFields();
     deleteQuoteFields();
 }
@@ -91,7 +91,7 @@ Board::~Board(){
 // Load properties
 /*--------------------------------------------------------------------------------------------*/
 
-void Board::loadMaterialProperties(){
+void Theme::loadMaterialProperties(){
     mMaterialDiverFields.setAmbient(  DIVER_FIELD_MATERIAL_AMBIENT);
     mMaterialDiverFields.setDiffuse(  DIVER_FIELD_MATERIAL_DIFFUSE);
     mMaterialDiverFields.setSpecular( DIVER_FIELD_MATERIAL_SPECULAR);
@@ -107,7 +107,7 @@ void Board::loadMaterialProperties(){
 // Draw / Update
 /*--------------------------------------------------------------------------------------------*/
 
-void Board::draw(const CameraOrtho& camera, bool useMaterialShaders){
+void Theme::draw(const CameraOrtho& camera, bool useMaterialShaders){
     gl::disableDepthRead();
     gl::enableAlphaTest();
     gl::enableAlphaBlending();
@@ -165,7 +165,7 @@ void Board::draw(const CameraOrtho& camera, bool useMaterialShaders){
 #endif
 }
 
-void Board::update(){
+void Theme::update(){
 #ifdef BOARD_LIVE_EDIT_MATERIAL_SHADER
     utils::watchShaderSource(mFileWatcher,
                              loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
@@ -193,7 +193,7 @@ void Board::update(){
 // Quote Handling
 /*--------------------------------------------------------------------------------------------*/
 
-void Board::setQuote(Quote& quote){
+void Theme::setQuote(Quote& quote){
     deleteQuoteFields();
     
     const vector<QuoteLine>& lines = quote.getLines();
@@ -211,6 +211,6 @@ void Board::setQuote(Quote& quote){
 // Config Change Handling
 /*--------------------------------------------------------------------------------------------*/
 
-void Board::onConfigDidChange(){
+void Theme::onConfigDidChange(){
     loadMaterialProperties();
 }
