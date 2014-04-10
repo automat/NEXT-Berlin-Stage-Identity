@@ -34,56 +34,40 @@ AbstractField(pos - Vec3f(quoteLine.getIndices().size(),0,0),numPathSlices,quote
     mDiverLengthMax     = QUOTE_FIELD_DIVER_MAX_LENGTH;
     
     mMeshLayout.setDynamicTexCoords2d();
-    mMeshLayout.setStaticColorsRGBA();
+    mMeshLayout.setStaticColorsRGB();
     reset(pos, numPathSlices, quoteLine);
 }
 
 
 void QuoteField::addMeshColors(){
-    const Vec3f up(1,1,1),down(0,-1,0);
-    const Vec3f left(-1,0,0),right(1,0,0);
-    const Vec3f front(0,0,-1),back(0,0,1);
+    //
+    //  Instead of using a custom attribute,
+    //  the vertex color data is used to send a collection of custom data
+    //  for each vertex to the shader
+    //
     
-   // float alphaTop    = 1.0f;
-   // float alphaBottom = 0.0f;
+    const Colorf data0(1,0,0);  // r = texture merge scalar
+    const Colorf data2(0,0,0);  // off data
     
-#ifndef QUOTE_FIELD_PUT_NORMAL_COLORS
-    Colorf white(1,1,1);
-#endif
-    
-    vector<ColorAf> meshColors;
+    vector<Colorf> meshColors;
     
     int i,j;
     i = -1;
     while (++i < mNumDivers) {
         j = -1;
-        while(++j < mDiverNumPoints){
-#ifdef QUOTE_FIELD_PUT_NORMAL_COLORS
-            meshColors += utils::toColorA(down), utils::toColorA(down);
-            meshColors += utils::toColorA(up),   utils::toColorA(up);
-            meshColors += utils::toColorA(right),utils::toColorA(left);
-            meshColors += utils::toColorA(right),utils::toColorA(left);
-#else
-            meshColors += utils::toColorA(down), utils::toColorA(down);
-            meshColors += utils::toColorA(up),   utils::toColorA(up);
-            meshColors += utils::toColorA(right,1.0f),utils::toColorA(left,1.0f);
-            meshColors += utils::toColorA(right,0.0f),utils::toColorA(left,0.0f);
-#endif
+        while (++j < mDiverNumPoints) {
+            meshColors += data2, data2;
+            meshColors += data0, data0;
+            meshColors += data2, data2;
+            meshColors += data2, data2;;
         }
-#ifdef QUOTE_FIELD_PUT_NORMAL_COLORS
-        meshColors += utils::toColorA(front),utils::toColorA(front);
-        meshColors += utils::toColorA(front),utils::toColorA(front);
-        meshColors += utils::toColorA( back),utils::toColorA( back);
-        meshColors += utils::toColorA( back),utils::toColorA( back);
-#else
-        meshColors += utils::toColorA(front),utils::toColorA(front);
-        meshColors += utils::toColorA(front),utils::toColorA(front);
-        meshColors += utils::toColorA( back),utils::toColorA( back);
-        meshColors += utils::toColorA( back),utils::toColorA( back);
-#endif
+        meshColors += data2, data2;
+        meshColors += data2, data2;
+        meshColors += data2, data2;
+        meshColors += data2, data2;
     }
     
-    mMesh.bufferColorsRGBA(meshColors);
+    mMesh.bufferColorsRGB(meshColors);
 }
 
 
@@ -146,7 +130,6 @@ void QuoteField::updateDivers(){
             ++vbItr; ++vbItr;                       //  skip bottom
             vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top
             vbItr.setTexCoord2d0(tex_1); ++vbItr;
-            
             
             vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top / bottom left
             vbItr.setTexCoord2d0(tex_1); ++vbItr;

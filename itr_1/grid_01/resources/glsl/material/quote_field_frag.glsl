@@ -2,6 +2,7 @@ uniform sampler2D uTexture;
 varying vec3 vNormal;
 varying vec3 vVertex;
 varying vec3 vLightPos;
+varying vec4 vColor;
 
 
 void main(){
@@ -20,7 +21,9 @@ void main(){
 	vec3 E = normalize(-vVertex);
 	vec3 R = normalize(-reflect(L,vNormal));
 
-	vec4 ambient = gl_FrontLightProduct[1].ambient;
+	float textureBlendScalar = vColor.r;
+
+	vec4 ambient = gl_FrontLightProduct[1].ambient + textureBlend * textureBlendScalar;
 	vec4 diffuse = gl_FrontLightProduct[1].diffuse + textureBlend;
 		 diffuse*= max(dot(vNormal,L),0.0);
 		 diffuse = clamp(diffuse,0.0,1.0);
@@ -35,6 +38,10 @@ void main(){
 	//diffuse  += textureBlend;
 	//specular += textureBlend;
     
-	gl_FragColor = ambient + diffuse + specular;
+	//gl_FragColor = ambient + diffuse + specular;
+   	gl_FragColor = ambient + diffuse + specular;
+   	//vec4(gl_Color.rgb,1);
+	//gl_FragColor = gl_Color;
+   // gl_FragColor = vec4(gl_Color.r,gl_Color.g,gl_Color.b,1.0);
     //gl_FragColor = ambient + diffuse + specular;
 }

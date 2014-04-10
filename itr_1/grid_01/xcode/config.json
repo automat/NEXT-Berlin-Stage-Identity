@@ -67,8 +67,8 @@
 					},
 
 					"lantern_1" : {
-						"debug_draw" : true,
-						"direction"  : [-1,0,1],//[-6,1,4], //[-2,2,2]
+						"debug_draw" : false,
+						"direction"  : [-2,1,1],//[-6,1,4], //[-2,2,2]
 						"ambient"    : [1,1,1],
 						"diffuse"    : [1,1,1],
 						"specular"   : [1,1,1],
