@@ -40,7 +40,6 @@
 		CDD09A7818F713450066BE1D /* FrustumOrtho.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDD09A5D18F713450066BE1D /* FrustumOrtho.cpp */; };
 		CDD09A7918F713450066BE1D /* GeomUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDD09A5E18F713450066BE1D /* GeomUtil.cpp */; };
 		CDD09A7A18F713450066BE1D /* ShaderUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDD09A5F18F713450066BE1D /* ShaderUtil.cpp */; };
-		CDD09A7B18F713450066BE1D /* srdnoise23.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDD09A6018F713450066BE1D /* srdnoise23.cpp */; };
 		CDD09A7C18F713450066BE1D /* Background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDD09A6318F713450066BE1D /* Background.cpp */; };
 		CDD09A7D18F713450066BE1D /* Cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDD09A6518F713450066BE1D /* Cell.cpp */; };
 		CDD09A7E18F713450066BE1D /* Grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDD09A6618F713450066BE1D /* Grid.cpp */; };
@@ -122,13 +121,10 @@
 		CDD09A3318F712FF0066BE1D /* PingPongFbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongFbo.h; sourceTree = "<group>"; };
 		CDD09A3418F712FF0066BE1D /* ShaderUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderUtil.h; sourceTree = "<group>"; };
 		CDD09A3518F712FF0066BE1D /* SharedTextureFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedTextureFont.h; sourceTree = "<group>"; };
-		CDD09A3618F712FF0066BE1D /* srdnoise23.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = srdnoise23.h; sourceTree = "<group>"; };
-		CDD09A3718F712FF0066BE1D /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		CDD09A3A18F712FF0066BE1D /* Background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Background.h; sourceTree = "<group>"; };
 		CDD09A3C18F712FF0066BE1D /* Lantern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lantern.h; sourceTree = "<group>"; };
 		CDD09A3E18F712FF0066BE1D /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
 		CDD09A3F18F712FF0066BE1D /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
-		CDD09A4018F712FF0066BE1D /* Index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index.h; sourceTree = "<group>"; };
 		CDD09A4218F712FF0066BE1D /* Oscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Oscillator.h; sourceTree = "<group>"; };
 		CDD09A4418F712FF0066BE1D /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
 		CDD09A4618F712FF0066BE1D /* Diver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Diver.h; sourceTree = "<group>"; };
@@ -146,7 +142,6 @@
 		CDD09A5D18F713450066BE1D /* FrustumOrtho.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrustumOrtho.cpp; sourceTree = "<group>"; };
 		CDD09A5E18F713450066BE1D /* GeomUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GeomUtil.cpp; sourceTree = "<group>"; };
 		CDD09A5F18F713450066BE1D /* ShaderUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderUtil.cpp; sourceTree = "<group>"; };
-		CDD09A6018F713450066BE1D /* srdnoise23.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = srdnoise23.cpp; sourceTree = "<group>"; };
 		CDD09A6318F713450066BE1D /* Background.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Background.cpp; sourceTree = "<group>"; };
 		CDD09A6518F713450066BE1D /* Cell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cell.cpp; sourceTree = "<group>"; };
 		CDD09A6618F713450066BE1D /* Grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Grid.cpp; sourceTree = "<group>"; };
@@ -159,6 +154,7 @@
 		CDD09A7218F713450066BE1D /* PathSlice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathSlice.cpp; sourceTree = "<group>"; };
 		CDD09A7318F713450066BE1D /* PathSurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathSurface.cpp; sourceTree = "<group>"; };
 		CDD09A7418F713450066BE1D /* World.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = World.cpp; sourceTree = "<group>"; };
+		CDD09A8818F71D110066BE1D /* Index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index.h; sourceTree = "<group>"; };
 		CDFD272C18F0AB9A00598643 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test.json; path = ../resources/test.json; sourceTree = "<group>"; };
 		CDFD273418F0D11E00598643 /* Apercu_Mono.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Apercu_Mono.otf; sourceTree = "<group>"; };
 		CDFD273518F0D11E00598643 /* transcript_bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = transcript_bold.otf; sourceTree = "<group>"; };
@@ -350,8 +346,6 @@
 				CDD09A3318F712FF0066BE1D /* PingPongFbo.h */,
 				CDD09A3418F712FF0066BE1D /* ShaderUtil.h */,
 				CDD09A3518F712FF0066BE1D /* SharedTextureFont.h */,
-				CDD09A3618F712FF0066BE1D /* srdnoise23.h */,
-				CDD09A3718F712FF0066BE1D /* Utils.h */,
 			);
 			name = util;
 			path = ../include/util;
@@ -365,7 +359,6 @@
 				CDD09A3D18F712FF0066BE1D /* grid */,
 				CDD09A4118F712FF0066BE1D /* info */,
 				CDD09A4318F712FF0066BE1D /* theme */,
-				CDD09A4018F712FF0066BE1D /* Index.h */,
 				CDD09A4218F712FF0066BE1D /* Oscillator.h */,
 				CDD09A4E18F712FF0066BE1D /* World.h */,
 			);
@@ -392,6 +385,7 @@
 		CDD09A3D18F712FF0066BE1D /* grid */ = {
 			isa = PBXGroup;
 			children = (
+				CDD09A8818F71D110066BE1D /* Index.h */,
 				CDD09A3E18F712FF0066BE1D /* Cell.h */,
 				CDD09A3F18F712FF0066BE1D /* Grid.h */,
 			);
@@ -484,7 +478,6 @@
 				CDD09A5D18F713450066BE1D /* FrustumOrtho.cpp */,
 				CDD09A5E18F713450066BE1D /* GeomUtil.cpp */,
 				CDD09A5F18F713450066BE1D /* ShaderUtil.cpp */,
-				CDD09A6018F713450066BE1D /* srdnoise23.cpp */,
 			);
 			name = util;
 			path = ../src/util;
@@ -759,7 +752,6 @@
 				CDD09A8218F713450066BE1D /* AbstractField.cpp in Sources */,
 				CDD09A7D18F713450066BE1D /* Cell.cpp in Sources */,
 				CDD09A8318F713450066BE1D /* DiverField.cpp in Sources */,
-				CDD09A7B18F713450066BE1D /* srdnoise23.cpp in Sources */,
 				CDD09A7C18F713450066BE1D /* Background.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

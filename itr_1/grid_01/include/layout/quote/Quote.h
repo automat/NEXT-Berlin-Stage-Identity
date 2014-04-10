@@ -16,7 +16,7 @@
 #include "layout/quote/QuoteLine.h"
 #include "world/grid/Grid.h"
 #include "world/grid/Cell.h"
-#include "world/Index.h"
+#include "world/grid/Index.h"
 
 using namespace std;
 using namespace ci;

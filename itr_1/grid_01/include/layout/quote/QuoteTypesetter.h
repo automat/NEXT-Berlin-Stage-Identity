@@ -9,11 +9,18 @@
 #ifndef grid_00_QuoteTypesetter_h
 #define grid_00_QuoteTypesetter_h
 
-#include <boost/assign/std/vector.hpp>
-
-
+#include <algorithm>
+#include <vector>
+#include <string>
 
 #include <OpenGL/OpenGL.h>
+#include <boost/assign/std/vector.hpp>
+#include <boost/algorithm/string/trim.hpp>
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/erase.hpp>
+#include <boost/tokenizer.hpp>
+#include <boost/foreach.hpp>
 
 #include "Resources.h"
 #include "cinder/app/App.h"
@@ -30,22 +37,10 @@
 #include "layout/quote/Quote.h"
 #include "layout/quote/QuoteLine.h"
 
-#include "world/grid/Grid.h"
+#include "world/grid/Index.h"
 #include "world/grid/Cell.h"
-#include "world/Index.h"
+#include "world/grid/Grid.h"
 
-#include "util/Utils.h"
-
-#include <algorithm>
-#include <boost/algorithm/string/trim.hpp>
-#include <boost/algorithm/string/classification.hpp>
-#include <boost/algorithm/string/split.hpp>
-#include <boost/algorithm/string/erase.hpp>
-#include <boost/tokenizer.hpp>
-#include <boost/foreach.hpp>
-
-#include <vector>
-#include <string>
 
 using namespace std;
 using namespace ci;
@@ -681,7 +676,8 @@ public:
         
         if(hasBr){
             if(!mManualBr){
-                utils::removeChar(input, br);
+                // remove br char
+                input.erase(remove(input.begin(), input.end(), br), input.end());
             } else {
                 // front / back
                 while (input.front() == br) {
@@ -755,7 +751,8 @@ public:
                 tokenNumBr = count(token.begin(),token.end(),br);
                 tokenHasBr = tokenNumBr != 0;
                 if(tokenHasBr){
-                    utils::removeChar(token, br);
+                    // remove br char
+                    input.erase(remove(input.begin(), input.end(), br), input.end());
                 }
                 tokenCountBr += tokenNumBr;
             }

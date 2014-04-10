@@ -21,10 +21,9 @@
 #include "layout/quote/Quote.h"
 #include "layout/quote/QuoteLine.h"
 
-#include "world/Index.h"
+#include "world/grid/Index.h"
 #include "world/grid/Grid.h"
 #include "world/Oscillator.h"
-#include "world/Index.h"
 
 #include "world/theme/field/DiverField.h"
 #include "world/theme/field/QuoteField.h"

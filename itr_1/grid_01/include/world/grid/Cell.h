@@ -12,7 +12,7 @@
 #include "cinder/Vector.h"
 
 #include "layout/geom/LayoutArea.h"
-#include "world/Index.h"
+#include "world/grid/Index.h"
 
 using namespace ci;
 
