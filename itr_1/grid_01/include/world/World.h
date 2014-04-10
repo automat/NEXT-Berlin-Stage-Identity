@@ -34,8 +34,11 @@
 #include "world/Oscillator.h"
 #include "world/bg/Background.h"
 #include "world/grid/Grid.h"
-#include "world/theme/Theme.h"
 #include "world/env/Lantern.h"
+
+
+#include "World/schedule/Schedule.h"
+#include "world/theme/Theme.h"
 
 
 

@@ -155,6 +155,10 @@
 		CDD09A7318F713450066BE1D /* PathSurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathSurface.cpp; sourceTree = "<group>"; };
 		CDD09A7418F713450066BE1D /* World.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = World.cpp; sourceTree = "<group>"; };
 		CDD09A8818F71D110066BE1D /* Index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index.h; sourceTree = "<group>"; };
+		CDD09A9518F72D460066BE1D /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		CDD09A9618F72D460066BE1D /* Schedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Schedule.h; sourceTree = "<group>"; };
+		CDD09A9718F72D460066BE1D /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		CDD09A9818F72D460066BE1D /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		CDFD272C18F0AB9A00598643 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = test.json; path = ../resources/test.json; sourceTree = "<group>"; };
 		CDFD273418F0D11E00598643 /* Apercu_Mono.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Apercu_Mono.otf; sourceTree = "<group>"; };
 		CDFD273518F0D11E00598643 /* transcript_bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = transcript_bold.otf; sourceTree = "<group>"; };
@@ -357,7 +361,7 @@
 				CDD09A3918F712FF0066BE1D /* bg */,
 				CDD09A3B18F712FF0066BE1D /* env */,
 				CDD09A3D18F712FF0066BE1D /* grid */,
-				CDD09A4118F712FF0066BE1D /* info */,
+				CDD09A9418F72D460066BE1D /* schedule */,
 				CDD09A4318F712FF0066BE1D /* theme */,
 				CDD09A4218F712FF0066BE1D /* Oscillator.h */,
 				CDD09A4E18F712FF0066BE1D /* World.h */,
@@ -390,13 +394,6 @@
 				CDD09A3F18F712FF0066BE1D /* Grid.h */,
 			);
 			path = grid;
-			sourceTree = "<group>";
-		};
-		CDD09A4118F712FF0066BE1D /* info */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = info;
 			sourceTree = "<group>";
 		};
 		CDD09A4318F712FF0066BE1D /* theme */ = {
@@ -488,7 +485,6 @@
 			children = (
 				CDD09A6218F713450066BE1D /* bg */,
 				CDD09A6418F713450066BE1D /* grid */,
-				CDD09A6718F713450066BE1D /* info */,
 				CDD09A6818F713450066BE1D /* Oscillator.cpp */,
 				CDD09A6918F713450066BE1D /* theme */,
 				CDD09A7418F713450066BE1D /* World.cpp */,
@@ -512,13 +508,6 @@
 				CDD09A6618F713450066BE1D /* Grid.cpp */,
 			);
 			path = grid;
-			sourceTree = "<group>";
-		};
-		CDD09A6718F713450066BE1D /* info */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = info;
 			sourceTree = "<group>";
 		};
 		CDD09A6918F713450066BE1D /* theme */ = {
@@ -557,6 +546,17 @@
 				CDD09A7318F713450066BE1D /* PathSurface.cpp */,
 			);
 			path = path;
+			sourceTree = "<group>";
+		};
+		CDD09A9418F72D460066BE1D /* schedule */ = {
+			isa = PBXGroup;
+			children = (
+				CDD09A9518F72D460066BE1D /* Event.h */,
+				CDD09A9618F72D460066BE1D /* Schedule.h */,
+				CDD09A9718F72D460066BE1D /* Session.h */,
+				CDD09A9818F72D460066BE1D /* Person.h */,
+			);
+			path = schedule;
 			sourceTree = "<group>";
 		};
 		CDFD273318F0D11E00598643 /* font */ = {

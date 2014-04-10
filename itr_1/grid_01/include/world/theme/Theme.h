@@ -39,7 +39,7 @@ class Theme{
     vector<Quote>*      mQuotes;        //  quote data
     Grid*               mGrid;
     Oscillator*         mOscillator;
-    Quote*              mQuoteCurrent;  //  ref to curr qzote
+    Quote*              mQuoteCurrent;  //  ref to curr quote
     vector<QuoteField*> mQuoteFields;   //  quote fields
     
     gl::GlslProg mShaderDiverFields;
