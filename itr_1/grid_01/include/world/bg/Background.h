@@ -47,41 +47,4 @@ public:
     void update(Oscillator* osc, float t);
 };
 
-/*
-using namespace ci;
-class Background {
-    Oscillator*  mOsc;
-    TriMesh      mMesh;
-    Matrix44f    mTransform;
-
-    gl::Fbo      mFboGradient;
-    gl::GlslProg mShaderGradient;
-    
-    gl::Fbo      mFboMesh;
-    gl::GlslProg mShaderMesh;
-    
-    gl::Fbo      mFboMix;
-    gl::GlslProg mShaderMix;
-    
-    
-    bool         mTextureIsDirty;
-    gl::Texture  mTexture; // resulting texture
-    
-#ifdef BACKGROUND_LIVE_EDIT_SHADER
-    SharedFileWatcherRef mSharedFileWatcher;
-#endif
-    
-    void renderGradient();
-    void renderMesh();
-    void renderTexture();
-    
-public:
-    Background(Grid* grid, const LayoutArea& area, Oscillator* osc, int width, int height);
-    
-    void draw();
-    void update();
-
-};
- */
-
 #endif

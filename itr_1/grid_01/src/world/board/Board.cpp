@@ -96,6 +96,11 @@ void Board::loadMaterialProperties(){
     mMaterialDiverFields.setDiffuse(  DIVER_FIELD_MATERIAL_DIFFUSE);
     mMaterialDiverFields.setSpecular( DIVER_FIELD_MATERIAL_SPECULAR);
     mMaterialDiverFields.setShininess(DIVER_FIELD_MATERIAL_SHININESS);
+    
+    mMaterialQuoteFields.setAmbient(  QUOTE_FIELD_MATERIAL_AMBIENT);
+    mMaterialQuoteFields.setDiffuse(  QUOTE_FIELD_MATERIAL_DIFFUSE);
+    mMaterialQuoteFields.setSpecular( QUOTE_FIELD_MATERIAL_SPECULAR);
+    mMaterialQuoteFields.setShininess(QUOTE_FIELD_MATERIAL_SHININESS);
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -136,6 +141,7 @@ void Board::draw(const CameraOrtho& camera, bool useMaterialShaders){
     glPolygonOffset(0.0, 0.9);
     if(useMaterialShaders){
         mShaderQuoteFields.bind();
+        mMaterialQuoteFields.apply();
         mQuoteCurrent->getTexture().bind();
         mShaderQuoteFields.uniform("uTexture", 0);
     }

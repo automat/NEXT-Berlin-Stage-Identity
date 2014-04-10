@@ -147,6 +147,12 @@ ColorAf DIVER_FIELD_MATERIAL_DIFFUSE;
 ColorAf DIVER_FIELD_MATERIAL_SPECULAR;
 float   DIVER_FIELD_MATERIAL_SHININESS;
 
+ColorAf QUOTE_FIELD_MATERIAL_AMBIENT;
+ColorAf QUOTE_FIELD_MATERIAL_DIFFUSE;
+ColorAf QUOTE_FIELD_MATERIAL_SPECULAR;
+float   QUOTE_FIELD_MATERIAL_SHININESS;
+
+
 Vec3f   WORLD_LANTERN_0_DIRECTION;
 Colorf  WORLD_LANTERN_0_COLOR_AMBIENT;
 Colorf  WORLD_LANTERN_0_COLOR_DIFFUSE;
@@ -156,6 +162,16 @@ float   WORLD_LANTERN_0_CONSTANT_ATTENUATION;
 float   WORLD_LANTERN_0_LINEAR_ATTENUATION;
 float   WORLD_LANTERN_0_QUADRIC_ATTENUATION;
 bool    WORLD_LANTERN_0_DEBUG_DRAW;
+
+Vec3f   WORLD_LANTERN_1_DIRECTION;
+Colorf  WORLD_LANTERN_1_COLOR_AMBIENT;
+Colorf  WORLD_LANTERN_1_COLOR_DIFFUSE;
+Colorf  WORLD_LANTERN_1_COLOR_SPECULAR;
+float   WORLD_LANTERN_1_ATTENUATION;
+float   WORLD_LANTERN_1_CONSTANT_ATTENUATION;
+float   WORLD_LANTERN_1_LINEAR_ATTENUATION;
+float   WORLD_LANTERN_1_QUADRIC_ATTENUATION;
+bool    WORLD_LANTERN_1_DEBUG_DRAW;
 
 bool Config::LoadJson(const string &filepath, string *msg){
     JsonTree configJson;
@@ -185,10 +201,11 @@ bool Config::LoadJson(const string &filepath, string *msg){
        !Parse(nodeWorld, "shader_fx.blur_scale_radial",        &WORLD_FX_SHADER_BLUR_RADIAL_SCALE,        msg) ||
        !Parse(nodeWorld, "shader_fx.blur_radial_radius_scale", &WORLD_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE, msg) ||
        
+       
        /*--------------------------------------------------------------------------------------------*/
        //	World Lantern 0
        /*--------------------------------------------------------------------------------------------*/
-       !Parse(nodeWorld, "light.lantern_0.direction",              &WORLD_LANTERN_0_DIRECTION, msg) ||
+       !Parse(nodeWorld, "light.lantern_0.direction",              &WORLD_LANTERN_0_DIRECTION,           msg) ||
        !Parse(nodeWorld, "light.lantern_0.ambient",               &WORLD_LANTERN_0_COLOR_AMBIENT,        msg) ||
        !Parse(nodeWorld, "light.lantern_0.diffuse",               &WORLD_LANTERN_0_COLOR_DIFFUSE,        msg) ||
        !Parse(nodeWorld, "light.lantern_0.specular",              &WORLD_LANTERN_0_COLOR_SPECULAR,       msg) ||
@@ -198,10 +215,26 @@ bool Config::LoadJson(const string &filepath, string *msg){
        !Parse(nodeWorld, "light.lantern_0.quadric_attenuation",   &WORLD_LANTERN_0_QUADRIC_ATTENUATION,  msg) ||
        !Parse(nodeWorld, "light.lantern_0.debug_draw",            &WORLD_LANTERN_0_DEBUG_DRAW,           msg) ||
        
+       
+       /*--------------------------------------------------------------------------------------------*/
+       //	World Lantern 1
+       /*--------------------------------------------------------------------------------------------*/
+       !Parse(nodeWorld, "light.lantern_1.direction",             &WORLD_LANTERN_1_DIRECTION,            msg) ||
+       !Parse(nodeWorld, "light.lantern_1.ambient",               &WORLD_LANTERN_1_COLOR_AMBIENT,        msg) ||
+       !Parse(nodeWorld, "light.lantern_1.diffuse",               &WORLD_LANTERN_1_COLOR_DIFFUSE,        msg) ||
+       !Parse(nodeWorld, "light.lantern_1.specular",              &WORLD_LANTERN_1_COLOR_SPECULAR,       msg) ||
+       !Parse(nodeWorld, "light.lantern_1.attenuation",           &WORLD_LANTERN_1_ATTENUATION,          msg) ||
+       !Parse(nodeWorld, "light.lantern_1.constant_attenuation",  &WORLD_LANTERN_1_CONSTANT_ATTENUATION, msg) ||
+       !Parse(nodeWorld, "light.lantern_1.linear_attenuation",    &WORLD_LANTERN_1_LINEAR_ATTENUATION,   msg) ||
+       !Parse(nodeWorld, "light.lantern_1.quadric_attenuation",   &WORLD_LANTERN_1_QUADRIC_ATTENUATION,  msg) ||
+       !Parse(nodeWorld, "light.lantern_1.debug_draw",            &WORLD_LANTERN_1_DEBUG_DRAW,           msg) ||
+       
+       
        /*--------------------------------------------------------------------------------------------*/
        //	Path Surface
        /*--------------------------------------------------------------------------------------------*/
        !Parse(nodeWorld, "board.path_surface.color", &PATH_SURFACE_COLOR, msg) ||
+       
        
        /*--------------------------------------------------------------------------------------------*/
        //   Diver Field Material
@@ -209,7 +242,16 @@ bool Config::LoadJson(const string &filepath, string *msg){
        !Parse(nodeWorld, "board.diver_field.material.ambient",   &DIVER_FIELD_MATERIAL_AMBIENT,   msg) ||
        !Parse(nodeWorld, "board.diver_field.material.diffuse",   &DIVER_FIELD_MATERIAL_DIFFUSE,   msg) ||
        !Parse(nodeWorld, "board.diver_field.material.specular",  &DIVER_FIELD_MATERIAL_SPECULAR,  msg) ||
-       !Parse(nodeWorld, "board.diver_field.material.shininess", &DIVER_FIELD_MATERIAL_SHININESS, msg)){
+       !Parse(nodeWorld, "board.diver_field.material.shininess", &DIVER_FIELD_MATERIAL_SHININESS, msg) ||
+       
+       
+       /*--------------------------------------------------------------------------------------------*/
+       //   Quote Field Material
+       /*--------------------------------------------------------------------------------------------*/
+       !Parse(nodeWorld, "board.quote_field.material.ambient",   &QUOTE_FIELD_MATERIAL_AMBIENT,   msg) ||
+       !Parse(nodeWorld, "board.quote_field.material.diffuse",   &QUOTE_FIELD_MATERIAL_DIFFUSE,   msg) ||
+       !Parse(nodeWorld, "board.quote_field.material.specular",  &QUOTE_FIELD_MATERIAL_SPECULAR,  msg) ||
+       !Parse(nodeWorld, "board.quote_field.material.shininess", &QUOTE_FIELD_MATERIAL_SHININESS, msg)){
         return __isValid = false;
     }
 

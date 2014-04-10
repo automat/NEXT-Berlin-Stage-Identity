@@ -33,9 +33,12 @@ World::World(const vector<QuoteJson>& quoteData){
     mTransform  = Matrix44f::createScale(Vec3f(mModelScale,mModelScale,mModelScale));
     mFrustum.set(mCamera);
     
-    mLantern          = new Lantern(0);
-    mLanternDebugDraw = false;
+    mLantern0         = new Lantern(0);
+    mLantern1         = new Lantern(1);
+    mLantern0DebugDraw = false;
+    mLantern1DebugDraw = false;
     loadLightProperties();
+    
     
     /*--------------------------------------------------------------------------------------------*/
     //  Environment
@@ -80,7 +83,6 @@ World::World(const vector<QuoteJson>& quoteData){
         mTypesetter->setString(data.str);
         mQuotes += *mTypesetter->getQuote();
     }
-    
     
     Vec2i windowSize = app::getWindowSize();
     
@@ -140,7 +142,7 @@ World::World(const vector<QuoteJson>& quoteData){
                       &mShaderMixRadial);
 #elif !defined(WORLD_SKIP_FX_SHADER)
     utils::loadShader(app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
-                      app::loadResource(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
+                      app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
                       &mShaderNormalDepth);
     utils::loadShader(app::loadResource(RES_GLSL_WORLD_FX_BLUR_VERT),
                       app::loadResource(RES_GLSL_WORLD_FX_BLUR_H_FRAG),
@@ -177,18 +179,38 @@ World::~World(){
 /*--------------------------------------------------------------------------------------------*/
 
 void World::loadLightProperties(){
-    mLantern->setDirection(WORLD_LANTERN_0_DIRECTION);
+    //
+    //  Lantern 0
+    //
+    mLantern0->setDirection(WORLD_LANTERN_0_DIRECTION);
     
-    mLantern->setAmbient( WORLD_LANTERN_0_COLOR_AMBIENT);
-    mLantern->setDiffuse( WORLD_LANTERN_0_COLOR_DIFFUSE);
-    mLantern->setSpecular(WORLD_LANTERN_0_COLOR_SPECULAR);
+    mLantern0->setAmbient( WORLD_LANTERN_0_COLOR_AMBIENT);
+    mLantern0->setDiffuse( WORLD_LANTERN_0_COLOR_DIFFUSE);
+    mLantern0->setSpecular(WORLD_LANTERN_0_COLOR_SPECULAR);
     
-    mLantern->setAttenuation(         WORLD_LANTERN_0_ATTENUATION);
-    mLantern->setConstantAttenuation( WORLD_LANTERN_0_CONSTANT_ATTENUATION);
-    mLantern->setLinearAttenuation(   WORLD_LANTERN_0_LINEAR_ATTENUATION);
-    mLantern->setQuadraticAttenuation(WORLD_LANTERN_0_QUADRIC_ATTENUATION);
+    mLantern0->setAttenuation(         WORLD_LANTERN_0_ATTENUATION);
+    mLantern0->setConstantAttenuation( WORLD_LANTERN_0_CONSTANT_ATTENUATION);
+    mLantern0->setLinearAttenuation(   WORLD_LANTERN_0_LINEAR_ATTENUATION);
+    mLantern0->setQuadraticAttenuation(WORLD_LANTERN_0_QUADRIC_ATTENUATION);
     
-    mLanternDebugDraw = WORLD_LANTERN_0_DEBUG_DRAW;
+    mLantern0DebugDraw = WORLD_LANTERN_0_DEBUG_DRAW;
+    
+    //
+    //  Lantern 1
+    //
+    mLantern1->setDirection(WORLD_LANTERN_1_DIRECTION);
+    
+    mLantern1->setAmbient( WORLD_LANTERN_1_COLOR_AMBIENT);
+    mLantern1->setDiffuse( WORLD_LANTERN_1_COLOR_DIFFUSE);
+    mLantern1->setSpecular(WORLD_LANTERN_1_COLOR_SPECULAR);
+    
+    mLantern1->setAttenuation(         WORLD_LANTERN_1_ATTENUATION);
+    mLantern1->setConstantAttenuation( WORLD_LANTERN_1_CONSTANT_ATTENUATION);
+    mLantern1->setLinearAttenuation(   WORLD_LANTERN_1_LINEAR_ATTENUATION);
+    mLantern1->setQuadraticAttenuation(WORLD_LANTERN_1_QUADRIC_ATTENUATION);
+    
+    mLantern1DebugDraw = WORLD_LANTERN_1_DEBUG_DRAW;
+
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -213,17 +235,21 @@ void World::drawScene(bool useMaterialShaders){
 #endif
     
     if(useMaterialShaders){
-        mLantern->enable();
-        mLantern->update(mCamera);
+        mLantern0->enable();
+        mLantern0->update(mCamera);
+        mLantern1->enable();
+        mLantern1->update(mCamera);
     } else {
-        mLantern->disable();
+        mLantern0->disable();
+        mLantern1->disable();
     }
     
     mBackground->draw();
     mBoard->draw(mCamera,useMaterialShaders);
     
     if(useMaterialShaders){
-        mLantern->disable();
+        mLantern0->disable();
+        mLantern1->disable();
     }
 #ifdef DEBUG_WORLD_GRID_DRAW_INDICES
     gl::disableDepthRead();
@@ -231,8 +257,12 @@ void World::drawScene(bool useMaterialShaders){
     gl::enableDepthRead();
 #endif
     
-    if(mLanternDebugDraw){
-        mLantern->debugDraw();
+    if(mLantern0DebugDraw){
+        mLantern0->debugDraw();
+    }
+    
+    if(mLantern1DebugDraw){
+        mLantern1->debugDraw();
     }
     
     gl::popMatrices();

@@ -51,8 +51,10 @@ class World {
     Matrix44f    mTransform;
     FrustumOrtho mFrustum;
     
-    Lantern*     mLantern;
-    bool         mLanternDebugDraw;
+    Lantern*     mLantern0;
+    Lantern*     mLantern1;
+    bool         mLantern0DebugDraw;
+    bool         mLantern1DebugDraw;
     
     Oscillator*      mOscillator;
     Background*      mBackground;
