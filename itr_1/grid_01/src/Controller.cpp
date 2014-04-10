@@ -17,7 +17,6 @@ void Controller::keyDown(KeyEvent event){
         case KeyEvent::KEY_RIGHT:
             mWorld->viewTop();
             break;
-            
         default:
             break;
     }

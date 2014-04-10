@@ -46,7 +46,8 @@ void QuoteField::addMeshColors(){
     //  for each vertex to the shader
     //
     
-    const Colorf data0(1,0,0);  // r = texture merge scalar
+    const Colorf data0(1,1,0);  // r = texture should be applied yes/no, g = how strong should the texture be merged
+    const Colorf data1(1,0,0);  // for left / right top
     const Colorf data2(0,0,0);  // off data
     
     vector<Colorf> meshColors;

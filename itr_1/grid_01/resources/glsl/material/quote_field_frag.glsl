@@ -21,9 +21,11 @@ void main(){
 	vec3 E = normalize(-vVertex);
 	vec3 R = normalize(-reflect(L,vNormal));
 
-	float textureBlendScalar = vColor.r;
+	float textureShouldApply = vColor.r;
+	float textureBlendScalar = vColor.g;
+	
 
-	vec4 ambient = gl_FrontLightProduct[1].ambient + textureBlend * textureBlendScalar;
+	vec4 ambient = gl_FrontLightProduct[1].ambient + textureBlend * textureBlendScalar * 0.75;
 	vec4 diffuse = gl_FrontLightProduct[1].diffuse + textureBlend;
 		 diffuse*= max(dot(vNormal,L),0.0);
 		 diffuse = clamp(diffuse,0.0,1.0);
