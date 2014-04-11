@@ -64,7 +64,7 @@ class Stage {
     QuoteTypesetter* mTypesetter;
     vector<Quote>    mQuotes;
     
-#if defined(WORLD_LIVE_EDIT_FX_SHADER) && !defined(WORLD_SKIP_FX_SHADER)
+#if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(WORLD_SKIP_FX_SHADER)
     FileWatcherRef mFileWatcher;
 #endif
 #ifndef WORLD_SKIP_FX_SHADER

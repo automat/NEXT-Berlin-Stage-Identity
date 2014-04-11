@@ -49,7 +49,7 @@ class Theme{
 
     
 
-#if defined(BOARD_LIVE_EDIT_MATERIAL_SHADER)
+#if defined(THEME_LIVE_EDIT_MATERIAL_SHADER)
     FileWatcherRef mFileWatcher;
 #endif
     

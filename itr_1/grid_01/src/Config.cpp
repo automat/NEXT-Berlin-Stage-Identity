@@ -189,9 +189,9 @@ float PROJECTION_SCALE;
 bool  PROJECTION_OVERLAP;
 int   PROJECTION_OVERLAP_EDGE;
 
-float   WORLD_FX_SHADER_BLUR_SCALE;
-float   WORLD_FX_SHADER_BLUR_RADIAL_SCALE;
-float   WORLD_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE;
+float STAGE_FX_SHADER_BLUR_SCALE;
+float STAGE_FX_SHADER_BLUR_RADIAL_SCALE;
+float STAGE_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE;
 
 ColorAf PATH_SURFACE_COLOR;
 
@@ -206,25 +206,25 @@ ColorAf QUOTE_FIELD_MATERIAL_SPECULAR;
 float   QUOTE_FIELD_MATERIAL_SHININESS;
 
 
-Vec3f   WORLD_LANTERN_0_DIRECTION;
-Colorf  WORLD_LANTERN_0_COLOR_AMBIENT;
-Colorf  WORLD_LANTERN_0_COLOR_DIFFUSE;
-Colorf  WORLD_LANTERN_0_COLOR_SPECULAR;
-float   WORLD_LANTERN_0_ATTENUATION;
-float   WORLD_LANTERN_0_CONSTANT_ATTENUATION;
-float   WORLD_LANTERN_0_LINEAR_ATTENUATION;
-float   WORLD_LANTERN_0_QUADRIC_ATTENUATION;
-bool    WORLD_LANTERN_0_DEBUG_DRAW;
+Vec3f  STAGE_LANTERN_0_DIRECTION;
+Colorf STAGE_LANTERN_0_COLOR_AMBIENT;
+Colorf STAGE_LANTERN_0_COLOR_DIFFUSE;
+Colorf STAGE_LANTERN_0_COLOR_SPECULAR;
+float  STAGE_LANTERN_0_ATTENUATION;
+float  STAGE_LANTERN_0_CONSTANT_ATTENUATION;
+float  STAGE_LANTERN_0_LINEAR_ATTENUATION;
+float  STAGE_LANTERN_0_QUADRIC_ATTENUATION;
+bool   STAGE_LANTERN_0_DEBUG_DRAW;
 
-Vec3f   WORLD_LANTERN_1_DIRECTION;
-Colorf  WORLD_LANTERN_1_COLOR_AMBIENT;
-Colorf  WORLD_LANTERN_1_COLOR_DIFFUSE;
-Colorf  WORLD_LANTERN_1_COLOR_SPECULAR;
-float   WORLD_LANTERN_1_ATTENUATION;
-float   WORLD_LANTERN_1_CONSTANT_ATTENUATION;
-float   WORLD_LANTERN_1_LINEAR_ATTENUATION;
-float   WORLD_LANTERN_1_QUADRIC_ATTENUATION;
-bool    WORLD_LANTERN_1_DEBUG_DRAW;
+Vec3f  STAGE_LANTERN_1_DIRECTION;
+Colorf STAGE_LANTERN_1_COLOR_AMBIENT;
+Colorf STAGE_LANTERN_1_COLOR_DIFFUSE;
+Colorf STAGE_LANTERN_1_COLOR_SPECULAR;
+float  STAGE_LANTERN_1_ATTENUATION;
+float  STAGE_LANTERN_1_CONSTANT_ATTENUATION;
+float  STAGE_LANTERN_1_LINEAR_ATTENUATION;
+float  STAGE_LANTERN_1_QUADRIC_ATTENUATION;
+bool   STAGE_LANTERN_1_DEBUG_DRAW;
 
 bool Config::LoadJson(const string &filepath, string *msg){
     JsonTree configJson;
@@ -237,12 +237,16 @@ bool Config::LoadJson(const string &filepath, string *msg){
     
     JsonTree nodeWindow;
     JsonTree nodeProjection;
-    JsonTree nodeWorld;
+    JsonTree nodeStage;
+    JsonTree nodeStageTheme;
+    JsonTree nodeStageSchedule;
     
     try {
-        nodeWindow     = configJson.getChild("window");
-        nodeProjection = configJson.getChild("projection");
-        nodeWorld      = configJson.getChild("scene.layer_quote.world");
+        nodeWindow        = configJson.getChild("window");
+        nodeProjection    = configJson.getChild("projection");
+        nodeStage         = configJson.getChild("scene.stage");
+        nodeStageTheme    = nodeStage.getChild("theme");
+        nodeStageSchedule = nodeStage.getChild("schedule");
     } catch (JsonTree::Exception& exc) {
         *msg = exc.what();
         return __isValid = false;
@@ -274,60 +278,60 @@ bool Config::LoadJson(const string &filepath, string *msg){
        /*--------------------------------------------------------------------------------------------*/
        //	World
        /*--------------------------------------------------------------------------------------------*/
-       !Parse(nodeWorld, "shader_fx.blur_scale", &WORLD_FX_SHADER_BLUR_SCALE, msg) ||
-       !Parse(nodeWorld, "shader_fx.blur_scale_radial", &WORLD_FX_SHADER_BLUR_RADIAL_SCALE,msg) ||
-       !Parse(nodeWorld, "shader_fx.blur_radial_radius_scale", &WORLD_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE, msg) ||
+       !Parse(nodeStage, "shader_fx.blur_scale", &STAGE_FX_SHADER_BLUR_SCALE, msg) ||
+       !Parse(nodeStage, "shader_fx.blur_scale_radial", &STAGE_FX_SHADER_BLUR_RADIAL_SCALE,msg) ||
+       !Parse(nodeStage, "shader_fx.blur_radial_radius_scale", &STAGE_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE, msg) ||
        
        /*--------------------------------------------------------------------------------------------*/
        //	World Lantern 0
        /*--------------------------------------------------------------------------------------------*/
-       !Parse(nodeWorld, "light.lantern_0.direction", &WORLD_LANTERN_0_DIRECTION, msg) ||
-       !Parse(nodeWorld, "light.lantern_0.ambient", &WORLD_LANTERN_0_COLOR_AMBIENT, msg) ||
-       !Parse(nodeWorld, "light.lantern_0.diffuse", &WORLD_LANTERN_0_COLOR_DIFFUSE, msg) ||
-       !Parse(nodeWorld, "light.lantern_0.specular", &WORLD_LANTERN_0_COLOR_SPECULAR, msg) ||
-       !Parse(nodeWorld, "light.lantern_0.attenuation", &WORLD_LANTERN_0_ATTENUATION, msg) ||
-       !Parse(nodeWorld, "light.lantern_0.constant_attenuation", &WORLD_LANTERN_0_CONSTANT_ATTENUATION, msg) ||
-       !Parse(nodeWorld, "light.lantern_0.linear_attenuation", &WORLD_LANTERN_0_LINEAR_ATTENUATION, msg) ||
-       !Parse(nodeWorld, "light.lantern_0.quadric_attenuation", &WORLD_LANTERN_0_QUADRIC_ATTENUATION, msg) ||
-       !Parse(nodeWorld, "light.lantern_0.debug_draw", &WORLD_LANTERN_0_DEBUG_DRAW, msg) ||
+       !Parse(nodeStage, "light.lantern_0.direction", &STAGE_LANTERN_0_DIRECTION, msg) ||
+       !Parse(nodeStage, "light.lantern_0.ambient", &STAGE_LANTERN_0_COLOR_AMBIENT, msg) ||
+       !Parse(nodeStage, "light.lantern_0.diffuse", &STAGE_LANTERN_0_COLOR_DIFFUSE, msg) ||
+       !Parse(nodeStage, "light.lantern_0.specular", &STAGE_LANTERN_0_COLOR_SPECULAR, msg) ||
+       !Parse(nodeStage, "light.lantern_0.attenuation", &STAGE_LANTERN_0_ATTENUATION, msg) ||
+       !Parse(nodeStage, "light.lantern_0.constant_attenuation", &STAGE_LANTERN_0_CONSTANT_ATTENUATION, msg) ||
+       !Parse(nodeStage, "light.lantern_0.linear_attenuation", &STAGE_LANTERN_0_LINEAR_ATTENUATION, msg) ||
+       !Parse(nodeStage, "light.lantern_0.quadric_attenuation", &STAGE_LANTERN_0_QUADRIC_ATTENUATION, msg) ||
+       !Parse(nodeStage, "light.lantern_0.debug_draw", &STAGE_LANTERN_0_DEBUG_DRAW, msg) ||
        
        
        /*--------------------------------------------------------------------------------------------*/
        //	World Lantern 1
        /*--------------------------------------------------------------------------------------------*/
-       !Parse(nodeWorld, "light.lantern_1.direction", &WORLD_LANTERN_1_DIRECTION, msg) ||
-       !Parse(nodeWorld, "light.lantern_1.ambient", &WORLD_LANTERN_1_COLOR_AMBIENT, msg) ||
-       !Parse(nodeWorld, "light.lantern_1.diffuse", &WORLD_LANTERN_1_COLOR_DIFFUSE, msg) ||
-       !Parse(nodeWorld, "light.lantern_1.specular", &WORLD_LANTERN_1_COLOR_SPECULAR, msg) ||
-       !Parse(nodeWorld, "light.lantern_1.attenuation", &WORLD_LANTERN_1_ATTENUATION, msg) ||
-       !Parse(nodeWorld, "light.lantern_1.constant_attenuation", &WORLD_LANTERN_1_CONSTANT_ATTENUATION, msg) ||
-       !Parse(nodeWorld, "light.lantern_1.linear_attenuation", &WORLD_LANTERN_1_LINEAR_ATTENUATION, msg) ||
-       !Parse(nodeWorld, "light.lantern_1.quadric_attenuation", &WORLD_LANTERN_1_QUADRIC_ATTENUATION, msg) ||
-       !Parse(nodeWorld, "light.lantern_1.debug_draw", &WORLD_LANTERN_1_DEBUG_DRAW, msg) ||
+       !Parse(nodeStage, "light.lantern_1.direction", &STAGE_LANTERN_1_DIRECTION, msg) ||
+       !Parse(nodeStage, "light.lantern_1.ambient", &STAGE_LANTERN_1_COLOR_AMBIENT, msg) ||
+       !Parse(nodeStage, "light.lantern_1.diffuse", &STAGE_LANTERN_1_COLOR_DIFFUSE, msg) ||
+       !Parse(nodeStage, "light.lantern_1.specular", &STAGE_LANTERN_1_COLOR_SPECULAR, msg) ||
+       !Parse(nodeStage, "light.lantern_1.attenuation", &STAGE_LANTERN_1_ATTENUATION, msg) ||
+       !Parse(nodeStage, "light.lantern_1.constant_attenuation", &STAGE_LANTERN_1_CONSTANT_ATTENUATION, msg) ||
+       !Parse(nodeStage, "light.lantern_1.linear_attenuation", &STAGE_LANTERN_1_LINEAR_ATTENUATION, msg) ||
+       !Parse(nodeStage, "light.lantern_1.quadric_attenuation", &STAGE_LANTERN_1_QUADRIC_ATTENUATION, msg) ||
+       !Parse(nodeStage, "light.lantern_1.debug_draw", &STAGE_LANTERN_1_DEBUG_DRAW, msg) ||
        
        
        /*--------------------------------------------------------------------------------------------*/
        //	Path Surface
        /*--------------------------------------------------------------------------------------------*/
-       !Parse(nodeWorld, "board.path_surface.color", &PATH_SURFACE_COLOR, msg) ||
+       !Parse(nodeStageTheme, "path_surface.color", &PATH_SURFACE_COLOR, msg) ||
        
        
        /*--------------------------------------------------------------------------------------------*/
        //   Diver Field Material
        /*--------------------------------------------------------------------------------------------*/
-       !Parse(nodeWorld, "board.diver_field.material.ambient", &DIVER_FIELD_MATERIAL_AMBIENT, msg) ||
-       !Parse(nodeWorld, "board.diver_field.material.diffuse", &DIVER_FIELD_MATERIAL_DIFFUSE, msg) ||
-       !Parse(nodeWorld, "board.diver_field.material.specular", &DIVER_FIELD_MATERIAL_SPECULAR, msg) ||
-       !Parse(nodeWorld, "board.diver_field.material.shininess", &DIVER_FIELD_MATERIAL_SHININESS, msg) ||
+       !Parse(nodeStageTheme, "diver_field.material.ambient", &DIVER_FIELD_MATERIAL_AMBIENT, msg) ||
+       !Parse(nodeStageTheme, "diver_field.material.diffuse", &DIVER_FIELD_MATERIAL_DIFFUSE, msg) ||
+       !Parse(nodeStageTheme, "diver_field.material.specular", &DIVER_FIELD_MATERIAL_SPECULAR, msg) ||
+       !Parse(nodeStageTheme, "diver_field.material.shininess", &DIVER_FIELD_MATERIAL_SHININESS, msg) ||
        
        
        /*--------------------------------------------------------------------------------------------*/
        //   Quote Field Material
        /*--------------------------------------------------------------------------------------------*/
-       !Parse(nodeWorld, "board.quote_field.material.ambient", &QUOTE_FIELD_MATERIAL_AMBIENT, msg) ||
-       !Parse(nodeWorld, "board.quote_field.material.diffuse", &QUOTE_FIELD_MATERIAL_DIFFUSE, msg) ||
-       !Parse(nodeWorld, "board.quote_field.material.specular", &QUOTE_FIELD_MATERIAL_SPECULAR, msg) ||
-       !Parse(nodeWorld, "board.quote_field.material.shininess", &QUOTE_FIELD_MATERIAL_SHININESS, msg)){
+       !Parse(nodeStageTheme, "quote_field.material.ambient", &QUOTE_FIELD_MATERIAL_AMBIENT, msg) ||
+       !Parse(nodeStageTheme, "quote_field.material.diffuse", &QUOTE_FIELD_MATERIAL_DIFFUSE, msg) ||
+       !Parse(nodeStageTheme, "quote_field.material.specular", &QUOTE_FIELD_MATERIAL_SPECULAR, msg) ||
+       !Parse(nodeStageTheme, "quote_field.material.shininess", &QUOTE_FIELD_MATERIAL_SHININESS, msg)){
         return __isValid = false;
     }
 

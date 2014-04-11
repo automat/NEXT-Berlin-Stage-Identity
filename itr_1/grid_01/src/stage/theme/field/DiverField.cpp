@@ -12,7 +12,7 @@ using namespace boost::assign;
 
 DiverField::DiverField(const Vec3f& pos, int numPathSlices) :
     AbstractField(pos, 1, numPathSlices){
-        mSurfaceDisplacement = Vec3f(Rand::randInt(0, WORLD_GRID_NUM_CELLS_XY),0,Rand::randInt(0, WORLD_GRID_NUM_CELLS_XY));
+        mSurfaceDisplacement = Vec3f(Rand::randInt(0, STAGE_GRID_NUM_CELLS_XY),0,Rand::randInt(0, STAGE_GRID_NUM_CELLS_XY));
         mSurfaceAmplitude    = DIVER_FIELD_SURFACE_PATH_AMPLITUDE;
         mSurfaceDensity      = DIVER_FIELD_SURFACE_PATH_DENSITY;
         mSurfaceOffsetSpeed  = DIVER_FIELD_SURFACE_PATH_OFFSET_SPEED;

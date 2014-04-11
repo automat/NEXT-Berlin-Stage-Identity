@@ -36,95 +36,88 @@
 /*--------------------------------------------------------------------------------------------*/
 
 	"scene" : {
+        "stage" : {
 
-		//
-		//	Layer Quote
-		//
-		"layer_quote" : {
-			"world" : {
-				
-				//
-				//	Shader FX
-				//
-				"shader_fx" : {
-					"live_edit" 			   : false,
-					"blur_scale" 	 	       : 0.45,
-					"blur_scale_radial" 	   : 2.25,
-					"blur_radial_radius_scale" : 0.75
-				},
+            //
+            //	Shader FX
+            //
+            "shader_fx" : {
+                "live_edit" 			   : false,
+                "blur_scale" 	 	       : 0.45,
+                "blur_scale_radial" 	   : 2.25,
+                "blur_radial_radius_scale" : 0.75
+            },
 
-				//
-				//	Light
-				//
-				"light" : {
-					"lantern_0" : {
-						"debug_draw" : false,
-						"direction"  : [-2,1,-2],//[-6,1,4], //[-2,2,2]
-						"ambient"    : [1,1,1],
-						"diffuse"    : [1,1,1],
-						"specular"   : [1,1,1],
-						"attenuation"          : 1.0,
-						"constant_attenuation" : 0.03,
-						"linear_attenuation"   : 0.224,
-						"quadric_attenuation"  : 0.123
-					},
+            //
+            //	Light
+            //
+            "light" : {
+                "lantern_0" : {
+                    "debug_draw" : false,
+                    "direction"  : [-2,1,-2],//[-6,1,4], //[-2,2,2]
+                    "ambient"    : [1,1,1],
+                    "diffuse"    : [1,1,1],
+                    "specular"   : [1,1,1],
+                    "attenuation"          : 1.0,
+                    "constant_attenuation" : 0.03,
+                    "linear_attenuation"   : 0.224,
+                    "quadric_attenuation"  : 0.123
+                },
 
-					"lantern_1" : {
-						"debug_draw" : false,
-						"direction"  : [-1,1,-1],//[-6,1,4], //[-2,2,2]
-						"ambient"    : [1,1,1],
-						"diffuse"    : [1,1,1],
-						"specular"   : [1,1,1],
-						"attenuation"          : 1.0,
-						"constant_attenuation" : 0.03,
-						"linear_attenuation"   : 0.224,
-						"quadric_attenuation"  : 0.123
-					}
-				},
+                "lantern_1" : {
+                    "debug_draw" : false,
+                    "direction"  : [-1,1,-1],//[-6,1,4], //[-2,2,2]
+                    "ambient"    : [1,1,1],
+                    "diffuse"    : [1,1,1],
+                    "specular"   : [1,1,1],
+                    "attenuation"          : 1.0,
+                    "constant_attenuation" : 0.03,
+                    "linear_attenuation"   : 0.224,
+                    "quadric_attenuation"  : 0.123
+                }
+            },
 
-				//
-				//	Board
-				//
-				"board" : {
-					"live_edit_material_shader" : false,
-					
-					"path_surface" : {
-						"color" : [0.675,0,0.675,1.0]
-					},
-					
-					//
-					//	Diver Field
-					//
-					"diver_field" : {
-						"material" : {
-							"ambient"   : [0,0,0,1],//[0.35,0,0.35,1],
-							"diffuse"   : [0.75,0,0.55,1],//[1,0,1,1]
-							"specular"  : [1.0,0,0,1],
-							"shininess" : 1.0
-						}
-					},
+            //
+            //	Theme
+            //
+            "theme" : {
+                "live_edit_material_shader" : false,
 
-					//
-					//	Quote Field
-					//
-					"quote_field" : {
-						"material" : {
-							"ambient"   : [0.0,0.0,0.12,1],
-							"diffuse"   : [0,0,0,1],
-							"specular"  : [0.45,0,0,1],
-							"shininess" : 1.0
-						}
-					}
-				}
-			}
-		},
+                "path_surface" : {
+                    "color" : [0.675,0,0.675,1.0]
+                },
 
-		//
-		//	Layer Info
-		//
-		"layer_info" : {
+                //
+                //	Diver Field
+                //
+                "diver_field" : {
+                    "material" : {
+                        "ambient"   : [0,0,0,1],//[0.35,0,0.35,1],
+                        "diffuse"   : [0.75,0,0.55,1],//[1,0,1,1]
+                        "specular"  : [1.0,0,0,1],
+                        "shininess" : 1.0
+                    }
+                },
 
-		}
+                //
+                //	Quote Field
+                //
+                "quote_field" : {
+                    "material" : {
+                        "ambient"   : [0.0,0.0,0.12,1],
+                        "diffuse"   : [0,0,0,1],
+                        "specular"  : [0.45,0,0,1],
+                        "shininess" : 1.0
+                    }
+                }
+            },
 
+            //
+            //  Schedule
+            //
+            "schedule" : {
+                
+            }
+        }
 	}		
 }

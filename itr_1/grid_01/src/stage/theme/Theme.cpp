@@ -47,7 +47,7 @@ Theme::Theme(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<
         
         setQuote((*mQuotes)[0]);
         
-#ifdef BOARD_LIVE_EDIT_MATERIAL_SHADER
+#ifdef THEME_LIVE_EDIT_MATERIAL_SHADER
         mFileWatcher = FileWatcher::Get();
         utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
                           loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
@@ -122,9 +122,9 @@ void Theme::draw(const CameraOrtho& camera, bool useMaterialShaders){
         mShaderDiverFields.bind();
         mMaterialDiverFields.apply();
     }
-#ifndef BOARD_SKIP_DRAW_FIELD_DIVER
+#ifndef THEME_SKIP_DRAW_FIELD_DIVER
     for(vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr){
-#ifdef DEBUG_BOARD_FIELD_DIVER
+#ifdef DEBUG_THEME_FIELD_DIVER
         (*itr)->debugDrawArea();
         (*itr)->debugDrawDivers();
         (*itr)->debugDrawPathSurface();
@@ -136,7 +136,7 @@ void Theme::draw(const CameraOrtho& camera, bool useMaterialShaders){
         mShaderDiverFields.unbind();
     }
     
-#ifndef BOARD_SKIP_DRAW_QUOTE_DIVER
+#ifndef THEME_SKIP_DRAW_QUOTE_DIVER
     glEnable(GL_POLYGON_OFFSET_FILL);
     glPolygonOffset(0.0, 0.9);
     if(useMaterialShaders){
@@ -146,12 +146,12 @@ void Theme::draw(const CameraOrtho& camera, bool useMaterialShaders){
         mShaderQuoteFields.uniform("uTexture", 0);
     }
     for(vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr){
-#ifdef DEBUG_BOARD_FIELD_QUOTE
+#ifdef DEBUG_THEME_FIELD_QUOTE
         (*itr)->debugDrawArea();
         (*itr)->debugDrawPathSurface();
         (*itr)->debugDrawDivers();
 #endif
-#ifdef DEBUG_BOARD_FIELD_QUOTE_TEXCOORDS
+#ifdef DEBUG_THEME_FIELD_QUOTE_TEXCOORDS
         (*itr)->debugDrawDiverIndices(camera);
 #endif
         (*itr)->draw();
@@ -166,7 +166,7 @@ void Theme::draw(const CameraOrtho& camera, bool useMaterialShaders){
 }
 
 void Theme::update(){
-#ifdef BOARD_LIVE_EDIT_MATERIAL_SHADER
+#ifdef THEME_LIVE_EDIT_MATERIAL_SHADER
     utils::watchShaderSource(mFileWatcher,
                              loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
                              loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
@@ -177,7 +177,7 @@ void Theme::update(){
                              &mShaderDiverFields);
 #endif
     float t = app::getElapsedSeconds();
-#ifndef BOARD_SKIP_DRAW_FIELD_DIVER
+#ifndef THEME_SKIP_DRAW_FIELD_DIVER
     for (vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr) {
         (*itr)->update(mOscillator,t);
     }

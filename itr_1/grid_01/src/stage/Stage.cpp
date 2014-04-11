@@ -29,11 +29,11 @@ Stage::Stage(const vector<QuoteJson>& quoteData){
     /*--------------------------------------------------------------------------------------------*/
 
     mCameraAspectRatio = app::getWindowAspectRatio();
-    mCamera.setOrtho(-mCameraAspectRatio * WORLD_MODEL_CAM_ZOOM, mCameraAspectRatio * WORLD_MODEL_CAM_ZOOM,
-                     -WORLD_MODEL_CAM_ZOOM, WORLD_MODEL_CAM_ZOOM, WORLD_MODEL_CAM_NEAR_CLIP, WORLD_MODEL_CAM_FAR_CLIP);
+    mCamera.setOrtho(-mCameraAspectRatio * STAGE_MODEL_CAM_ZOOM, mCameraAspectRatio * STAGE_MODEL_CAM_ZOOM,
+                     -STAGE_MODEL_CAM_ZOOM, STAGE_MODEL_CAM_ZOOM, STAGE_MODEL_CAM_NEAR_CLIP, STAGE_MODEL_CAM_FAR_CLIP);
     viewOrtho();
     
-    mModelScale = WORLD_MODEL_SCALE;
+    mModelScale = STAGE_MODEL_SCALE;
     mTransform  = Matrix44f::createScale(Vec3f(mModelScale,mModelScale,mModelScale));
     mFrustum.set(mCamera);
     
@@ -48,7 +48,7 @@ Stage::Stage(const vector<QuoteJson>& quoteData){
     //  Environment
     /*--------------------------------------------------------------------------------------------*/
 
-    mGrid = new Grid(WORLD_GRID_NUM_CELLS_XY,WORLD_GRID_NUM_CELLS_XY);
+    mGrid = new Grid(STAGE_GRID_NUM_CELLS_XY,STAGE_GRID_NUM_CELLS_XY);
     
     // get Area from initial frustum
     const vector<Vec3f>& frPlaneNear = mFrustum.getNearPlane();
@@ -70,10 +70,10 @@ Stage::Stage(const vector<QuoteJson>& quoteData){
     //  Typesetter init
     
     mTypesetter = new QuoteTypesetter(mGrid, area);
-    mTypesetter->setFont(Font(app::loadResource(RES_FONT_TRANSCRIPT),WORLD_TYPESETTER_FONT_SIZE), WORLD_TYPESETTER_FONT_SCALE);
+    mTypesetter->setFont(Font(app::loadResource(RES_FONT_TRANSCRIPT),STAGE_TYPESETTER_FONT_SIZE), STAGE_TYPESETTER_FONT_SCALE);
     mTypesetter->constrain(false);
     mTypesetter->manualLineBreak(true);
-#ifdef DEBUG_WORLD_TYPESETTER_TEXCOORDS
+#ifdef DEBUG_STAGE_TYPESETTER_TEXCOORDS
     mTypesetter->debugTexture();
 #endif
     
@@ -124,7 +124,7 @@ Stage::Stage(const vector<QuoteJson>& quoteData){
     
     mFboScene       = gl::Fbo(mFboSize_1.x, mFboSize_1.y,   fboFormat_4);
     
-#if defined(WORLD_LIVE_EDIT_FX_SHADER) && !defined(WORLD_SKIP_FX_SHADER)
+#if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(WORLD_SKIP_FX_SHADER)
     mFileWatcher = FileWatcher::Get();
     utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
                       loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
@@ -186,34 +186,34 @@ void Stage::loadLightProperties(){
     //
     //  Lantern 0
     //
-    mLantern0->setDirection(WORLD_LANTERN_0_DIRECTION);
+    mLantern0->setDirection(STAGE_LANTERN_0_DIRECTION);
     
-    mLantern0->setAmbient( WORLD_LANTERN_0_COLOR_AMBIENT);
-    mLantern0->setDiffuse( WORLD_LANTERN_0_COLOR_DIFFUSE);
-    mLantern0->setSpecular(WORLD_LANTERN_0_COLOR_SPECULAR);
+    mLantern0->setAmbient(STAGE_LANTERN_0_COLOR_AMBIENT);
+    mLantern0->setDiffuse(STAGE_LANTERN_0_COLOR_DIFFUSE);
+    mLantern0->setSpecular(STAGE_LANTERN_0_COLOR_SPECULAR);
     
-    mLantern0->setAttenuation(         WORLD_LANTERN_0_ATTENUATION);
-    mLantern0->setConstantAttenuation( WORLD_LANTERN_0_CONSTANT_ATTENUATION);
-    mLantern0->setLinearAttenuation(   WORLD_LANTERN_0_LINEAR_ATTENUATION);
-    mLantern0->setQuadraticAttenuation(WORLD_LANTERN_0_QUADRIC_ATTENUATION);
+    mLantern0->setAttenuation(STAGE_LANTERN_0_ATTENUATION);
+    mLantern0->setConstantAttenuation(STAGE_LANTERN_0_CONSTANT_ATTENUATION);
+    mLantern0->setLinearAttenuation(STAGE_LANTERN_0_LINEAR_ATTENUATION);
+    mLantern0->setQuadraticAttenuation(STAGE_LANTERN_0_QUADRIC_ATTENUATION);
     
-    mLantern0DebugDraw = WORLD_LANTERN_0_DEBUG_DRAW;
+    mLantern0DebugDraw = STAGE_LANTERN_0_DEBUG_DRAW;
     
     //
     //  Lantern 1
     //
-    mLantern1->setDirection(WORLD_LANTERN_1_DIRECTION);
+    mLantern1->setDirection(STAGE_LANTERN_1_DIRECTION);
     
-    mLantern1->setAmbient( WORLD_LANTERN_1_COLOR_AMBIENT);
-    mLantern1->setDiffuse( WORLD_LANTERN_1_COLOR_DIFFUSE);
-    mLantern1->setSpecular(WORLD_LANTERN_1_COLOR_SPECULAR);
+    mLantern1->setAmbient(STAGE_LANTERN_1_COLOR_AMBIENT);
+    mLantern1->setDiffuse(STAGE_LANTERN_1_COLOR_DIFFUSE);
+    mLantern1->setSpecular(STAGE_LANTERN_1_COLOR_SPECULAR);
     
-    mLantern1->setAttenuation(         WORLD_LANTERN_1_ATTENUATION);
-    mLantern1->setConstantAttenuation( WORLD_LANTERN_1_CONSTANT_ATTENUATION);
-    mLantern1->setLinearAttenuation(   WORLD_LANTERN_1_LINEAR_ATTENUATION);
-    mLantern1->setQuadraticAttenuation(WORLD_LANTERN_1_QUADRIC_ATTENUATION);
+    mLantern1->setAttenuation(STAGE_LANTERN_1_ATTENUATION);
+    mLantern1->setConstantAttenuation(STAGE_LANTERN_1_CONSTANT_ATTENUATION);
+    mLantern1->setLinearAttenuation(STAGE_LANTERN_1_LINEAR_ATTENUATION);
+    mLantern1->setQuadraticAttenuation(STAGE_LANTERN_1_QUADRIC_ATTENUATION);
     
-    mLantern1DebugDraw = WORLD_LANTERN_1_DEBUG_DRAW;
+    mLantern1DebugDraw = STAGE_LANTERN_1_DEBUG_DRAW;
 
 }
 
@@ -229,12 +229,12 @@ void Stage::drawScene(bool useMaterialShaders){
     gl::setMatrices(mCamera);
     
     
-#ifdef DEBUG_WORLD_CAM_FRUSTUM
+#ifdef DEBUG_STAGE_CAM_FRUSTUM
     mFrustum.draw();
 #endif
     glMultMatrixf(&mTransform[0]);
     
-#ifdef DEBUG_WORLD_COORDINATE_FRAME
+#ifdef DEBUG_STAGE_COORDINATE_FRAME
     gl::drawCoordinateFrame();
 #endif
     
@@ -255,7 +255,7 @@ void Stage::drawScene(bool useMaterialShaders){
         mLantern0->disable();
         mLantern1->disable();
     }
-#ifdef DEBUG_WORLD_GRID_DRAW_INDICES
+#ifdef DEBUG_STAGE_GRID_DRAW_INDICES
     gl::disableDepthRead();
     mGrid->debugDrawIndices(mCamera);
     gl::enableDepthRead();
@@ -345,7 +345,7 @@ void Stage::processScene(){
 	mShaderBlurH.bind();
 	mShaderBlurH.uniform("uTexture", 0);
     mShaderBlurH.uniform("uTexelSize", mFboTexelSize_2.x);
-    mShaderBlurH.uniform("uScale", WORLD_FX_SHADER_BLUR_SCALE);
+    mShaderBlurH.uniform("uScale", STAGE_FX_SHADER_BLUR_SCALE);
     utils::drawClearedScreenRect(mFboSize_2);
 	mShaderBlurH.unbind();
 	mFboPingPong_2.unbindSourceTexture(0);
@@ -362,7 +362,7 @@ void Stage::processScene(){
 	mShaderBlurV.bind();
 	mShaderBlurV.uniform("uTexture", 0);
     mShaderBlurV.uniform("uTexelSize", mFboTexelSize_2.y);
-    mShaderBlurV.uniform("uScale", WORLD_FX_SHADER_BLUR_SCALE);
+    mShaderBlurV.uniform("uScale", STAGE_FX_SHADER_BLUR_SCALE);
     utils::drawClearedScreenRect(mFboSize_2);
 	mShaderBlurV.unbind();
 	mFboPingPong_2.unbindSourceTexture(0);
@@ -411,7 +411,7 @@ void Stage::processScene(){
     mShaderBlurH.bind();
 	mShaderBlurH.uniform("uTexture", 0);
     mShaderBlurH.uniform("uTexelSize", mFboTexelSize_1.x);
-    mShaderBlurH.uniform("uScale", WORLD_FX_SHADER_BLUR_RADIAL_SCALE);
+    mShaderBlurH.uniform("uScale", STAGE_FX_SHADER_BLUR_RADIAL_SCALE);
     utils::drawClearedScreenRect(mFboSize_1);
 	mShaderBlurH.unbind();
 	
@@ -430,7 +430,7 @@ void Stage::processScene(){
     mShaderBlurV.bind();
     mShaderBlurV.uniform("uTexture", 0);
     mShaderBlurV.uniform("uTexelSize", mFboTexelSize_1.x);
-    mShaderBlurV.uniform("uScale", WORLD_FX_SHADER_BLUR_RADIAL_SCALE);
+    mShaderBlurV.uniform("uScale", STAGE_FX_SHADER_BLUR_RADIAL_SCALE);
     utils::drawClearedScreenRect(mFboPingPong_1.getSize(),false);
 	mShaderBlurV.unbind();
     
@@ -451,7 +451,7 @@ void Stage::processScene(){
     mShaderMixRadial.uniform("uTexture0", 0);
     mShaderMixRadial.uniform("uTexture1", 1);
     mShaderMixRadial.uniform("uScreenSize", Vec2f(app::getWindowWidth(),app::getWindowHeight()));
-    mShaderMixRadial.uniform("uScaleGradient", WORLD_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE);
+    mShaderMixRadial.uniform("uScaleGradient", STAGE_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE);
     utils::drawClearedScreenRect(mFboSceneFinal.getSize());
     mShaderMixRadial.unbind();
     
@@ -470,7 +470,7 @@ void Stage::processScene(){
 /*--------------------------------------------------------------------------------------------*/
 
 void Stage::update(){
-#if defined(WORLD_LIVE_EDIT_FX_SHADER) && !defined(WORLD_SKIP_FX_SHADER)
+#if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(WORLD_SKIP_FX_SHADER)
     utils::watchShaderSource(mFileWatcher,
                              loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
                              loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
@@ -515,12 +515,12 @@ void Stage::draw(){
     gl::draw(mFboScene.getTexture(), mFboScene.getBounds());
 #endif
     
-#ifdef DEBUG_WORLD_TYPESETTER_TEXTURE
+#ifdef DEBUG_STAGE_TYPESETTER_TEXTURE
     gl::disableDepthRead();
     glColor3f(1, 1, 1);
-    const Quote* quote = mBoard->getCurrentQuote();
+    const Quote* quote = mTheme->getCurrentQuote();
     if(quote != nullptr){
-        gl::draw(quote->getTexture(),Rectf(windowSize.x - 256, 0, windowSize.x, 256));
+        gl::draw(quote->getTexture(),Rectf(mFboSize_1.x - 256,mFboSize_1.y,mFboSize_1.x,mFboSize_1.y - 256));
     }
     gl::enableDepthRead();
 #endif
@@ -534,12 +534,12 @@ void Stage::draw(){
 /*--------------------------------------------------------------------------------------------*/
 
 void Stage::zoomModelIn(){
-    mModelScale = MIN(WORLD_MODEL_SCALE_MIN, mModelScale * 2);
+    mModelScale = MIN(STAGE_MODEL_SCALE_MIN, mModelScale * 2);
     mTransform = Matrix44f::createScale(Vec3f(mModelScale,mModelScale,mModelScale));
 }
 
 void Stage::zoomModelOut(){
-    mModelScale = MIN(mModelScale / 2, WORLD_MODEL_SCALE_MAX);
+    mModelScale = MIN(mModelScale / 2, STAGE_MODEL_SCALE_MAX);
     mTransform = Matrix44f::createScale(Vec3f(mModelScale,mModelScale,mModelScale));
 }
 
