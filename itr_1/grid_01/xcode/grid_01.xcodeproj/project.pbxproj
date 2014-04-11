@@ -40,13 +40,14 @@
 		CDA25F4D18F7DFFA00C1DF74 /* QuoteField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F4018F7DFFA00C1DF74 /* QuoteField.cpp */; };
 		CDA25F4E18F7DFFA00C1DF74 /* PathSlice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F4218F7DFFA00C1DF74 /* PathSlice.cpp */; };
 		CDA25F4F18F7DFFA00C1DF74 /* PathSurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F4318F7DFFA00C1DF74 /* PathSurface.cpp */; };
-		CDA25F5018F7DFFA00C1DF74 /* Theme.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F4418F7DFFA00C1DF74 /* Theme.cpp */; };
+		CDA25F5018F7DFFA00C1DF74 /* ThemeView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F4418F7DFFA00C1DF74 /* ThemeView.cpp */; };
 		CDA25F7A18F7FB6D00C1DF74 /* Event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F7818F7FB6D00C1DF74 /* Event.cpp */; };
 		CDA25F7D18F7FB9200C1DF74 /* Person.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F7B18F7FB9200C1DF74 /* Person.cpp */; };
 		CDA25F8018F7FBA300C1DF74 /* PersonView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F7E18F7FBA300C1DF74 /* PersonView.cpp */; };
 		CDA25F8318F7FBA900C1DF74 /* PersonViewStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F8118F7FBA900C1DF74 /* PersonViewStack.cpp */; };
 		CDA25F8618F7FBBD00C1DF74 /* Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F8418F7FBBD00C1DF74 /* Session.cpp */; };
 		CDA25F8B18F80EE400C1DF74 /* EventView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F8A18F80EE400C1DF74 /* EventView.cpp */; };
+		CDA25F9118F8211800C1DF74 /* ScheduleView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F9018F820E700C1DF74 /* ScheduleView.cpp */; };
 		CDA8941818F4090D00DFF856 /* diver_field_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDA8941718F4090D00DFF856 /* diver_field_vert.glsl */; };
 		CDA8941A18F4092500DFF856 /* diver_field_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDA8941918F4092500DFF856 /* diver_field_frag.glsl */; };
 		CDA8942318F4342D00DFF856 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = CDA8942218F4342D00DFF856 /* config.json */; };
@@ -116,7 +117,7 @@
 		CDA25F4018F7DFFA00C1DF74 /* QuoteField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuoteField.cpp; sourceTree = "<group>"; };
 		CDA25F4218F7DFFA00C1DF74 /* PathSlice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathSlice.cpp; sourceTree = "<group>"; };
 		CDA25F4318F7DFFA00C1DF74 /* PathSurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathSurface.cpp; sourceTree = "<group>"; };
-		CDA25F4418F7DFFA00C1DF74 /* Theme.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Theme.cpp; sourceTree = "<group>"; };
+		CDA25F4418F7DFFA00C1DF74 /* ThemeView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThemeView.cpp; sourceTree = "<group>"; };
 		CDA25F5318F7E00200C1DF74 /* Background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Background.h; sourceTree = "<group>"; };
 		CDA25F5518F7E00200C1DF74 /* Lantern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lantern.h; sourceTree = "<group>"; };
 		CDA25F5718F7E00200C1DF74 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
@@ -130,7 +131,7 @@
 		CDA25F6618F7E00200C1DF74 /* QuoteField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteField.h; sourceTree = "<group>"; };
 		CDA25F6818F7E00200C1DF74 /* PathSlice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathSlice.h; sourceTree = "<group>"; };
 		CDA25F6918F7E00200C1DF74 /* PathSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathSurface.h; sourceTree = "<group>"; };
-		CDA25F6A18F7E00200C1DF74 /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
+		CDA25F6A18F7E00200C1DF74 /* ThemeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeView.h; sourceTree = "<group>"; };
 		CDA25F6B18F7E00200C1DF74 /* Stage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stage.h; sourceTree = "<group>"; };
 		CDA25F6D18F7F8D400C1DF74 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		CDA25F6F18F7F8D400C1DF74 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
@@ -147,6 +148,8 @@
 		CDA25F8C18F80F9A00C1DF74 /* SessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionView.h; sourceTree = "<group>"; };
 		CDA25F8D18F80FDB00C1DF74 /* SessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionView.h; sourceTree = "<group>"; };
 		CDA25F8E18F810A900C1DF74 /* ScheduleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleView.h; sourceTree = "<group>"; };
+		CDA25F8F18F8152100C1DF74 /* AbstractView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractView.h; sourceTree = "<group>"; };
+		CDA25F9018F820E700C1DF74 /* ScheduleView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScheduleView.cpp; sourceTree = "<group>"; };
 		CDA8941718F4090D00DFF856 /* diver_field_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = diver_field_vert.glsl; sourceTree = "<group>"; };
 		CDA8941918F4092500DFF856 /* diver_field_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = diver_field_frag.glsl; sourceTree = "<group>"; };
 		CDA8942218F4342D00DFF856 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
@@ -360,7 +363,7 @@
 				CDA25F3B18F7DFFA00C1DF74 /* diver */,
 				CDA25F3D18F7DFFA00C1DF74 /* field */,
 				CDA25F4118F7DFFA00C1DF74 /* path */,
-				CDA25F4418F7DFFA00C1DF74 /* Theme.cpp */,
+				CDA25F4418F7DFFA00C1DF74 /* ThemeView.cpp */,
 			);
 			path = theme;
 			sourceTree = "<group>";
@@ -398,9 +401,10 @@
 				CDA25F5218F7E00200C1DF74 /* bg */,
 				CDA25F5418F7E00200C1DF74 /* env */,
 				CDA25F5618F7E00200C1DF74 /* grid */,
-				CDA25F5A18F7E00200C1DF74 /* Oscillator.h */,
 				CDA25F5B18F7E00200C1DF74 /* schedule */,
 				CDA25F6018F7E00200C1DF74 /* theme */,
+				CDA25F8F18F8152100C1DF74 /* AbstractView.h */,
+				CDA25F5A18F7E00200C1DF74 /* Oscillator.h */,
 				CDA25F6B18F7E00200C1DF74 /* Stage.h */,
 			);
 			name = stage;
@@ -451,7 +455,7 @@
 				CDA25F6118F7E00200C1DF74 /* diver */,
 				CDA25F6318F7E00200C1DF74 /* field */,
 				CDA25F6718F7E00200C1DF74 /* path */,
-				CDA25F6A18F7E00200C1DF74 /* Theme.h */,
+				CDA25F6A18F7E00200C1DF74 /* ThemeView.h */,
 			);
 			path = theme;
 			sourceTree = "<group>";
@@ -517,6 +521,7 @@
 				CDA25F7518F7FB4700C1DF74 /* event */,
 				CDA25F7618F7FB4700C1DF74 /* person */,
 				CDA25F7718F7FB4700C1DF74 /* session */,
+				CDA25F9018F820E700C1DF74 /* ScheduleView.cpp */,
 			);
 			path = schedule;
 			sourceTree = "<group>";
@@ -825,6 +830,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDA25F8018F7FBA300C1DF74 /* PersonView.cpp in Sources */,
+				CDA25F9118F8211800C1DF74 /* ScheduleView.cpp in Sources */,
 				F30AA0D8C13048EAA7C88778 /* grid_01App.cpp in Sources */,
 				CDA25F4D18F7DFFA00C1DF74 /* QuoteField.cpp in Sources */,
 				CDA25F4F18F7DFFA00C1DF74 /* PathSurface.cpp in Sources */,
@@ -845,7 +851,7 @@
 				CDA25F4518F7DFFA00C1DF74 /* Background.cpp in Sources */,
 				CDA25F7D18F7FB9200C1DF74 /* Person.cpp in Sources */,
 				CDD09A5318F713400066BE1D /* Config.cpp in Sources */,
-				CDA25F5018F7DFFA00C1DF74 /* Theme.cpp in Sources */,
+				CDA25F5018F7DFFA00C1DF74 /* ThemeView.cpp in Sources */,
 				CDA25F4918F7DFFA00C1DF74 /* Stage.cpp in Sources */,
 				CDD09A7618F713450066BE1D /* QuoteParser.cpp in Sources */,
 				CDA25F4C18F7DFFA00C1DF74 /* DiverField.cpp in Sources */,

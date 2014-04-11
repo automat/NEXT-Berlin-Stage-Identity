@@ -11,33 +11,29 @@
 
 #include <vector>
 
-#include "cinder/Camera.h"
 #include "cinder/gl/GlslProg.h"
 #include "cinder/gl/Texture.h"
 #include "cinder/gl/Material.h"
 
 #include "util/FileWatcher.h"
-#include "layout/geom/LayoutArea.h"
 #include "layout/quote/Quote.h"
 #include "layout/quote/QuoteLine.h"
 
 #include "stage/grid/Index.h"
-#include "stage/grid/Grid.h"
 #include "stage/Oscillator.h"
 
 #include "stage/theme/field/DiverField.h"
 #include "stage/theme/field/QuoteField.h"
 
+#include "stage/AbstractView.h"
 
 using namespace std;
 using namespace ci;
 
-class Theme{
-    LayoutArea mArea;
+class ThemeView : public AbstractView {
     vector<DiverField*> mDiverFields;
   
     vector<Quote>*      mQuotes;        //  quote data
-    Grid*               mGrid;
     Oscillator*         mOscillator;
     Quote*              mQuoteCurrent;  //  ref to curr quote
     vector<QuoteField*> mQuoteFields;   //  quote fields
@@ -62,9 +58,8 @@ class Theme{
     
     
 public:
-    Theme(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<Quote>* quotes);
-    ~Theme();
-    
+    ThemeView(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<Quote>* quotes);
+    ~ThemeView();
     
     void onConfigDidChange();
     void draw(const CameraOrtho& camera, bool useMaterialShader);

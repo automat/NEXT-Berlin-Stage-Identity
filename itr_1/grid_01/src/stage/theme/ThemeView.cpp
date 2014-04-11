@@ -1,4 +1,4 @@
-#include "stage/theme/Theme.h"
+#include "stage/theme/ThemeView.h"
 
 #include <iostream>
 #include <vector>
@@ -25,9 +25,8 @@ using namespace ci;
 // Constructor
 /*--------------------------------------------------------------------------------------------*/
 
-Theme::Theme(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<Quote>* quotes) :
-    mGrid(grid),
-    mArea(area),
+ThemeView::ThemeView(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<Quote>* quotes) :
+    AbstractView(grid,area),
     mOscillator(oscillator),
     mQuotes(quotes){
 
@@ -71,17 +70,17 @@ Theme::Theme(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<
 // Destructor
 /*--------------------------------------------------------------------------------------------*/
 
-void Theme::deleteDiverFields(){
+void ThemeView::deleteDiverFields(){
     //mIndexDiverFieldMap.clear();
     while (!mDiverFields.empty()) delete mDiverFields.back(), mDiverFields.pop_back();
 }
 
-void Theme::deleteQuoteFields(){
+void ThemeView::deleteQuoteFields(){
     //mIndexQuoteFieldMap.clear();
     while (!mQuoteFields.empty()) delete mQuoteFields.back(), mQuoteFields.pop_back();
 }
 
-Theme::~Theme(){
+ThemeView::~ThemeView(){
     deleteDiverFields();
     deleteQuoteFields();
 }
@@ -91,7 +90,7 @@ Theme::~Theme(){
 // Load properties
 /*--------------------------------------------------------------------------------------------*/
 
-void Theme::loadMaterialProperties(){
+void ThemeView::loadMaterialProperties(){
     mMaterialDiverFields.setAmbient(  DIVER_FIELD_MATERIAL_AMBIENT);
     mMaterialDiverFields.setDiffuse(  DIVER_FIELD_MATERIAL_DIFFUSE);
     mMaterialDiverFields.setSpecular( DIVER_FIELD_MATERIAL_SPECULAR);
@@ -107,7 +106,7 @@ void Theme::loadMaterialProperties(){
 // Draw / Update
 /*--------------------------------------------------------------------------------------------*/
 
-void Theme::draw(const CameraOrtho& camera, bool useMaterialShaders){
+void ThemeView::draw(const CameraOrtho& camera, bool useMaterialShaders){
     gl::disableDepthRead();
     gl::enableAlphaTest();
     gl::enableAlphaBlending();
@@ -165,7 +164,7 @@ void Theme::draw(const CameraOrtho& camera, bool useMaterialShaders){
 #endif
 }
 
-void Theme::update(){
+void ThemeView::update(){
 #ifdef THEME_LIVE_EDIT_MATERIAL_SHADER
     utils::watchShaderSource(mFileWatcher,
                              loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
@@ -193,7 +192,7 @@ void Theme::update(){
 // Quote Handling
 /*--------------------------------------------------------------------------------------------*/
 
-void Theme::setQuote(Quote& quote){
+void ThemeView::setQuote(Quote& quote){
     deleteQuoteFields();
     
     const vector<QuoteLine>& lines = quote.getLines();
@@ -211,6 +210,6 @@ void Theme::setQuote(Quote& quote){
 // Config Change Handling
 /*--------------------------------------------------------------------------------------------*/
 
-void Theme::onConfigDidChange(){
+void ThemeView::onConfigDidChange(){
     loadMaterialProperties();
 }

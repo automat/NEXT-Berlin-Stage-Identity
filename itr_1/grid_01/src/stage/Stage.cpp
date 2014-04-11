@@ -92,7 +92,7 @@ Stage::Stage(const vector<QuoteJson>& quoteData){
     
     mOscillator = new Oscillator();
     mBackground = new Background(mGrid, areaScaled, mOscillator, windowSize.x, windowSize.y);
-    mTheme      = new Theme(mGrid, areaScaled, mOscillator, &mQuotes);
+    mThemeView  = new ThemeView(mGrid, areaScaled, mOscillator, &mQuotes);
 
     
     /*--------------------------------------------------------------------------------------------*/
@@ -170,7 +170,7 @@ Stage::Stage(const vector<QuoteJson>& quoteData){
 
 Stage::~Stage(){
     delete mBackground;
-    delete mTheme;
+    delete mThemeView;
     delete mOscillator;
     delete mTypesetter;
     delete mGrid;
@@ -249,7 +249,7 @@ void Stage::drawScene(bool useMaterialShaders){
     }
     
     mBackground->draw();
-    mTheme->draw(mCamera,useMaterialShaders);
+    mThemeView->draw(mCamera,useMaterialShaders);
     
     if(useMaterialShaders){
         mLantern0->disable();
@@ -493,7 +493,7 @@ void Stage::update(){
                              &mShaderMixRadial);
 #endif
     mBackground->update(mOscillator,app::getElapsedSeconds());
-    mTheme->update();
+    mThemeView->update();
 }
 
 
@@ -518,7 +518,7 @@ void Stage::draw(){
 #ifdef DEBUG_STAGE_TYPESETTER_TEXTURE
     gl::disableDepthRead();
     glColor3f(1, 1, 1);
-    const Quote* quote = mTheme->getCurrentQuote();
+    const Quote* quote = mThemeView->getCurrentQuote();
     if(quote != nullptr){
         gl::draw(quote->getTexture(),Rectf(mFboSize_1.x - 256,mFboSize_1.y,mFboSize_1.x,mFboSize_1.y - 256));
     }
@@ -558,7 +558,7 @@ void Stage::viewOrtho(){
 
 void Stage::onConfigDidChange(){
     loadLightProperties();
-    mTheme->onConfigDidChange();
+    mThemeView->onConfigDidChange();
 }
 
 void Stage::wakeUp(){

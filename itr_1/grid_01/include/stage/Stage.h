@@ -35,8 +35,8 @@
 #include "stage/env/Lantern.h"
 
 
-#include "stage/schedule/Schedule.h"
-#include "stage/theme/Theme.h"
+#include "stage/schedule/ScheduleView.h"
+#include "stage/theme/ThemeView.h"
 
 
 
@@ -60,9 +60,12 @@ class Stage {
     Oscillator*      mOscillator;
     Background*      mBackground;
     Grid*            mGrid;
-    Theme*           mTheme;
+    
     QuoteTypesetter* mTypesetter;
     vector<Quote>    mQuotes;
+    
+    ThemeView*       mThemeView;
+    ScheduleView*    mScheduleView;
     
 #if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(WORLD_SKIP_FX_SHADER)
     FileWatcherRef mFileWatcher;
