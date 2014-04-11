@@ -41,6 +41,12 @@
 		CDA25F4E18F7DFFA00C1DF74 /* PathSlice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F4218F7DFFA00C1DF74 /* PathSlice.cpp */; };
 		CDA25F4F18F7DFFA00C1DF74 /* PathSurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F4318F7DFFA00C1DF74 /* PathSurface.cpp */; };
 		CDA25F5018F7DFFA00C1DF74 /* Theme.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F4418F7DFFA00C1DF74 /* Theme.cpp */; };
+		CDA25F7A18F7FB6D00C1DF74 /* Event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F7818F7FB6D00C1DF74 /* Event.cpp */; };
+		CDA25F7D18F7FB9200C1DF74 /* Person.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F7B18F7FB9200C1DF74 /* Person.cpp */; };
+		CDA25F8018F7FBA300C1DF74 /* PersonView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F7E18F7FBA300C1DF74 /* PersonView.cpp */; };
+		CDA25F8318F7FBA900C1DF74 /* PersonViewStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F8118F7FBA900C1DF74 /* PersonViewStack.cpp */; };
+		CDA25F8618F7FBBD00C1DF74 /* Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F8418F7FBBD00C1DF74 /* Session.cpp */; };
+		CDA25F8B18F80EE400C1DF74 /* EventView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA25F8A18F80EE400C1DF74 /* EventView.cpp */; };
 		CDA8941818F4090D00DFF856 /* diver_field_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDA8941718F4090D00DFF856 /* diver_field_vert.glsl */; };
 		CDA8941A18F4092500DFF856 /* diver_field_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDA8941918F4092500DFF856 /* diver_field_frag.glsl */; };
 		CDA8942318F4342D00DFF856 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = CDA8942218F4342D00DFF856 /* config.json */; };
@@ -117,10 +123,7 @@
 		CDA25F5818F7E00200C1DF74 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
 		CDA25F5918F7E00200C1DF74 /* Index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index.h; sourceTree = "<group>"; };
 		CDA25F5A18F7E00200C1DF74 /* Oscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Oscillator.h; sourceTree = "<group>"; };
-		CDA25F5C18F7E00200C1DF74 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		CDA25F5D18F7E00200C1DF74 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		CDA25F5E18F7E00200C1DF74 /* Schedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Schedule.h; sourceTree = "<group>"; };
-		CDA25F5F18F7E00200C1DF74 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
 		CDA25F6218F7E00200C1DF74 /* Diver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Diver.h; sourceTree = "<group>"; };
 		CDA25F6418F7E00200C1DF74 /* AbstractField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractField.h; sourceTree = "<group>"; };
 		CDA25F6518F7E00200C1DF74 /* DiverField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiverField.h; sourceTree = "<group>"; };
@@ -129,6 +132,21 @@
 		CDA25F6918F7E00200C1DF74 /* PathSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathSurface.h; sourceTree = "<group>"; };
 		CDA25F6A18F7E00200C1DF74 /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
 		CDA25F6B18F7E00200C1DF74 /* Stage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stage.h; sourceTree = "<group>"; };
+		CDA25F6D18F7F8D400C1DF74 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		CDA25F6F18F7F8D400C1DF74 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		CDA25F7118F7F8D400C1DF74 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		CDA25F7218F7F90800C1DF74 /* PersonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonView.h; sourceTree = "<group>"; };
+		CDA25F7318F7F93700C1DF74 /* PersonViewStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewStack.h; sourceTree = "<group>"; };
+		CDA25F7818F7FB6D00C1DF74 /* Event.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Event.cpp; sourceTree = "<group>"; };
+		CDA25F7B18F7FB9200C1DF74 /* Person.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Person.cpp; sourceTree = "<group>"; };
+		CDA25F7E18F7FBA300C1DF74 /* PersonView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PersonView.cpp; sourceTree = "<group>"; };
+		CDA25F8118F7FBA900C1DF74 /* PersonViewStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PersonViewStack.cpp; sourceTree = "<group>"; };
+		CDA25F8418F7FBBD00C1DF74 /* Session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Session.cpp; sourceTree = "<group>"; };
+		CDA25F8718F80D0200C1DF74 /* EventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventView.h; sourceTree = "<group>"; };
+		CDA25F8A18F80EE400C1DF74 /* EventView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventView.cpp; sourceTree = "<group>"; };
+		CDA25F8C18F80F9A00C1DF74 /* SessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionView.h; sourceTree = "<group>"; };
+		CDA25F8D18F80FDB00C1DF74 /* SessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionView.h; sourceTree = "<group>"; };
+		CDA25F8E18F810A900C1DF74 /* ScheduleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleView.h; sourceTree = "<group>"; };
 		CDA8941718F4090D00DFF856 /* diver_field_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = diver_field_vert.glsl; sourceTree = "<group>"; };
 		CDA8941918F4092500DFF856 /* diver_field_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = diver_field_frag.glsl; sourceTree = "<group>"; };
 		CDA8942218F4342D00DFF856 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
@@ -304,6 +322,7 @@
 				CDA25F3418F7DFFA00C1DF74 /* env */,
 				CDA25F3518F7DFFA00C1DF74 /* grid */,
 				CDA25F3A18F7DFFA00C1DF74 /* theme */,
+				CDA25F7418F7FB1F00C1DF74 /* schedule */,
 				CDA25F3818F7DFFA00C1DF74 /* Oscillator.cpp */,
 				CDA25F3918F7DFFA00C1DF74 /* Stage.cpp */,
 			);
@@ -417,10 +436,11 @@
 		CDA25F5B18F7E00200C1DF74 /* schedule */ = {
 			isa = PBXGroup;
 			children = (
-				CDA25F5C18F7E00200C1DF74 /* Event.h */,
-				CDA25F5D18F7E00200C1DF74 /* Person.h */,
+				CDA25F6C18F7F8D400C1DF74 /* event */,
+				CDA25F6E18F7F8D400C1DF74 /* person */,
+				CDA25F7018F7F8D400C1DF74 /* session */,
 				CDA25F5E18F7E00200C1DF74 /* Schedule.h */,
-				CDA25F5F18F7E00200C1DF74 /* Session.h */,
+				CDA25F8E18F810A900C1DF74 /* ScheduleView.h */,
 			);
 			path = schedule;
 			sourceTree = "<group>";
@@ -461,6 +481,72 @@
 				CDA25F6918F7E00200C1DF74 /* PathSurface.h */,
 			);
 			path = path;
+			sourceTree = "<group>";
+		};
+		CDA25F6C18F7F8D400C1DF74 /* event */ = {
+			isa = PBXGroup;
+			children = (
+				CDA25F6D18F7F8D400C1DF74 /* Event.h */,
+				CDA25F8718F80D0200C1DF74 /* EventView.h */,
+			);
+			path = event;
+			sourceTree = "<group>";
+		};
+		CDA25F6E18F7F8D400C1DF74 /* person */ = {
+			isa = PBXGroup;
+			children = (
+				CDA25F6F18F7F8D400C1DF74 /* Person.h */,
+				CDA25F7218F7F90800C1DF74 /* PersonView.h */,
+				CDA25F7318F7F93700C1DF74 /* PersonViewStack.h */,
+			);
+			path = person;
+			sourceTree = "<group>";
+		};
+		CDA25F7018F7F8D400C1DF74 /* session */ = {
+			isa = PBXGroup;
+			children = (
+				CDA25F7118F7F8D400C1DF74 /* Session.h */,
+				CDA25F8C18F80F9A00C1DF74 /* SessionView.h */,
+			);
+			path = session;
+			sourceTree = "<group>";
+		};
+		CDA25F7418F7FB1F00C1DF74 /* schedule */ = {
+			isa = PBXGroup;
+			children = (
+				CDA25F7518F7FB4700C1DF74 /* event */,
+				CDA25F7618F7FB4700C1DF74 /* person */,
+				CDA25F7718F7FB4700C1DF74 /* session */,
+			);
+			path = schedule;
+			sourceTree = "<group>";
+		};
+		CDA25F7518F7FB4700C1DF74 /* event */ = {
+			isa = PBXGroup;
+			children = (
+				CDA25F7818F7FB6D00C1DF74 /* Event.cpp */,
+				CDA25F8A18F80EE400C1DF74 /* EventView.cpp */,
+			);
+			path = event;
+			sourceTree = "<group>";
+		};
+		CDA25F7618F7FB4700C1DF74 /* person */ = {
+			isa = PBXGroup;
+			children = (
+				CDA25F7B18F7FB9200C1DF74 /* Person.cpp */,
+				CDA25F7E18F7FBA300C1DF74 /* PersonView.cpp */,
+				CDA25F8118F7FBA900C1DF74 /* PersonViewStack.cpp */,
+			);
+			path = person;
+			sourceTree = "<group>";
+		};
+		CDA25F7718F7FB4700C1DF74 /* session */ = {
+			isa = PBXGroup;
+			children = (
+				CDA25F8418F7FBBD00C1DF74 /* Session.cpp */,
+				CDA25F8D18F80FDB00C1DF74 /* SessionView.h */,
+			);
+			path = session;
 			sourceTree = "<group>";
 		};
 		CDD09A1318F712EB0066BE1D /* layout */ = {
@@ -738,20 +824,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDA25F8018F7FBA300C1DF74 /* PersonView.cpp in Sources */,
 				F30AA0D8C13048EAA7C88778 /* grid_01App.cpp in Sources */,
 				CDA25F4D18F7DFFA00C1DF74 /* QuoteField.cpp in Sources */,
 				CDA25F4F18F7DFFA00C1DF74 /* PathSurface.cpp in Sources */,
+				CDA25F8618F7FBBD00C1DF74 /* Session.cpp in Sources */,
 				CDA25F4818F7DFFA00C1DF74 /* Oscillator.cpp in Sources */,
 				CDD09A7A18F713450066BE1D /* ShaderUtil.cpp in Sources */,
 				CDD09A5418F713400066BE1D /* Controller.cpp in Sources */,
 				CDA25F4718F7DFFA00C1DF74 /* Grid.cpp in Sources */,
 				CDD09A7718F713450066BE1D /* FileWatcher.cpp in Sources */,
+				CDA25F8318F7FBA900C1DF74 /* PersonViewStack.cpp in Sources */,
 				CDA25F4618F7DFFA00C1DF74 /* Cell.cpp in Sources */,
 				CDD09A7918F713450066BE1D /* GeomUtil.cpp in Sources */,
+				CDA25F7A18F7FB6D00C1DF74 /* Event.cpp in Sources */,
+				CDA25F8B18F80EE400C1DF74 /* EventView.cpp in Sources */,
 				CDD09A7518F713450066BE1D /* LayoutArea.cpp in Sources */,
 				CDD09A7818F713450066BE1D /* FrustumOrtho.cpp in Sources */,
 				CDA25F4B18F7DFFA00C1DF74 /* AbstractField.cpp in Sources */,
 				CDA25F4518F7DFFA00C1DF74 /* Background.cpp in Sources */,
+				CDA25F7D18F7FB9200C1DF74 /* Person.cpp in Sources */,
 				CDD09A5318F713400066BE1D /* Config.cpp in Sources */,
 				CDA25F5018F7DFFA00C1DF74 /* Theme.cpp in Sources */,
 				CDA25F4918F7DFFA00C1DF74 /* Stage.cpp in Sources */,
