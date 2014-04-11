@@ -1,6 +1,6 @@
 #include "Controller.h"
 
-Controller::Controller(WorldRef world) :
+Controller::Controller(StageRef world) :
 mWorld(world){}
 
 void Controller::keyDown(KeyEvent event){

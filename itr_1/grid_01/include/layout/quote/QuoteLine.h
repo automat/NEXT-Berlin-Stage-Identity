@@ -12,7 +12,7 @@
 #include <vector>
 #include "cinder/Vector.h"
 #include "layout/quote/QuoteAlign.h"
-#include "world/grid/Index.h"
+#include "stage/grid/Index.h"
 
 
 using namespace std;

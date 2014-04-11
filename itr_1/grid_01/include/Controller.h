@@ -10,16 +10,16 @@
 #define grid_00_Controller_h
 
 #include "cinder/app/App.h"
-#include "world/World.h"
+#include "stage/Stage.h"
 
 using namespace ci;
 using namespace ci::app;
 
 class Controller {
-    WorldRef mWorld;
+    StageRef mWorld;
     
 public:
-    Controller(WorldRef world);
+    Controller(StageRef world);
     void keyDown(KeyEvent event);
 };
 

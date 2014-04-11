@@ -1,10 +1,9 @@
 #include "util/GeomUtil.h"
 #include <iostream>
-
-#include "cinder/Rand.h"
-
 #include <boost/assign/std/vector.hpp>
 #include <boost/assign.hpp>
+
+#include "cinder/Rand.h"
 
 namespace utils {
     using namespace boost::assign;

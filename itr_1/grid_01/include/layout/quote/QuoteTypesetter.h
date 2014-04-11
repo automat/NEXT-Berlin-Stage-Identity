@@ -37,9 +37,9 @@
 #include "layout/quote/Quote.h"
 #include "layout/quote/QuoteLine.h"
 
-#include "world/grid/Index.h"
-#include "world/grid/Cell.h"
-#include "world/grid/Grid.h"
+#include "stage/grid/Index.h"
+#include "stage/grid/Cell.h"
+#include "stage/grid/Grid.h"
 
 
 using namespace std;

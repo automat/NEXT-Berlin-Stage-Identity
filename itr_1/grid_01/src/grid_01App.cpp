@@ -8,7 +8,7 @@
 #include "layout/quote/json/QuoteParser.h"
 #include "util/ExcInfoPanel.h"
 
-#include "world/World.h"
+#include "stage/Stage.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -31,7 +31,7 @@ public:
     string        mInitialConfigExcMsg;
     
     ExcInfoPanel* mExcPanel;
-    WorldRef      mWorld;
+    StageRef      mStage;
     Controller*   mController;
 };
 
@@ -64,8 +64,8 @@ void grid_00App::setup(){
         return;
     }
     
-    mWorld      = World::create(quoteData);
-    mController = new Controller(mWorld);
+    mStage      = Stage::create(quoteData);
+    mController = new Controller(mStage);
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -95,7 +95,7 @@ void grid_00App::update(){
     if(Config::DidChange()){
         Config::Reload(&excCatch);
         if(Config::IsValid()){
-            mWorld->onConfigDidChange();
+            mStage->onConfigDidChange();
             mExcPanel->clear();
         } else {
             mExcPanel->setString(excCatch);
@@ -105,7 +105,7 @@ void grid_00App::update(){
         return;
     }
     
-    mWorld->update();
+    mStage->update();
 }
 
 void grid_00App::draw(){
@@ -115,7 +115,7 @@ void grid_00App::draw(){
         return;
     }
     
-    mWorld->draw();
+    mStage->draw();
 }
 
 CINDER_APP_NATIVE( grid_00App, RendererGl )
