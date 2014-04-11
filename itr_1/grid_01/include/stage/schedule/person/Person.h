@@ -21,6 +21,7 @@ class Person {
     string   mLastName;
     string   mJob;
     string   mCompany;
+    string   mImageKey;
     
 public:
     inline uint32_t getId(){return mId;}
@@ -29,20 +30,23 @@ public:
     inline string& getLastName(){return mLastName;}
     inline string& getJob(){return mJob;}
     inline string& getCompany(){return mCompany;}
+    inline string& getImageKey(){return mImageKey;}
     
-    inline static Person Create(uint32_t id_,
+    inline static Person* Create(uint32_t id_,
                                 const string& title,
                                 const string& forname,
                                 const string& lastname,
                                 const string& job,
-                                const string& company){
-        Person person;
-        person.mId = id_;
-        person.mTitle = title;
-        person.mForName = forname;
-        person.mLastName = lastname;
-        person.mJob = job;
-        person.mCompany = company;
+                                const string& company,
+                                const string& imageKey){
+        Person* person = new Person();
+        person->mId = id_;
+        person->mTitle = title;
+        person->mForName = forname;
+        person->mLastName = lastname;
+        person->mJob = job;
+        person->mCompany = company;
+        person->mImageKey = imageKey;
         
         return person;
     }

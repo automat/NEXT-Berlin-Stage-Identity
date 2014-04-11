@@ -150,6 +150,11 @@
 		CDA25F8E18F810A900C1DF74 /* ScheduleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleView.h; sourceTree = "<group>"; };
 		CDA25F8F18F8152100C1DF74 /* AbstractView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractView.h; sourceTree = "<group>"; };
 		CDA25F9018F820E700C1DF74 /* ScheduleView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScheduleView.cpp; sourceTree = "<group>"; };
+		CDA25F9318F8338500C1DF74 /* test_person.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test_person.jpg; sourceTree = "<group>"; };
+		CDA25F9518F8354400C1DF74 /* Resources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
+		CDA25F9718F8393400C1DF74 /* TextureFontTranscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureFontTranscript.h; sourceTree = "<group>"; };
+		CDA25F9818F8394800C1DF74 /* TextureFontAkkurat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureFontAkkurat.h; sourceTree = "<group>"; };
+		CDA25F9918F8700600C1DF74 /* TextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextBox.h; sourceTree = "<group>"; };
 		CDA8941718F4090D00DFF856 /* diver_field_vert.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = diver_field_vert.glsl; sourceTree = "<group>"; };
 		CDA8941918F4092500DFF856 /* diver_field_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = diver_field_frag.glsl; sourceTree = "<group>"; };
 		CDA8942218F4342D00DFF856 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
@@ -289,6 +294,7 @@
 				CDD09A1318F712EB0066BE1D /* layout */,
 				CDA25F5118F7E00200C1DF74 /* stage */,
 				CDD09A1F18F712F20066BE1D /* Config.h */,
+				CDA25F9518F8354400C1DF74 /* Resources.h */,
 				CDD09A2018F712F20066BE1D /* Controller.h */,
 				CAEBCE4392774C74A7FA6101 /* grid_01_Prefix.pch */,
 			);
@@ -298,6 +304,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CDA25F9218F8338500C1DF74 /* image */,
 				CDFD273318F0D11E00598643 /* font */,
 				CDFD273618F0D11E00598643 /* glsl */,
 				CDFD274318F0D11E00598643 /* texture */,
@@ -554,6 +561,22 @@
 			path = session;
 			sourceTree = "<group>";
 		};
+		CDA25F9218F8338500C1DF74 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				CDA25F9318F8338500C1DF74 /* test_person.jpg */,
+			);
+			name = image;
+			path = ../resources/image;
+			sourceTree = "<group>";
+		};
+		CDA25F9618F8364900C1DF74 /* image */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
 		CDD09A1318F712EB0066BE1D /* layout */ = {
 			isa = PBXGroup;
 			children = (
@@ -605,6 +628,9 @@
 				CDD09A3318F712FF0066BE1D /* PingPongFbo.h */,
 				CDD09A3418F712FF0066BE1D /* ShaderUtil.h */,
 				CDD09A3518F712FF0066BE1D /* SharedTextureFont.h */,
+				CDA25F9718F8393400C1DF74 /* TextureFontTranscript.h */,
+				CDA25F9818F8394800C1DF74 /* TextureFontAkkurat.h */,
+				CDA25F9918F8700600C1DF74 /* TextBox.h */,
 			);
 			name = util;
 			path = ../include/util;
@@ -669,6 +695,7 @@
 		CDFD273618F0D11E00598643 /* glsl */ = {
 			isa = PBXGroup;
 			children = (
+				CDA25F9618F8364900C1DF74 /* image */,
 				CDFD273718F0D11E00598643 /* bg */,
 				CDFD273C18F0D11E00598643 /* fx */,
 				CDFD273D18F0D11E00598643 /* material */,

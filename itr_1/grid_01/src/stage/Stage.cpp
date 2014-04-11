@@ -90,23 +90,31 @@ Stage::Stage(const vector<QuoteJson>& quoteData){
     
     Vec2i windowSize = app::getWindowSize();
     
-    mOscillator = new Oscillator();
-    mBackground = new Background(mGrid, areaScaled, mOscillator, windowSize.x, windowSize.y);
-    mThemeView  = new ThemeView(mGrid, areaScaled, mOscillator, &mQuotes);
-
+    mOscillator   = new Oscillator();
+    mBackground   = new Background(mGrid, areaScaled, mOscillator, windowSize.x, windowSize.y);
+#ifndef STAGE_SKIP_THEME_VIEW
+    mThemeView    = new ThemeView(mGrid, areaScaled, mOscillator, &mQuotes);
+#endif
+#ifndef STAGE_SKIP_SCHEDULE_VIEW
+    mScheduleView = new ScheduleView(mGrid, areaScaled);
+#endif
     
     /*--------------------------------------------------------------------------------------------*/
     //  Fbo + Post Process
     /*--------------------------------------------------------------------------------------------*/
 
-    gl::Fbo::Format fboFormat_4;
-    fboFormat_4.setSamples(4);
+    gl::Fbo::Format fboFormat_MSAA_4;
+    fboFormat_MSAA_4.setSamples(4);
     
-    gl::Fbo::Format fboFormat_2;
-    fboFormat_2.setSamples(2);
+    gl::Fbo::Format fboFormat_MSAA_2;
+    fboFormat_MSAA_2.setSamples(2);
+    
+    gl::Fbo::Format fboFormat_RGBA_MSAA_4;
+    fboFormat_RGBA_MSAA_4.setSamples(4);
+    fboFormat_RGBA_MSAA_4.setColorInternalFormat(GL_RGBA16F_ARB);
     
     mFboSize_1      = windowSize;
-#ifndef WORLD_SKIP_FX_SHADER
+#ifndef STAGE_SKIP_FX_SHADER
     mTextureNoise   = loadImage(app::loadResource(RES_TEXTURE_NOISE));
     
     mFboSize_1f     = Vec2f(windowSize.x,windowSize.y);
@@ -116,15 +124,20 @@ Stage::Stage(const vector<QuoteJson>& quoteData){
     mFboTexelSize_1 = Vec2f(1.0f / float(mFboSize_1.x), 1.0f / float(mFboSize_1.y));
     mFboTexelSize_2 = Vec2f(1.0f / float(mFboSize_2.x), 1.0f / float(mFboSize_2.y));
     
-    mFboSceneSSAO   = gl::Fbo(    mFboSize_1.x, mFboSize_1.y, fboFormat_4);
-    mFboPingPong_1  = PingPongFbo(mFboSize_1.x, mFboSize_1.y, fboFormat_4);
-    mFboPingPong_2  = PingPongFbo(mFboSize_2.x, mFboSize_2.y, fboFormat_2);
-    mFboSceneFinal  = gl::Fbo(    mFboSize_1.x, mFboSize_1.y, fboFormat_4);
+    mFboThemeViewSSAO     = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
+    mFboThemeViewFinal    = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
+    mFboScheduleViewSSAO  = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
+    mFboScheduleViewFinal = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
+    
+    mFboPingPong_1     = PingPongFbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
+    mFboPingPong_2     = PingPongFbo(mFboSize_2.x, mFboSize_2.y, fboFormat_MSAA_4);
+
 #endif
     
-    mFboScene       = gl::Fbo(mFboSize_1.x, mFboSize_1.y,   fboFormat_4);
+    mFboThemeView    = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
+    mFboScheduleView = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_RGBA_MSAA_4);
     
-#if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(WORLD_SKIP_FX_SHADER)
+#if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(STAGE_SKIP_FX_SHADER)
     mFileWatcher = FileWatcher::Get();
     utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
                       loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
@@ -144,7 +157,7 @@ Stage::Stage(const vector<QuoteJson>& quoteData){
     utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_VERT),
                       loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
                       &mShaderMixRadial);
-#elif !defined(WORLD_SKIP_FX_SHADER)
+#elif !defined(STAGE_SKIP_FX_SHADER)
     utils::loadShader(app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
                       app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
                       &mShaderNormalDepth);
@@ -170,7 +183,12 @@ Stage::Stage(const vector<QuoteJson>& quoteData){
 
 Stage::~Stage(){
     delete mBackground;
+#ifndef STAGE_SKIP_THEME_VIEW
     delete mThemeView;
+#endif
+#ifndef STAGE_SKIP_SCHEDULE_VIEW
+    delete mScheduleView;
+#endif
     delete mOscillator;
     delete mTypesetter;
     delete mGrid;
@@ -217,11 +235,18 @@ void Stage::loadLightProperties(){
 
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  Theme view
+//
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+#ifndef STAGE_SKIP_THEME_VIEW
 /*--------------------------------------------------------------------------------------------*/
-//  Draw scene
+//  Draw theme view
 /*--------------------------------------------------------------------------------------------*/
 
-void Stage::drawScene(bool useMaterialShaders){
+void Stage::drawThemeView(bool useMaterialShaders){
     gl::enableDepthRead();
     
     gl::clear(Color(1,1,1));
@@ -274,24 +299,22 @@ void Stage::drawScene(bool useMaterialShaders){
 }
 
 /*--------------------------------------------------------------------------------------------*/
-//  Post process render
+//  Post process theme view
 /*--------------------------------------------------------------------------------------------*/
 
-
-
-void Stage::processScene(){
+void Stage::processThemeView(){
     
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    //  Render Scene
+    //  Render View
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
     
-    mFboScene.bindFramebuffer();
-    drawScene(true);
-    mFboScene.unbindFramebuffer();
+    mFboThemeView.bindFramebuffer();
+    drawThemeView(true);
+    mFboThemeView.unbindFramebuffer();
     
-#ifndef WORLD_SKIP_FX_SHADER
+#ifndef STAGE_SKIP_FX_SHADER
     
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -309,7 +332,7 @@ void Stage::processScene(){
     mFboPingPong_2.bindFramebuffer();
    
     mShaderNormalDepth.bind();
-    drawScene(false);
+    drawThemeView(false);
     mShaderNormalDepth.unbind();
     
     mFboPingPong_2.unbindFramebuffer();
@@ -386,9 +409,9 @@ void Stage::processScene(){
     //  Render scene/ssao mix
     /*--------------------------------------------------------------------------------------------*/
     
-    mFboSceneSSAO.bindFramebuffer();
+    mFboThemeViewSSAO.bindFramebuffer();
     mFboPingPong_2.bindSourceTexture(0);
-    mFboScene.getTexture().bind(1);
+    mFboThemeView.getTexture().bind(1);
     
     mShaderMix.bind();
     mShaderMix.uniform("uTextureSSAO", 0);
@@ -396,9 +419,9 @@ void Stage::processScene(){
     utils::drawClearedScreenRect(mFboSize_1,false);
     mShaderMix.unbind();
     
-    mFboScene.getTexture().unbind(1);
+    mFboThemeView.getTexture().unbind(1);
     mFboPingPong_2.unbindSourceTexture(0);
-    mFboSceneSSAO.unbindFramebuffer();
+    mFboThemeViewSSAO.unbindFramebuffer();
     
     
     /*--------------------------------------------------------------------------------------------*/
@@ -406,7 +429,7 @@ void Stage::processScene(){
     /*--------------------------------------------------------------------------------------------*/
     
     mFboPingPong_1.bindFramebuffer();
-    mFboSceneSSAO.getTexture().bind(0);
+    mFboThemeViewSSAO.getTexture().bind(0);
 	
     mShaderBlurH.bind();
 	mShaderBlurH.uniform("uTexture", 0);
@@ -415,7 +438,7 @@ void Stage::processScene(){
     utils::drawClearedScreenRect(mFboSize_1);
 	mShaderBlurH.unbind();
 	
-    mFboSceneSSAO.getTexture().unbind(0);
+    mFboThemeViewSSAO.getTexture().unbind(0);
 	mFboPingPong_1.unbindFramebuffer();
     mFboPingPong_1.swap();
     
@@ -443,8 +466,8 @@ void Stage::processScene(){
     //  Render mix result blur radial
     /*--------------------------------------------------------------------------------------------*/
     
-    mFboSceneFinal.bindFramebuffer();
-    mFboSceneSSAO.getTexture().bind(0);
+    mFboThemeViewFinal.bindFramebuffer();
+    mFboThemeViewSSAO.getTexture().bind(0);
     mFboPingPong_1.bindSourceTexture(1);
     
     mShaderMixRadial.bind();
@@ -452,17 +475,57 @@ void Stage::processScene(){
     mShaderMixRadial.uniform("uTexture1", 1);
     mShaderMixRadial.uniform("uScreenSize", Vec2f(app::getWindowWidth(),app::getWindowHeight()));
     mShaderMixRadial.uniform("uScaleGradient", STAGE_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE);
-    utils::drawClearedScreenRect(mFboSceneFinal.getSize());
+    utils::drawClearedScreenRect(mFboThemeViewFinal.getSize());
     mShaderMixRadial.unbind();
     
     mFboPingPong_1.unbindSourceTexture(1);
-    mFboSceneSSAO.getTexture().bind(0);
-    mFboSceneFinal.unbindFramebuffer();
+    mFboThemeViewSSAO.getTexture().bind(0);
+    mFboThemeViewFinal.unbindFramebuffer();
 
     
     gl::popMatrices();
 #endif
 }
+
+#endif
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  Schedule view
+//
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+#ifndef STAGE_SKIP_SCHEDULE_VIEW
+/*--------------------------------------------------------------------------------------------*/
+//  Draw schedule view
+/*--------------------------------------------------------------------------------------------*/
+
+void Stage::drawScheduleView(bool useMaterialShaders){
+    gl::enableDepthRead();
+    gl::clear(ColorAf(0,0,0,0));
+    
+    gl::pushMatrices();
+    glMultMatrixf(&mTransform[0]);
+    mScheduleView->draw(mCamera, useMaterialShaders);
+    gl::popMatrices();
+    
+    gl::disableDepthRead();
+}
+
+/*--------------------------------------------------------------------------------------------*/
+//  Post process schedule view
+/*--------------------------------------------------------------------------------------------*/
+
+void Stage::processScheduleView(){
+    
+    mFboScheduleView.bindFramebuffer();
+
+    drawScheduleView(true);
+    mFboScheduleView.unbindFramebuffer();
+    
+}
+#endif
+
 
 
 /*--------------------------------------------------------------------------------------------*/
@@ -470,7 +533,7 @@ void Stage::processScene(){
 /*--------------------------------------------------------------------------------------------*/
 
 void Stage::update(){
-#if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(WORLD_SKIP_FX_SHADER)
+#if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(STAGE_SKIP_FX_SHADER)
     utils::watchShaderSource(mFileWatcher,
                              loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
                              loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
@@ -493,7 +556,12 @@ void Stage::update(){
                              &mShaderMixRadial);
 #endif
     mBackground->update(mOscillator,app::getElapsedSeconds());
+#ifndef STAGE_SKIP_THEME_VIEW
     mThemeView->update();
+#endif
+#ifndef STAGE_SKIP_SCHEDULE_VIEW
+    mScheduleView->update();
+#endif
 }
 
 
@@ -502,17 +570,41 @@ void Stage::update(){
 /*--------------------------------------------------------------------------------------------*/
 
 void Stage::draw(){
-    //  Process scene fx pipe
-    processScene();
+#ifndef STAGE_SKIP_THEME_VIEW
+    //  Process theme fx pipe
+    processThemeView();
+#endif
+#ifndef STAGE_SKIP_SCHEDULE_VIEW
+    //  Process schedule fx pipe
+    processScheduleView();
+#endif
     
     //  Draw Scene
     gl::pushMatrices();
     gl::setMatricesWindow(app::getWindowSize(),false);
     
-#ifndef WORLD_SKIP_FX_SHADER
-    gl::draw(mFboSceneFinal.getTexture(),mFboSceneSSAO.getBounds());
+#ifndef STAGE_SKIP_THEME_VIEW
+#ifndef STAGE_SKIP_FX_SHADER
+    gl::draw(mFboThemeViewFinal.getTexture(), mFboThemeViewSSAO.getBounds());
 #else
-    gl::draw(mFboScene.getTexture(), mFboScene.getBounds());
+    gl::draw(mFboThemeView.getTexture(), mFboThemeView.getBounds());
+#endif
+#endif
+
+#ifndef STAGE_SKIP_SCHEDULE_VIEW
+    
+    glAlphaFunc(GL_GREATER, 0.0);
+    glEnable(GL_ALPHA_TEST);
+    glEnable( GL_BLEND );
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+    
+    gl::draw(mFboScheduleView.getTexture(), mFboScheduleView.getBounds());
+    
+    glDisable(GL_BLEND);
+    glDisable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.5); // reset what seems to be cinders default
+    
+    
 #endif
     
 #ifdef DEBUG_STAGE_TYPESETTER_TEXTURE

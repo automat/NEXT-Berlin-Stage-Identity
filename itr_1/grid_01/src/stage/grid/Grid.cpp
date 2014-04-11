@@ -89,5 +89,7 @@ void Grid::debugDrawIndices(const CameraOrtho& camera){
     
     gl::disableAlphaBlending();
     gl::disableAlphaTest();
+    
+    glColor3f(1,1,1);
 
 }

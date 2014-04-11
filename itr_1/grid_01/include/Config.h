@@ -68,15 +68,15 @@ extern float PROJECTION_SCALE;
 extern bool  PROJECTION_OVERLAP;
 extern int   PROJECTION_OVERLAP_EDGE;
 
-//#define DEBUG_SINGLE_DIVER_FIELD
-//#define DEBUG_SINGLE_QUOTE_FIELD
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //  Stage
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
+
+//#define STAGE_SKIP_SCHEDULE_VIEW
+//#define STAGE_SKIP_THEME_VIEW
 
 #define STAGE_MODEL_SCALE_MIN 0.65f
 #define STAGE_MODEL_SCALE STAGE_MODEL_SCALE_MIN
@@ -89,9 +89,8 @@ extern int   PROJECTION_OVERLAP_EDGE;
 #define STAGE_TYPESETTER_FONT_SIZE 400.0f
 #define STAGE_TYPESETTER_FONT_SCALE 0.7f
 
-//#define WORLD_SKIP_FX_SHADER
+//#define STAGE_SKIP_FX_SHADER
 #define STAGE_LIVE_EDIT_FX_SHADER
-
 
 extern float STAGE_FX_SHADER_BLUR_SCALE;
 extern float STAGE_FX_SHADER_BLUR_RADIAL_SCALE;
@@ -120,13 +119,13 @@ extern float  STAGE_LANTERN_1_QUADRIC_ATTENUATION;
 extern bool STAGE_LANTERN_1_DEBUG_DRAW;
 
 //#define DEBUG_STAGE_TYPESETTER_TEXCOORDS
-#define DEBUG_STAGE_TYPESETTER
-#define DEBUG_STAGE_TYPESETTER_TEXTURE
-#define DEBUG_STAGE_AREA_DRAW
+//#define DEBUG_STAGE_TYPESETTER
+//#define DEBUG_STAGE_TYPESETTER_TEXTURE
+//#define DEBUG_STAGE_AREA_DRAW
 
 //#define DEBUG_STAGE_COORDINATE_FRAME
 //#define DEBUG_STAGE_CAM_FRUSTUM
-//#define DEBUG_STAGE_GRID_DRAW_INDICES
+#define DEBUG_STAGE_GRID_DRAW_INDICES
 
 /*--------------------------------------------------------------------------------------------*/
 // Theme
@@ -134,8 +133,8 @@ extern bool STAGE_LANTERN_1_DEBUG_DRAW;
 
 #define THEME_LIVE_EDIT_MATERIAL_SHADER
 
-//#define THEME_SKIP_DRAW_FIELD_DIVER
-//#define THEME_SKIP_DRAW_QUOTE_DIVER
+#define THEME_SKIP_DRAW_FIELD_DIVER
+#define THEME_SKIP_DRAW_QUOTE_DIVER
 
 //#define DEBUG_THEME_FIELD_DIVER_PATH_SURFACE
 //#define DEBUG_THEME_FIELD_DIVER

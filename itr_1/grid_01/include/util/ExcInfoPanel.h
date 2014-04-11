@@ -32,13 +32,13 @@ namespace utils {
         Vec2i       mSize;
         string      mString;
 
-        TextBox     mTextBox;
+        ci::TextBox     mTextBox;
         gl::Texture mTexture;
 
     public:
         ExcInfoPanel() :
             mSize(400,200){
-                mTextBox = TextBox().alignment(TextBox::CENTER).font(Font("Arial Bold",20)).size(Vec2i(mSize.x - 40,TextBox::GROW));
+                mTextBox = ci::TextBox().alignment(ci::TextBox::CENTER).font(Font("Arial Bold",20)).size(Vec2i(mSize.x - 40,ci::TextBox::GROW));
         }
 
         inline void setString(const string& string){

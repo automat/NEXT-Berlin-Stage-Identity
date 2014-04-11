@@ -64,13 +64,17 @@ class Stage {
     QuoteTypesetter* mTypesetter;
     vector<Quote>    mQuotes;
     
+#ifndef STAGE_SKIP_THEME_VIEW
     ThemeView*       mThemeView;
+#endif
+#ifndef STAGE_SKIP_SCHEDULE_VIEW
     ScheduleView*    mScheduleView;
+#endif
     
-#if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(WORLD_SKIP_FX_SHADER)
+#if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(STAGE_SKIP_FX_SHADER)
     FileWatcherRef mFileWatcher;
 #endif
-#ifndef WORLD_SKIP_FX_SHADER
+#ifndef STAGE_SKIP_FX_SHADER
     gl::Texture      mTextureNoise;
     
     PingPongFbo      mFboPingPong_1;    //  ping pong fbo with actual screen size
@@ -82,9 +86,11 @@ class Stage {
     Vec2f            mFboTexelSize_1;   //  cache texelSize 1
     Vec2f            mFboTexelSize_2;   //  cache texelSize 2
 
-    gl::Fbo          mFboSceneSSAO;     //  original scene + ssao
-    gl::Fbo          mFboSceneFinal;    //  final scene completely post-processed
-
+    gl::Fbo mFboThemeViewSSAO;      //  original theme view + ssao
+    gl::Fbo mFboThemeViewFinal;     //  final theme view completely post-processed
+    gl::Fbo mFboScheduleViewSSAO;   //  original schedule view + ssao
+    gl::Fbo mFboScheduleViewFinal;  //  final schedule view completely post-processed
+    
     gl::GlslProg     mShaderNormalDepth;
     gl::GlslProg     mShaderSSAO;
     gl::GlslProg     mShaderBlurH;
@@ -93,11 +99,19 @@ class Stage {
     gl::GlslProg     mShaderMixRadial;
 
 #endif
-    Vec2i            mFboSize_1;        //  cache size 1
-    gl::Fbo          mFboScene;         //  original scene
-
-    void drawScene(bool useMaterialShaders);
-    void processScene();
+    Vec2i   mFboSize_1;         //  cache size 1
+    gl::Fbo mFboThemeView;      //  original theme view unprocessed
+    gl::Fbo mFboScheduleView;   //  original schedule view unprocessed
+    
+    
+#ifndef STAGE_SKIP_THEME_VIEW
+    void drawThemeView(bool useMaterialShaders);
+    void processThemeView();
+#endif
+#ifndef STAGE_SKIP_SCHEDULE_VIEW
+    void drawScheduleView(bool useMaterialShaders);
+    void processScheduleView();
+#endif
     
     void loadLightProperties();
     
