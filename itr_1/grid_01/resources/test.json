@@ -4,10 +4,10 @@
                "format" : {
                "align" : "center",
                "balance" : true,
-               "padding" : [ 0, 0, 0, 0 ],
-               "scale" : 0.9
+               "padding" : [ 1, 0, 0, 0 ],
+               "scale" : 1
                },
-               "string" : "Knowing what your costumers want before they do."
+               "string" : "This is the\n NEW NORMAL."
       }
    ]
 }

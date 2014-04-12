@@ -75,7 +75,7 @@ extern int   PROJECTION_OVERLAP_EDGE;
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-//#define STAGE_SKIP_SCHEDULE_VIEW
+#define STAGE_SKIP_SCHEDULE_VIEW
 //#define STAGE_SKIP_THEME_VIEW
 
 #define STAGE_MODEL_SCALE_MIN 0.65f
@@ -125,7 +125,7 @@ extern bool STAGE_LANTERN_1_DEBUG_DRAW;
 
 //#define DEBUG_STAGE_COORDINATE_FRAME
 //#define DEBUG_STAGE_CAM_FRUSTUM
-#define DEBUG_STAGE_GRID_DRAW_INDICES
+//#define DEBUG_STAGE_GRID_DRAW_INDICES
 
 /*--------------------------------------------------------------------------------------------*/
 // Theme
@@ -133,8 +133,8 @@ extern bool STAGE_LANTERN_1_DEBUG_DRAW;
 
 #define THEME_LIVE_EDIT_MATERIAL_SHADER
 
-#define THEME_SKIP_DRAW_FIELD_DIVER
-#define THEME_SKIP_DRAW_QUOTE_DIVER
+//#define THEME_SKIP_DRAW_FIELD_DIVER
+//#define THEME_SKIP_DRAW_QUOTE_DIVER
 
 //#define DEBUG_THEME_FIELD_DIVER_PATH_SURFACE
 //#define DEBUG_THEME_FIELD_DIVER

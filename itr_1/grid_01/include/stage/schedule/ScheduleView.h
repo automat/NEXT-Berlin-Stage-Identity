@@ -32,14 +32,13 @@
 
 class ScheduleView : public AbstractView {
     gl::TextureFontRef mTexFontTranscript100;
-    
-    
+
     map<string, gl::Texture> mImageMap;
     
     vector<Person*>  mTestPersons;
     PersonViewStack* mTestPersonStack;
     
-    TextBox* mTextBox;
+    //TextBox* mTextBox;
     
     
     void drawStackLayer();
