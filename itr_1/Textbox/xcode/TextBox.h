@@ -35,6 +35,8 @@
 #include "cinder/Utilities.h"
 #include "cinder/Vector.h"
 
+#include "cinder/gl/GlslProg.h"
+
 
 //
 //  this thing is a stripped down version of the quote setter
@@ -59,6 +61,8 @@ namespace utils {
                 pos(pos),str(str),width(width){}
         };
         
+        Vec2f mOrigin; // top left if offsetted by fbo texture if dropshadow is used
+        
         
         gl::TextureFont::Format mTexFontFormat;
         gl::TextureFontRef      mTexFontRef;        // font to be used
@@ -74,6 +78,7 @@ namespace utils {
         
         vector<Line_Internal> mLines;
         string                mString;
+        float                 mMaxLineWidth;
         
         float                 mWidth;
         float                 mHeight;
@@ -82,9 +87,14 @@ namespace utils {
         ColorAf mColorUnderline;
         ColorAf mColorDropShadow;
         float   mDropShadowScale;
+        Vec2f   mDropShadowOffset;
+        
         
         bool mDrawUnderline;
         bool mDrawDropShadow;
+        
+        static gl::GlslProg BlurShaderH;
+        static gl::GlslProg BlurShaderV;
         
         /*--------------------------------------------------------------------------------------------*/
         // handle string
@@ -101,6 +111,7 @@ namespace utils {
                 return;
             }
             float lineWidth = measureString(line);
+            mMaxLineWidth   = MAX(lineWidth,mMaxLineWidth);
             if(lineWidth == 0){
                 return;
             }
@@ -142,6 +153,7 @@ namespace utils {
             mWidth(100),
             mLineHeight(1.0f),
             mHeight(0),
+            mMaxLineWidth(0),
             mDrawUnderline(false),
             mDrawDropShadow(false),
             mColorFont(1,1,1,1),
@@ -152,6 +164,16 @@ namespace utils {
                 mTexFontFormat.premultiply();
                 mTexFontFormat.textureWidth(fontTextureSize);
                 mTexFontFormat.textureHeight(fontTextureSize);
+                
+                static bool _shaderInit = false;
+                if(!_shaderInit){
+                    TextBox::BlurShaderH = gl::GlslProg("varying vec2 vTexcoord; void main(){ vec2 Pos = sign(gl_Vertex.xy); vTexcoord = Pos; gl_Position = vec4(Pos, 0.0, 1.0) - 0.5; }",
+                                                        "uniform sampler2D uTexture; uniform float uTexelSize; uniform float uScale; varying vec2 vTexcoord; void main(){ float offset = uTexelSize * uScale; vec4 sum = vec4(0.0); sum += texture2D(uTexture, vec2(vTexcoord.x - 4.0 * offset, vTexcoord.y)) * 0.05; sum += texture2D(uTexture, vec2(vTexcoord.x - 3.0 * offset, vTexcoord.y)) * 0.09; sum += texture2D(uTexture, vec2(vTexcoord.x - 2.0 * offset, vTexcoord.y)) * 0.12; sum += texture2D(uTexture, vec2(vTexcoord.x - 1.0 * offset, vTexcoord.y)) * 0.15; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y)) * 0.16; sum += texture2D(uTexture, vec2(vTexcoord.x + 1.0 * offset, vTexcoord.y)) * 0.15; sum += texture2D(uTexture, vec2(vTexcoord.x + 2.0 * offset, vTexcoord.y)) * 0.12; sum += texture2D(uTexture, vec2(vTexcoord.x + 3.0 * offset, vTexcoord.y)) * 0.09; sum += texture2D(uTexture, vec2(vTexcoord.x + 4.0 * offset, vTexcoord.y)) * 0.05; gl_FragColor = sum; }");
+                    TextBox::BlurShaderV = gl::GlslProg("varying vec2 vTexcoord; void main(){ vec2 Pos = sign(gl_Vertex.xy); vTexcoord = Pos; gl_Position = vec4(Pos, 0.0, 1.0) - 0.5; }",
+                                                        "uniform sampler2D uTexture; uniform float uTexelSize; varying vec2 vTexcoord; uniform float uScale; void main(){ float offset = uTexelSize * uScale; vec4 sum = vec4(0.0); sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 4.0 * offset)) * 0.05; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 3.0 * offset)) * 0.09; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 2.0 * offset)) * 0.12; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 1.0 * offset)) * 0.15; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y )) * 0.16; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 1.0 * offset)) * 0.15; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 2.0 * offset)) * 0.12; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 3.0 * offset)) * 0.09; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 4.0 * offset)) * 0.05; gl_FragColor = sum; }");
+                    
+                }
+                
         };
         
         /*--------------------------------------------------------------------------------------------*/
@@ -207,6 +229,8 @@ namespace utils {
 
         inline void setString(const string& str){
             mLines.resize(0);
+            mMaxLineWidth = 0;
+            mOrigin.set(0,0);
             
             if(str.empty()){
                 return;
@@ -340,6 +364,10 @@ namespace utils {
             return mString;
         }
         
+        inline const Vec2f& getTopLeft(){
+            return mOrigin;
+        }
+        
         /*--------------------------------------------------------------------------------------------*/
         // get / set draw properties
         /*--------------------------------------------------------------------------------------------*/
@@ -348,7 +376,7 @@ namespace utils {
             mColorFont = color;
         }
         
-        inline const ColorAf& getColorFont(){
+        inline ColorAf getColorFont(){
             return mColorFont;
         }
         
@@ -356,7 +384,7 @@ namespace utils {
             mColorUnderline = color;
         }
         
-        inline const ColorAf& getColorUnderline(){
+        inline ColorAf getColorUnderline(){
             return mColorUnderline;
         }
         
@@ -364,16 +392,32 @@ namespace utils {
             mDrawDropShadow = color;
         }
         
-        inline const ColorAf& getColorDropShadow(){
+        inline ColorAf getColorDropShadow(){
             return mColorDropShadow;
         }
         
         inline void setDropShadowScale(float scale){
-            mDrawDropShadow = scale;
+            mDropShadowScale = scale;
         }
         
         inline float getDropShadowScale(){
             return mDropShadowScale;
+        }
+        
+        inline void setDropShadowOffset(const Vec2f& offset){
+            mDropShadowOffset = offset;
+        }
+        
+        inline Vec2f getDropShadowOffset(){
+            return mDropShadowOffset;
+        }
+        
+        inline void setDropShadowAlpha(float alpha){
+            mColorDropShadow.a = alpha;
+        }
+        
+        inline float getDropShadowAlpha(){
+            return mColorDropShadow.a;
         }
         
         inline void dropShadow(bool dropShadow = true){
@@ -392,54 +436,89 @@ namespace utils {
             return mDrawUnderline;
         }
         
-        
-        
-        
         /*--------------------------------------------------------------------------------------------*/
         // debug
         /*--------------------------------------------------------------------------------------------*/
         
         inline void debugDraw(){
-            
             Vec2f zero;
-            
-            Vec2f linePos;
-            Vec2f textPos;
-            
-            float line = 0;
-            
-            
-            
-            gl::enableAlphaTest();
-            gl::enableAdditiveBlending();
-            for(vector<Line_Internal>::const_iterator itr = mLines.begin(); itr != mLines.end(); ++itr){
-                glPushMatrix();
-                glTranslatef(0,line,0);
-                
-                glPushMatrix();
-                drawStringBoundingBox(itr->str);
-                glPopMatrix();
-                
-                glPushMatrix();
-                glMultMatrixf(&mTransform[0]);
-                mTexFontRef->drawString(itr->str, zero);
-                glPopMatrix();
-                
-                glPopMatrix();
-                line += mLineStep;
-            }
-            gl::disableAlphaBlending();
-            gl::disableAlphaTest();
             
             float prevColor[4];
             glGetFloatv(GL_CURRENT_COLOR, prevColor);
             
+            float row = 0;
+            
+            gl::enableAlphaTest();
+            gl::enableAlphaBlending();
+            
+            if(mDrawDropShadow){
+                glGetFloatv(GL_CURRENT_COLOR, prevColor);
+                row = 0;
+                
+                glColor4f(mColorDropShadow.r,
+                          mColorDropShadow.g,
+                          mColorDropShadow.b,
+                          mColorDropShadow.a);
+                
+                for(const auto& line : mLines){
+                    glPushMatrix();
+                    glTranslatef(mDropShadowOffset.x,row + mDropShadowOffset.y,0);
+                    glMultMatrixf(&mTransform[0]);
+                    mTexFontRef->drawString(line.str, zero);
+                    glPopMatrix();
+                    
+                    row += mLineStep;
+                }
+                
+                glColor4f(prevColor[0],
+                          prevColor[1],
+                          prevColor[2],
+                          prevColor[3]);
+            }
+            
+            gl::disableAlphaBlending();
+            gl::enableAdditiveBlending();
+            
+            row = 0;
+            glColor4f(mColorFont.r,
+                      mColorFont.g,
+                      mColorFont.b,
+                      mColorFont.a);
+            for(const auto& line : mLines){
+                glPushMatrix();
+                glTranslatef(0,row,0);
+                
+                glPushMatrix();
+                drawStringBoundingBox(line.str);
+                glPopMatrix();
+                
+                glPushMatrix();
+                glMultMatrixf(&mTransform[0]);
+                mTexFontRef->drawString(line.str, zero);
+                glPopMatrix();
+                
+                glPopMatrix();
+                row += mLineStep;
+            }
+            
+            gl::disableAlphaBlending();
+            gl::disableAlphaTest();
+            
+            glColor4f(prevColor[0],
+                      prevColor[1],
+                      prevColor[2],
+                      prevColor[3]);
+            
+           
+            
+            glGetFloatv(GL_CURRENT_COLOR, prevColor);
+            
             glPushMatrix();
             glColor3f(1,0,1);
-            gl::drawStrokedRect(Rectf(0,0,mWidth, line));
+            gl::drawStrokedRect(Rectf(0,0,mWidth, row));
             glPopMatrix();
             
-            glColor3f(prevColor[0], prevColor[1], prevColor[2]);
+            glColor4f(prevColor[0], prevColor[1], prevColor[2], prevColor[3]);
         }
         
         

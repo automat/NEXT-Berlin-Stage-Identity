@@ -9,10 +9,19 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-float TEXT_BOX_FONT_SIZE(40.0f);
+float TEXT_BOX_FONT_SIZE(60.0f);
 float TEXT_BOX_TEXTURE_FONT_SIZE_SCALE(2.0f);
-float TEXT_BOX_FONT_LINE_HEIGHT(1.0f);
+float TEXT_BOX_FONT_LINE_HEIGHT(1.2f);
 float TEXT_BOX_WIDTH(400.0f);
+
+ColorAf TEXT_BOX_COLOR_FONT(1,1,1,1);
+ColorAf TEXT_BOX_COLOR_UNDERLINE(1,0,1,1);
+ColorAf TEXT_BOX_COLOR_DROP_SHADOW(0,0,0,1);
+
+bool    TEXT_BOX_USE_DROP_SHADOW(true);
+bool    TEXT_BOX_USE_UNDERLINE(false);
+Vec2f   TEXT_BOX_DROP_SHADOW_OFFSET(1,1);
+float   TEXT_BOX_DROP_SHADOW_SCALE(1.0f);
 
 class TextboxApp : public AppNative {
   public:
@@ -25,9 +34,6 @@ class TextboxApp : public AppNative {
     string mString;
     utils::TextBox* mTextBox;
     params::InterfaceGlRef mParams;
-    
-    
-   
 };
 
 void TextboxApp::prepareSettings(Settings* settings){
@@ -43,14 +49,32 @@ void TextboxApp::setup(){
     mTextBox->setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),TEXT_BOX_FONT_SIZE * TEXT_BOX_TEXTURE_FONT_SIZE_SCALE));
     mTextBox->setFontSize(TEXT_BOX_FONT_SIZE);
     mTextBox->setLineHeight(TEXT_BOX_FONT_LINE_HEIGHT);
+    mTextBox->setColorFont(TEXT_BOX_COLOR_FONT);
+    mTextBox->setColorUnderline(TEXT_BOX_COLOR_UNDERLINE);
+    mTextBox->setColorDropShadow(TEXT_BOX_COLOR_DROP_SHADOW);
+    mTextBox->setDropShadowOffset(TEXT_BOX_DROP_SHADOW_OFFSET);
+    mTextBox->dropShadow(TEXT_BOX_USE_DROP_SHADOW);
+    mTextBox->setDropShadowScale(TEXT_BOX_DROP_SHADOW_SCALE);
+    mTextBox->underline(TEXT_BOX_USE_UNDERLINE);
     mTextBox->setWidth(TEXT_BOX_WIDTH);
     mTextBox->setString(mString);
 
-    mParams = params::InterfaceGl::create("Controls", Vec2i(200,100));
+    mParams = params::InterfaceGl::create("Controls", Vec2i(200,400));
+    mParams->addSeparator();
     mParams->addParam("Texture Font Scale", &TEXT_BOX_TEXTURE_FONT_SIZE_SCALE, "min=1.0 max=16.0 step=1.0");
-    mParams->addParam("Font Size", &TEXT_BOX_FONT_SIZE, "min=0.0 max=80.0 step=0.125");
+    mParams->addParam("Font Size", &TEXT_BOX_FONT_SIZE, "min=0.0 max=200.0 step=0.125");
     mParams->addParam("Font Line Height", &TEXT_BOX_FONT_LINE_HEIGHT, "min=0.0 max=2.0 step=0.0125");
     mParams->addParam("Width", &TEXT_BOX_WIDTH);
+    mParams->addSeparator();
+    mParams->addParam("Color Font", &TEXT_BOX_COLOR_FONT);
+    mParams->addParam("Color Underline", &TEXT_BOX_COLOR_UNDERLINE);
+    mParams->addParam("Color DropShadow", &TEXT_BOX_COLOR_DROP_SHADOW);
+    mParams->addSeparator();
+    mParams->addParam("Use DropShadow", &TEXT_BOX_USE_DROP_SHADOW);
+    mParams->addParam("DropShadow Offset X", &TEXT_BOX_DROP_SHADOW_OFFSET[0]);
+    mParams->addParam("DropShadow Offset Y", &TEXT_BOX_DROP_SHADOW_OFFSET[1]);
+    mParams->addParam("DropShadow Scale", &TEXT_BOX_DROP_SHADOW_SCALE);
+    
 }
 
 void TextboxApp::keyDown( KeyEvent event ){
@@ -68,6 +92,16 @@ void TextboxApp::update(){
     static float textBoxTextureFontSizeScalePrev = TEXT_BOX_TEXTURE_FONT_SIZE_SCALE;
     static float textBoxFontLineHeightPrev = TEXT_BOX_FONT_LINE_HEIGHT;
     static float textBoxWidthPrev = TEXT_BOX_WIDTH;
+    
+    static ColorAf textBoxColorFontPrev = TEXT_BOX_COLOR_FONT;
+    static ColorAf textBoxColorUnderlinePrev = TEXT_BOX_COLOR_UNDERLINE;
+    static ColorAf textBoxColorDropShadowPrev = TEXT_BOX_COLOR_DROP_SHADOW;
+    
+    static bool textBoxUseDropShadowPrev = TEXT_BOX_USE_DROP_SHADOW;
+    static bool textBoxUseUnderlinePrev = TEXT_BOX_USE_UNDERLINE;
+    
+    static Vec2f textBoxDropShadowOffsetPrev = TEXT_BOX_DROP_SHADOW_OFFSET;
+    static bool textBoxDropShadowScale = TEXT_BOX_DROP_SHADOW_SCALE;
     
     if(TEXT_BOX_TEXTURE_FONT_SIZE_SCALE != textBoxTextureFontSizeScalePrev){
         mTextBox->setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),TEXT_BOX_FONT_SIZE * TEXT_BOX_TEXTURE_FONT_SIZE_SCALE));
@@ -88,7 +122,41 @@ void TextboxApp::update(){
         textBoxFontSizePrev = TEXT_BOX_FONT_SIZE;
         textBoxFontLineHeightPrev = TEXT_BOX_FONT_LINE_HEIGHT;
         textBoxWidthPrev = TEXT_BOX_WIDTH;
-        
+    }
+    
+    if(TEXT_BOX_DROP_SHADOW_OFFSET != textBoxDropShadowOffsetPrev){
+        mTextBox->setDropShadowOffset(TEXT_BOX_DROP_SHADOW_OFFSET);
+        textBoxDropShadowOffsetPrev = TEXT_BOX_DROP_SHADOW_OFFSET;
+    }
+    
+    if(TEXT_BOX_DROP_SHADOW_SCALE != textBoxDropShadowScale){
+        mTextBox->setDropShadowScale(TEXT_BOX_DROP_SHADOW_SCALE);
+        textBoxDropShadowScale = TEXT_BOX_DROP_SHADOW_SCALE;
+    }
+    
+    if(TEXT_BOX_USE_DROP_SHADOW != textBoxUseDropShadowPrev){
+        mTextBox->dropShadow(TEXT_BOX_USE_DROP_SHADOW);
+        textBoxUseDropShadowPrev = TEXT_BOX_USE_DROP_SHADOW;
+    }
+    
+    if(TEXT_BOX_USE_UNDERLINE != textBoxUseUnderlinePrev){
+        mTextBox->underline(TEXT_BOX_USE_UNDERLINE);
+        textBoxUseUnderlinePrev = TEXT_BOX_USE_UNDERLINE;
+    }
+    
+    if(TEXT_BOX_COLOR_FONT != textBoxColorFontPrev){
+        mTextBox->setColorFont(TEXT_BOX_COLOR_FONT);
+        textBoxColorFontPrev = TEXT_BOX_COLOR_FONT;
+    }
+    
+    if(TEXT_BOX_COLOR_UNDERLINE != textBoxColorUnderlinePrev){
+        mTextBox->setColorUnderline(TEXT_BOX_COLOR_UNDERLINE);
+        textBoxColorUnderlinePrev = TEXT_BOX_COLOR_UNDERLINE;
+    }
+    
+    if(TEXT_BOX_COLOR_DROP_SHADOW != textBoxColorDropShadowPrev){
+        mTextBox->setColorDropShadow(TEXT_BOX_COLOR_DROP_SHADOW);
+        textBoxColorDropShadowPrev = TEXT_BOX_COLOR_DROP_SHADOW;
     }
 }
 
@@ -98,15 +166,20 @@ void TextboxApp::draw()
 	gl::clear( Color( 0.15f, 0.15f, 0.15f ) );
     gl::setMatricesWindow(app::getWindowSize());
   
-    gl::enableAlphaTest();
-    gl::enableAlphaBlending();
+    glAlphaFunc(GL_GREATER, 0.0);
+    glEnable(GL_ALPHA_TEST);
+    glEnable( GL_BLEND );
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+    
     glPushMatrix();
-    glTranslatef(200,20,0);
+    glTranslatef(250,20,0);
     glColor3f(1,1,1);
     mTextBox->debugDraw();
     glPopMatrix();
-    gl::disableAlphaBlending();
-    gl::disableAlphaTest();
+    
+    glDisable(GL_BLEND);
+    glDisable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.5); // reset what seems to be cinders default
     
     mParams->draw();
 }
