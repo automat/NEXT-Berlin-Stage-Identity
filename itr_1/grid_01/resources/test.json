@@ -7,7 +7,7 @@
                "padding" : [ 1, 0, 0, 0 ],
                "scale" : 1
                },
-               "string" : "This is the\n NEW NORMAL."
+               "string" : "This\n is the\n NEW NORMAL."
       }
    ]
 }
