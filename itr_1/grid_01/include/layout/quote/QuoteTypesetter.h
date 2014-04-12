@@ -752,7 +752,7 @@ public:
                 tokenHasBr = tokenNumBr != 0;
                 if(tokenHasBr){
                     // remove br char
-                    input.erase(remove(input.begin(), input.end(), br), input.end());
+                    token.erase(remove(token.begin(), token.end(), br), token.end());
                 }
                 tokenCountBr += tokenNumBr;
             }
