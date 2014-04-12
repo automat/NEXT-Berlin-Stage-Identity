@@ -61,7 +61,8 @@ namespace utils {
                 pos(pos),str(str),width(width){}
         };
         
-        Vec2f mOrigin; // top left if offsetted by fbo texture if dropshadow is used
+        Vec2f mOrigin;        // top left if offsetted by fbo texture if dropshadow is used
+        Rectf mTextureBounds; // bounds of the result texture including drophshadow
         
         
         gl::TextureFont::Format mTexFontFormat;
@@ -89,12 +90,21 @@ namespace utils {
         float   mDropShadowScale;
         Vec2f   mDropShadowOffset;
         
-        
         bool mDrawUnderline;
         bool mDrawDropShadow;
         
-        static gl::GlslProg BlurShaderH;
-        static gl::GlslProg BlurShaderV;
+        //
+        //  Render
+        //
+        
+        static gl::GlslProg    _blurShaderH;
+        static gl::GlslProg    _blurShaderV;
+        static gl::Fbo::Format _fboFormat;
+        
+        gl::Fbo mFbo0;
+        gl::Fbo mFbo1;
+        
+        
         
         /*--------------------------------------------------------------------------------------------*/
         // handle string
@@ -112,6 +122,9 @@ namespace utils {
             }
             float lineWidth = measureString(line);
             mMaxLineWidth   = MAX(lineWidth,mMaxLineWidth);
+            mHeight        += mLineStep;
+            
+            
             if(lineWidth == 0){
                 return;
             }
@@ -144,6 +157,181 @@ namespace utils {
             glLineWidth(1);
         }
         
+        /*--------------------------------------------------------------------------------------------*/
+        // render to Texture
+        /*--------------------------------------------------------------------------------------------*/
+        
+        inline void drawClearedScreenRect(const Vec2i& size, bool originUpperLeft = true){
+            gl::pushMatrices();
+            glClearColor( 0,0,0,0 );
+            glClearDepth(1.0f);
+            glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+            gl::setMatricesWindow(size,originUpperLeft);
+            gl::drawSolidRect( Rectf( 0, 0, size.x, size.y) );
+            gl::popMatrices();
+        }
+        
+        inline void renderToTexture(){
+            //
+            //  Resize the fbos
+            //
+            
+            float dropShadowOffsetScaledX = mDropShadowOffset.x;
+            float dropShadowOffsetScaledY = mDropShadowOffset.y;
+            
+            mTextureBounds.set(MIN(0, dropShadowOffsetScaledX),
+                               MIN(0, dropShadowOffsetScaledY),
+                               MAX(mDropShadowOffset.x + mMaxLineWidth, mMaxLineWidth),
+                               MAX(mDropShadowOffset.y + mHeight, mHeight));
+            
+            float texBoundsWidth  = mTextureBounds.getWidth();
+            float texBoundsHeight = mTextureBounds.getHeight();
+            Area  texViewport     = Area(0, 0, texBoundsWidth, texBoundsHeight);
+            
+            Vec2f texelSize(1.0f / texBoundsWidth, 1.0f / texBoundsHeight );
+            
+            mFbo0 = gl::Fbo(texBoundsWidth, texBoundsHeight, _fboFormat);
+            mFbo1 = gl::Fbo(texBoundsWidth, texBoundsHeight, _fboFormat);
+            
+            Vec2f zero;
+            float row = 0;
+            
+            
+            if(mDrawDropShadow){
+                
+                //
+                //  Draw dropshadow pure
+                //
+                mFbo0.bindFramebuffer();
+                gl::pushMatrices();
+                glPushAttrib(GL_VIEWPORT_BIT);
+                gl::setViewport(texViewport);
+                gl::setMatricesWindow(mFbo0.getSize(),false);
+                gl::clear(ColorAf(0,0,0,0));
+                
+                float prevColor[4];
+                glGetFloatv(GL_CURRENT_COLOR, prevColor);
+                
+                gl::enableAlphaTest();
+                gl::enableAlphaBlending();
+                
+                glGetFloatv(GL_CURRENT_COLOR, prevColor);
+                row = 0;
+                    
+                glColor4f(mColorDropShadow.r,
+                          mColorDropShadow.g,
+                          mColorDropShadow.b,
+                          mColorDropShadow.a);
+                    
+                for(const auto& line : mLines){
+                    glPushMatrix();
+                    glTranslatef(mDropShadowOffset.x,row + mDropShadowOffset.y,0);
+                    glMultMatrixf(&mTransform[0]);
+                    mTexFontRef->drawString(line.str, zero);
+                    glPopMatrix();
+                    
+                    row += mLineStep;
+                }
+                
+                glColor4f(prevColor[0],
+                          prevColor[1],
+                          prevColor[2],
+                          prevColor[3]);
+              
+                
+                gl::disableAlphaBlending();
+                gl::enableAdditiveBlending();
+                gl::popMatrices();
+                glPopAttrib();
+                mFbo0.unbindFramebuffer();
+                
+                //
+                //  Blur shadow horizontal
+                //
+                mFbo1.bindFramebuffer();
+                mFbo0.bindTexture(0);
+                _blurShaderH.bind();
+                _blurShaderH.uniform("uTexture", 0);
+                _blurShaderH.uniform("uTexelSize", texelSize.x);
+                _blurShaderH.uniform("uScale", mDropShadowScale);
+                glPushAttrib(GL_VIEWPORT_BIT);
+                gl::pushMatrices();
+                gl::setViewport(texViewport);
+                drawClearedScreenRect(mFbo0.getSize(),true);
+                gl::popMatrices();
+                glPopAttrib();
+                _blurShaderH.unbind();
+                mFbo0.getTexture().unbind(0);
+                mFbo1.unbindFramebuffer();
+                
+                //
+                //  Blur shadow vertical
+                //
+                mFbo0.bindFramebuffer();
+                mFbo1.bindTexture(0);
+                _blurShaderV.bind();
+                _blurShaderV.uniform("uTexture", 0);
+                _blurShaderV.uniform("uTexelSize", texelSize.y);
+                _blurShaderV.uniform("uScale", mDropShadowScale);
+                glPushAttrib(GL_VIEWPORT_BIT);
+                gl::pushMatrices();
+                gl::setViewport(texViewport);
+                drawClearedScreenRect(mFbo1.getSize(),true);
+                gl::popMatrices();
+                glPopAttrib();
+                _blurShaderH.unbind();
+                mFbo1.getTexture().unbind(0);
+                mFbo0.unbindFramebuffer();
+            
+            }
+            
+            //
+            //  Overlay the blurred shadow with the type
+            //
+            mFbo1.bindFramebuffer();
+            gl::enableAlphaTest();
+            gl::enableAdditiveBlending();
+            
+            glPushAttrib(GL_VIEWPORT_BIT);
+            gl::pushMatrices();
+            gl::setViewport(texViewport);
+            gl::setMatricesWindow(mFbo1.getSize(),false);
+            
+            if(mDrawDropShadow){
+                gl::draw(mFbo0.getTexture());
+            }
+            
+            glColor4f(mColorFont.r,
+                      mColorFont.g,
+                      mColorFont.b,
+                      mColorFont.a);
+            
+            row = 0;
+            for(const auto& line : mLines){
+                glPushMatrix();
+                glTranslatef(0,row,0);
+                
+                glPushMatrix();
+                drawStringBoundingBox(line.str);
+                glPopMatrix();
+                
+                glPushMatrix();
+                glMultMatrixf(&mTransform[0]);
+                mTexFontRef->drawString(line.str, zero);
+                glPopMatrix();
+                
+                glPopMatrix();
+                row += mLineStep;
+            }
+            
+            gl::popMatrices();
+            glPopAttrib();
+            
+            gl::disableAlphaBlending();
+            gl::disableAlphaTest();
+            mFbo1.unbindFramebuffer();
+        }
+        
     public:
         /*--------------------------------------------------------------------------------------------*/
         // Constructor
@@ -167,11 +355,14 @@ namespace utils {
                 
                 static bool _shaderInit = false;
                 if(!_shaderInit){
-                    TextBox::BlurShaderH = gl::GlslProg("varying vec2 vTexcoord; void main(){ vec2 Pos = sign(gl_Vertex.xy); vTexcoord = Pos; gl_Position = vec4(Pos, 0.0, 1.0) - 0.5; }",
+                    TextBox::_blurShaderH = gl::GlslProg("varying vec2 vTexcoord; void main(){ vec2 Pos = sign(gl_Vertex.xy); vTexcoord = Pos; gl_Position = vec4(Pos, 0.0, 1.0) - 0.5; }",
                                                         "uniform sampler2D uTexture; uniform float uTexelSize; uniform float uScale; varying vec2 vTexcoord; void main(){ float offset = uTexelSize * uScale; vec4 sum = vec4(0.0); sum += texture2D(uTexture, vec2(vTexcoord.x - 4.0 * offset, vTexcoord.y)) * 0.05; sum += texture2D(uTexture, vec2(vTexcoord.x - 3.0 * offset, vTexcoord.y)) * 0.09; sum += texture2D(uTexture, vec2(vTexcoord.x - 2.0 * offset, vTexcoord.y)) * 0.12; sum += texture2D(uTexture, vec2(vTexcoord.x - 1.0 * offset, vTexcoord.y)) * 0.15; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y)) * 0.16; sum += texture2D(uTexture, vec2(vTexcoord.x + 1.0 * offset, vTexcoord.y)) * 0.15; sum += texture2D(uTexture, vec2(vTexcoord.x + 2.0 * offset, vTexcoord.y)) * 0.12; sum += texture2D(uTexture, vec2(vTexcoord.x + 3.0 * offset, vTexcoord.y)) * 0.09; sum += texture2D(uTexture, vec2(vTexcoord.x + 4.0 * offset, vTexcoord.y)) * 0.05; gl_FragColor = sum; }");
-                    TextBox::BlurShaderV = gl::GlslProg("varying vec2 vTexcoord; void main(){ vec2 Pos = sign(gl_Vertex.xy); vTexcoord = Pos; gl_Position = vec4(Pos, 0.0, 1.0) - 0.5; }",
+                    TextBox::_blurShaderV = gl::GlslProg("varying vec2 vTexcoord; void main(){ vec2 Pos = sign(gl_Vertex.xy); vTexcoord = Pos; gl_Position = vec4(Pos, 0.0, 1.0) - 0.5; }",
                                                         "uniform sampler2D uTexture; uniform float uTexelSize; varying vec2 vTexcoord; uniform float uScale; void main(){ float offset = uTexelSize * uScale; vec4 sum = vec4(0.0); sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 4.0 * offset)) * 0.05; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 3.0 * offset)) * 0.09; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 2.0 * offset)) * 0.12; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 1.0 * offset)) * 0.15; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y )) * 0.16; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 1.0 * offset)) * 0.15; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 2.0 * offset)) * 0.12; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 3.0 * offset)) * 0.09; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 4.0 * offset)) * 0.05; gl_FragColor = sum; }");
                     
+                    _fboFormat.setSamples(4);
+                    _fboFormat.setColorInternalFormat(GL_RGBA16F_ARB);
+                    _fboFormat.setWrap(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
                 }
                 
         };
@@ -216,8 +407,16 @@ namespace utils {
         }
         
         inline float getHeight(){
-            return mHeight;
+            return MAX(0,mHeight);
         }
+        
+        inline Vec2f getSize(){
+            return Vec2f(getWidth(), getHeight());
+        }
+        
+        //inline Vec2f getCalculatedSize
+        //inline Rectf getBounds
+        //inline Rectf getCalculatedBounds
         
         inline float getLineHeight(){
             return mLineHeight;
@@ -227,13 +426,21 @@ namespace utils {
         // set / get string
         /*--------------------------------------------------------------------------------------------*/
 
-        inline void setString(const string& str){
+        inline void reset(){
             mLines.resize(0);
             mMaxLineWidth = 0;
             mOrigin.set(0,0);
+            mHeight = 0;
+            
+            mTextureBounds.set(0,0,0,0);
+        }
+        
+        inline void setString(const string& str){
+            reset();
             
             if(str.empty()){
                 return;
+                renderToTexture();  // well, in this case reset
             }
             
             string input(str);
@@ -278,6 +485,7 @@ namespace utils {
             
             if(!hasBr && lineWidth <= mWidth){
                 addLine(input, row);
+                renderToTexture();
                 return;
             }
             
@@ -358,6 +566,7 @@ namespace utils {
             }
             
             mString = str;
+            renderToTexture();
         }
         
         inline const string& getString(){
@@ -446,55 +655,19 @@ namespace utils {
             float prevColor[4];
             glGetFloatv(GL_CURRENT_COLOR, prevColor);
             
-            float row = 0;
             
-            gl::enableAlphaTest();
-            gl::enableAlphaBlending();
-            
-            if(mDrawDropShadow){
-                glGetFloatv(GL_CURRENT_COLOR, prevColor);
-                row = 0;
-                
-                glColor4f(mColorDropShadow.r,
-                          mColorDropShadow.g,
-                          mColorDropShadow.b,
-                          mColorDropShadow.a);
-                
-                for(const auto& line : mLines){
-                    glPushMatrix();
-                    glTranslatef(mDropShadowOffset.x,row + mDropShadowOffset.y,0);
-                    glMultMatrixf(&mTransform[0]);
-                    mTexFontRef->drawString(line.str, zero);
-                    glPopMatrix();
-                    
-                    row += mLineStep;
-                }
-                
-                glColor4f(prevColor[0],
-                          prevColor[1],
-                          prevColor[2],
-                          prevColor[3]);
-            }
-            
-            gl::disableAlphaBlending();
-            gl::enableAdditiveBlending();
-            
-            row = 0;
             glColor4f(mColorFont.r,
                       mColorFont.g,
                       mColorFont.b,
                       mColorFont.a);
+            
+            float row = 0;
             for(const auto& line : mLines){
                 glPushMatrix();
                 glTranslatef(0,row,0);
                 
                 glPushMatrix();
                 drawStringBoundingBox(line.str);
-                glPopMatrix();
-                
-                glPushMatrix();
-                glMultMatrixf(&mTransform[0]);
-                mTexFontRef->drawString(line.str, zero);
                 glPopMatrix();
                 
                 glPopMatrix();
@@ -509,7 +682,6 @@ namespace utils {
                       prevColor[2],
                       prevColor[3]);
             
-           
             
             glGetFloatv(GL_CURRENT_COLOR, prevColor);
             
@@ -518,11 +690,25 @@ namespace utils {
             gl::drawStrokedRect(Rectf(0,0,mWidth, row));
             glPopMatrix();
             
+            glColor3f(1,0,0);
+            glLineWidth(4);
+            gl::drawLine(Vec2f::zero(), Vec2f(mMaxLineWidth,0));
+            glLineWidth(1);
+            
+            
+            
+            glPushMatrix();
+            glColor3f(0,0,1);
+            gl::drawStrokedRect(mTextureBounds);
+            glPopMatrix();
+            
             glColor4f(prevColor[0], prevColor[1], prevColor[2], prevColor[3]);
         }
         
         
-        
+        inline const gl::Texture& getTexture(){
+            return mFbo1.getTexture();
+        }
 
         
         

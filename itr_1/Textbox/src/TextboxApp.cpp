@@ -73,7 +73,7 @@ void TextboxApp::setup(){
     mParams->addParam("Use DropShadow", &TEXT_BOX_USE_DROP_SHADOW);
     mParams->addParam("DropShadow Offset X", &TEXT_BOX_DROP_SHADOW_OFFSET[0]);
     mParams->addParam("DropShadow Offset Y", &TEXT_BOX_DROP_SHADOW_OFFSET[1]);
-    mParams->addParam("DropShadow Scale", &TEXT_BOX_DROP_SHADOW_SCALE);
+    mParams->addParam("DropShadow Scale", &TEXT_BOX_DROP_SHADOW_SCALE,"min=1.0 max=4.0 step=0.0125");
     
 }
 
@@ -126,36 +126,43 @@ void TextboxApp::update(){
     
     if(TEXT_BOX_DROP_SHADOW_OFFSET != textBoxDropShadowOffsetPrev){
         mTextBox->setDropShadowOffset(TEXT_BOX_DROP_SHADOW_OFFSET);
+        mTextBox->setString(mString);
         textBoxDropShadowOffsetPrev = TEXT_BOX_DROP_SHADOW_OFFSET;
     }
     
     if(TEXT_BOX_DROP_SHADOW_SCALE != textBoxDropShadowScale){
         mTextBox->setDropShadowScale(TEXT_BOX_DROP_SHADOW_SCALE);
+        mTextBox->setString(mString);
         textBoxDropShadowScale = TEXT_BOX_DROP_SHADOW_SCALE;
     }
     
     if(TEXT_BOX_USE_DROP_SHADOW != textBoxUseDropShadowPrev){
         mTextBox->dropShadow(TEXT_BOX_USE_DROP_SHADOW);
+        mTextBox->setString(mString);
         textBoxUseDropShadowPrev = TEXT_BOX_USE_DROP_SHADOW;
     }
     
     if(TEXT_BOX_USE_UNDERLINE != textBoxUseUnderlinePrev){
         mTextBox->underline(TEXT_BOX_USE_UNDERLINE);
+        mTextBox->setString(mString);
         textBoxUseUnderlinePrev = TEXT_BOX_USE_UNDERLINE;
     }
     
     if(TEXT_BOX_COLOR_FONT != textBoxColorFontPrev){
         mTextBox->setColorFont(TEXT_BOX_COLOR_FONT);
+        mTextBox->setString(mString);
         textBoxColorFontPrev = TEXT_BOX_COLOR_FONT;
     }
     
     if(TEXT_BOX_COLOR_UNDERLINE != textBoxColorUnderlinePrev){
         mTextBox->setColorUnderline(TEXT_BOX_COLOR_UNDERLINE);
+        mTextBox->setString(mString);
         textBoxColorUnderlinePrev = TEXT_BOX_COLOR_UNDERLINE;
     }
     
     if(TEXT_BOX_COLOR_DROP_SHADOW != textBoxColorDropShadowPrev){
         mTextBox->setColorDropShadow(TEXT_BOX_COLOR_DROP_SHADOW);
+        mTextBox->setString(mString);
         textBoxColorDropShadowPrev = TEXT_BOX_COLOR_DROP_SHADOW;
     }
 }
@@ -163,7 +170,7 @@ void TextboxApp::update(){
 void TextboxApp::draw()
 {
 	// clear out the window with black
-	gl::clear( Color( 0.15f, 0.15f, 0.15f ) );
+	gl::clear( Color( 0.15f, 0.15f, 0.45f ) );
     gl::setMatricesWindow(app::getWindowSize());
   
     glAlphaFunc(GL_GREATER, 0.0);
@@ -172,8 +179,9 @@ void TextboxApp::draw()
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
     
     glPushMatrix();
-    glTranslatef(250,20,0);
+    glTranslatef(250,50,0);
     glColor3f(1,1,1);
+    gl::draw(mTextBox->getTexture());
     mTextBox->debugDraw();
     glPopMatrix();
     

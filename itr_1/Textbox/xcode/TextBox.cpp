@@ -3,7 +3,8 @@
 #include "Resources.h"
 
 namespace utils{
-    gl::GlslProg TextBox::BlurShaderH;
-    gl::GlslProg TextBox::BlurShaderV;
+    gl::GlslProg     TextBox::_blurShaderH;
+    gl::GlslProg     TextBox::_blurShaderV;
+    gl::Fbo::Format  TextBox::_fboFormat;
 }
 
