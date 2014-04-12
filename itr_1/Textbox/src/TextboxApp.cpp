@@ -1,12 +1,18 @@
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
 #include "cinder/gl/TextureFont.h"
+#include "cinder/params/Params.h"
 
 #include "Textbox.h"
 
 using namespace ci;
 using namespace ci::app;
 using namespace std;
+
+float TEXT_BOX_FONT_SIZE(40.0f);
+float TEXT_BOX_TEXTURE_FONT_SIZE_SCALE(2.0f);
+float TEXT_BOX_FONT_LINE_HEIGHT(1.0f);
+float TEXT_BOX_WIDTH(400.0f);
 
 class TextboxApp : public AppNative {
   public:
@@ -16,14 +22,12 @@ class TextboxApp : public AppNative {
 	void update();
 	void draw();
     
-    float mFontSize;
-    
-    
+    string mString;
     utils::TextBox* mTextBox;
+    params::InterfaceGlRef mParams;
     
-    Vec2f mReferenceFontOffset;
-    gl::TextureFontRef mReferenceFont;
     
+   
 };
 
 void TextboxApp::prepareSettings(Settings* settings){
@@ -32,17 +36,21 @@ void TextboxApp::prepareSettings(Settings* settings){
 }
 
 void TextboxApp::setup(){
-    mFontSize = 40.0f;
+    mString = "Joining the physical with the digital:\n the future of creating, selling and owning things";
     
     mTextBox = new utils::TextBox();
-    mTextBox->setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),80.0f));
-    mTextBox->setFontSize(mFontSize);
-    mTextBox->setWidth(400);
-    mTextBox->setString("Lorem\n ipsum dolor sit amet, consetetur\n sadipscing elitr, sed diam nonumy eirmod.");
     
-    
-    mReferenceFont = gl::TextureFont::create(Font(loadResource(RES_TRANSCRIPT_BOLD),mFontSize));
-    mReferenceFontOffset.y = mReferenceFont->getAscent() - mReferenceFont->getDescent();
+    mTextBox->setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),TEXT_BOX_FONT_SIZE * TEXT_BOX_TEXTURE_FONT_SIZE_SCALE));
+    mTextBox->setFontSize(TEXT_BOX_FONT_SIZE);
+    mTextBox->setLineHeight(TEXT_BOX_FONT_LINE_HEIGHT);
+    mTextBox->setWidth(TEXT_BOX_WIDTH);
+    mTextBox->setString(mString);
+
+    mParams = params::InterfaceGl::create("Controls", Vec2i(200,100));
+    mParams->addParam("Texture Font Scale", &TEXT_BOX_TEXTURE_FONT_SIZE_SCALE, "min=1.0 max=16.0 step=1.0");
+    mParams->addParam("Font Size", &TEXT_BOX_FONT_SIZE, "min=0.0 max=80.0 step=0.125");
+    mParams->addParam("Font Line Height", &TEXT_BOX_FONT_LINE_HEIGHT, "min=0.0 max=2.0 step=0.0125");
+    mParams->addParam("Width", &TEXT_BOX_WIDTH);
 }
 
 void TextboxApp::keyDown( KeyEvent event ){
@@ -56,33 +64,51 @@ void TextboxApp::keyDown( KeyEvent event ){
 }
 
 void TextboxApp::update(){
+    static float textBoxFontSizePrev = TEXT_BOX_FONT_SIZE;
+    static float textBoxTextureFontSizeScalePrev = TEXT_BOX_TEXTURE_FONT_SIZE_SCALE;
+    static float textBoxFontLineHeightPrev = TEXT_BOX_FONT_LINE_HEIGHT;
+    static float textBoxWidthPrev = TEXT_BOX_WIDTH;
+    
+    if(TEXT_BOX_TEXTURE_FONT_SIZE_SCALE != textBoxTextureFontSizeScalePrev){
+        mTextBox->setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),TEXT_BOX_FONT_SIZE * TEXT_BOX_TEXTURE_FONT_SIZE_SCALE));
+        mTextBox->setFontSize(TEXT_BOX_FONT_SIZE);
+        mTextBox->setString(mString);
+        
+        textBoxTextureFontSizeScalePrev = TEXT_BOX_TEXTURE_FONT_SIZE_SCALE;
+    }
+    
+    if(TEXT_BOX_FONT_SIZE != textBoxFontSizePrev ||
+       TEXT_BOX_FONT_LINE_HEIGHT != textBoxFontLineHeightPrev ||
+       TEXT_BOX_WIDTH != textBoxWidthPrev){
+        mTextBox->setFontSize(TEXT_BOX_FONT_SIZE);
+        mTextBox->setLineHeight(TEXT_BOX_FONT_LINE_HEIGHT);
+        mTextBox->setWidth(TEXT_BOX_WIDTH);
+        mTextBox->setString(mString);
+        
+        textBoxFontSizePrev = TEXT_BOX_FONT_SIZE;
+        textBoxFontLineHeightPrev = TEXT_BOX_FONT_LINE_HEIGHT;
+        textBoxWidthPrev = TEXT_BOX_WIDTH;
+        
+    }
 }
 
 void TextboxApp::draw()
 {
 	// clear out the window with black
-	gl::clear( Color( 0, 0, 0 ) );
+	gl::clear( Color( 0.15f, 0.15f, 0.15f ) );
     gl::setMatricesWindow(app::getWindowSize());
-    
-    glColor3f(1, 0, 1);
-    gl::drawLine(Vec2f::zero(), app::getWindowSize());
-    
-    
-    
-    glColor3f(1, 0, 1);
-    gl::drawSolidRect(Rectf(20,20,20 + 5,20 + 20));
-    
+  
     gl::enableAlphaTest();
     gl::enableAlphaBlending();
     glPushMatrix();
-    glTranslatef(20,20,0);
+    glTranslatef(200,20,0);
     glColor3f(1,1,1);
     mTextBox->debugDraw();
-    glTranslatef(400,0,0);
-    mReferenceFont->drawString(mTextBox->getString(), mReferenceFontOffset);
     glPopMatrix();
     gl::disableAlphaBlending();
     gl::disableAlphaTest();
+    
+    mParams->draw();
 }
 
 CINDER_APP_NATIVE( TextboxApp, RendererGl )

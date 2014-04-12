@@ -27,6 +27,7 @@
 
 #include "cinder/gl/gl.h"
 #include "cinder/Font.h"
+#include "cinder/Color.h"
 #include "cinder/gl/Texture.h"
 #include "cinder/gl/TextureFont.h"
 #include "cinder/gl/Fbo.h"
@@ -35,6 +36,9 @@
 #include "cinder/Vector.h"
 
 
+//
+//  this thing is a stripped down version of the quote setter
+//
 
 namespace utils {
     using namespace std;
@@ -42,14 +46,17 @@ namespace utils {
     using namespace boost;
     using namespace boost::assign;
     class TextBox{
+        /*--------------------------------------------------------------------------------------------*/
+        // Internal
+        /*--------------------------------------------------------------------------------------------*/
+ 
         struct Line_Internal{
             Vec2f pos;
             string str;
             float width;
-            int row;
             Line_Internal(){}
-            Line_Internal(const Vec2f& pos, const string& str, float width, int row) :
-                pos(pos),str(str),width(width), row(row){}
+            Line_Internal(const Vec2f& pos, const string& str, float width) :
+                pos(pos),str(str),width(width){}
         };
         
         
@@ -57,46 +64,38 @@ namespace utils {
         gl::TextureFontRef      mTexFontRef;        // font to be used
         float                   mFontAscent;        // font ascent
         float                   mFontDescent;       // font descent
-        float                   mFontScale;
-        float                   mFontScaleNorm;
-        float                   mFontBaseline;      // text draw aling baseline
-        float                   mFontAscentline;    // text draw align ascent
-        float                   mFontDescentline;   // text draw align descent
+        float                   mFontScale;         // relation texture font size / desired size
+        float                   mFontOffset;        // font offset top to baseline
+        float                   mFontHeight;        // font height including ascent / descent
+        
+        float                   mLineHeight;        // font height scale factor
+        float                   mLineStep;          // product lineheight * fontheight
+        Matrix44f               mTransform;
         
         vector<Line_Internal> mLines;
         string                mString;
+        
         float                 mWidth;
         float                 mHeight;
-        Matrix44f             mTransform;
         
+        ColorAf mColorFont;
+        ColorAf mColorUnderline;
+        ColorAf mColorDropShadow;
+        float   mDropShadowScale;
         
+        bool mDrawUnderline;
+        bool mDrawDropShadow;
+        
+        /*--------------------------------------------------------------------------------------------*/
+        // handle string
+        /*--------------------------------------------------------------------------------------------*/
         
         //! Get width of string
         inline float measureString(const string& str){
             return mTexFontRef->measureString(str).x * mFontScale;
         }
         
-        //! Draw bounding box of string
-        inline void drawStringBoundingBox(const string& str){
-            float width = measureString(str);
-            float vertices[12] = {
-                -0.5f, 0, 0,
-                -0.5f, 0, -width,
-                0.5f, 0, -width,
-                0.5f, 0, 0
-            };
-            
-            glLineWidth(2);
-            glEnableClientState(GL_VERTEX_ARRAY);
-            glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
-            glEnable(GL_LINE_STIPPLE);
-            glLineStipple(10, 0xAAAA);
-            glDrawArrays(GL_LINE_LOOP, 0, 4);
-            glDisable(GL_LINE_STIPPLE);
-            glDisableClientState(GL_VERTEX_ARRAY);
-            glLineWidth(1);
-        }
-        
+        //! Add processed line
         inline void addLine(const string& line, int row){
             if(line.empty()){
                 return;
@@ -105,54 +104,108 @@ namespace utils {
             if(lineWidth == 0){
                 return;
             }
+            mLines += Line_Internal(Vec2f::zero(), line, lineWidth);
+        }
+        
+        
+        /*--------------------------------------------------------------------------------------------*/
+        // debug
+        /*--------------------------------------------------------------------------------------------*/
+        
+        //! Draw bounding box of string
+        inline void drawStringBoundingBox(const string& str){
+            float width = measureString(str);
+            float vertices[8] = {
+                0,     0,
+                width, 0,
+                width, mFontHeight,
+                0,     mFontHeight
+            };
             
-            mLines += Line_Internal(Vec2f::zero(), line, lineWidth, row);
+            glLineWidth(2);
+            glEnableClientState(GL_VERTEX_ARRAY);
+            glVertexPointer(2, GL_FLOAT, 0, &vertices[0]);
+            glEnable(GL_LINE_STIPPLE);
+            glLineStipple(10, 0xAAAA);
+            glDrawArrays(GL_LINE_LOOP, 0, 4);
+            glDisable(GL_LINE_STIPPLE);
+            glDisableClientState(GL_VERTEX_ARRAY);
+            glLineWidth(1);
         }
         
     public:
-        
+        /*--------------------------------------------------------------------------------------------*/
+        // Constructor
+        /*--------------------------------------------------------------------------------------------*/
         
         TextBox(int fontTextureSize = 2048) :
             mWidth(100),
-            mHeight(0){
-            mTexFontFormat.enableMipmapping();
-            mTexFontFormat.premultiply();
-            mTexFontFormat.textureWidth(fontTextureSize);
-            mTexFontFormat.textureHeight(fontTextureSize);
+            mLineHeight(1.0f),
+            mHeight(0),
+            mDrawUnderline(false),
+            mDrawDropShadow(false),
+            mColorFont(1,1,1,1),
+            mColorUnderline(1,0,1,1),
+            mColorDropShadow(0,0,0,1),
+            mDropShadowScale(0.125f){
+                mTexFontFormat.enableMipmapping();
+                mTexFontFormat.premultiply();
+                mTexFontFormat.textureWidth(fontTextureSize);
+                mTexFontFormat.textureHeight(fontTextureSize);
         };
         
+        /*--------------------------------------------------------------------------------------------*/
+        // set / get font properties
+        /*--------------------------------------------------------------------------------------------*/
+
         inline void setFont(const Font& font){
             mTexFontRef = gl::TextureFont::create(font,mTexFontFormat);
             setFontSize(mTexFontRef->getFont().getSize());
-            //setFontScale(1.0f);
         }
         
         inline void setFontSize(float size){
             float fontSize = mTexFontRef->getFont().getSize();
-            mFontScaleNorm = size;
-            mFontScale     = mFontScaleNorm / fontSize;
+     
+            mFontScale     = size / fontSize;
+            mFontAscent    = mTexFontRef->getAscent();
+            mFontDescent   = mTexFontRef->getDescent();
+            mFontOffset    = (mFontAscent - mFontDescent) * mFontScale;
+            mFontHeight    = mFontAscent * mFontScale;
             
-            cout << mFontScaleNorm << " / " << fontSize << " " << mFontScale << endl;
-            
-            
-            mFontAscent   = mTexFontRef->getAscent();
-            mFontDescent  = mTexFontRef->getDescent();
-            
-        
             mTransform.setToIdentity();
-            mTransform.translate(Vec3f(0,int((mFontAscent - mFontDescent) * mFontScale),0));
+            mTransform.translate(Vec3f(0,int(mFontOffset),0));
             mTransform.scale(Vec3f(mFontScale,mFontScale,1));
-
             
-            
+            setLineHeight(mLineHeight);
         }
         
+        inline void setLineHeight(float height){
+            mLineHeight = height;
+            mLineStep   = (mFontAscent * mFontScale) * mLineHeight;
+        }
+        
+        
+        inline void setWidth(float width){
+            mWidth = width;
+        }
+        
+        inline float getWidth(){
+            return mWidth;
+        }
+        
+        inline float getHeight(){
+            return mHeight;
+        }
+        
+        inline float getLineHeight(){
+            return mLineHeight;
+        }
+        
+        /*--------------------------------------------------------------------------------------------*/
+        // set / get string
+        /*--------------------------------------------------------------------------------------------*/
+
         inline void setString(const string& str){
-            if(str == mString){
-                return;
-            }
-            
-            mString = str;
             mLines.resize(0);
             
             if(str.empty()){
@@ -164,6 +217,37 @@ namespace utils {
             const char br('\n');
             int  numBr = count(input.begin(), input.end(), br);
             bool hasBr = numBr != 0;
+            
+            if(hasBr){
+                // front / back
+                while (input.front() == br) {
+                    input.erase(input.begin());
+                }
+                while (input.back() == br) {
+                    input.pop_back();
+                }
+                
+                // inbetween
+                for(string::iterator itr = input.begin(); itr != input.end() - 1; ++itr){
+                    if (*itr == br) {   // current is break
+                        string::iterator _itr(itr+1);
+                        if(*_itr != ' '){
+                            //remove double breaks, not seperated by space
+                            while(*(_itr) == br){
+                                input.erase(_itr++);
+                            }
+                        }
+                    }
+                }
+                
+                // add space after linebreak
+                for(int i = 0; i < input.size(); ++i){
+                    if(input[i] == br && input[i+1] != ' '){
+                        input.insert(++i, " ");
+                    }
+                }
+            }
+
             
             float lineWidth = measureString(input);
             int row = 0;
@@ -191,19 +275,26 @@ namespace utils {
                 if(measureString(token) > mWidth){
                     break;
                 }
-                
-                if(hasBr && tokenCountBr <= numBr){
-                    tokenNumBr = count(token.begin(),token.end(),br);
-                    tokenHasBr = tokenNumBr != 0;
-                    if(tokenHasBr){
-                        // remove br char
-                        token.erase(remove(token.begin(), token.end(), br), token.end());
+                //
+                //  This is a bit wonky
+                //
+                if(hasBr){
+                    if(tokenCountBr <= numBr){
+                        tokenNumBr = count(token.begin(),token.end(),br);
+                        tokenHasBr = tokenNumBr != 0;
+                        if(tokenHasBr){
+                            // remove br char
+                            token.erase(remove(token.begin(), token.end(), br), token.end());
+                            tokenCountBr += tokenNumBr;
+                            
+                        }
+                    } else {
+                        tokenHasBr = false;
                     }
-                    tokenCountBr += tokenNumBr;
                 }
-                
+
                 lineWidth = measureString(line + token);
-                
+
                 if(tokenHasBr){
                     if (lineWidth < mWidth) {
                         line += token;
@@ -237,69 +328,76 @@ namespace utils {
                     }
                 }
                 
-                
-                /*
-                if(tokenHasBr){
-                    if(lineWidth < mWidth){
-                        line      += token;
-                        addLine(line, row);
-                        
-                        line.clear();
-                        space.clear();
-                        words.pop_front();
-                        row++;
-                        
-                    } else {
-                        addLine(line, row);
-                        
-                        line.clear();
-                        space.clear();
-                        row++;
-                    }
-                    
-                } else {
-                    
-                    if(lineWidth< mWidth){
-                        line      += token;
-                        space = " ";
-                        words.pop_front();
-                        
-                    } else {
-                        addLine(line, row);
-                        
-                        line.clear();
-                        space.clear();
-                        row++;
-                    }
-                }
-                
                 if(words.size() == 0){
                     addLine(line,row);
                 }
-                 */
-                
-                
-
             }
             
-            
-            
-            
-            
-            
-            
-           
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            mString = str;
         }
         
+        inline const string& getString(){
+            return mString;
+        }
+        
+        /*--------------------------------------------------------------------------------------------*/
+        // get / set draw properties
+        /*--------------------------------------------------------------------------------------------*/
+        
+        inline void setColorFont(const ColorAf& color){
+            mColorFont = color;
+        }
+        
+        inline const ColorAf& getColorFont(){
+            return mColorFont;
+        }
+        
+        inline void setColorUnderline(const ColorAf& color){
+            mColorUnderline = color;
+        }
+        
+        inline const ColorAf& getColorUnderline(){
+            return mColorUnderline;
+        }
+        
+        inline void setColorDropShadow(const ColorAf& color){
+            mDrawDropShadow = color;
+        }
+        
+        inline const ColorAf& getColorDropShadow(){
+            return mColorDropShadow;
+        }
+        
+        inline void setDropShadowScale(float scale){
+            mDrawDropShadow = scale;
+        }
+        
+        inline float getDropShadowScale(){
+            return mDropShadowScale;
+        }
+        
+        inline void dropShadow(bool dropShadow = true){
+            mDrawDropShadow = dropShadow;
+        }
+        
+        inline bool getDropShadow(){
+            return mDrawDropShadow;
+        }
+        
+        inline void underline(bool underline = true){
+            mDrawUnderline = underline;
+        }
+        
+        inline bool getUnderline(){
+            return mDrawUnderline;
+        }
+        
+        
+        
+        
+        /*--------------------------------------------------------------------------------------------*/
+        // debug
+        /*--------------------------------------------------------------------------------------------*/
         
         inline void debugDraw(){
             
@@ -308,45 +406,44 @@ namespace utils {
             Vec2f linePos;
             Vec2f textPos;
             
-
+            float line = 0;
             
+            
+            
+            gl::enableAlphaTest();
+            gl::enableAdditiveBlending();
             for(vector<Line_Internal>::const_iterator itr = mLines.begin(); itr != mLines.end(); ++itr){
                 glPushMatrix();
-                glTranslatef(0,itr->row * mFontScaleNorm,0);
+                glTranslatef(0,line,0);
+                
+                glPushMatrix();
+                drawStringBoundingBox(itr->str);
+                glPopMatrix();
+                
+                glPushMatrix();
                 glMultMatrixf(&mTransform[0]);
                 mTexFontRef->drawString(itr->str, zero);
                 glPopMatrix();
+                
+                glPopMatrix();
+                line += mLineStep;
             }
+            gl::disableAlphaBlending();
+            gl::disableAlphaTest();
             
             float prevColor[4];
             glGetFloatv(GL_CURRENT_COLOR, prevColor);
             
             glPushMatrix();
             glColor3f(1,0,1);
-            gl::drawStrokedRect(Rectf(0,0,mWidth, 200));
+            gl::drawStrokedRect(Rectf(0,0,mWidth, line));
             glPopMatrix();
             
             glColor3f(prevColor[0], prevColor[1], prevColor[2]);
         }
         
-        inline void setWidth(float width){
-            mWidth = width;
-        }
         
         
-        
-        
-        inline float getWidth(){
-            return mWidth;
-        }
-        
-        inline float getHeight(){
-            return mHeight;
-        }
-        
-        inline const string& getString(){
-            return mString;
-        }
 
         
         
