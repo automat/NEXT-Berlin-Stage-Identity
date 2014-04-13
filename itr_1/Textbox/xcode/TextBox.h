@@ -77,11 +77,15 @@ namespace utils {
         float                   mLineStep;          // product lineheight * fontheight
         Matrix44f               mTransform;
         
+        float                   mVerticesUnderlineUnit[8];
+        float                   mVerticesUnderlineScaled[8];
+        
         vector<Line_Internal> mLines;
         string                mString;
         float                 mMaxLineWidth;
         
         float                 mWidth;
+        float                 mWidthSafe; //mWidth - mUnderlineoffsetH_2
         float                 mHeight;
         
         ColorAf mColorFont;
@@ -90,6 +94,8 @@ namespace utils {
         ColorAf mColorUnderline;
         float   mUnderlineHeight;
         float   mUnderlineBaselineOffset;
+        float   mUnderlineOffsetH;
+        float   mUnderlineOffsetH_2;
         
         
         bool    mDrawDropShadow;
@@ -105,6 +111,8 @@ namespace utils {
         static gl::GlslProg    _blurShaderH;
         static gl::GlslProg    _blurShaderV;
         static gl::Fbo::Format _fboFormat;
+        
+        
         
         gl::Fbo mFbo0;
         gl::Fbo mFbo1;
@@ -166,6 +174,19 @@ namespace utils {
         // render to Texture
         /*--------------------------------------------------------------------------------------------*/
         
+        inline void enableAlphaBlending(){
+            glAlphaFunc(GL_GREATER, 0.0);
+            glEnable(GL_ALPHA_TEST);
+            glEnable( GL_BLEND );
+            glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+        }
+        
+        inline void disableAlphaBlending(){
+            glDisable(GL_BLEND);
+            glDisable(GL_ALPHA_TEST);
+            glAlphaFunc(GL_GREATER, 0.5); // reset what seems to be cinders default
+        }
+        
         inline void drawClearedScreenRect(const Vec2i& size, bool originUpperLeft = true){
             gl::pushMatrices();
             glClearColor( 0,0,0,0 );
@@ -181,13 +202,26 @@ namespace utils {
             //  Resize the fbos
             //
             
+            float underlineOffset = mDrawUnderline ? mUnderlineOffsetH_2 : 0;
+            
+            cout << underlineOffset << endl;
+            
             float dropShadowOffsetScaledX = mDropShadowOffset.x;
             float dropShadowOffsetScaledY = mDropShadowOffset.y;
+            float dropShadowOffsetXAbs = abs(mDropShadowOffset.x);
+            float dropShadowOffsetYAbs = abs(mDropShadowOffset.y);
             
-            mTextureBounds.set(MIN(0, dropShadowOffsetScaledX),
+            
+            
+            mOrigin.x = MIN(0,dropShadowOffsetScaledX);
+            mOrigin.y = MIN(0,dropShadowOffsetScaledY);
+            
+            mTextureBounds.set(MIN(-underlineOffset, dropShadowOffsetScaledX-underlineOffset),
                                MIN(0, dropShadowOffsetScaledY),
                                MAX(mDropShadowOffset.x + mMaxLineWidth, mMaxLineWidth),
                                MAX(mDropShadowOffset.y + mHeight, mHeight));
+            
+            cout << mTextureBounds.getX1() << endl;
             
             float texBoundsWidth  = mTextureBounds.getWidth();
             float texBoundsHeight = mTextureBounds.getHeight();
@@ -201,7 +235,6 @@ namespace utils {
             Vec2f zero;
             float row = 0;
             
-            
             if(mDrawDropShadow){
                 
                 //
@@ -212,25 +245,22 @@ namespace utils {
                 glPushAttrib(GL_VIEWPORT_BIT);
                 gl::setViewport(texViewport);
                 gl::setMatricesWindow(mFbo0.getSize(),false);
-                gl::clear(ColorAf(0,0,0,0));
+                gl::clear(ColorAf(0,0,1,0.75f));
                 
                 float prevColor[4];
                 glGetFloatv(GL_CURRENT_COLOR, prevColor);
                 
-                gl::enableAlphaTest();
-                gl::enableAlphaBlending();
+                enableAlphaBlending();
                 
-                glGetFloatv(GL_CURRENT_COLOR, prevColor);
                 row = 0;
-                    
                 glColor4f(mColorDropShadow.r,
                           mColorDropShadow.g,
                           mColorDropShadow.b,
                           mColorDropShadow.a);
-                    
+                
                 for(const auto& line : mLines){
                     glPushMatrix();
-                    glTranslatef(mDropShadowOffset.x,row + mDropShadowOffset.y,0);
+                    glTranslatef(dropShadowOffsetXAbs,row + dropShadowOffsetYAbs,0);
                     glMultMatrixf(&mTransform[0]);
                     mTexFontRef->drawString(line.str, zero);
                     glPopMatrix();
@@ -244,8 +274,8 @@ namespace utils {
                           prevColor[3]);
               
                 
-                gl::disableAlphaBlending();
-                gl::enableAdditiveBlending();
+                disableAlphaBlending();
+                
                 gl::popMatrices();
                 glPopAttrib();
                 mFbo0.unbindFramebuffer();
@@ -287,53 +317,82 @@ namespace utils {
                 _blurShaderH.unbind();
                 mFbo1.getTexture().unbind(0);
                 mFbo0.unbindFramebuffer();
-            
             }
             
             //
             //  Overlay the blurred shadow with the type
             //
             mFbo1.bindFramebuffer();
-            gl::enableAlphaTest();
-            gl::enableAdditiveBlending();
             
             glPushAttrib(GL_VIEWPORT_BIT);
             gl::pushMatrices();
             gl::setViewport(texViewport);
             gl::setMatricesWindow(mFbo1.getSize(),false);
+            gl::clear(ColorAf(0,0,0,0));
             
-            if(mDrawDropShadow){
-                gl::draw(mFbo0.getTexture());
+            glPushMatrix();
+            glTranslatef(-mOrigin.x,-mOrigin.y,0);
+            
+        
+            //
+            //  Draw underline
+            //
+            if(mDrawUnderline){
+                
+                float underlineHeight_2 = mUnderlineHeight * 0.5f;
+                float underlineTop = mFontBaseline + mUnderlineBaselineOffset - underlineHeight_2;
+                
+                float row = 0;
+                for(const auto& line : mLines){
+                    glPushMatrix();
+                    glTranslatef(0,row + underlineTop,0);
+                    drawTrapezoid(line.width);
+                    glPopMatrix();
+                    row += mLineStep;
+                }
             }
             
+            glPopMatrix();
+            
+            //
+            //  Draw dropshadow
+            //
+            enableAlphaBlending();
+            if(mDrawDropShadow){
+                glPushMatrix();
+                glTranslatef(mOrigin.x-underlineOffset, mOrigin.y, 0);
+                gl::draw(mFbo0.getTexture());
+                glPopMatrix();
+            }
+            disableAlphaBlending();
+            
+            glTranslatef(-mOrigin.x,-mOrigin.y,0);
+            
+            //
+            //  Draw font
+            //
+            gl::enableAlphaTest();
+            gl::enableAdditiveBlending();
             glColor4f(mColorFont.r,
                       mColorFont.g,
                       mColorFont.b,
                       mColorFont.a);
-            
             row = 0;
             for(const auto& line : mLines){
                 glPushMatrix();
                 glTranslatef(0,row,0);
-                
-                glPushMatrix();
-                drawStringBoundingBox(line.str);
-                glPopMatrix();
-                
-                glPushMatrix();
                 glMultMatrixf(&mTransform[0]);
                 mTexFontRef->drawString(line.str, zero);
                 glPopMatrix();
-                
-                glPopMatrix();
                 row += mLineStep;
             }
+        
+            gl::disableAlphaBlending();
+            gl::disableAlphaTest();
             
             gl::popMatrices();
             glPopAttrib();
-            
-            gl::disableAlphaBlending();
-            gl::disableAlphaTest();
+        
             mFbo1.unbindFramebuffer();
         }
         
@@ -372,6 +431,7 @@ namespace utils {
                     _fboFormat.setWrap(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
                 }
                 
+                setUnderlineHeight(mUnderlineHeight);
         };
         
         /*--------------------------------------------------------------------------------------------*/
@@ -407,6 +467,7 @@ namespace utils {
         
         inline void setWidth(float width){
             mWidth = width;
+            setUnderlineHeight(mUnderlineHeight);
         }
         
         inline float getWidth(){
@@ -490,7 +551,7 @@ namespace utils {
             float lineWidth = measureString(input);
             int row = 0;
             
-            if(!hasBr && lineWidth <= mWidth){
+            if(!hasBr && lineWidth <= mWidthSafe){
                 addLine(input, row);
                 renderToTexture();
                 return;
@@ -511,7 +572,7 @@ namespace utils {
             while(words.size() > 0){
                 token     = space + words.front();
                 
-                if(measureString(token) > mWidth){
+                if(measureString(token) > mWidthSafe){
                     break;
                 }
                 //
@@ -605,7 +666,7 @@ namespace utils {
         }
         
         inline void setColorDropShadow(const ColorAf& color){
-            mDrawDropShadow = color;
+            mColorDropShadow = color;
         }
         
         inline ColorAf getColorDropShadow(){
@@ -653,7 +714,10 @@ namespace utils {
         }
         
         inline void setUnderlineHeight(float height){
-            mUnderlineHeight = height;
+            mUnderlineOffsetH   = height * 2.2913f; //2.5// for testing
+            mUnderlineOffsetH_2 = mUnderlineOffsetH * 0.5f;
+            mUnderlineHeight    = height;
+            mWidthSafe          = mWidth - mUnderlineOffsetH_2;
         }
         
         inline float getUnderlineHeight(){
@@ -673,37 +737,53 @@ namespace utils {
         /*--------------------------------------------------------------------------------------------*/
     private:
         inline void drawTrapezoid(float width){
-            glColor3f(1, 0, 1);
-            gl::drawSolidRect(Rectf(0,0,width,mUnderlineHeight));
+            float vertices[8] = {
+                -mUnderlineOffsetH_2 + mUnderlineOffsetH,0,
+                -mUnderlineOffsetH_2 + mUnderlineOffsetH+width,0,
+                -mUnderlineOffsetH_2,  mUnderlineHeight,
+                -mUnderlineOffsetH_2 + width,mUnderlineHeight
+            };
             
+            
+            glColor3f(mColorUnderline[0],mColorUnderline[1],mColorUnderline[2]);
+            glEnableClientState(GL_VERTEX_ARRAY);
+            glVertexPointer(2, GL_FLOAT, 0, &vertices[0]);
+            glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+            glDisableClientState(GL_VERTEX_ARRAY);
         }
         
     public:
         
         inline void debugDraw(){
+            glPushMatrix();
+            glTranslatef(-mOrigin.x, -mOrigin.y, 0);
             Vec2f zero;
+            Vec2f right;
             
             float prevColor[4];
             glGetFloatv(GL_CURRENT_COLOR, prevColor);
             
-            
-            glColor4f(mColorFont.r,
-                      mColorFont.g,
-                      mColorFont.b,
-                      mColorFont.a);
-            
             float underlineHeight_2 = mUnderlineHeight * 0.5f;
-            float underlineTop = mFontBaseline + mUnderlineBaselineOffset - underlineHeight_2;
+            float underlineMid      = mFontBaseline + mUnderlineBaselineOffset;
+            float underlineTop      = underlineMid - underlineHeight_2;
+            float underlineBottom   = underlineMid + underlineHeight_2;
             
             float row = 0;
             for(const auto& line : mLines){
+                right.x = line.width;
+                
+                glColor3f(1, 1, 1);
                 glPushMatrix();
                 glTranslatef(0,row,0);
                 drawStringBoundingBox(line.str);
+                
+                glColor3f(0, 0, 1);
                 glTranslatef(0, underlineTop, 0);
+                gl::drawLine(zero, right);
+                glTranslatef(0, mUnderlineHeight, 0);
+                gl::drawLine(zero, right);
                 
                 
-                drawTrapezoid(line.width);
                 
                 glPopMatrix();
                 row += mLineStep;
@@ -725,19 +805,31 @@ namespace utils {
             gl::drawStrokedRect(Rectf(0,0,mWidth, row));
             glPopMatrix();
             
-            glColor3f(1,0,0);
+            /*
+            glColor3f(mColorUnderline[0],mColorUnderline[1],mColorUnderline[2]);
             glLineWidth(4);
             gl::drawLine(Vec2f::zero(), Vec2f(mMaxLineWidth,0));
             glLineWidth(1);
+            */
             
+            float prevLineWidth;
             
-            
+            glGetFloatv(GL_LINE_WIDTH, &prevLineWidth);
+            glLineWidth(2);
             glPushMatrix();
-            glColor3f(0,0,1);
+            glColor3f(0.125,0,0.75f);
             gl::drawStrokedRect(mTextureBounds);
             glPopMatrix();
+            glLineWidth(prevLineWidth);
             
-            glColor4f(prevColor[0], prevColor[1], prevColor[2], prevColor[3]);
+            glColor3f(1,0,0);
+            gl::drawSolidCircle(mOrigin, 5);
+            
+            
+        
+            
+            
+            glPopMatrix();
         }
         
         

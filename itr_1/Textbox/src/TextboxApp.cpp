@@ -9,22 +9,28 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-float TEXT_BOX_FONT_SIZE(60.0f);
-float TEXT_BOX_TEXTURE_FONT_SIZE_SCALE(2.0f);
-float TEXT_BOX_FONT_LINE_HEIGHT(1.2f);
-float TEXT_BOX_WIDTH(400.0f);
+const int WINDOW_WIDTH(1280), WINDOW_HEIGHT(1024);
+
+const float PADDING(100.0f);
+
+float TEXT_BOX_FONT_SIZE(100.0f);
+float TEXT_BOX_TEXTURE_FONT_SIZE_SCALE(4.0f);
+float TEXT_BOX_FONT_LINE_HEIGHT(1.1);
+float TEXT_BOX_WIDTH(WINDOW_WIDTH - PADDING * 2);
 
 ColorAf TEXT_BOX_COLOR_FONT(1,1,1,1);
-ColorAf TEXT_BOX_COLOR_UNDERLINE(1,0,1,1);
-ColorAf TEXT_BOX_COLOR_DROP_SHADOW(0,0,0,1);
+ColorAf TEXT_BOX_COLOR_UNDERLINE(223.0f/255.0f,17.0f/255.0f,101.0f/255.0f,1);
+ColorAf TEXT_BOX_COLOR_DROP_SHADOW(0,0,0,0.75f);
 
 bool  TEXT_BOX_USE_DROP_SHADOW(true);
-bool  TEXT_BOX_USE_UNDERLINE(false);
-Vec2f TEXT_BOX_DROP_SHADOW_OFFSET(1,1);
+bool  TEXT_BOX_USE_UNDERLINE(true);
+Vec2f TEXT_BOX_DROP_SHADOW_OFFSET(2,2);
 float TEXT_BOX_DROP_SHADOW_SCALE(1.0f);
 
-float TEXT_BOX_UNDERLINE_HEIGHT(10.0f);
+float TEXT_BOX_UNDERLINE_HEIGHT(32.0f);
 float TEXT_BOX_UNDERLINE_BASELINE_OFFSET(0.0f);
+
+bool TEXT_BOX_DEBUG_DRAW(true);
 
 class TextboxApp : public AppNative {
   public:
@@ -40,12 +46,12 @@ class TextboxApp : public AppNative {
 };
 
 void TextboxApp::prepareSettings(Settings* settings){
-    settings->setWindowSize(800, 600);
+    settings->setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     settings->setFrameRate(36.0f);
 }
 
 void TextboxApp::setup(){
-    mString = "Joining the physical with the digital:\n the future of creating, selling and owning things";
+    mString = "At­ NEXT14, great speakers will draw a picture of what ’The New Normal’ will look like in the near future. Join NEXT14 on May 5-6, 2014!";
     
     mTextBox = new utils::TextBox();
     
@@ -53,14 +59,18 @@ void TextboxApp::setup(){
     mTextBox->setFontSize(TEXT_BOX_FONT_SIZE);
     mTextBox->setLineHeight(TEXT_BOX_FONT_LINE_HEIGHT);
     mTextBox->setColorFont(TEXT_BOX_COLOR_FONT);
+    
     mTextBox->setColorUnderline(TEXT_BOX_COLOR_UNDERLINE);
     mTextBox->setColorDropShadow(TEXT_BOX_COLOR_DROP_SHADOW);
+    
     mTextBox->setDropShadowOffset(TEXT_BOX_DROP_SHADOW_OFFSET);
     mTextBox->dropShadow(TEXT_BOX_USE_DROP_SHADOW);
     mTextBox->setDropShadowScale(TEXT_BOX_DROP_SHADOW_SCALE);
+    
     mTextBox->underline(TEXT_BOX_USE_UNDERLINE);
     mTextBox->setUnderlineHeight(TEXT_BOX_UNDERLINE_HEIGHT);
     mTextBox->setUnderlineBaselineOffset(TEXT_BOX_UNDERLINE_BASELINE_OFFSET);
+    
     mTextBox->setWidth(TEXT_BOX_WIDTH);
     mTextBox->setString(mString);
 
@@ -78,10 +88,11 @@ void TextboxApp::setup(){
     mParams->addParam("Use DropShadow", &TEXT_BOX_USE_DROP_SHADOW);
     mParams->addParam("DropShadow Offset X", &TEXT_BOX_DROP_SHADOW_OFFSET[0]);
     mParams->addParam("DropShadow Offset Y", &TEXT_BOX_DROP_SHADOW_OFFSET[1]);
-    mParams->addParam("DropShadow Scale", &TEXT_BOX_DROP_SHADOW_SCALE,"min=1.0 max=4.0 step=0.0125");
+    mParams->addParam("DropShadow Scale", &TEXT_BOX_DROP_SHADOW_SCALE,"min=0.0 max=4.0 step=0.0125");
     mParams->addSeparator();
-    mParams->addParam("Underline Height", &TEXT_BOX_UNDERLINE_HEIGHT, "min=0.0 max=20.0 step=0.0125");
+    mParams->addParam("Underline Height", &TEXT_BOX_UNDERLINE_HEIGHT, "min=0.0 max=30.0 step=0.0125");
     mParams->addParam("Underline Offset", &TEXT_BOX_UNDERLINE_BASELINE_OFFSET, "min=-20.0 max=20.0 step=0.0125");
+    mParams->addParam("Debug Draw", &TEXT_BOX_DEBUG_DRAW);
     
     
 }
@@ -114,6 +125,8 @@ void TextboxApp::update(){
     
     static bool textBoxUnderlineHeightPrev = TEXT_BOX_UNDERLINE_HEIGHT;
     static bool textBoxUnderlineOffsetPrev = TEXT_BOX_UNDERLINE_BASELINE_OFFSET;
+    
+    
     
     if (TEXT_BOX_UNDERLINE_HEIGHT != textBoxUnderlineHeightPrev) {
         mTextBox->setUnderlineHeight(TEXT_BOX_UNDERLINE_HEIGHT);
@@ -194,7 +207,7 @@ void TextboxApp::update(){
 void TextboxApp::draw()
 {
 	// clear out the window with black
-	gl::clear( Color( 0.05f, 0.05f, 0.15f ) );
+	gl::clear( Color( 0.15f, 0.15f, 0.15f ) );
     gl::setMatricesWindow(app::getWindowSize());
   
     glAlphaFunc(GL_GREATER, 0.0);
@@ -203,10 +216,13 @@ void TextboxApp::draw()
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
     
     glPushMatrix();
-    glTranslatef(250,50,0);
+    glTranslatef(PADDING + mTextBox->getTopLeft().x,PADDING + mTextBox->getTopLeft().y,0);
     glColor3f(1,1,1);
     gl::draw(mTextBox->getTexture());
-    mTextBox->debugDraw();
+    
+    if(TEXT_BOX_DEBUG_DRAW){
+        mTextBox->debugDraw();
+    }
     glPopMatrix();
     
     glDisable(GL_BLEND);
