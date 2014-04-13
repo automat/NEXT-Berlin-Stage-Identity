@@ -101,7 +101,7 @@ namespace utils {
         bool    mDrawDropShadow;
         ColorAf mColorDropShadow;
         float   mDropShadowScale;
-        Vec2f   mDropShadowOffset;
+        Vec2f   mShadowOffset;
         
         
         //
@@ -112,12 +112,8 @@ namespace utils {
         static gl::GlslProg    _blurShaderV;
         static gl::Fbo::Format _fboFormat;
         
-        
-        
         gl::Fbo mFbo0;
         gl::Fbo mFbo1;
-        
-        
         
         /*--------------------------------------------------------------------------------------------*/
         // handle string
@@ -198,53 +194,52 @@ namespace utils {
         }
         
         inline void renderToTexture(){
+            float offset       = mDrawUnderline ? mUnderlineOffsetH_2 : 0;
+            float maxLineWidth = mMaxLineWidth + offset;
+
             //
-            //  Resize the fbos
+            //  Calc offsets
             //
+
+            float shadowOffsetX = mShadowOffset.x - offset;
+            float shadowOffsetY = mShadowOffset.y;
+            float shadowTranslationX = MAX(0,mShadowOffset.x + offset);//MAX(mShadowOffset.x, offset);
+            float shadowTranslationY = MAX(0,shadowOffsetY);
+
+            mOrigin.x = MIN(-offset, shadowOffsetX);
+            mOrigin.y = MIN(0,       shadowOffsetY);
             
-            float underlineOffset = mDrawUnderline ? mUnderlineOffsetH_2 : 0;
+            mTextureBounds.set(mOrigin.x, mOrigin.y,
+                               MAX(shadowOffsetX + maxLineWidth, maxLineWidth),
+                               MAX(shadowOffsetY + mHeight, mHeight));
+
+            //
+            //  Resize fbos / viewport / shader props
+            //
+            float textureWidth    = mTextureBounds.getWidth();
+            float textureHeight   = mTextureBounds.getHeight();
+            Area  textureViewport = Area(0, 0, textureWidth, textureHeight);
+            Vec2f texelSize       = Vec2f(1.0f / textureWidth, 1.0f / textureHeight);
             
-            cout << underlineOffset << endl;
-            
-            float dropShadowOffsetScaledX = mDropShadowOffset.x;
-            float dropShadowOffsetScaledY = mDropShadowOffset.y;
-            float dropShadowOffsetXAbs = abs(mDropShadowOffset.x);
-            float dropShadowOffsetYAbs = abs(mDropShadowOffset.y);
-            
-            
-            
-            mOrigin.x = MIN(0,dropShadowOffsetScaledX);
-            mOrigin.y = MIN(0,dropShadowOffsetScaledY);
-            
-            mTextureBounds.set(MIN(-underlineOffset, dropShadowOffsetScaledX-underlineOffset),
-                               MIN(0, dropShadowOffsetScaledY),
-                               MAX(mDropShadowOffset.x + mMaxLineWidth, mMaxLineWidth),
-                               MAX(mDropShadowOffset.y + mHeight, mHeight));
-            
-            cout << mTextureBounds.getX1() << endl;
-            
-            float texBoundsWidth  = mTextureBounds.getWidth();
-            float texBoundsHeight = mTextureBounds.getHeight();
-            Area  texViewport     = Area(0, 0, texBoundsWidth, texBoundsHeight);
-            
-            Vec2f texelSize(1.0f / texBoundsWidth, 1.0f / texBoundsHeight );
-            
-            mFbo0 = gl::Fbo(texBoundsWidth, texBoundsHeight, _fboFormat);
-            mFbo1 = gl::Fbo(texBoundsWidth, texBoundsHeight, _fboFormat);
+            mFbo0 = gl::Fbo(textureWidth, textureHeight, _fboFormat);
+            mFbo1 = gl::Fbo(textureWidth, textureHeight, _fboFormat);
             
             Vec2f zero;
             float row = 0;
-            
+
+            //
+            //  Draw dropshadow
+            //
             if(mDrawDropShadow){
-                
-                //
-                //  Draw dropshadow pure
-                //
+
+                //  1st pass pure
+
                 mFbo0.bindFramebuffer();
-                gl::pushMatrices();
                 glPushAttrib(GL_VIEWPORT_BIT);
-                gl::setViewport(texViewport);
+                gl::pushMatrices();
+                gl::setViewport(textureViewport);
                 gl::setMatricesWindow(mFbo0.getSize(),false);
+
                 gl::clear(ColorAf(0,0,1,0.75f));
                 
                 float prevColor[4];
@@ -252,37 +247,32 @@ namespace utils {
                 
                 enableAlphaBlending();
                 
-                row = 0;
                 glColor4f(mColorDropShadow.r,
                           mColorDropShadow.g,
                           mColorDropShadow.b,
                           mColorDropShadow.a);
-                
+
+                glPushMatrix();
+                glTranslatef(shadowTranslationX, shadowTranslationY, 0);
+                row = 0;
                 for(const auto& line : mLines){
                     glPushMatrix();
-                    glTranslatef(dropShadowOffsetXAbs,row + dropShadowOffsetYAbs,0);
+                    glTranslatef(0,row,0);
                     glMultMatrixf(&mTransform[0]);
                     mTexFontRef->drawString(line.str, zero);
                     glPopMatrix();
-                    
                     row += mLineStep;
                 }
-                
-                glColor4f(prevColor[0],
-                          prevColor[1],
-                          prevColor[2],
-                          prevColor[3]);
-              
-                
+                glPopMatrix();
+
                 disableAlphaBlending();
-                
                 gl::popMatrices();
                 glPopAttrib();
                 mFbo0.unbindFramebuffer();
-                
-                //
-                //  Blur shadow horizontal
-                //
+
+
+                //  2nd pass blur hotizontal
+
                 mFbo1.bindFramebuffer();
                 mFbo0.bindTexture(0);
                 _blurShaderH.bind();
@@ -291,17 +281,17 @@ namespace utils {
                 _blurShaderH.uniform("uScale", mDropShadowScale);
                 glPushAttrib(GL_VIEWPORT_BIT);
                 gl::pushMatrices();
-                gl::setViewport(texViewport);
+                gl::setViewport(textureViewport);
                 drawClearedScreenRect(mFbo0.getSize(),true);
                 gl::popMatrices();
                 glPopAttrib();
                 _blurShaderH.unbind();
                 mFbo0.getTexture().unbind(0);
                 mFbo1.unbindFramebuffer();
+
                 
-                //
-                //  Blur shadow vertical
-                //
+                //  3rd pass vertical
+
                 mFbo0.bindFramebuffer();
                 mFbo1.bindTexture(0);
                 _blurShaderV.bind();
@@ -310,7 +300,7 @@ namespace utils {
                 _blurShaderV.uniform("uScale", mDropShadowScale);
                 glPushAttrib(GL_VIEWPORT_BIT);
                 gl::pushMatrices();
-                gl::setViewport(texViewport);
+                gl::setViewport(textureViewport);
                 drawClearedScreenRect(mFbo1.getSize(),true);
                 gl::popMatrices();
                 glPopAttrib();
@@ -326,23 +316,20 @@ namespace utils {
             
             glPushAttrib(GL_VIEWPORT_BIT);
             gl::pushMatrices();
-            gl::setViewport(texViewport);
+            gl::setViewport(textureViewport);
             gl::setMatricesWindow(mFbo1.getSize(),false);
             gl::clear(ColorAf(0,0,0,0));
             
-            glPushMatrix();
-            glTranslatef(-mOrigin.x,-mOrigin.y,0);
-            
-        
             //
             //  Draw underline
             //
             if(mDrawUnderline){
-                
                 float underlineHeight_2 = mUnderlineHeight * 0.5f;
-                float underlineTop = mFontBaseline + mUnderlineBaselineOffset - underlineHeight_2;
-                
-                float row = 0;
+                float underlineTop      = mFontBaseline + mUnderlineBaselineOffset - underlineHeight_2;
+                row = 0;
+
+                glPushMatrix();
+                glTranslatef(-mOrigin.x,-mOrigin.y,0);
                 for(const auto& line : mLines){
                     glPushMatrix();
                     glTranslatef(0,row + underlineTop,0);
@@ -350,27 +337,24 @@ namespace utils {
                     glPopMatrix();
                     row += mLineStep;
                 }
+                glPopMatrix();
             }
-            
-            glPopMatrix();
-            
+
             //
             //  Draw dropshadow
             //
-            enableAlphaBlending();
             if(mDrawDropShadow){
-                glPushMatrix();
-                glTranslatef(mOrigin.x-underlineOffset, mOrigin.y, 0);
+                enableAlphaBlending();
                 gl::draw(mFbo0.getTexture());
-                glPopMatrix();
+                disableAlphaBlending();
             }
-            disableAlphaBlending();
-            
-            glTranslatef(-mOrigin.x,-mOrigin.y,0);
-            
+
+
             //
             //  Draw font
             //
+            glTranslatef(-mOrigin.x,-mOrigin.y,0);
+
             gl::enableAlphaTest();
             gl::enableAdditiveBlending();
             glColor4f(mColorFont.r,
@@ -389,7 +373,8 @@ namespace utils {
         
             gl::disableAlphaBlending();
             gl::disableAlphaTest();
-            
+
+
             gl::popMatrices();
             glPopAttrib();
         
@@ -507,8 +492,8 @@ namespace utils {
             reset();
             
             if(str.empty()){
-                return;
                 renderToTexture();  // well, in this case reset
+                return;
             }
             
             string input(str);
@@ -682,11 +667,11 @@ namespace utils {
         }
         
         inline void setDropShadowOffset(const Vec2f& offset){
-            mDropShadowOffset = offset;
+            mShadowOffset = offset;
         }
         
         inline Vec2f getDropShadowOffset(){
-            return mDropShadowOffset;
+            return mShadowOffset;
         }
         
         inline void setDropShadowAlpha(float alpha){
