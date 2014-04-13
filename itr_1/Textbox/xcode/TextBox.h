@@ -76,10 +76,7 @@ namespace utils {
         float                   mLineHeight;        // font height scale factor
         float                   mLineStep;          // product lineheight * fontheight
         Matrix44f               mTransform;
-        
-        float                   mVerticesUnderlineUnit[8];
-        float                   mVerticesUnderlineScaled[8];
-        
+
         vector<Line_Internal> mLines;
         string                mString;
         float                 mMaxLineWidth;
@@ -197,25 +194,22 @@ namespace utils {
             float offset       = mDrawUnderline ? mUnderlineOffsetH_2 : 0;
             float maxLineWidth = mMaxLineWidth + offset;
 
-            //
             //  Calc offsets
-            //
-
             float shadowOffsetX = mShadowOffset.x - offset;
             float shadowOffsetY = mShadowOffset.y;
-            float shadowTranslationX = MAX(0,mShadowOffset.x + offset);//MAX(mShadowOffset.x, offset);
+            float shadowTranslationX = MAX(0,mShadowOffset.x + offset);
             float shadowTranslationY = MAX(0,shadowOffsetY);
 
+            //  Calc Texture offset for final texture translation
             mOrigin.x = MIN(-offset, shadowOffsetX);
             mOrigin.y = MIN(0,       shadowOffsetY);
-            
+
+            //  Calc output texture size
             mTextureBounds.set(mOrigin.x, mOrigin.y,
                                MAX(shadowOffsetX + maxLineWidth, maxLineWidth),
                                MAX(shadowOffsetY + mHeight, mHeight));
 
-            //
             //  Resize fbos / viewport / shader props
-            //
             float textureWidth    = mTextureBounds.getWidth();
             float textureHeight   = mTextureBounds.getHeight();
             Area  textureViewport = Area(0, 0, textureWidth, textureHeight);
@@ -254,11 +248,10 @@ namespace utils {
 
                 glPushMatrix();
                 glTranslatef(shadowTranslationX, shadowTranslationY, 0);
-                row = 0;
                 for(const auto& line : mLines){
                     glPushMatrix();
                     glTranslatef(0,row,0);
-                    glMultMatrixf(&mTransform[0]);
+                    glMultMatrixf(mTransform);
                     mTexFontRef->drawString(line.str, zero);
                     glPopMatrix();
                     row += mLineStep;
@@ -365,7 +358,7 @@ namespace utils {
             for(const auto& line : mLines){
                 glPushMatrix();
                 glTranslatef(0,row,0);
-                glMultMatrixf(&mTransform[0]);
+                glMultMatrixf(mTransform);
                 mTexFontRef->drawString(line.str, zero);
                 glPopMatrix();
                 row += mLineStep;
@@ -466,11 +459,15 @@ namespace utils {
         inline Vec2f getSize(){
             return Vec2f(getWidth(), getHeight());
         }
-        
-        //inline Vec2f getCalculatedSize
-        //inline Rectf getBounds
-        //inline Rectf getCalculatedBounds
-        
+
+        inline Vec2f getCalculatedSize(){
+            return mTextureBounds.getSize();
+        }
+
+        inline Rectf getCalculatedBounds(){
+            return mTextureBounds;
+        }
+
         inline float getLineHeight(){
             return mLineHeight;
         }
@@ -768,8 +765,6 @@ namespace utils {
                 glTranslatef(0, mUnderlineHeight, 0);
                 gl::drawLine(zero, right);
                 
-                
-                
                 glPopMatrix();
                 row += mLineStep;
             }
@@ -789,14 +784,8 @@ namespace utils {
             glColor3f(1,0,1);
             gl::drawStrokedRect(Rectf(0,0,mWidth, row));
             glPopMatrix();
-            
-            /*
-            glColor3f(mColorUnderline[0],mColorUnderline[1],mColorUnderline[2]);
-            glLineWidth(4);
-            gl::drawLine(Vec2f::zero(), Vec2f(mMaxLineWidth,0));
-            glLineWidth(1);
-            */
-            
+
+
             float prevLineWidth;
             
             glGetFloatv(GL_LINE_WIDTH, &prevLineWidth);
@@ -809,10 +798,6 @@ namespace utils {
             
             glColor3f(1,0,0);
             gl::drawSolidCircle(mOrigin, 5);
-            
-            
-        
-            
             
             glPopMatrix();
         }
