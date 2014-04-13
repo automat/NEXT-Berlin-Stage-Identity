@@ -18,10 +18,13 @@ ColorAf TEXT_BOX_COLOR_FONT(1,1,1,1);
 ColorAf TEXT_BOX_COLOR_UNDERLINE(1,0,1,1);
 ColorAf TEXT_BOX_COLOR_DROP_SHADOW(0,0,0,1);
 
-bool    TEXT_BOX_USE_DROP_SHADOW(true);
-bool    TEXT_BOX_USE_UNDERLINE(false);
-Vec2f   TEXT_BOX_DROP_SHADOW_OFFSET(1,1);
-float   TEXT_BOX_DROP_SHADOW_SCALE(1.0f);
+bool  TEXT_BOX_USE_DROP_SHADOW(true);
+bool  TEXT_BOX_USE_UNDERLINE(false);
+Vec2f TEXT_BOX_DROP_SHADOW_OFFSET(1,1);
+float TEXT_BOX_DROP_SHADOW_SCALE(1.0f);
+
+float TEXT_BOX_UNDERLINE_HEIGHT(10.0f);
+float TEXT_BOX_UNDERLINE_BASELINE_OFFSET(0.0f);
 
 class TextboxApp : public AppNative {
   public:
@@ -56,6 +59,8 @@ void TextboxApp::setup(){
     mTextBox->dropShadow(TEXT_BOX_USE_DROP_SHADOW);
     mTextBox->setDropShadowScale(TEXT_BOX_DROP_SHADOW_SCALE);
     mTextBox->underline(TEXT_BOX_USE_UNDERLINE);
+    mTextBox->setUnderlineHeight(TEXT_BOX_UNDERLINE_HEIGHT);
+    mTextBox->setUnderlineBaselineOffset(TEXT_BOX_UNDERLINE_BASELINE_OFFSET);
     mTextBox->setWidth(TEXT_BOX_WIDTH);
     mTextBox->setString(mString);
 
@@ -74,6 +79,10 @@ void TextboxApp::setup(){
     mParams->addParam("DropShadow Offset X", &TEXT_BOX_DROP_SHADOW_OFFSET[0]);
     mParams->addParam("DropShadow Offset Y", &TEXT_BOX_DROP_SHADOW_OFFSET[1]);
     mParams->addParam("DropShadow Scale", &TEXT_BOX_DROP_SHADOW_SCALE,"min=1.0 max=4.0 step=0.0125");
+    mParams->addSeparator();
+    mParams->addParam("Underline Height", &TEXT_BOX_UNDERLINE_HEIGHT, "min=0.0 max=20.0 step=0.0125");
+    mParams->addParam("Underline Offset", &TEXT_BOX_UNDERLINE_BASELINE_OFFSET, "min=-20.0 max=20.0 step=0.0125");
+    
     
 }
 
@@ -102,6 +111,21 @@ void TextboxApp::update(){
     
     static Vec2f textBoxDropShadowOffsetPrev = TEXT_BOX_DROP_SHADOW_OFFSET;
     static bool textBoxDropShadowScale = TEXT_BOX_DROP_SHADOW_SCALE;
+    
+    static bool textBoxUnderlineHeightPrev = TEXT_BOX_UNDERLINE_HEIGHT;
+    static bool textBoxUnderlineOffsetPrev = TEXT_BOX_UNDERLINE_BASELINE_OFFSET;
+    
+    if (TEXT_BOX_UNDERLINE_HEIGHT != textBoxUnderlineHeightPrev) {
+        mTextBox->setUnderlineHeight(TEXT_BOX_UNDERLINE_HEIGHT);
+        mTextBox->setString(mString);
+        textBoxUnderlineHeightPrev = TEXT_BOX_UNDERLINE_HEIGHT;
+    }
+    
+    if (TEXT_BOX_UNDERLINE_BASELINE_OFFSET != textBoxUnderlineOffsetPrev) {
+        mTextBox->setUnderlineBaselineOffset(TEXT_BOX_UNDERLINE_BASELINE_OFFSET);
+        mTextBox->setString(mString);
+        textBoxUnderlineHeightPrev = TEXT_BOX_UNDERLINE_BASELINE_OFFSET;
+    }
     
     if(TEXT_BOX_TEXTURE_FONT_SIZE_SCALE != textBoxTextureFontSizeScalePrev){
         mTextBox->setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),TEXT_BOX_FONT_SIZE * TEXT_BOX_TEXTURE_FONT_SIZE_SCALE));
@@ -170,7 +194,7 @@ void TextboxApp::update(){
 void TextboxApp::draw()
 {
 	// clear out the window with black
-	gl::clear( Color( 0.15f, 0.15f, 0.45f ) );
+	gl::clear( Color( 0.05f, 0.05f, 0.15f ) );
     gl::setMatricesWindow(app::getWindowSize());
   
     glAlphaFunc(GL_GREATER, 0.0);

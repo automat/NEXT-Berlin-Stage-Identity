@@ -70,7 +70,7 @@ namespace utils {
         float                   mFontAscent;        // font ascent
         float                   mFontDescent;       // font descent
         float                   mFontScale;         // relation texture font size / desired size
-        float                   mFontOffset;        // font offset top to baseline
+        float                   mFontBaseline;      // font offset top to baseline
         float                   mFontHeight;        // font height including ascent / descent
         
         float                   mLineHeight;        // font height scale factor
@@ -85,13 +85,18 @@ namespace utils {
         float                 mHeight;
         
         ColorAf mColorFont;
+        
+        bool    mDrawUnderline;
         ColorAf mColorUnderline;
+        float   mUnderlineHeight;
+        float   mUnderlineBaselineOffset;
+        
+        
+        bool    mDrawDropShadow;
         ColorAf mColorDropShadow;
         float   mDropShadowScale;
         Vec2f   mDropShadowOffset;
         
-        bool mDrawUnderline;
-        bool mDrawDropShadow;
         
         //
         //  Render
@@ -347,7 +352,9 @@ namespace utils {
             mColorFont(1,1,1,1),
             mColorUnderline(1,0,1,1),
             mColorDropShadow(0,0,0,1),
-            mDropShadowScale(0.125f){
+            mDropShadowScale(0.125f),
+            mUnderlineHeight(10),
+            mUnderlineBaselineOffset(0){
                 mTexFontFormat.enableMipmapping();
                 mTexFontFormat.premultiply();
                 mTexFontFormat.textureWidth(fontTextureSize);
@@ -382,11 +389,11 @@ namespace utils {
             mFontScale     = size / fontSize;
             mFontAscent    = mTexFontRef->getAscent();
             mFontDescent   = mTexFontRef->getDescent();
-            mFontOffset    = (mFontAscent - mFontDescent) * mFontScale;
+            mFontBaseline    = (mFontAscent - mFontDescent) * mFontScale;
             mFontHeight    = mFontAscent * mFontScale;
             
             mTransform.setToIdentity();
-            mTransform.translate(Vec3f(0,int(mFontOffset),0));
+            mTransform.translate(Vec3f(0,int(mFontBaseline),0));
             mTransform.scale(Vec3f(mFontScale,mFontScale,1));
             
             setLineHeight(mLineHeight);
@@ -645,9 +652,33 @@ namespace utils {
             return mDrawUnderline;
         }
         
+        inline void setUnderlineHeight(float height){
+            mUnderlineHeight = height;
+        }
+        
+        inline float getUnderlineHeight(){
+            return mUnderlineHeight;
+        }
+        
+        inline void setUnderlineBaselineOffset(float offset){
+            mUnderlineBaselineOffset = offset;
+        }
+        
+        inline float getUnderLineBaselineOffset(){
+            return mUnderlineBaselineOffset;
+        }
+        
         /*--------------------------------------------------------------------------------------------*/
         // debug
         /*--------------------------------------------------------------------------------------------*/
+    private:
+        inline void drawTrapezoid(float width){
+            glColor3f(1, 0, 1);
+            gl::drawSolidRect(Rectf(0,0,width,mUnderlineHeight));
+            
+        }
+        
+    public:
         
         inline void debugDraw(){
             Vec2f zero;
@@ -661,14 +692,18 @@ namespace utils {
                       mColorFont.b,
                       mColorFont.a);
             
+            float underlineHeight_2 = mUnderlineHeight * 0.5f;
+            float underlineTop = mFontBaseline + mUnderlineBaselineOffset - underlineHeight_2;
+            
             float row = 0;
             for(const auto& line : mLines){
                 glPushMatrix();
                 glTranslatef(0,row,0);
-                
-                glPushMatrix();
                 drawStringBoundingBox(line.str);
-                glPopMatrix();
+                glTranslatef(0, underlineTop, 0);
+                
+                
+                drawTrapezoid(line.width);
                 
                 glPopMatrix();
                 row += mLineStep;
