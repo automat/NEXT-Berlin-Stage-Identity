@@ -9,47 +9,25 @@
 #include "cinder/gl/Texture.h"
 #include "cinder/gl/GlslProg.h"
 #include "cinder/Color.h"
-
-
+#include "Speaker.h"
 
 using namespace ci;
+
 class SpeakerView {
-
-    const static Colorf COLOR_UNFOCUSED;
-    const static Colorf COLOR_FOCUSED;
-    const static Vec2f  TEX_COORDS_NORM[4];
-
+    Speaker* mData;
 
     Vec2f mSize;
-    Vec3f mPoints[4];
-    Vec2f mTexcoords[4];
+    Vec2f mTexcoordsNorm[4];    // center image texcoords facing ortho cam
+    Vec2f mTexcoords[18];       // texcoords distributed across unique vertices
 
-    gl::Texture mTexture;
 
 public:
-
-    SpeakerView();
+    SpeakerView(Speaker* data);
 
     void draw();
     void update();
     void focus();
     void unfocus();
-
-    inline const Vec3f& getTL(){
-        return mPoints[0];
-    }
-
-    inline const Vec3f& getTR(){
-        return mPoints[1];
-    }
-
-    inline const Vec3f& getBL(){
-        return mPoints[2];
-    }
-
-    inline const Vec3f& getBR(){
-        return mPoints[3];
-    }
 
 };
 

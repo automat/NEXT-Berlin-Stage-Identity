@@ -9,65 +9,153 @@
 
 using namespace std;
 
-const Vec2f SpeakerView::TEX_COORDS_NORM[4] = {
+/*--------------------------------------------------------------------------------------------*/
+//  Const coords texture facing orthographic camera
+/*--------------------------------------------------------------------------------------------*/
+
+// for calc see: SpeakerImageFilter
+const Vec2f texCoordsNorm[4] = {
         Vec2f(0.5, 0),
         Vec2f(1.0, 0.28867516),
         Vec2f(0,   0.28867516),
         Vec2f(0.5, 0.57735032)
 };
 
-SpeakerView::SpeakerView() :
-    mSize(1,1){
 
-    float sizeH_2 = mSize.x * 0.5f;
-    float sizeV_2 = mSize.y * 0.5f;
+/*--------------------------------------------------------------------------------------------*/
+//  Const geometry props
+/*--------------------------------------------------------------------------------------------*/
 
-    mPoints[0] = Vec3f(-sizeH_2,0,-sizeV_2);
-    mPoints[1] = Vec3f( sizeH_2,0,-sizeV_2);
-    mPoints[2] = Vec3f(-sizeH_2,0, sizeV_2);
-    mPoints[3] = Vec3f( sizeH_2,0, sizeV_2);
+const float cubeHeight_2 = 0.025f;
 
-    mTexture = gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SpeakerImageFilter/resources/26395.jpg"));
+const Vec3f cubeVertices[8] = {
+        Vec3f(-0.5, cubeHeight_2,-0.5),  //  tl
+        Vec3f( 0.5, cubeHeight_2,-0.5),  //  tr
+        Vec3f(-0.5, cubeHeight_2, 0.5),  //  bl
+        Vec3f( 0.5, cubeHeight_2, 0.5),  //  br
 
-    float textureHeight      = mTexture.getHeight();
-    float textureWidth       = mTexture.getWidth();
+        Vec3f(-0.5,-cubeHeight_2,-0.5),  //  tl
+        Vec3f( 0.5,-cubeHeight_2,-0.5),  //  tr
+        Vec3f(-0.5,-cubeHeight_2, 0.5),  //  bl
+        Vec3f( 0.5,-cubeHeight_2, 0.5)  //  br
+};
 
-    float aspectRatio;
-    Vec2f scalar;
-    Vec2f offset;
 
-    if(textureWidth < textureHeight){
-        aspectRatio = textureWidth / textureHeight;
-        scalar = Vec2f(1,aspectRatio);
-        offset = Vec2f(0,(textureHeight - abs(TEX_COORDS_NORM[0].y + TEX_COORDS_NORM[3].y)/*unit height*/ * textureHeight) / textureHeight);
-    } else {
-        aspectRatio = textureHeight / textureWidth;
-        scalar = Vec2f(aspectRatio,1);
-        //offset = Vec2f(0,0);
-        offset = Vec2f((textureWidth - abs(TEX_COORDS_NORM[2].x + TEX_COORDS_NORM[1].x)/*unit width*/ * textureWidth) / textureWidth,0);
-    }
+const size_t cardVerticesLen = 6 * 3;
 
-    mTexcoords[0] = TEX_COORDS_NORM[0] * scalar + offset; // tl
-    mTexcoords[1] = TEX_COORDS_NORM[1] * scalar + offset; // tr
-    mTexcoords[2] = TEX_COORDS_NORM[2] * scalar + offset; // bl
-    mTexcoords[3] = TEX_COORDS_NORM[3] * scalar + offset; // br
+const Vec3f cardVertices[cardVerticesLen] = {
+        //  top
+        cubeVertices[0],
+        cubeVertices[1],
+        cubeVertices[3],
+        cubeVertices[3],
+        cubeVertices[0],
+        cubeVertices[2],
+
+        //  right
+        cubeVertices[3],
+        cubeVertices[1],
+        cubeVertices[5],
+        cubeVertices[5],
+        cubeVertices[3],
+        cubeVertices[7],
+
+        // bottom
+        cubeVertices[2],
+        cubeVertices[3],
+        cubeVertices[7],
+        cubeVertices[7],
+        cubeVertices[2],
+        cubeVertices[6]
+
+};
+
+const Vec3f xAxis(Vec3f::xAxis());
+const Vec3f yAxis(Vec3f::yAxis());
+const Vec3f zAxis(Vec3f::zAxis());
+
+const Vec3f cardNormals[cardVerticesLen] = {
+        yAxis,yAxis,yAxis,yAxis,yAxis,yAxis,
+        xAxis,xAxis,xAxis,xAxis,xAxis,xAxis,
+        zAxis,zAxis,zAxis,zAxis,zAxis,zAxis
+};
+
+
+/*--------------------------------------------------------------------------------------------*/
+//  SpeakerView
+/*--------------------------------------------------------------------------------------------*/
+
+SpeakerView::SpeakerView(Speaker* data) :
+    mData(data),
+    mSize(2,2){
+
+    //
+    //  recalc camera-faced quad coords according to speaker image
+    //
+    float aspectRatio = data->getImageRef().getAspectRatio();
+    Vec2f scalar      = Vec2f(1,aspectRatio);
+    Vec2f offset      = Vec2f(0,(1 - texCoordsNorm[3].y) * 0.5f) * 0.5f;
+
+    mTexcoordsNorm[0] = texCoordsNorm[0] * scalar + offset; // tl
+    mTexcoordsNorm[1] = texCoordsNorm[1] * scalar + offset; // tr
+    mTexcoordsNorm[2] = texCoordsNorm[2] * scalar + offset; // bl
+    mTexcoordsNorm[3] = texCoordsNorm[3] * scalar + offset; // br
+
+    //
+    //  distripute to unique vertices
+    //
+    mTexcoords[ 0] = mTexcoordsNorm[0];
+    mTexcoords[ 1] = mTexcoordsNorm[1];
+    mTexcoords[ 2] = mTexcoordsNorm[3];
+    mTexcoords[ 3] = mTexcoordsNorm[3];
+    mTexcoords[ 4] = mTexcoordsNorm[0];
+    mTexcoords[ 5] = mTexcoordsNorm[2];
+
+    mTexcoords[ 6] = mTexcoordsNorm[3];
+    mTexcoords[ 7] = mTexcoordsNorm[1];
+    mTexcoords[ 8] = mTexcoordsNorm[1];
+    mTexcoords[ 9] = mTexcoordsNorm[1];
+    mTexcoords[10] = mTexcoordsNorm[3];
+    mTexcoords[11] = mTexcoordsNorm[3];
+
+    mTexcoords[12] = mTexcoordsNorm[2];
+    mTexcoords[13] = mTexcoordsNorm[3];
+    mTexcoords[14] = mTexcoordsNorm[3];
+    mTexcoords[15] = mTexcoordsNorm[3];
+    mTexcoords[16] = mTexcoordsNorm[2];
+    mTexcoords[17] = mTexcoordsNorm[2];
 }
 
+/*--------------------------------------------------------------------------------------------*/
+//  Draw / Update
+/*--------------------------------------------------------------------------------------------*/
 
 void SpeakerView::draw(){
     glColor3f(1,1,1);
 
-    mTexture.enableAndBind();
+    glPushMatrix();
+    glScalef(mSize.x, 1, mSize.y);
+    glPointSize(5);
+    glColor3f(1,1,1);
+
+    mData->getImageRef().enableAndBind();
     glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-    glVertexPointer(3, GL_FLOAT, 0, &mPoints[0]);
     glTexCoordPointer(2, GL_FLOAT, 0, &mTexcoords[0]);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glVertexPointer(3, GL_FLOAT, 0, &cardVertices[0]);
+    glColorPointer(3, GL_FLOAT, 0, &cardNormals[0]);
+
+    glDrawArrays(GL_TRIANGLES, 0,cardVerticesLen);
 
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDisableClientState(GL_COLOR_ARRAY);
     glDisableClientState(GL_VERTEX_ARRAY);
-    mTexture.disable();
+    mData->getImageRef().disable();
+
+    glPopMatrix();
+
 }
 
 

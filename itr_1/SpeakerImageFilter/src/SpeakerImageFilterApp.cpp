@@ -5,6 +5,7 @@
 #include "SpeakerView.h"
 #include "cinder/gl/TextureFont.h"
 #include "cinder/Utilities.h"
+#include "Speaker.h"
 
 
 
@@ -22,7 +23,10 @@ class SpeakerImageFilterApp : public AppNative {
 	void update();
 	void draw();
 
-    CameraOrtho mCamera;
+    gl::Texture mTestTexture;
+
+    CameraOrtho  mCamera;
+    Speaker*     mSpeaker;
     SpeakerView* mSpeakerView;
 
     Matrix44f mModelViewMatrix;
@@ -37,15 +41,19 @@ class SpeakerImageFilterApp : public AppNative {
 };
 
 void SpeakerImageFilterApp::prepareSettings(Settings *settings) {
-    settings->setWindowSize(800, 600);
+    settings->setWindowSize(1280, 1050 );
 }
 
 void SpeakerImageFilterApp::setup(){
     float aspectRatio = getWindowAspectRatio();
-    float zoom = 1;
+    float zoom = 2;
     mCamera.setOrtho(-aspectRatio * zoom, aspectRatio * zoom, -zoom, zoom, -1, 10);
     mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
-    mSpeakerView = new SpeakerView();
+
+
+    mTestTexture = gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SpeakerImageFilter/resources/27263.png"));
+    mSpeaker = Speaker::Create(mTestTexture.weakClone());
+    mSpeakerView = new SpeakerView(mSpeaker);
 }
 
 void SpeakerImageFilterApp::keyDown(KeyEvent event) {
@@ -74,9 +82,10 @@ void SpeakerImageFilterApp::draw(){
     float t = static_cast<float>(app::getElapsedSeconds());
 
     glPushMatrix();
-    glTranslatef(cos(t) * 0.5f,sin(t * 0.125f) * 0.5f,sin(t) * 0.5f);
+    glTranslatef(0,sin(t * 0.125f) * 0.5f,0);
     mSpeakerView->draw();
 
+    /*
     glGetFloatv(GL_MODELVIEW_MATRIX,  &mModelViewMatrix[0]);
     glGetFloatv(GL_PROJECTION_MATRIX, &mProjectionMatrix[0]);
     glPopMatrix();
@@ -98,6 +107,7 @@ void SpeakerImageFilterApp::draw(){
     mSaPoints[2] = Vec2f( ( mNdcPoints[2].x + 1.0f ) / 2.0f * mWindowWidth, ( 1.0f - ( mNdcPoints[2].y + 1.0f ) / 2.0f ) * mWindowHeight );
     mSaPoints[3] = Vec2f( ( mNdcPoints[3].x + 1.0f ) / 2.0f * mWindowWidth, ( 1.0f - ( mNdcPoints[3].y + 1.0f ) / 2.0f ) * mWindowHeight );
 
+
     static gl::TextureFontRef debugTexFontRef = gl::TextureFont::create(Font("Apercu Mono",16));
 
     // Draw the shite
@@ -111,7 +121,8 @@ void SpeakerImageFilterApp::draw(){
     glVertexPointer(2, GL_FLOAT, 0, &mSaPoints[0]);
     glDrawArrays(GL_POINTS, 0, 4);
     glDisableClientState(GL_VERTEX_ARRAY);
-
+    gl::popMatrices();
+                                    */
     /*
     float left   = mSaPoints[2].x;
     float right  = mSaPoints[1].x;
