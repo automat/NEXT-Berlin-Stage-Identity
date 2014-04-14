@@ -15,7 +15,7 @@ using namespace ci;
 class SpeakerView {
 
 public:
-    SpeakerView();                           f
+    SpeakerView();
 
     void draw();
     void update();
