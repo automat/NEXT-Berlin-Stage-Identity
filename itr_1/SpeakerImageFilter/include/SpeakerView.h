@@ -13,6 +13,10 @@
 
 using namespace ci;
 class SpeakerView {
+    Vec2f mSize;
+    Vec3f mPoints[4];
+    Vec2f mTexcoords[4];
+
 
 public:
     SpeakerView();
@@ -21,6 +25,22 @@ public:
     void update();
     void focus();
     void unfocus();
+
+    inline const Vec3f& getTL(){
+        return mPoints[0];
+    }
+
+    inline const Vec3f& getTR(){
+        return mPoints[1];
+    }
+
+    inline const Vec3f& getBL(){
+        return mPoints[2];
+    }
+
+    inline const Vec3f& getBR(){
+        return mPoints[3];
+    }
 
 };
 
