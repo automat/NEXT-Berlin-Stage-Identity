@@ -2,23 +2,32 @@
 // Created by Henryk Wollik on 14/04/14.
 //
 
-
 #ifndef __SpeakerView_H_
 #define __SpeakerView_H_
 
 #include <OpenGL/OpenGL.h>
 #include "cinder/gl/Texture.h"
 #include "cinder/gl/GlslProg.h"
+#include "cinder/Color.h"
+
 
 
 using namespace ci;
 class SpeakerView {
+
+    const static Colorf COLOR_UNFOCUSED;
+    const static Colorf COLOR_FOCUSED;
+    const static Vec2f  TEX_COORDS_NORM[4];
+
+
     Vec2f mSize;
     Vec3f mPoints[4];
     Vec2f mTexcoords[4];
 
+    gl::Texture mTexture;
 
 public:
+
     SpeakerView();
 
     void draw();

@@ -67,6 +67,8 @@ void SpeakerImageFilterApp::update(){
 void SpeakerImageFilterApp::draw(){
     gl::clear( Color( 0, 0, 0 ) );
     gl::setMatrices(mCamera);
+
+    glEnable(GL_DEPTH_TEST);
     gl::drawCoordinateFrame();
 
     float t = static_cast<float>(app::getElapsedSeconds());
@@ -77,7 +79,7 @@ void SpeakerImageFilterApp::draw(){
 
     glGetFloatv(GL_MODELVIEW_MATRIX,  &mModelViewMatrix[0]);
     glGetFloatv(GL_PROJECTION_MATRIX, &mProjectionMatrix[0]);
-
+    glPopMatrix();
     // get coords transformed by modeview transformation matrix
     mEcPoints[0] = mModelViewMatrix * mSpeakerView->getTL();
     mEcPoints[1] = mModelViewMatrix * mSpeakerView->getTR();
@@ -101,21 +103,23 @@ void SpeakerImageFilterApp::draw(){
     // Draw the shite
     gl::pushMatrices();
     gl::setMatricesWindow(app::getWindowSize(),true);
-    glDisable(GL_DEPTH_TEST);
+
     glColor3f(1,0,0);
     glPointSize(15);
+
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(2, GL_FLOAT, 0, &mSaPoints[0]);
     glDrawArrays(GL_POINTS, 0, 4);
     glDisableClientState(GL_VERTEX_ARRAY);
 
+    /*
     float left   = mSaPoints[2].x;
     float right  = mSaPoints[1].x;
     float top    = mSaPoints[0].y;
     float bottom = mSaPoints[3].y;
 
     float width  = right - left;
-    float height = bottom - height;
+    float height = bottom - top;
     float midH   = left + width * 0.5f;
     float midV   = top + height * 0.5f;
 
@@ -127,10 +131,15 @@ void SpeakerImageFilterApp::draw(){
     float width_2  = width * 0.5f;
     float height_2 = height * 0.5f;
 
+    Vec2f norm(width,height);
     Vec2f texcoords[4];
-    texcoords[0] = Vec2f(0,width_2);
+    texcoords[0] = Vec2f(width_2,0) / norm;   // TL
+    texcoords[1] = Vec2f(width,height_2) / norm;   // TR
+    texcoords[2] = Vec2f(0,height_2) / norm;   // BL
+    texcoords[3] = Vec2f(width_2,height) / norm;   // BR
+    */
 
-
+    /*
     gl::enableAlphaTest();
     gl::enableAlphaBlending();
     glColor3f(0,0,1);
@@ -141,11 +150,15 @@ void SpeakerImageFilterApp::draw(){
     debugTexFontRef->drawString("BL " + toString(mSaPoints[2]),mSaPoints[2]);
     debugTexFontRef->drawString("BR " + toString(mSaPoints[3]),mSaPoints[3]);
     glPopMatrix();
-    debugTexFontRef->drawString("TL" + toString(texcoords[0]),mSaPoints[0]);
+    debugTexFontRef->drawString("TL " + toString(texcoords[0]),mSaPoints[0]);
+    debugTexFontRef->drawString("TR " + toString(texcoords[1]),mSaPoints[1]);
+    debugTexFontRef->drawString("BL " + toString(texcoords[2]),mSaPoints[2]);
+    debugTexFontRef->drawString("BR " + toString(texcoords[3]),mSaPoints[3]);
+
     gl::disableAlphaBlending();
     gl::disableAlphaTest();
 
-    glLineWidth(3);
+    glLineWidth(2);
     glColor3f(1,0,0);
     gl::drawLine(Vec2f(left,0), Vec2f(left,mWindowHeight));
     gl::drawLine(Vec2f(right,0), Vec2f(right,mWindowHeight));
@@ -153,11 +166,14 @@ void SpeakerImageFilterApp::draw(){
     gl::drawLine(Vec2f(0,bottom), Vec2f(mWindowWidth,bottom));
     glLineWidth(1);
 
-
-
-
     gl::popMatrices();
-    glEnable(GL_DEPTH_TEST);
+
+    */
+
+
+
+
+
 }
 
 CINDER_APP_NATIVE( SpeakerImageFilterApp, RendererGl )

@@ -18,6 +18,7 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		D97A3679C13F3954B7B11EAF /* SpeakerView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D97A3420C97B1B843DEE2A7F /* SpeakerView.cpp */; };
 		D97A3AD9D048D0B1CF6E4135 /* test_person.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D97A3FBAC2B10413FE5629ED /* test_person.jpg */; };
+		D97A3ADC0D3D333518EF6B59 /* 26395.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D97A343E44269E5504BC0633 /* 26395.jpg */; };
 		EC2CB970C3C44596831E6E9D /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 52D0C0620C3A4B0585ADE47B /* CinderApp.icns */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +39,7 @@
 		AE89591A85C943B0BAB3E96C /* SpeakerImageFilterApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = SpeakerImageFilterApp.cpp; path = ../src/SpeakerImageFilterApp.cpp; sourceTree = "<group>"; };
 		B92880F2145C40FBBD3D866C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D97A3420C97B1B843DEE2A7F /* SpeakerView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpeakerView.cpp; path = ../src/SpeakerView.cpp; sourceTree = "<group>"; };
+		D97A343E44269E5504BC0633 /* 26395.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 26395.jpg; path = ../resources/26395.jpg; sourceTree = "<group>"; };
 		D97A3D57EA7792A435BEA410 /* SpeakerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpeakerView.h; path = ../include/SpeakerView.h; sourceTree = "<group>"; };
 		D97A3FBAC2B10413FE5629ED /* test_person.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = test_person.jpg; path = ../resources/test_person.jpg; sourceTree = "<group>"; };
 		ED67B7BE4B724FB7BCE63A8F /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				52D0C0620C3A4B0585ADE47B /* CinderApp.icns */,
 				B92880F2145C40FBBD3D866C /* Info.plist */,
 				D97A3FBAC2B10413FE5629ED /* test_person.jpg */,
+				D97A343E44269E5504BC0633 /* 26395.jpg */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			files = (
 				EC2CB970C3C44596831E6E9D /* CinderApp.icns in Resources */,
 				D97A3AD9D048D0B1CF6E4135 /* test_person.jpg in Resources */,
+				D97A3ADC0D3D333518EF6B59 /* 26395.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
