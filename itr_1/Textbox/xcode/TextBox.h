@@ -234,7 +234,7 @@ namespace utils {
                 gl::setViewport(textureViewport);
                 gl::setMatricesWindow(mFbo0.getSize(),false);
 
-                gl::clear(ColorAf(0,0,1,0.75f));
+                gl::clear(ColorAf(0,0,0,0));
                 
                 float prevColor[4];
                 glGetFloatv(GL_CURRENT_COLOR, prevColor);
