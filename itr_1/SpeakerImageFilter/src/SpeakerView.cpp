@@ -4,10 +4,15 @@
 
 #include "SpeakerView.h"
 #include <OpenGL/OpenGL.h>
+#include "cinder/gl/gl.h"
 #include <iostream>
 #include <math.h>
 
 using namespace std;
+
+gl::GlslProg    SpeakerView::__shaderBlurH;
+gl::GlslProg    SpeakerView::__shaderBlurV;
+gl::GlslProg    SpeakerView::__shaderMixTint;
 
 /*--------------------------------------------------------------------------------------------*/
 //  Const coords texture facing orthographic camera
@@ -89,6 +94,20 @@ SpeakerView::SpeakerView(Speaker* data) :
     mData(data),
     mSize(2,2){
 
+    static bool __shaderInit = false;
+
+    if(!__shaderInit){
+        SpeakerView::__shaderBlurH = gl::GlslProg("varying vec2 vTexcoord; void main(){ vec2 Pos = sign(gl_Vertex.xy); vTexcoord = Pos; gl_Position = vec4(Pos, 0.0, 1.0) - 0.5; }",
+                                                  "uniform sampler2D uTexture; uniform float uTexelSize; uniform float uScale; varying vec2 vTexcoord; void main(){ float offset = uTexelSize * uScale; vec4 sum = vec4(0.0); sum += texture2D(uTexture, vec2(vTexcoord.x - 4.0 * offset, vTexcoord.y)) * 0.05; sum += texture2D(uTexture, vec2(vTexcoord.x - 3.0 * offset, vTexcoord.y)) * 0.09; sum += texture2D(uTexture, vec2(vTexcoord.x - 2.0 * offset, vTexcoord.y)) * 0.12; sum += texture2D(uTexture, vec2(vTexcoord.x - 1.0 * offset, vTexcoord.y)) * 0.15; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y)) * 0.16; sum += texture2D(uTexture, vec2(vTexcoord.x + 1.0 * offset, vTexcoord.y)) * 0.15; sum += texture2D(uTexture, vec2(vTexcoord.x + 2.0 * offset, vTexcoord.y)) * 0.12; sum += texture2D(uTexture, vec2(vTexcoord.x + 3.0 * offset, vTexcoord.y)) * 0.09; sum += texture2D(uTexture, vec2(vTexcoord.x + 4.0 * offset, vTexcoord.y)) * 0.05; gl_FragColor = sum; }");
+        SpeakerView::__shaderBlurV = gl::GlslProg("varying vec2 vTexcoord; void main(){ vec2 Pos = sign(gl_Vertex.xy); vTexcoord = Pos; gl_Position = vec4(Pos, 0.0, 1.0) - 0.5; }",
+                                                  "uniform sampler2D uTexture; uniform float uTexelSize; varying vec2 vTexcoord; uniform float uScale; void main(){ float offset = uTexelSize * uScale; vec4 sum = vec4(0.0); sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 4.0 * offset)) * 0.05; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 3.0 * offset)) * 0.09; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 2.0 * offset)) * 0.12; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 1.0 * offset)) * 0.15; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y )) * 0.16; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 1.0 * offset)) * 0.15; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 2.0 * offset)) * 0.12; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 3.0 * offset)) * 0.09; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 4.0 * offset)) * 0.05; gl_FragColor = sum; }");
+    }
+
+    mFboPingPong = new PingPongFbo(data->getImageRef().getWidth(),
+                                   data->getImageRef().getHeight());
+
+
+
     //
     //  recalc camera-faced quad coords according to speaker image
     //
@@ -124,6 +143,26 @@ SpeakerView::SpeakerView(Speaker* data) :
     mTexcoords[15] = mTexcoordsNorm[3];
     mTexcoords[16] = mTexcoordsNorm[2];
     mTexcoords[17] = mTexcoordsNorm[2];
+
+
+    drawFocus(1.0f);
+}
+
+
+void SpeakerView::drawFocus(float factor){
+   // const gl::Texture& textureRef = mData->getImageRef();
+
+    mFboPingPong->bindFramebuffer();
+    /*
+    glPushAttrib(GL_VIEWPORT_BIT);
+    //gl::setViewport(textureRef.getBounds());
+    gl::clear(Color::white());
+    //gl::draw(textureRef);
+    glPopAttrib();
+    */
+    mFboPingPong->unbindFramebuffer();
+    //mFboPingPong->swap();
+
 }
 
 /*--------------------------------------------------------------------------------------------*/

@@ -45,6 +45,7 @@
 		D97A3420C97B1B843DEE2A7F /* SpeakerView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpeakerView.cpp; path = ../src/SpeakerView.cpp; sourceTree = "<group>"; };
 		D97A343E44269E5504BC0633 /* 26395.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 26395.jpg; path = ../resources/26395.jpg; sourceTree = "<group>"; };
 		D97A376BAA24855AF6B49C55 /* Speaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Speaker.h; sourceTree = "<group>"; };
+		D97A38011FBC3934A373A411 /* PingPongFbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PingPongFbo.h; path = ../include/PingPongFbo.h; sourceTree = "<group>"; };
 		D97A3BED8645D816A2021FD7 /* 26092.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 26092.png; path = ../resources/26092.png; sourceTree = "<group>"; };
 		D97A3D57EA7792A435BEA410 /* SpeakerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpeakerView.h; path = ../include/SpeakerView.h; sourceTree = "<group>"; };
 		D97A3DB94386AB7914D63AB8 /* 26262.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 26262.png; path = ../resources/26262.png; sourceTree = "<group>"; };
@@ -139,6 +140,7 @@
 				9927EB38C24A490CBBFB499B /* SpeakerImageFilter_Prefix.pch */,
 				D97A3D57EA7792A435BEA410 /* SpeakerView.h */,
 				D97A376BAA24855AF6B49C55 /* Speaker.h */,
+				D97A38011FBC3934A373A411 /* PingPongFbo.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";

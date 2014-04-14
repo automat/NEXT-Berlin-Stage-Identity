@@ -8,12 +8,9 @@
 #include "Speaker.h"
 
 
-
 using namespace ci;
 using namespace ci::app;
 using namespace std;
-
-
 
 class SpeakerImageFilterApp : public AppNative {
   public:
