@@ -14,6 +14,8 @@
 #include "cinder/gl/gl.h"
 #include "cinder/gl/Fbo.h"
 
+
+
 using namespace ci;
 
 class PingPongFbo{
@@ -26,7 +28,7 @@ public:
     mCurrentIndex(0){
     }
     
-    PingPongFbo(int width, int height, gl::Fbo::Format format = gl::Fbo::Format()){
+    PingPongFbo(int width, int height,const gl::Fbo::Format& format = gl::Fbo::Format()){
         mFbo[0] = gl::Fbo(width,height,format);
         mFbo[1] = gl::Fbo(width,height,format);
         mCurrentIndex = 0;

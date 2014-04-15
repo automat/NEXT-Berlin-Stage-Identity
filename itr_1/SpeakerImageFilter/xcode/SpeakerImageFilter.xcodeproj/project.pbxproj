@@ -16,6 +16,7 @@
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		7C67497319994ACBB8E61F93 /* SpeakerImageFilterApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AE89591A85C943B0BAB3E96C /* SpeakerImageFilterApp.cpp */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		CD15054318FD3E2100A0EEAE /* FxShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD15054218FD3D0B00A0EEAE /* FxShader.cpp */; };
 		D97A353B3DBBEC57ABB89C75 /* 26092.png in Resources */ = {isa = PBXBuildFile; fileRef = D97A3BED8645D816A2021FD7 /* 26092.png */; };
 		D97A3679C13F3954B7B11EAF /* SpeakerView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D97A3420C97B1B843DEE2A7F /* SpeakerView.cpp */; };
 		D97A3758279AACCCAF6325DB /* 27263.png in Resources */ = {isa = PBXBuildFile; fileRef = D97A32E5CD0C36DC41FE8FDD /* 27263.png */; };
@@ -41,6 +42,8 @@
 		9927EB38C24A490CBBFB499B /* SpeakerImageFilter_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = SpeakerImageFilter_Prefix.pch; sourceTree = "<group>"; };
 		AE89591A85C943B0BAB3E96C /* SpeakerImageFilterApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = SpeakerImageFilterApp.cpp; path = ../src/SpeakerImageFilterApp.cpp; sourceTree = "<group>"; };
 		B92880F2145C40FBBD3D866C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD15054118FD3B2700A0EEAE /* FxShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FxShader.h; path = ../include/FxShader.h; sourceTree = "<group>"; };
+		CD15054218FD3D0B00A0EEAE /* FxShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FxShader.cpp; path = ../src/FxShader.cpp; sourceTree = "<group>"; };
 		D97A32E5CD0C36DC41FE8FDD /* 27263.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 27263.png; path = ../resources/27263.png; sourceTree = "<group>"; };
 		D97A3420C97B1B843DEE2A7F /* SpeakerView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpeakerView.cpp; path = ../src/SpeakerView.cpp; sourceTree = "<group>"; };
 		D97A343E44269E5504BC0633 /* 26395.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 26395.jpg; path = ../resources/26395.jpg; sourceTree = "<group>"; };
@@ -84,6 +87,7 @@
 			children = (
 				AE89591A85C943B0BAB3E96C /* SpeakerImageFilterApp.cpp */,
 				D97A3420C97B1B843DEE2A7F /* SpeakerView.cpp */,
+				CD15054218FD3D0B00A0EEAE /* FxShader.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -141,6 +145,7 @@
 				D97A3D57EA7792A435BEA410 /* SpeakerView.h */,
 				D97A376BAA24855AF6B49C55 /* Speaker.h */,
 				D97A38011FBC3934A373A411 /* PingPongFbo.h */,
+				CD15054118FD3B2700A0EEAE /* FxShader.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -239,6 +244,7 @@
 			files = (
 				7C67497319994ACBB8E61F93 /* SpeakerImageFilterApp.cpp in Sources */,
 				D97A3679C13F3954B7B11EAF /* SpeakerView.cpp in Sources */,
+				CD15054318FD3E2100A0EEAE /* FxShader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
