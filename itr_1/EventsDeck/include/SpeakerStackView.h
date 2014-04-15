@@ -16,23 +16,32 @@ namespace next {
     using namespace std;
 
     class SpeakerStackView {
-        static const float sStackPadding;
+        static const Vec3f sStackStep;
         
         vector<SpeakerView*> mViews;
         size_t               mNumViews;
-        int                  mViewTop;
+        int                  mViewIndex;
+        Vec3f                mStackTop;
+        Vec3f                mStackTopOut;
+        
+        bool mAnimating;
+        void animateIn();
+        void animateOut(SpeakerView* view);
+        void animateMove(SpeakerView* view);
+        void animateFinish();
         
         void deleteViews();
-        void next();
         
     public:
         SpeakerStackView(){};
         SpeakerStackView(vector<Speaker>* data);
         ~SpeakerStackView();
         
+        void next();
         void reset(vector<Speaker>* data);
         
-        void draw();
+        void drawSelected();
+        void drawUnselected();
         void update();
         
     };

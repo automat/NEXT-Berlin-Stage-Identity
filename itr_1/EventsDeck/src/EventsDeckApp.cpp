@@ -36,7 +36,7 @@ public:
 };
 
 void EventsDeckApp::prepareSettings(Settings *settings) {
-    settings->setWindowSize(1280, 1050 );
+    settings->setWindowSize(1024, 768 );
 }
 
 void EventsDeckApp::setup(){
@@ -49,6 +49,7 @@ void EventsDeckApp::setup(){
     mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/26262.png")));
     mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/26092.png")));
     mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/27263.png")));
+   
     
     using namespace next;
     
@@ -57,6 +58,7 @@ void EventsDeckApp::setup(){
     }
     mEvent     = next::Event::Create(&mDataSpeakers);
     mEventView = new EventView(&mEvent);
+    //mEventView->nextSpeaker(); // first test trigger
     
     gl::enableDepthRead();
 }
@@ -65,6 +67,10 @@ void EventsDeckApp::keyDown(KeyEvent event) {
     switch(event.getCode()){
         case KeyEvent::KEY_ESCAPE:
             this->quit();
+            break;
+        case KeyEvent::KEY_RIGHT:
+            mEventView->nextSpeaker();
+            break;
         default:
             break;
     }
@@ -79,11 +85,7 @@ void EventsDeckApp::draw(){
     gl::setMatrices(mCamera);
     
     gl::drawCoordinateFrame(2);
-    gl::enableAlphaTest();
-    gl::enableAlphaBlending();
     mEventView->draw();
-    gl::disableAlphaBlending();
-    gl::disableAlphaTest();
 }
 
 CINDER_APP_NATIVE( EventsDeckApp, RendererGl )

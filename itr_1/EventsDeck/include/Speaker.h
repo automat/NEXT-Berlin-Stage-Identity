@@ -2,7 +2,6 @@
 // Created by Henryk Wollik on 14/04/14.
 //
 
-
 #ifndef __Speaker_H_
 #define __Speaker_H_
 
@@ -26,4 +25,4 @@ namespace next {
     };
 }
 
-#endif //__Speaker_H_
+#endif

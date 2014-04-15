@@ -146,8 +146,14 @@ namespace next {
         mTexcoords[16] = mTexcoordsNorm[2];
         mTexcoords[17] = mTexcoordsNorm[2];
         
+        int i = -1;
+        while(++i < 18){
+            mVertexColors[i].set(1, 1, 1, 1);
+        }
+        
         setPosition(Vec3f::zero());
         setScale(1.0f);
+        mAlpha = 1.0f;
         
         drawFocus(1.0f);
     }
@@ -214,8 +220,12 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SpeakerView::draw(){
+        Vec3f pos   = mTranslation();
+        float scale = mScale();
+        
         glPushMatrix();
-        glMultMatrixf(&mTransform[0]);
+        glTranslatef(pos.x,pos.y,pos.z);
+        glScalef(scale,scale,scale);
         
         glEnableClientState(GL_VERTEX_ARRAY);
         
@@ -223,6 +233,7 @@ namespace next {
         mFbo1.getTexture().enableAndBind();
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
         glEnableClientState(GL_NORMAL_ARRAY);
+        //glEnableClientState(GL_COLOR_ARRAY);
         
         glNormalPointer(   3, GL_FLOAT,    &sCardNormals[0]);
         glTexCoordPointer( 2, GL_FLOAT, 0, &mTexcoords[0]);
@@ -243,6 +254,13 @@ namespace next {
         glPopMatrix();
     }
     
+    void SpeakerView::updateAlpha(){
+        float alpha = mAlpha();
+        int i = -1;
+        while(++i < 18){
+            mVertexColors[i].set(1, 1, 1, alpha);
+        }
+    }
     
     void SpeakerView::update(){}
     void SpeakerView::focus(){}

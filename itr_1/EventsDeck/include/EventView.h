@@ -19,13 +19,18 @@ namespace next {
     
         void reset(Event* data);
         void deleteSpeakerStackView();
-    
+       
+        
+        
     public:
         EventView(Event* data);
         ~EventView();
         
         void draw();
         void update();
+        
+        
+        void nextSpeaker(); // for debug
         
     };
 }

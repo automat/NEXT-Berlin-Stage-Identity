@@ -20,11 +20,16 @@ namespace next {
     }
     
     void EventView::draw(){
-        mSpeakerStackView->draw();
+        mSpeakerStackView->drawSelected();
+        mSpeakerStackView->drawUnselected();
     }
     
     void EventView::update(){
         mSpeakerStackView->update();
+    }
+    
+    void EventView::nextSpeaker(){
+        mSpeakerStackView->next();
     }
 
 }

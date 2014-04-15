@@ -11,6 +11,9 @@
 #include "cinder/gl/Fbo.h"
 #include "cinder/Color.h"
 #include "cinder/Matrix44.h"
+#include "cinder/Vector.h"
+#include "cinder/Timeline.h"
+#include "cinder/Color.h"
 
 #include "Speaker.h"
 
@@ -18,6 +21,8 @@
 using namespace ci;
 namespace next {
     class SpeakerView {
+        friend class SpeakerStackView;
+        
         const static Vec2f  sSize;
         const static Vec2f  sTexCoordsNorm[4];
         const static Vec3f  sCubeVertices[8];
@@ -27,10 +32,11 @@ namespace next {
         
         Speaker* mData;
         
-        Vec2f mImageSize;           //  cache image size
-        Vec2f mTexcoordsNorm[4];    //  center image texcoords facing ortho cam
-        Vec2f mTexcoords[18];       //  texcoords distributed across unique vertices
-        Vec2f mTexelSize;           //  texel size for fx shader
+        Vec2f   mImageSize;           //  cache image size
+        Vec2f   mTexcoordsNorm[4];    //  center image texcoords facing ortho cam
+        Vec2f   mTexcoords[18];       //  texcoords distributed across unique vertices
+        ColorAf mVertexColors[18];    //  vertex colors;
+        Vec2f   mTexelSize;           //  texel size for fx shader
         
         gl::GlslProgRef mShaderBlurHRef;    //  ref fx resource blur h
         gl::GlslProgRef mShaderBlurVRef;    //  ref fx resource blur v
@@ -38,9 +44,14 @@ namespace next {
         gl::Fbo mFbo0;
         gl::Fbo mFbo1;
         
-        Matrix44f mTransform;
+        Anim<float> mIntrplState;
+        
+        Anim<Vec3f> mTranslation;
+        Anim<float> mScale;
+        Anim<float> mAlpha;
         
         void drawFocus(float factor = 1.0f);   //   0 = unfocused, 1 = focused
+        void updateAlpha();
         
     public:
         SpeakerView(Speaker* data);
@@ -52,19 +63,19 @@ namespace next {
         void unfocus();
         
         inline void setPosition(const Vec3f &pos){
-            mTransform.translate(pos);
+            mTranslation().set(pos);
         }
         
         inline void setScale(float scale){
-            mTransform.scale(scale);
+            mScale() = scale;
         }
         
         inline Vec3f getPosition(){
-            return mTransform.getTranslate().xyz();
+            return mTranslation;
         }
         
         inline float getScale(){
-            return mTransform[0];
+            return mScale;
         }
     };
 }
