@@ -8,6 +8,8 @@
 #include "Speaker.h"
 #include "SpeakerStackView.h"
 #include <vector>
+#include "Event.h"
+#include "EventView.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -24,9 +26,13 @@ public:
     CameraOrtho  mCamera;
     
     // dummy data / view
-    vector<gl::Texture> mDataImages;
-    vector<Speaker*>    mDataSpeakers;
-    SpeakerStackView*   mSpeakerStackView;
+    vector<gl::Texture>   mDataImages;
+    vector<next::Speaker> mDataSpeakers;
+    next::Event           mEvent;
+    
+    
+    next::EventView*      mEventView;
+    //SpeakerStackView*   mSpeakerStackView;
 };
 
 void EventsDeckApp::prepareSettings(Settings *settings) {
@@ -44,13 +50,13 @@ void EventsDeckApp::setup(){
     mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/26092.png")));
     mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/27263.png")));
     
-    
+    using namespace next;
     
     for(auto& image : mDataImages){
         mDataSpeakers.push_back(Speaker::Create(image.weakClone()));
     }
-    
-    mSpeakerStackView = new SpeakerStackView(mDataSpeakers);
+    mEvent     = next::Event::Create(&mDataSpeakers);
+    mEventView = new EventView(&mEvent);
     
     gl::enableDepthRead();
 }
@@ -65,7 +71,7 @@ void EventsDeckApp::keyDown(KeyEvent event) {
 }
 
 void EventsDeckApp::update(){
-    mSpeakerStackView->update();
+    mEventView->update();
 }
 
 void EventsDeckApp::draw(){
@@ -75,7 +81,7 @@ void EventsDeckApp::draw(){
     gl::drawCoordinateFrame(2);
     gl::enableAlphaTest();
     gl::enableAlphaBlending();
-    mSpeakerStackView->draw();
+    mEventView->draw();
     gl::disableAlphaBlending();
     gl::disableAlphaTest();
 }

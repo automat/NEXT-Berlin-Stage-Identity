@@ -12,27 +12,30 @@
 #include <vector>
 #include "SpeakerView.h"
 
-using namespace std;
-class SpeakerStackView {
-    static const float sStackPadding;
-    
-    vector<SpeakerView*> mViews;
-    size_t               mNumViews;
-    int                  mViewTop;
-    
-    void deleteViews();
-    
-    void next();
-    
-public:
-    SpeakerStackView(const vector<Speaker*>& data);
-    ~SpeakerStackView();
-    
-    void reset(const vector<Speaker*>& data);
-    
-    void draw();
-    void update();
-    
-};
+namespace next {
+    using namespace std;
+
+    class SpeakerStackView {
+        static const float sStackPadding;
+        
+        vector<SpeakerView*> mViews;
+        size_t               mNumViews;
+        int                  mViewTop;
+        
+        void deleteViews();
+        void next();
+        
+    public:
+        SpeakerStackView(){};
+        SpeakerStackView(vector<Speaker>* data);
+        ~SpeakerStackView();
+        
+        void reset(vector<Speaker>* data);
+        
+        void draw();
+        void update();
+        
+    };
+}
 
 #endif

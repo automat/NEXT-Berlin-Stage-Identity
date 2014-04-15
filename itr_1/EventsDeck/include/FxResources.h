@@ -14,8 +14,6 @@
 using namespace std;
 using namespace ci;
 
-
-
 class FxResources {
     static gl::GlslProgRef sShaderBlurH;
     static gl::GlslProgRef sShaderBlurV;
@@ -24,10 +22,6 @@ public:
     static gl::GlslProgRef GetBlurH();
     static gl::GlslProgRef GetBlurV();
     static void Delete();
-
-    
-    
-    
 };
 
 

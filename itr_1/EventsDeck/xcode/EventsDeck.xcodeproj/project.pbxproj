@@ -24,6 +24,7 @@
 		CD15055818FD74EF00A0EEAE /* 26092.png in Resources */ = {isa = PBXBuildFile; fileRef = CD15055418FD74EF00A0EEAE /* 26092.png */; };
 		CD15055918FD74EF00A0EEAE /* 26262.png in Resources */ = {isa = PBXBuildFile; fileRef = CD15055518FD74EF00A0EEAE /* 26262.png */; };
 		CD15055A18FD74EF00A0EEAE /* 27263.png in Resources */ = {isa = PBXBuildFile; fileRef = CD15055618FD74EF00A0EEAE /* 27263.png */; };
+		CD15055F18FD78D900A0EEAE /* EventView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD15055E18FD78D900A0EEAE /* EventView.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,9 @@
 		CD15055518FD74EF00A0EEAE /* 26262.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 26262.png; path = ../resources/26262.png; sourceTree = "<group>"; };
 		CD15055618FD74EF00A0EEAE /* 27263.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 27263.png; path = ../resources/27263.png; sourceTree = "<group>"; };
 		CD15055B18FD752F00A0EEAE /* Speaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Speaker.h; path = ../include/Speaker.h; sourceTree = "<group>"; };
+		CD15055C18FD764300A0EEAE /* EventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventView.h; path = ../include/EventView.h; sourceTree = "<group>"; };
+		CD15055D18FD765000A0EEAE /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = ../include/Event.h; sourceTree = "<group>"; };
+		CD15055E18FD78D900A0EEAE /* EventView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventView.cpp; path = ../src/EventView.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,9 +90,8 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				CD15054D18FD74E100A0EEAE /* FxResources.cpp */,
-				CD15054E18FD74E100A0EEAE /* SpeakerStackView.cpp */,
-				CD15054F18FD74E100A0EEAE /* SpeakerView.cpp */,
+				CD15056218FD794C00A0EEAE /* event */,
+				CD15056318FD795400A0EEAE /* util */,
 				2A922D34475E4D34A72D1B71 /* EventsDeckApp.cpp */,
 			);
 			name = Source;
@@ -142,11 +145,8 @@
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				CD15055B18FD752F00A0EEAE /* Speaker.h */,
-				CD15054918FD74CD00A0EEAE /* FxResources.h */,
-				CD15054A18FD74CD00A0EEAE /* PingPongFbo.h */,
-				CD15054B18FD74CD00A0EEAE /* SpeakerStackView.h */,
-				CD15054C18FD74CD00A0EEAE /* SpeakerView.h */,
+				CD15056018FD792D00A0EEAE /* event */,
+				CD15056118FD794200A0EEAE /* util */,
 				4EAD905DF9F24846BE848B85 /* Resources.h */,
 				031E2BFFC3B440AA8500F1ED /* EventsDeck_Prefix.pch */,
 			);
@@ -173,6 +173,45 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CD15056018FD792D00A0EEAE /* event */ = {
+			isa = PBXGroup;
+			children = (
+				CD15055B18FD752F00A0EEAE /* Speaker.h */,
+				CD15054B18FD74CD00A0EEAE /* SpeakerStackView.h */,
+				CD15054C18FD74CD00A0EEAE /* SpeakerView.h */,
+				CD15055C18FD764300A0EEAE /* EventView.h */,
+				CD15055D18FD765000A0EEAE /* Event.h */,
+			);
+			name = event;
+			sourceTree = "<group>";
+		};
+		CD15056118FD794200A0EEAE /* util */ = {
+			isa = PBXGroup;
+			children = (
+				CD15054918FD74CD00A0EEAE /* FxResources.h */,
+				CD15054A18FD74CD00A0EEAE /* PingPongFbo.h */,
+			);
+			name = util;
+			sourceTree = "<group>";
+		};
+		CD15056218FD794C00A0EEAE /* event */ = {
+			isa = PBXGroup;
+			children = (
+				CD15054E18FD74E100A0EEAE /* SpeakerStackView.cpp */,
+				CD15054F18FD74E100A0EEAE /* SpeakerView.cpp */,
+				CD15055E18FD78D900A0EEAE /* EventView.cpp */,
+			);
+			name = event;
+			sourceTree = "<group>";
+		};
+		CD15056318FD795400A0EEAE /* util */ = {
+			isa = PBXGroup;
+			children = (
+				CD15054D18FD74E100A0EEAE /* FxResources.cpp */,
+			);
+			name = util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,6 +284,7 @@
 				CD15055118FD74E100A0EEAE /* SpeakerStackView.cpp in Sources */,
 				B03F416995D841F9BE3E1A3C /* EventsDeckApp.cpp in Sources */,
 				CD15055218FD74E100A0EEAE /* SpeakerView.cpp in Sources */,
+				CD15055F18FD78D900A0EEAE /* EventView.cpp in Sources */,
 				CD15055018FD74E100A0EEAE /* FxResources.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
