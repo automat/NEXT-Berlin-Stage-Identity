@@ -150,7 +150,7 @@ namespace next {
         mColorState  = 1.0f;
         mScale       = 1.0f;
         
-        drawFocus(mIntrplState,1.0f);
+        drawFocus(mIntrplState,0.0f);
         updateColorState();
     }
     
@@ -159,7 +159,7 @@ namespace next {
     
     
     void SpeakerView::drawFocus(float factorFocus, float factorColor){
-        const static float scale = 6.0f;
+        const static float scale = 18.0f;
         float factorFocusInv = 1.0f - factorFocus;
         float factorColorInv = 1.0f - factorColor;
         
@@ -206,7 +206,6 @@ namespace next {
                   0.39607843137255f * factorColor + 0.89019607843137f * factorColorInv);
         gl::draw(mFbo0.getTexture());
         mFbo1.unbindFramebuffer();
-        
         
         gl::popMatrices();
         glPopAttrib();
@@ -265,8 +264,7 @@ namespace next {
     void SpeakerView::update(){}
 
     void SpeakerView::updateFocusState(){
-        float intrpl = mIntrplState();
-        drawFocus(intrpl,intrpl);
+        drawFocus(0.0f,mIntrplState());
     }
     
     void SpeakerView::updateFocusImage(){

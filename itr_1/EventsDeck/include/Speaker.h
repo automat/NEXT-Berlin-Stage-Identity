@@ -9,15 +9,18 @@
 
 // Dummy
 namespace next {
+    using namespace ci;
     class Speaker {
-        ci::gl::Texture mTextureRef;
+        gl::Texture mTextureRef;
+    
     public:
         Speaker(){};
-        inline const ci::gl::Texture getImageRef(){
+    
+        inline const gl::Texture getImageRef(){
             return mTextureRef.weakClone();
         };
         
-        static Speaker Create(const ci::gl::Texture& image){
+        static Speaker Create(const gl::Texture& image){
             Speaker speaker;
             speaker.mTextureRef = image.weakClone();
             return speaker;

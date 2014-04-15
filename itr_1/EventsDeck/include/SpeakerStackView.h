@@ -33,8 +33,8 @@ namespace next {
         void animateMoveTop(SpeakerView* view);  // anim view (new top) moving to new pos on stack
         void animateFinish();                    // anim on finish
         
-        void animateFocusState(SpeakerView* view);
-        void animateFocusImage(SpeakerView* view);
+        void animateFocus();
+        void animateUnfocus();
         
         void deleteViews();
         
@@ -43,12 +43,14 @@ namespace next {
         SpeakerStackView(vector<Speaker>* data);
         ~SpeakerStackView();
         
-        void next();
+        void next(); // for debug
         void reset(vector<Speaker>* data);
         
-        void drawAlphaBlended();
         void draw();
         void update();
+        
+        void focus();
+        void unfocus();
         
     };
 }
