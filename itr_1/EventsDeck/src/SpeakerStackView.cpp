@@ -14,7 +14,7 @@ namespace next {
     using namespace boost::assign;
 
     // to be replaced with config
-    static const float sTimeAnimateOut(0.75f);
+    static const float sTimeAnimateOut(0.35f);
     static const float sTimeAnimateOutAlpha(0.35f);
     static const float sTimeAnimateMove(1.5f);
     static const float sTimeAnimateInScale(0.75f);
@@ -51,7 +51,7 @@ namespace next {
         mNumViews    = data->size();
         mViewIndex   = -1;
         mStackTop    = sStackStep * static_cast<float>(mNumViews);
-        mStackTopOut = mStackTop + Vec3f(0,1,0);
+        mStackTopOut = mStackTop + Vec3f(0,0.5f,0);
         
         
         
@@ -117,13 +117,13 @@ namespace next {
         timeline().apply(&view->mTranslation, mStackTopOut, sTimeAnimateOut, EaseOutQuad())
                   .finishFn(std::bind(&SpeakerStackView::animateIn, this));
         
-        timeline().apply(&view->mScale,       1.3f, sTimeAnimateOut,     EaseOutCirc());
+        timeline().apply(&view->mScale, 1.0f, sTimeAnimateOut, EaseOutCirc());
         
-        
+        /*
         //  unfocus view image
         view->mIntrplState = 1.0f;
         timeline().apply(&view->mIntrplState, 0.0f, sTimeAnimateOut, EaseOutQuad())
-                  .updateFn(std::bind(&SpeakerView::updateFocusImage,view));
+                  .updateFn(std::bind(&SpeakerView::updateFocusImage,view));*/
         
         //  blend view alpha to 0
         timeline().apply(&view->mColorState, 0.0f, sTimeAnimateOutAlpha, EaseOutInSine())
@@ -158,8 +158,10 @@ namespace next {
         view->mTranslation = Vec3f(0,-0.25f,0);
         view->mScale       = 0.35f;
         view->mColorState  = 1.0f;
+        view->mIntrplState = 0.0f;
         
         view->updateColorState();
+        view->updateFocusImage();
         
         timeline().apply(&view->mScale,       1.0f, sTimeAnimateInScale,     EaseOutCirc());
         timeline().apply(&view->mTranslation, zero, sTimeAnimateInTranslate, EaseOutCirc())

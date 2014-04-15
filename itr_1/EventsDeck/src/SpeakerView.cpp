@@ -146,10 +146,11 @@ namespace next {
         mTexcoords[16] = mTexcoordsNorm[2];
         mTexcoords[17] = mTexcoordsNorm[2];
         
-        mColorState = 1.0f;
-        mScale      = 1.0f;
+        mIntrplState = 0.0f;
+        mColorState  = 1.0f;
+        mScale       = 1.0f;
         
-        drawFocus(0.0f,1.0f);
+        drawFocus(mIntrplState,1.0f);
         updateColorState();
     }
     
