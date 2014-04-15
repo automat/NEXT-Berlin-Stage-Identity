@@ -146,25 +146,21 @@ namespace next {
         mTexcoords[16] = mTexcoordsNorm[2];
         mTexcoords[17] = mTexcoordsNorm[2];
         
-        int i = -1;
-        while(++i < 18){
-            mVertexColors[i].set(1, 1, 1, 1);
-        }
+        mColorState = 1.0f;
+        mScale      = 1.0f;
         
-        setPosition(Vec3f::zero());
-        setScale(1.0f);
-        mAlpha = 1.0f;
-        
-        drawFocus(1.0f);
+        drawFocus(0.0f,1.0f);
+        updateColorState();
     }
     
     SpeakerView::~SpeakerView(){
     }
     
     
-    void SpeakerView::drawFocus(float factor){
+    void SpeakerView::drawFocus(float factorFocus, float factorColor){
         const static float scale = 6.0f;
-        float factorInv = 1.0f - factor;
+        float factorFocusInv = 1.0f - factorFocus;
+        float factorColorInv = 1.0f - factorColor;
         
         const gl::Texture& image = mData->getImageRef();
         
@@ -183,7 +179,7 @@ namespace next {
         mShaderBlurHRef->bind();
         mShaderBlurHRef->uniform("uTexture", 0);
         mShaderBlurHRef->uniform("uTexelSize", mTexelSize.x);
-        mShaderBlurHRef->uniform("uScale", scale * factorInv);
+        mShaderBlurHRef->uniform("uScale", scale * factorFocusInv);
         gl::clear();
         glColor3f(1,1,1);
         gl::draw(mFbo0.getTexture());
@@ -195,7 +191,7 @@ namespace next {
         mShaderBlurVRef->bind();
         mShaderBlurVRef->uniform("uTexture", 0);
         mShaderBlurVRef->uniform("uTexelSize", mTexelSize.y);
-        mShaderBlurVRef->uniform("uScale", scale * factorInv);
+        mShaderBlurVRef->uniform("uScale", scale * factorFocusInv);
         gl::clear();
         glColor3f(1,1,1);
         gl::draw(mFbo1.getTexture());
@@ -204,9 +200,9 @@ namespace next {
         
         mFbo1.bindFramebuffer();
         gl::clear();
-        glColor3f(0.87450980392157f * factor + 0.0f * factorInv,
-                  0.06274509803922f * factor + 0.39607843137255f * factorInv,
-                  0.39607843137255f * factor + 0.89019607843137f * factorInv);
+        glColor3f(0.87450980392157f * factorColor + 0.0f * factorColorInv,
+                  0.06274509803922f * factorColor + 0.39607843137255f * factorColorInv,
+                  0.39607843137255f * factorColor + 0.89019607843137f * factorColorInv);
         gl::draw(mFbo0.getTexture());
         mFbo1.unbindFramebuffer();
         
@@ -233,29 +229,32 @@ namespace next {
         mFbo1.getTexture().enableAndBind();
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
         glEnableClientState(GL_NORMAL_ARRAY);
-        //glEnableClientState(GL_COLOR_ARRAY);
+        glEnableClientState(GL_COLOR_ARRAY);
         
         glNormalPointer(   3, GL_FLOAT,    &sCardNormals[0]);
         glTexCoordPointer( 2, GL_FLOAT, 0, &mTexcoords[0]);
+        glColorPointer(    4, GL_FLOAT, 0, &mVertexColors[0]);
         glVertexPointer(   3, GL_FLOAT, 0, &sCardVertices[0]);
         glDrawArrays(GL_TRIANGLES, 0,sCardVerticesLen);
         
+        glDisableClientState(GL_COLOR_ARRAY);
         glDisableClientState(GL_NORMAL_ARRAY);
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
         mFbo1.unbindTexture();
+     
         
-        glColor4f(1,1,1,0.65f);
-        static int indices[4] = {0,1,3,2};
+        glColor4f(1,1,1,mColorState * 0.35f);
+        static int indices[3] = {1,3,2};
+        
         glVertexPointer(3, GL_FLOAT, 0, &sCubeVertices[0]);
-        glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, &indices[0]);
-        
+        glDrawElements(GL_LINE_STRIP, 3, GL_UNSIGNED_INT, &indices[0]);
         glDisableClientState(GL_VERTEX_ARRAY);
         
         glPopMatrix();
     }
     
-    void SpeakerView::updateAlpha(){
-        float alpha = mAlpha();
+    void SpeakerView::updateColorState(){
+        float alpha = mColorState();
         int i = -1;
         while(++i < 18){
             mVertexColors[i].set(1, 1, 1, alpha);
@@ -263,7 +262,18 @@ namespace next {
     }
     
     void SpeakerView::update(){}
-    void SpeakerView::focus(){}
-    void SpeakerView::unfocus(){}
+
+    void SpeakerView::updateFocusState(){
+        float intrpl = mIntrplState();
+        drawFocus(intrpl,intrpl);
+    }
+    
+    void SpeakerView::updateFocusImage(){
+        drawFocus(mIntrplState(),1.0f);
+    }
+    
+    void SpeakerView::unfocusImage(){
+        drawFocus(0.0f,1.0f);
+    }
     
 }

@@ -45,12 +45,12 @@ namespace next {
         gl::Fbo mFbo1;
         
         Anim<float> mIntrplState;
+        Anim<float> mColorState;
         
         Anim<Vec3f> mTranslation;
         Anim<float> mScale;
-        Anim<float> mAlpha;
         
-        void drawFocus(float factor = 1.0f);   //   0 = unfocused, 1 = focused
+        void drawFocus(float factorFocus = 1.0f, float factorColor = 1.0f);   //   0 = unfocused, 1 = focused
         void updateAlpha();
         
     public:
@@ -59,15 +59,19 @@ namespace next {
         
         void draw();
         void update();
-        void focus();
-        void unfocus();
+      
+        void updateFocusState();    //  focus color deactive -> active
+        void updateFocusImage();    //  focus image blur -> unblur
+        void updateColorState();
+        
+        void unfocusImage();
         
         inline void setPosition(const Vec3f &pos){
-            mTranslation().set(pos);
+            mTranslation = pos;
         }
         
         inline void setScale(float scale){
-            mScale() = scale;
+            mScale = scale;
         }
         
         inline Vec3f getPosition(){
@@ -77,6 +81,7 @@ namespace next {
         inline float getScale(){
             return mScale;
         }
+        
     };
 }
 

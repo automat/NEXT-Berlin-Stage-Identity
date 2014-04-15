@@ -20,15 +20,21 @@ namespace next {
         
         vector<SpeakerView*> mViews;
         size_t               mNumViews;
-        int                  mViewIndex;
-        Vec3f                mStackTop;
-        Vec3f                mStackTopOut;
+        int                  mViewIndex;    //  current front
+        Vec3f                mStackTop;     //  pos of front
+        Vec3f                mStackTopOut;  //  target pos out
         
-        bool mAnimating;
-        void animateIn();
-        void animateOut(SpeakerView* view);
-        void animateMove(SpeakerView* view);
-        void animateFinish();
+        bool mAnimating;    // currently animating ?
+        bool mActive;       // is current event ?
+        
+        void animateIn();                        // anim view reset bottom
+        void animateOut(SpeakerView* view);      // anim view top disappearing
+        void animateMove(SpeakerView* view);     // anim view moving to new pos on stack
+        void animateMoveTop(SpeakerView* view);  // anim view (new top) moving to new pos on stack
+        void animateFinish();                    // anim on finish
+        
+        void animateFocusState(SpeakerView* view);
+        void animateFocusImage(SpeakerView* view);
         
         void deleteViews();
         
@@ -40,8 +46,8 @@ namespace next {
         void next();
         void reset(vector<Speaker>* data);
         
-        void drawSelected();
-        void drawUnselected();
+        void drawAlphaBlended();
+        void draw();
         void update();
         
     };

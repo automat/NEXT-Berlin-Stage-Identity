@@ -26,6 +26,7 @@ namespace next {
         EventView(Event* data);
         ~EventView();
         
+        void drawAlphaBlended();
         void draw();
         void update();
         
