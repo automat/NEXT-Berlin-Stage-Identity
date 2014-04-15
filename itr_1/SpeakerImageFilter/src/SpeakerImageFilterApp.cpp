@@ -6,7 +6,8 @@
 #include "cinder/gl/TextureFont.h"
 #include "cinder/Utilities.h"
 #include "Speaker.h"
-
+#include "SpeakerStackView.h"
+#include <vector>
 
 using namespace ci;
 using namespace ci::app;
@@ -19,12 +20,13 @@ class SpeakerImageFilterApp : public AppNative {
     void keyDown(KeyEvent event);
 	void update();
 	void draw();
-
-    gl::Texture mTestTexture;
-
+    
     CameraOrtho  mCamera;
-    Speaker*     mSpeaker;
-    SpeakerView* mSpeakerView;
+    
+    // dummy data / view
+    vector<gl::Texture> mDataImages;
+    vector<Speaker*>    mDataSpeakers;
+    SpeakerStackView*   mSpeakerStackView;
 };
 
 void SpeakerImageFilterApp::prepareSettings(Settings *settings) {
@@ -37,9 +39,18 @@ void SpeakerImageFilterApp::setup(){
     mCamera.setOrtho(-aspectRatio * zoom, aspectRatio * zoom, -zoom, zoom, -1, 10);
     mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
 
-    mTestTexture = gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SpeakerImageFilter/resources/26262.png"));
-    mSpeaker = Speaker::Create(mTestTexture.weakClone());
-    mSpeakerView = new SpeakerView(mSpeaker);
+    mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SpeakerImageFilter/resources/6893.png")));
+    mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SpeakerImageFilter/resources/26262.png")));
+    mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SpeakerImageFilter/resources/26092.png")));
+    mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SpeakerImageFilter/resources/27263.png")));
+    
+    
+    
+    for(auto& image : mDataImages){
+        mDataSpeakers.push_back(Speaker::Create(image.weakClone()));
+    }
+  
+    mSpeakerStackView = new SpeakerStackView(mDataSpeakers);
     
     gl::enableDepthRead();
 }
@@ -54,7 +65,7 @@ void SpeakerImageFilterApp::keyDown(KeyEvent event) {
 }
 
 void SpeakerImageFilterApp::update(){
-    mSpeakerView->update();
+    mSpeakerStackView->update();
 }
 
 void SpeakerImageFilterApp::draw(){
@@ -62,12 +73,11 @@ void SpeakerImageFilterApp::draw(){
     gl::setMatrices(mCamera);
 
     gl::drawCoordinateFrame(2);
-    float t = static_cast<float>(app::getElapsedSeconds());
-
-    glPushMatrix();
-    glTranslatef(0,sin(t * 0.125f) * 0.5f,0);
-    mSpeakerView->draw();
-    glPopMatrix();
+    gl::enableAlphaTest();
+    gl::enableAlphaBlending();
+    mSpeakerStackView->draw();
+    gl::disableAlphaBlending();
+    gl::disableAlphaTest();
 }
 
 CINDER_APP_NATIVE( SpeakerImageFilterApp, RendererGl )
