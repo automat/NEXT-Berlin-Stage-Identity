@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>596C7386-B15A-463E-9914-0D69E4CB2E0C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>grid_01_render_qt</string>
+	<key>IDESourceControlProjectPath</key>
+	<string>xcode/grid_01_render_qt.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1C9ECA67-5177-46D0-B31D-CC7FB657B9BA</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/preciousforever/NEXT-Everything.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1C9ECA67-5177-46D0-B31D-CC7FB657B9BA</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1C9ECA67-5177-46D0-B31D-CC7FB657B9BA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>grid_01_render_qt</string>
+		</dict>
+	</array>
+</dict>
+</plist>
