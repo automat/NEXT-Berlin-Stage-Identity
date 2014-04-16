@@ -71,7 +71,6 @@
 		CDFD275018F0D11E00598643 /* quote_field_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD274018F0D11E00598643 /* quote_field_frag.glsl */; };
 		CDFD275118F0D11E00598643 /* quote_field_vert.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD274118F0D11E00598643 /* quote_field_vert.glsl */; };
 		CDFD275218F0D11E00598643 /* pass_thru.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CDFD274218F0D11E00598643 /* pass_thru.glsl */; };
-		CDFD275318F0D11E00598643 /* test_texture_1024x1024.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDFD274418F0D11E00598643 /* test_texture_1024x1024.jpg */; };
 		CDFD275418F0D11E00598643 /* test_texture_2x2.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFD274518F0D11E00598643 /* test_texture_2x2.png */; };
 		CDFD275518F0D11E00598643 /* test_texture_2x2_red.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFD274618F0D11E00598643 /* test_texture_2x2_red.png */; };
 		CDFD275618F0D11E00598643 /* test_texture_font_black.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CDFD274718F0D11E00598643 /* test_texture_font_black.jpg */; };
@@ -823,7 +822,6 @@
 				CDFD274918F0D11E00598643 /* transcript_bold.otf in Resources */,
 				CD04631018F174B600251A70 /* normal_depth_vert.glsl in Resources */,
 				CD04631918F1B0F200251A70 /* blur_v_frag.glsl in Resources */,
-				CDFD275318F0D11E00598643 /* test_texture_1024x1024.jpg in Resources */,
 				CD04631518F18F6400251A70 /* ssao_frag.glsl in Resources */,
 				CD04631718F1B0E200251A70 /* blur_h_frag.glsl in Resources */,
 				CDFD275218F0D11E00598643 /* pass_thru.glsl in Resources */,
