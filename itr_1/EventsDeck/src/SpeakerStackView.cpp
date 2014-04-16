@@ -59,7 +59,7 @@ namespace next {
             mViews.back()->setPosition(mStackTop - sStackStep * static_cast<float>(mViews.size()));
         }
         
-        focus();
+        //focus();
     }
     
     /*--------------------------------------------------------------------------------------------*/

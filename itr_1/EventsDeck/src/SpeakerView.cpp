@@ -243,7 +243,7 @@ namespace next {
         mFbo1.unbindTexture();
      
         
-        glColor4f(1,1,1,mColorState * 0.35f);
+        glColor4f(1,1,1,mColorState * 0.135f);
         static int indices[3] = {1,3,2};
         
         glVertexPointer(3, GL_FLOAT, 0, &sCubeVertices[0]);

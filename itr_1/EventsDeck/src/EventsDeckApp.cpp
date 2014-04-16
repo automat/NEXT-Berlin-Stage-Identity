@@ -51,6 +51,7 @@ void EventsDeckApp::setup(){
     mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/26092.png")));
     mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/27263.png")));
     
+    
     using namespace next;
     for(auto& image : mDataImages){
         mDataSpeakers.push_back(Speaker::Create(image.weakClone()));

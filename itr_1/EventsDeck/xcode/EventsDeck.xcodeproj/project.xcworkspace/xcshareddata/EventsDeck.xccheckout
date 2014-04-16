@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>02CDA098-1CA8-47EC-BAD8-9EA3DCA0C2AF</string>
+	<key>IDESourceControlProjectName</key>
+	<string>EventsDeck</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>133A036F-6F41-46A4-B440-4D4327E447DC</key>
+		<string>https://github.com/preciousforever/NEXT-Everything.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>itr_1/EventsDeck/xcode/EventsDeck.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>133A036F-6F41-46A4-B440-4D4327E447DC</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/preciousforever/NEXT-Everything.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>133A036F-6F41-46A4-B440-4D4327E447DC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>133A036F-6F41-46A4-B440-4D4327E447DC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>next</string>
+		</dict>
+	</array>
+</dict>
+</plist>
