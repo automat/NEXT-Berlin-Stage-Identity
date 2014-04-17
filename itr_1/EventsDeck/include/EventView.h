@@ -27,6 +27,7 @@ namespace next {
         
         void reset(Event* data);
         void focusTop();
+        void unfocus();
         
     public:
         EventView(Event* data);

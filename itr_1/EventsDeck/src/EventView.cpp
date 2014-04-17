@@ -36,5 +36,9 @@ namespace next {
     void EventView::focusTop(){
         mSpeakerStackView->focus();
     }
+    
+    void EventView::unfocus(){
+        mSpeakerStackView->unfocus();
+    }
 
 }

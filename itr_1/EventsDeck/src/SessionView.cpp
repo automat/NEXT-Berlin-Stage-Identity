@@ -15,16 +15,25 @@ namespace next {
     
     //  to be replaced with config
     static const float sTimeAnimateIn(2.25f);
-    static const float sTimeAnimateOut(1.0f);
-    static const float sTimeAnimateStart(1.0f);
-    static const float sTimeAnimateEnd(1.0f);
+    static const float sTimeAnimateOutIn(2.25f);
+    static const float sTimeAnimateOut(2.25f);
+    static const float sTimeAnimateOutOut(2.25f);
+    
+    static const float sTimeAnimateInit(1.0f);
     
     /*--------------------------------------------------------------------------------------------*/
     //  Constructor
     /*--------------------------------------------------------------------------------------------*/
     
-    SessionView::SessionView(Session* data){
-        float slideLength   = 6;
+    SessionView::SessionView(Session* data) :
+        AbstractAnimView(),
+        mNumViews(0),
+        mNumData(0),
+        mDataIndex(-1),
+        mViewIndexPrev(-1),
+        mViewIndexCurr(-1),
+        mViewIndexNext(-1){
+        float slideLength   = 3;
         float slideLength_2 = slideLength * 0.5f;
         
         mPrevEventPos    = Vec3f(0,0, slideLength_2);
@@ -44,65 +53,112 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
  
     void SessionView::deleteEventViews(){
-        while (!mViews.empty()) delete mViews.back(), mViews.pop_back();
+        int i = -1;
+        while (++i < mNumViews) {
+            if(mViews[i] != NULL){
+                delete mViews[i];
+            }
+        }
     }
     
     void SessionView::reset(Session* data){
         deleteEventViews();
+        
+        mAnimating = false;
+        mNumData   = -1;
+        mDataIndex = -1;
+        
         mViewIndexPrev = mViewIndexCurr = mViewIndexNext = -1;
         mNumViews  = -1;
-        mAnimating = false;
         
-        vector<Event>* events = data->getEvents();
-
-        if(events->empty()){
+        mData = data;
+        
+        if(data->getEvents()->empty()){
             return;
         }
         
-        size_t len = min(3,static_cast<int>(events->size()));
-        mViewIndexPrev = -1;    //  unused
+        vector<Event>* events = mData->getEvents();
+        mNumData = events->size();
+        mNumViews = min(4,mNumData);
         
-        //  Init views and reset to position of 'next' view
-        
-        mViewIndexCurr = 0 % len;
-            mViews += new EventView(&(*events)[mViewIndexCurr]);
-            mViews.back()->mPosState = mNextEventPos;
-        
-        mViewIndexNext = 1 % len == 0 ? -1 : 1;
-        if(mViewIndexNext != -1){
-            mViews += new EventView(&(*events)[mViewIndexNext]);
-            mViews.back()->mPosState = mNextEventPos;
+        int i = -1;
+        while (++i < mNumViews) {
+            mViews[i] = new EventView(&(*events)[i]);
+            mViews[i]->mPosState = mNextEventPosOut;
         }
         
-        
+        init();
     }
     
     /*--------------------------------------------------------------------------------------------*/
     //  Animation
     /*--------------------------------------------------------------------------------------------*/
     
-    void SessionView::animateOut(EventView *view){
+    void SessionView::animateInit(){
+        mAnimating = true;
+        Timeline& _timeline = timeline();
+        
+        _timeline.apply(&mViews[0]->mPosState, mNextEventPos, sTimeAnimateInit, EaseOutCubic())
+                 .finishFn(std::bind(&SessionView::animateFinish, this));
+    }
+    
+    void SessionView::animatePrevOut(EventView *view){
+        mAnimating = true;
+        Timeline& _timeline = timeline();
+        _timeline.apply(&view->mPosState, mPrevEventPos, sTimeAnimateOut, EaseOutCubic())
+                 .finishFn(std::bind(&SessionView::animateFinish,this));
+        view->unfocus();
+        
+        if (mDataIndex < mNumData) {
+            if(mDataIndex != 0){
+                int prevIndex = (mViewIndexCurr - 1) % mNumViews;
+                if(prevIndex > -1){
+                    animatePrevOutOut(mViews[prevIndex]);
+                }
+            }
+        } else {
+            _timeline.apply(&view->mPosState, mPrevEventPosOut, sTimeAnimateOutOut, EaseOutCubic())
+                     .finishFn(std::bind(&SessionView::resetEventView,this,view));
+        }
         
     }
     
-    void SessionView::animateIn(EventView* view){
+    void SessionView::animatePrevOutOut(EventView* view){
+        mAnimating = true;
+        Timeline& _timeline = timeline();
+        _timeline.apply(&view->mPosState, mPrevEventPosOut, sTimeAnimateOutOut, EaseOutCubic())
+                 .finishFn(std::bind(&SessionView::resetEventView,this,view));
+    }
+    
+    void SessionView::animateNextIn(EventView* view){
         mAnimating = true;
         Timeline& _timeline = timeline();
         _timeline.apply(&view->mPosState, mCurrEventPos, sTimeAnimateIn, EaseOutCubic())
                  .finishFn(std::bind(&SessionView::animateFinish,this));
         view->focusTop();
-        
-        int viewIndexPrev = mViewIndexCurr - 1;
-        
-        if(viewIndexPrev > -1){
-            
-        }
-        
+    }
+    
+    void SessionView::animateNextOutIn(EventView* view){
+        mAnimating = true;
+        Timeline& _timeline = timeline();
+        _timeline.apply(&view->mPosState, mNextEventPos, sTimeAnimateOutIn, EaseOutCubic())
+                 .finishFn(std::bind(&SessionView::animateFinish,this));
+    
+    }
+    
+    
+    
+    void SessionView::stackSpeakers(EventView* view){
         
     }
     
-    void SessionView::stackSpeakers(EventView* next){
+    void SessionView::resetEventView(EventView* view){
+        view->mPosState = mNextEventPosOut;
         
+        if(mDataIndex >= mNumData){
+            return;
+        }
+        view->reset(&(*mData->getEvents())[mDataIndex]);
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -110,14 +166,16 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SessionView::draw(){
-        for(vector<EventView*>::const_iterator itr = mViews.begin(); itr != mViews.end(); ++itr){
-            (*itr)->draw();
+        int  i = -1;
+        while (++i < mNumViews) {
+            mViews[i]->draw();
         }
     }
     
     void SessionView::update(){
-        for(vector<EventView*>::const_iterator itr = mViews.begin(); itr != mViews.end(); ++itr){
-            (*itr)->update();
+        int  i = -1;
+        while (++i < mNumViews) {
+            mViews[i]->update();
         }
     }
     
@@ -136,14 +194,34 @@ namespace next {
     }
     
     void SessionView::next(){
-        
-        
-        if(mViewIndexCurr == 0){
-            animateIn(mViews[mViewIndexCurr]);
+        if(mAnimating){
+            return;
+        }
+       
+        if(mDataIndex < mNumData + 2){
+            if(mViewIndexCurr > -1){
+                animatePrevOut(mViews[mViewIndexCurr]);
+            }
         }
         
-        mViewIndexCurr++;
         
+        mDataIndex++;
         
+        if(mDataIndex >= mNumData){
+            return;
+        }
+        mViewIndexCurr = (mViewIndexCurr + 1) % mNumViews;
+        animateNextIn(mViews[mViewIndexCurr]);
+       
+        if(mDataIndex < mNumData -1){
+            animateNextOutIn(mViews[(mViewIndexCurr + 1) % mNumViews]);
+        }
+        
+        cout << mDataIndex << " / " << mNumData << endl;
+        
+    }
+    
+    void SessionView::init(){
+        animateInit();
     }
 }

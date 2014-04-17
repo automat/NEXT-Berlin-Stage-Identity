@@ -99,6 +99,15 @@ namespace next {
     
     void SpeakerStackView::unfocus(){
         mAnimating = true;
+        Timeline& _timeline = timeline();
+
+        
+        //  TODO: Add animate finish counter here
+        for(vector<SpeakerView*>::iterator itr = mViews.begin(); itr != mViews.end(); ++itr){
+            _timeline.apply(&(*itr)->mIntrplState, 1.0f, 0.0f, 1.0f)
+                     .updateFn(std::bind(&SpeakerView::updateFocusState,*itr))
+                     .finishFn(std::bind(&SpeakerStackView::animateFinish,this));
+        }
     }
     
     

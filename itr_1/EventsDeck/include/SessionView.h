@@ -20,10 +20,12 @@ namespace next {
     using namespace ci;
     
     class SessionView : public AbstractAnimView{
+        int      mNumData;
+        int      mDataIndex;
         Session* mData;
         
         size_t             mNumViews;
-        vector<EventView*> mViews;
+        EventView*         mViews[4]; // prev, current, next , buffer
         
         int mViewIndexPrev;    //  index previous view
         int mViewIndexCurr;    //  index current view
@@ -37,12 +39,17 @@ namespace next {
         Vec3f mNextEventPosOut;
         
         
-        void resetEventView();
         
         void stackSpeakers(EventView* view);
         
-        void animateIn(EventView* view);
-        void animateOut(EventView* view);
+        void animateInit();
+        void animateNextIn(EventView* view);        //  animate next view in
+        void animateNextOutIn(EventView* view);     //  animate next next view in
+        
+        void animatePrevOut(EventView* view);       //  animate prev view out
+        void animatePrevOutOut(EventView* view);    //  animate prev prev view out
+        void resetEventView(EventView* view);       //  reset view with next data
+        
         
         void deleteEventViews();
     public:
@@ -54,9 +61,12 @@ namespace next {
         void draw();
         void update();
         
+    
+        
         void debugDraw();
         
         void next(); // for debug
+        void init();
     };
 }
 
