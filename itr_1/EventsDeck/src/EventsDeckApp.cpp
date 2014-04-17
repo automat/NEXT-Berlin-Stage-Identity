@@ -44,7 +44,6 @@ public:
     
     next::SessionView*    mViewSession;
     
-    
     next::Event           mEvent;
     next::EventView*      mEventView;
 };
@@ -82,15 +81,17 @@ void EventsDeckApp::setup(){
     
     int i,j,l;
     i = -1;
-    while(++i < 4){ // create 6 dummy events
+    while(++i < 6){ // create 6 dummy events
         l = Rand::randInt(1, 6);
         j = -1;
         tempSpeakers.clear();
-        while (++j < l) {
+        while (++j < i + 1) {
             tempSpeakers += &mDataSpeakers[Rand::randInt(0, mDataSpeakers.size())];
         }
         mDataEvents += next::Event::Create(tempSpeakers);
     }
+
+
    
     mDataSession = Session::Create(0, "Session", 0, 0, &mDataEvents);
     mViewSession = new SessionView(&mDataSession);

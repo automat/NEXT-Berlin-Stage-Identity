@@ -38,12 +38,14 @@ namespace next {
         
         void deleteViews();
         
+        void showNext(int index);
+        
     public:
         SpeakerStackView() : AbstractAnimView() {};
         SpeakerStackView(const vector<Speaker*>& data);
         ~SpeakerStackView();
         
-        void next(); // for debug
+        void next(const AnimCallback& callback = std::bind(&AbstractAnimView::AnimCallbackNull)); // for debug
         void reset(const vector<Speaker*>& data);
         
         void draw();
@@ -51,6 +53,9 @@ namespace next {
         
         void focus();
         void unfocus();
+        
+        //! stack the speakers!
+        void show(const AnimCallback& callback = std::bind(&AbstractAnimView::AnimCallbackNull));
         
     };
 }

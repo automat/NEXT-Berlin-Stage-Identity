@@ -21,6 +21,9 @@ namespace next {
         }
         
     public:
+        typedef std::function<void ()> AnimCallback;
+        inline static void AnimCallbackNull(){}
+        
         virtual void draw() = 0;
         virtual void update() = 0;
         

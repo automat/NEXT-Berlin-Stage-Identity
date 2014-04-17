@@ -7,6 +7,8 @@
 #include "cinder/Tween.h"
 
 namespace next {
+    
+    
     using namespace std;
     using namespace ci;
     using namespace ci::app;
@@ -110,12 +112,15 @@ namespace next {
         }
     }
     
+    void SpeakerStackView::show(const AnimCallback& callback){
+        
+    }
     
     /*--------------------------------------------------------------------------------------------*/
     //  Animation
     /*--------------------------------------------------------------------------------------------*/
     
-    void SpeakerStackView::next(){
+    void SpeakerStackView::next(const AnimCallback& callback){
         if(mAnimating){
             return;
         }
