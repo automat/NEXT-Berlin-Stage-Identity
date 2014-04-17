@@ -14,16 +14,18 @@
 
 namespace next {
     using namespace std;
+   
     class Event {
-        vector<Speaker>* mSpeakers;
+        vector<Speaker*> mSpeakers;
+    
     public:
-        inline static Event Create(vector<Speaker>* speakers){
+        inline static Event Create(const vector<Speaker*>& speakers){
             Event event;
             event.mSpeakers = speakers;
             return event;
         }
         
-        inline vector<Speaker>* getSpeakers(){
+        inline const vector<Speaker*>& getSpeakers(){
             return mSpeakers;
         }
     };

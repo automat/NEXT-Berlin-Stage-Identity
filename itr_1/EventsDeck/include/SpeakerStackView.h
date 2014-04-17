@@ -10,12 +10,13 @@
 #define SpeakerImageFilter_SpeakerStackView_h
 
 #include <vector>
+#include "AbstractAnimView.h"
 #include "SpeakerView.h"
 
 namespace next {
     using namespace std;
 
-    class SpeakerStackView {
+    class SpeakerStackView : public AbstractAnimView {
         static const Vec3f sStackStep;
         
         vector<SpeakerView*> mViews;
@@ -24,7 +25,6 @@ namespace next {
         Vec3f                mStackTop;     //  pos of front
         Vec3f                mStackTopOut;  //  target pos out
         
-        bool mAnimating;    // currently animating ?
         bool mActive;       // is current event ?
         
         void animateIn();                        // anim view reset bottom
@@ -39,12 +39,12 @@ namespace next {
         void deleteViews();
         
     public:
-        SpeakerStackView(){};
-        SpeakerStackView(vector<Speaker>* data);
+        SpeakerStackView() : AbstractAnimView() {};
+        SpeakerStackView(const vector<Speaker*>& data);
         ~SpeakerStackView();
         
         void next(); // for debug
-        void reset(vector<Speaker>* data);
+        void reset(const vector<Speaker*>& data);
         
         void draw();
         void update();

@@ -264,7 +264,8 @@ namespace next {
     void SpeakerView::update(){}
 
     void SpeakerView::updateFocusState(){
-        drawFocus(0.0f,mIntrplState());
+        float intrpl = mIntrplState();
+        drawFocus(intrpl,intrpl);
     }
     
     void SpeakerView::updateFocusImage(){

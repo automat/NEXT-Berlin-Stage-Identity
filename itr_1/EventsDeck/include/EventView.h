@@ -11,25 +11,29 @@
 
 #include "Event.h"
 #include "SpeakerStackView.h"
+#include "cinder/Timeline.h"
+#include "cinder/Vector.h"
 
 namespace next {
+    using namespace ci;
+    
     class EventView {
+        friend class SessionView;
+        
+        Anim<Vec3f> mPosState;
+        
         Event* mData;
         SpeakerStackView* mSpeakerStackView;
-    
-        void reset(Event* data);
-        void deleteSpeakerStackView();
-       
         
+        void reset(Event* data);
+        void focusTop();
         
     public:
         EventView(Event* data);
         ~EventView();
         
-        void drawAlphaBlended();
         void draw();
         void update();
-        
         
         void nextSpeaker(); // for debug
         

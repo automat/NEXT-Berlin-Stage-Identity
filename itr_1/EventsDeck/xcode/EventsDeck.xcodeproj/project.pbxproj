@@ -25,6 +25,7 @@
 		CD15055918FD74EF00A0EEAE /* 26262.png in Resources */ = {isa = PBXBuildFile; fileRef = CD15055518FD74EF00A0EEAE /* 26262.png */; };
 		CD15055A18FD74EF00A0EEAE /* 27263.png in Resources */ = {isa = PBXBuildFile; fileRef = CD15055618FD74EF00A0EEAE /* 27263.png */; };
 		CD15055F18FD78D900A0EEAE /* EventView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD15055E18FD78D900A0EEAE /* EventView.cpp */; };
+		CD15056A18FF291600A0EEAE /* SessionView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD15056918FF291600A0EEAE /* SessionView.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,10 @@
 		CD15055C18FD764300A0EEAE /* EventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventView.h; path = ../include/EventView.h; sourceTree = "<group>"; };
 		CD15055D18FD765000A0EEAE /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = ../include/Event.h; sourceTree = "<group>"; };
 		CD15055E18FD78D900A0EEAE /* EventView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventView.cpp; path = ../src/EventView.cpp; sourceTree = "<group>"; };
+		CD15056418FF1A0700A0EEAE /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Session.h; path = ../include/Session.h; sourceTree = "<group>"; };
+		CD15056718FF1BED00A0EEAE /* SessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SessionView.h; path = ../include/SessionView.h; sourceTree = "<group>"; };
+		CD15056918FF291600A0EEAE /* SessionView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SessionView.cpp; path = ../src/SessionView.cpp; sourceTree = "<group>"; };
+		CD15056B18FF465000A0EEAE /* AbstractAnimView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractAnimView.h; path = ../include/AbstractAnimView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +95,7 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				CD15056218FD794C00A0EEAE /* event */,
+				CD15056218FD794C00A0EEAE /* session */,
 				CD15056318FD795400A0EEAE /* util */,
 				2A922D34475E4D34A72D1B71 /* EventsDeckApp.cpp */,
 			);
@@ -145,7 +150,7 @@
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				CD15056018FD792D00A0EEAE /* event */,
+				CD15056018FD792D00A0EEAE /* session */,
 				CD15056118FD794200A0EEAE /* util */,
 				4EAD905DF9F24846BE848B85 /* Resources.h */,
 				031E2BFFC3B440AA8500F1ED /* EventsDeck_Prefix.pch */,
@@ -175,16 +180,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		CD15056018FD792D00A0EEAE /* event */ = {
+		CD15056018FD792D00A0EEAE /* session */ = {
 			isa = PBXGroup;
 			children = (
-				CD15055B18FD752F00A0EEAE /* Speaker.h */,
-				CD15054B18FD74CD00A0EEAE /* SpeakerStackView.h */,
-				CD15054C18FD74CD00A0EEAE /* SpeakerView.h */,
-				CD15055C18FD764300A0EEAE /* EventView.h */,
-				CD15055D18FD765000A0EEAE /* Event.h */,
+				CD15056518FF1BD100A0EEAE /* model */,
+				CD15056618FF1BDA00A0EEAE /* view */,
 			);
-			name = event;
+			name = session;
 			sourceTree = "<group>";
 		};
 		CD15056118FD794200A0EEAE /* util */ = {
@@ -196,14 +198,12 @@
 			name = util;
 			sourceTree = "<group>";
 		};
-		CD15056218FD794C00A0EEAE /* event */ = {
+		CD15056218FD794C00A0EEAE /* session */ = {
 			isa = PBXGroup;
 			children = (
-				CD15054E18FD74E100A0EEAE /* SpeakerStackView.cpp */,
-				CD15054F18FD74E100A0EEAE /* SpeakerView.cpp */,
-				CD15055E18FD78D900A0EEAE /* EventView.cpp */,
+				CD15056818FF28F900A0EEAE /* view */,
 			);
-			name = event;
+			name = session;
 			sourceTree = "<group>";
 		};
 		CD15056318FD795400A0EEAE /* util */ = {
@@ -212,6 +212,39 @@
 				CD15054D18FD74E100A0EEAE /* FxResources.cpp */,
 			);
 			name = util;
+			sourceTree = "<group>";
+		};
+		CD15056518FF1BD100A0EEAE /* model */ = {
+			isa = PBXGroup;
+			children = (
+				CD15055B18FD752F00A0EEAE /* Speaker.h */,
+				CD15055D18FD765000A0EEAE /* Event.h */,
+				CD15056418FF1A0700A0EEAE /* Session.h */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		CD15056618FF1BDA00A0EEAE /* view */ = {
+			isa = PBXGroup;
+			children = (
+				CD15056B18FF465000A0EEAE /* AbstractAnimView.h */,
+				CD15054B18FD74CD00A0EEAE /* SpeakerStackView.h */,
+				CD15054C18FD74CD00A0EEAE /* SpeakerView.h */,
+				CD15055C18FD764300A0EEAE /* EventView.h */,
+				CD15056718FF1BED00A0EEAE /* SessionView.h */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		CD15056818FF28F900A0EEAE /* view */ = {
+			isa = PBXGroup;
+			children = (
+				CD15054E18FD74E100A0EEAE /* SpeakerStackView.cpp */,
+				CD15054F18FD74E100A0EEAE /* SpeakerView.cpp */,
+				CD15055E18FD78D900A0EEAE /* EventView.cpp */,
+				CD15056918FF291600A0EEAE /* SessionView.cpp */,
+			);
+			name = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,6 +317,7 @@
 				CD15055118FD74E100A0EEAE /* SpeakerStackView.cpp in Sources */,
 				B03F416995D841F9BE3E1A3C /* EventsDeckApp.cpp in Sources */,
 				CD15055218FD74E100A0EEAE /* SpeakerView.cpp in Sources */,
+				CD15056A18FF291600A0EEAE /* SessionView.cpp in Sources */,
 				CD15055F18FD78D900A0EEAE /* EventView.cpp in Sources */,
 				CD15055018FD74E100A0EEAE /* FxResources.cpp in Sources */,
 			);

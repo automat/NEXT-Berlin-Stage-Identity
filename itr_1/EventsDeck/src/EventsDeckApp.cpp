@@ -10,13 +10,24 @@
 #include <vector>
 #include "Event.h"
 #include "EventView.h"
+#include "Session.h"
+#include "SessionView.h"
+#include "cinder/Rand.h"
+
+
+#include <boost/assign/std/vector.hpp>
+#include <boost/assign.hpp>
 
 using namespace ci;
 using namespace ci::app;
 using namespace std;
 
+using namespace boost::assign;
+
 class EventsDeckApp : public AppNative {
 public:
+    ~EventsDeckApp();
+    
 	void setup();
     void prepareSettings(Settings* settings);
     void keyDown(KeyEvent event);
@@ -25,9 +36,15 @@ public:
     
     CameraOrtho  mCamera;
     
-    // dummy data / view
+    // dummy data
     vector<gl::Texture>   mDataImages;
     vector<next::Speaker> mDataSpeakers;
+    vector<next::Event>   mDataEvents;
+    next::Session         mDataSession;
+    
+    next::SessionView*    mViewSession;
+    
+    
     next::Event           mEvent;
     next::EventView*      mEventView;
 };
@@ -37,30 +54,54 @@ void EventsDeckApp::prepareSettings(Settings *settings) {
 }
 
 void EventsDeckApp::setup(){
+    Rand::randSeed(clock() & 65535);
+    
     float aspectRatio = getWindowAspectRatio();
     float zoom = 2;
     mCamera.setOrtho(-aspectRatio * zoom, aspectRatio * zoom, -zoom, zoom, -1, 10);
     mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
     
-    mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/6893.png")));
-    mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/26262.png")));
-    mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/26092.png")));
-    mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/27263.png")));
-    mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/6893.png")));
-    mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/26262.png")));
-    mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/26092.png")));
-    mDataImages.push_back(gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/27263.png")));
-    
+    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/6893.png"));
+    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/26262.png"));
+    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/26092.png"));
+    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/27263.png"));
+    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/6893.png"));
+    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/26262.png"));
+    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/26092.png"));
+    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/27263.png"));
+    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/26262.png"));
+    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/26092.png"));
+    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/EventsDeck/resources/27263.png"));
     
     using namespace next;
     for(auto& image : mDataImages){
-        mDataSpeakers.push_back(Speaker::Create(image.weakClone()));
+        mDataSpeakers += Speaker::Create(image.weakClone());
     }
-    mEvent     = next::Event::Create(&mDataSpeakers);
-    mEventView = new EventView(&mEvent);
+    
+    vector<Speaker*> tempSpeakers;
+    
+    int i,j,l;
+    i = -1;
+    while(++i < 3){ // create 6 dummy events
+        l = Rand::randInt(1, 6);
+        j = -1;
+        tempSpeakers.clear();
+        while (++j < l) {
+            tempSpeakers += &mDataSpeakers[Rand::randInt(0, mDataSpeakers.size())];
+        }
+        mDataEvents += next::Event::Create(tempSpeakers);
+    }
+   
+    mDataSession = Session::Create(0, "Session", 0, 0, &mDataEvents);
+    mViewSession = new SessionView(&mDataSession);
     
     gl::enableDepthRead();
 }
+
+EventsDeckApp::~EventsDeckApp(){
+    delete mViewSession;
+}
+
 
 void EventsDeckApp::keyDown(KeyEvent event) {
     switch(event.getCode()){
@@ -68,7 +109,7 @@ void EventsDeckApp::keyDown(KeyEvent event) {
             this->quit();
             break;
         case KeyEvent::KEY_RIGHT:
-            mEventView->nextSpeaker();
+            mViewSession->next();
             break;
         default:
             break;
@@ -76,7 +117,7 @@ void EventsDeckApp::keyDown(KeyEvent event) {
 }
 
 void EventsDeckApp::update(){
-    mEventView->update();
+    mViewSession->update();
 }
 
 void EventsDeckApp::draw(){
@@ -84,13 +125,15 @@ void EventsDeckApp::draw(){
     gl::setMatrices(mCamera);
     
     gl::drawCoordinateFrame(2);
+    
+    mViewSession->debugDraw();
    
     glAlphaFunc(GL_GREATER, 0.0);
     glEnable(GL_ALPHA_TEST);
     glEnable( GL_BLEND );
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-
-    mEventView->draw();
+    
+    mViewSession->draw();
     
     glDisable(GL_BLEND);
     glDisable(GL_ALPHA_TEST);

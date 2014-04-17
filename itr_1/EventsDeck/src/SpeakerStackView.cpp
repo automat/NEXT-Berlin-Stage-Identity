@@ -25,7 +25,8 @@ namespace next {
     //  Constructor
     /*--------------------------------------------------------------------------------------------*/
     
-    SpeakerStackView::SpeakerStackView(vector<Speaker>* data){
+    SpeakerStackView::SpeakerStackView(const vector<Speaker*>& data) :
+        AbstractAnimView(){
         reset(data);
     }
     
@@ -41,20 +42,19 @@ namespace next {
         while (!mViews.empty()) delete mViews.back(), mViews.pop_back();
     }
     
-    void SpeakerStackView::reset(vector<Speaker>* data){
+    void SpeakerStackView::reset(const vector<Speaker*>& data){
         deleteViews();
 
         mAnimating   = false;
         mActive      = true;
         
-        mNumViews    = data->size();
+        mNumViews    = data.size();
         mViewIndex   = -1;
         mStackTop    = sStackStep * static_cast<float>(mNumViews);
         mStackTopOut = mStackTop + Vec3f(0,0.5f,0);
         
-        vector<Speaker>& speakers = *data;
-        for(vector<Speaker>::iterator itr = speakers.begin(); itr != speakers.end(); ++itr){
-            mViews   += new SpeakerView(&(*itr));
+        for(vector<Speaker*>::const_iterator itr = data.begin(); itr != data.end(); ++itr){
+            mViews   += new SpeakerView(*itr);
             
             mViews.back()->setPosition(mStackTop - sStackStep * static_cast<float>(mViews.size()));
         }
@@ -85,13 +85,16 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SpeakerStackView::focus(){
-       // mAnimating = true;
-        Timeline& _timeline = timeline();
-        
-        for(vector<SpeakerView*>::iterator itr = mViews.begin(); itr != mViews.end(); ++itr){
-            _timeline.apply(&(*itr)->mIntrplState, 0.0f, 1.0f, 1.0f).updateFn(std::bind(&SpeakerView::updateFocusState,*itr));
+        if(mAnimating){
+            return;
         }
         
+        mAnimating = true;
+        Timeline& _timeline = timeline();
+        SpeakerView* first = mViews.front();
+        _timeline.apply(&first->mIntrplState, 0.0f, 1.0f, 1.0f)
+                 .updateFn(std::bind(&SpeakerView::updateFocusState,first))
+                 .finishFn(std::bind(&SpeakerStackView::animateFinish,this));
     }
     
     void SpeakerStackView::unfocus(){
