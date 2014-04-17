@@ -15,7 +15,7 @@ namespace next {
     
     const int SessionView::sMinCyclicBufferLen(4);
     
-    static const float sSlideLength(3);
+    static const float sSlideLength(4);
     
     //  to be replaced with config
     static const float sTimeAnimateIn(2.25f);
@@ -25,6 +25,9 @@ namespace next {
     
     static const float sTimeAnimateStart(1.0f);
     static const float sTimeAnimateEnd(1.0f);
+    
+    
+    typedef EaseOutCubic ViewInOutEasing;
     
     /*--------------------------------------------------------------------------------------------*/
     //  Constructor
@@ -37,8 +40,7 @@ namespace next {
         mBufferViewValid(false),
         mNumData(0),
         mDataIndex(-1){
-            float slideLength   = 3;
-            float slideLength_2 = slideLength * 0.5f;
+            float slideLength_2 = sSlideLength * 0.5f;
         
             mPrevEventPos    = Vec3f(0,0, slideLength_2);
             mNextEventPos    = Vec3f(0,0,-slideLength_2);
@@ -124,24 +126,36 @@ namespace next {
     
     void SessionView::start(){
         animateStart();
+        
+    }
+    
+    void SessionView::triggerStart(){
+        mAnimating = false;
+    }
+    
+    void SessionView::triggerNext(){
+        mAnimating =  false;
+        mBufferView[mBufferViewIndex]->nextSpeaker(std::bind(&SessionView::next, this));
     }
     
     /*--------------------------------------------------------------------------------------------*/
     //  Animation
     /*--------------------------------------------------------------------------------------------*/
     
+    
+    
     void SessionView::animateStart(){
-        mAnimating = true;
+        
         Timeline& _timeline = timeline();
         
-        _timeline.apply(&mBufferView[0]->mPosState, mNextEventPos, sTimeAnimateStart, EaseOutCubic())
-                 .finishFn(std::bind(&SessionView::animateFinish, this));
+        _timeline.apply(&mBufferView[0]->mPosState, mNextEventPos, sTimeAnimateStart, ViewInOutEasing());
+                 //.finishFn(std::bind(&SessionView::next, this));
     }
     
     void SessionView::animatePrevOut(EventView *view){
         mAnimating = true;
         Timeline& _timeline = timeline();
-        _timeline.apply(&view->mPosState, mPrevEventPos, sTimeAnimateOut, EaseOutCubic())
+        _timeline.apply(&view->mPosState, mPrevEventPos, sTimeAnimateOut, ViewInOutEasing())
                  .finishFn(std::bind(&SessionView::animateFinish,this));
         view->unfocus();
         
@@ -153,7 +167,7 @@ namespace next {
                 }
             }
         } else {
-            _timeline.apply(&view->mPosState, mPrevEventPosOut, sTimeAnimateOutOut, EaseOutCubic())
+            _timeline.apply(&view->mPosState, mPrevEventPosOut, sTimeAnimateOutOut, ViewInOutEasing())
                      .finishFn(std::bind(&SessionView::resetBufferView,this,view));
         }
         
@@ -162,22 +176,22 @@ namespace next {
     void SessionView::animatePrevOutOut(EventView* view){
         mAnimating = true;
         Timeline& _timeline = timeline();
-        _timeline.apply(&view->mPosState, mPrevEventPosOut, sTimeAnimateOutOut, EaseOutCubic())
+        _timeline.apply(&view->mPosState, mPrevEventPosOut, sTimeAnimateOutOut, ViewInOutEasing())
                  .finishFn(std::bind(&SessionView::resetBufferView,this,view));
     }
     
     void SessionView::animateNextIn(EventView* view){
         mAnimating = true;
         Timeline& _timeline = timeline();
-        _timeline.apply(&view->mPosState, mCurrEventPos, sTimeAnimateIn, EaseOutCubic())
-                 .finishFn(std::bind(&SessionView::animateFinish,this));
+        _timeline.apply(&view->mPosState, mCurrEventPos, sTimeAnimateIn, ViewInOutEasing())
+                 .finishFn(std::bind(&SessionView::triggerNext,this));
         view->focusTop();
     }
     
     void SessionView::animateNextOutIn(EventView* view){
         mAnimating = true;
         Timeline& _timeline = timeline();
-        _timeline.apply(&view->mPosState, mNextEventPos, sTimeAnimateOutIn, EaseOutCubic())
+        _timeline.apply(&view->mPosState, mNextEventPos, sTimeAnimateOutIn, ViewInOutEasing())
                  .finishFn(std::bind(&SessionView::animateFinish,this));
     }
     

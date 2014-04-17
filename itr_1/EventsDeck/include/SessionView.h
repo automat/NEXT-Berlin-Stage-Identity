@@ -49,6 +49,9 @@ namespace next {
         
         void resetBufferView(EventView* view);       //  reset view with next data
         void deleteEventViews();
+        
+        void triggerStart();
+        void triggerNext();
     
     public:
         SessionView(Session* data);

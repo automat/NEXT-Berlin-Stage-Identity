@@ -27,8 +27,10 @@ namespace next {
         
         bool mActive;       // is current event ?
         
-        void animateIn();                        // anim view reset bottom
-        void animateOut(SpeakerView* view);      // anim view top disappearing
+        //void animateIn();                        // anim view reset bottom
+        //void animateOut(SpeakerView* view);      // anim view top disappearing
+        void animateIn(SpeakerView* view, const AnimCallback& callback);
+        void animateOut(SpeakerView* view, const AnimCallback& callback);
         void animateMove(SpeakerView* view);     // anim view moving to new pos on stack
         void animateMoveTop(SpeakerView* view);  // anim view (new top) moving to new pos on stack
         void animateFinish();                    // anim on finish
@@ -40,12 +42,14 @@ namespace next {
         
         void showNext(int index);
         
+        void triggerNext(const AnimCallback& callback);
+        
     public:
         SpeakerStackView() : AbstractAnimView() {};
         SpeakerStackView(const vector<Speaker*>& data);
         ~SpeakerStackView();
         
-        void next(const AnimCallback& callback = std::bind(&AbstractAnimView::AnimCallbackNull)); // for debug
+        void next(const AnimCallback& callback = std::bind(&AbstractAnimView::AnimCallbackNull), int index = 0); // for debug
         void reset(const vector<Speaker*>& data);
         
         void draw();

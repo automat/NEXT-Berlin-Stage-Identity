@@ -10,6 +10,7 @@
 #define EventsDeck_EventView_h
 
 #include "Event.h"
+#include "AbstractAnimView.h"
 #include "SpeakerStackView.h"
 #include "cinder/Timeline.h"
 #include "cinder/Vector.h"
@@ -17,7 +18,7 @@
 namespace next {
     using namespace ci;
     
-    class EventView {
+    class EventView : public AbstractAnimView{
         friend class SessionView;
         
         Anim<Vec3f> mPosState;
@@ -36,7 +37,7 @@ namespace next {
         void draw();
         void update();
         
-        void nextSpeaker(); // for debug
+        void nextSpeaker(const AnimCallback& callback); // for debug
         
     };
 }

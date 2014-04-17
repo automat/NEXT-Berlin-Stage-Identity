@@ -21,7 +21,7 @@ namespace next {
     static const float sTimeAnimateInScale(0.75f);
     static const float sTimeAnimateInTranslate(1.5f);
     
-    const Vec3f SpeakerStackView::sStackStep(0,0.125f,0);
+    const Vec3f SpeakerStackView::sStackStep(0,0.05f,0);
     
     /*--------------------------------------------------------------------------------------------*/
     //  Constructor
@@ -120,7 +120,8 @@ namespace next {
     //  Animation
     /*--------------------------------------------------------------------------------------------*/
     
-    void SpeakerStackView::next(const AnimCallback& callback){
+    /*
+    void SpeakerStackView::next(const AnimCallback& callback, int index){
         if(mAnimating){
             return;
         }
@@ -134,8 +135,81 @@ namespace next {
         while(++i < mNumViews){
             animateMove(mViews[(mViewIndex+i)%mNumViews]);
         }
+    }*/
+    
+    void SpeakerStackView::next(const AnimCallback& callback, int index){
+        if(mAnimating){
+            return;
+        }
+        
+        if(mViews.size() == 1){
+            callback();
+            return;
+        }
+        
+        mAnimating = true;
+        mViewIndex = index;
+        
+        animateOut(mViews[mViewIndex],callback);
+        animateMoveTop(mViews[(mViewIndex+1)%mNumViews]);
+        
+        int i = 1;
+        while(++i < mNumViews){
+            animateMove(mViews[(mViewIndex+i)%mNumViews]);
+        }
+        
+        //animates
     }
     
+    void SpeakerStackView::triggerNext(const AnimCallback& callback){
+        mAnimating = false;
+        mViewIndex = (mViewIndex + 1) % mNumViews;
+        cout << mViewIndex << endl;
+        if (mViewIndex == mNumViews -1) {
+            callback();
+        } else {
+            next(callback,mViewIndex);
+        }
+    }
+    
+    void SpeakerStackView::animateOut(SpeakerView *view, const AnimCallback &callback){
+        Timeline& _timeline = timeline();
+        
+        //  move view out
+        _timeline.apply(&view->mTranslation, mStackTopOut, sTimeAnimateOut, EaseOutQuad())
+        .finishFn(std::bind(&SpeakerStackView::animateIn, this, view, callback));
+        
+        _timeline.apply(&view->mScale, 1.0f, sTimeAnimateOut, EaseOutCirc());
+        
+        //  unfocus view image
+        view->mIntrplState = 1.0f;
+        _timeline.apply(&view->mIntrplState, 0.0f, sTimeAnimateOut, EaseOutQuad())
+        .updateFn(std::bind(&SpeakerView::updateFocusImage,view));
+        
+        //  blend view alpha to 0
+        _timeline.apply(&view->mColorState, 0.0f, sTimeAnimateOutAlpha, EaseOutInSine())
+        .updateFn(std::bind(&SpeakerView::updateColorState, view));
+
+    }
+    
+    void SpeakerStackView::animateIn(SpeakerView *view, const AnimCallback &callback){
+        Timeline& _timeline = timeline();
+        const static Vec3f zero;
+        
+        view->mTranslation = Vec3f(0,-0.25f,0);
+        view->mScale       = 0.35f;
+        view->mColorState  = 1.0f;
+        view->mIntrplState = 0.0f;
+        
+        view->updateColorState();
+        view->updateFocusImage();
+        
+        _timeline.apply(&view->mScale,       1.0f, sTimeAnimateInScale,     EaseOutCirc());
+        _timeline.apply(&view->mTranslation, zero, sTimeAnimateInTranslate, EaseOutCirc())
+        .finishFn(std::bind(&SpeakerStackView::triggerNext, this, callback));
+    }
+    
+    /*
     void SpeakerStackView::animateOut(SpeakerView* view){
         Timeline& _timeline = timeline();
         
@@ -153,7 +227,7 @@ namespace next {
         //  blend view alpha to 0
         _timeline.apply(&view->mColorState, 0.0f, sTimeAnimateOutAlpha, EaseOutInSine())
                  .updateFn(std::bind(&SpeakerView::updateColorState, view));
-    }
+    }*/
     
     void SpeakerStackView::animateMove(SpeakerView* view){
         Vec3f target = view->mTranslation() + sStackStep;
@@ -169,7 +243,7 @@ namespace next {
         _timeline.apply(&view->mIntrplState, 1.0f, sTimeAnimateMove, EaseOutCirc())
                   .updateFn(std::bind(&SpeakerView::updateFocusImage,view));
     }
-    
+    /*
     void SpeakerStackView::animateIn(){
         Timeline& _timeline = timeline();
         const static Vec3f zero;
@@ -186,7 +260,7 @@ namespace next {
         _timeline.apply(&view->mScale,       1.0f, sTimeAnimateInScale,     EaseOutCirc());
         _timeline.apply(&view->mTranslation, zero, sTimeAnimateInTranslate, EaseOutCirc())
                  .finishFn(std::bind(&SpeakerStackView::animateFinish, this));
-    }
+    }*/
     
     void SpeakerStackView::animateFinish(){
         mAnimating = false;

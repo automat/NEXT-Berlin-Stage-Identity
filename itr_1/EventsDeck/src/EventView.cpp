@@ -2,7 +2,8 @@
 #include <OpenGL/OpenGL.h>
 
 namespace next {
-    EventView::EventView(Event* data){
+    EventView::EventView(Event* data) :
+        AbstractAnimView(){
         mSpeakerStackView = new SpeakerStackView();
         reset(data);
     }
@@ -29,8 +30,8 @@ namespace next {
         mSpeakerStackView->update();
     }
     
-    void EventView::nextSpeaker(){
-        mSpeakerStackView->next();
+    void EventView::nextSpeaker(const AnimCallback& callback){
+        mSpeakerStackView->next(callback);
     }
     
     void EventView::focusTop(){
