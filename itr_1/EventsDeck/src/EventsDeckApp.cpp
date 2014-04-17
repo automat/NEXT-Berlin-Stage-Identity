@@ -57,7 +57,7 @@ void EventsDeckApp::setup(){
     Rand::randSeed(clock() & 65535);
     
     float aspectRatio = getWindowAspectRatio();
-    float zoom = 2.65f;
+    float zoom = 3.65f;
     mCamera.setOrtho(-aspectRatio * zoom, aspectRatio * zoom, -zoom, zoom, -1, 10);
     mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
     
@@ -82,7 +82,7 @@ void EventsDeckApp::setup(){
     
     int i,j,l;
     i = -1;
-    while(++i < 20){ // create 6 dummy events
+    while(++i < 40){ // create 6 dummy events
         l = Rand::randInt(1, 6);
         j = -1;
         tempSpeakers.clear();

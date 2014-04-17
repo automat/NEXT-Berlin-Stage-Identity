@@ -20,15 +20,15 @@ namespace next {
     
     class EventView : public AbstractAnimView{
         friend class SessionView;
-        
-        Anim<Vec3f> mPosState;
-        
+
         Event* mData;
         SpeakerStackView* mSpeakerStackView;
         
         void reset(Event* data);
         void focusTop();
         void unfocus();
+
+        Anim<Vec3f> mPositionState;
         
     public:
         EventView(Event* data);
@@ -37,7 +37,7 @@ namespace next {
         void draw();
         void update();
         
-        void nextSpeaker(const AnimCallback& callback); // for debug
+        void stackSpeaker(const AnimCallback &callback); 
         
     };
 }

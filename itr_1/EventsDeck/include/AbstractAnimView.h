@@ -9,10 +9,16 @@
 #ifndef EventsDeck_AnimView_h
 #define EventsDeck_AnimView_h
 
-
+#include "cinder/Timeline.h"
 
 namespace next {
+    using namespace ci;
+    using namespace ci::app;
+    
     class AbstractAnimView {
+    public :
+        typedef std::function<void ()> AnimCallback;
+        
     protected:
         bool mAnimating;    // currently animating ?
         
@@ -20,9 +26,17 @@ namespace next {
             mAnimating = false;
         }
         
+        template<typename T>
+        typename Tween<T>::Options tween(Anim<T> *target, T endValue, float duration, EaseFn easeFunction, const AnimCallback& updateCallback = NULL, const AnimCallback& finishCallback = NULL){
+            return timeline().apply(target, endValue, duration, easeFunction).updateFn(updateCallback).finishFn(finishCallback);
+        }
+        
+        template<typename T>
+        typename Tween<T>::Options tween(Anim<T> *target, T startValue, T endValue, float duration, EaseFn easeFunction, const AnimCallback& updateCallback = NULL, const AnimCallback& finishCallback = NULL){
+            return timeline().apply(target, endValue, duration, easeFunction).updateFn(updateCallback).finishFn(finishCallback);
+        }
+        
     public:
-        typedef std::function<void ()> AnimCallback;
-        inline static void AnimCallbackNull(){}
         
         virtual void draw() = 0;
         virtual void update() = 0;

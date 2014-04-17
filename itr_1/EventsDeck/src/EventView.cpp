@@ -1,5 +1,4 @@
 #include "EventView.h"
-#include <OpenGL/OpenGL.h>
 
 namespace next {
     EventView::EventView(Event* data) :
@@ -18,7 +17,7 @@ namespace next {
     }
 
     void EventView::draw(){
-        Vec3f pos = mPosState();
+        Vec3f pos = mPositionState();
 
         glPushMatrix();
         glTranslatef(pos.x, pos.y, pos.z);
@@ -30,7 +29,7 @@ namespace next {
         mSpeakerStackView->update();
     }
     
-    void EventView::nextSpeaker(const AnimCallback& callback){
+    void EventView::stackSpeaker(const AnimCallback &callback){
         mSpeakerStackView->next(callback);
     }
     

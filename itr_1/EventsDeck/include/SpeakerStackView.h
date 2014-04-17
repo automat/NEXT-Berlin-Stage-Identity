@@ -34,14 +34,9 @@ namespace next {
         void animateMove(SpeakerView* view);     // anim view moving to new pos on stack
         void animateMoveTop(SpeakerView* view);  // anim view (new top) moving to new pos on stack
         void animateFinish();                    // anim on finish
-        
-        void animateFocus();
-        void animateUnfocus();
-        
+
         void deleteViews();
-        
-        void showNext(int index);
-        
+
         void triggerNext(const AnimCallback& callback);
         
     public:
@@ -49,7 +44,7 @@ namespace next {
         SpeakerStackView(const vector<Speaker*>& data);
         ~SpeakerStackView();
         
-        void next(const AnimCallback& callback = std::bind(&AbstractAnimView::AnimCallbackNull), int index = 0); // for debug
+        void next(const AnimCallback& callback = NULL , int index = 0); // for debug
         void reset(const vector<Speaker*>& data);
         
         void draw();
@@ -59,7 +54,7 @@ namespace next {
         void unfocus();
         
         //! stack the speakers!
-        void show(const AnimCallback& callback = std::bind(&AbstractAnimView::AnimCallbackNull));
+        void stack(const AnimCallback &callback = NULL);
         
     };
 }

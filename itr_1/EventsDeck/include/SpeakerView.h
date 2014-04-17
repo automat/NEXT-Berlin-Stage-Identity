@@ -14,13 +14,14 @@
 #include "cinder/Vector.h"
 #include "cinder/Timeline.h"
 #include "cinder/Color.h"
+#include "AbstractAnimView.h"
 
 #include "Speaker.h"
 
 
 using namespace ci;
 namespace next {
-    class SpeakerView {
+    class SpeakerView : public AbstractAnimView{
         friend class SpeakerStackView;
         
         const static Vec2f  sSize;
@@ -46,13 +47,11 @@ namespace next {
         
         Anim<float> mIntrplState;
         Anim<float> mColorState;
-        
-        Anim<Vec3f> mTranslation;
-        Anim<float> mScale;
+        Anim<Vec3f> mPositionState;
+        Anim<float> mScaleState;
         
         void drawFocus(float factorFocus = 1.0f, float factorColor = 1.0f);   //   0 = unfocused, 1 = focused
-        void updateAlpha();
-        
+
     public:
         SpeakerView(Speaker* data);
         ~SpeakerView();
@@ -65,23 +64,6 @@ namespace next {
         void updateColorState();
         
         void unfocusImage();
-        
-        inline void setPosition(const Vec3f &pos){
-            mTranslation = pos;
-        }
-        
-        inline void setScale(float scale){
-            mScale = scale;
-        }
-        
-        inline Vec3f getPosition(){
-            return mTranslation;
-        }
-        
-        inline float getScale(){
-            return mScale;
-        }
-        
     };
 }
 

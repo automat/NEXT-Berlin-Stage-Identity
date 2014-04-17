@@ -90,7 +90,7 @@ namespace next {
         int i = -1;
         while (++i < mBufferViewLen) {
             mBufferView[i] = new EventView(&(*events)[i]);
-            mBufferView[i]->mPosState = mNextEventPosOut;
+            mBufferView[i]->mPositionState = mNextEventPosOut;
         }
         
         start();
@@ -110,6 +110,8 @@ namespace next {
                 animatePrevOut(mBufferView[mBufferViewIndex]);
             }
         }
+        
+        cout << mDataIndex << endl;
         
         mDataIndex++;
         if(mDataIndex >= mNumData){
@@ -135,28 +137,24 @@ namespace next {
     
     void SessionView::triggerNext(){
         mAnimating =  false;
-        mBufferView[mBufferViewIndex]->nextSpeaker(std::bind(&SessionView::next, this));
+        mBufferView[mBufferViewIndex]->stackSpeaker(std::bind(&SessionView::next, this));
     }
     
     /*--------------------------------------------------------------------------------------------*/
     //  Animation
     /*--------------------------------------------------------------------------------------------*/
     
-    
-    
     void SessionView::animateStart(){
-        
-        Timeline& _timeline = timeline();
-        
-        _timeline.apply(&mBufferView[0]->mPosState, mNextEventPos, sTimeAnimateStart, ViewInOutEasing());
-                 //.finishFn(std::bind(&SessionView::next, this));
+        tween(&mBufferView[0]->mPositionState, mNextEventPos, sTimeAnimateStart, ViewInOutEasing(),
+              NULL, std::bind(&SessionView::next, this));
     }
     
     void SessionView::animatePrevOut(EventView *view){
         mAnimating = true;
-        Timeline& _timeline = timeline();
-        _timeline.apply(&view->mPosState, mPrevEventPos, sTimeAnimateOut, ViewInOutEasing())
-                 .finishFn(std::bind(&SessionView::animateFinish,this));
+        
+        tween(&view->mPositionState, mPrevEventPos, sTimeAnimateOut, ViewInOutEasing(),
+              NULL,std::bind(&SessionView::animateFinish,this));
+        
         view->unfocus();
         
         if (mDataIndex < mNumData) {
@@ -167,41 +165,40 @@ namespace next {
                 }
             }
         } else {
-            _timeline.apply(&view->mPosState, mPrevEventPosOut, sTimeAnimateOutOut, ViewInOutEasing())
-                     .finishFn(std::bind(&SessionView::resetBufferView,this,view));
+            tween(&view->mPositionState, mPrevEventPosOut, sTimeAnimateOutOut, ViewInOutEasing(),
+                  NULL, std::bind(&SessionView::resetBufferView,this,view));
         }
-        
     }
     
     void SessionView::animatePrevOutOut(EventView* view){
         mAnimating = true;
-        Timeline& _timeline = timeline();
-        _timeline.apply(&view->mPosState, mPrevEventPosOut, sTimeAnimateOutOut, ViewInOutEasing())
-                 .finishFn(std::bind(&SessionView::resetBufferView,this,view));
+
+        tween(&view->mPositionState, mPrevEventPosOut, sTimeAnimateOutOut, ViewInOutEasing(),
+              NULL, std::bind(&SessionView::resetBufferView,this,view));
     }
     
     void SessionView::animateNextIn(EventView* view){
         mAnimating = true;
-        Timeline& _timeline = timeline();
-        _timeline.apply(&view->mPosState, mCurrEventPos, sTimeAnimateIn, ViewInOutEasing())
-                 .finishFn(std::bind(&SessionView::triggerNext,this));
+        
+        tween(&view->mPositionState, mCurrEventPos, sTimeAnimateIn, ViewInOutEasing());
         view->focusTop();
     }
     
     void SessionView::animateNextOutIn(EventView* view){
         mAnimating = true;
-        Timeline& _timeline = timeline();
-        _timeline.apply(&view->mPosState, mNextEventPos, sTimeAnimateOutIn, ViewInOutEasing())
-                 .finishFn(std::bind(&SessionView::animateFinish,this));
+        
+        tween(&view->mPositionState, mNextEventPos, sTimeAnimateOutIn, ViewInOutEasing(),
+              NULL, std::bind(&SessionView::animateFinish,this));
     }
     
     void SessionView::resetBufferView(EventView* view){
-        view->mPosState = mNextEventPosOut;
+        view->mPositionState = mNextEventPosOut;
         int nextDataIndex = mDataIndex + 2; //  next after next
         if(nextDataIndex >= mNumData){
             return;
         }
         view->reset(&(*mData->getEvents())[nextDataIndex]);
+        triggerNext();
     }
     
     void SessionView::showSpeakers(EventView* view){

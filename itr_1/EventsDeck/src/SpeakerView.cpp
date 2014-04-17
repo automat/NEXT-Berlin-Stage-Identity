@@ -89,7 +89,8 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     SpeakerView::SpeakerView(Speaker* data) :
-    mData(data){
+        mData(data),
+        AbstractAnimView(){
         //
         //  Setup Fbo
         //
@@ -148,7 +149,7 @@ namespace next {
         
         mIntrplState = 0.0f;
         mColorState  = 1.0f;
-        mScale       = 1.0f;
+        mScaleState = 1.0f;
         
         drawFocus(mIntrplState,0.0f);
         updateColorState();
@@ -216,8 +217,8 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SpeakerView::draw(){
-        Vec3f pos   = mTranslation();
-        float scale = mScale();
+        Vec3f pos   = mPositionState();
+        float scale = mScaleState();
         
         glPushMatrix();
         glTranslatef(pos.x,pos.y,pos.z);
