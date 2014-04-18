@@ -37,7 +37,7 @@ namespace next {
         void draw();
         void update();
         
-        void stackSpeaker(const AnimCallback &callback); 
+        void stackSpeaker(const AnimCallback &callback);
         
     };
 }

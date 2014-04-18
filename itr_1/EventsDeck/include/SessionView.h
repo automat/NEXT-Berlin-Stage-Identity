@@ -20,30 +20,31 @@ namespace next {
     using namespace ci;
     
     class SessionView : public AbstractAnimView{
-        const static int sMinCyclicBufferLen;   //  minimum number of events to use cyclic repeating buffered event views
-        
+        bool     mValid;
         int      mNumData;      //  length of session data / num events
-        int      mDataIndex;    //  current focused event
         Session* mData;         //  data ref
-        
-        size_t      mBufferViewLen;   //  length of buffer
-        EventView*  mBufferView[5];   //  prev, current, next , buffer
-        int         mBufferViewIndex; //  index current buffer view
-        bool        mBufferViewValid;
-        int         mBufferViewStep;
-        
-        Vec3f mCurrEventPos;    //  ref position focused event
-        Vec3f mPrevEventPos;    //  ref position previous event
-        Vec3f mNextEventPos;    //  ref position next event
-        Vec3f mPrevEventPosOut; //  ref position previous event outside visible area
-        Vec3f mNextEventPosOut; //  ref position next event outside visible area
-        
-        Vec3f mEventPositions[5];
-        
+
+        int                mNumEventViews;
+        vector<EventView*> mEventViews;
+        vector<int>        mEventViewsOffset;
+        int                mEventViewStep;
+        int                mEventViewFront;
+        int                mEventViewBack;
+
+
+        Vec3f       mEventViewSlots[5];
+        const int   mEventViewSlotBegin;     // begin
+        const int   mEventViewSlotEnd;       // end
+        const int   mEventViewSlotFocus;
+        const int   mEventViewSlotUnfocusPrev;
+        const int   mEventViewSlotUnfocusNext;
+
+
+        void callbackTest();
         
         void animateStart();
-        void animateEnd();
-        
+
+
         void animateNextIn(EventView* view);        //  animate next view in
         void animateNextOutIn(EventView* view);     //  animate next next view in
         void animatePrevOut(EventView* view);       //  animate prev view out
@@ -52,9 +53,11 @@ namespace next {
         void resetBufferView(EventView* view);       //  reset view with next data
         void deleteEventViews();
         
-        void triggerStart();
         void triggerNext();
-    
+
+        void moveViews(int count = 1, int direction = 1);
+        void setViewState(EventView* view, int slot, int direction = 1);
+
     public:
         SessionView(Session* data);
         ~SessionView();
@@ -67,6 +70,7 @@ namespace next {
         void debugDraw();
         
         void next(); // for debug
+        void prev();
         void start();   //  start animation
     };
 }

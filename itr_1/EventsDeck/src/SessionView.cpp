@@ -4,16 +4,19 @@
 #include <OpenGL/OpenGL.h>
 #include "cinder/gl/gl.h"
 #include "cinder/Timeline.h"
+#include <math.h>
 
 #include <boost/assign/std/vector.hpp>
 #include <boost/assign.hpp>
+
+#define CLAMP(a,b,c)({\
+    MIN(MAX(b,a),c); \
+})
 
 namespace next {
     using namespace boost::assign;
     using namespace ci;
     using namespace ci::app;
-    
-    const int SessionView::sMinCyclicBufferLen(5);
     
     static const float sSlideLength(4);
     
@@ -25,8 +28,7 @@ namespace next {
     
     static const float sTimeAnimateStart(1.0f);
     static const float sTimeAnimateEnd(1.0f);
-    
-    
+
     typedef EaseOutCubic ViewInOutEasing;
     
     /*--------------------------------------------------------------------------------------------*/
@@ -35,23 +37,23 @@ namespace next {
     
     SessionView::SessionView(Session* data) :
         AbstractAnimView(),
-        mBufferViewLen(0),
-        mBufferViewIndex(-1),
-        mBufferViewValid(false),
+        mValid(false),
         mNumData(0),
-        mDataIndex(-1),
-        mBufferViewStep(-1){
+        mEventViewStep(0),
+        mEventViewFront(0),
+        mEventViewSlotBegin(0),
+        mEventViewSlotFocus(2),
+        mEventViewSlotUnfocusNext(1),
+        mEventViewSlotUnfocusPrev(3),
+
+        mEventViewSlotEnd(4){
             float slideLength_2 = sSlideLength * 0.5f;
-        
-            mPrevEventPos    = Vec3f(0,0, slideLength_2);
-            mNextEventPos    = Vec3f(0,0,-slideLength_2);
-            mPrevEventPosOut = mPrevEventPos * 2;
-            mNextEventPosOut = mNextEventPos * 2;
-            
-            mEventPositions[0] = Vec3f(0,0,-sSlideLength );
-            mEventPositions[1] = Vec3f(0,0,-slideLength_2);
-            mEventPositions[3] = Vec3f(0,0, slideLength_2);
-            mEventPositions[4] = Vec3f(0,0, sSlideLength );
+
+
+            mEventViewSlots[0] = Vec3f(0,0,-sSlideLength );
+            mEventViewSlots[1] = Vec3f(0,0,-slideLength_2);
+            mEventViewSlots[3] = Vec3f(0,0, slideLength_2);
+            mEventViewSlots[4] = Vec3f(0,0, sSlideLength );
             
         
             reset(data);
@@ -66,109 +68,120 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
  
     void SessionView::deleteEventViews(){
-        int i = -1;
-        while (++i < mBufferViewLen) {
-            if(mBufferView[i] != NULL){
-                delete mBufferView[i];
-            }
-        }
+        while(!mEventViews.empty()) delete mEventViews.back(), mEventViews.pop_back();
     }
     
     void SessionView::reset(Session* data){
         deleteEventViews();
         
-        mData            = data;
-        mNumData         = -1;
-        mDataIndex       = -1;
-        mBufferViewIndex = -1;
-        mBufferViewLen   = -1;
-        mBufferViewValid = !data->getEvents()->empty();
-        mBufferViewStep  = -1;
-        
-        if(!mBufferViewValid){
+        mData    = data;
+        mNumData = mData->getEvents()->size();
+        mValid   = mNumData != 0;
+        mEventViewStep = mEventViewFront = mEventViewBack = 0;
+
+        if(!mValid){
             return;
         }
         
         vector<Event>* events = mData->getEvents();
-        mNumData         = events->size();
-        mBufferViewLen   = min(sMinCyclicBufferLen,mNumData);
-        
+        mNumEventViews        = mNumData;
+
         int i = -1;
-        while (++i < mBufferViewLen) {
-            mBufferView[i] = new EventView(&(*events)[i]);
-            mBufferView[i]->mPositionState = mNextEventPosOut;
+        while (++i < mNumEventViews) {
+            mEventViews += new EventView(&(*events)[i]);
+            mEventViews.back()->mPositionState = mEventViewSlots[0];
+            mEventViewsOffset += -i;
         }
-        
-        //start();
-        next();
+
+        start();
     }
     
     /*--------------------------------------------------------------------------------------------*/
     //  Animation Trigger
     /*--------------------------------------------------------------------------------------------*/
     
-    /*
-    void SessionView::next(){
-        if(!mBufferViewValid){
-            return;
-        }
-        
-        if(mDataIndex < mNumData + 2){
-            if(mBufferViewIndex > -1){
-                animatePrevOut(mBufferView[mBufferViewIndex]);
-            }
-        }
-        
-        cout << mDataIndex << endl;
-        
-        mDataIndex++;
-        if(mDataIndex >= mNumData){
-            return;
-        }
-        
-        mBufferViewIndex = (mBufferViewIndex + 1) % mBufferViewLen;
-        animateNextIn(mBufferView[mBufferViewIndex]);
-        
-        if(mDataIndex < mNumData - 1){
-            animateNextOutIn(mBufferView[(mBufferViewIndex + 1) % mBufferViewLen]);
-        }
-    }*/
-    
-    void SessionView::next(){
-        if(!mBufferViewValid){
-            return;
-        }
-        
-        cout << mBufferViewStep << " / " << mNumData << endl;
-        
-        if(mBufferViewStep >= mNumData){
-            return;
-        }
-        
-        mBufferViewStep++;
-        
-        
-        
-        int bufferStepRel;
-        int i = -1;
-        while(++i < mBufferViewLen){
-            bufferStepRel = MAX(0, (mBufferViewStep - i) % 5);
-            if(bufferStepRel == 0){ // if end, hard reset to front
-                mBufferView[i]->mPositionState = mEventPositions[0];
-            } else { // tween to new pos
-                tween(&mBufferView[i]->mPositionState, mEventPositions[bufferStepRel], 1.0f);
-            }
-        }
-        
+    void SessionView::callbackTest(){
+        cout << "fsdf" << endl;
+        mEventViews[mEventViewFront]->stackSpeaker(std::bind(&SessionView::next,this));
     }
     
+    
+    void SessionView::next(){
+        if(mNumEventViews < 2){
+            return;
+        }
+        moveViews(1);
+    }
+
+    void SessionView::prev(){
+        if(mNumEventViews < 2){
+            return;
+        }
+        moveViews(1,-1);
+    }
+
     void SessionView::start(){
-        animateStart();
-        
+        if(mNumEventViews < 2){
+            moveViews(2, 1);
+            return;
+        }
+
+        cout << "###" << endl;
+        moveViews(1);
+
+        cout << mEventViewFront << endl;
+
+
     }
-    
+
+    void SessionView::moveViews(int count, int direction) {
+        if(!mValid ||
+            mEventViewFront >= mNumEventViews ||
+            mEventViewFront <= -1){
+            return;
+        }
+
+        int slot;
+        EventView* front;
+        EventView* view;
+
+        int i = -1;
+        while(++i < count){
+            mEventViewStep = mEventViewStep + direction;
+
+            slot = CLAMP(mEventViewsOffset[mEventViewFront] + mEventViewStep, 0, mEventViewSlotEnd);
+
+            front = mEventViews[mEventViewFront];
+            setViewState(front, slot, direction);
+            tween(&front->mPositionState, mEventViewSlots[slot], 2.0f, ViewInOutEasing());
+
+
+            int j= mEventViewFront;
+            while (++j < mNumEventViews) {
+                slot = CLAMP(mEventViewsOffset[j] + mEventViewStep, 0, mEventViewSlotEnd);
+
+                mEventViewFront += static_cast<int>(slot == mEventViewSlotEnd) * direction;
+
+                view = mEventViews[j];
+                setViewState(view, slot, direction);
+                tween(&view->mPositionState, mEventViewSlots[slot], 2.0f, ViewInOutEasing());
+            }
+        }
+    }
+
+
+    void SessionView::setViewState(EventView *view, int slot, int direction) {
+        if(slot == mEventViewSlotFocus){
+            view->focusTop();
+        } else if(direction == 1 && slot == mEventViewSlotUnfocusPrev){
+            view->unfocus();
+        } else if(direction == -1 && slot == mEventViewSlotUnfocusNext){
+            view->unfocus();
+        }
+    }
+
     void SessionView::triggerNext(){
-        mBufferView[mBufferViewIndex]->stackSpeaker(std::bind(&SessionView::next, this));
+       // mEventViews[mBufferViewIndex]->stackSpeaker(std::bind(&SessionView::next, this));
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -176,11 +189,14 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SessionView::animateStart(){
-        tween(&mBufferView[0]->mPositionState, mNextEventPos, sTimeAnimateStart, ViewInOutEasing(),
+        /*
+        tween(&mEventViews[0]->mPositionState, mNextEventPos, sTimeAnimateStart, ViewInOutEasing(),
               NULL, std::bind(&SessionView::next, this));
+              */
     }
     
     void SessionView::animatePrevOut(EventView *view){
+        /*
         tween(&view->mPositionState, mPrevEventPos, sTimeAnimateOut, ViewInOutEasing());
         
         view->unfocus();
@@ -189,30 +205,37 @@ namespace next {
             if(mDataIndex != 0){
                 int prevBufferIndex = (mBufferViewIndex - 1) % mBufferViewLen;
                 if(prevBufferIndex > -1){
-                    animatePrevOutOut(mBufferView[prevBufferIndex]);
+                    animatePrevOutOut(mEventViews[prevBufferIndex]);
                 }
             }
         } else {
             tween(&view->mPositionState, mPrevEventPosOut, sTimeAnimateOutOut, ViewInOutEasing(),
                   NULL, std::bind(&SessionView::resetBufferView,this,view));
         }
+        */
     }
     
     void SessionView::animatePrevOutOut(EventView* view){
+        /*
         tween(&view->mPositionState, mPrevEventPosOut, sTimeAnimateOutOut, ViewInOutEasing(),
               NULL, std::bind(&SessionView::resetBufferView,this,view));
+              */
     }
     
     void SessionView::animateNextIn(EventView* view){
+        /*
         tween(&view->mPositionState, mCurrEventPos, sTimeAnimateIn, ViewInOutEasing());
-        view->focusTop();
+        view->focusTop();  */
     }
     
     void SessionView::animateNextOutIn(EventView* view){
+        /*
         tween(&view->mPositionState, mNextEventPos, sTimeAnimateOutIn, ViewInOutEasing());
+        */
     }
     
     void SessionView::resetBufferView(EventView* view){
+        /*
         view->mPositionState = mNextEventPosOut;
         int nextDataIndex = mDataIndex + 2; //  next after next
         if(nextDataIndex >= mNumData){
@@ -220,6 +243,7 @@ namespace next {
         }
         view->reset(&(*mData->getEvents())[nextDataIndex]);
         triggerNext();
+        */
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -227,38 +251,36 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SessionView::draw(){
-        if(!mBufferViewValid){
+        if(!mValid){
             return;
         }
         
-        int  i = -1;
-        while (++i < mBufferViewLen) {
-            mBufferView[i]->draw();
+        for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
+            (*itr)->draw();
         }
     }
     
     void SessionView::update(){
-        if(!mBufferViewValid){
+        if(!mValid){
             return;
         }
         
-        int  i = -1;
-        while (++i < mBufferViewLen) {
-            mBufferView[i]->update();
+        for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
+            (*itr)->update();
         }
     }
     
     void SessionView::debugDraw(){
         glColor3f(1,0,0);
-        gl::drawLine(mPrevEventPosOut, mPrevEventPos);
-        gl::drawLine(mPrevEventPos, mCurrEventPos);
-        gl::drawSphere(mPrevEventPosOut, 0.025f);
-        gl::drawSphere(mPrevEventPos, 0.025f);
+        gl::drawLine(mEventViewSlots[0], mEventViewSlots[1]);
+        gl::drawLine(mEventViewSlots[1], mEventViewSlots[2]);
+        gl::drawSphere(mEventViewSlots[0], 0.025f);
+        gl::drawSphere(mEventViewSlots[1], 0.025f);
         glColor3f(1,0,1);
-        gl::drawLine(mNextEventPos, mCurrEventPos);
-        gl::drawLine(mNextEventPosOut, mNextEventPos);
-        gl::drawSphere(mNextEventPos, 0.025f);
-        gl::drawSphere(mNextEventPosOut, 0.025f);
+        gl::drawLine(mEventViewSlots[2], mEventViewSlots[3]);
+        gl::drawLine(mEventViewSlots[3], mEventViewSlots[4]);
+        gl::drawSphere(mEventViewSlots[3], 0.025f);
+        gl::drawSphere(mEventViewSlots[4], 0.025f);
         
     }
 }
