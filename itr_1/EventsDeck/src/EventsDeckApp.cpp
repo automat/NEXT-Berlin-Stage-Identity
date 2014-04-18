@@ -50,7 +50,8 @@ public:
 
 void EventsDeckApp::prepareSettings(Settings *settings) {
     //settings->setWindowSize(3552, 1105 );
-    settings->setWindowSize(1280, 1050);
+    settings->setWindowSize(800, 600);
+    settings->setWindowPos(50, 50);
 }
 
 void EventsDeckApp::setup(){
@@ -82,7 +83,7 @@ void EventsDeckApp::setup(){
     
     int i,j,l;
     i = -1;
-    while(++i < 40){ // create 6 dummy events
+    while(++i < 10){ // create 6 dummy events
         l = Rand::randInt(1, 6);
         j = -1;
         tempSpeakers.clear();

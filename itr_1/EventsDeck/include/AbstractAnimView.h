@@ -20,19 +20,13 @@ namespace next {
         typedef std::function<void ()> AnimCallback;
         
     protected:
-        bool mAnimating;    // currently animating ?
-        
-        inline void animateFinish(){
-            mAnimating = false;
-        }
-        
         template<typename T>
-        typename Tween<T>::Options tween(Anim<T> *target, T endValue, float duration, EaseFn easeFunction, const AnimCallback& updateCallback = NULL, const AnimCallback& finishCallback = NULL){
+        typename Tween<T>::Options tween(Anim<T> *target, T endValue, float duration, EaseFn easeFunction = EaseNone(), const AnimCallback& updateCallback = NULL, const AnimCallback& finishCallback = NULL){
             return timeline().apply(target, endValue, duration, easeFunction).updateFn(updateCallback).finishFn(finishCallback);
         }
         
         template<typename T>
-        typename Tween<T>::Options tween(Anim<T> *target, T startValue, T endValue, float duration, EaseFn easeFunction, const AnimCallback& updateCallback = NULL, const AnimCallback& finishCallback = NULL){
+        typename Tween<T>::Options tween(Anim<T> *target, T startValue, T endValue, float duration, EaseFn easeFunction = EaseNone(), const AnimCallback& updateCallback = NULL, const AnimCallback& finishCallback = NULL){
             return timeline().apply(target, endValue, duration, easeFunction).updateFn(updateCallback).finishFn(finishCallback);
         }
         
@@ -41,9 +35,6 @@ namespace next {
         virtual void draw() = 0;
         virtual void update() = 0;
         
-        inline bool isAnimating(){
-            return mAnimating;
-        }
     };
 }
 

@@ -13,7 +13,7 @@ namespace next {
     using namespace ci;
     using namespace ci::app;
     
-    const int SessionView::sMinCyclicBufferLen(4);
+    const int SessionView::sMinCyclicBufferLen(5);
     
     static const float sSlideLength(4);
     
@@ -39,13 +39,20 @@ namespace next {
         mBufferViewIndex(-1),
         mBufferViewValid(false),
         mNumData(0),
-        mDataIndex(-1){
+        mDataIndex(-1),
+        mBufferViewStep(-1){
             float slideLength_2 = sSlideLength * 0.5f;
         
             mPrevEventPos    = Vec3f(0,0, slideLength_2);
             mNextEventPos    = Vec3f(0,0,-slideLength_2);
             mPrevEventPosOut = mPrevEventPos * 2;
             mNextEventPosOut = mNextEventPos * 2;
+            
+            mEventPositions[0] = Vec3f(0,0,-sSlideLength );
+            mEventPositions[1] = Vec3f(0,0,-slideLength_2);
+            mEventPositions[3] = Vec3f(0,0, slideLength_2);
+            mEventPositions[4] = Vec3f(0,0, sSlideLength );
+            
         
             reset(data);
     }
@@ -70,14 +77,13 @@ namespace next {
     void SessionView::reset(Session* data){
         deleteEventViews();
         
-        mAnimating = false;
-        
         mData            = data;
         mNumData         = -1;
         mDataIndex       = -1;
         mBufferViewIndex = -1;
         mBufferViewLen   = -1;
         mBufferViewValid = !data->getEvents()->empty();
+        mBufferViewStep  = -1;
         
         if(!mBufferViewValid){
             return;
@@ -93,15 +99,17 @@ namespace next {
             mBufferView[i]->mPositionState = mNextEventPosOut;
         }
         
-        start();
+        //start();
+        next();
     }
     
     /*--------------------------------------------------------------------------------------------*/
     //  Animation Trigger
     /*--------------------------------------------------------------------------------------------*/
     
+    /*
     void SessionView::next(){
-        if(mAnimating || !mBufferViewValid){
+        if(!mBufferViewValid){
             return;
         }
         
@@ -121,9 +129,37 @@ namespace next {
         mBufferViewIndex = (mBufferViewIndex + 1) % mBufferViewLen;
         animateNextIn(mBufferView[mBufferViewIndex]);
         
-        if(mDataIndex < mNumData -1){
+        if(mDataIndex < mNumData - 1){
             animateNextOutIn(mBufferView[(mBufferViewIndex + 1) % mBufferViewLen]);
         }
+    }*/
+    
+    void SessionView::next(){
+        if(!mBufferViewValid){
+            return;
+        }
+        
+        cout << mBufferViewStep << " / " << mNumData << endl;
+        
+        if(mBufferViewStep >= mNumData){
+            return;
+        }
+        
+        mBufferViewStep++;
+        
+        
+        
+        int bufferStepRel;
+        int i = -1;
+        while(++i < mBufferViewLen){
+            bufferStepRel = MAX(0, (mBufferViewStep - i) % 5);
+            if(bufferStepRel == 0){ // if end, hard reset to front
+                mBufferView[i]->mPositionState = mEventPositions[0];
+            } else { // tween to new pos
+                tween(&mBufferView[i]->mPositionState, mEventPositions[bufferStepRel], 1.0f);
+            }
+        }
+        
     }
     
     void SessionView::start(){
@@ -131,12 +167,7 @@ namespace next {
         
     }
     
-    void SessionView::triggerStart(){
-        mAnimating = false;
-    }
-    
     void SessionView::triggerNext(){
-        mAnimating =  false;
         mBufferView[mBufferViewIndex]->stackSpeaker(std::bind(&SessionView::next, this));
     }
     
@@ -150,10 +181,7 @@ namespace next {
     }
     
     void SessionView::animatePrevOut(EventView *view){
-        mAnimating = true;
-        
-        tween(&view->mPositionState, mPrevEventPos, sTimeAnimateOut, ViewInOutEasing(),
-              NULL,std::bind(&SessionView::animateFinish,this));
+        tween(&view->mPositionState, mPrevEventPos, sTimeAnimateOut, ViewInOutEasing());
         
         view->unfocus();
         
@@ -171,24 +199,17 @@ namespace next {
     }
     
     void SessionView::animatePrevOutOut(EventView* view){
-        mAnimating = true;
-
         tween(&view->mPositionState, mPrevEventPosOut, sTimeAnimateOutOut, ViewInOutEasing(),
               NULL, std::bind(&SessionView::resetBufferView,this,view));
     }
     
     void SessionView::animateNextIn(EventView* view){
-        mAnimating = true;
-        
         tween(&view->mPositionState, mCurrEventPos, sTimeAnimateIn, ViewInOutEasing());
         view->focusTop();
     }
     
     void SessionView::animateNextOutIn(EventView* view){
-        mAnimating = true;
-        
-        tween(&view->mPositionState, mNextEventPos, sTimeAnimateOutIn, ViewInOutEasing(),
-              NULL, std::bind(&SessionView::animateFinish,this));
+        tween(&view->mPositionState, mNextEventPos, sTimeAnimateOutIn, ViewInOutEasing());
     }
     
     void SessionView::resetBufferView(EventView* view){
@@ -199,10 +220,6 @@ namespace next {
         }
         view->reset(&(*mData->getEvents())[nextDataIndex]);
         triggerNext();
-    }
-    
-    void SessionView::showSpeakers(EventView* view){
-        
     }
     
     /*--------------------------------------------------------------------------------------------*/

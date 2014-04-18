@@ -33,7 +33,6 @@ namespace next {
         void animateOut(SpeakerView* view, const AnimCallback& callback);
         void animateMove(SpeakerView* view);     // anim view moving to new pos on stack
         void animateMoveTop(SpeakerView* view);  // anim view (new top) moving to new pos on stack
-        void animateFinish();                    // anim on finish
 
         void deleteViews();
 

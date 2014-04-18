@@ -49,7 +49,6 @@ namespace next {
     void SpeakerStackView::reset(const vector<Speaker*>& data){
         deleteViews();
 
-        mAnimating   = false;
         mActive      = true;
         
         mNumViews    = data.size();
@@ -86,25 +85,16 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SpeakerStackView::focus(){
-        if(mAnimating){
-            return;
-        }
-        
-        mAnimating = true;
         SpeakerView* first = mViews.front();
         tween(&first->mIntrplState, 0.0f, 1.0f, sTimeAnimateFocus, EaseNone(),
-              std::bind(&SpeakerView::updateFocusState,first),
-              std::bind(&SpeakerStackView::animateFinish,this));
+              std::bind(&SpeakerView::updateFocusState,first));
     }
     
     void SpeakerStackView::unfocus(){
-        mAnimating = true;
-
         //  TODO: Add animate finish counter here
         for(vector<SpeakerView*>::iterator itr = mViews.begin(); itr != mViews.end(); ++itr){
             tween(&(*itr)->mIntrplState, 1.0f, 0.0f, sTimeAnimateUnfocus, EaseNone(),
-                  std::bind(&SpeakerView::updateFocusState, *itr),
-                  std::bind(&SpeakerStackView::animateFinish, this));
+                  std::bind(&SpeakerView::updateFocusState, *itr));
         }
     }
     
@@ -117,16 +107,11 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SpeakerStackView::next(const AnimCallback& callback, int index){
-        if(mAnimating){
-            return;
-        }
-        
         if(mViews.size() == 1){
             callback();
             return;
         }
         
-        mAnimating = true;
         mViewIndex = index;
         
         animateOut(mViews[mViewIndex],callback);
@@ -139,7 +124,6 @@ namespace next {
     }
     
     void SpeakerStackView::triggerNext(const AnimCallback& callback){
-        mAnimating = false;
         mViewIndex = (mViewIndex + 1) % mNumViews;
 
         if (mViewIndex == mNumViews - 1) {
@@ -188,7 +172,4 @@ namespace next {
               std::bind(&SpeakerView::updateFocusImage,view));
     }
 
-    void SpeakerStackView::animateFinish(){
-        mAnimating = false;
-    }
 }

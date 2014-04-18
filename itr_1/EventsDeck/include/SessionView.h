@@ -27,9 +27,10 @@ namespace next {
         Session* mData;         //  data ref
         
         size_t      mBufferViewLen;   //  length of buffer
-        EventView*  mBufferView[4];   //  prev, current, next , buffer
+        EventView*  mBufferView[5];   //  prev, current, next , buffer
         int         mBufferViewIndex; //  index current buffer view
         bool        mBufferViewValid;
+        int         mBufferViewStep;
         
         Vec3f mCurrEventPos;    //  ref position focused event
         Vec3f mPrevEventPos;    //  ref position previous event
@@ -37,7 +38,8 @@ namespace next {
         Vec3f mPrevEventPosOut; //  ref position previous event outside visible area
         Vec3f mNextEventPosOut; //  ref position next event outside visible area
         
-        void showSpeakers(EventView* view);
+        Vec3f mEventPositions[5];
+        
         
         void animateStart();
         void animateEnd();
