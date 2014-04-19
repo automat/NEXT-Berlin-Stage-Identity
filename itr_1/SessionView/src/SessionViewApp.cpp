@@ -12,6 +12,7 @@
 #include "EventView.h"
 #include "Session.h"
 #include "SessionView.h"
+#include "Mapping.h"
 #include "cinder/Rand.h"
 
 
@@ -36,21 +37,17 @@ public:
     
     CameraOrtho  mCamera;
     
-    // dummy data
-    vector<gl::Texture>   mDataImages;
-    vector<next::Speaker> mDataSpeakers;
-    vector<next::Event>   mDataEvents;
-    next::Session         mDataSession;
+    map<uint32_t, gl::Texture>*   mDataImages;
+    map<uint32_t, next::Speaker>* mDataSpeakers;
+    map<uint32_t, next::Event>*   mDataEvents;
+    next::Session*                mDataSession;
     
     next::SessionView*    mViewSession;
-    
-    next::Event           mEvent;
-    next::EventView*      mEventView;
 };
 
 void SessionViewApp::prepareSettings(Settings *settings) {
-    //settings->setWindowSize(3552, 1105 );
-    settings->setWindowSize(800, 600);
+    settings->setWindowSize(3552, 1105 );
+    //settings->setWindowSize(800, 600);
     settings->setWindowPos(0, 0);
 }
 
@@ -58,51 +55,31 @@ void SessionViewApp::setup(){
     Rand::randSeed(clock() & 65535);
     
     float aspectRatio = getWindowAspectRatio();
-    float zoom = 2.65f;
+    float zoom = 0.65f;
     mCamera.setOrtho(-aspectRatio * zoom, aspectRatio * zoom, -zoom, zoom, -1, 10);
     mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
     
-    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SessionView/resources/6893.png"));
-    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SessionView/resources/26262.png"));
-    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SessionView/resources/26092.png"));
-    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SessionView/resources/27263.png"));
-    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SessionView/resources/6893.png"));
-    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SessionView/resources/26262.png"));
-    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SessionView/resources/26092.png"));
-    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SessionView/resources/27263.png"));
-    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SessionView/resources/26262.png"));
-    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SessionView/resources/26092.png"));
-    mDataImages += gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SessionView/resources/27263.png"));
+    string jsonFilepath  = "/Users/automat/Projects/next/itr_1/SessionView/resources/data.json";
+    string imageFilepath = "/Users/automat/Projects/next/data/images_dome_stage";
     
-    using namespace next;
-    for(auto& image : mDataImages){
-        mDataSpeakers += Speaker::Create(image.weakClone());
-    }
-    
-    vector<Speaker*> tempSpeakers;
-    
-    int i,j,l;
-    i = -1;
-    while(++i < 6){ // create 6 dummy events
-        l = Rand::randInt(1, 5);
-        j = -1;
-        tempSpeakers.clear();
-        while (++j < l) {
-            tempSpeakers += &mDataSpeakers[Rand::randInt(0, mDataSpeakers.size())];
-        }
-        mDataEvents += next::Event::Create(tempSpeakers);
-    }
-    
-    
-    
-    mDataSession = Session::Create(0, "Session", 0, 0, &mDataEvents);
-    mViewSession = new SessionView(&mDataSession);
+    mDataImages   = nullptr;
+    mDataSpeakers = nullptr;
+    mDataEvents   = nullptr;
+    mDataSession  = nullptr;
+
+    next::Mapping::Get(jsonFilepath, imageFilepath, 3558,
+                       mDataImages, mDataSpeakers, mDataEvents, mDataSession);
+    mViewSession = new next::SessionView(mDataSession);
     
     gl::enableDepthRead();
 }
 
 SessionViewApp::~SessionViewApp(){
     delete mViewSession;
+    delete mDataSession;
+    delete mDataEvents;
+    delete mDataSpeakers;
+    delete mDataImages;
 }
 
 
@@ -130,7 +107,7 @@ void SessionViewApp::draw(){
     gl::clear( Color( 0, 0, 0 ) );
     gl::setMatrices(mCamera);
     
-    //gl::drawCoordinateFrame(2);
+    gl::drawCoordinateFrame(2);
     mViewSession->debugDraw();
     
     glAlphaFunc(GL_GREATER, 0.0);

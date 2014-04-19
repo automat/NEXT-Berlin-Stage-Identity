@@ -97,7 +97,7 @@ namespace next {
         gl::Fbo::Format fboFormat;
         fboFormat.setSamples(4);
         
-        mImageSize = data->getImageRef().getSize();
+        mImageSize = data->imageRef.getSize();
         
         int imageWidth  = mImageSize.x;
         int imageHeight = mImageSize.y;
@@ -111,7 +111,7 @@ namespace next {
         //
         //  recalc camera-faced quad coords according to speaker image
         //
-        float aspectRatio = data->getImageRef().getAspectRatio();
+        float aspectRatio = data->imageRef.getAspectRatio();
         Vec2f scalar      = Vec2f(1,aspectRatio);
         Vec2f offset      = Vec2f(0,(1 - sTexCoordsNorm[3].y) * 0.5f) * 0.5f;
         
@@ -164,7 +164,7 @@ namespace next {
         float factorFocusInv = 1.0f - factorFocus;
         float factorColorInv = 1.0f - factorColor;
         
-        const gl::Texture& image = mData->getImageRef();
+        const gl::Texture& image = mData->imageRef.weakClone();
         
         glPushAttrib(GL_VIEWPORT_BIT);
         gl::setViewport(image.getBounds());

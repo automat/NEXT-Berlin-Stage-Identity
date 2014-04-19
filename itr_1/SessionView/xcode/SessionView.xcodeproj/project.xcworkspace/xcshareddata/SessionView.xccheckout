@@ -5,31 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>5FAEF8CB-D691-4E6A-950D-4E92177CB73B</string>
+	<string>FE4529E3-1F68-4FFA-A069-8585DAB6EE7E</string>
 	<key>IDESourceControlProjectName</key>
 	<string>SessionView</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>133A036F-6F41-46A4-B440-4D4327E447DC</key>
+		<string>https://github.com/preciousforever/NEXT-Everything.git</string>
+	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>xcode/SessionView.xcodeproj/project.xcworkspace</string>
+	<string>itr_1/SessionView/xcode/SessionView.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>9E554262-104B-44E1-844C-A4DA4921D023</key>
-		<string>../../..</string>
+		<key>133A036F-6F41-46A4-B440-4D4327E447DC</key>
+		<string>../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/preciousforever/NEXT-Everything.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>9E554262-104B-44E1-844C-A4DA4921D023</string>
+	<string>133A036F-6F41-46A4-B440-4D4327E447DC</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>9E554262-104B-44E1-844C-A4DA4921D023</string>
+			<string>133A036F-6F41-46A4-B440-4D4327E447DC</string>
 			<key>IDESourceControlWCCName</key>
-			<string>SessionView</string>
+			<string>next</string>
 		</dict>
 	</array>
 </dict>

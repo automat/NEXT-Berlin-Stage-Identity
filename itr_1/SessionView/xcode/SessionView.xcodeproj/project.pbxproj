@@ -25,6 +25,7 @@
 		CDCBF25C1902EF880060E875 /* SessionView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDCBF2551902EF880060E875 /* SessionView.cpp */; };
 		CDCBF25E1902EF880060E875 /* SpeakerStackView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDCBF2571902EF880060E875 /* SpeakerStackView.cpp */; };
 		CDCBF25F1902EF880060E875 /* SpeakerView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDCBF2581902EF880060E875 /* SpeakerView.cpp */; };
+		CDCBF26A1902FF570060E875 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF2691902FF570060E875 /* data.json */; };
 		D89712634BA0486685DCE17F /* SessionViewApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D727B207414FA590248C77 /* SessionViewApp.cpp */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,8 @@
 		CDCBF2551902EF880060E875 /* SessionView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SessionView.cpp; path = ../src/SessionView.cpp; sourceTree = "<group>"; };
 		CDCBF2571902EF880060E875 /* SpeakerStackView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpeakerStackView.cpp; path = ../src/SpeakerStackView.cpp; sourceTree = "<group>"; };
 		CDCBF2581902EF880060E875 /* SpeakerView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpeakerView.cpp; path = ../src/SpeakerView.cpp; sourceTree = "<group>"; };
+		CDCBF2681902F52A0060E875 /* Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mapping.h; path = ../include/Mapping.h; sourceTree = "<group>"; };
+		CDCBF2691902FF570060E875 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = data.json; path = ../resources/data.json; sourceTree = "<group>"; };
 		E88D7BC8BA0F4297A5FC3CF9 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		F4D727B207414FA590248C77 /* SessionViewApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = SessionViewApp.cpp; path = ../src/SessionViewApp.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,6 +166,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CDCBF2691902FF570060E875 /* data.json */,
 				CDCBF24A1902EF7D0060E875 /* 6893.png */,
 				CDCBF24B1902EF7D0060E875 /* 26092.png */,
 				CDCBF24C1902EF7D0060E875 /* 26262.png */,
@@ -197,6 +201,7 @@
 				CDCBF2401902EF740060E875 /* Event.h */,
 				CDCBF2451902EF740060E875 /* Session.h */,
 				CDCBF2471902EF740060E875 /* Speaker.h */,
+				CDCBF2681902F52A0060E875 /* Mapping.h */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -302,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B113190560348D3BF30AC17 /* CinderApp.icns in Resources */,
+				CDCBF26A1902FF570060E875 /* data.json in Resources */,
 				CDCBF2511902EF7D0060E875 /* 27263.png in Resources */,
 				CDCBF24F1902EF7D0060E875 /* 26092.png in Resources */,
 				CDCBF2501902EF7D0060E875 /* 26262.png in Resources */,

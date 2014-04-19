@@ -11,23 +11,19 @@
 
 #include <vector>
 #include "Speaker.h"
+#include <string>
 
 namespace next {
     using namespace std;
    
-    class Event {
-        vector<Speaker*> mSpeakers;
-    
-    public:
-        inline static Event Create(const vector<Speaker*>& speakers){
-            Event event;
-            event.mSpeakers = speakers;
-            return event;
-        }
+    struct Event{
+        string endHourString;
+        time_t endTimeStamp;
+        string startTimeStamp;
+        string title;
+        string type;
         
-        inline const vector<Speaker*>& getSpeakers(){
-            return mSpeakers;
-        }
+        vector<Speaker*> speakers;
     };
 }
 #endif

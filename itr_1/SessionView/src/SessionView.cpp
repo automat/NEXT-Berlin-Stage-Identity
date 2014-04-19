@@ -69,7 +69,7 @@ namespace next {
     void SessionView::reset(Session* data){
         deleteEventViews();
         
-        vector<Event>* events = data->getEvents();
+        map<uint32_t, Event>* events = data->events;
         
         mNumEventViews = events->size();
         mEventViewStep = mEventViewFront = mEventViewBack = 0;
@@ -83,10 +83,10 @@ namespace next {
         }
 
         int i = -1;
-        while (++i < mNumEventViews) {
-            mEventViews += new EventView(&(*events)[i]);
+        for(map<uint32_t, Event>::iterator itr = events->begin(); itr != events->end(); ++itr){
+            mEventViews += new EventView(&((*itr).second));
             mEventViews.back()->mPositionState = mEventViewSlots[0];
-            mEventViewsOffset += -i;
+            mEventViewsOffset += -(++i);
         }
 
         start();

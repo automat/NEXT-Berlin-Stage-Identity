@@ -9,7 +9,7 @@ namespace next {
     
     void EventView::reset(Event* data) {
         mData = data;
-        mSpeakerStackView->reset(mData->getSpeakers());
+        mSpeakerStackView->reset(mData->speakers);
     }
     
     EventView::~EventView(){

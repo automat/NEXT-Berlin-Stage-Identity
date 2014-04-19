@@ -6,25 +6,16 @@
 #define __Speaker_H_
 
 #include "cinder/gl/Texture.h"
-
-// Dummy
+#include <string>
 namespace next {
+    using namespace std;
     using namespace ci;
-    class Speaker {
-        gl::Texture mTextureRef;
-    
-    public:
-        Speaker(){};
-    
-        inline const gl::Texture getImageRef(){
-            return mTextureRef.weakClone();
-        };
-        
-        static Speaker Create(const gl::Texture& image){
-            Speaker speaker;
-            speaker.mTextureRef = image.weakClone();
-            return speaker;
-        }
+    struct Speaker {
+        gl::Texture imageRef;
+        string companyName;
+        string companyRole;
+        string name;
+        string twitterHandle;
     };
 }
 
