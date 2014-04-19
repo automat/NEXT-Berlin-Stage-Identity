@@ -41,7 +41,7 @@ class TextboxApp : public AppNative {
 	void draw();
     
     string mString;
-    utils::TextBox* mTextBox;
+    next::TextBox* mTextBox;
     params::InterfaceGlRef mParams;
 };
 
@@ -53,7 +53,7 @@ void TextboxApp::prepareSettings(Settings* settings){
 void TextboxApp::setup(){
     mString = "At­ NEXT14, great speakers will draw a picture of what ’The New Normal’ will look like in the near future. Join NEXT14 on May 5-6, 2014!";
     
-    mTextBox = new utils::TextBox();
+    mTextBox = new next::TextBox();
     
     mTextBox->setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),TEXT_BOX_FONT_SIZE * TEXT_BOX_TEXTURE_FONT_SIZE_SCALE));
     mTextBox->setFontSize(TEXT_BOX_FONT_SIZE);

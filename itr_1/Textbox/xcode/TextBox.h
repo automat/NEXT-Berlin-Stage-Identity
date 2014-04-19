@@ -42,7 +42,7 @@
 //  this thing is a stripped down version of the quote setter
 //
 
-namespace utils {
+namespace next {
     using namespace std;
     using namespace ci;
     using namespace boost;
@@ -422,6 +422,7 @@ namespace utils {
         }
         
         inline void setFontSize(float size){
+            size = MAX(0,size);
             float fontSize = mTexFontRef->getFont().getSize();
      
             mFontScale     = size / fontSize;
@@ -748,7 +749,6 @@ namespace utils {
             float underlineHeight_2 = mUnderlineHeight * 0.5f;
             float underlineMid      = mFontBaseline + mUnderlineBaselineOffset;
             float underlineTop      = underlineMid - underlineHeight_2;
-            float underlineBottom   = underlineMid + underlineHeight_2;
             
             float row = 0;
             for(const auto& line : mLines){
