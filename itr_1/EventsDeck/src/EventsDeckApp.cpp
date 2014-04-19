@@ -49,16 +49,16 @@ public:
 };
 
 void EventsDeckApp::prepareSettings(Settings *settings) {
-    //settings->setWindowSize(3552, 1105 );
-    settings->setWindowSize(800, 600);
-    settings->setWindowPos(50, 50);
+    settings->setWindowSize(3552, 1105 );
+    //settings->setWindowSize(800, 600);
+    settings->setWindowPos(0, 0);
 }
 
 void EventsDeckApp::setup(){
     Rand::randSeed(clock() & 65535);
     
     float aspectRatio = getWindowAspectRatio();
-    float zoom = 2.65f;
+    float zoom = 0.65f;
     mCamera.setOrtho(-aspectRatio * zoom, aspectRatio * zoom, -zoom, zoom, -1, 10);
     mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
     
@@ -83,7 +83,7 @@ void EventsDeckApp::setup(){
     
     int i,j,l;
     i = -1;
-    while(++i < 1){ // create 6 dummy events
+    while(++i < 6){ // create 6 dummy events
         l = Rand::randInt(1, 6);
         j = -1;
         tempSpeakers.clear();
@@ -130,9 +130,8 @@ void EventsDeckApp::draw(){
     gl::clear( Color( 0, 0, 0 ) );
     gl::setMatrices(mCamera);
     
-    gl::drawCoordinateFrame(2);
-    
-    mViewSession->debugDraw();
+    //gl::drawCoordinateFrame(2);
+    //mViewSession->debugDraw();
    
     glAlphaFunc(GL_GREATER, 0.0);
     glEnable(GL_ALPHA_TEST);

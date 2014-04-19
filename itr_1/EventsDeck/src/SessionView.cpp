@@ -21,14 +21,11 @@ namespace next {
     static const float sSlideLength(4);
     
     //  to be replaced with config
-    static const float sTimeAnimateIn(2.25f);
-    static const float sTimeAnimateOutIn(2.25f);
-    static const float sTimeAnimateOut(2.25f);
-    static const float sTimeAnimateOutOut(2.25f);
+    static const float sTimeAnimateInOut(2.0f);
     
-    static const float sTimeAnimateStart(1.0f);
-    static const float sTimeAnimateEnd(1.0f);
+    static const float sTimeAnimateStartEnd(1.0f);
 
+    typedef EaseOutCubic ViewStartEndEasing;
     typedef EaseOutCubic ViewInOutEasing;
     
     /*--------------------------------------------------------------------------------------------*/
@@ -37,26 +34,23 @@ namespace next {
     
     SessionView::SessionView(Session* data) :
         AbstractAnimView(),
-        mValid(false),
-        mNumData(0),
-        mEventViewStep(0),
-        mEventViewFront(0),
-        mEventViewSlotBegin(0),
-        mEventViewSlotFocus(2),
-        mEventViewSlotUnfocusNext(1),
-        mEventViewSlotUnfocusPrev(3),
-
-        mEventViewSlotEnd(4){
-            float slideLength_2 = sSlideLength * 0.5f;
-
-
-            mEventViewSlots[0] = Vec3f(0,0,-sSlideLength );
-            mEventViewSlots[1] = Vec3f(0,0,-slideLength_2);
-            mEventViewSlots[3] = Vec3f(0,0, slideLength_2);
-            mEventViewSlots[4] = Vec3f(0,0, sSlideLength );
+            mValid(false),
+            mNumData(0),
+            mEventViewStep(0),
+            mEventViewFront(0),
+            mEventViewSlotBegin(0),
+            mEventViewSlotFocus(2),
+            mEventViewSlotUnfocusNext(1),
+            mEventViewSlotUnfocusPrev(3),
+            mEventViewSlotEnd(4){
+                
+                float slideLength_2 = sSlideLength * 0.5f;
+                mEventViewSlots[0] = Vec3f(0,0,-sSlideLength );
+                mEventViewSlots[1] = Vec3f(0,0,-slideLength_2);
+                mEventViewSlots[3] = Vec3f(0,0, slideLength_2);
+                mEventViewSlots[4] = Vec3f(0,0, sSlideLength );
             
-        
-            reset(data);
+                reset(data);
     }
     
     SessionView::~SessionView(){
@@ -110,7 +104,7 @@ namespace next {
         if(mNumEventViews < 2){
             return;
         }
-        moveViews(1);
+        moveViews();
     }
 
     void SessionView::prev(){
@@ -125,13 +119,7 @@ namespace next {
             moveViews(2, 1);
             return;
         }
-
-        cout << "###" << endl;
-        moveViews(1);
-
-        cout << mEventViewFront << endl;
-
-
+        moveViews();
     }
 
     void SessionView::moveViews(int count, int direction) {
@@ -153,18 +141,25 @@ namespace next {
 
             front = mEventViews[mEventViewFront];
             setViewState(front, slot, direction);
-            tween(&front->mPositionState, mEventViewSlots[slot], 2.0f, ViewInOutEasing());
-
-
+            tween(&front->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing());
+            
             int j= mEventViewFront;
             while (++j < mNumEventViews) {
                 slot = CLAMP(mEventViewsOffset[j] + mEventViewStep, 0, mEventViewSlotEnd);
-
-                mEventViewFront += static_cast<int>(slot == mEventViewSlotEnd) * direction;
-
+       
+                if(direction > 0){
+                    if(slot == mEventViewSlotEnd){
+                        mEventViewFront++;
+                    }
+                } else {
+                    if(mEventViewFront > 0){
+                        mEventViewFront--;
+                    }
+                }
+                
                 view = mEventViews[j];
                 setViewState(view, slot, direction);
-                tween(&view->mPositionState, mEventViewSlots[slot], 2.0f, ViewInOutEasing());
+                tween(&view->mPositionState, view->mPositionState(), mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing());
             }
         }
     }
@@ -179,92 +174,18 @@ namespace next {
             view->unfocus();
         }
     }
-
-    void SessionView::triggerNext(){
-       // mEventViews[mBufferViewIndex]->stackSpeaker(std::bind(&SessionView::next, this));
-    }
-    
-    /*--------------------------------------------------------------------------------------------*/
-    //  Animation
-    /*--------------------------------------------------------------------------------------------*/
-    
-    void SessionView::animateStart(){
-        /*
-        tween(&mEventViews[0]->mPositionState, mNextEventPos, sTimeAnimateStart, ViewInOutEasing(),
-              NULL, std::bind(&SessionView::next, this));
-              */
-    }
-    
-    void SessionView::animatePrevOut(EventView *view){
-        /*
-        tween(&view->mPositionState, mPrevEventPos, sTimeAnimateOut, ViewInOutEasing());
-        
-        view->unfocus();
-        
-        if (mDataIndex < mNumData) {
-            if(mDataIndex != 0){
-                int prevBufferIndex = (mBufferViewIndex - 1) % mBufferViewLen;
-                if(prevBufferIndex > -1){
-                    animatePrevOutOut(mEventViews[prevBufferIndex]);
-                }
-            }
-        } else {
-            tween(&view->mPositionState, mPrevEventPosOut, sTimeAnimateOutOut, ViewInOutEasing(),
-                  NULL, std::bind(&SessionView::resetBufferView,this,view));
-        }
-        */
-    }
-    
-    void SessionView::animatePrevOutOut(EventView* view){
-        /*
-        tween(&view->mPositionState, mPrevEventPosOut, sTimeAnimateOutOut, ViewInOutEasing(),
-              NULL, std::bind(&SessionView::resetBufferView,this,view));
-              */
-    }
-    
-    void SessionView::animateNextIn(EventView* view){
-        /*
-        tween(&view->mPositionState, mCurrEventPos, sTimeAnimateIn, ViewInOutEasing());
-        view->focusTop();  */
-    }
-    
-    void SessionView::animateNextOutIn(EventView* view){
-        /*
-        tween(&view->mPositionState, mNextEventPos, sTimeAnimateOutIn, ViewInOutEasing());
-        */
-    }
-    
-    void SessionView::resetBufferView(EventView* view){
-        /*
-        view->mPositionState = mNextEventPosOut;
-        int nextDataIndex = mDataIndex + 2; //  next after next
-        if(nextDataIndex >= mNumData){
-            return;
-        }
-        view->reset(&(*mData->getEvents())[nextDataIndex]);
-        triggerNext();
-        */
-    }
     
     /*--------------------------------------------------------------------------------------------*/
     //  Draw / Update
     /*--------------------------------------------------------------------------------------------*/
     
     void SessionView::draw(){
-        if(!mValid){
-            return;
-        }
-        
         for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
             (*itr)->draw();
         }
     }
     
     void SessionView::update(){
-        if(!mValid){
-            return;
-        }
-        
         for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
             (*itr)->update();
         }

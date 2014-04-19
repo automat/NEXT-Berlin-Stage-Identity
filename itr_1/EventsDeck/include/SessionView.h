@@ -44,16 +44,7 @@ namespace next {
         
         void animateStart();
 
-
-        void animateNextIn(EventView* view);        //  animate next view in
-        void animateNextOutIn(EventView* view);     //  animate next next view in
-        void animatePrevOut(EventView* view);       //  animate prev view out
-        void animatePrevOutOut(EventView* view);    //  animate prev prev view out
-        
-        void resetBufferView(EventView* view);       //  reset view with next data
         void deleteEventViews();
-        
-        void triggerNext();
 
         void moveViews(int count = 1, int direction = 1);
         void setViewState(EventView* view, int slot, int direction = 1);
