@@ -91,41 +91,29 @@ namespace next {
 
         start();
     }
-    
-    /*--------------------------------------------------------------------------------------------*/
-    //  Animation Trigger
-    /*--------------------------------------------------------------------------------------------*/
-    
-    void SessionView::callbackTest(){
-        cout << "fsdf" << endl;
-        mEventViews[mEventViewFront]->stackSpeaker(std::bind(&SessionView::stepForward_1,this));
-    }
 
+    /*--------------------------------------------------------------------------------------------*/
+    //  On start / end
+    /*--------------------------------------------------------------------------------------------*/
 
-    void SessionView::start(){
-#ifdef SESSION_VIEW_DEBUG_STATE
-        cout << "### Session View Start ###" << endl;
-#endif
-        if(mNumEventViews < 2){
-            moveViews(2);
-            return;
-        }
-        moveViews();
-    }
-    
     void SessionView::onFinish(){
 #ifdef SESSION_VIEW_DEBUG_STATE
         cout << "### Session View End ###" << endl;
 #endif
     }
 
-    void SessionView::stepForward_1() {
-        moveViews();
+    void SessionView::onStart(){
+#ifdef SESSION_VIEW_DEBUG_STATE
+        cout << "### Session View Start ###" << endl;
+#endif
     }
-    
-    void SessionView::stepForward_2(){
-        moveViews(2);
-    }
+
+    /*--------------------------------------------------------------------------------------------*/
+    //  Animation states
+    /*--------------------------------------------------------------------------------------------*/
+
+    void SessionView::stepForward_1(){moveViews();}
+    void SessionView::stepForward_2(){moveViews(2);}
 
     void SessionView::moveViews(int count) {
         if(!mValid ||
@@ -160,6 +148,16 @@ namespace next {
         cout << "Front: " << mEventViewFront << endl;
 #endif
     }
+
+
+    void SessionView::start(){
+        onStart();
+        if(mNumEventViews < 2){
+            stepForward_2();
+            return;
+        }
+        stepForward_1();
+    }
     
     void SessionView::focusView(next::EventView *view){
         if(mNumEventViews < 2){
@@ -168,8 +166,7 @@ namespace next {
             view->stackSpeaker(std::bind(&SessionView::stepForward_1, this));
         }
     }
-    
-    
+
     void SessionView::setViewState(EventView *view, int slot) {
         cout << slot << endl;
         

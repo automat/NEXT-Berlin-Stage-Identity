@@ -25,7 +25,7 @@ namespace next {
         Vec3f                mStackTop;     //  pos of front
         Vec3f                mStackTopOut;  //  target pos out
         
-        bool mActive;       // is current event ?
+        float                mTimeAnimDelaySpeaker;
         
         void animateIn(SpeakerView* view, const AnimCallback& callback);
         void animateOut(SpeakerView* view, const AnimCallback& callback);
@@ -36,13 +36,16 @@ namespace next {
 
         void triggerNext(const AnimCallback& callback);
         
+        void next(const AnimCallback& callback = NULL , int index = 0); // for debug
+        
+        
     public:
         SpeakerStackView() : AbstractAnimView() {};
         SpeakerStackView(const vector<Speaker*>& data);
         ~SpeakerStackView();
-        
-        void next(const AnimCallback& callback = NULL , int index = 0); // for debug
+       
         void reset(const vector<Speaker*>& data);
+        void stack(const AnimCallback& callback);
         
         void draw();
         void update();

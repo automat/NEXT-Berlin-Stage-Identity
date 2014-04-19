@@ -40,8 +40,6 @@ namespace next {
         const int mEventViewSlotIn;
 
 
-        void callbackTest();
-
         //! clear all views
         void deleteEventViews();
         //! move all views in steps and direction
@@ -65,13 +63,13 @@ namespace next {
         ~SessionView();
         
         void reset(Session* data);  //  reset session with new data
-        
-        void draw();
-        void update();
-        
-        void debugDraw();
+        void start();               //  start animation
 
-        void start();   //  start animation
+
+        void draw();
+        void debugDraw();
+        void update();
+
     };
 }
 

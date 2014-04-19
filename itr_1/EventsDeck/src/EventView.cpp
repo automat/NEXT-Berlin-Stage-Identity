@@ -30,7 +30,7 @@ namespace next {
     }
     
     void EventView::stackSpeaker(const AnimCallback &callback){
-        mSpeakerStackView->next(callback);
+        mSpeakerStackView->stack(callback);
     }
     
     void EventView::focusTop(){

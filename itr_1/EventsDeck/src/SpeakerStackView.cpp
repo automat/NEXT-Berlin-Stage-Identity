@@ -5,6 +5,7 @@
 #include <math.h>
 #include "cinder/Timeline.h"
 #include "cinder/Tween.h"
+#include "Config.h"
 
 namespace next {
     
@@ -48,13 +49,13 @@ namespace next {
     
     void SpeakerStackView::reset(const vector<Speaker*>& data){
         deleteViews();
-
-        mActive      = true;
         
         mNumViews    = data.size();
         mViewIndex   = -1;
         mStackTop    = sStackStep * static_cast<float>(mNumViews);
         mStackTopOut = mStackTop + Vec3f(0,0.5f,0);
+        
+        mTimeAnimDelaySpeaker = MAX(SESSION_EVENT_TIME_SPEAKER_MIN,SESSION_EVENT_TIME_MAX / static_cast<float>(mNumViews));
         
         for(vector<Speaker*>::const_iterator itr = data.begin(); itr != data.end(); ++itr){
             mViews   += new SpeakerView(*itr);
@@ -91,7 +92,6 @@ namespace next {
     }
     
     void SpeakerStackView::unfocus(){
-        //  TODO: Add animate finish counter here
         for(vector<SpeakerView*>::iterator itr = mViews.begin(); itr != mViews.end(); ++itr){
             tween(&(*itr)->mIntrplState, 1.0f, 0.0f, sTimeAnimateUnfocus, EaseNone(),
                   std::bind(&SpeakerView::updateFocusState, *itr));
@@ -102,12 +102,16 @@ namespace next {
     //  Animation
     /*--------------------------------------------------------------------------------------------*/
     
-    void SpeakerStackView::next(const AnimCallback& callback, int index){
+    void SpeakerStackView::stack(const AnimCallback &callback){
         if(mViews.size() == 1){
-            callback();
+            delayCallback(mTimeAnimDelaySpeaker, callback);
             return;
         }
         
+        delayCallback(mTimeAnimDelaySpeaker, std::bind(&SpeakerStackView::next, this, callback, 0));
+    }
+    
+    void SpeakerStackView::next(const AnimCallback& callback, int index){
         mViewIndex = index;
         
         animateOut(mViews[mViewIndex],callback);
@@ -123,9 +127,9 @@ namespace next {
         mViewIndex = (mViewIndex + 1) % mNumViews;
 
         if (mViewIndex == mNumViews - 1) {
-            callback();
+            delayCallback(mTimeAnimDelaySpeaker, callback);
         } else {
-            next(callback,mViewIndex);
+            delayCallback(mTimeAnimDelaySpeaker, std::bind(&SpeakerStackView::next,this,callback,mViewIndex));
         }
     }
     
