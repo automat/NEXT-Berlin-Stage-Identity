@@ -24,6 +24,8 @@ namespace next {
         int      mNumData;      //  length of session data / num events
         Session* mData;         //  data ref
 
+        bool mAnimating;
+        
         int                mNumEventViews;
         vector<EventView*> mEventViews;
         vector<int>        mEventViewsOffset;

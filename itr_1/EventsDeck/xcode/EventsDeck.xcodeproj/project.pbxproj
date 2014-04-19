@@ -64,6 +64,7 @@
 		CD15056718FF1BED00A0EEAE /* SessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SessionView.h; path = ../include/SessionView.h; sourceTree = "<group>"; };
 		CD15056918FF291600A0EEAE /* SessionView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SessionView.cpp; path = ../src/SessionView.cpp; sourceTree = "<group>"; };
 		CD15056B18FF465000A0EEAE /* AbstractAnimView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractAnimView.h; path = ../include/AbstractAnimView.h; sourceTree = "<group>"; };
+		CDCBF23D19029DFB0060E875 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +155,7 @@
 				CD15056118FD794200A0EEAE /* util */,
 				4EAD905DF9F24846BE848B85 /* Resources.h */,
 				031E2BFFC3B440AA8500F1ED /* EventsDeck_Prefix.pch */,
+				CDCBF23D19029DFB0060E875 /* Config.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";

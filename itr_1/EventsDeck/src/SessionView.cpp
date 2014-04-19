@@ -4,10 +4,13 @@
 #include <OpenGL/OpenGL.h>
 #include "cinder/gl/gl.h"
 #include "cinder/Timeline.h"
+#include "cinder/Utilities.h"
 #include <math.h>
 
 #include <boost/assign/std/vector.hpp>
 #include <boost/assign.hpp>
+
+#include "Config.h"
 
 #define CLAMP(a,b,c)({\
     MIN(MAX(b,a),c); \
@@ -36,6 +39,7 @@ namespace next {
         AbstractAnimView(),
             mValid(false),
             mNumData(0),
+            mAnimating(false),
             mEventViewStep(0),
             mEventViewFront(0),
             mEventViewSlotBegin(0),
@@ -72,6 +76,8 @@ namespace next {
         mNumData = mData->getEvents()->size();
         mValid   = mNumData != 0;
         mEventViewStep = mEventViewFront = mEventViewBack = 0;
+        
+        mAnimating = false;
 
         if(!mValid){
             return;
@@ -115,6 +121,10 @@ namespace next {
     }
 
     void SessionView::start(){
+#ifdef SESSION_VIEW_DEBUG_STATE
+        cout << "### Session View Start ###" << endl;
+#endif
+        
         if(mNumEventViews < 2){
             moveViews(2, 1);
             return;
@@ -136,7 +146,11 @@ namespace next {
         int i = -1;
         while(++i < count){
             mEventViewStep = mEventViewStep + direction;
-
+            
+            if(direction < 0 && mEventViewFront > 0){
+                mEventViewFront--;
+            }
+            
             slot = CLAMP(mEventViewsOffset[mEventViewFront] + mEventViewStep, 0, mEventViewSlotEnd);
 
             front = mEventViews[mEventViewFront];
@@ -147,14 +161,8 @@ namespace next {
             while (++j < mNumEventViews) {
                 slot = CLAMP(mEventViewsOffset[j] + mEventViewStep, 0, mEventViewSlotEnd);
        
-                if(direction > 0){
-                    if(slot == mEventViewSlotEnd){
-                        mEventViewFront++;
-                    }
-                } else {
-                    if(mEventViewFront > 0){
-                        mEventViewFront--;
-                    }
+                if(direction > 0 && slot == mEventViewSlotEnd){
+                    mEventViewFront++;
                 }
                 
                 view = mEventViews[j];
@@ -162,6 +170,10 @@ namespace next {
                 tween(&view->mPositionState, view->mPositionState(), mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing());
             }
         }
+        
+#ifdef SESSION_VIEW_DEBUG_STATE
+        cout << "Front: " << mEventViewFront << endl;
+#endif
     }
 
 
@@ -192,6 +204,26 @@ namespace next {
     }
     
     void SessionView::debugDraw(){
+        const static float fontScale = 0.0125f;
+        Vec3f pos;
+        glColor3f(1, 1, 1);
+        
+        gl::enableAlphaTest();
+        gl::enableAlphaBlending();
+        int i = -1;
+        while (++i< mNumEventViews) {
+            pos = mEventViews[i]->mPositionState();
+            glPushMatrix();
+            glTranslatef(pos.x - 1, pos.y, pos.z);
+            glRotatef(90, 0, 0, 0);
+            glScalef(fontScale, fontScale, fontScale);
+            gl::drawString(toString(i),Vec2f::zero());
+            glPopMatrix();
+            
+        }
+        gl::disableAlphaBlending();
+        gl::disableAlphaTest();
+        
         glColor3f(1,0,0);
         gl::drawLine(mEventViewSlots[0], mEventViewSlots[1]);
         gl::drawLine(mEventViewSlots[1], mEventViewSlots[2]);
