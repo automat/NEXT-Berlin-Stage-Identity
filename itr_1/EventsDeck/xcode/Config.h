@@ -11,4 +11,6 @@
 
 #define SESSION_VIEW_DEBUG_STATE
 
+#define SESSION_EVENT_TIME_MIN 3.0f
+
 #endif

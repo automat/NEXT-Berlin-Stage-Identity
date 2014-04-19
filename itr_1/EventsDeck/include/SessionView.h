@@ -45,15 +45,18 @@ namespace next {
         //! clear all views
         void deleteEventViews();
         //! move all views in steps and direction
-        void moveViews(int count = 1, int direction = 1);
-        //! focus view
-        void moveToView(int index);
+        void moveViews(int count = 1);
+        //!
+        void stepForward_1();
+
         //! update view state
-        void setViewState(EventView* view, int slot, int direction = 1);
+        void setViewState(EventView* view, int slot);
         //! focus view
         void focusView(EventView* view);
         //! on all events shown
         void onFinish();
+        //! on begin
+        void onStart();
       
         
     public:
@@ -66,9 +69,7 @@ namespace next {
         void update();
         
         void debugDraw();
-        
-        void next(); // for debug
-        void prev();
+
         void start();   //  start animation
     };
 }

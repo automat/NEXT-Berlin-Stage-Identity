@@ -18,6 +18,8 @@ namespace next {
     class AbstractAnimView {
     public :
         typedef std::function<void ()> AnimCallback;
+    private:
+        Anim<float> _mTime;
         
     protected:
         template<typename T>
@@ -29,6 +31,13 @@ namespace next {
         typename Tween<T>::Options tween(Anim<T> *target, T startValue, T endValue, float duration, EaseFn easeFunction = EaseNone(), const AnimCallback& updateCallback = NULL, const AnimCallback& finishCallback = NULL){
             return timeline().apply(target, endValue, duration, easeFunction).updateFn(updateCallback).finishFn(finishCallback);
         }
+        
+        // hacky
+        inline void delayCallback(float duration, const AnimCallback& callback){
+            timeline().apply(&_mTime, 0.0f, 1.0f, duration).finishFn(callback);
+        };
+        
+        AbstractAnimView() : _mTime(0){};
         
     public:
         

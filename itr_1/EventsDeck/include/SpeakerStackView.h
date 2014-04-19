@@ -27,8 +27,6 @@ namespace next {
         
         bool mActive;       // is current event ?
         
-        //void animateIn();                        // anim view reset bottom
-        //void animateOut(SpeakerView* view);      // anim view top disappearing
         void animateIn(SpeakerView* view, const AnimCallback& callback);
         void animateOut(SpeakerView* view, const AnimCallback& callback);
         void animateMove(SpeakerView* view);     // anim view moving to new pos on stack
@@ -51,10 +49,6 @@ namespace next {
         
         void focus();
         void unfocus();
-        
-        //! stack the speakers!
-        void stack(const AnimCallback &callback = NULL);
-        
     };
 }
 

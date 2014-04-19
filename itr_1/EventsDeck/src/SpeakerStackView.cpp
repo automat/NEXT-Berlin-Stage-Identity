@@ -97,11 +97,7 @@ namespace next {
                   std::bind(&SpeakerView::updateFocusState, *itr));
         }
     }
-    
-    void SpeakerStackView::stack(const AnimCallback &callback){
-        
-    }
-    
+
     /*--------------------------------------------------------------------------------------------*/
     //  Animation
     /*--------------------------------------------------------------------------------------------*/

@@ -74,6 +74,7 @@ namespace next {
         mNumEventViews = events->size();
         mEventViewStep = mEventViewFront = mEventViewBack = 0;
         mValid         = mNumEventViews != 0;
+        mEventViewStep = 0;
 
         mAnimating = false;
 
@@ -97,33 +98,16 @@ namespace next {
     
     void SessionView::callbackTest(){
         cout << "fsdf" << endl;
-        mEventViews[mEventViewFront]->stackSpeaker(std::bind(&SessionView::next,this));
-    }
-    
-    
-    void SessionView::next(){
-        if((mNumEventViews < 2) ||
-           (mEventViewFront >= mNumEventViews - 1)){
-            return;
-        }
-        moveViews();
+        mEventViews[mEventViewFront]->stackSpeaker(std::bind(&SessionView::stepForward_1,this));
     }
 
-    void SessionView::prev(){
-        if((mNumEventViews < 2) ||
-           (mEventViewStep <= 0)){
-            return;
-        }
-        moveViews(1,-1);
-    }
 
     void SessionView::start(){
 #ifdef SESSION_VIEW_DEBUG_STATE
         cout << "### Session View Start ###" << endl;
 #endif
-        
         if(mNumEventViews < 2){
-            moveViews(2, 1);
+            moveViews(2);
             return;
         }
         moveViews();
@@ -134,9 +118,12 @@ namespace next {
         cout << "### Session View End ###" << endl;
 #endif
     }
- 
 
-    void SessionView::moveViews(int count, int direction) {
+    void SessionView::stepForward_1() {
+        moveViews();
+    }
+
+    void SessionView::moveViews(int count) {
         if(!mValid ||
             mEventViewFront >= mNumEventViews ||
             mEventViewFront <= -1){
@@ -148,24 +135,20 @@ namespace next {
 
         int i = -1;
         while(++i < count){
-            mEventViewStep = mEventViewStep + direction;
-            
-            if(direction < 0 && mEventViewFront > 0){
-                mEventViewFront--;
-            }
+            mEventViewStep++;
             
             slot = CLAMP(mEventViewsOffset[mEventViewFront] + mEventViewStep, 0, mEventViewSlotEnd);
             front = mEventViews[mEventViewFront];
-            setViewState(front, slot, direction);
+            setViewState(front, slot);
     
             int j= mEventViewFront;
             while (++j < mNumEventViews) {
                 slot = CLAMP(mEventViewsOffset[j] + mEventViewStep, 0, mEventViewSlotEnd);
        
-                if(direction > 0 && slot == mEventViewSlotEnd){
+                if(slot == mEventViewSlotEnd){
                     mEventViewFront++;
                 }
-                setViewState(mEventViews[j], slot, direction);
+                setViewState(mEventViews[j], slot);
             }
         }
         
@@ -175,35 +158,51 @@ namespace next {
     }
     
     void SessionView::focusView(next::EventView *view){
-        view->stackSpeaker(std::bind(&SessionView::next, this));
+        view->stackSpeaker(std::bind(&SessionView::stepForward_1, this));
     }
     
     
-    void SessionView::setViewState(EventView *view, int slot, int direction) {
-        if(direction > 0){  //  forward
-            if(slot == mEventViewSlotFocus){ //  current view is focused
-                view->focusTop();
-                tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing(),
-                      NULL, std::bind(&SessionView::focusView,this,view));
-            } else { // current view isnt focused
-                if(slot == mEventViewSlotUnfocusPrev){
-                    view->unfocus();
-                    if(view == mEventViews.back()){ //  last view on out
-                        tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing(),
-                              NULL, std::bind(&SessionView::next, this));
-                    } else {    // some other view
-                        tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing());
-                    }
-                } else {
-                    
-                    tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing());
-                }
-            }
-        } else {    //  backward
-            if(slot == mEventViewSlotUnfocusNext){
-                view->unfocus();
-            }
+    void SessionView::setViewState(EventView *view, int slot) {
+        cout << slot << endl;
+        
+        // view is last, target slot last
+        if(view == mEventViews.back() && slot == mEventViewSlotEnd){
+            tween(&view->mPositionState,mEventViewSlots[slot],sTimeAnimateInOut,ViewInOutEasing(),
+                  NULL,std::bind(&SessionView::onFinish, this));
+            return;
         }
+        
+        // view is first, target slot is second
+        if(view == mEventViews.front() && slot == mEventViewSlotUnfocusNext){
+            tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing(),
+                  NULL, std::bind(&SessionView::stepForward_1, this));
+            return;
+        }
+        
+        // target slot is event focus
+        if(slot == mEventViewSlotFocus){
+            view->focusTop();
+            tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing(),
+                  NULL, std::bind(&SessionView::focusView,this,view));
+            return;
+        }
+        
+        if(slot == mEventViewSlotUnfocusPrev){
+            view->unfocus();
+            
+            if(view == mEventViews.back()){
+               tween(&view->mPositionState,mEventViewSlots[slot],sTimeAnimateInOut,ViewInOutEasing(),
+                      NULL,std::bind(&SessionView::stepForward_1, this));
+                
+            } else {
+                tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing());
+            }
+            
+            return;
+            
+        }
+        
+        tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing());
     }
     
     /*--------------------------------------------------------------------------------------------*/
