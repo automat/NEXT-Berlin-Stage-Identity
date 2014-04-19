@@ -32,12 +32,12 @@ namespace next {
         int                mEventViewBack;
 
 
-        Vec3f       mEventViewSlots[5];
-        const int   mEventViewSlotBegin;
-        const int   mEventViewSlotEnd;
-        const int   mEventViewSlotFocus;
-        const int   mEventViewSlotUnfocusPrev;
-        const int   mEventViewSlotUnfocusNext;
+        Vec3f     mEventViewSlots[5];
+        const int mEventViewSlotBegin;
+        const int mEventViewSlotEnd;
+        const int mEventViewSlotFocus;
+        const int mEventViewSlotOut;
+        const int mEventViewSlotIn;
 
 
         void callbackTest();

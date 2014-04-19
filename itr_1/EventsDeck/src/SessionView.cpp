@@ -41,8 +41,8 @@ namespace next {
             mEventViewFront(0),
             mEventViewSlotBegin(0),
             mEventViewSlotFocus(2),
-            mEventViewSlotUnfocusNext(1),
-            mEventViewSlotUnfocusPrev(3),
+            mEventViewSlotIn(1),
+            mEventViewSlotOut(3),
             mEventViewSlotEnd(4){
                 
                 float slideLength_2 = sSlideLength * 0.5f;
@@ -180,8 +180,8 @@ namespace next {
             return;
         }
         
-        // view is first, target slot is second
-        if(view == mEventViews.front() && slot == mEventViewSlotUnfocusNext){
+        // view is first, target slot is in postion
+        if(view == mEventViews.front() && slot == mEventViewSlotIn){
             tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing(),
                   NULL, std::bind(&SessionView::stepForward_1, this));
             return;
@@ -195,19 +195,15 @@ namespace next {
             return;
         }
         
-        if(slot == mEventViewSlotUnfocusPrev){
+        // target slot is out position
+        if(slot == mEventViewSlotOut){
             view->unfocus();
             
             if(view == mEventViews.back()){
                tween(&view->mPositionState,mEventViewSlots[slot],sTimeAnimateInOut,ViewInOutEasing(),
                       NULL,std::bind(&SessionView::stepForward_1, this));
-                
-            } else {
-                tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing());
+                return;
             }
-            
-            return;
-            
         }
         
         tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing());
