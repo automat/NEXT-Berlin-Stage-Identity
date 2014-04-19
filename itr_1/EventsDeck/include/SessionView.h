@@ -20,9 +20,7 @@ namespace next {
     using namespace ci;
     
     class SessionView : public AbstractAnimView{
-        bool     mValid;
-        int      mNumData;      //  length of session data / num events
-        Session* mData;         //  data ref
+        bool     mValid;    //  is valid, data > 0
 
         bool mAnimating;
         
@@ -35,22 +33,29 @@ namespace next {
 
 
         Vec3f       mEventViewSlots[5];
-        const int   mEventViewSlotBegin;     // begin
-        const int   mEventViewSlotEnd;       // end
+        const int   mEventViewSlotBegin;
+        const int   mEventViewSlotEnd;
         const int   mEventViewSlotFocus;
         const int   mEventViewSlotUnfocusPrev;
         const int   mEventViewSlotUnfocusNext;
 
 
         void callbackTest();
-        
-        void animateStart();
 
+        //! clear all views
         void deleteEventViews();
-
+        //! move all views in steps and direction
         void moveViews(int count = 1, int direction = 1);
+        //! focus view
+        void moveToView(int index);
+        //! update view state
         void setViewState(EventView* view, int slot, int direction = 1);
-
+        //! focus view
+        void focusView(EventView* view);
+        //! on all events shown
+        void onFinish();
+      
+        
     public:
         SessionView(Session* data);
         ~SessionView();

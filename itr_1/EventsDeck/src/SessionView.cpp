@@ -37,9 +37,6 @@ namespace next {
     
     SessionView::SessionView(Session* data) :
         AbstractAnimView(),
-            mValid(false),
-            mNumData(0),
-            mAnimating(false),
             mEventViewStep(0),
             mEventViewFront(0),
             mEventViewSlotBegin(0),
@@ -72,19 +69,17 @@ namespace next {
     void SessionView::reset(Session* data){
         deleteEventViews();
         
-        mData    = data;
-        mNumData = mData->getEvents()->size();
-        mValid   = mNumData != 0;
-        mEventViewStep = mEventViewFront = mEventViewBack = 0;
+        vector<Event>* events = data->getEvents();
         
+        mNumEventViews = events->size();
+        mEventViewStep = mEventViewFront = mEventViewBack = 0;
+        mValid         = mNumEventViews != 0;
+
         mAnimating = false;
 
         if(!mValid){
             return;
         }
-        
-        vector<Event>* events = mData->getEvents();
-        mNumEventViews        = mNumData;
 
         int i = -1;
         while (++i < mNumEventViews) {
@@ -107,14 +102,16 @@ namespace next {
     
     
     void SessionView::next(){
-        if(mNumEventViews < 2){
+        if((mNumEventViews < 2) ||
+           (mEventViewFront >= mNumEventViews - 1)){
             return;
         }
         moveViews();
     }
 
     void SessionView::prev(){
-        if(mNumEventViews < 2){
+        if((mNumEventViews < 2) ||
+           (mEventViewStep <= 0)){
             return;
         }
         moveViews(1,-1);
@@ -131,6 +128,13 @@ namespace next {
         }
         moveViews();
     }
+    
+    void SessionView::onFinish(){
+#ifdef SESSION_VIEW_DEBUG_STATE
+        cout << "### Session View End ###" << endl;
+#endif
+    }
+ 
 
     void SessionView::moveViews(int count, int direction) {
         if(!mValid ||
@@ -141,7 +145,6 @@ namespace next {
 
         int slot;
         EventView* front;
-        EventView* view;
 
         int i = -1;
         while(++i < count){
@@ -152,11 +155,9 @@ namespace next {
             }
             
             slot = CLAMP(mEventViewsOffset[mEventViewFront] + mEventViewStep, 0, mEventViewSlotEnd);
-
             front = mEventViews[mEventViewFront];
             setViewState(front, slot, direction);
-            tween(&front->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing());
-            
+    
             int j= mEventViewFront;
             while (++j < mNumEventViews) {
                 slot = CLAMP(mEventViewsOffset[j] + mEventViewStep, 0, mEventViewSlotEnd);
@@ -164,10 +165,7 @@ namespace next {
                 if(direction > 0 && slot == mEventViewSlotEnd){
                     mEventViewFront++;
                 }
-                
-                view = mEventViews[j];
-                setViewState(view, slot, direction);
-                tween(&view->mPositionState, view->mPositionState(), mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing());
+                setViewState(mEventViews[j], slot, direction);
             }
         }
         
@@ -175,15 +173,36 @@ namespace next {
         cout << "Front: " << mEventViewFront << endl;
 #endif
     }
-
-
+    
+    void SessionView::focusView(next::EventView *view){
+        view->stackSpeaker(std::bind(&SessionView::next, this));
+    }
+    
+    
     void SessionView::setViewState(EventView *view, int slot, int direction) {
-        if(slot == mEventViewSlotFocus){
-            view->focusTop();
-        } else if(direction == 1 && slot == mEventViewSlotUnfocusPrev){
-            view->unfocus();
-        } else if(direction == -1 && slot == mEventViewSlotUnfocusNext){
-            view->unfocus();
+        if(direction > 0){  //  forward
+            if(slot == mEventViewSlotFocus){ //  current view is focused
+                view->focusTop();
+                tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing(),
+                      NULL, std::bind(&SessionView::focusView,this,view));
+            } else { // current view isnt focused
+                if(slot == mEventViewSlotUnfocusPrev){
+                    view->unfocus();
+                    if(view == mEventViews.back()){ //  last view on out
+                        tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing(),
+                              NULL, std::bind(&SessionView::next, this));
+                    } else {    // some other view
+                        tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing());
+                    }
+                } else {
+                    
+                    tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing());
+                }
+            }
+        } else {    //  backward
+            if(slot == mEventViewSlotUnfocusNext){
+                view->unfocus();
+            }
         }
     }
     
