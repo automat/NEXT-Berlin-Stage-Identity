@@ -122,6 +122,10 @@ namespace next {
     void SessionView::stepForward_1() {
         moveViews();
     }
+    
+    void SessionView::stepForward_2(){
+        moveViews(2);
+    }
 
     void SessionView::moveViews(int count) {
         if(!mValid ||
@@ -158,7 +162,11 @@ namespace next {
     }
     
     void SessionView::focusView(next::EventView *view){
-        view->stackSpeaker(std::bind(&SessionView::stepForward_1, this));
+        if(mNumEventViews < 2){
+            view->stackSpeaker(std::bind(&SessionView::stepForward_2, this));
+        } else {
+            view->stackSpeaker(std::bind(&SessionView::stepForward_1, this));
+        }
     }
     
     

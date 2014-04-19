@@ -48,6 +48,7 @@ namespace next {
         void moveViews(int count = 1);
         //!
         void stepForward_1();
+        void stepForward_2();
 
         //! update view state
         void setViewState(EventView* view, int slot);
