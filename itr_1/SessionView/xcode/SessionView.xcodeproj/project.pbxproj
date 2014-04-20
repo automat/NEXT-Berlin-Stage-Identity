@@ -26,6 +26,7 @@
 		CDCBF25E1902EF880060E875 /* SpeakerStackView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDCBF2571902EF880060E875 /* SpeakerStackView.cpp */; };
 		CDCBF25F1902EF880060E875 /* SpeakerView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDCBF2581902EF880060E875 /* SpeakerView.cpp */; };
 		CDCBF26A1902FF570060E875 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF2691902FF570060E875 /* data.json */; };
+		CDEA2B861904133F00123D9B /* TextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDEA2B851904133500123D9B /* TextBox.cpp */; };
 		D89712634BA0486685DCE17F /* SessionViewApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D727B207414FA590248C77 /* SessionViewApp.cpp */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		CDCBF2581902EF880060E875 /* SpeakerView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpeakerView.cpp; path = ../src/SpeakerView.cpp; sourceTree = "<group>"; };
 		CDCBF2681902F52A0060E875 /* Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mapping.h; path = ../include/Mapping.h; sourceTree = "<group>"; };
 		CDCBF2691902FF570060E875 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = data.json; path = ../resources/data.json; sourceTree = "<group>"; };
+		CDEA2B851904133500123D9B /* TextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextBox.cpp; path = ../src/TextBox.cpp; sourceTree = "<group>"; };
 		E88D7BC8BA0F4297A5FC3CF9 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		F4D727B207414FA590248C77 /* SessionViewApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = SessionViewApp.cpp; path = ../src/SessionViewApp.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -252,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				CDCBF2541902EF880060E875 /* FxResources.cpp */,
+				CDEA2B851904133500123D9B /* TextBox.cpp */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				CDCBF25A1902EF880060E875 /* EventView.cpp in Sources */,
 				CDCBF25B1902EF880060E875 /* FxResources.cpp in Sources */,
 				D89712634BA0486685DCE17F /* SessionViewApp.cpp in Sources */,
+				CDEA2B861904133F00123D9B /* TextBox.cpp in Sources */,
 				CDCBF25F1902EF880060E875 /* SpeakerView.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

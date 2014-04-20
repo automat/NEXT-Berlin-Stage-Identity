@@ -57,6 +57,8 @@ namespace next {
         void onFinish();
         //! on begin
         void onStart();
+        
+        next::TextBox* mTextBoxTitle;
       
         
     public:

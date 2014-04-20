@@ -51,11 +51,14 @@ namespace next {
                 mEventViewSlots[3] = Vec3f(0,0, slideLength_2);
                 mEventViewSlots[4] = Vec3f(0,0, sSlideLength );
             
+                mTextBoxTitle = new next::TextBox();
+                
                 reset(data);
     }
     
     SessionView::~SessionView(){
         deleteEventViews();
+        delete mTextBoxTitle;
     }
     
     /*--------------------------------------------------------------------------------------------*/
