@@ -15,6 +15,7 @@
 
 #include "cinder/Vector.h"
 
+#include "Textbox.h"
 
 namespace next {
     using namespace ci;
