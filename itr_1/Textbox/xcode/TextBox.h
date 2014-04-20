@@ -81,6 +81,8 @@ namespace next {
         string                mString;
         float                 mMaxLineWidth;
         
+        vector<vector<Vec2f>> mTexcoords;
+        
         float                 mWidth;
         float                 mWidthSafe; //mWidth - mUnderlineoffsetH_2
         float                 mHeight;
@@ -162,7 +164,7 @@ namespace next {
             glDisableClientState(GL_VERTEX_ARRAY);
             glLineWidth(1);
         }
-        
+  
         /*--------------------------------------------------------------------------------------------*/
         // render to Texture
         /*--------------------------------------------------------------------------------------------*/
@@ -372,6 +374,39 @@ namespace next {
             glPopAttrib();
         
             mFbo1.unbindFramebuffer();
+            
+            genTexcoords();
+        }
+        
+        //  This only calculates the coords of the actual font and its underline offset,
+        //  dropshadow offset is not included
+        inline void genTexcoords(){
+            Vec2f fontTextureSize(mTextureBounds.getSize());
+            
+            mTexcoords.resize(0);
+            vector<Vec2f> texcoords;
+            
+            float lineStep = 1.0f / static_cast<float>(mLines.size());
+            Vec2f down(0,lineStep);
+            Vec2f lineHeight(0,mFontHeight / fontTextureSize.y);
+
+            float shadowOffset = mShadowOffset.y / fontTextureSize.y;
+            float rowStep = MAX(0,1.0f - shadowOffset);
+            
+            
+            float row = 0;
+            for(const auto& line : mLines){
+                texcoords.resize(0);
+                
+                texcoords += down * row;
+                texcoords += Vec2f((line.width + mUnderlineOffsetH) / fontTextureSize.x, texcoords.back().y);
+                texcoords += *(texcoords.end() - 2) + lineHeight;
+                texcoords += *(texcoords.end() - 2) + lineHeight;
+                
+                mTexcoords += texcoords;
+                
+                row += rowStep;
+            }
         }
         
     public:
@@ -404,7 +439,7 @@ namespace next {
                     TextBox::_blurShaderV = gl::GlslProg("varying vec2 vTexcoord; void main(){ vec2 Pos = sign(gl_Vertex.xy); vTexcoord = Pos; gl_Position = vec4(Pos, 0.0, 1.0) - 0.5; }",
                                                         "uniform sampler2D uTexture; uniform float uTexelSize; varying vec2 vTexcoord; uniform float uScale; void main(){ float offset = uTexelSize * uScale; vec4 sum = vec4(0.0); sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 4.0 * offset)) * 0.05; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 3.0 * offset)) * 0.09; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 2.0 * offset)) * 0.12; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y - 1.0 * offset)) * 0.15; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y )) * 0.16; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 1.0 * offset)) * 0.15; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 2.0 * offset)) * 0.12; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 3.0 * offset)) * 0.09; sum += texture2D(uTexture, vec2(vTexcoord.x, vTexcoord.y + 4.0 * offset)) * 0.05; gl_FragColor = sum; }");
                     
-                    _fboFormat.setSamples(4);
+                    _fboFormat.setSamples(8);
                     _fboFormat.setColorInternalFormat(GL_RGBA16F_ARB);
                     _fboFormat.setWrap(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
                 }
@@ -422,7 +457,7 @@ namespace next {
         }
         
         inline void setFontSize(float size){
-            size = MAX(0,size);
+            size = MAX(1,size);
             float fontSize = mTexFontRef->getFont().getSize();
      
             mFontScale     = size / fontSize;
@@ -439,7 +474,7 @@ namespace next {
         }
         
         inline void setLineHeight(float height){
-            mLineHeight = height;
+            mLineHeight = MAX(height,1.0f);
             mLineStep   = (mFontAscent * mFontScale) * mLineHeight;
         }
         
@@ -471,6 +506,11 @@ namespace next {
 
         inline float getLineHeight(){
             return mLineHeight;
+        }
+        
+        //! Get normalized texcoords of every single line, excluding offset by shadow
+        inline const vector<vector<Vec2f>>& getTexcoords(){
+            return mTexcoords;
         }
         
         /*--------------------------------------------------------------------------------------------*/
@@ -800,6 +840,18 @@ namespace next {
             gl::drawSolidCircle(mOrigin, 5);
             
             glPopMatrix();
+            
+            float width  = mTextureBounds.getWidth();
+            float height = mTextureBounds.getHeight();
+            
+            for (const auto& texcoords : mTexcoords) {
+                glPushMatrix();
+                for (const auto& texcoord : texcoords) {
+                    gl::drawSolidCircle(Vec2f(texcoord.x * width, texcoord.y * height), 2.0);
+                }
+                
+                glPopMatrix();
+            }
         }
         
         

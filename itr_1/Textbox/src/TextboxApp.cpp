@@ -77,8 +77,8 @@ void TextboxApp::setup(){
     mParams = params::InterfaceGl::create("Controls", Vec2i(200,400));
     mParams->addSeparator();
     mParams->addParam("Texture Font Scale", &TEXT_BOX_TEXTURE_FONT_SIZE_SCALE, "min=1.0 max=16.0 step=1.0");
-    mParams->addParam("Font Size", &TEXT_BOX_FONT_SIZE, "min=0.0 max=200.0 step=0.125");
-    mParams->addParam("Font Line Height", &TEXT_BOX_FONT_LINE_HEIGHT, "min=0.0 max=2.0 step=0.0125");
+    mParams->addParam("Font Size", &TEXT_BOX_FONT_SIZE, "min=1.0 max=200.0 step=0.125");
+    mParams->addParam("Font Line Height", &TEXT_BOX_FONT_LINE_HEIGHT, "min=1.0 max=2.0 step=0.0125");
     mParams->addParam("Width", &TEXT_BOX_WIDTH);
     mParams->addSeparator();
     mParams->addParam("Color Font", &TEXT_BOX_COLOR_FONT);
