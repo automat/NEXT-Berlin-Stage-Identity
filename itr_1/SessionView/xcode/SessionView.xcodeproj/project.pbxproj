@@ -16,8 +16,10 @@
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		CD1C021D19048898001F5CF2 /* SessionMetaLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD1C021C19048898001F5CF2 /* SessionMetaLabel.cpp */; };
 		CD254C7019044EA6009D6522 /* measurements.png in Resources */ = {isa = PBXBuildFile; fileRef = CD254C6F19044EA6009D6522 /* measurements.png */; };
 		CD254C7519045F3E009D6522 /* EventTitleLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD254C7419045F3E009D6522 /* EventTitleLabel.cpp */; };
+		CD254C7919047D72009D6522 /* EventMetaLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD254C7819047D4E009D6522 /* EventMetaLabel.cpp */; };
 		CDCBF24E1902EF7D0060E875 /* 6893.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF24A1902EF7D0060E875 /* 6893.png */; };
 		CDCBF24F1902EF7D0060E875 /* 26092.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF24B1902EF7D0060E875 /* 26092.png */; };
 		CDCBF2501902EF7D0060E875 /* 26262.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF24C1902EF7D0060E875 /* 26262.png */; };
@@ -51,9 +53,13 @@
 		8D1107320486CEB800E47090 /* SessionView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SessionView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1931C39A6074054B53A290A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB6C92C76E38424199AAC0C4 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
+		CD1C021C19048898001F5CF2 /* SessionMetaLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SessionMetaLabel.cpp; path = ../src/SessionMetaLabel.cpp; sourceTree = "<group>"; };
 		CD254C6F19044EA6009D6522 /* measurements.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = measurements.png; path = ../resources/measurements.png; sourceTree = "<group>"; };
 		CD254C7119045CA1009D6522 /* EventTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventTitleLabel.h; path = ../include/EventTitleLabel.h; sourceTree = "<group>"; };
 		CD254C7419045F3E009D6522 /* EventTitleLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventTitleLabel.cpp; path = ../src/EventTitleLabel.cpp; sourceTree = "<group>"; };
+		CD254C7619047750009D6522 /* EventMetaLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventMetaLabel.h; path = ../include/EventMetaLabel.h; sourceTree = "<group>"; };
+		CD254C7719047760009D6522 /* SessionMetaLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SessionMetaLabel.h; path = ../include/SessionMetaLabel.h; sourceTree = "<group>"; };
+		CD254C7819047D4E009D6522 /* EventMetaLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventMetaLabel.cpp; path = ../src/EventMetaLabel.cpp; sourceTree = "<group>"; };
 		CDA8EE331904077D00E7038B /* TextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextBox.h; path = ../include/TextBox.h; sourceTree = "<group>"; };
 		CDCBF23E1902EF740060E875 /* AbstractAnimView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractAnimView.h; path = ../include/AbstractAnimView.h; sourceTree = "<group>"; };
 		CDCBF23F1902EF740060E875 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
@@ -286,6 +292,8 @@
 				CDEA2B8719041D0F00123D9B /* AbstractLabel.h */,
 				CDEA2B93190422F900123D9B /* SessionTitleLabel.h */,
 				CD254C7119045CA1009D6522 /* EventTitleLabel.h */,
+				CD254C7619047750009D6522 /* EventMetaLabel.h */,
+				CD254C7719047760009D6522 /* SessionMetaLabel.h */,
 			);
 			name = label;
 			sourceTree = "<group>";
@@ -295,6 +303,8 @@
 			children = (
 				CDEA2B941904231800123D9B /* SessionTitleLabel.cpp */,
 				CD254C7419045F3E009D6522 /* EventTitleLabel.cpp */,
+				CD254C7819047D4E009D6522 /* EventMetaLabel.cpp */,
+				CD1C021C19048898001F5CF2 /* SessionMetaLabel.cpp */,
 			);
 			name = label;
 			sourceTree = "<group>";
@@ -371,6 +381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD254C7919047D72009D6522 /* EventMetaLabel.cpp in Sources */,
 				CDCBF25E1902EF880060E875 /* SpeakerStackView.cpp in Sources */,
 				CDCBF25C1902EF880060E875 /* SessionView.cpp in Sources */,
 				CDCBF25A1902EF880060E875 /* EventView.cpp in Sources */,
@@ -379,6 +390,7 @@
 				D89712634BA0486685DCE17F /* SessionViewApp.cpp in Sources */,
 				CDEA2B861904133F00123D9B /* TextBox.cpp in Sources */,
 				CD254C7519045F3E009D6522 /* EventTitleLabel.cpp in Sources */,
+				CD1C021D19048898001F5CF2 /* SessionMetaLabel.cpp in Sources */,
 				CDCBF25F1902EF880060E875 /* SpeakerView.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

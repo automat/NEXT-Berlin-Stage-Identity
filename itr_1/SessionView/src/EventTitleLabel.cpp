@@ -11,7 +11,7 @@ namespace next {
         
         mTextBox->setWidth(SESSION_LABEL_EVENT_TITLE_BOX_WIDTH);
         
-        mTextBox->setFontSize( SESSION_LABEL_EVENT_TITLE_FONT_SIZE);
+        mTextBox->setFontSize(  SESSION_LABEL_EVENT_TITLE_FONT_SIZE);
         mTextBox->setLineHeight(SESSION_LABEL_EVENT_TITLE_LINE_HEIGHT);
         mTextBox->setColorFont( SESSION_LABEL_EVENT_TITLE_FONT_COLOR);
         
@@ -45,6 +45,10 @@ namespace next {
     
     void EventTitleLabel::update(){
         
+    }
+    
+    void EventTitleLabel::setString(const string &str){
+        mTextBox->setString(str);
     }
     
     

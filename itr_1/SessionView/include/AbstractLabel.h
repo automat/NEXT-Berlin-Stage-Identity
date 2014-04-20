@@ -36,10 +36,6 @@ namespace next {
             delete mTextBox;
         }
         
-        inline void setString(const string& str){
-            mTextBox->setString(str);
-        }
-        
         inline void setPosition(const Vec2f& pos){
             mPos = pos;
         }

@@ -30,7 +30,7 @@ namespace next {
     //  Const geometry props
     /*--------------------------------------------------------------------------------------------*/
     
-    const Vec2f SpeakerView::sSize(1.0f,0.025f);
+    const Vec2f SpeakerView::sSize(0.85f,0.025f);
     
     const Vec3f SpeakerView::sCubeVertices[8] = {
         Vec3f(-sSize.x * 0.5, sSize.y * 0.5f,-sSize.x * 0.5),  //  tl

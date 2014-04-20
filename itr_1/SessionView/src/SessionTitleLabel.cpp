@@ -31,7 +31,6 @@ namespace next {
         if(mTextBox->getString().empty()){
             return;
         }
-        
         Vec2f topLeft = mTextBox->getTopLeft();
         
         glPushMatrix();
@@ -50,7 +49,7 @@ namespace next {
             token[0] = toupper(token[0]);
         }
         string _str = algorithm::join(tokens, " ");
-        AbstractLabel::setString(_str);
+        mTextBox->setString(_str);
     }
     
     void SessionTitleLabel::update(){

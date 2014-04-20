@@ -44,15 +44,18 @@ namespace next {
             mEventViewSlotIn(1),
             mEventViewSlotOut(3),
             mEventViewSlotEnd(4){
-                
+                float offsetH = 0.5f;
                 float slideLength_2 = sSlideLength * 0.5f;
-                mEventViewSlots[0] = Vec3f(0,0,-sSlideLength );
-                mEventViewSlots[1] = Vec3f(0,0,-slideLength_2);
-                mEventViewSlots[3] = Vec3f(0,0, slideLength_2);
-                mEventViewSlots[4] = Vec3f(0,0, sSlideLength );
+                mEventViewSlots[0] = Vec3f(offsetH,0,-sSlideLength  - offsetH);
+                mEventViewSlots[1] = Vec3f(offsetH,0,-slideLength_2 - offsetH);
+                mEventViewSlots[2] = Vec3f(offsetH,0,-offsetH);
+                mEventViewSlots[3] = Vec3f(offsetH,0, slideLength_2 - offsetH);
+                mEventViewSlots[4] = Vec3f(offsetH,0, sSlideLength  - offsetH);
             
                 mLabelTitle      = new SessionTitleLabel();
+                mLabelMeta       = new SessionMetaLabel();
                 mLabelEventTitle = new EventTitleLabel();
+                mLabelEventMeta  = new EventMetaLabel();
                 
                 reset(data);
     }
@@ -60,7 +63,9 @@ namespace next {
     SessionView::~SessionView(){
         deleteEventViews();
         delete mLabelTitle;
+        delete mLabelMeta;
         delete mLabelEventTitle;
+        delete mLabelEventMeta;
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -95,6 +100,7 @@ namespace next {
         }
         
         mLabelTitle->setString(data->title);
+        mLabelMeta->setTime(data->startHourString, data->endHourString, data->startTimeStamp);
        
         start();
     }
@@ -164,8 +170,6 @@ namespace next {
             return;
         }
         stepForward_1();
-        
-        mLabelEventTitle->setString((*mEventViews.begin())->getData()->title);
     }
     
     void SessionView::focusView(next::EventView *view){
@@ -193,7 +197,12 @@ namespace next {
         
         // target slot is event focus
         if(slot == mEventViewSlotFocus){
-            mLabelEventTitle->setString(view->getData()->title);
+            const Event* data = view->getData();
+            
+            mLabelEventTitle->setString(data->title);
+            mLabelEventMeta->setType(data->type);
+            mLabelEventMeta->setIndex(toString(std::find(mEventViews.begin(), mEventViews.end(), view) - mEventViews.begin() + 1) + " / " + toString(mNumEventViews));
+            
             view->focusTop();
             tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing(),
                   NULL, std::bind(&SessionView::focusView,this,view));
@@ -220,8 +229,9 @@ namespace next {
     
     void SessionView::drawLabels(){
         mLabelTitle->draw();
+        mLabelMeta->draw();
         mLabelEventTitle->draw();
-        
+        mLabelEventMeta->draw();
     }
     
     /*--------------------------------------------------------------------------------------------*/

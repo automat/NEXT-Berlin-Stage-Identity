@@ -16,7 +16,9 @@
 #include "cinder/Vector.h"
 
 #include "SessionTitleLabel.h"
+#include "SessionMetaLabel.h"
 #include "EventTitleLabel.h"
+#include "EventMetaLabel.h"
 
 namespace next {
     using namespace ci;
@@ -60,7 +62,9 @@ namespace next {
         void onStart();
         
         SessionTitleLabel* mLabelTitle;
+        SessionMetaLabel*  mLabelMeta;
         EventTitleLabel*   mLabelEventTitle;
+        EventMetaLabel*    mLabelEventMeta;
       
         
     public:

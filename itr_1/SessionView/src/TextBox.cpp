@@ -432,12 +432,12 @@ namespace next {
 
     void TextBox::setString(const string& str){
         reset();
-
+        
         if(str.empty()){
             renderToTexture();  // well, in this case reset
             return;
         }
-
+        
         string input(str);
 
         const char br('\n');
@@ -480,6 +480,7 @@ namespace next {
 
         if(!hasBr && lineWidth <= mWidthSafe){
             addLine(input, row);
+            mString = str;
             renderToTexture();
             return;
         }
