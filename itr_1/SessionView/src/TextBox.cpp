@@ -251,7 +251,8 @@ namespace next {
         glTranslatef(-mOrigin.x,-mOrigin.y,0);
 
         gl::enableAlphaTest();
-        gl::enableAdditiveBlending();
+        gl::enableAlphaBlending();
+
         glColor4f(mColorFont.r,
                 mColorFont.g,
                 mColorFont.b,
@@ -333,6 +334,9 @@ namespace next {
         mFboFormat.setSamples(8);
         mFboFormat.setColorInternalFormat(GL_RGBA16F_ARB);
         mFboFormat.setWrap(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+        
+        mBlurShaderHRef = FxResources::GetBlurH();
+        mBlurShaderVRef = FxResources::GetBlurV();
 
         setUnderlineHeight(mUnderlineHeight);
     };
@@ -629,7 +633,7 @@ namespace next {
     }
 
     void TextBox::setUnderlineHeight(float height){
-        mUnderlineOffsetH   = height * 2.2913f; //2.5// for testing
+        mUnderlineOffsetH   = height * 1.705f;
         mUnderlineOffsetH_2 = mUnderlineOffsetH * 0.5f;
         mUnderlineHeight    = height;
         mWidthSafe          = mWidth - mUnderlineOffsetH_2;

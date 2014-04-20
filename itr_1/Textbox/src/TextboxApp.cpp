@@ -48,6 +48,8 @@ class TextboxApp : public AppNative {
 void TextboxApp::prepareSettings(Settings* settings){
     settings->setWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     settings->setFrameRate(36.0f);
+    
+    
 }
 
 void TextboxApp::setup(){
@@ -102,7 +104,11 @@ void TextboxApp::keyDown( KeyEvent event ){
         case KeyEvent::KEY_ESCAPE:
             quit();
             break;
+        case KeyEvent::KEY_BACKSPACE:
+            mString = "";
+            break;
         default:
+            mString += event.getCharUtf32();
             break;
     }
 }

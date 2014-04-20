@@ -39,6 +39,10 @@ namespace next {
         
         void stackSpeaker(const AnimCallback &callback);
         
+        const Event* getData();
+        
+        
+        
     };
 }
 

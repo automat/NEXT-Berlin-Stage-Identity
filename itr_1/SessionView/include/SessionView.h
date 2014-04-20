@@ -15,7 +15,8 @@
 
 #include "cinder/Vector.h"
 
-#include "Textbox.h"
+#include "SessionTitleLabel.h"
+#include "EventTitleLabel.h"
 
 namespace next {
     using namespace ci;
@@ -58,7 +59,8 @@ namespace next {
         //! on begin
         void onStart();
         
-        next::TextBox* mTextBoxTitle;
+        SessionTitleLabel* mLabelTitle;
+        EventTitleLabel*   mLabelEventTitle;
       
         
     public:
@@ -70,6 +72,8 @@ namespace next {
 
 
         void draw();
+        void drawLabels();
+        
         void debugDraw();
         void update();
 

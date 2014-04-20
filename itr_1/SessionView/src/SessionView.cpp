@@ -51,14 +51,16 @@ namespace next {
                 mEventViewSlots[3] = Vec3f(0,0, slideLength_2);
                 mEventViewSlots[4] = Vec3f(0,0, sSlideLength );
             
-                mTextBoxTitle = new next::TextBox();
+                mLabelTitle      = new SessionTitleLabel();
+                mLabelEventTitle = new EventTitleLabel();
                 
                 reset(data);
     }
     
     SessionView::~SessionView(){
         deleteEventViews();
-        delete mTextBoxTitle;
+        delete mLabelTitle;
+        delete mLabelEventTitle;
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -91,7 +93,9 @@ namespace next {
             mEventViews.back()->mPositionState = mEventViewSlots[0];
             mEventViewsOffset += -(++i);
         }
-
+        
+        mLabelTitle->setString(data->title);
+       
         start();
     }
 
@@ -160,6 +164,9 @@ namespace next {
             return;
         }
         stepForward_1();
+        
+        mLabelEventTitle->setString((*mEventViews.begin())->getData()->title);
+
     }
     
     void SessionView::focusView(next::EventView *view){
@@ -189,6 +196,7 @@ namespace next {
         
         // target slot is event focus
         if(slot == mEventViewSlotFocus){
+            mLabelEventTitle->setString(view->getData()->title);
             view->focusTop();
             tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing(),
                   NULL, std::bind(&SessionView::focusView,this,view));
@@ -213,13 +221,24 @@ namespace next {
     //  Draw / Update
     /*--------------------------------------------------------------------------------------------*/
     
+    void SessionView::drawLabels(){
+        //mLabelTitle->draw();
+        mLabelEventTitle->draw();
+    }
+    
+    /*--------------------------------------------------------------------------------------------*/
+    //  Draw / Update events
+    /*--------------------------------------------------------------------------------------------*/
+    
     void SessionView::draw(){
+        return;
         for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
             (*itr)->draw();
         }
     }
     
     void SessionView::update(){
+        return;
         for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
             (*itr)->update();
         }

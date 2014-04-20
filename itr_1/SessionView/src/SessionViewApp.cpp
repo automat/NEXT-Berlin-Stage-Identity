@@ -14,6 +14,7 @@
 #include "SessionView.h"
 #include "Mapping.h"
 #include "cinder/Rand.h"
+#include "cinder/gl/Texture.h"
 
 
 #include <boost/assign/std/vector.hpp>
@@ -43,6 +44,9 @@ public:
     next::Session*                mDataSession;
     
     next::SessionView*    mViewSession;
+    
+    bool        mDrawMeasurements;
+    gl::Texture mRefMeasurements;
 };
 
 void SessionViewApp::prepareSettings(Settings *settings) {
@@ -67,9 +71,12 @@ void SessionViewApp::setup(){
     mDataEvents   = nullptr;
     mDataSession  = nullptr;
 
-    next::Mapping::Get(jsonFilepath, imageFilepath, 3558,
+    next::Mapping::Get(jsonFilepath, imageFilepath, 3559,
                        mDataImages, mDataSpeakers, mDataEvents, mDataSession);
     mViewSession = new next::SessionView(mDataSession);
+    
+    mDrawMeasurements = false;
+    mRefMeasurements = gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SessionView/resources/measurements.png"));
     
     gl::enableDepthRead();
 }
@@ -94,6 +101,9 @@ void SessionViewApp::keyDown(KeyEvent event) {
         case KeyEvent::KEY_LEFT:
             //mViewSession->prev();
             break;
+        case KeyEvent::KEY_SPACE:
+            mDrawMeasurements = !mDrawMeasurements;
+            break;
         default:
             break;
     }
@@ -105,21 +115,43 @@ void SessionViewApp::update(){
 
 void SessionViewApp::draw(){
     gl::clear( Color( 0, 0, 0 ) );
+    gl::setMatricesWindow(app::getWindowSize());
+    
+    if(mDrawMeasurements){
+        glColor3f(1,1,1);
+        gl::draw(mRefMeasurements);
+    }
+    
     gl::setMatrices(mCamera);
     
+#ifdef SESSION_DEBUG_DRAW
     gl::drawCoordinateFrame(2);
     mViewSession->debugDraw();
+#endif
     
     glAlphaFunc(GL_GREATER, 0.0);
-    glEnable(GL_ALPHA_TEST);
-    glEnable( GL_BLEND );
-    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+    //glEnable(GL_ALPHA_TEST);
+    //glEnable( GL_BLEND );
+    //glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+    //gl::enableAlphaBlending();
     
     mViewSession->draw();
     
-    glDisable(GL_BLEND);
+    //gl::disableAlphaBlending();
+    //glDisable(GL_BLEND);
     glDisable(GL_ALPHA_TEST);
-    glAlphaFunc(GL_GREATER, 0.5); // reset what seems to be cinders default
+    //glAlphaFunc(GL_GREATER, 0.5); // reset what seems to be cinders default
+    
+    gl::disableDepthRead();
+    gl::pushMatrices();
+    gl::setMatricesWindow(app::getWindowSize());
+    mViewSession->drawLabels();
+    gl::popMatrices();
+    gl::enableDepthRead();
+    
+    
+    
+    
 }
 
 CINDER_APP_NATIVE( SessionViewApp, RendererGl )

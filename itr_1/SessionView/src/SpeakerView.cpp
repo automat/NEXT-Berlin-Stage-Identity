@@ -160,7 +160,7 @@ namespace next {
     
     
     void SpeakerView::drawFocus(float factorFocus, float factorColor){
-         static const float scale = 10.0f;
+        static const float scale = 10.0f;
         float factorFocusInv = 1.0f - factorFocus;
         float factorColorInv = 1.0f - factorColor;
         
@@ -217,6 +217,7 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SpeakerView::draw(){
+        
         Vec3f pos   = mPositionState();
         float scale = mScaleState();
         
@@ -242,6 +243,7 @@ namespace next {
         glDisableClientState(GL_NORMAL_ARRAY);
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
         mFbo1.unbindTexture();
+        mFbo1.getTexture().disable();
      
         
         glColor4f(1,1,1,mColorState * 0.135f);
