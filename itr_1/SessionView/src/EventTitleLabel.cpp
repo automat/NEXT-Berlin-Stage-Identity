@@ -29,16 +29,15 @@ namespace next {
     }
     
     void EventTitleLabel::draw(){
-        /*
         if(mTextBox->getString().empty()){
             return;
-        }*/
+        }
         
         Vec2f topLeft = mTextBox->getTopLeft();
         
         glPushMatrix();
         glTranslatef(mPos.x, mPos.y, 0);
-        glColor3f(1,1,1);
+        glColor4f(1,1,1,1);
         glTranslatef(topLeft.x, topLeft.y, 0);
         gl::draw(mTextBox->getTexture());
         glPopMatrix();

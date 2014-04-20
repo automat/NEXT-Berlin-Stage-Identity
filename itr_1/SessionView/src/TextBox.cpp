@@ -122,7 +122,7 @@ namespace next {
 
         Vec2f zero;
         float row = 0;
-
+        
         //
         //  Draw dropshadow
         //
@@ -204,6 +204,7 @@ namespace next {
             mFbo0.unbindFramebuffer();
         }
 
+         
         //
         //  Overlay the blurred shadow with the type
         //
@@ -214,7 +215,9 @@ namespace next {
         gl::setViewport(textureViewport);
         gl::setMatricesWindow(mFbo1.getSize(),false);
         gl::clear(ColorAf(0,0,0,0));
+        gl::disableDepthRead();
 
+        
         //
         //  Draw underline
         //
@@ -235,6 +238,7 @@ namespace next {
             glPopMatrix();
         }
 
+        
         //
         //  Draw dropshadow
         //
@@ -244,19 +248,19 @@ namespace next {
             disableAlphaBlending();
         }
 
-
         //
         //  Draw font
         //
+        glPushMatrix();
         glTranslatef(-mOrigin.x,-mOrigin.y,0);
 
         gl::enableAlphaTest();
         gl::enableAlphaBlending();
 
         glColor4f(mColorFont.r,
-                mColorFont.g,
-                mColorFont.b,
-                mColorFont.a);
+                  mColorFont.g,
+                  mColorFont.b,
+                  mColorFont.a);
         row = 0;
         for(const auto& line : mLines){
             glPushMatrix();
@@ -269,14 +273,17 @@ namespace next {
 
         gl::disableAlphaBlending();
         gl::disableAlphaTest();
+        glPopMatrix();
 
 
+        gl::enableDepthRead();
         gl::popMatrices();
         glPopAttrib();
 
+        
         mFbo1.unbindFramebuffer();
 
-        genTexcoords();
+        //genTexcoords();
     }
 
     void TextBox::genTexcoords(){
@@ -353,11 +360,13 @@ namespace next {
     void TextBox::setFontSize(float size){
         size = MAX(1,size);
         float fontSize = mTexFontRef->getFont().getSize();
+        
+        const static float aliasingOffset = 3.0f; // prevent cutoffs
 
         mFontScale     = size / fontSize;
         mFontAscent    = mTexFontRef->getAscent();
         mFontDescent   = mTexFontRef->getDescent();
-        mFontBaseline    = (mFontAscent - mFontDescent) * mFontScale;
+        mFontBaseline  = (mFontAscent - mFontDescent) * mFontScale + aliasingOffset;
         mFontHeight    = mFontAscent * mFontScale;
 
         mTransform.setToIdentity();
@@ -664,7 +673,7 @@ namespace next {
         };
 
 
-        glColor3f(mColorUnderline[0],mColorUnderline[1],mColorUnderline[2]);
+        glColor4f(mColorUnderline[0],mColorUnderline[1],mColorUnderline[2],1.0f);
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(2, GL_FLOAT, 0, &vertices[0]);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);

@@ -166,7 +166,6 @@ namespace next {
         stepForward_1();
         
         mLabelEventTitle->setString((*mEventViews.begin())->getData()->title);
-
     }
     
     void SessionView::focusView(next::EventView *view){
@@ -178,8 +177,6 @@ namespace next {
     }
 
     void SessionView::setViewState(EventView *view, int slot) {
-        cout << slot << endl;
-        
         // view is last, target slot last
         if(view == mEventViews.back() && slot == mEventViewSlotEnd){
             tween(&view->mPositionState,mEventViewSlots[slot],sTimeAnimateInOut,ViewInOutEasing(),
@@ -222,8 +219,9 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SessionView::drawLabels(){
-        //mLabelTitle->draw();
+        mLabelTitle->draw();
         mLabelEventTitle->draw();
+        
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -231,14 +229,12 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SessionView::draw(){
-        return;
         for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
             (*itr)->draw();
         }
     }
     
     void SessionView::update(){
-        return;
         for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
             (*itr)->update();
         }

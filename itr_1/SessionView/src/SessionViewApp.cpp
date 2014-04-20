@@ -71,7 +71,7 @@ void SessionViewApp::setup(){
     mDataEvents   = nullptr;
     mDataSession  = nullptr;
 
-    next::Mapping::Get(jsonFilepath, imageFilepath, 3559,
+    next::Mapping::Get(jsonFilepath, imageFilepath, 3560,
                        mDataImages, mDataSpeakers, mDataEvents, mDataSession);
     mViewSession = new next::SessionView(mDataSession);
     
@@ -130,17 +130,13 @@ void SessionViewApp::draw(){
 #endif
     
     glAlphaFunc(GL_GREATER, 0.0);
-    //glEnable(GL_ALPHA_TEST);
-    //glEnable( GL_BLEND );
-    //glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-    //gl::enableAlphaBlending();
+    glEnable(GL_ALPHA_TEST);
+    glEnable( GL_BLEND );
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
     
     mViewSession->draw();
     
-    //gl::disableAlphaBlending();
-    //glDisable(GL_BLEND);
-    glDisable(GL_ALPHA_TEST);
-    //glAlphaFunc(GL_GREATER, 0.5); // reset what seems to be cinders default
+    gl::enableAlphaBlending();
     
     gl::disableDepthRead();
     gl::pushMatrices();
@@ -148,6 +144,13 @@ void SessionViewApp::draw(){
     mViewSession->drawLabels();
     gl::popMatrices();
     gl::enableDepthRead();
+    
+    gl::disableAlphaBlending();
+    glDisable(GL_BLEND);
+    glDisable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.5); // reset what seems to be cinders default
+    
+    
     
     
     
