@@ -283,7 +283,7 @@ namespace next {
         
         mFbo1.unbindFramebuffer();
 
-        //genTexcoords();
+        genTexcoords();
     }
 
     void TextBox::genTexcoords(){
@@ -415,6 +415,9 @@ namespace next {
         return mTexcoords;
     }
 
+    int TextBox::getNumLines(){
+        return mLines.size();
+    }
 
     /*--------------------------------------------------------------------------------------------*/
     // set / get string

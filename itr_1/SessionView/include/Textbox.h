@@ -158,6 +158,8 @@ namespace next {
         
         //! Get normalized texcoords of every single line, excluding offset by shadow
         const vector<vector<Vec2f>>& getTexcoords();
+        
+        int getNumLines();
 
         /*--------------------------------------------------------------------------------------------*/
         // set / get string

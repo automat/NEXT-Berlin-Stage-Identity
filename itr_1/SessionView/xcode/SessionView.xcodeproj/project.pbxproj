@@ -63,6 +63,7 @@
 		CD254C7819047D4E009D6522 /* EventMetaLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventMetaLabel.cpp; path = ../src/EventMetaLabel.cpp; sourceTree = "<group>"; };
 		CD51E585190553A900570C16 /* akkurat_regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = akkurat_regular.otf; path = ../resources/akkurat_regular.otf; sourceTree = "<group>"; };
 		CD51E5871905582E00570C16 /* AbstractMetaLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractMetaLabel.h; path = ../include/AbstractMetaLabel.h; sourceTree = "<group>"; };
+		CDA788021905865600FD83E9 /* PingPongEventTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PingPongEventTitleLabel.h; path = ../include/PingPongEventTitleLabel.h; sourceTree = "<group>"; };
 		CDA8EE331904077D00E7038B /* TextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextBox.h; path = ../include/TextBox.h; sourceTree = "<group>"; };
 		CDCBF23E1902EF740060E875 /* AbstractAnimView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractAnimView.h; path = ../include/AbstractAnimView.h; sourceTree = "<group>"; };
 		CDCBF23F1902EF740060E875 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
@@ -299,6 +300,7 @@
 				CD254C7119045CA1009D6522 /* EventTitleLabel.h */,
 				CD254C7619047750009D6522 /* EventMetaLabel.h */,
 				CD254C7719047760009D6522 /* SessionMetaLabel.h */,
+				CDA788021905865600FD83E9 /* PingPongEventTitleLabel.h */,
 			);
 			name = label;
 			sourceTree = "<group>";

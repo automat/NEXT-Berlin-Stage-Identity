@@ -15,6 +15,7 @@
 
 #include "cinder/Vector.h"
 
+#include "PingPongEventTitleLabel.h"
 #include "SessionTitleLabel.h"
 #include "SessionMetaLabel.h"
 #include "EventTitleLabel.h"
@@ -65,10 +66,10 @@ namespace next {
         
         void resetEventViews();
         
-        SessionTitleLabel* mLabelTitle;
-        SessionMetaLabel*  mLabelMeta;
-        EventTitleLabel*   mLabelEventTitle;
-        EventMetaLabel*    mLabelEventMeta;
+        SessionTitleLabel*         mLabelTitle;
+        SessionMetaLabel*          mLabelMeta;
+        PingPongEventTitleLabel*   mPingPongLabelEventTitle;
+        EventMetaLabel*            mLabelEventMeta;
         
         
       

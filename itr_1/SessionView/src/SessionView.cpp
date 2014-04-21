@@ -52,10 +52,10 @@ namespace next {
                 mEventViewSlots[3] = Vec3f(offsetH,0, slideLength_2 - offsetH);
                 mEventViewSlots[4] = Vec3f(offsetH,0, sSlideLength  - offsetH);
             
-                mLabelTitle      = new SessionTitleLabel();
-                mLabelMeta       = new SessionMetaLabel();
-                mLabelEventTitle = new EventTitleLabel();
-                mLabelEventMeta  = new EventMetaLabel();
+                mLabelTitle              = new SessionTitleLabel();
+                mLabelMeta               = new SessionMetaLabel();
+                mPingPongLabelEventTitle = new PingPongEventTitleLabel();
+                mLabelEventMeta          = new EventMetaLabel();
                 
                 reset(data);
     }
@@ -64,7 +64,7 @@ namespace next {
         deleteEventViews();
         delete mLabelTitle;
         delete mLabelMeta;
-        delete mLabelEventTitle;
+        delete mPingPongLabelEventTitle;
         delete mLabelEventMeta;
     }
     
@@ -221,7 +221,7 @@ namespace next {
             std::advance(eventData, mIndexEventViews);
             Event* data = &eventData->second;
             
-            mLabelEventTitle->setString(data->title);
+            mPingPongLabelEventTitle->setString(data->title);
             mLabelEventMeta->set(data->type, toString(mIndexEventViews + 1) + " / " + toString(mNumEventViews));
             
             view->focusTop();
@@ -254,7 +254,7 @@ namespace next {
         gl::disableDepthRead();
         mLabelTitle->draw();
         mLabelMeta->draw();
-        mLabelEventTitle->draw();
+        mPingPongLabelEventTitle->draw();
         mLabelEventMeta->draw();
         gl::enableDepthRead();
     }

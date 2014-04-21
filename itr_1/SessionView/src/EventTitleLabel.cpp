@@ -32,14 +32,39 @@ namespace next {
         if(mTextBox->getString().empty()){
             return;
         }
-        
         Vec2f topLeft = mTextBox->getTopLeft();
         
         glPushMatrix();
         glTranslatef(mPos.x, mPos.y, 0);
         glColor4f(1,1,1,1);
         glTranslatef(topLeft.x, topLeft.y, 0);
-        gl::draw(mTextBox->getTexture());
+        
+        const gl::Texture& texture = mTextBox->getTexture();
+        
+        Vec2f quadPos;
+        texture.enableAndBind();
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+        for (vector<LineQuad>::const_iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
+            quadPos = itr->posState();
+            
+            glPushMatrix();
+            glColor4f(1,1,1, itr->alphaState());
+                glTranslatef(quadPos.x, quadPos.y, 0);
+                glTexCoordPointer(2, GL_FLOAT, 0, &itr->texcoords[0]);
+                glVertexPointer(2, GL_FLOAT, 0, &itr->vertices[0]);
+                glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+            glPopMatrix();
+        }
+        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+        glDisableClientState(GL_VERTEX_ARRAY);
+        texture.unbind();
+        texture.disable();
+
+#ifdef SESSION_VIEW_LABEL_EVENT_TITLE_DEBUG_DRAW
+        mTextBox->debugDraw();
+#endif
+        
         glPopMatrix();
     }
     
@@ -47,8 +72,53 @@ namespace next {
         
     }
     
-    void EventTitleLabel::setString(const string &str){
+    void EventTitleLabel::setString(const string& str){
+        if(mString == str){
+            return;
+        }
+        
         mTextBox->setString(str);
+        mString = str;
+        
+        genQuads();
+    }
+    
+    
+    void EventTitleLabel::genQuads(){
+        mLineQuads.clear();
+        
+        Vec2f textureSize   = mTextBox->getCalculatedSize();
+        float textureWidth  = textureSize.x;
+        float textureHeight = textureSize.y;
+        
+        int   numLines = mTextBox->getNumLines();
+        vector<vector<Vec2f>> texcoords = mTextBox->getTexcoords();
+        
+        Vec2f topLeft;
+        float width, height;
+        
+        int i,j;
+        i = -1;
+        while(++i < numLines){
+            j = -1;
+            const vector<Vec2f>& _texcoords = texcoords[i];
+            
+            LineQuad quad;
+            quad.posTarget = topLeft = Vec2f(_texcoords[0].x * textureWidth, _texcoords[0].y * textureHeight);;
+            quad.posState  = quad.posTarget;
+            quad.texcoords = _texcoords;
+            
+            vector<Vec2f>& vertices = quad.vertices;
+            width  = topLeft.x + _texcoords[1].x * textureWidth;
+            height = _texcoords[2].y * textureHeight - topLeft.y;
+            
+            vertices.push_back(Vec2f());
+            vertices.push_back(Vec2f(width,0));
+            vertices.push_back(Vec2f(0,height));
+            vertices.push_back(Vec2f(width,height));
+            
+            mLineQuads.push_back(quad);
+        }
     }
     
     
