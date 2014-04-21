@@ -21,12 +21,17 @@ namespace next {
         mTextBox->setDropShadowScale( SESSION_LABEL_EVENT_TITLE_SHADOW_STRENGTH);
         mTextBox->dropShadow();
         
-        mTextBox->setColorUnderline(SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
+        mTextBox->setColorUnderline( SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
         mTextBox->setUnderlineHeight(SESSION_LABEL_EVENT_TITLE_UNDERLINE_HEIGHT);
         mTextBox->underline();
         
         setPosition(SESSION_LABEL_EVENT_TITLE_POS);
     }
+    
+    /*--------------------------------------------------------------------------------------------*/
+    // Update / draw
+    /*--------------------------------------------------------------------------------------------*/
+    
     
     void EventTitleLabel::draw(){
         if(mTextBox->getString().empty()){
@@ -71,6 +76,10 @@ namespace next {
         
     }
     
+    /*--------------------------------------------------------------------------------------------*/
+    // Set
+    /*--------------------------------------------------------------------------------------------*/
+    
     void EventTitleLabel::setString(const string& str){
         if(mString == str){
             return;
@@ -81,6 +90,66 @@ namespace next {
         genQuads();
     }
     
+    /*--------------------------------------------------------------------------------------------*/
+    // Show / Hide
+    /*--------------------------------------------------------------------------------------------*/
+    
+    void EventTitleLabel::show(){
+        float size = static_cast<float>(MAX(1, mLineQuads.size() - 1));
+        float index = 0;
+        float offset;
+        Vec2f offsetPos;
+        
+        for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
+            offset      = 1.0f + 1.0f - index / size;
+            offsetPos.x = offset * SESSION_LABEL_EVENT_TITLE_ANIM_OFFSET_IN_OUT;
+            
+            tween(&itr->posState, itr->posTarget - offsetPos,  itr->posTarget,
+                  SESSION_LABEL_EVENT_TITLE_ANIM_TIME_OFFSET_IN,
+                  AnimEaseInOut());
+            
+            tween(&itr->alphaState, 0.0f, 1.0f,
+                  SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_IN,
+                  AnimEaseInOut());
+            
+            index++;
+        }
+    }
+    
+    void EventTitleLabel::hide(){
+        float size = static_cast<float>(MAX(1, mLineQuads.size() - 1));
+        float index = 0;
+        float offset;
+        Vec2f offsetPos;
+        
+        for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
+            offset      = 1.0f + index / size;
+            offsetPos.x = offset * SESSION_LABEL_EVENT_TITLE_ANIM_OFFSET_IN_OUT;
+            
+            tween(&itr->posState, itr->posTarget, itr->posTarget + offsetPos,
+                  SESSION_LABEL_EVENT_TITLE_ANIM_TIME_OFFSET_OUT,
+                  AnimEaseInOut());
+            
+            tween(&itr->alphaState, 1.0f, 0.0f,
+                  SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_OUT,
+                  AnimEaseInOut());
+            
+            index++;
+        }
+    }
+    
+    void EventTitleLabel::on(){
+        
+    }
+    
+    void EventTitleLabel::off(){
+        
+    }
+    
+    
+    /*--------------------------------------------------------------------------------------------*/
+    // Gen Textured Lines
+    /*--------------------------------------------------------------------------------------------*/
     
     void EventTitleLabel::genQuads(){
         mLineQuads.clear();
@@ -117,42 +186,6 @@ namespace next {
             
             mLineQuads.push_back(quad);
         }
-    }
-    
-    void EventTitleLabel::show(){
-        float size = static_cast<float>(MAX(1, mLineQuads.size() - 1));
-        float index = 0;
-        float offset;
-        
-        for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
-            offset = 1.0f + 1.0f - index / size;
-            tween(&itr->posState, itr->posTarget - Vec2f(offset * 50.0f,0),  itr->posTarget, 1.0f, AnimEaseInOut());
-            tween(&itr->alphaState, 0.0f, 1.0f, 2.0f, AnimEaseInOut());
-            
-            index++;
-        }
-    }
-    
-    void EventTitleLabel::hide(){
-        float size = static_cast<float>(MAX(1, mLineQuads.size() - 1));
-        float index = 0;
-        float offset;
-        
-        for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
-            offset = 1.0f + index / size;
-            tween(&itr->posState, itr->posTarget, itr->posTarget + Vec2f(offset * 50.0f,0), 2.0f, AnimEaseInOut());
-            tween(&itr->alphaState, 1.0f, 0.0f, 0.5f, AnimEaseInOut());
-            
-            index++;
-        }
-    }
-    
-    void EventTitleLabel::on(){
-        
-    }
-    
-    void EventTitleLabel::off(){
-        
     }
     
     

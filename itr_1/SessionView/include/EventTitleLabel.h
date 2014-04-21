@@ -19,13 +19,12 @@ namespace next {
             Vec2f         posTarget;
             
             Anim<Vec2f>   posState;
-            Anim<float>   scaleState;
             Anim<float>   alphaState;
 
             vector<Vec2f> vertices;
             vector<Vec2f> texcoords;
             
-            LineQuad() : scaleState(1.0f), alphaState(0.0f){}
+            LineQuad() : posState(Vec2f()), alphaState(0.0f){}
             
         };
         
