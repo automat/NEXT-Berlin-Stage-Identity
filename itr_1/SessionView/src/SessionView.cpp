@@ -21,13 +21,6 @@ namespace next {
     using namespace ci;
     using namespace ci::app;
     
-    static const float sSlideLength(3.5f);
-    
-    //  to be replaced with config
-    static const float sTimeAnimateInOut(1.95f);
-    
-    static const float sTimeAnimateStartEnd(1.0f);
-
     typedef EaseOutCubic ViewStartEndEasing;
     typedef EaseInOutQuad ViewInOutEasing;
     
@@ -45,12 +38,13 @@ namespace next {
             mEventViewSlotOut(3),
             mEventViewSlotEnd(4){
                 float offsetH = 0.5f;
-                float slideLength_2 = sSlideLength * 0.5f;
-                mEventViewSlots[0] = Vec3f(offsetH,0,-sSlideLength  - offsetH);
+                float slideLength_2 = SESSION_VIEW_SLIDE_LENGTH * 0.5f;
+
+                mEventViewSlots[0] = Vec3f(offsetH,0,-SESSION_VIEW_SLIDE_LENGTH - offsetH);
                 mEventViewSlots[1] = Vec3f(offsetH,0,-slideLength_2 - offsetH);
                 mEventViewSlots[2] = Vec3f(offsetH,0,-offsetH);
                 mEventViewSlots[3] = Vec3f(offsetH,0, slideLength_2 - offsetH);
-                mEventViewSlots[4] = Vec3f(offsetH,0, sSlideLength  - offsetH);
+                mEventViewSlots[4] = Vec3f(offsetH,0, SESSION_VIEW_SLIDE_LENGTH - offsetH);
             
                 mLabelTitle              = new SessionTitleLabel();
                 mLabelMeta               = new SessionMetaLabel();
@@ -181,8 +175,7 @@ namespace next {
         cout << "Front: " << mEventViewFront << endl;
 #endif
     }
-
-
+    
     void SessionView::start(){
         onStart();
         if(mNumEventViews < 2){
@@ -203,23 +196,34 @@ namespace next {
     void SessionView::setViewState(EventView *view, int slot) {
         // view is last, target slot last
         if(view == mEventViews.back() && slot == mEventViewSlotEnd){
-            tween(&view->mPositionState,mEventViewSlots[slot],sTimeAnimateInOut,ViewInOutEasing(),
+            tween(&view->mPositionState,mEventViewSlots[slot],
+                  SESSION_EVENT_ANIM_IN_OUT,
+                  ViewInOutEasing(),
                   NULL,std::bind(&SessionView::onFinish, this));
             return;
         }
         
         // view is first, target slot is in postion
         if(view == mEventViews.front() && slot == mEventViewSlotIn){
-            tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing(),
+            tween(&view->mPositionState, mEventViewSlots[slot],
+                  SESSION_EVENT_ANIM_IN_OUT,
+                  ViewInOutEasing(),
                   NULL, std::bind(&SessionView::stepForward_1, this));
             return;
         }
         
         // target slot is event focus
         if(slot == mEventViewSlotFocus){
+          
+            //
+            //  Hide previous event label
+            //
             mPingPongLabelEventTitle->hide();
             mPingPongLabelEventTitle->swap();
             
+            //
+            //  Set data & show next event label
+            //
             map<uint32_t, Event>::iterator eventData = mData->events->begin();
             std::advance(eventData, mIndexEventViews);
             Event* data = &eventData->second;
@@ -229,10 +233,13 @@ namespace next {
             
             mLabelEventMeta->set(data->type, toString(mIndexEventViews + 1) + " / " + toString(mNumEventViews));
             
-            
-            
+            //
+            //  trigger focus
+            //
             view->focusTop();
-            tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing(),
+            tween(&view->mPositionState, mEventViewSlots[slot],
+                  SESSION_EVENT_ANIM_IN_OUT,
+                  ViewInOutEasing(),
                   NULL, std::bind(&SessionView::focusView,this,view));
             
             mIndexEventViews++;
@@ -244,13 +251,17 @@ namespace next {
             view->unfocus();
             
             if(view == mEventViews.back()){
-               tween(&view->mPositionState,mEventViewSlots[slot],sTimeAnimateInOut,ViewInOutEasing(),
-                      NULL,std::bind(&SessionView::stepForward_1, this));
+               tween(&view->mPositionState,mEventViewSlots[slot],
+                     SESSION_EVENT_ANIM_IN_OUT,
+                     ViewInOutEasing(),
+                     NULL,std::bind(&SessionView::stepForward_1, this));
                 return;
             }
         }
         
-        tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing());
+        tween(&view->mPositionState, mEventViewSlots[slot],
+              SESSION_EVENT_ANIM_IN_OUT,
+              ViewInOutEasing());
     }
     
     /*--------------------------------------------------------------------------------------------*/

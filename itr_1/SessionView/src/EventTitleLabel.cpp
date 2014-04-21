@@ -101,8 +101,8 @@ namespace next {
         Vec2f offsetPos;
         
         for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
-            offset      = 1.0f + 1.0f - index / size;
-            offsetPos.x = offset * SESSION_LABEL_EVENT_TITLE_ANIM_OFFSET_IN_OUT;
+            offset      = 1.0f + index++ / size;
+            offsetPos.x = offset * SESSION_LABEL_EVENT_TITLE_ANIM_OFFSET_IN;
             
             tween(&itr->posState, itr->posTarget - offsetPos,  itr->posTarget,
                   SESSION_LABEL_EVENT_TITLE_ANIM_TIME_OFFSET_IN,
@@ -111,9 +111,7 @@ namespace next {
             tween(&itr->alphaState, 0.0f, 1.0f,
                   SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_IN,
                   AnimEaseInOut());
-            
-            index++;
-        }
+         }
     }
     
     void EventTitleLabel::hide(){
@@ -123,8 +121,8 @@ namespace next {
         Vec2f offsetPos;
         
         for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
-            offset      = 1.0f + index / size;
-            offsetPos.x = offset * SESSION_LABEL_EVENT_TITLE_ANIM_OFFSET_IN_OUT;
+            offset      = 1.0f + index++ / size;
+            offsetPos.x = offset * SESSION_LABEL_EVENT_TITLE_ANIM_OFFSET_OUT;
             
             tween(&itr->posState, itr->posTarget, itr->posTarget + offsetPos,
                   SESSION_LABEL_EVENT_TITLE_ANIM_TIME_OFFSET_OUT,
@@ -133,8 +131,6 @@ namespace next {
             tween(&itr->alphaState, 1.0f, 0.0f,
                   SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_OUT,
                   AnimEaseInOut());
-            
-            index++;
         }
     }
     
@@ -164,10 +160,9 @@ namespace next {
         Vec2f topLeft;
         float width, height;
         
-        int i,j;
+        int i;
         i = -1;
         while(++i < numLines){
-            j = -1;
             const vector<Vec2f>& _texcoords = texcoords[i];
             
             LineQuad quad;

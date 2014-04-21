@@ -14,15 +14,29 @@
 
 #define SCALE 2
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  Session View
+//
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 #define SESSION_VIEW_DEBUG_STATE
 #define SESSION_VIEW_DEBUG_DRAW
 
-#define SESSION_VIEW_LABEL_SESSION_META_DEBUG_DRAW
-#define SESSION_VIEW_LABEL_EVENT_META_DEBUG_DRAW
+//#define SESSION_VIEW_LABEL_SESSION_META_DEBUG_DRAW
+//#define SESSION_VIEW_LABEL_EVENT_META_DEBUG_DRAW
 //#define SESSION_VIEW_LABEL_EVENT_TITLE_DEBUG_DRAW
+
+#define SESSION_VIEW_SLIDE_LENGTH 3.5f
+
+#define SESSION_EVENT_ANIM_IN_OUT 1.35f
 
 #define SESSION_EVENT_TIME_MAX 2.0f    //10
 #define SESSION_EVENT_TIME_SPEAKER_MIN 1.0f  //3
+
+/*--------------------------------------------------------------------------------------------*/
+//  Title Labels
+/*--------------------------------------------------------------------------------------------*/
 
 #define SESSION_LABEL_TITLE_FONT_SIZE 118
 #define SESSION_LABEL_TITLE_FONT_SCALAR 4
@@ -55,12 +69,17 @@
 #define SESSION_LABEL_EVENT_TITLE_SHADOW_OFFSET      SESSION_LABEL_TITLE_SHADOW_OFFSET
 #define SESSION_LABEL_EVENT_TITLE_SHADOW_STRENGTH    SESSION_LABEL_TITLE_SHADOW_STRENGTH
 
-#define SESSION_LABEL_EVENT_TITLE_ANIM_OFFSET_IN_OUT   50.0f
+#define SESSION_LABEL_EVENT_TITLE_ANIM_OFFSET_IN       50.0f
+#define SESSION_LABEL_EVENT_TITLE_ANIM_OFFSET_OUT      0.0f
 #define SESSION_LABEL_EVENT_TITLE_ANIM_TIME_OFFSET_IN  1.0f
 #define SESSION_LABEL_EVENT_TITLE_ANIM_TIME_OFFSET_OUT 1.0f
-#define SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_IN   2.0f
+#define SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_IN   2.5f
 #define SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_OUT  0.5f
 
+
+/*--------------------------------------------------------------------------------------------*/
+//  Meta Labels
+/*--------------------------------------------------------------------------------------------*/
 
 #define SESSION_LABEL_META_FONT_SIZE 50
 #define SESSION_LABEL_META_FONT_SCALAR 4
@@ -73,12 +92,10 @@
 #define SESSION_LABEL_SESSION_META_FONT_COLOR ci::Color::hex(0xDE3865)
 #define SESSION_LABEL_SESSION_META_BOX_WIDTH 700
 
-
 #define SESSION_LABEL_EVENT_META_POS ci::Vec2f(1163,216)
 #define SESSION_LABEL_EVENT_META_FONT_COLOR ci::Color::white()
 #define SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING 15
 #define SESSION_LABEL_EVENT_BOX_WIDTH 800
-
 
 #define SESSION_LABEL_SESSION_TIME_FONT_SIZE 24 * SCALE
 
