@@ -11,7 +11,7 @@ namespace next {
         
         mTextBox->setWidth(SESSION_LABEL_SESSION_TITLE_BOX_WIDTH);
         
-        mTextBox->setFontSize( SESSION_LABEL_SESSION_TITLE_FONT_SIZE);
+        mTextBox->setFontSize(  SESSION_LABEL_SESSION_TITLE_FONT_SIZE);
         mTextBox->setLineHeight(SESSION_LABEL_SESSION_TITLE_LINE_HEIGHT);
         mTextBox->setColorFont( SESSION_LABEL_SESSION_TITLE_FONT_COLOR);
         
@@ -20,7 +20,7 @@ namespace next {
         mTextBox->setDropShadowScale( SESSION_LABEL_SESSION_TITLE_SHADOW_STRENGTH);
         mTextBox->dropShadow();
         
-        mTextBox->setColorUnderline(SESSION_LABEL_SESSION_TITLE_UNDERLINE_COLOR);
+        mTextBox->setColorUnderline( SESSION_LABEL_SESSION_TITLE_UNDERLINE_COLOR);
         mTextBox->setUnderlineHeight(SESSION_LABEL_SESSION_TITLE_UNDERLINE_HEIGHT);
         mTextBox->underline();
         

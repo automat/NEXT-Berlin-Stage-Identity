@@ -44,6 +44,14 @@ namespace next {
             mLabels[mIndex].hide();
         }
         
+        inline void on(){
+            mLabels[mIndex].on();
+        }
+        
+        inline void off(){
+            mLabels[mIndex].off();
+        }
+        
         inline void swap(){
             mIndex = 1 - mIndex;
         }

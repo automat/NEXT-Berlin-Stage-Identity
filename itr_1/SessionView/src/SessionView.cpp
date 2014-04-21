@@ -110,7 +110,6 @@ namespace next {
         mEventViewFront = 0;
         mAnimating = false;
         
-        
         for(vector<EventView*>::iterator itr = mEventViews.begin(); itr != mEventViews.end(); ++itr){
             (*itr)->mPositionState = mEventViewSlots[0];
             (*itr)->resetStack();
@@ -194,12 +193,13 @@ namespace next {
     }
 
     void SessionView::setViewState(EventView *view, int slot) {
-        // view is last, target slot last
-        if(view == mEventViews.back() && slot == mEventViewSlotEnd){
-            tween(&view->mPositionState,mEventViewSlots[slot],
-                  SESSION_EVENT_ANIM_IN_OUT,
+        // view is last, target is last
+        if(view == mEventViews.back() && slot == mEventViewSlotOut){
+            tween(&view->mPositionState,mEventViewSlots[mEventViewSlotEnd], // skip one, and proceed to last
+                  SESSION_EVENT_ANIM_TIME_OFF,
                   ViewInOutEasing(),
                   NULL,std::bind(&SessionView::onFinish, this));
+            mPingPongLabelEventTitle->off();
             return;
         }
         
@@ -214,12 +214,14 @@ namespace next {
         
         // target slot is event focus
         if(slot == mEventViewSlotFocus){
-          
-            //
-            //  Hide previous event label
-            //
-            mPingPongLabelEventTitle->hide();
-            mPingPongLabelEventTitle->swap();
+            
+            if(mIndexEventViews != 0){
+                //
+                //  Hide previous event label
+                //
+                mPingPongLabelEventTitle->hide();
+                mPingPongLabelEventTitle->swap();
+            }
             
             //
             //  Set data & show next event label
@@ -229,7 +231,19 @@ namespace next {
             Event* data = &eventData->second;
             
             mPingPongLabelEventTitle->setString(data->title);
-            mPingPongLabelEventTitle->show();
+            
+            if(mIndexEventViews == 0){
+                //
+                //  turn label on
+                //
+                mPingPongLabelEventTitle->on();
+            } else {
+                
+                //
+                //  show next label
+                //
+                mPingPongLabelEventTitle->show();
+            }
             
             mLabelEventMeta->set(data->type, toString(mIndexEventViews + 1) + " / " + toString(mNumEventViews));
             

@@ -134,12 +134,30 @@ namespace next {
         }
     }
     
+    /*--------------------------------------------------------------------------------------------*/
+    // On / Off
+    /*--------------------------------------------------------------------------------------------*/
+    
+    
     void EventTitleLabel::on(){
+        for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
+            itr->posState = itr->posTarget;
+            
+            tween(&itr->alphaState, 0.0f, 1.0f,
+                  SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_ON,
+                  AnimEaseInOut());
+        }
         
     }
     
     void EventTitleLabel::off(){
-        
+        for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
+            itr->posState = itr->posTarget;
+            
+            tween(&itr->alphaState, 1.0f, 0.0f,
+                  SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_OFF,
+                  AnimEaseInOut());
+        }
     }
     
     

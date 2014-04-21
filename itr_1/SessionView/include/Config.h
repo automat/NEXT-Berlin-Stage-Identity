@@ -20,8 +20,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-#define SESSION_VIEW_DEBUG_STATE
-#define SESSION_VIEW_DEBUG_DRAW
+//#define SESSION_VIEW_DEBUG_STATE
+//#define SESSION_VIEW_DEBUG_DRAW
 
 //#define SESSION_VIEW_LABEL_SESSION_META_DEBUG_DRAW
 //#define SESSION_VIEW_LABEL_EVENT_META_DEBUG_DRAW
@@ -29,7 +29,9 @@
 
 #define SESSION_VIEW_SLIDE_LENGTH 3.5f
 
-#define SESSION_EVENT_ANIM_IN_OUT 1.35f
+#define SESSION_EVENT_ANIM_IN_OUT   1.35f
+#define SESSION_EVENT_ANIM_TIME_OFF 2.0f
+#define SESSION_EVENT_ANUM_TIME_ON  2.0f
 
 #define SESSION_EVENT_TIME_MAX 2.0f    //10
 #define SESSION_EVENT_TIME_SPEAKER_MIN 1.0f  //3
@@ -75,6 +77,8 @@
 #define SESSION_LABEL_EVENT_TITLE_ANIM_TIME_OFFSET_OUT 1.0f
 #define SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_IN   2.5f
 #define SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_OUT  0.5f
+#define SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_ON   2.0f
+#define SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_OFF  2.0f
 
 
 /*--------------------------------------------------------------------------------------------*/
