@@ -63,6 +63,17 @@ namespace next {
         }
     }
     
+    void SpeakerStackView::resetStack(){
+        int i = 0;
+        while (i < mNumViews) {
+            SpeakerView* view = mViews[i];
+            view->mPositionState = mStackTop - sStackStep * static_cast<float>(i + 1);
+            view->unfocusImage();
+            i++;
+        }
+        mViewIndex = -1;
+    }
+    
     /*--------------------------------------------------------------------------------------------*/
     //  Draw / Update
     /*--------------------------------------------------------------------------------------------*/

@@ -24,11 +24,13 @@ namespace next {
     using namespace ci;
     
     class SessionView : public AbstractAnimView{
-        bool     mValid;    //  is valid, data > 0
-
+        Session* mData;
+        
+        bool mValid;    //  is valid, data > 0
         bool mAnimating;
         
         int                mNumEventViews;
+        int                mIndexEventViews;
         vector<EventView*> mEventViews;
         vector<int>        mEventViewsOffset;
         int                mEventViewStep;
@@ -61,10 +63,14 @@ namespace next {
         //! on begin
         void onStart();
         
+        void resetEventViews();
+        
         SessionTitleLabel* mLabelTitle;
         SessionMetaLabel*  mLabelMeta;
         EventTitleLabel*   mLabelEventTitle;
         EventMetaLabel*    mLabelEventMeta;
+        
+        
       
         
     public:

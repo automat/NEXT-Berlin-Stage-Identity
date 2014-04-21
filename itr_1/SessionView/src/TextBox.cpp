@@ -713,17 +713,6 @@ namespace next {
             row += mLineStep;
         }
 
-        gl::disableAlphaBlending();
-        gl::disableAlphaTest();
-
-        glColor4f(prevColor[0],
-                prevColor[1],
-                prevColor[2],
-                prevColor[3]);
-
-
-        glGetFloatv(GL_CURRENT_COLOR, prevColor);
-
         glPushMatrix();
         glColor3f(1,0,1);
         gl::drawStrokedRect(Rectf(0,0,mWidth, row));
@@ -756,6 +745,8 @@ namespace next {
 
             glPopMatrix();
         }
+        
+        glColor4f(prevColor[0],prevColor[1],prevColor[2],prevColor[3]);
     }
 
     const gl::Texture& TextBox::getTexture(){

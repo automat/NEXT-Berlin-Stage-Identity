@@ -71,7 +71,7 @@ void SessionViewApp::setup(){
     mDataEvents   = nullptr;
     mDataSession  = nullptr;
 
-    next::Mapping::Get(jsonFilepath, imageFilepath, 3558,
+    next::Mapping::Get(jsonFilepath, imageFilepath, 3559,
                        mDataImages, mDataSpeakers, mDataEvents, mDataSession);
     mViewSession = new next::SessionView(mDataSession);
     

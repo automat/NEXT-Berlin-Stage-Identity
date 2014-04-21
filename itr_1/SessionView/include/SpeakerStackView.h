@@ -47,6 +47,8 @@ namespace next {
         void reset(const vector<Speaker*>& data);
         void stack(const AnimCallback& callback);
         
+        void resetStack();
+        
         void draw();
         void update();
         

@@ -9,20 +9,18 @@
 #ifndef SessionView_EventMetaLabel_h
 #define SessionView_EventMetaLabel_h
 
-#include "AbstractLabel.h"
+#include "AbstractMetaLabel.h"
 #include <string>
 
 namespace next {
     using namespace std;
-    class EventMetaLabel : public AbstractLabel {
-        TextBox* mTextBoxSub;
-        float    mTextBoxWidth;
+    class EventMetaLabel : public AbstractMetaLabel {
+        Vec2f mVertexTrapezoidIndex[4];
+        Vec2f mVertexTrapezoidType[4];
     public:
         EventMetaLabel();
-        ~EventMetaLabel();
         
-        void setType(const string& str);
-        void setIndex(const string& str);
+        void set(const string& type, const string& index);
         
         void draw();
         void update();

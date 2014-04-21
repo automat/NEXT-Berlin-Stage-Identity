@@ -21,7 +21,7 @@ namespace next {
     using namespace ci;
     using namespace ci::app;
     
-    static const float sSlideLength(4);
+    static const float sSlideLength(3.5f);
     
     //  to be replaced with config
     static const float sTimeAnimateInOut(2.0f);
@@ -79,12 +79,13 @@ namespace next {
     void SessionView::reset(Session* data){
         deleteEventViews();
         
-        map<uint32_t, Event>* events = data->events;
+        mData = data;
+        map<uint32_t, Event>* events = mData->events;
         
-        mNumEventViews = events->size();
-        mEventViewStep = mEventViewFront = mEventViewBack = 0;
-        mValid         = mNumEventViews != 0;
-        mEventViewStep = 0;
+        mNumEventViews   = events->size();
+        mEventViewStep   = mEventViewFront = mEventViewBack = 0;
+        mValid           = mNumEventViews != 0;
+        mIndexEventViews = 0;
 
         mAnimating = false;
 
@@ -99,10 +100,27 @@ namespace next {
             mEventViewsOffset += -(++i);
         }
         
-        mLabelTitle->setString(data->title);
-        mLabelMeta->setTime(data->startHourString, data->endHourString, data->startTimeStamp);
+        mLabelTitle->setString(mData->title);
+        mLabelMeta->set(mData->startHourString, mData->endHourString, mData->startTimeStamp);
        
         start();
+    }
+    
+    void SessionView::resetEventViews(){
+        if(!mValid){
+            return;
+        }
+        
+        mEventViewStep = 0;
+        mIndexEventViews = 0;
+        mEventViewFront = 0;
+        mAnimating = false;
+        
+        
+        for(vector<EventView*>::iterator itr = mEventViews.begin(); itr != mEventViews.end(); ++itr){
+            (*itr)->mPositionState = mEventViewSlots[0];
+            (*itr)->resetStack();
+        }
     }
 
     /*--------------------------------------------------------------------------------------------*/
@@ -113,6 +131,8 @@ namespace next {
 #ifdef SESSION_VIEW_DEBUG_STATE
         cout << "### Session View End ###" << endl;
 #endif
+        resetEventViews();
+        start();
     }
 
     void SessionView::onStart(){
@@ -169,7 +189,7 @@ namespace next {
             stepForward_2();
             return;
         }
-        stepForward_1();
+        stepForward_2();
     }
     
     void SessionView::focusView(next::EventView *view){
@@ -197,15 +217,18 @@ namespace next {
         
         // target slot is event focus
         if(slot == mEventViewSlotFocus){
-            const Event* data = view->getData();
+            map<uint32_t, Event>::iterator eventData = mData->events->begin();
+            std::advance(eventData, mIndexEventViews);
+            Event* data = &eventData->second;
             
             mLabelEventTitle->setString(data->title);
-            mLabelEventMeta->setType(data->type);
-            mLabelEventMeta->setIndex(toString(std::find(mEventViews.begin(), mEventViews.end(), view) - mEventViews.begin() + 1) + " / " + toString(mNumEventViews));
+            mLabelEventMeta->set(data->type, toString(mIndexEventViews + 1) + " / " + toString(mNumEventViews));
             
             view->focusTop();
             tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing(),
                   NULL, std::bind(&SessionView::focusView,this,view));
+            
+            mIndexEventViews++;
             return;
         }
         
@@ -228,10 +251,12 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SessionView::drawLabels(){
+        gl::disableDepthRead();
         mLabelTitle->draw();
         mLabelMeta->draw();
         mLabelEventTitle->draw();
         mLabelEventMeta->draw();
+        gl::enableDepthRead();
     }
     
     /*--------------------------------------------------------------------------------------------*/

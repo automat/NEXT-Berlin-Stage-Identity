@@ -41,8 +41,7 @@ namespace next {
         mSpeakerStackView->unfocus();
     }
     
-    const Event* EventView::getData(){
-        return mData;
+    void EventView::resetStack(){
+        mSpeakerStackView->resetStack();
     }
-
 }

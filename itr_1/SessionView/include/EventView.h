@@ -38,11 +38,7 @@ namespace next {
         void update();
         
         void stackSpeaker(const AnimCallback &callback);
-        
-        const Event* getData();
-        
-        
-        
+        void resetStack();
     };
 }
 
