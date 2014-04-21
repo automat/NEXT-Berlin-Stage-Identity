@@ -3,18 +3,18 @@
 #include <boost/algorithm/string/join.hpp>
 
 
+
 namespace next {
     using namespace boost;
+    typedef EaseInOutQuad AnimEaseInOut;
+    
     EventTitleLabel::EventTitleLabel() : AbstractLabel(){
-        mTextBox->setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),
-                               SESSION_LABEL_SESSION_TITLE_FONT_SIZE * SESSION_LABEL_SESSION_TITLE_FONT_SCALAR));
+        mTextBox->setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),SESSION_LABEL_SESSION_TITLE_FONT_SIZE * SESSION_LABEL_SESSION_TITLE_FONT_SCALAR));
         
-        mTextBox->setWidth(SESSION_LABEL_EVENT_TITLE_BOX_WIDTH);
-        
+        mTextBox->setWidth(     SESSION_LABEL_EVENT_TITLE_BOX_WIDTH);
         mTextBox->setFontSize(  SESSION_LABEL_EVENT_TITLE_FONT_SIZE);
         mTextBox->setLineHeight(SESSION_LABEL_EVENT_TITLE_LINE_HEIGHT);
         mTextBox->setColorFont( SESSION_LABEL_EVENT_TITLE_FONT_COLOR);
-        
         
         mTextBox->setColorDropShadow( SESSION_LABEL_EVENT_TITLE_SHADOW_COLOR);
         mTextBox->setDropShadowOffset(SESSION_LABEL_EVENT_TITLE_SHADOW_OFFSET);
@@ -33,15 +33,14 @@ namespace next {
             return;
         }
         Vec2f topLeft = mTextBox->getTopLeft();
+        const gl::Texture& texture = mTextBox->getTexture();
+        Vec2f quadPos;
         
         glPushMatrix();
         glTranslatef(mPos.x, mPos.y, 0);
         glColor4f(1,1,1,1);
         glTranslatef(topLeft.x, topLeft.y, 0);
         
-        const gl::Texture& texture = mTextBox->getTexture();
-        
-        Vec2f quadPos;
         texture.enableAndBind();
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -79,7 +78,6 @@ namespace next {
         
         mTextBox->setString(str);
         mString = str;
-        
         genQuads();
     }
     
@@ -119,6 +117,42 @@ namespace next {
             
             mLineQuads.push_back(quad);
         }
+    }
+    
+    void EventTitleLabel::show(){
+        float size = static_cast<float>(MAX(1, mLineQuads.size() - 1));
+        float index = 0;
+        float offset;
+        
+        for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
+            offset = 1.0f + 1.0f - index / size;
+            tween(&itr->posState, itr->posTarget - Vec2f(offset * 50.0f,0),  itr->posTarget, 1.0f, AnimEaseInOut());
+            tween(&itr->alphaState, 0.0f, 1.0f, 2.0f, AnimEaseInOut());
+            
+            index++;
+        }
+    }
+    
+    void EventTitleLabel::hide(){
+        float size = static_cast<float>(MAX(1, mLineQuads.size() - 1));
+        float index = 0;
+        float offset;
+        
+        for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
+            offset = 1.0f + index / size;
+            tween(&itr->posState, itr->posTarget, itr->posTarget + Vec2f(offset * 50.0f,0), 2.0f, AnimEaseInOut());
+            tween(&itr->alphaState, 1.0f, 0.0f, 0.5f, AnimEaseInOut());
+            
+            index++;
+        }
+    }
+    
+    void EventTitleLabel::on(){
+        
+    }
+    
+    void EventTitleLabel::off(){
+        
     }
     
     

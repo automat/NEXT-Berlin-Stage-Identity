@@ -21,17 +21,17 @@ namespace next {
             Anim<Vec2f>   posState;
             Anim<float>   scaleState;
             Anim<float>   alphaState;
-            
+
             vector<Vec2f> vertices;
             vector<Vec2f> texcoords;
             
-            LineQuad() : scaleState(1.0f), alphaState(1.0f){}
+            LineQuad() : scaleState(1.0f), alphaState(0.0f){}
             
         };
         
-        string        mString;
+        string           mString;
         vector<LineQuad> mLineQuads;
-        
+       
         void genQuads();
         
     public:
@@ -40,6 +40,12 @@ namespace next {
         void draw();
         void update();
         void setString(const string& str);
+        
+        void on();
+        void off();
+        
+        void show();
+        void hide();
     };
 }
 

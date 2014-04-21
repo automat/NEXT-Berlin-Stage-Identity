@@ -24,12 +24,12 @@ namespace next {
     static const float sSlideLength(3.5f);
     
     //  to be replaced with config
-    static const float sTimeAnimateInOut(2.0f);
+    static const float sTimeAnimateInOut(1.95f);
     
     static const float sTimeAnimateStartEnd(1.0f);
 
     typedef EaseOutCubic ViewStartEndEasing;
-    typedef EaseOutCubic ViewInOutEasing;
+    typedef EaseInOutQuad ViewInOutEasing;
     
     /*--------------------------------------------------------------------------------------------*/
     //  Constructor
@@ -217,12 +217,19 @@ namespace next {
         
         // target slot is event focus
         if(slot == mEventViewSlotFocus){
+            mPingPongLabelEventTitle->hide();
+            mPingPongLabelEventTitle->swap();
+            
             map<uint32_t, Event>::iterator eventData = mData->events->begin();
             std::advance(eventData, mIndexEventViews);
             Event* data = &eventData->second;
             
             mPingPongLabelEventTitle->setString(data->title);
+            mPingPongLabelEventTitle->show();
+            
             mLabelEventMeta->set(data->type, toString(mIndexEventViews + 1) + " / " + toString(mNumEventViews));
+            
+            
             
             view->focusTop();
             tween(&view->mPositionState, mEventViewSlots[slot], sTimeAnimateInOut, ViewInOutEasing(),

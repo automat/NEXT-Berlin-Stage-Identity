@@ -36,6 +36,14 @@ namespace next {
             mLabels[mIndex].setString(str);
         }
         
+        inline void show(){
+            mLabels[mIndex].show();
+        }
+        
+        inline void hide(){
+            mLabels[mIndex].hide();
+        }
+        
         inline void swap(){
             mIndex = 1 - mIndex;
         }
