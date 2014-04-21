@@ -5,7 +5,7 @@
 
 namespace next {
     using namespace boost;
-    SessionMetaLabel::SessionMetaLabel() : AbstractMetaLabel(){
+    SessionMetaLabel::SessionMetaLabel() : AbstractLabel(), mTextBoxFrontWidth(0){
         mTextBox->setFont(      Font(app::loadResource(RES_AKKURAT_BOLD), SESSION_LABEL_META_FONT_SIZE * SESSION_LABEL_META_FONT_SCALAR));
         mTextBox->setWidth(     SESSION_LABEL_SESSION_META_BOX_WIDTH);
         mTextBox->setFontSize(  SESSION_LABEL_META_FONT_SIZE);
@@ -19,7 +19,12 @@ namespace next {
         
         setPosition(SESSION_LABEL_SESSION_META_POS);
     }
-    
+
+    SessionMetaLabel::~SessionMetaLabel() {
+        delete mTextBoxSub;
+    }
+
+
     void SessionMetaLabel::draw(){
         if(mTextBox->getString().empty()){
             return;

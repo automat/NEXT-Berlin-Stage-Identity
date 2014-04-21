@@ -9,16 +9,19 @@
 #ifndef SessionView_SessionMetaLabel_h
 #define SessionView_SessionMetaLabel_h
 
-#include "AbstractMetaLabel.h"
+#include "AbstractLabel.h"
 #include <string>
 
 namespace next {
     using namespace std;
-    class SessionMetaLabel : public AbstractMetaLabel {
+    class SessionMetaLabel : public AbstractLabel {
     private:
+        float mTextBoxFrontWidth;
+        next::TextBox* mTextBoxSub;
         Vec2f mVertexTrapezoid[4];
     public:
         SessionMetaLabel();
+        ~SessionMetaLabel();
         
         void set(const string& timeStart, const string& endTime, time_t timestamp);
         
