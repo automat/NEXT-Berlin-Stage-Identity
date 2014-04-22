@@ -200,6 +200,7 @@ namespace next {
                   ViewInOutEasing(),
                   NULL,std::bind(&SessionView::onFinish, this));
             mPingPongLabelEventTitle->off();
+            mLabelEventMeta->off();
             return;
         }
         
@@ -237,6 +238,7 @@ namespace next {
                 //  turn label on
                 //
                 mPingPongLabelEventTitle->on();
+                mLabelEventMeta->on();
             } else {
                 
                 //

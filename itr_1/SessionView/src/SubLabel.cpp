@@ -4,6 +4,9 @@
 
 
 namespace next {
+    
+    typedef EaseInOutQuad AnimEaseInOut;
+    
     using namespace boost;
     SubLabel::SubLabel() :
         AbstractLabel(),
@@ -20,30 +23,32 @@ namespace next {
         if(mTextBox->getString().empty()){
             return;
         }
+        Vec2f offset  = mPositionState();
+        Vec2f pos     = mPos + offset;
         Vec2f topLeft = mTextBox->getTopLeft();
+        float alpha   = mAlphaState();
         
         glPushMatrix();
-        glTranslatef(mPos.x, mPos.y, 0);
+            glTranslatef(pos.x, pos.y, 0);
         
-        glPushMatrix();
-        glTranslatef(SESSION_LABEL_META_OFFSET_X, SESSION_LABEL_META_OFFSET_Y, 0);
-        glColor3f(0,0,0);
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(2, GL_FLOAT, 0, &mVertexTrapezoid[0]);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-        glDisableClientState(GL_VERTEX_ARRAY);
-        glPopMatrix();
+            glPushMatrix();
+                glTranslatef(SESSION_LABEL_META_OFFSET_X, SESSION_LABEL_META_OFFSET_Y, 0);
+                glColor4f(0,0,0,alpha);
+                glEnableClientState(GL_VERTEX_ARRAY);
+                glVertexPointer(2, GL_FLOAT, 0, &mVertexTrapezoid[0]);
+                glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+                glDisableClientState(GL_VERTEX_ARRAY);
+            glPopMatrix();
         
-        glColor3f(1, 1, 1);
-        glTranslatef(topLeft.x, topLeft.y, 0);
-        gl::draw(mTextBox->getTexture());
+            glColor4f(1, 1, 1, alpha);
+            glTranslatef(topLeft.x, topLeft.y, 0);
+            gl::draw(mTextBox->getTexture());
 #ifdef SESSION_VIEW_LABEL_SESSION_META_DEBUG_DRAW
-        mTextBox->debugDraw();
+            mTextBox->debugDraw();
 #endif
+        glColor4f(1, 1, 1, 1);
         glPopMatrix();
     }
-    
-    void SubLabel::update(){}
     
     void SubLabel::set(const string& str){
         mTextBox->setString(str);
@@ -63,18 +68,33 @@ namespace next {
     }
     
     void SubLabel::show(){
+        const static Vec2f offset(SESSION_LABEL_EVENT_META_ANIM_OFFSET_IN,0);
+        const static Vec2f zero;
         
+        tween(&mPositionState, offset, zero,
+              SESSION_LABEL_EVENT_META_SUB_LABEL_ANIM_TIME_OFFSET_SHOW,
+              AnimEaseInOut());
+        
+        tween(&mAlphaState, 0.0f, 1.0f,
+              SESSION_LABEL_EVENT_META_SUB_LABEL_ANIM_TIME_ALPHA_SHOW,
+              AnimEaseInOut());
     }
     
     void SubLabel::hide(){
-        
+        tween(&mAlphaState, 0.0f,
+              SESSION_LABEL_EVENT_META_SUB_LABEL_ANIN_TIME_ALPHA_HIDE,
+              AnimEaseInOut());
     }
     
     void SubLabel::on(){
-        
-    }
+        tween(&mAlphaState, 1.0f,
+              SESSION_LABEL_EVENT_META_SUB_LABEL_ANIM_TIME_ALPHA_ON,
+              AnimEaseInOut());
+     }
     
     void SubLabel::off(){
-        
+        tween(&mAlphaState, 0.0f,
+              SESSION_LABEL_EVENT_META_SUB_LABEL_ANIM_TIME_ALPHA_OFF,
+              AnimEaseInOut());
     }
 }

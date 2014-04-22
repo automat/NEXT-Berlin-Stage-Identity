@@ -10,18 +10,20 @@
 #define SessionView_EventMetaLabel_h
 
 #include "AbstractLabel.h"
-#include "SubLabel.h"
+#include "PingPongEventMetaSubLabel.h"
 #include <string>
 
 namespace next {
     using namespace std;
     class EventMetaLabel : public AbstractLabel {
+        bool mActive;
         
+        Anim<float> mAlphaState;
         float mTextBoxFrontWidth;
         Vec2f mVertexTrapezoidIndex[4];
-        Vec2f mVertexTrapezoidType[4];
+
         
-        next::SubLabel* mSubLabel;
+        PingPongEventMetaSubLabel* mSubLabel;
         
     public:
         EventMetaLabel();
@@ -30,7 +32,9 @@ namespace next {
         void set(const string& type, const string& index);
         
         void draw();
-        void update();
+        
+        void on();
+        void off();
     };
 }
 

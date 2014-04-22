@@ -6,13 +6,15 @@
 namespace next {
     using namespace boost;
     
-    EventMetaLabel::EventMetaLabel() : AbstractLabel(), mTextBoxFrontWidth(0){
+    typedef EaseInOutQuad AnimEaseInOut;
+    
+    EventMetaLabel::EventMetaLabel() : AbstractLabel(), mTextBoxFrontWidth(0), mAlphaState(0), mActive(false){
         mTextBox->setFont(      Font(app::loadResource(RES_AKKURAT_BOLD),SESSION_LABEL_META_FONT_SIZE * SESSION_LABEL_META_FONT_SCALAR));
         mTextBox->setWidth(     SESSION_LABEL_EVENT_BOX_WIDTH);
         mTextBox->setFontSize(  SESSION_LABEL_META_FONT_SIZE);
         mTextBox->setColorFont( SESSION_LABEL_EVENT_META_FONT_COLOR);
 
-        mSubLabel = new next::SubLabel();
+        mSubLabel = new PingPongEventMetaSubLabel();
         
         setPosition(SESSION_LABEL_EVENT_META_POS);
     }
@@ -27,76 +29,42 @@ namespace next {
         }
         
         Vec2f topLeft = mTextBox->getTopLeft();
+        float alpha   = mAlphaState();
         
         glPushMatrix();
-            glTranslatef(mPos.x, mPos.y, 0);
+        glTranslatef(mPos.x, mPos.y, 0);
         
-            /*
-            glPushMatrix();
-                glTranslatef(topLeft.x + mTextBoxFrontWidth, topLeft.y, 0);
-                
                 glPushMatrix();
-                    glTranslatef(SESSION_LABEL_META_OFFSET_X, SESSION_LABEL_META_OFFSET_Y, 0);
-                    glColor3f(0,0,0);
-                    glEnableClientState(GL_VERTEX_ARRAY);
-                    glVertexPointer(2, GL_FLOAT, 0, &mVertexTrapezoidType[0]);
-                    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-                    glDisableClientState(GL_VERTEX_ARRAY);
+                    glTranslatef(mTextBoxFrontWidth, 0, 0);
+                    mSubLabel->draw();
                 glPopMatrix();
         
-                glColor3f(1,1,1);
-                gl::draw(mTextBoxSub->getTexture());
-        #ifdef SESSION_VIEW_LABEL_EVENT_META_DEBUG_DRAW
-                mTextBoxSub->debugDraw();
-        #endif
-            glPopMatrix();
-            */
-        
-        glPushMatrix();
-        glTranslatef(mSubLabel->getWidth(), 0, 0);
-        mSubLabel->draw();
-        glPopMatrix();
-        
-        
-            glPushMatrix();
                 glPushMatrix();
-                glTranslatef(SESSION_LABEL_META_OFFSET_X, SESSION_LABEL_META_OFFSET_Y, 0);
-                glColor3f(0,0,0);
-                glEnableClientState(GL_VERTEX_ARRAY);
-                glVertexPointer(2, GL_FLOAT, 0, &mVertexTrapezoidIndex[0]);
-                glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-                glDisableClientState(GL_VERTEX_ARRAY);
+                    glPushMatrix();
+                        glTranslatef(SESSION_LABEL_META_OFFSET_X, SESSION_LABEL_META_OFFSET_Y, 0);
+                        glColor4f(0,0,0, alpha);
+                        glEnableClientState(GL_VERTEX_ARRAY);
+                        glVertexPointer(2, GL_FLOAT, 0, &mVertexTrapezoidIndex[0]);
+                        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+                        glDisableClientState(GL_VERTEX_ARRAY);
+                    glPopMatrix();
+        
+                    glColor4f(1,1,1,alpha);
+                    glTranslatef(topLeft.x, topLeft.y, 0);
+                    gl::draw(mTextBox->getTexture());
+#ifdef SESSION_VIEW_LABEL_EVENT_META_DEBUG_DRAW
+                    mTextBox->debugDraw();
+#endif
+                    glColor4f(1,1,1,1);
                 glPopMatrix();
-
-            
-                glColor3f(1,1,1);
-                glTranslatef(topLeft.x, topLeft.y, 0);
-                gl::draw(mTextBox->getTexture());
-    #ifdef SESSION_VIEW_LABEL_EVENT_META_DEBUG_DRAW
-                mTextBox->debugDraw();
-    #endif
-            glPopMatrix();
-        
-        
-        glPopMatrix();
-    }
-    
-    void EventMetaLabel::update(){
-        
+       glPopMatrix();
     }
     
     void EventMetaLabel::set(const string& type, const string& index){
         mTextBox->setString(index);
-        //mTextBoxSub->setString(type);
-        
-        //float textBoxSubWidth   = mTextBoxSub->getCalculatedSize().x;
-        float textBoxFrontWidth = mTextBox->getCalculatedSize().x;
-        
-        mTextBoxFrontWidth = textBoxFrontWidth + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
+        mTextBoxFrontWidth = mTextBox->getCalculatedSize().x + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
 
         float trapezoidIndexWidth = mTextBoxFrontWidth + SESSION_LABEL_META_OFFSET_X * -0.5f;
-        //float trapezoidTypeWidth  = textBoxSubWidth + SESSION_LABEL_META_OFFSET_X * -1.5f;
-        
         static const float slope = 14.5f;
         
         mVertexTrapezoidIndex[0] = Vec2f(slope,0);
@@ -104,16 +72,32 @@ namespace next {
         mVertexTrapezoidIndex[2] = Vec2f(0, SESSION_LABEL_META_BOX_HEIGHT);
         mVertexTrapezoidIndex[3] = Vec2f(trapezoidIndexWidth, SESSION_LABEL_META_BOX_HEIGHT);
         
+        if(mActive){
+            mSubLabel->hide();
+            mSubLabel->swap();
+        }
+        
         mSubLabel->set(type);
-        
-        
-        
-        /*
-        mVertexTrapezoidType[0] = Vec2f(slope,0);
-        mVertexTrapezoidType[1] = Vec2f(trapezoidTypeWidth + slope, 0);
-        mVertexTrapezoidType[2] = Vec2f(0, SESSION_LABEL_META_BOX_HEIGHT);
-        mVertexTrapezoidType[3] = Vec2f(trapezoidTypeWidth, SESSION_LABEL_META_BOX_HEIGHT);
-         */
+        if(mActive){
+            mSubLabel->show();
+        }
+    }
+    
+    void EventMetaLabel::on(){
+        mActive = true;
+        tween(&mAlphaState, 0.0f, 1.0f,
+              SESSION_LABEL_EVENT_META_ANIM_TIME_ALPHA_ON,
+              AnimEaseInOut());
+        mSubLabel->on();
+    }
+    
+    void EventMetaLabel::off(){
+        mActive = false;
+        tween(&mAlphaState, 1.0f, 0.0f,
+              SESSION_LABEL_EVENT_META_ANIM_TIME_ALPHA_OFF,
+              AnimEaseInOut());
+        mSubLabel->off();
+        mSubLabel->swap();
     }
     
     

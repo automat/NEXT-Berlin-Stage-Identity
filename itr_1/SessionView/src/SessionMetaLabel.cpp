@@ -24,7 +24,6 @@ namespace next {
         delete mTextBoxSub;
     }
 
-
     void SessionMetaLabel::draw(){
         if(mTextBox->getString().empty()){
             return;
@@ -36,12 +35,12 @@ namespace next {
         glTranslatef(mPos.x, mPos.y, 0);
         
         glPushMatrix();
-        glTranslatef(SESSION_LABEL_META_OFFSET_X, SESSION_LABEL_META_OFFSET_Y, 0);
-        glColor3f(0,0,0);
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(2, GL_FLOAT, 0, &mVertexTrapezoid[0]);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-        glDisableClientState(GL_VERTEX_ARRAY);
+            glTranslatef(SESSION_LABEL_META_OFFSET_X, SESSION_LABEL_META_OFFSET_Y, 0);
+            glColor3f(0,0,0);
+            glEnableClientState(GL_VERTEX_ARRAY);
+            glVertexPointer(2, GL_FLOAT, 0, &mVertexTrapezoid[0]);
+            glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+            glDisableClientState(GL_VERTEX_ARRAY);
         glPopMatrix();
         
         glColor3f(1, 1, 1);
@@ -56,10 +55,6 @@ namespace next {
         mTextBoxSub->debugDraw();
 #endif
         glPopMatrix();
-    }
-    
-    void SessionMetaLabel::update(){
-        
     }
     
     void SessionMetaLabel::set(const string& timeStart, const string& endTime, time_t timestamp){

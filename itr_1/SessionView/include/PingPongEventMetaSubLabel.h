@@ -17,20 +17,15 @@ namespace next {
          SubLabel mLabels[2];
         
     public:
-         PingPongEventMetaSubLabel() : mIndex{}
+         PingPongEventMetaSubLabel() : mIndex(0){}
          
          inline void draw(){
              mLabels[0].draw();
              mLabels[1].draw();
          }
          
-         inline void update(){
-             mLabels[0].update();
-             mLabels[1].update();
-         }
-         
          inline void set(const string& type){
-             mLabels[mIndex].setString(type);
+             mLabels[mIndex].set(type);
          }
          
          inline void show(){
