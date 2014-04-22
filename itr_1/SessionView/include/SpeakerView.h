@@ -24,7 +24,6 @@ namespace next {
     class SpeakerView : public AbstractAnimView{
         friend class SpeakerStackView;
         
-        const static Vec2f  sSize;
         const static Vec2f  sTexCoordsNorm[4];
         const static Vec3f  sCubeVertices[8];
         const static size_t sCardVerticesLen;

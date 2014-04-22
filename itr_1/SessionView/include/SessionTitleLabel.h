@@ -10,14 +10,21 @@
 #define SessionView_SessionTitleLabel_h
 
 #include "AbstractLabel.h"
+#include "LineQuad.h"
 
 namespace next {
     class SessionTitleLabel : public AbstractLabel {
+        vector<LineQuad> mLineQuads;
+        void genQuads();
+        
     public:
         SessionTitleLabel();
         
         void setString(const string& str);
         void draw();
+        
+        void on();
+        void off();
     };
 }
 

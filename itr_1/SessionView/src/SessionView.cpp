@@ -46,10 +46,19 @@ namespace next {
                 mEventViewSlots[3] = Vec3f(offsetH,0, slideLength_2 - offsetH);
                 mEventViewSlots[4] = Vec3f(offsetH,0, SESSION_VIEW_SLIDE_LENGTH - offsetH);
             
+                mSpeakerLabelPos = mEventViewSlots[2];
+                
                 mLabelTitle              = new SessionTitleLabel();
                 mLabelMeta               = new SessionMetaLabel();
                 mPingPongLabelEventTitle = new PingPongEventTitleLabel();
                 mLabelEventMeta          = new EventMetaLabel();
+                mLabelSpeaker            = new SpeakerLabel();
+                
+                float offset = 0.05f;
+                mLabelSpeaker->setPosition(mEventViewSlots[2] +
+                                           Vec3f(SESSION_VIEW_SPEAKER_SIZE.x * 0.5f + offset,
+                                                 SESSION_VIEW_SPEAKER_SIZE.y * -1,
+                                                 SESSION_VIEW_SPEAKER_SIZE.x * 0.5f));
                 
                 reset(data);
     }
@@ -60,6 +69,7 @@ namespace next {
         delete mLabelMeta;
         delete mPingPongLabelEventTitle;
         delete mLabelEventMeta;
+        delete mLabelSpeaker;
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -96,8 +106,6 @@ namespace next {
         
         mLabelTitle->setString(mData->title);
         mLabelMeta->set(mData->startHourString, mData->endHourString, mData->startTimeStamp);
-       
-        start();
     }
     
     void SessionView::resetEventViews(){
@@ -124,7 +132,6 @@ namespace next {
 #ifdef SESSION_VIEW_DEBUG_STATE
         cout << "### Session View End ###" << endl;
 #endif
-        resetEventViews();
         start();
     }
 
@@ -175,13 +182,24 @@ namespace next {
 #endif
     }
     
+    
+    void SessionView::finish(){
+        mLabelMeta->off();
+        mLabelTitle->off();
+        resetEventViews();
+        delayCallback(1.0f, std::bind(&SessionView::onFinish,this));
+    }
+    
     void SessionView::start(){
-        onStart();
-        if(mNumEventViews < 2){
-            stepForward_2();
+        if(mAnimating){
             return;
         }
-        stepForward_2();
+        mLabelMeta->on();
+        mLabelTitle->on();
+        delayCallback(0.5f, std::bind(&SessionView::stepForward_2,this));
+      
+        mAnimating = true;
+        onStart();
     }
     
     void SessionView::focusView(next::EventView *view){
@@ -198,7 +216,7 @@ namespace next {
             tween(&view->mPositionState,mEventViewSlots[mEventViewSlotEnd], // skip one, and proceed to last
                   SESSION_EVENT_ANIM_TIME_OFF,
                   ViewInOutEasing(),
-                  NULL,std::bind(&SessionView::onFinish, this));
+                  NULL,std::bind(&SessionView::finish, this));
             mPingPongLabelEventTitle->off();
             mLabelEventMeta->off();
             return;
@@ -301,6 +319,10 @@ namespace next {
         for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
             (*itr)->draw();
         }
+        
+        glPushMatrix();
+        mLabelSpeaker->draw();
+        glPopMatrix();
     }
     
     void SessionView::update(){

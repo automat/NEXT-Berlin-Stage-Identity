@@ -20,6 +20,7 @@
 #include "SessionMetaLabel.h"
 #include "EventTitleLabel.h"
 #include "EventMetaLabel.h"
+#include "SpeakerLabel.h"
 
 namespace next {
     using namespace ci;
@@ -45,6 +46,8 @@ namespace next {
         const int mEventViewSlotFocus;
         const int mEventViewSlotOut;
         const int mEventViewSlotIn;
+        
+        Vec3f mSpeakerLabelPos;
 
 
         //! clear all views
@@ -64,12 +67,15 @@ namespace next {
         //! on begin
         void onStart();
         
+        void finish();
+        
         void resetEventViews();
         
         SessionTitleLabel*         mLabelTitle;
         SessionMetaLabel*          mLabelMeta;
         PingPongEventTitleLabel*   mPingPongLabelEventTitle;
         EventMetaLabel*            mLabelEventMeta;
+        SpeakerLabel*              mLabelSpeaker;
         
         
       

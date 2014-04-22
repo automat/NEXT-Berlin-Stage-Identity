@@ -1,3 +1,5 @@
+#include "SpeakerLabel.h"
+
 #include "EventTitleLabel.h"
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/join.hpp>
@@ -8,24 +10,51 @@ namespace next {
     using namespace boost;
     typedef EaseInOutQuad AnimEaseInOut;
     
-    EventTitleLabel::EventTitleLabel() : AbstractLabel(){
-        mTextBox->setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),SESSION_LABEL_SESSION_TITLE_FONT_SIZE * SESSION_LABEL_SESSION_TITLE_FONT_SCALAR));
+    SpeakerLabel::SpeakerLabel() :
+        AbstractLabel(),
+        mTextBoxNameHeight(0){
+        mTextBox->setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),SESSION_LABEL_SESSION_TITLE_FONT_SIZE * 2));
         
-        mTextBox->setWidth(     SESSION_LABEL_EVENT_TITLE_BOX_WIDTH);
+        mTextBox->setWidth(     1500);
         mTextBox->setFontSize(  SESSION_LABEL_EVENT_TITLE_FONT_SIZE);
         mTextBox->setLineHeight(SESSION_LABEL_EVENT_TITLE_LINE_HEIGHT);
-        mTextBox->setColorFont( SESSION_LABEL_EVENT_TITLE_FONT_COLOR);
+            mTextBox->setColorFont( ColorAf::white());
         
-        mTextBox->setColorDropShadow( SESSION_LABEL_EVENT_TITLE_SHADOW_COLOR);
-        mTextBox->setDropShadowOffset(SESSION_LABEL_EVENT_TITLE_SHADOW_OFFSET);
-        mTextBox->setDropShadowScale( SESSION_LABEL_EVENT_TITLE_SHADOW_STRENGTH);
-        mTextBox->dropShadow();
+        mTextBoxCompany = new TextBox();
         
-        mTextBox->setColorUnderline( SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
-        mTextBox->setUnderlineHeight(SESSION_LABEL_EVENT_TITLE_UNDERLINE_HEIGHT);
-        mTextBox->underline();
+        mTextBoxCompany->setFont(Font(app::loadResource(RES_AKKURAT_LIGHT),SESSION_LABEL_SESSION_TITLE_FONT_SIZE * 2));
         
-        setPosition(SESSION_LABEL_EVENT_TITLE_POS);
+        mTextBoxCompany->setWidth(     1500);
+        mTextBoxCompany->setFontSize(  SESSION_LABEL_EVENT_TITLE_FONT_SIZE);
+        mTextBoxCompany->setLineHeight(SESSION_LABEL_EVENT_TITLE_LINE_HEIGHT);
+        mTextBoxCompany->setColorFont( SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
+           // mTextBoxCompany->setString("Microsoft");
+        
+        //setPosition(SESSION_LABEL_EVENT_TITLE_POS);
+        
+       // setString("Regine Haschka-Helmer");
+        
+        mScale = 1.0f / (SESSION_LABEL_EVENT_TITLE_FONT_SIZE * 8);
+            
+            set("Christian Deilmann", "Singularity University");
+        
+        
+        
+        
+        
+    }
+    
+    SpeakerLabel::~SpeakerLabel(){
+        delete mTextBoxCompany;
+    }
+    
+    
+    void SpeakerLabel::setPosition(const Vec3f &pos){
+        mPos = pos.xz();
+        mTransform.setToIdentity();
+        mTransform *= Matrix44f::createTranslation(Vec3f(0,pos.y,0));
+        mTransform *= Matrix44f::createRotation(Vec3f(M_PI_2,M_PI_2,0));
+        
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -33,7 +62,7 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     
-    void EventTitleLabel::draw(){
+    void SpeakerLabel::draw(){
         if(mTextBox->getString().empty()){
             return;
         }
@@ -41,11 +70,16 @@ namespace next {
         const gl::Texture& texture = mTextBox->getTexture();
         Vec2f quadPos;
         
-        glPushMatrix();
-        glTranslatef(mPos.x, mPos.y, 0);
-        glColor4f(1,1,1,1);
-        glTranslatef(topLeft.x, topLeft.y, 0);
+        Vec2f size = mTextBox->getSize();
         
+        glPushMatrix();
+        glTranslatef(mPos.x, 0 , mPos.y);
+        glColor4f(1,1,1,1);
+        glMultMatrixf(&mTransform[0]);
+        glScalef(mScale, mScale, 1.0f);
+        //glTranslatef(topLeft.x, 0, topLeft.y);
+        //glScalef(1.0f/size.x, 1.0f, 1.0f/size.y);
+        /*
         texture.enableAndBind();
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -54,43 +88,54 @@ namespace next {
             
             glPushMatrix();
             glColor4f(1,1,1, itr->alphaState());
-                glTranslatef(quadPos.x, quadPos.y, 0);
-                glTexCoordPointer(2, GL_FLOAT, 0, &itr->texcoords[0]);
-                glVertexPointer(2, GL_FLOAT, 0, &itr->vertices[0]);
-                glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+            glTranslatef(quadPos.x, quadPos.y, 0);
+            glTexCoordPointer(2, GL_FLOAT, 0, &itr->texcoords[0]);
+            glVertexPointer(2, GL_FLOAT, 0, &itr->vertices[0]);
+            glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
             glPopMatrix();
         }
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);
         glDisableClientState(GL_VERTEX_ARRAY);
         texture.unbind();
         texture.disable();
-
-#ifdef SESSION_VIEW_LABEL_EVENT_TITLE_DEBUG_DRAW
-        mTextBox->debugDraw();
-#endif
+         */
+        gl::draw(mTextBox->getTexture());
+        //mTextBox->debugDraw();
+        
+        glTranslatef(0, mTextBoxNameHeight, 0);
+        gl::draw(mTextBoxCompany->getTexture());
+        //mTextBoxCompany->debugDraw();
+        
+        
         
         glPopMatrix();
     }
-
+    
     /*--------------------------------------------------------------------------------------------*/
     // Set
     /*--------------------------------------------------------------------------------------------*/
     
-    void EventTitleLabel::setString(const string& str){
-        if(mString == str){
+    void SpeakerLabel::set(const string& name, const string& company){
+        if(mString == name){
             return;
         }
         
-        mTextBox->setString(str);
-        mString = str;
-        genQuads();
+        mTextBox->setString(name);
+        mString = name;
+        mTextBoxNameHeight = mTextBox->getCalculatedSize().y;
+        
+        mTextBoxCompany->setString(company);
+        
+        
+        cout << mTextBox->getCalculatedSize().y << endl;
     }
     
     /*--------------------------------------------------------------------------------------------*/
     // Show / Hide
     /*--------------------------------------------------------------------------------------------*/
     
-    void EventTitleLabel::show(){
+    void SpeakerLabel::show(){
+        /*
         float size = static_cast<float>(MAX(1, mLineQuads.size() - 1));
         float index = 0;
         float offset;
@@ -107,10 +152,12 @@ namespace next {
             tween(&itr->alphaState, 0.0f, 1.0f,
                   SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_IN,
                   AnimEaseInOut());
-         }
+        }
+         */
     }
     
-    void EventTitleLabel::hide(){
+    void SpeakerLabel::hide(){
+        /*
         float size = static_cast<float>(MAX(1, mLineQuads.size() - 1));
         float index = 0;
         float offset;
@@ -128,6 +175,7 @@ namespace next {
                   SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_OUT,
                   AnimEaseInOut());
         }
+         */
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -135,7 +183,8 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     
-    void EventTitleLabel::on(){
+    void SpeakerLabel::on(){
+        /*
         float size = static_cast<float>(MAX(1, mLineQuads.size() - 1));
         float index = 0;
         float offset;
@@ -154,10 +203,12 @@ namespace next {
                   SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_ON,
                   AnimEaseInOut());
         }
+         */
         
     }
     
-    void EventTitleLabel::off(){
+    void SpeakerLabel::off(){
+        /*
         for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
             itr->posState = itr->posTarget;
             
@@ -165,13 +216,14 @@ namespace next {
                   SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_OFF,
                   AnimEaseInOut());
         }
+         */
     }
     
     
     /*--------------------------------------------------------------------------------------------*/
     // Gen Textured Lines
     /*--------------------------------------------------------------------------------------------*/
-    
+    /*
     void EventTitleLabel::genQuads(){
         mLineQuads.clear();
         
@@ -207,6 +259,7 @@ namespace next {
             mLineQuads.push_back(quad);
         }
     }
+     */
     
     
 }

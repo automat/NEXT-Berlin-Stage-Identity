@@ -9,6 +9,7 @@
 #include <math.h>
 
 #include "FxResources.h"
+#include "Config.h"
 
 namespace next {
     using namespace std;
@@ -30,18 +31,16 @@ namespace next {
     //  Const geometry props
     /*--------------------------------------------------------------------------------------------*/
     
-    const Vec2f SpeakerView::sSize(0.85f,0.025f);
-    
     const Vec3f SpeakerView::sCubeVertices[8] = {
-        Vec3f(-sSize.x * 0.5, sSize.y * 0.5f,-sSize.x * 0.5),  //  tl
-        Vec3f( sSize.x * 0.5, sSize.y * 0.5f,-sSize.x * 0.5),  //  tr
-        Vec3f(-sSize.x * 0.5, sSize.y * 0.5f, sSize.x * 0.5),  //  bl
-        Vec3f( sSize.x * 0.5, sSize.y * 0.5f, sSize.x * 0.5),  //  br
+        Vec3f(-SESSION_VIEW_SPEAKER_SIZE.x * 0.5, SESSION_VIEW_SPEAKER_SIZE.y * 0.5f,-SESSION_VIEW_SPEAKER_SIZE.x * 0.5),  //  tl
+        Vec3f( SESSION_VIEW_SPEAKER_SIZE.x * 0.5, SESSION_VIEW_SPEAKER_SIZE.y * 0.5f,-SESSION_VIEW_SPEAKER_SIZE.x * 0.5),  //  tr
+        Vec3f(-SESSION_VIEW_SPEAKER_SIZE.x * 0.5, SESSION_VIEW_SPEAKER_SIZE.y * 0.5f, SESSION_VIEW_SPEAKER_SIZE.x * 0.5),  //  bl
+        Vec3f( SESSION_VIEW_SPEAKER_SIZE.x * 0.5, SESSION_VIEW_SPEAKER_SIZE.y * 0.5f, SESSION_VIEW_SPEAKER_SIZE.x * 0.5),  //  br
         
-        Vec3f(-sSize.x * 0.5,-sSize.y * 0.5f,-sSize.x * 0.5),  //  tl
-        Vec3f( sSize.x * 0.5,-sSize.y * 0.5f,-sSize.x * 0.5),  //  tr
-        Vec3f(-sSize.x * 0.5,-sSize.y * 0.5f, sSize.x * 0.5),  //  bl
-        Vec3f( sSize.x * 0.5,-sSize.y * 0.5f, sSize.x * 0.5)  //  br
+        Vec3f(-SESSION_VIEW_SPEAKER_SIZE.x * 0.5,-SESSION_VIEW_SPEAKER_SIZE.y * 0.5f,-SESSION_VIEW_SPEAKER_SIZE.x * 0.5),  //  tl
+        Vec3f( SESSION_VIEW_SPEAKER_SIZE.x * 0.5,-SESSION_VIEW_SPEAKER_SIZE.y * 0.5f,-SESSION_VIEW_SPEAKER_SIZE.x * 0.5),  //  tr
+        Vec3f(-SESSION_VIEW_SPEAKER_SIZE.x * 0.5,-SESSION_VIEW_SPEAKER_SIZE.y * 0.5f, SESSION_VIEW_SPEAKER_SIZE.x * 0.5),  //  bl
+        Vec3f( SESSION_VIEW_SPEAKER_SIZE.x * 0.5,-SESSION_VIEW_SPEAKER_SIZE.y * 0.5f, SESSION_VIEW_SPEAKER_SIZE.x * 0.5)  //  br
     };
     
     

@@ -16,9 +16,12 @@ namespace next {
     using namespace std;
     class SessionMetaLabel : public AbstractLabel {
     private:
+        Anim<float> mAlphaState;
         float mTextBoxFrontWidth;
         next::TextBox* mTextBoxSub;
         Vec2f mVertexTrapezoid[4];
+        
+        
     public:
         SessionMetaLabel();
         ~SessionMetaLabel();
@@ -26,6 +29,9 @@ namespace next {
         void set(const string& timeStart, const string& endTime, time_t timestamp);
         
         void draw();
+        
+        void on();
+        void off();
     };
 }
 

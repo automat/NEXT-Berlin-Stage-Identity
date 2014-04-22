@@ -94,7 +94,7 @@ namespace next {
     void EventMetaLabel::off(){
         mActive = false;
         tween(&mAlphaState, 1.0f, 0.0f,
-              SESSION_LABEL_EVENT_META_ANIM_TIME_ALPHA_OFF,
+              1.5f,
               AnimEaseInOut());
         mSubLabel->off();
         mSubLabel->swap();

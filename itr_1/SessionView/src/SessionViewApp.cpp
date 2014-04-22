@@ -71,7 +71,7 @@ void SessionViewApp::setup(){
     mDataEvents   = nullptr;
     mDataSession  = nullptr;
 
-    next::Mapping::Get(jsonFilepath, imageFilepath,     3562,
+    next::Mapping::Get(jsonFilepath, imageFilepath,     3560,
                        mDataImages, mDataSpeakers, mDataEvents, mDataSession);
     mViewSession = new next::SessionView(mDataSession);
     
@@ -89,7 +89,6 @@ SessionViewApp::~SessionViewApp(){
     delete mDataImages;
 }
 
-
 void SessionViewApp::keyDown(KeyEvent event) {
     switch(event.getCode()){
         case KeyEvent::KEY_ESCAPE:
@@ -99,6 +98,7 @@ void SessionViewApp::keyDown(KeyEvent event) {
             //mViewSession->next();
             break;
         case KeyEvent::KEY_LEFT:
+            mViewSession->start();
             //mViewSession->prev();
             break;
         case KeyEvent::KEY_SPACE:
