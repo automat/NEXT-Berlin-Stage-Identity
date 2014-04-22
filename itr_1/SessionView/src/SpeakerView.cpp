@@ -275,7 +275,7 @@ namespace next {
     }
     
     void SpeakerView::unfocusImage(){
-        drawFocus(0.0f,1.0f);
+        drawFocus(0.0f,0.0f);
     }
     
 }
