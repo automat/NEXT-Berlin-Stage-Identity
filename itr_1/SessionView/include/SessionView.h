@@ -77,6 +77,8 @@ namespace next {
         EventMetaLabel*            mLabelEventMeta;
         SpeakerLabel*              mLabelSpeaker;
         
+        void updateSpeakerLabel();
+        
         
       
         

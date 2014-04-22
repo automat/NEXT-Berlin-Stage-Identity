@@ -30,6 +30,8 @@ namespace next {
 
         Anim<Vec3f> mPositionState;
         
+        void testUpdateCallback();
+        
     public:
         EventView(Event* data);
         ~EventView();
@@ -37,8 +39,11 @@ namespace next {
         void draw();
         void update();
         
-        void stackSpeaker(const AnimCallback &callback);
+        void stackSpeaker(const AnimCallback& callbackUpdate,const AnimCallback &callbackFinish);
         void resetStack();
+        
+        int getNumStacks();
+        int getStackIndex();
     };
 }
 

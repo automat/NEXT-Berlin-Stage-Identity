@@ -74,6 +74,11 @@ namespace next {
         mViewIndex = -1;
     }
     
+    int SpeakerStackView::getIndex(){
+        //cout << mViewIndex << endl;
+        return mViewIndex;
+    }
+    
     /*--------------------------------------------------------------------------------------------*/
     //  Draw / Update
     /*--------------------------------------------------------------------------------------------*/
@@ -113,40 +118,55 @@ namespace next {
     //  Animation
     /*--------------------------------------------------------------------------------------------*/
     
-    void SpeakerStackView::stack(const AnimCallback &callback){
+    void SpeakerStackView::stack(const AnimCallback& callbackUpdate, const AnimCallback& callbackFinish){
         if(mViews.size() == 1){
-            delayCallback(mTimeAnimDelaySpeaker, callback);
+            delayCallback(mTimeAnimDelaySpeaker, callbackFinish);
             return;
         }
-        
-        delayCallback(mTimeAnimDelaySpeaker, std::bind(&SpeakerStackView::next, this, callback, 0));
+        delayCallback(mTimeAnimDelaySpeaker,
+                      std::bind(&SpeakerStackView::next,
+                                this,
+                                callbackUpdate,
+                                callbackFinish,
+                                0));
     }
     
-    void SpeakerStackView::next(const AnimCallback& callback, int index){
+    void SpeakerStackView::next(const AnimCallback& callbackUpdate, const AnimCallback& callbackFinish, int index){
         mViewIndex = index;
         
-        animateOut(mViews[mViewIndex],callback);
+        animateOut(mViews[mViewIndex],callbackUpdate, callbackFinish);
         animateMoveTop(mViews[(mViewIndex+1)%mNumViews]);
         
         int i = 1;
         while(++i < mNumViews){
             animateMove(mViews[(mViewIndex+i)%mNumViews]);
         }
+        
+        callbackUpdate();
     }
     
-    void SpeakerStackView::triggerNext(const AnimCallback& callback){
+    void SpeakerStackView::triggerNext(const AnimCallback& callbackUpdate, const AnimCallback& callbackFinish){
         mViewIndex = (mViewIndex + 1) % mNumViews;
 
         if (mViewIndex == mNumViews - 1) {
-            delayCallback(mTimeAnimDelaySpeaker, callback);
+            delayCallback(mTimeAnimDelaySpeaker, callbackFinish);
         } else {
-            delayCallback(mTimeAnimDelaySpeaker, std::bind(&SpeakerStackView::next,this,callback,mViewIndex));
+            delayCallback(mTimeAnimDelaySpeaker,
+                          std::bind(&SpeakerStackView::next,
+                                    this,
+                                    callbackUpdate,
+                                    callbackFinish,
+                                    mViewIndex));
         }
     }
     
-    void SpeakerStackView::animateOut(SpeakerView *view, const AnimCallback &callback){
+    void SpeakerStackView::animateOut(SpeakerView *view, const AnimCallback& callbackUpdate, const AnimCallback& callbackFinish){
         tween(&view->mPositionState, mStackTopOut, sTimeAnimateOut, EaseOutQuad(),
-              NULL, std::bind(&SpeakerStackView::animateIn, this, view, callback));
+              NULL, std::bind(&SpeakerStackView::animateIn,
+                              this,
+                              view,
+                              callbackUpdate,
+                              callbackFinish));
         
         tween(&view->mIntrplState, 1.0f, 0.0f, sTimeAnimateOut, EaseOutQuad(),
               std::bind(&SpeakerView::updateFocusImage, view));
@@ -155,7 +175,7 @@ namespace next {
               std::bind(&SpeakerView::updateColorState, view));
     }
     
-    void SpeakerStackView::animateIn(SpeakerView *view, const AnimCallback &callback){
+    void SpeakerStackView::animateIn(SpeakerView *view, const AnimCallback& callbackUpdate, const AnimCallback& callbackFinish){
         const static Vec3f zero;
         
         view->mPositionState = Vec3f(0,-0.25f,0);
@@ -168,7 +188,10 @@ namespace next {
         
         tween(&view->mScaleState, 1.0f, sTimeAnimateInScale, EaseOutCirc());
         tween(&view->mPositionState, zero, sTimeAnimateInTranslate, EaseOutCirc(),
-              NULL, std::bind(&SpeakerStackView::triggerNext, this, callback));
+              NULL, std::bind(&SpeakerStackView::triggerNext,
+                              this,
+                              callbackUpdate,
+                              callbackFinish));
     }
     
     void SpeakerStackView::animateMove(SpeakerView* view){

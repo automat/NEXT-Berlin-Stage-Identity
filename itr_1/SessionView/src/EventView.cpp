@@ -29,8 +29,12 @@ namespace next {
         mSpeakerStackView->update();
     }
     
-    void EventView::stackSpeaker(const AnimCallback &callback){
-        mSpeakerStackView->stack(callback);
+    void EventView::testUpdateCallback(){
+        cout << "EventView test updateCallback" << endl;
+    }
+    
+    void EventView::stackSpeaker(const AnimCallback& callbackUpdate,const AnimCallback &callbackFinish){
+        mSpeakerStackView->stack(callbackUpdate, callbackFinish);
     }
     
     void EventView::focusTop(){
@@ -43,5 +47,13 @@ namespace next {
     
     void EventView::resetStack(){
         mSpeakerStackView->resetStack();
+    }
+    
+    int EventView::getNumStacks(){
+        return mData->speakers.size();
+    }
+    
+    int EventView::getStackIndex(){
+        return mSpeakerStackView->getIndex();
     }
 }

@@ -27,17 +27,16 @@ namespace next {
         
         float                mTimeAnimDelaySpeaker;
         
-        void animateIn(SpeakerView* view, const AnimCallback& callback);
-        void animateOut(SpeakerView* view, const AnimCallback& callback);
+        void animateIn(SpeakerView* view, const AnimCallback& callbackUpdate, const AnimCallback& callbackFinish);
+        void animateOut(SpeakerView* view, const AnimCallback& callbackUpdate, const AnimCallback& callbackFinish);
         void animateMove(SpeakerView* view);     // anim view moving to new pos on stack
         void animateMoveTop(SpeakerView* view);  // anim view (new top) moving to new pos on stack
 
         void deleteViews();
 
-        void triggerNext(const AnimCallback& callback);
+        void triggerNext(const AnimCallback& callbackUpdate, const AnimCallback& callbackFinish);
         
-        void next(const AnimCallback& callback = NULL , int index = 0); // for debug
-        
+        void next(const AnimCallback& callbackUpdate, const AnimCallback& callbackFinish , int index = 0); // for debug
         
     public:
         SpeakerStackView() : AbstractAnimView() {};
@@ -45,7 +44,7 @@ namespace next {
         ~SpeakerStackView();
        
         void reset(const vector<Speaker*>& data);
-        void stack(const AnimCallback& callback);
+        void stack(const AnimCallback& callbackUpdate, const AnimCallback& callbackFinish);
         
         void resetStack();
         
@@ -54,6 +53,8 @@ namespace next {
         
         void focus();
         void unfocus();
+        
+        int getIndex();
     };
 }
 
