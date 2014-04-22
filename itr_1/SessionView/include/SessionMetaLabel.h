@@ -26,7 +26,6 @@ namespace next {
         void set(const string& timeStart, const string& endTime, time_t timestamp);
         
         void draw();
-        void update();
     };
 }
 

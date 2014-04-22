@@ -18,7 +18,6 @@ namespace next {
         
         void setString(const string& str);
         void draw();
-        void update();
     };
 }
 

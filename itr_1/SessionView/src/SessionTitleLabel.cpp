@@ -52,9 +52,4 @@ namespace next {
         mTextBox->setString(_str);
     }
     
-    void SessionTitleLabel::update(){
-        
-    }
-    
-    
 }

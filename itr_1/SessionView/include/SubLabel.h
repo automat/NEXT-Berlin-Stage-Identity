@@ -26,7 +26,6 @@ namespace next {
         void set(const string& str);
         
         void draw();
-        void update();
         
         void show();
         void hide();

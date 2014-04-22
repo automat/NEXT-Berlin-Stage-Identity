@@ -37,7 +37,6 @@ namespace next {
         EventTitleLabel();
         
         void draw();
-        void update();
         void setString(const string& str);
         
         void on();

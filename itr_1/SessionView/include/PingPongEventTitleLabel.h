@@ -27,11 +27,6 @@ namespace next {
             mLabels[1].draw();
         }
         
-        inline void update(){
-            mLabels[0].update();
-            mLabels[1].update();
-        }
-        
         inline void setString(const string& str){
             mLabels[mIndex].setString(str);
         }
