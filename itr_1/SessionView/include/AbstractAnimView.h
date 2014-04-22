@@ -17,7 +17,8 @@ namespace next {
     
     class AbstractAnimView {
     public :
-        typedef std::function<void ()> AnimCallback;
+        typedef std::function<void ()>    AnimCallback;
+        typedef std::function<void (int)> AnimCallback_Int_1;
     private:
         Anim<float> _mTime;
         

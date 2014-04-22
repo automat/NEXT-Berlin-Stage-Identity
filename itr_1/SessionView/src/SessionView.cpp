@@ -198,16 +198,17 @@ namespace next {
         onStart();
     }
     
-    void SessionView::updateSpeakerLabel(){
-        mLabelSpeaker->set(toString(mEventViews[mIndexEventViews]->getStackIndex()), "Microsoft");
+    void SessionView::updateSpeakerLabel(int index){
+        //mLabelSpeaker->set(toString(mEventViews[mIndexEventViews]->getStackIndex()), "Microsoft");
+        cout << index << endl;
     }
     
     void SessionView::focusView(next::EventView *view){
         if(mNumEventViews < 2){
-            view->stackSpeaker(std::bind(&SessionView::updateSpeakerLabel, this),
+            view->stackSpeaker(std::bind(&SessionView::updateSpeakerLabel, this, std::placeholders::_1),
                                std::bind(&SessionView::stepForward_2, this));
         } else {
-            view->stackSpeaker(std::bind(&SessionView::updateSpeakerLabel, this),
+            view->stackSpeaker(std::bind(&SessionView::updateSpeakerLabel, this, std::placeholders::_1),
                                std::bind(&SessionView::stepForward_1, this));
         }
     }

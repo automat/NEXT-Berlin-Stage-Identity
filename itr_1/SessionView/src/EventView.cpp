@@ -33,7 +33,8 @@ namespace next {
         cout << "EventView test updateCallback" << endl;
     }
     
-    void EventView::stackSpeaker(const AnimCallback& callbackUpdate,const AnimCallback &callbackFinish){
+    void EventView::stackSpeaker(const std::function<void(int)>& callbackUpdate,
+                                 const AnimCallback &callbackFinish){
         mSpeakerStackView->stack(callbackUpdate, callbackFinish);
     }
     

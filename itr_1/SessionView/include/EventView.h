@@ -39,7 +39,7 @@ namespace next {
         void draw();
         void update();
         
-        void stackSpeaker(const AnimCallback& callbackUpdate,const AnimCallback &callbackFinish);
+        void stackSpeaker(const std::function<void(int)>& callbackUpdate,const AnimCallback &callbackFinish);
         void resetStack();
         
         int getNumStacks();

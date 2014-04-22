@@ -118,7 +118,7 @@ namespace next {
     //  Animation
     /*--------------------------------------------------------------------------------------------*/
     
-    void SpeakerStackView::stack(const AnimCallback& callbackUpdate, const AnimCallback& callbackFinish){
+    void SpeakerStackView::stack(const AnimCallback_Int_1& callbackUpdate, const AnimCallback& callbackFinish){
         if(mViews.size() == 1){
             delayCallback(mTimeAnimDelaySpeaker, callbackFinish);
             return;
@@ -131,7 +131,7 @@ namespace next {
                                 0));
     }
     
-    void SpeakerStackView::next(const AnimCallback& callbackUpdate, const AnimCallback& callbackFinish, int index){
+    void SpeakerStackView::next(const AnimCallback_Int_1& callbackUpdate, const AnimCallback& callbackFinish, int index){
         mViewIndex = index;
         
         animateOut(mViews[mViewIndex],callbackUpdate, callbackFinish);
@@ -142,10 +142,10 @@ namespace next {
             animateMove(mViews[(mViewIndex+i)%mNumViews]);
         }
         
-        callbackUpdate();
+        callbackUpdate(mViewIndex);
     }
     
-    void SpeakerStackView::triggerNext(const AnimCallback& callbackUpdate, const AnimCallback& callbackFinish){
+    void SpeakerStackView::triggerNext(const AnimCallback_Int_1& callbackUpdate, const AnimCallback& callbackFinish){
         mViewIndex = (mViewIndex + 1) % mNumViews;
 
         if (mViewIndex == mNumViews - 1) {
@@ -160,7 +160,10 @@ namespace next {
         }
     }
     
-    void SpeakerStackView::animateOut(SpeakerView *view, const AnimCallback& callbackUpdate, const AnimCallback& callbackFinish){
+    void SpeakerStackView::animateOut(SpeakerView *view,
+                                      const AnimCallback_Int_1& callbackUpdate,
+                                      const AnimCallback& callbackFinish){
+        
         tween(&view->mPositionState, mStackTopOut, sTimeAnimateOut, EaseOutQuad(),
               NULL, std::bind(&SpeakerStackView::animateIn,
                               this,
@@ -175,7 +178,9 @@ namespace next {
               std::bind(&SpeakerView::updateColorState, view));
     }
     
-    void SpeakerStackView::animateIn(SpeakerView *view, const AnimCallback& callbackUpdate, const AnimCallback& callbackFinish){
+    void SpeakerStackView::animateIn(SpeakerView *view,
+                                     const AnimCallback_Int_1& callbackUpdate,
+                                     const AnimCallback& callbackFinish){
         const static Vec3f zero;
         
         view->mPositionState = Vec3f(0,-0.25f,0);
