@@ -37,14 +37,11 @@ namespace next {
             mEventViewSlotIn(1),
             mEventViewSlotOut(3),
             mEventViewSlotEnd(4){
-                float offsetH = 0.5f;
-                float slideLength_2 = SESSION_VIEW_SLIDE_LENGTH * 0.5f;
-
-                mEventViewSlots[0] = Vec3f(offsetH,0,-SESSION_VIEW_SLIDE_LENGTH - offsetH);
-                mEventViewSlots[1] = Vec3f(offsetH,0,-slideLength_2 - offsetH);
-                mEventViewSlots[2] = Vec3f(offsetH,0,-offsetH);
-                mEventViewSlots[3] = Vec3f(offsetH,0, slideLength_2 - offsetH);
-                mEventViewSlots[4] = Vec3f(offsetH,0, SESSION_VIEW_SLIDE_LENGTH - offsetH);
+                mEventViewSlots[0] = Vec3f(SESSION_VIEW_SLIDE_SCREEN_CENTER_OFFSET,0,-SESSION_VIEW_SLIDE_LENGTH - SESSION_VIEW_SLIDE_SCREEN_CENTER_OFFSET);
+                mEventViewSlots[1] = Vec3f(SESSION_VIEW_SLIDE_SCREEN_CENTER_OFFSET,0,-SESSION_VIEW_SLIDE_LENGTH * 0.5f - SESSION_VIEW_SLIDE_SCREEN_CENTER_OFFSET);
+                mEventViewSlots[2] = Vec3f(SESSION_VIEW_SLIDE_SCREEN_CENTER_OFFSET,0,-SESSION_VIEW_SLIDE_SCREEN_CENTER_OFFSET);
+                mEventViewSlots[3] = Vec3f(SESSION_VIEW_SLIDE_SCREEN_CENTER_OFFSET,0, SESSION_VIEW_SLIDE_LENGTH * 0.5f - SESSION_VIEW_SLIDE_SCREEN_CENTER_OFFSET);
+                mEventViewSlots[4] = Vec3f(SESSION_VIEW_SLIDE_SCREEN_CENTER_OFFSET,0, SESSION_VIEW_SLIDE_LENGTH - SESSION_VIEW_SLIDE_SCREEN_CENTER_OFFSET);
             
                 mSpeakerLabelPos = mEventViewSlots[2];
                 
@@ -54,9 +51,8 @@ namespace next {
                 mLabelEventMeta          = new EventMetaLabel();
                 mLabelSpeaker            = new SpeakerLabel();
                 
-                float offset = 0.05f;
                 mLabelSpeaker->setPosition(mEventViewSlots[2] +
-                                           Vec3f(SESSION_VIEW_SPEAKER_SIZE.x * 0.5f + offset,
+                                           Vec3f(SESSION_VIEW_SPEAKER_SIZE.x * 0.5f + SESSION_VIEW_SPEAKER_NAME_LABEL_OFFSET,
                                                  SESSION_VIEW_SPEAKER_SIZE.y * -1,
                                                  SESSION_VIEW_SPEAKER_SIZE.x * 0.5f));
                 

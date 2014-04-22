@@ -15,14 +15,11 @@
 namespace next {
     using namespace std;
     class SpeakerLabel : public AbstractLabel {
-        string           mString;
         float            mScale;
         Matrix44f        mTransform;
-        
-        float mTextBoxNameHeight;
-        
+
         TextBox* mTextBoxCompany;
-        
+        float    mTextBoxCompanyOffsetY;
     public:
         SpeakerLabel();
         ~SpeakerLabel();

@@ -61,6 +61,10 @@ namespace next {
         glDisableClientState(GL_VERTEX_ARRAY);
         texture.unbind();
         texture.disable();
+
+#ifdef SESSION_VIEW_LABEL_SESSION_TITLE_DEBUG_DRAW
+        mTextBox->debugDraw();
+#endif
         glPopMatrix();
     }
     
