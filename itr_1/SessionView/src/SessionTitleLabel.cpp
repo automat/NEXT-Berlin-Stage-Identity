@@ -24,7 +24,7 @@ namespace next {
         
 
         mTextBox->underline();
-        mTextBox->setColorUnderline(SESSION_LABEL_SESSION_TITLE_UNDERLINE_COLOR_END);
+        mTextBox->setColorUnderline(SESSION_LABEL_SESS);
 
         mTextBox->setUnderlineHeight(SESSION_LABEL_SESSION_TITLE_UNDERLINE_HEIGHT);
         mTextBox->underline();
