@@ -16,28 +16,28 @@
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		CD1C021D19048898001F5CF2 /* SessionMetaLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD1C021C19048898001F5CF2 /* SessionMetaLabel.cpp */; };
+		CD17C8ED1908325F00780CE7 /* EventView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8DC1908325F00780CE7 /* EventView.cpp */; };
+		CD17C8EE1908325F00780CE7 /* EventMetaLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8DF1908325F00780CE7 /* EventMetaLabel.cpp */; };
+		CD17C8EF1908325F00780CE7 /* EventTitleLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8E01908325F00780CE7 /* EventTitleLabel.cpp */; };
+		CD17C8F01908325F00780CE7 /* SessionMetaLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8E21908325F00780CE7 /* SessionMetaLabel.cpp */; };
+		CD17C8F11908325F00780CE7 /* SessionTitleLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8E31908325F00780CE7 /* SessionTitleLabel.cpp */; };
+		CD17C8F21908325F00780CE7 /* SpeakerLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8E41908325F00780CE7 /* SpeakerLabel.cpp */; };
+		CD17C8F31908325F00780CE7 /* SubLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8E61908325F00780CE7 /* SubLabel.cpp */; };
+		CD17C8F41908325F00780CE7 /* SessionView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8E71908325F00780CE7 /* SessionView.cpp */; };
+		CD17C8F51908325F00780CE7 /* SpeakerStackView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8E81908325F00780CE7 /* SpeakerStackView.cpp */; };
+		CD17C8F61908325F00780CE7 /* SpeakerView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8E91908325F00780CE7 /* SpeakerView.cpp */; };
+		CD17C8F71908325F00780CE7 /* FxResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8EB1908325F00780CE7 /* FxResources.cpp */; };
+		CD17C8F81908325F00780CE7 /* TextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8EC1908325F00780CE7 /* TextBox.cpp */; };
 		CD254C7019044EA6009D6522 /* measurements.png in Resources */ = {isa = PBXBuildFile; fileRef = CD254C6F19044EA6009D6522 /* measurements.png */; };
-		CD254C7519045F3E009D6522 /* EventTitleLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD254C7419045F3E009D6522 /* EventTitleLabel.cpp */; };
-		CD254C7919047D72009D6522 /* EventMetaLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD254C7819047D4E009D6522 /* EventMetaLabel.cpp */; };
 		CD51E586190553B000570C16 /* akkurat_regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = CD51E585190553A900570C16 /* akkurat_regular.otf */; };
-		CD9D9D301906A7FD002BD852 /* SpeakerLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD9D9D2F1906A3D3002BD852 /* SpeakerLabel.cpp */; };
-		CDA788051905DA5600FD83E9 /* SubLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA788041905DA2300FD83E9 /* SubLabel.cpp */; };
 		CDCBF24E1902EF7D0060E875 /* 6893.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF24A1902EF7D0060E875 /* 6893.png */; };
 		CDCBF24F1902EF7D0060E875 /* 26092.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF24B1902EF7D0060E875 /* 26092.png */; };
 		CDCBF2501902EF7D0060E875 /* 26262.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF24C1902EF7D0060E875 /* 26262.png */; };
 		CDCBF2511902EF7D0060E875 /* 27263.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF24D1902EF7D0060E875 /* 27263.png */; };
-		CDCBF25A1902EF880060E875 /* EventView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDCBF2531902EF880060E875 /* EventView.cpp */; };
-		CDCBF25B1902EF880060E875 /* FxResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDCBF2541902EF880060E875 /* FxResources.cpp */; };
-		CDCBF25C1902EF880060E875 /* SessionView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDCBF2551902EF880060E875 /* SessionView.cpp */; };
-		CDCBF25E1902EF880060E875 /* SpeakerStackView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDCBF2571902EF880060E875 /* SpeakerStackView.cpp */; };
-		CDCBF25F1902EF880060E875 /* SpeakerView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDCBF2581902EF880060E875 /* SpeakerView.cpp */; };
 		CDCBF26A1902FF570060E875 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF2691902FF570060E875 /* data.json */; };
-		CDEA2B861904133F00123D9B /* TextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDEA2B851904133500123D9B /* TextBox.cpp */; };
 		CDEA2B8C1904219400123D9B /* akkurat_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDEA2B8A1904219400123D9B /* akkurat_bold.ttf */; };
 		CDEA2B8D1904219400123D9B /* transcript_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CDEA2B8B1904219400123D9B /* transcript_bold.otf */; };
 		CDEA2B8F1904220A00123D9B /* akkurat_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDEA2B8E1904220A00123D9B /* akkurat_light.ttf */; };
-		CDEA2B951904231800123D9B /* SessionTitleLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDEA2B941904231800123D9B /* SessionTitleLabel.cpp */; };
 		D89712634BA0486685DCE17F /* SessionViewApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D727B207414FA590248C77 /* SessionViewApp.cpp */; };
 /* End PBXBuildFile section */
 
@@ -56,52 +56,52 @@
 		8D1107320486CEB800E47090 /* SessionView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SessionView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1931C39A6074054B53A290A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB6C92C76E38424199AAC0C4 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
-		CD1C021C19048898001F5CF2 /* SessionMetaLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SessionMetaLabel.cpp; path = ../src/SessionMetaLabel.cpp; sourceTree = "<group>"; };
+		CD17C8BB1908325700780CE7 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		CD17C8BC1908325700780CE7 /* Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mapping.h; sourceTree = "<group>"; };
+		CD17C8BD1908325700780CE7 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		CD17C8BE1908325700780CE7 /* Speaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Speaker.h; sourceTree = "<group>"; };
+		CD17C8C01908325700780CE7 /* AbstractAnimView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractAnimView.h; sourceTree = "<group>"; };
+		CD17C8C11908325700780CE7 /* EventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventView.h; sourceTree = "<group>"; };
+		CD17C8C31908325700780CE7 /* AbstractLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractLabel.h; sourceTree = "<group>"; };
+		CD17C8C51908325700780CE7 /* EventMetaLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventMetaLabel.h; sourceTree = "<group>"; };
+		CD17C8C61908325700780CE7 /* EventTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTitleLabel.h; sourceTree = "<group>"; };
+		CD17C8C71908325700780CE7 /* PingPongEventMetaSubLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongEventMetaSubLabel.h; sourceTree = "<group>"; };
+		CD17C8C81908325700780CE7 /* PingPongEventTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongEventTitleLabel.h; sourceTree = "<group>"; };
+		CD17C8C91908325700780CE7 /* LineQuad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineQuad.h; sourceTree = "<group>"; };
+		CD17C8CB1908325700780CE7 /* SessionMetaLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionMetaLabel.h; sourceTree = "<group>"; };
+		CD17C8CC1908325700780CE7 /* SessionTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionTitleLabel.h; sourceTree = "<group>"; };
+		CD17C8CE1908325700780CE7 /* PingPongSpeakerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongSpeakerLabel.h; sourceTree = "<group>"; };
+		CD17C8CF1908325700780CE7 /* SpeakerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakerLabel.h; sourceTree = "<group>"; };
+		CD17C8D01908325700780CE7 /* SubLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubLabel.h; sourceTree = "<group>"; };
+		CD17C8D11908325700780CE7 /* SessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionView.h; sourceTree = "<group>"; };
+		CD17C8D21908325700780CE7 /* SpeakerStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakerStackView.h; sourceTree = "<group>"; };
+		CD17C8D31908325700780CE7 /* SpeakerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakerView.h; sourceTree = "<group>"; };
+		CD17C8D51908325700780CE7 /* FxResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FxResources.h; sourceTree = "<group>"; };
+		CD17C8D61908325700780CE7 /* PingPongFbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongFbo.h; sourceTree = "<group>"; };
+		CD17C8D71908325700780CE7 /* TextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextBox.h; sourceTree = "<group>"; };
+		CD17C8DC1908325F00780CE7 /* EventView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventView.cpp; sourceTree = "<group>"; };
+		CD17C8DF1908325F00780CE7 /* EventMetaLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventMetaLabel.cpp; sourceTree = "<group>"; };
+		CD17C8E01908325F00780CE7 /* EventTitleLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventTitleLabel.cpp; sourceTree = "<group>"; };
+		CD17C8E21908325F00780CE7 /* SessionMetaLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SessionMetaLabel.cpp; sourceTree = "<group>"; };
+		CD17C8E31908325F00780CE7 /* SessionTitleLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SessionTitleLabel.cpp; sourceTree = "<group>"; };
+		CD17C8E41908325F00780CE7 /* SpeakerLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpeakerLabel.cpp; sourceTree = "<group>"; };
+		CD17C8E61908325F00780CE7 /* SubLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SubLabel.cpp; sourceTree = "<group>"; };
+		CD17C8E71908325F00780CE7 /* SessionView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SessionView.cpp; sourceTree = "<group>"; };
+		CD17C8E81908325F00780CE7 /* SpeakerStackView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpeakerStackView.cpp; sourceTree = "<group>"; };
+		CD17C8E91908325F00780CE7 /* SpeakerView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpeakerView.cpp; sourceTree = "<group>"; };
+		CD17C8EB1908325F00780CE7 /* FxResources.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FxResources.cpp; sourceTree = "<group>"; };
+		CD17C8EC1908325F00780CE7 /* TextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextBox.cpp; sourceTree = "<group>"; };
 		CD254C6F19044EA6009D6522 /* measurements.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = measurements.png; path = ../resources/measurements.png; sourceTree = "<group>"; };
-		CD254C7119045CA1009D6522 /* EventTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventTitleLabel.h; path = ../include/EventTitleLabel.h; sourceTree = "<group>"; };
-		CD254C7419045F3E009D6522 /* EventTitleLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventTitleLabel.cpp; path = ../src/EventTitleLabel.cpp; sourceTree = "<group>"; };
-		CD254C7619047750009D6522 /* EventMetaLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventMetaLabel.h; path = ../include/EventMetaLabel.h; sourceTree = "<group>"; };
-		CD254C7719047760009D6522 /* SessionMetaLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SessionMetaLabel.h; path = ../include/SessionMetaLabel.h; sourceTree = "<group>"; };
-		CD254C7819047D4E009D6522 /* EventMetaLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventMetaLabel.cpp; path = ../src/EventMetaLabel.cpp; sourceTree = "<group>"; };
 		CD51E585190553A900570C16 /* akkurat_regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = akkurat_regular.otf; path = ../resources/akkurat_regular.otf; sourceTree = "<group>"; };
-		CD9D9D2D19069731002BD852 /* LineQuad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineQuad.h; path = ../include/LineQuad.h; sourceTree = "<group>"; };
-		CD9D9D2E1906A3A1002BD852 /* SpeakerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpeakerLabel.h; path = ../include/SpeakerLabel.h; sourceTree = "<group>"; };
-		CD9D9D2F1906A3D3002BD852 /* SpeakerLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpeakerLabel.cpp; path = ../src/SpeakerLabel.cpp; sourceTree = "<group>"; };
-		CDA788021905865600FD83E9 /* PingPongEventTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PingPongEventTitleLabel.h; path = ../include/PingPongEventTitleLabel.h; sourceTree = "<group>"; };
-		CDA788031905D9B700FD83E9 /* SubLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubLabel.h; path = ../include/SubLabel.h; sourceTree = "<group>"; };
-		CDA788041905DA2300FD83E9 /* SubLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SubLabel.cpp; path = ../src/SubLabel.cpp; sourceTree = "<group>"; };
-		CDA788061905DE0D00FD83E9 /* PingPongEventMetaSubLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PingPongEventMetaSubLabel.h; path = ../include/PingPongEventMetaSubLabel.h; sourceTree = "<group>"; };
-		CDA7BC991907B8B200964E4F /* PingPongSpeakerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PingPongSpeakerLabel.h; path = ../include/PingPongSpeakerLabel.h; sourceTree = "<group>"; };
-		CDA8EE331904077D00E7038B /* TextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextBox.h; path = ../include/TextBox.h; sourceTree = "<group>"; };
-		CDCBF23E1902EF740060E875 /* AbstractAnimView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractAnimView.h; path = ../include/AbstractAnimView.h; sourceTree = "<group>"; };
 		CDCBF23F1902EF740060E875 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
-		CDCBF2401902EF740060E875 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = ../include/Event.h; sourceTree = "<group>"; };
-		CDCBF2411902EF740060E875 /* EventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventView.h; path = ../include/EventView.h; sourceTree = "<group>"; };
-		CDCBF2421902EF740060E875 /* FxResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FxResources.h; path = ../include/FxResources.h; sourceTree = "<group>"; };
-		CDCBF2431902EF740060E875 /* PingPongFbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PingPongFbo.h; path = ../include/PingPongFbo.h; sourceTree = "<group>"; };
-		CDCBF2451902EF740060E875 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Session.h; path = ../include/Session.h; sourceTree = "<group>"; };
-		CDCBF2461902EF740060E875 /* SessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SessionView.h; path = ../include/SessionView.h; sourceTree = "<group>"; };
-		CDCBF2471902EF740060E875 /* Speaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Speaker.h; path = ../include/Speaker.h; sourceTree = "<group>"; };
-		CDCBF2481902EF740060E875 /* SpeakerStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpeakerStackView.h; path = ../include/SpeakerStackView.h; sourceTree = "<group>"; };
-		CDCBF2491902EF740060E875 /* SpeakerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpeakerView.h; path = ../include/SpeakerView.h; sourceTree = "<group>"; };
 		CDCBF24A1902EF7D0060E875 /* 6893.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6893.png; path = ../resources/6893.png; sourceTree = "<group>"; };
 		CDCBF24B1902EF7D0060E875 /* 26092.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 26092.png; path = ../resources/26092.png; sourceTree = "<group>"; };
 		CDCBF24C1902EF7D0060E875 /* 26262.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 26262.png; path = ../resources/26262.png; sourceTree = "<group>"; };
 		CDCBF24D1902EF7D0060E875 /* 27263.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 27263.png; path = ../resources/27263.png; sourceTree = "<group>"; };
-		CDCBF2531902EF880060E875 /* EventView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventView.cpp; path = ../src/EventView.cpp; sourceTree = "<group>"; };
-		CDCBF2541902EF880060E875 /* FxResources.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FxResources.cpp; path = ../src/FxResources.cpp; sourceTree = "<group>"; };
-		CDCBF2551902EF880060E875 /* SessionView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SessionView.cpp; path = ../src/SessionView.cpp; sourceTree = "<group>"; };
-		CDCBF2571902EF880060E875 /* SpeakerStackView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpeakerStackView.cpp; path = ../src/SpeakerStackView.cpp; sourceTree = "<group>"; };
-		CDCBF2581902EF880060E875 /* SpeakerView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpeakerView.cpp; path = ../src/SpeakerView.cpp; sourceTree = "<group>"; };
-		CDCBF2681902F52A0060E875 /* Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mapping.h; path = ../include/Mapping.h; sourceTree = "<group>"; };
 		CDCBF2691902FF570060E875 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = data.json; path = ../resources/data.json; sourceTree = "<group>"; };
-		CDEA2B851904133500123D9B /* TextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextBox.cpp; path = ../src/TextBox.cpp; sourceTree = "<group>"; };
-		CDEA2B8719041D0F00123D9B /* AbstractLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractLabel.h; path = ../include/AbstractLabel.h; sourceTree = "<group>"; };
 		CDEA2B8A1904219400123D9B /* akkurat_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = akkurat_bold.ttf; path = ../resources/akkurat_bold.ttf; sourceTree = "<group>"; };
 		CDEA2B8B1904219400123D9B /* transcript_bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = transcript_bold.otf; path = ../resources/transcript_bold.otf; sourceTree = "<group>"; };
 		CDEA2B8E1904220A00123D9B /* akkurat_light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = akkurat_light.ttf; path = ../resources/akkurat_light.ttf; sourceTree = "<group>"; };
-		CDEA2B93190422F900123D9B /* SessionTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SessionTitleLabel.h; path = ../include/SessionTitleLabel.h; sourceTree = "<group>"; };
-		CDEA2B941904231800123D9B /* SessionTitleLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SessionTitleLabel.cpp; path = ../src/SessionTitleLabel.cpp; sourceTree = "<group>"; };
 		E88D7BC8BA0F4297A5FC3CF9 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		F4D727B207414FA590248C77 /* SessionViewApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = SessionViewApp.cpp; path = ../src/SessionViewApp.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,8 +135,8 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				CDCBF2641902F2870060E875 /* session */,
-				CDCBF2661902F29A0060E875 /* util */,
+				CD17C8D81908325F00780CE7 /* stage */,
+				CD17C8EA1908325F00780CE7 /* util */,
 				F4D727B207414FA590248C77 /* SessionViewApp.cpp */,
 			);
 			name = Source;
@@ -190,9 +190,9 @@
 		29B97315FDCFA39411CA2CEA /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				CDCBF2601902EFB70060E875 /* session */,
+				CD17C8B81908325700780CE7 /* stage */,
+				CD17C8D41908325700780CE7 /* util */,
 				CDCBF23F1902EF740060E875 /* Config.h */,
-				CDCBF2631902EFDC0060E875 /* util */,
 				E88D7BC8BA0F4297A5FC3CF9 /* Resources.h */,
 				170F9C1EFC1B4BECA63EF948 /* SessionView_Prefix.pch */,
 			);
@@ -227,107 +227,183 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		CDCBF2601902EFB70060E875 /* session */ = {
+		CD17C8B81908325700780CE7 /* stage */ = {
 			isa = PBXGroup;
 			children = (
-				CDCBF2621902EFCE0060E875 /* view */,
-				CDCBF2611902EFC20060E875 /* model */,
+				CD17C8B91908325700780CE7 /* session */,
 			);
-			name = session;
+			name = stage;
+			path = ../include/stage;
 			sourceTree = "<group>";
 		};
-		CDCBF2611902EFC20060E875 /* model */ = {
+		CD17C8B91908325700780CE7 /* session */ = {
 			isa = PBXGroup;
 			children = (
-				CDCBF2401902EF740060E875 /* Event.h */,
-				CDCBF2451902EF740060E875 /* Session.h */,
-				CDCBF2471902EF740060E875 /* Speaker.h */,
-				CDCBF2681902F52A0060E875 /* Mapping.h */,
+				CD17C8BA1908325700780CE7 /* model */,
+				CD17C8BF1908325700780CE7 /* view */,
 			);
-			name = model;
+			path = session;
 			sourceTree = "<group>";
 		};
-		CDCBF2621902EFCE0060E875 /* view */ = {
+		CD17C8BA1908325700780CE7 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				CDEA2B8819041DB600123D9B /* label */,
-				CDCBF23E1902EF740060E875 /* AbstractAnimView.h */,
-				CDCBF2411902EF740060E875 /* EventView.h */,
-				CDCBF2461902EF740060E875 /* SessionView.h */,
-				CDCBF2481902EF740060E875 /* SpeakerStackView.h */,
-				CDCBF2491902EF740060E875 /* SpeakerView.h */,
+				CD17C8BB1908325700780CE7 /* Event.h */,
+				CD17C8BC1908325700780CE7 /* Mapping.h */,
+				CD17C8BD1908325700780CE7 /* Session.h */,
+				CD17C8BE1908325700780CE7 /* Speaker.h */,
 			);
-			name = view;
+			path = model;
 			sourceTree = "<group>";
 		};
-		CDCBF2631902EFDC0060E875 /* util */ = {
+		CD17C8BF1908325700780CE7 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				CDCBF2421902EF740060E875 /* FxResources.h */,
-				CDCBF2431902EF740060E875 /* PingPongFbo.h */,
-				CDA8EE331904077D00E7038B /* TextBox.h */,
+				CD17C8C01908325700780CE7 /* AbstractAnimView.h */,
+				CD17C8C11908325700780CE7 /* EventView.h */,
+				CD17C8C21908325700780CE7 /* label */,
+				CD17C8D11908325700780CE7 /* SessionView.h */,
+				CD17C8D21908325700780CE7 /* SpeakerStackView.h */,
+				CD17C8D31908325700780CE7 /* SpeakerView.h */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		CD17C8C21908325700780CE7 /* label */ = {
+			isa = PBXGroup;
+			children = (
+				CD17C8C31908325700780CE7 /* AbstractLabel.h */,
+				CD17C8C41908325700780CE7 /* event */,
+				CD17C8C91908325700780CE7 /* LineQuad.h */,
+				CD17C8CA1908325700780CE7 /* session */,
+				CD17C8CD1908325700780CE7 /* speaker */,
+				CD17C8D01908325700780CE7 /* SubLabel.h */,
+			);
+			path = label;
+			sourceTree = "<group>";
+		};
+		CD17C8C41908325700780CE7 /* event */ = {
+			isa = PBXGroup;
+			children = (
+				CD17C8C51908325700780CE7 /* EventMetaLabel.h */,
+				CD17C8C61908325700780CE7 /* EventTitleLabel.h */,
+				CD17C8C71908325700780CE7 /* PingPongEventMetaSubLabel.h */,
+				CD17C8C81908325700780CE7 /* PingPongEventTitleLabel.h */,
+			);
+			path = event;
+			sourceTree = "<group>";
+		};
+		CD17C8CA1908325700780CE7 /* session */ = {
+			isa = PBXGroup;
+			children = (
+				CD17C8CB1908325700780CE7 /* SessionMetaLabel.h */,
+				CD17C8CC1908325700780CE7 /* SessionTitleLabel.h */,
+			);
+			path = session;
+			sourceTree = "<group>";
+		};
+		CD17C8CD1908325700780CE7 /* speaker */ = {
+			isa = PBXGroup;
+			children = (
+				CD17C8CE1908325700780CE7 /* PingPongSpeakerLabel.h */,
+				CD17C8CF1908325700780CE7 /* SpeakerLabel.h */,
+			);
+			path = speaker;
+			sourceTree = "<group>";
+		};
+		CD17C8D41908325700780CE7 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				CD17C8D51908325700780CE7 /* FxResources.h */,
+				CD17C8D61908325700780CE7 /* PingPongFbo.h */,
+				CD17C8D71908325700780CE7 /* TextBox.h */,
 			);
 			name = util;
+			path = ../include/util;
 			sourceTree = "<group>";
 		};
-		CDCBF2641902F2870060E875 /* session */ = {
+		CD17C8D81908325F00780CE7 /* stage */ = {
 			isa = PBXGroup;
 			children = (
-				CDCBF2651902F2910060E875 /* view */,
+				CD17C8D91908325F00780CE7 /* session */,
 			);
-			name = session;
+			name = stage;
+			path = ../src/stage;
 			sourceTree = "<group>";
 		};
-		CDCBF2651902F2910060E875 /* view */ = {
+		CD17C8D91908325F00780CE7 /* session */ = {
 			isa = PBXGroup;
 			children = (
-				CDEA2B92190422C400123D9B /* label */,
-				CDCBF2531902EF880060E875 /* EventView.cpp */,
-				CDCBF2551902EF880060E875 /* SessionView.cpp */,
-				CDCBF2571902EF880060E875 /* SpeakerStackView.cpp */,
-				CDCBF2581902EF880060E875 /* SpeakerView.cpp */,
+				CD17C8DA1908325F00780CE7 /* model */,
+				CD17C8DB1908325F00780CE7 /* view */,
 			);
-			name = view;
+			path = session;
 			sourceTree = "<group>";
 		};
-		CDCBF2661902F29A0060E875 /* util */ = {
+		CD17C8DA1908325F00780CE7 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				CDCBF2541902EF880060E875 /* FxResources.cpp */,
-				CDEA2B851904133500123D9B /* TextBox.cpp */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		CD17C8DB1908325F00780CE7 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				CD17C8DC1908325F00780CE7 /* EventView.cpp */,
+				CD17C8DD1908325F00780CE7 /* label */,
+				CD17C8E71908325F00780CE7 /* SessionView.cpp */,
+				CD17C8E81908325F00780CE7 /* SpeakerStackView.cpp */,
+				CD17C8E91908325F00780CE7 /* SpeakerView.cpp */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		CD17C8DD1908325F00780CE7 /* label */ = {
+			isa = PBXGroup;
+			children = (
+				CD17C8DE1908325F00780CE7 /* event */,
+				CD17C8E11908325F00780CE7 /* session */,
+				CD17C8E51908325F00780CE7 /* speaker */,
+				CD17C8E61908325F00780CE7 /* SubLabel.cpp */,
+			);
+			path = label;
+			sourceTree = "<group>";
+		};
+		CD17C8DE1908325F00780CE7 /* event */ = {
+			isa = PBXGroup;
+			children = (
+				CD17C8DF1908325F00780CE7 /* EventMetaLabel.cpp */,
+				CD17C8E01908325F00780CE7 /* EventTitleLabel.cpp */,
+			);
+			path = event;
+			sourceTree = "<group>";
+		};
+		CD17C8E11908325F00780CE7 /* session */ = {
+			isa = PBXGroup;
+			children = (
+				CD17C8E21908325F00780CE7 /* SessionMetaLabel.cpp */,
+				CD17C8E31908325F00780CE7 /* SessionTitleLabel.cpp */,
+				CD17C8E41908325F00780CE7 /* SpeakerLabel.cpp */,
+			);
+			path = session;
+			sourceTree = "<group>";
+		};
+		CD17C8E51908325F00780CE7 /* speaker */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = speaker;
+			sourceTree = "<group>";
+		};
+		CD17C8EA1908325F00780CE7 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				CD17C8EB1908325F00780CE7 /* FxResources.cpp */,
+				CD17C8EC1908325F00780CE7 /* TextBox.cpp */,
 			);
 			name = util;
-			sourceTree = "<group>";
-		};
-		CDEA2B8819041DB600123D9B /* label */ = {
-			isa = PBXGroup;
-			children = (
-				CD9D9D2D19069731002BD852 /* LineQuad.h */,
-				CDEA2B8719041D0F00123D9B /* AbstractLabel.h */,
-				CD254C7119045CA1009D6522 /* EventTitleLabel.h */,
-				CD254C7619047750009D6522 /* EventMetaLabel.h */,
-				CDEA2B93190422F900123D9B /* SessionTitleLabel.h */,
-				CD254C7719047760009D6522 /* SessionMetaLabel.h */,
-				CD9D9D2E1906A3A1002BD852 /* SpeakerLabel.h */,
-				CDA788031905D9B700FD83E9 /* SubLabel.h */,
-				CDA788021905865600FD83E9 /* PingPongEventTitleLabel.h */,
-				CDA788061905DE0D00FD83E9 /* PingPongEventMetaSubLabel.h */,
-				CDA7BC991907B8B200964E4F /* PingPongSpeakerLabel.h */,
-			);
-			name = label;
-			sourceTree = "<group>";
-		};
-		CDEA2B92190422C400123D9B /* label */ = {
-			isa = PBXGroup;
-			children = (
-				CDEA2B941904231800123D9B /* SessionTitleLabel.cpp */,
-				CD254C7419045F3E009D6522 /* EventTitleLabel.cpp */,
-				CD254C7819047D4E009D6522 /* EventMetaLabel.cpp */,
-				CD1C021C19048898001F5CF2 /* SessionMetaLabel.cpp */,
-				CDA788041905DA2300FD83E9 /* SubLabel.cpp */,
-				CD9D9D2F1906A3D3002BD852 /* SpeakerLabel.cpp */,
-			);
-			name = label;
+			path = ../src/util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -403,19 +479,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD254C7919047D72009D6522 /* EventMetaLabel.cpp in Sources */,
-				CD9D9D301906A7FD002BD852 /* SpeakerLabel.cpp in Sources */,
-				CDCBF25E1902EF880060E875 /* SpeakerStackView.cpp in Sources */,
-				CDCBF25C1902EF880060E875 /* SessionView.cpp in Sources */,
-				CDA788051905DA5600FD83E9 /* SubLabel.cpp in Sources */,
-				CDCBF25A1902EF880060E875 /* EventView.cpp in Sources */,
-				CDCBF25B1902EF880060E875 /* FxResources.cpp in Sources */,
-				CDEA2B951904231800123D9B /* SessionTitleLabel.cpp in Sources */,
+				CD17C8F01908325F00780CE7 /* SessionMetaLabel.cpp in Sources */,
+				CD17C8F51908325F00780CE7 /* SpeakerStackView.cpp in Sources */,
+				CD17C8EF1908325F00780CE7 /* EventTitleLabel.cpp in Sources */,
 				D89712634BA0486685DCE17F /* SessionViewApp.cpp in Sources */,
-				CDEA2B861904133F00123D9B /* TextBox.cpp in Sources */,
-				CD254C7519045F3E009D6522 /* EventTitleLabel.cpp in Sources */,
-				CD1C021D19048898001F5CF2 /* SessionMetaLabel.cpp in Sources */,
-				CDCBF25F1902EF880060E875 /* SpeakerView.cpp in Sources */,
+				CD17C8EE1908325F00780CE7 /* EventMetaLabel.cpp in Sources */,
+				CD17C8F71908325F00780CE7 /* FxResources.cpp in Sources */,
+				CD17C8F21908325F00780CE7 /* SpeakerLabel.cpp in Sources */,
+				CD17C8F11908325F00780CE7 /* SessionTitleLabel.cpp in Sources */,
+				CD17C8F61908325F00780CE7 /* SpeakerView.cpp in Sources */,
+				CD17C8F41908325F00780CE7 /* SessionView.cpp in Sources */,
+				CD17C8ED1908325F00780CE7 /* EventView.cpp in Sources */,
+				CD17C8F31908325F00780CE7 /* SubLabel.cpp in Sources */,
+				CD17C8F81908325F00780CE7 /* TextBox.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

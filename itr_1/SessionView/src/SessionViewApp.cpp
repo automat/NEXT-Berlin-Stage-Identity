@@ -1,24 +1,23 @@
 #include "cinder/app/AppNative.h"
+
+#include <vector>
+#include <boost/assign/std/vector.hpp>
+#include <boost/assign.hpp>
+
 #include "cinder/gl/gl.h"
 #include "cinder/Camera.h"
 #include "cinder/Matrix44.h"
-#include "SpeakerView.h"
 #include "cinder/gl/TextureFont.h"
 #include "cinder/Utilities.h"
-#include "Speaker.h"
-#include "SpeakerStackView.h"
-#include <vector>
-#include "Event.h"
-#include "EventView.h"
-#include "Session.h"
-#include "SessionView.h"
-#include "Mapping.h"
 #include "cinder/Rand.h"
 #include "cinder/gl/Texture.h"
 
+#include "stage/session/model/Speaker.h"
+#include "stage/session/model/Event.h"
+#include "stage/session/model/Session.h"
+#include "stage/session/model/Mapping.h"
 
-#include <boost/assign/std/vector.hpp>
-#include <boost/assign.hpp>
+#include "stage/session/view/SessionView.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -51,7 +50,6 @@ public:
 
 void SessionViewApp::prepareSettings(Settings *settings) {
     settings->setWindowSize(3552, 1105 );
-    //settings->setWindowSize(800, 600);
     settings->setWindowPos(0, 0);
 }
 
