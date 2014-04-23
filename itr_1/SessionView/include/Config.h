@@ -46,6 +46,10 @@
 //  Title Labels
 /*--------------------------------------------------------------------------------------------*/
 
+//
+//  Shared font
+//
+
 #define SESSION_LABEL_TITLE_FONT_SCALAR 4
 
 #define SESSION_LABEL_TITLE_DEFAULT_FONT_SIZE 118
@@ -55,7 +59,9 @@
 #define SESSION_LABEL_TITLE_SHADOW_STRENGTH 0.05f
 #define SESSION_LABEL_TITLE_SHADOW_OFFSET Vec2f(3,3)
 
-
+//
+//  Session
+//
 
 #define SESSION_LABEL_SESSION_TITLE_POS              ci::Vec2f(255,320)
 #define SESSION_LABEL_SESSION_TITLE_FONT_SIZE        SESSION_LABEL_TITLE_DEFAULT_FONT_SIZE
@@ -71,6 +77,10 @@
 
 #define SESSION_LABEL_SESSION_TITLE_ANIM_TIME_ALPHA_OFF  0.9f
 
+//
+//  Event
+//
+
 #define SESSION_LABEL_EVENT_TITLE_MAX_LINES 4
 #define SESSION_LABEL_EVENT_TITLE_EXCEED_FONT_SIZE 96
 #define SESSION_LABEL_EVENT_TITLE_EXCEED_LINE_HEIGHT 1.275f
@@ -78,7 +88,6 @@
 
 #define SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_START ci::Color::hex(0xDE3865)
 #define SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_END   ci::Color::hex(0x87184E)
-
 
 #define SESSION_LABEL_EVENT_TITLE_EXCEED_BOX_WIDTH  900
 #define SESSION_LABEL_EVENT_TITLE_DEFAULT_BOX_WIDTH 1000
@@ -108,6 +117,10 @@
 //  Meta Labels
 /*--------------------------------------------------------------------------------------------*/
 
+//
+//  Shared
+//
+
 #define SESSION_LABEL_META_FONT_SIZE 50
 #define SESSION_LABEL_META_FONT_SCALAR 4
 #define SESSION_LABEL_META_SUB_BOX_WIDTH 400
@@ -115,11 +128,19 @@
 #define SESSION_LABEL_META_OFFSET_X -22
 #define SESSION_LABEL_META_OFFSET_Y -11
 
+//
+//  Session
+//
+
 #define SESSION_LABEL_SESSION_META_POS ci::Vec2f(255,216)
 #define SESSION_LABEL_SESSION_META_FONT_COLOR ci::Color::hex(0xDE3865)
 #define SESSION_LABEL_SESSION_META_BOX_WIDTH 700
 #define SESSION_LABEL_SESSION_META_TIME_ALPHA_ON  1.0f
 #define SESSION_LABEL_SESSION_META_TIME_ALPHA_OFF 0.9f
+
+//
+//  Event
+//
 
 #define SESSION_LABEL_EVENT_META_POS ci::Vec2f(1163,216)
 #define SESSION_LABEL_EVENT_META_FONT_COLOR ci::Color::white()

@@ -29,19 +29,15 @@ namespace next {
         void unfocus();
 
         Anim<Vec3f> mPositionState;
-        
-        void testUpdateCallback();
-        
+
     public:
         EventView(Event* data);
         ~EventView();
         
         void draw();
-        void update();
-        
+
         void stackSpeaker(const std::function<void(int)>& callbackUpdate,const AnimCallback &callbackFinish);
         void resetStack();
-
     };
 }
 

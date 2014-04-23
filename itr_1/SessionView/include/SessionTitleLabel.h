@@ -20,7 +20,7 @@ namespace next {
     public:
         SessionTitleLabel();
         
-        void setString(const string& str);
+        void set(const string& title);
         void draw();
         
         void on();

@@ -10,8 +10,9 @@
 #define SessionView_EventTitleLabel_h
 
 #include "AbstractLabel.h"
-#include "LineQuad.h"
+
 #include <vector>
+#include "LineQuad.h"
 
 namespace next {
     using namespace std;
@@ -31,7 +32,7 @@ namespace next {
         ~EventTitleLabel();
         
         void draw();
-        void setString(const string& str);
+        void set(const string& title);
         
         void on();
         void off();

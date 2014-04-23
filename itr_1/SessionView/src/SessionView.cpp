@@ -100,7 +100,7 @@ namespace next {
             mEventViewsOffset += -(++i);
         }
         
-        mLabelTitle->setString(mData->title);
+        mLabelTitle->set(mData->title);
         mLabelMeta->set(mData->startHourString, mData->endHourString, mData->startTimeStamp);
     }
     
@@ -270,7 +270,7 @@ namespace next {
             std::advance(eventData, mIndexEventViews);
             Event* data = &eventData->second;
             
-            mPingPongLabelEventTitle->setString(data->title);
+            mPingPongLabelEventTitle->set(data->title);
             
             if(mIndexEventViews == 0){
                 //
@@ -343,18 +343,13 @@ namespace next {
         for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
             (*itr)->draw();
         }
-        
-        glPushMatrix();
         mPingPongLabelSpeaker->draw();
-        glPopMatrix();
     }
-    
+
     void SessionView::update(){
-        for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
-            (*itr)->update();
-        }
+
     }
-    
+
     void SessionView::debugDraw(){
         const static float fontScale = 0.0125f;
         Vec3f pos;

@@ -20,19 +20,11 @@ namespace next {
         Vec3f pos = mPositionState();
 
         glPushMatrix();
-        glTranslatef(pos.x, pos.y, pos.z);
-        mSpeakerStackView->draw();
+            glTranslatef(pos.x, pos.y, pos.z);
+            mSpeakerStackView->draw();
         glPopMatrix();
     }
-    
-    void EventView::update(){
-        mSpeakerStackView->update();
-    }
-    
-    void EventView::testUpdateCallback(){
-        cout << "EventView test updateCallback" << endl;
-    }
-    
+
     void EventView::stackSpeaker(const std::function<void(int)>& callbackUpdate,
                                  const AnimCallback &callbackFinish){
         mSpeakerStackView->stack(callbackUpdate, callbackFinish);

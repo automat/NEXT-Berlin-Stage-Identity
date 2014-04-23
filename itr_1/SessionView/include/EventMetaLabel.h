@@ -24,7 +24,6 @@ namespace next {
         float mTextBoxFrontWidth;
         Vec2f mVertexTrapezoidIndex[4];
 
-        
         PingPongEventMetaSubLabel* mSubLabel;
         
     public:

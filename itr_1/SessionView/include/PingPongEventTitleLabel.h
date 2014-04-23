@@ -9,8 +9,8 @@
 #ifndef SessionView_PingPongEventTitleLabel_h
 #define SessionView_PingPongEventTitleLabel_h
 
-#include "EventTitleLabel.h"
 #include <string>
+#include "EventTitleLabel.h"
 
 namespace next {
     using namespace std;
@@ -27,8 +27,8 @@ namespace next {
             mLabels[1].draw();
         }
         
-        inline void setString(const string& str){
-            mLabels[mIndex].setString(str);
+        inline void set(const string& title){
+            mLabels[mIndex].set(title);
         }
         
         inline void show(){
@@ -50,7 +50,6 @@ namespace next {
         inline void swap(){
             mIndex = 1 - mIndex;
         }
-        
     };
 }
 

@@ -120,8 +120,8 @@ namespace next {
     // Set
     /*--------------------------------------------------------------------------------------------*/
     
-    void EventTitleLabel::setString(const string& str){
-        if(mString == str){
+    void EventTitleLabel::set(const string& title){
+        if(mString == title){
             return;
         }
         
@@ -129,12 +129,12 @@ namespace next {
             mDidExceedNumLineMax = false;
         }
         
-        mTextBox->setString(str);
-        mString = str;
+        mTextBox->setString(title);
+        mString = title;
         
         
         if(mTextBox->getNumLines() > SESSION_LABEL_EVENT_TITLE_MAX_LINES && !mDidExceedNumLineMax){
-            mTextBoxExceed->setString(str);
+            mTextBoxExceed->setString(title);
             mDidExceedNumLineMax = true;
         }
 

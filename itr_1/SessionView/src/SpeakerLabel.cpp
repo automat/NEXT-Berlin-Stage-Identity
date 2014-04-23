@@ -10,9 +10,17 @@ namespace next {
     using namespace boost;
     typedef EaseInOutQuad AnimEaseInOut;
 
+    /*--------------------------------------------------------------------------------------------*/
+    //  Shared
+    /*--------------------------------------------------------------------------------------------*/
+
     Font SpeakerLabel::sFontName;
     Font SpeakerLabel::sFontCompany;
-    
+
+    /*--------------------------------------------------------------------------------------------*/
+    //  Constructor / Destructor
+    /*--------------------------------------------------------------------------------------------*/
+
     SpeakerLabel::SpeakerLabel() :
         AbstractLabel(),
         mTextBoxCompanyOffsetY(0),
@@ -43,7 +51,11 @@ namespace next {
     SpeakerLabel::~SpeakerLabel(){
         delete mTextBoxCompany;
     }
-    
+
+    /*--------------------------------------------------------------------------------------------*/
+    //  Set pos override
+    /*--------------------------------------------------------------------------------------------*/
+
     void SpeakerLabel::setPosition(const Vec3f &pos){
         mPos = pos.xz();
         mTransform.setToIdentity();

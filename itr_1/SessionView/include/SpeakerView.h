@@ -6,16 +6,18 @@
 #define __SpeakerView_H_
 
 #include <OpenGL/OpenGL.h>
-#include "cinder/gl/Texture.h"
-#include "cinder/gl/GlslProg.h"
-#include "cinder/gl/Fbo.h"
+
 #include "cinder/Color.h"
 #include "cinder/Matrix44.h"
 #include "cinder/Vector.h"
-#include "cinder/Timeline.h"
-#include "cinder/Color.h"
-#include "AbstractAnimView.h"
 
+#include "cinder/gl/GlslProg.h"
+#include "cinder/gl/Texture.h"
+#include "cinder/gl/Fbo.h"
+
+#include "cinder/Timeline.h"
+
+#include "AbstractAnimView.h"
 #include "Speaker.h"
 
 
@@ -23,7 +25,10 @@ using namespace ci;
 namespace next {
     class SpeakerView : public AbstractAnimView{
         friend class SpeakerStackView;
-        
+
+        //
+        // shared
+        //
         const static Vec2f  sTexCoordsNorm[4];
         const static Vec3f  sCubeVertices[8];
         const static size_t sCardVerticesLen;
@@ -56,8 +61,7 @@ namespace next {
         ~SpeakerView();
         
         void draw();
-        void update();
-      
+
         void updateFocusState();    //  focus color deactive -> active
         void updateFocusImage();    //  focus image blur -> unblur
         void updateColorState();

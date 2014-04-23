@@ -16,8 +16,8 @@ namespace next {
     using namespace std;
     class SubLabel : public AbstractLabel {
     private:
-        float mTextBoxWidth;
-        Vec2f mVertexTrapezoid[4];
+        float       mTextBoxWidth;
+        Vec2f       mVertexTrapezoid[4];
         Anim<float> mAlphaState;
         Anim<Vec2f> mPositionState;
     public:

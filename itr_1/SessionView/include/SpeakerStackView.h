@@ -59,7 +59,6 @@ namespace next {
         void resetStack();
         
         void draw();
-        void update();
         
         void focus();
         void unfocus();

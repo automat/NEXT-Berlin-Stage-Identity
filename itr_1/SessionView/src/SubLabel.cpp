@@ -4,10 +4,14 @@
 
 
 namespace next {
-    
-    typedef EaseInOutQuad AnimEaseInOut;
-    
+
     using namespace boost;
+    typedef EaseInOutQuad AnimEaseInOut;
+
+    /*--------------------------------------------------------------------------------------------*/
+    //  Constructor
+    /*--------------------------------------------------------------------------------------------*/
+
     SubLabel::SubLabel() :
         AbstractLabel(),
         mTextBoxWidth(0),
@@ -18,7 +22,11 @@ namespace next {
             mTextBox->setFontSize(  SESSION_LABEL_META_FONT_SIZE);
             mTextBox->setColorFont( SESSION_LABEL_SESSION_META_FONT_COLOR);
     }
-    
+
+    /*--------------------------------------------------------------------------------------------*/
+    //  Draw
+    /*--------------------------------------------------------------------------------------------*/
+
     void SubLabel::draw(){
         if(mTextBox->getString().empty()){
             return;
@@ -49,7 +57,11 @@ namespace next {
         glColor4f(1, 1, 1, 1);
         glPopMatrix();
     }
-    
+
+    /*--------------------------------------------------------------------------------------------*/
+    //  Set
+    /*--------------------------------------------------------------------------------------------*/
+
     void SubLabel::set(const string& str){
         mTextBox->setString(str);
         mTextBoxWidth = mTextBox->getCalculatedSize().x + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
@@ -66,7 +78,11 @@ namespace next {
     float SubLabel::getWidth(){
         return mTextBoxWidth;
     }
-    
+
+    /*--------------------------------------------------------------------------------------------*/
+    //  Tigger state
+    /*--------------------------------------------------------------------------------------------*/
+
     void SubLabel::show(){
         const static Vec2f offset(SESSION_LABEL_EVENT_META_ANIM_OFFSET_IN,0);
         const static Vec2f zero;

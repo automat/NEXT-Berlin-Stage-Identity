@@ -6,7 +6,12 @@
 namespace next {
     using namespace boost;
     typedef EaseInOutQuad AnimEaseInOut;
-    
+
+    /*--------------------------------------------------------------------------------------------*/
+    //  Constructor
+    /*--------------------------------------------------------------------------------------------*/
+
+
     SessionTitleLabel::SessionTitleLabel() : AbstractLabel(){
         mTextBox->setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),
                                SESSION_LABEL_SESSION_TITLE_FONT_SIZE * SESSION_LABEL_SESSION_TITLE_FONT_SCALAR));
@@ -31,7 +36,11 @@ namespace next {
         
         setPosition(SESSION_LABEL_SESSION_TITLE_POS);
     }
-    
+
+    /*--------------------------------------------------------------------------------------------*/
+    //  Draw
+    /*--------------------------------------------------------------------------------------------*/
+
     void SessionTitleLabel::draw(){
         if(mTextBox->getString().empty()){
             return;
@@ -71,9 +80,9 @@ namespace next {
         glPopMatrix();
     }
     
-    void SessionTitleLabel::setString(const string& str){
+    void SessionTitleLabel::set(const string& title){
         deque<string> tokens;
-        split(tokens, str, is_any_of(" "));
+        split(tokens, title, is_any_of(" "));
         
         for(auto& token : tokens){
             token[0] = toupper(token[0]);
@@ -83,7 +92,11 @@ namespace next {
         
         genQuads();
     }
-    
+
+    /*--------------------------------------------------------------------------------------------*/
+    //  Tirgger State
+    /*--------------------------------------------------------------------------------------------*/
+
     void SessionTitleLabel::on(){
         float size = static_cast<float>(MAX(1, mLineQuads.size() - 1));
         float index = 0;

@@ -12,11 +12,14 @@
 #include <string>
 
 #include "AbstractAnimView.h"
-#include "Textbox.h"
+
 #include "Resources.h"
 #include "cinder/app/App.h"
-#include "Config.h"
 #include "cinder/Vector.h"
+
+#include "Config.h"
+#include "Textbox.h"
+
 
 namespace next {
     using namespace std;
@@ -39,7 +42,6 @@ namespace next {
         inline void setPosition(const Vec2f& pos){
             mPos = pos;
         }
-        
     };
 }
 

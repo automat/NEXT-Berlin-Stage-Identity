@@ -18,8 +18,8 @@ namespace next {
         static Font sFontName;
         static Font sFontCompany;
 
-        float            mScale;
-        Matrix44f        mTransform;
+        float      mScale;
+        Matrix44f  mTransform;
 
         Anim<float> mOffsetStateName;
         Anim<float> mOffsetStateCompany;

@@ -23,6 +23,9 @@ namespace next {
         Anim<float> _mTime;
         
     protected:
+
+        // wrap
+
         template<typename T>
         typename Tween<T>::Options tween(Anim<T> *target, T endValue, float duration, EaseFn easeFunction = EaseNone(), const AnimCallback& updateCallback = NULL, const AnimCallback& finishCallback = NULL){
             return timeline().apply(target, endValue, duration, easeFunction).updateFn(updateCallback).finishFn(finishCallback);

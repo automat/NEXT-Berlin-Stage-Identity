@@ -20,7 +20,6 @@ namespace next {
         SpeakerLabel mLabels[2];
         
     public:
-        
         PingPongSpeakerLabel() : mIndex(0){}
         
         inline void setPosition(const Vec3f& pos){
@@ -59,7 +58,6 @@ namespace next {
         inline void swap(){
             mIndex = 1 - mIndex;
         }
-        
     };
 }
 

@@ -75,7 +75,7 @@ namespace next {
     }
 
     /*--------------------------------------------------------------------------------------------*/
-    //  Draw / Update
+    //  Draw
     /*--------------------------------------------------------------------------------------------*/
     
     void SpeakerStackView::draw(){
@@ -85,13 +85,7 @@ namespace next {
             mViews[(mViewIndex+i+1)%mNumViews]->draw();
         }
     }
-    
-    void SpeakerStackView::update(){
-        for(vector<SpeakerView*>::const_iterator itr = mViews.begin(); itr != mViews.end(); ++itr){
-            (*itr)->update();
-        }
-    }
-    
+
     /*--------------------------------------------------------------------------------------------*/
     //  Focus / Unfocus stack
     /*--------------------------------------------------------------------------------------------*/
@@ -110,7 +104,7 @@ namespace next {
     }
 
     /*--------------------------------------------------------------------------------------------*/
-    //  Animation
+    //  Trigger
     /*--------------------------------------------------------------------------------------------*/
     
     void SpeakerStackView::stack(const AnimCallback_Int_1& callbackUpdate, const AnimCallback& callbackFinish){
@@ -155,7 +149,11 @@ namespace next {
                                     mViewIndex));
         }
     }
-    
+
+    /*--------------------------------------------------------------------------------------------*/
+    //  Animation
+    /*--------------------------------------------------------------------------------------------*/
+
     void SpeakerStackView::animateOut(SpeakerView *view,
                                       const AnimCallback_Int_1& callbackUpdate,
                                       const AnimCallback& callbackFinish){

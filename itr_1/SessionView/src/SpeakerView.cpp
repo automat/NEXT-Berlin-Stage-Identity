@@ -261,8 +261,6 @@ namespace next {
             mVertexColors[i].set(1, 1, 1, alpha);
         }
     }
-    
-    void SpeakerView::update(){}
 
     void SpeakerView::updateFocusState(){
         float intrpl = mIntrplState();
