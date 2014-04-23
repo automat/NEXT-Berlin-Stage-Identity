@@ -120,7 +120,7 @@ namespace next {
     }
 
     /*--------------------------------------------------------------------------------------------*/
-    //  Trigger
+    //  trigger stacking
     /*--------------------------------------------------------------------------------------------*/
     
     void SpeakerStackView::stack(const AnimCallback_Int_1& callbackUpdate, const AnimCallback& callbackFinish){
@@ -138,17 +138,39 @@ namespace next {
     
     void SpeakerStackView::next(const AnimCallback_Int_1& callbackUpdate, const AnimCallback& callbackFinish, int index){
         mViewIndex = index;
-        int nextFocusedViewIndex = mViewIndex + 1;
-        
-        animateOut(mViews[mViewIndex],callbackUpdate, callbackFinish);
-        animateMoveTop(mViews[(nextFocusedViewIndex)%mNumViews]);
-        
+        int indexNext = (mViewIndex + 1) % mNumViews; // just in cease there will be multiple stacking cycles
+
+        //
+        //  curr : move out & blur & hide
+        //
+        SpeakerView* curr = mViews[mViewIndex];
+        tween(&curr->mPositionState, mStackTopOut, sTimeAnimateOut, EaseOutQuad(),
+                NULL, std::bind(&SpeakerStackView::restack,
+                        this,
+                        curr,
+                        callbackUpdate,
+                        callbackFinish));
+
+        curr->unfocusImage();
+        curr->hide();
+
+        //
+        //  next : move up & focus
+        //
+        SpeakerView* next = mViews[indexNext];
+        tween(&next->mPositionState, next->mPositionState() + sStackStep, sTimeAnimateMove, EaseOutCirc());
+        next->focus();
+
+        //
+        //  rest : move up
+        //
         int i = 1;
         while(++i < mNumViews){
-            animateMove(mViews[(mViewIndex+i)%mNumViews]);
+            next = mViews[(mViewIndex+i)%mNumViews];
+            tween(&next->mPositionState, next->mPositionState() + sStackStep, sTimeAnimateMove, EaseOutCirc());
         }
         
-        callbackUpdate(nextFocusedViewIndex);
+        callbackUpdate(indexNext);
     }
     
     void SpeakerStackView::triggerNext(const AnimCallback_Int_1& callbackUpdate, const AnimCallback& callbackFinish){
@@ -167,37 +189,21 @@ namespace next {
     }
 
     /*--------------------------------------------------------------------------------------------*/
-    //  Animation
+    //  restack
     /*--------------------------------------------------------------------------------------------*/
 
-    void SpeakerStackView::animateOut(SpeakerView *view,
-                                      const AnimCallback_Int_1& callbackUpdate,
-                                      const AnimCallback& callbackFinish){
-        
-        tween(&view->mPositionState, mStackTopOut, sTimeAnimateOut, EaseOutQuad(),
-              NULL, std::bind(&SpeakerStackView::animateIn,
-                              this,
-                              view,
-                              callbackUpdate,
-                              callbackFinish));
-        
-        view->unfocusImage();
-        view->hide();
-        /*
-        tween(&view->mIntrplState, 1.0f, 0.0f, sTimeAnimateOut, EaseOutQuad(),
-              std::bind(&SpeakerView::updateFocusImage, view));
-        
-        tween(&view->mColorState, 0.0f, sTimeAnimateOutAlpha, EaseOutInSine(),
-              std::bind(&SpeakerView::updateAlpha, view));*/
-    }
-    
-    void SpeakerStackView::animateIn(SpeakerView *view,
-                                     const AnimCallback_Int_1& callbackUpdate,
-                                     const AnimCallback& callbackFinish){
+    void SpeakerStackView::restack(SpeakerView *view,
+            const AnimCallback_Int_1 &callbackUpdate,
+            const AnimCallback &callbackFinish){
         const static Vec3f zero;
         
         view->mPositionState = Vec3f(0,-0.25f,0);
         view->mScaleState    = 0.35f;
+
+        //view->updateAlpha();
+        //view->updateFocusImage();
+
+        view->show();
 
         tween(&view->mScaleState, 1.0f, sTimeAnimateInScale, EaseOutCirc());
         tween(&view->mPositionState, zero, sTimeAnimateInTranslate, EaseOutCirc(),
@@ -205,22 +211,5 @@ namespace next {
                               this,
                               callbackUpdate,
                               callbackFinish));
-
-        view->show();
     }
-    
-    void SpeakerStackView::animateMove(SpeakerView* view){
-        Vec3f target = view->mPositionState() + sStackStep;
-        tween(&view->mPositionState, target, sTimeAnimateMove, EaseOutCirc());
-    }
-    
-    void SpeakerStackView::animateMoveTop(SpeakerView* view){
-        animateMove(view);
-        view->focus();
-        /*
-        tween(&view->mIntrplState, 1.0f, sTimeAnimateMove, EaseOutCirc(),
-              std::bind(&SpeakerView::updateFocusImage,view));*/
-        
-    }
-
 }
