@@ -259,9 +259,9 @@
 		CD17C8BF1908325700780CE7 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				CD17C8C21908325700780CE7 /* label */,
 				CD17C8C01908325700780CE7 /* AbstractAnimView.h */,
 				CD17C8C11908325700780CE7 /* EventView.h */,
-				CD17C8C21908325700780CE7 /* label */,
 				CD17C8D11908325700780CE7 /* SessionView.h */,
 				CD17C8D21908325700780CE7 /* SpeakerStackView.h */,
 				CD17C8D31908325700780CE7 /* SpeakerView.h */,

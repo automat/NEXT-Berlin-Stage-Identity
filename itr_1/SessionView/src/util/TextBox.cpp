@@ -79,7 +79,7 @@ namespace next {
     void TextBox::disableAlphaBlending(){
         glDisable(GL_BLEND);
         glDisable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.5); // reset what seems to be cinders default
+        glAlphaFunc(GL_GREATER, 0.5); // clearStates what seems to be cinders default
     }
 
     void TextBox::drawClearedScreenRect(const Vec2i& size, bool originUpperLeft){
@@ -440,7 +440,7 @@ namespace next {
         reset();
         
         if(str.empty()){
-            renderToTexture();  // well, in this case reset
+            renderToTexture();  // well, in this case clearStates
             return;
         }
         

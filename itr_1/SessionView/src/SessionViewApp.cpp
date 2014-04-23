@@ -146,7 +146,7 @@ void SessionViewApp::draw(){
     gl::disableAlphaBlending();
     glDisable(GL_BLEND);
     glDisable(GL_ALPHA_TEST);
-    glAlphaFunc(GL_GREATER, 0.5); // reset what seems to be cinders default
+    glAlphaFunc(GL_GREATER, 0.5); // clearStates what seems to be cinders default
     
     
     

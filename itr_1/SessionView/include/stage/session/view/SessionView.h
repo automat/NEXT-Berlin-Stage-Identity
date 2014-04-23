@@ -84,7 +84,7 @@ namespace next {
         SessionView(Session* data);
         ~SessionView();
         
-        void reset(Session* data);  //  reset session with new data
+        void reset(Session* data);  //  clearStates session with new data
         void start();               //  start animation
 
 

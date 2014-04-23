@@ -60,8 +60,18 @@ namespace next {
         
         void draw();
         
-        void focus();
         void unfocus();
+ 
+        
+        //! focus top image
+        void focus();
+        //! focus top image, originating from outside the scree
+        void focusIn();
+        //! unfocus
+        void unfocusOut();
+        
+        //! clearStates images to initial state
+        void clearStates();
     };
 }
 

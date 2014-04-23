@@ -41,4 +41,12 @@ namespace next {
     void EventView::resetStack(){
         mSpeakerStackView->resetStack();
     }
+    
+    void EventView::unfocusOut(){
+        mSpeakerStackView->unfocusOut();
+    }
+    
+    void EventView::focusIn(){
+        mSpeakerStackView->focusIn();
+    }
 }

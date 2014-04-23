@@ -38,6 +38,9 @@ namespace next {
 
         void stackSpeaker(const std::function<void(int)>& callbackUpdate,const AnimCallback &callbackFinish);
         void resetStack();
+        
+        void focusIn();
+        void unfocusOut();
     };
 }
 

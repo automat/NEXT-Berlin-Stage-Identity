@@ -37,7 +37,6 @@ namespace next {
         
         Speaker* mData;
         
-        Vec2f   mImageSize;           //  cache image size
         Vec2f   mTexcoordsNorm[4];    //  center image texcoords facing ortho cam
         Vec2f   mTexcoords[18];       //  texcoords distributed across unique vertices
         ColorAf mVertexColors[18];    //  vertex colors;
@@ -49,12 +48,15 @@ namespace next {
         gl::Fbo mFbo0;
         gl::Fbo mFbo1;
         
-        Anim<float> mIntrplState;
-        Anim<float> mColorState;
         Anim<Vec3f> mPositionState;
         Anim<float> mScaleState;
         
-        void drawFocus(float factorFocus = 1.0f, float factorColor = 1.0f);   //   0 = unfocused, 1 = focused
+        Anim<float> mAlphaState;
+        Anim<float> mFocusColorState;
+        Anim<float> mFocusBlurState;
+        
+        void drawFocus();   //   0 = unfocused, 1 = focused
+        void updateAlpha();
 
     public:
         SpeakerView(Speaker* data);
@@ -62,11 +64,20 @@ namespace next {
         
         void draw();
 
-        void updateFocusState();    //  focus color deactive -> active
-        void updateFocusImage();    //  focus image blur -> unblur
-        void updateColorState();
-        
+
         void unfocusImage();
+
+
+        void focus();
+        void unfocus();
+        void show();
+        void hide();
+
+        
+        void focusIn();
+        void unfocusOut();
+        
+        void clearStates();
     };
 }
 

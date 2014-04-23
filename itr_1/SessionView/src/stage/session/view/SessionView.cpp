@@ -246,6 +246,9 @@ namespace next {
                   SESSION_EVENT_ANIM_TIME_OFF,
                   ViewInOutEasing(),
                   NULL,std::bind(&SessionView::finish, this));
+            //view->unfocus();
+            view->unfocusOut();
+            
             delayCallback(1.375f, std::bind(&SessionView::turnOffSessionLabels, this));
             
             mPingPongLabelEventTitle->off();
@@ -302,7 +305,12 @@ namespace next {
             //
             //  trigger focus
             //
-            view->focusTop();
+            if(view == mEventViews.front()){
+                view->focusIn();
+            } else {
+                view->focusTop();
+            }
+            
             tween(&view->mPositionState, mEventViewSlots[slot],
                   SESSION_EVENT_ANIM_IN_OUT,
                   ViewInOutEasing(),
