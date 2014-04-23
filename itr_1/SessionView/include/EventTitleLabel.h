@@ -18,13 +18,17 @@ namespace next {
     class EventTitleLabel : public AbstractLabel {
         static Font sFontDefault;
         static Font sFontExceed;
-
+        
+        TextBox*         mTextBoxExceed;
+        
+        bool             mDidExceedNumLineMax;
         string           mString;
         vector<LineQuad> mLineQuads;
         void genQuads();
         
     public:
         EventTitleLabel();
+        ~EventTitleLabel();
         
         void draw();
         void setString(const string& str);

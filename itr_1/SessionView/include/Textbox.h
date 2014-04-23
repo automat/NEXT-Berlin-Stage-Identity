@@ -79,6 +79,8 @@ namespace next {
         
         bool    mDrawUnderline;
         ColorAf mColorUnderline;
+        ColorAf mColorUnderlineGradient[2];
+        bool    mUnderlineUseGradient;
         float   mUnderlineHeight;
         float   mUnderlineBaselineOffset;
         float   mUnderlineOffsetH;
@@ -179,6 +181,12 @@ namespace next {
 
         void    setColorUnderline(const ColorAf& color);
         ColorAf getColorUnderline();
+        
+        
+        void    gradientUnderline(bool gradient = true);
+        void    setColorGradientUnderline(const ColorAf& start, const ColorAf& end);
+        ColorAf getGradientColorUnderlineStart();
+        ColorAf getGradientColorUnderlineEnd();
         
         void    setColorDropShadow(const ColorAf& color);
         ColorAf getColorDropShadow();

@@ -332,7 +332,8 @@ namespace next {
     mColorDropShadow(0,0,0,1),
     mDropShadowScale(0.125f),
     mUnderlineHeight(10),
-    mUnderlineBaselineOffset(0){
+    mUnderlineBaselineOffset(0),
+    mUnderlineUseGradient(false){
         mTexFontFormat.enableMipmapping();
         mTexFontFormat.premultiply();
         mTexFontFormat.textureWidth(fontTextureSize);
@@ -346,6 +347,8 @@ namespace next {
         mBlurShaderVRef = FxResources::GetBlurV();
 
         setUnderlineHeight(mUnderlineHeight);
+        
+        mColorUnderlineGradient[0] = ColorAf::white();
     };
 
     /*--------------------------------------------------------------------------------------------*/
@@ -595,6 +598,23 @@ namespace next {
     ColorAf TextBox::getColorUnderline(){
         return mColorUnderline;
     }
+    
+    void TextBox::setColorGradientUnderline(const ColorAf &start, const ColorAf &end){
+        mColorUnderlineGradient[0] = start;
+        mColorUnderlineGradient[1] = end;
+    }
+    
+    void TextBox::gradientUnderline(bool gradient){
+        mUnderlineUseGradient = gradient;
+    }
+    
+    ColorAf TextBox::getGradientColorUnderlineStart(){
+        return mColorUnderlineGradient[0];
+    }
+    
+    ColorAf TextBox::getGradientColorUnderlineEnd(){
+        return mColorUnderlineGradient[1];
+    }
 
     void TextBox::setColorDropShadow(const ColorAf& color){
         mColorDropShadow = color;
@@ -676,11 +696,31 @@ namespace next {
                 -mUnderlineOffsetH_2 + width,mUnderlineHeight
         };
 
-
-        glColor4f(mColorUnderline[0],mColorUnderline[1],mColorUnderline[2],1.0f);
         glEnableClientState(GL_VERTEX_ARRAY);
+        
+        if(mUnderlineUseGradient){
+            const ColorAf& start = mColorUnderlineGradient[0];
+            const ColorAf& end   = mColorUnderlineGradient[1];
+            float colors[16] = {
+                start.r,start.g,start.b,start.a,
+                end.r,end.g,end.b,end.a,
+                start.r,start.g,start.b,start.a,
+                end.r,end.g,end.b,end.a,
+            };
+            glEnableClientState(GL_COLOR_ARRAY);
+            glColorPointer(4, GL_FLOAT, 0, colors);
+            
+        } else {
+            glColor4f(mColorUnderline[0],mColorUnderline[1],mColorUnderline[2],1.0f);
+        }
+        
         glVertexPointer(2, GL_FLOAT, 0, &vertices[0]);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        
+        if(mUnderlineUseGradient){
+            glDisableClientState(GL_COLOR_ARRAY);
+        }
+        
         glDisableClientState(GL_VERTEX_ARRAY);
     }
 

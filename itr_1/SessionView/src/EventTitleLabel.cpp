@@ -11,13 +11,16 @@ namespace next {
     Font EventTitleLabel::sFontDefault;
     Font EventTitleLabel::sFontExceed;
 
-    EventTitleLabel::EventTitleLabel() : AbstractLabel(){
+    EventTitleLabel::EventTitleLabel() : AbstractLabel(), mDidExceedNumLineMax(false){
         static bool __fontsInitialized(false);
         if(!__fontsInitialized){
             sFontDefault = Font(app::loadResource(RES_TRANSCRIPT_BOLD), SESSION_LABEL_SESSION_TITLE_FONT_SIZE * SESSION_LABEL_EVENT_TITLE_FONT_SCALAR);
             sFontExceed  = Font(app::loadResource(RES_TRANSCRIPT_BOLD), SESSION_LABEL_EVENT_TITLE_EXCEED_FONT_SIZE * SESSION_LABEL_EVENT_TITLE_FONT_SCALAR);
         }
 
+        //
+        //  Default
+        //
         mTextBox->setFont(sFontDefault);
         
         mTextBox->setWidth(SESSION_LABEL_EVENT_TITLE_DEFAULT_BOX_WIDTH);
@@ -30,11 +33,39 @@ namespace next {
         mTextBox->setDropShadowScale( SESSION_LABEL_EVENT_TITLE_SHADOW_STRENGTH);
         mTextBox->dropShadow();
         
-        mTextBox->setColorUnderline( SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
+        //mTextBox->setColorUnderline( SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
+        mTextBox->gradientUnderline();
+        mTextBox->setColorGradientUnderline(ColorAf::hex(0x87184E), SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
         mTextBox->setUnderlineHeight(SESSION_LABEL_EVENT_TITLE_UNDERLINE_HEIGHT);
         mTextBox->underline();
         
+        //
+        //  Exceeded
+        //
+        mTextBoxExceed = new TextBox();
+        mTextBoxExceed->setFont(sFontExceed);
+        
+        mTextBoxExceed->setWidth(     SESSION_LABEL_EVENT_TITLE_EXCEED_BOX_WIDTH);
+        mTextBoxExceed->setFontSize(  SESSION_LABEL_EVENT_TITLE_EXCEED_FONT_SIZE);
+        mTextBoxExceed->setLineHeight(SESSION_LABEL_EVENT_TITLE_EXCEED_LINE_HEIGHT);
+        mTextBoxExceed->setColorFont( SESSION_LABEL_EVENT_TITLE_FONT_COLOR);
+        
+        mTextBoxExceed->setColorDropShadow( SESSION_LABEL_EVENT_TITLE_SHADOW_COLOR);
+        mTextBoxExceed->setDropShadowOffset(SESSION_LABEL_EVENT_TITLE_SHADOW_OFFSET);
+        mTextBoxExceed->setDropShadowScale( SESSION_LABEL_EVENT_TITLE_SHADOW_STRENGTH);
+        mTextBoxExceed->dropShadow();
+        
+        //mTextBoxExceed->setColorUnderline( SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
+        mTextBoxExceed->gradientUnderline();
+        mTextBoxExceed->setColorGradientUnderline(ColorAf::hex(0x87184E), SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
+        mTextBoxExceed->setUnderlineHeight(SESSION_LABEL_EVENT_TITLE_UNDERLINE_HEIGHT);
+        mTextBoxExceed->underline();
+        
         setPosition(SESSION_LABEL_EVENT_TITLE_POS);
+    }
+    
+    EventTitleLabel::~EventTitleLabel(){
+        delete mTextBoxExceed;
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -90,8 +121,19 @@ namespace next {
             return;
         }
         
+        if(mDidExceedNumLineMax){
+            mDidExceedNumLineMax = false;
+        }
+        
         mTextBox->setString(str);
         mString = str;
+        
+        
+        if(mTextBox->getNumLines() >= SESSION_LABEL_EVENT_TITLE_MAX_LINES && !mDidExceedNumLineMax){
+            mTextBoxExceed->setString(str);
+            mDidExceedNumLineMax = true;
+        }
+
         genQuads();
     }
     
@@ -184,12 +226,15 @@ namespace next {
     void EventTitleLabel::genQuads(){
         mLineQuads.clear();
         
-        Vec2f textureSize   = mTextBox->getCalculatedSize();
+        
+        TextBox* textBox = mDidExceedNumLineMax ? mTextBoxExceed : mTextBox;
+        
+        Vec2f textureSize   = textBox->getCalculatedSize();
         float textureWidth  = textureSize.x;
         float textureHeight = textureSize.y;
         
-        int   numLines = mTextBox->getNumLines();
-        vector<vector<Vec2f>> texcoords = mTextBox->getTexcoords();
+        int   numLines = textBox->getNumLines();
+        vector<vector<Vec2f>> texcoords = textBox->getTexcoords();
         
         Vec2f topLeft;
         float width, height;
