@@ -7,9 +7,16 @@ namespace next {
     using namespace boost;
     
     typedef EaseInOutQuad AnimEaseInOut;
+
+    Font EventMetaLabel::sFont;
     
     EventMetaLabel::EventMetaLabel() : AbstractLabel(), mTextBoxFrontWidth(0), mAlphaState(0), mActive(false){
-        mTextBox->setFont(      Font(app::loadResource(RES_AKKURAT_BOLD),SESSION_LABEL_META_FONT_SIZE * SESSION_LABEL_META_FONT_SCALAR));
+        static bool __fontInitialzed(false);
+        if(!__fontInitialzed){
+            sFont = Font(app::loadResource(RES_AKKURAT_BOLD),SESSION_LABEL_META_FONT_SIZE * SESSION_LABEL_META_FONT_SCALAR);
+        }
+
+        mTextBox->setFont(      sFont);
         mTextBox->setWidth(     SESSION_LABEL_EVENT_BOX_WIDTH);
         mTextBox->setFontSize(  SESSION_LABEL_META_FONT_SIZE);
         mTextBox->setColorFont( SESSION_LABEL_EVENT_META_FONT_COLOR);

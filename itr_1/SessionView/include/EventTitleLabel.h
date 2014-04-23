@@ -16,6 +16,9 @@
 namespace next {
     using namespace std;
     class EventTitleLabel : public AbstractLabel {
+        static Font sFontDefault;
+        static Font sFontExceed;
+
         string           mString;
         vector<LineQuad> mLineQuads;
         void genQuads();

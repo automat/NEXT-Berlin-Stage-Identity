@@ -15,6 +15,9 @@
 namespace next {
     using namespace std;
     class SpeakerLabel : public AbstractLabel {
+        static Font sFontName;
+        static Font sFontCompany;
+
         float            mScale;
         Matrix44f        mTransform;
         

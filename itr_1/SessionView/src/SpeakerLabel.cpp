@@ -9,20 +9,28 @@
 namespace next {
     using namespace boost;
     typedef EaseInOutQuad AnimEaseInOut;
+
+    Font SpeakerLabel::sFontName;
+    Font SpeakerLabel::sFontCompany;
     
     SpeakerLabel::SpeakerLabel() :
         AbstractLabel(),
         mTextBoxCompanyOffsetY(0){
-            mTextBox->setFont(Font(app::loadResource(RES_AKKURAT_BOLD),
-                                   SESSION_LABEL_SPEAKER_FONT_SIZE * SESSION_LABEL_SPEAKER_FONT_SCALE));
+            static bool __fontInitialized(false);
+            if(!__fontInitialized){
+                sFontName    = Font(app::loadResource(RES_AKKURAT_BOLD),  SESSION_LABEL_SPEAKER_FONT_SIZE * SESSION_LABEL_SPEAKER_FONT_SCALE);
+                sFontCompany = Font(app::loadResource(RES_AKKURAT_LIGHT), SESSION_LABEL_SPEAKER_FONT_SIZE * SESSION_LABEL_SPEAKER_FONT_SCALE);
+            }
+
+
+            mTextBox->setFont(      sFontName);
             mTextBox->setWidth(     SESSION_LABEL_SPEAKER_BOX_WIDTH);
             mTextBox->setFontSize(  SESSION_LABEL_SPEAKER_FONT_SIZE);
             mTextBox->setColorFont( SESSION_LABEL_SPEAKER_NAME_FONT_COLOR);
             
                 
             mTextBoxCompany = new TextBox();
-            mTextBoxCompany->setFont(Font(app::loadResource(RES_AKKURAT_LIGHT),
-                                          SESSION_LABEL_SPEAKER_FONT_SIZE * SESSION_LABEL_SPEAKER_FONT_SCALE));
+            mTextBoxCompany->setFont(      sFontCompany);
             mTextBoxCompany->setWidth(     SESSION_LABEL_SPEAKER_BOX_WIDTH);
             mTextBoxCompany->setFontSize(  SESSION_LABEL_SPEAKER_FONT_SIZE);
             mTextBoxCompany->setColorFont( SESSION_LABEL_SPEAKER_COMPANY_FONT_COLOR);

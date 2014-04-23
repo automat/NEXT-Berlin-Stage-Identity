@@ -16,6 +16,8 @@
 namespace next {
     using namespace std;
     class EventMetaLabel : public AbstractLabel {
+        static Font sFont;
+
         bool mActive;
         
         Anim<float> mAlphaState;
