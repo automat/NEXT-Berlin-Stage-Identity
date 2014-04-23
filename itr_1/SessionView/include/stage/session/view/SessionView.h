@@ -38,7 +38,6 @@ namespace next {
         int                mEventViewFront;
         int                mEventViewBack;
 
-
         Vec3f     mEventViewSlots[5];
         const int mEventViewSlotBegin;
         const int mEventViewSlotEnd;
@@ -47,7 +46,6 @@ namespace next {
         const int mEventViewSlotIn;
         
         Vec3f mSpeakerLabelPos;
-
 
         //! clear all views
         void deleteEventViews();

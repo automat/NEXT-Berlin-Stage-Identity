@@ -42,6 +42,9 @@
 #define SESSION_VIEW_SPEAKER_SIZE ci::Vec2f(0.85f,0.025f)
 #define SESSION_VIEW_SPEAKER_NAME_LABEL_OFFSET 0.065f
 
+#define SESSION_VIEW_START_DELAY 0.5f
+#define SESSION_VIEW_ON_FINISH_DELAY 1.0f
+
 /*--------------------------------------------------------------------------------------------*/
 //  Title Labels
 /*--------------------------------------------------------------------------------------------*/
@@ -75,7 +78,10 @@
 #define SESSION_LABEL_SESSION_TITLE_SHADOW_OFFSET    SESSION_LABEL_TITLE_SHADOW_OFFSET
 #define SESSION_LABEL_SESSION_TITLE_SHADOW_STRENGTH  SESSION_LABEL_TITLE_SHADOW_STRENGTH
 
+//  anim
 #define SESSION_LABEL_SESSION_TITLE_ANIM_TIME_ALPHA_OFF  0.9f
+
+
 
 //
 //  Event
