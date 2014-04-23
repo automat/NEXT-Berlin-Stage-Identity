@@ -18,6 +18,7 @@
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		B81EC17960BA41C78E07464F /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7842680C24340ABAAA0A065 /* QuickTime.framework */; };
+		CD17C8B719080E0B00780CE7 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = CD17C8B619080E0B00780CE7 /* config.json */; };
 		CD974FCB18FED88B00D0AEF9 /* Apercu_Mono.otf in Resources */ = {isa = PBXBuildFile; fileRef = CD974FA518FED88B00D0AEF9 /* Apercu_Mono.otf */; };
 		CD974FCC18FED88B00D0AEF9 /* transcript_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CD974FA618FED88B00D0AEF9 /* transcript_bold.otf */; };
 		CD974FCD18FED88B00D0AEF9 /* gradient_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD974FA918FED88B00D0AEF9 /* gradient_frag.glsl */; };
@@ -94,6 +95,7 @@
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		8D1107320486CEB800E47090 /* grid_01_render_qt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = grid_01_render_qt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94280EF9DDCF42F395BC9D2C /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
+		CD17C8B619080E0B00780CE7 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = build/Release/config.json; sourceTree = "<group>"; };
 		CD974FA518FED88B00D0AEF9 /* Apercu_Mono.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Apercu_Mono.otf; sourceTree = "<group>"; };
 		CD974FA618FED88B00D0AEF9 /* transcript_bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = transcript_bold.otf; sourceTree = "<group>"; };
 		CD974FA918FED88B00D0AEF9 /* gradient_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gradient_frag.glsl; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CD17C8B619080E0B00780CE7 /* config.json */,
 				CD974FA418FED88B00D0AEF9 /* font */,
 				CD974FA718FED88B00D0AEF9 /* glsl */,
 				CD974FC218FED88B00D0AEF9 /* image */,
@@ -814,6 +817,7 @@
 			files = (
 				CD974FDE18FED88B00D0AEF9 /* normal_frag.glsl in Resources */,
 				CD974FE818FED88B00D0AEF9 /* test_texture_2x2_red.png in Resources */,
+				CD17C8B719080E0B00780CE7 /* config.json in Resources */,
 				CD974FCB18FED88B00D0AEF9 /* Apercu_Mono.otf in Resources */,
 				CD974FE318FED88B00D0AEF9 /* test_person.jpg in Resources */,
 				CD974FE618FED88B00D0AEF9 /* random.png in Resources */,

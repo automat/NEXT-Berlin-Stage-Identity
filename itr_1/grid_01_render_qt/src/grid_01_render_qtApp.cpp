@@ -65,8 +65,10 @@ void grid_01_render_qtApp::setup(){
         return;
     }
     
+    cout << "hello" << endl;
+    
     vector<QuoteJson> quoteData;
-    if(!QuoteParser::LoadJson("/Users/automat/Projects/next/itr_1/grid_01_render/resources/test.json", &quoteData, &excCatch)){
+    if(!QuoteParser::LoadJson("/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/test.json", &quoteData, &excCatch)){
         mExcPanel->setString(excCatch);
         return;
     }
@@ -74,6 +76,7 @@ void grid_01_render_qtApp::setup(){
     mStage      = Stage::create(quoteData);
     mController = new Controller(mStage);
     mRecord = false;
+    
     
     fs::path path = getSaveFilePath();
 	if( path.empty() )
@@ -83,6 +86,7 @@ void grid_01_render_qtApp::setup(){
 	if( qtime::MovieWriter::getUserCompressionSettings( &format ) ) {
 		mMovieWriter = qtime::MovieWriter::create( path, getWindowWidth(), getWindowHeight(), format );
 	}
+    
 }
 
 /*--------------------------------------------------------------------------------------------*/

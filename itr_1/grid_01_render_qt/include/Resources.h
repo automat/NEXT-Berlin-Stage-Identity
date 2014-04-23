@@ -23,7 +23,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-#define RES_TEST_IMAGES_PATH "/Users/automat/Projects/next/itr_1/grid_01_render/resources/image/"
+#define RES_TEST_IMAGES_PATH "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/image/"
 #define RES_TEST_IMAGE_NAME "test_person.jpg"
 
 
@@ -38,48 +38,48 @@
 // glsl common
 /*--------------------------------------------------------------------------------------------*/
 
-#define RES_ABS_GLSL_PASS_THRU_VERT   "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/pass_thru.glsl"
+#define RES_ABS_GLSL_PASS_THRU_VERT   "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/pass_thru.glsl"
 
 /*--------------------------------------------------------------------------------------------*/
 // glsl bg
 /*--------------------------------------------------------------------------------------------*/
 
-#define RES_ABS_GLSL_BG_GRADIENT_FRAG "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/bg/gradient_frag.glsl"
-#define RES_ABS_GLSL_BG_MESH_VERT     "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/bg/mesh_vert.glsl"
-#define RES_ABS_GLSL_BG_MESH_FRAG     "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/bg/mesh_frag.glsl"
-#define RES_ABS_GLSL_BG_MIX_FRAG      "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/bg/mix_frag.glsl"
+#define RES_ABS_GLSL_BG_GRADIENT_FRAG "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/bg/gradient_frag.glsl"
+#define RES_ABS_GLSL_BG_MESH_VERT     "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/bg/mesh_vert.glsl"
+#define RES_ABS_GLSL_BG_MESH_FRAG     "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/bg/mesh_frag.glsl"
+#define RES_ABS_GLSL_BG_MIX_FRAG      "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/bg/mix_frag.glsl"
 
 /*--------------------------------------------------------------------------------------------*/
 // glsl fields
 /*--------------------------------------------------------------------------------------------*/
 
 
-#define RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/material/quote_field_vert.glsl"
-#define RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/material/quote_field_frag.glsl"
-#define RES_ABS_GLSL_BOARD_DIVER_FIELD_VERT "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/material/diver_field_vert.glsl"
-#define RES_ABS_GLSL_BOARD_DIVER_FIELD_FRAG "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/material/diver_field_frag.glsl"
+#define RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/material/quote_field_vert.glsl"
+#define RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/material/quote_field_frag.glsl"
+#define RES_ABS_GLSL_BOARD_DIVER_FIELD_VERT "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/material/diver_field_vert.glsl"
+#define RES_ABS_GLSL_BOARD_DIVER_FIELD_FRAG "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/material/diver_field_frag.glsl"
 
 
 /*--------------------------------------------------------------------------------------------*/
 // glsl fx
 /*--------------------------------------------------------------------------------------------*/
 
-#define RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/fx/normal_depth_frag.glsl"
-#define RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_VERT "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/fx/normal_depth_vert.glsl"
-#define RES_ABS_GLSL_WORLD_FX_SSAO_FRAG         "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/fx/ssao_frag.glsl"
-#define RES_ABS_GLSL_WORLD_FX_SSAO_VERT         "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/fx/ssao_vert.glsl"
+#define RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/fx/normal_depth_frag.glsl"
+#define RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_VERT "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/fx/normal_depth_vert.glsl"
+#define RES_ABS_GLSL_WORLD_FX_SSAO_FRAG         "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/fx/ssao_frag.glsl"
+#define RES_ABS_GLSL_WORLD_FX_SSAO_VERT         "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/fx/ssao_vert.glsl"
 
-#define RES_ABS_GLSL_WORLD_FX_BLUR_VERT         "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/fx/blur_vert.glsl"
-#define RES_ABS_GLSL_WORLD_FX_BLUR_H_FRAG       "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/fx/blur_h_frag.glsl"
-#define RES_ABS_GLSL_WORLD_FX_BLUR_V_FRAG       "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/fx/blur_v_frag.glsl"
-#define RES_ABS_GLSL_WORLD_FX_MIX_VERT          "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/fx/mix_vert.glsl"
-#define RES_ABS_GLSL_WORLD_FX_MIX_FRAG          "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/fx/mix_frag.glsl"
+#define RES_ABS_GLSL_WORLD_FX_BLUR_VERT         "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/fx/blur_vert.glsl"
+#define RES_ABS_GLSL_WORLD_FX_BLUR_H_FRAG       "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/fx/blur_h_frag.glsl"
+#define RES_ABS_GLSL_WORLD_FX_BLUR_V_FRAG       "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/fx/blur_v_frag.glsl"
+#define RES_ABS_GLSL_WORLD_FX_MIX_VERT          "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/fx/mix_vert.glsl"
+#define RES_ABS_GLSL_WORLD_FX_MIX_FRAG          "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/fx/mix_frag.glsl"
 
-#define RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_VERT   "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/fx/radial_mix_vert.glsl"
-#define RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_FRAG   "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/fx/radial_mix_frag.glsl"
+#define RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_VERT   "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/fx/radial_mix_vert.glsl"
+#define RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_FRAG   "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/fx/radial_mix_frag.glsl"
 
-#define RES_ABS_GLSL_WORLD_NORMAL_VERT          "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/material/normal_vert.glsl"
-#define RES_ABS_GLSL_WORLD_NORMAL_FRAG          "/Users/automat/Projects/next/itr_1/grid_01_render/resources/glsl/material/normal_frag.glsl"
+#define RES_ABS_GLSL_WORLD_NORMAL_VERT          "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/material/normal_vert.glsl"
+#define RES_ABS_GLSL_WORLD_NORMAL_FRAG          "/Users/automat/Projects/next/itr_1/grid_01_render_qt/resources/glsl/material/normal_frag.glsl"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

@@ -24,7 +24,7 @@ using namespace ci;
 /*--------------------------------------------------------------------------------------------*/
 
 #define CONFIG_USE_BAKED
-#define CONFIG_FILE_PATH_BAKED     "/Users/automat/Projects/next/itr_1/grid_01_render/xcode/config.json"
+#define CONFIG_FILE_PATH_BAKED     "/Users/automat/Projects/next/itr_1/grid_01_render_qt/xcode/build/Release/config.json"
 #define CONFIG_FILE_PATH_RELATIVE
 
 /*--------------------------------------------------------------------------------------------*/
@@ -187,8 +187,8 @@ extern ColorAf PATH_SURFACE_COLOR;
 #define DIVER_FIELD_DIVER_MAX_OFFSET 1.0f//-1.0f
 #define DIVER_FIELD_DIVER_MIN_SPEED  0.0015f
 #define DIVER_FIELD_DIVER_MAX_SPEED  0.0045f
-#define DIVER_FIELD_DIVER_MIN_LENGTH 0.1f//0.1f
-#define DIVER_FIELD_DIVER_MAX_LENGTH 0.275f//0.275f
+#define DIVER_FIELD_DIVER_MIN_LENGTH 0.2f//0.1f
+#define DIVER_FIELD_DIVER_MAX_LENGTH 0.5f//0.275f
 
 #define DIVER_FIELD_PUT_NORMAL_COLORS
 

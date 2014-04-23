@@ -106,7 +106,6 @@ bool QuoteParser::LoadJson(const string& filepath, vector<QuoteJson>* data, stri
         *msg  = exc.what();
         valid = false;
     }
-    
     // check if quotes are valid
     string errMsg;
     if(valid){
@@ -132,7 +131,6 @@ bool QuoteParser::LoadJson(const string& filepath, vector<QuoteJson>* data, stri
             data->push_back(ReadQuote(quote));
         }
     }
-    
     return valid;
 }
 
