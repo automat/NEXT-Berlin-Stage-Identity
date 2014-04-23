@@ -25,6 +25,9 @@ using namespace std;
 
 using namespace boost::assign;
 
+
+#define HELLO_WORLD_SAFE std::cout << "Hello World." << std::endl;
+
 class SessionViewApp : public AppNative {
 public:
     ~SessionViewApp();
@@ -77,6 +80,8 @@ void SessionViewApp::setup(){
     mRefMeasurements = gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SessionView/resources/measurements.png"));
     
     gl::enableDepthRead();
+
+
 }
 
 SessionViewApp::~SessionViewApp(){
