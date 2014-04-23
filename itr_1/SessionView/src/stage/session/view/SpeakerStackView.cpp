@@ -112,12 +112,6 @@ namespace next {
             (*itr)->unfocusOut();
         }
     }
-    
-    void SpeakerStackView::clearStates(){
-        for(vector<SpeakerView*>::iterator itr = mViews.begin(); itr != mViews.end(); ++itr){
-            (*itr)->clearStates();
-        }
-    }
 
     /*--------------------------------------------------------------------------------------------*/
     //  trigger stacking

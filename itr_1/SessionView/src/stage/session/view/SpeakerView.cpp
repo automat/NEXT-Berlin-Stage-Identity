@@ -148,11 +148,8 @@ namespace next {
         
         clearStates();
     }
-    
-    SpeakerView::~SpeakerView(){
-    }
-    
-    
+
+
     void SpeakerView::drawFocus(){
         static const float scale = 10.0f;
         float factorColor = mFocusColorState();
@@ -273,7 +270,7 @@ namespace next {
         tween(&mFocusBlurState, 0.0f,       2.5f, EaseOutQuad(),
               std::bind(&SpeakerView::drawFocus, this));
 }
-    
+
     void SpeakerView::unfocusOut(){
         tween(&mFocusColorState, 1.0f, 0.0f, 2.5f, EaseOutQuad());
         tween(&mFocusBlurState,  0.0f,       2.5f, EaseOutQuad(),
@@ -285,20 +282,20 @@ namespace next {
         tween(&mFocusBlurState,  0.0f, 1.0f, 2.5f, EaseOutQuad(),
               std::bind(&SpeakerView::drawFocus, this));
     }
-    
-    void SpeakerView::unfocusImage(){
-        tween(&mFocusBlurState, 0.0f, 0.35f, EaseOutQuad(),
-              std::bind(&SpeakerView::drawFocus, this));
-    }
 
     void SpeakerView::show() {
-        tween(&mAlphaState, 1.0f, 9.0f, EaseOutQuad(),
+        tween(&mAlphaState, 1.0f, 8.0f, EaseOutQuad(),
                 std::bind(&SpeakerView::updateAlpha, this));
     }
 
     void SpeakerView::hide() {
         tween(&mAlphaState, 0.0f, 0.35f, EaseOutInSine(),
                 std::bind(&SpeakerView::updateAlpha, this));
+    }
+
+    void SpeakerView::unfocusImage(){
+        tween(&mFocusBlurState, 0.0f, 0.35f, EaseOutQuad(),
+                std::bind(&SpeakerView::drawFocus, this));
     }
 
     void SpeakerView::clearStates(){

@@ -60,23 +60,20 @@ namespace next {
 
     public:
         SpeakerView(Speaker* data);
-        ~SpeakerView();
-        
+
         void draw();
 
-
         void unfocusImage();
-
+        void unfocus();
 
         void focus();
-        void unfocus();
+
         void show();
         void hide();
 
-        
         void focusIn();
         void unfocusOut();
-        
+
         void clearStates();
     };
 }
