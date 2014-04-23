@@ -76,12 +76,10 @@ namespace next {
         SessionMetaLabel*          mLabelMeta;
         PingPongEventTitleLabel*   mPingPongLabelEventTitle;
         EventMetaLabel*            mLabelEventMeta;
-        //SpeakerLabel*              mLabelSpeaker;
         PingPongSpeakerLabel*      mPingPongLabelSpeaker;
+        
         void updateSpeakerLabel(int index = 0);
         
-        
-      
         
     public:
         SessionView(Session* data);

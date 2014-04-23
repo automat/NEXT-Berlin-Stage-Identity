@@ -15,7 +15,9 @@ namespace next {
     
     SpeakerLabel::SpeakerLabel() :
         AbstractLabel(),
-        mTextBoxCompanyOffsetY(0){
+        mTextBoxCompanyOffsetY(0),
+        mOffsetStateName(0),
+        mOffsetStateCompany(0){
             static bool __fontInitialized(false);
             if(!__fontInitialized){
                 sFontName    = Font(app::loadResource(RES_AKKURAT_BOLD),  SESSION_LABEL_SPEAKER_FONT_SIZE * SESSION_LABEL_SPEAKER_FONT_SCALE);
@@ -57,31 +59,38 @@ namespace next {
         if(mTextBox->getString().empty()){
             return;
         }
-        float alphaName    = mAlphaStateName();
-        float alphaCompany = mAlphaStateCompany();
-        
+        float alphaName     = mAlphaStateName();
+        float alphaCompany  = mAlphaStateCompany();
+        float offsetName    = mOffsetStateName();
+        float offsetCompany = mOffsetStateCompany();
         
         Vec2f pos = mPos + mTextBox->getTopLeft();
         
         glPushMatrix();
         glTranslatef(pos.x, 0 , pos.y);
         
-        glMultMatrixf(&mTransform[0]);
-        glScalef(mScale, mScale, 1.0f);
-        
-        glColor4f(1,1,1, alphaName);
-        gl::draw(mTextBox->getTexture());
+            glMultMatrixf(&mTransform[0]);
+            glScalef(mScale, mScale, 1.0f);
+            
+            glColor4f(1,1,1, alphaName);
+            glPushMatrix();
+                glTranslatef(offsetName,0,0);
+                gl::draw(mTextBox->getTexture());
 #ifdef SESSION_VIEW_LABEL_SPEAKER_DEBUG_DRAW
-        mTextBox->debugDraw();
+                mTextBox->debugDraw();
 #endif
-        
-        glTranslatef(0, mTextBoxCompanyOffsetY, 0);
-        glColor4f(1,1,1, alphaCompany);
-        gl::draw(mTextBoxCompany->getTexture());
+            glPopMatrix();
+                
+            glPushMatrix();
+                glTranslatef(0, mTextBoxCompanyOffsetY, 0);
+                glColor4f(1,1,1, alphaCompany);
+                glTranslatef(offsetCompany,0,0);
+                gl::draw(mTextBoxCompany->getTexture());
 #ifdef SESSION_VIEW_LABEL_SPEAKER_DEBUG_DRAW
-        mTextBoxCompany->debugDraw();
+                mTextBoxCompany->debugDraw();
 #endif
-        glColor4f(1,1,1,1);
+            glPopMatrix();
+            glColor4f(1,1,1,1);
         
         glPopMatrix();
     }
@@ -95,8 +104,10 @@ namespace next {
         mTextBoxCompanyOffsetY = mTextBox->getCalculatedSize().y * SESSION_LABEL_SPEAKER_LINE_HEIGHT;
         mTextBoxCompany->setString(company);
         
-        mAlphaStateName    = 0.0f;
-        mAlphaStateCompany = 0.0f;
+        mAlphaStateName     = 0.0f;
+        mAlphaStateCompany  = 0.0f;
+        mOffsetStateName    = 0.0f;
+        mOffsetStateCompany = 0.0f;
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -104,13 +115,19 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SpeakerLabel::show(){
-        tween(&mAlphaStateName,    0.0f, 1.0f, 1.0f, AnimEaseInOut());
-        tween(&mAlphaStateCompany, 0.0f, 1.0f, 1.5f, AnimEaseInOut());
+        tween(&mAlphaStateName,    0.0f, 1.0f, 0.75f, AnimEaseInOut());
+        tween(&mAlphaStateCompany, 0.0f, 1.0f, 0.75f, AnimEaseInOut());
+        tween(&mOffsetStateName,   -100.0f, 0.0f, 1.0f, AnimEaseInOut());
+        tween(&mOffsetStateCompany, 100.0f, 0.0f, 1.0f, AnimEaseInOut());
+        
+        
     }
     
     void SpeakerLabel::hide(){
-        tween(&mAlphaStateName,    0.0f, 1.0f, AnimEaseInOut());
-        tween(&mAlphaStateCompany, 0.0f, 1.5f, AnimEaseInOut());
+        tween(&mAlphaStateName,    0.0f, 0.25f, AnimEaseInOut());
+        tween(&mAlphaStateCompany, 0.0f, 0.25f, AnimEaseInOut());
+        //tween(&mOffsetStateName,   0.0f, 100.0f, 1.5f, AnimEaseInOut());
+        //tween(&mOffsetStateCompany,0.0f,-100.0f, 1.5f, AnimEaseInOut());
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -125,7 +142,7 @@ namespace next {
     
     void SpeakerLabel::off(){
         tween(&mAlphaStateName,    0.0f, 1.0f, AnimEaseInOut());
-        tween(&mAlphaStateCompany, 0.0f, 1.5f, AnimEaseInOut());
+        tween(&mAlphaStateCompany, 0.0f, 1.0f, AnimEaseInOut());
     }
     
 }

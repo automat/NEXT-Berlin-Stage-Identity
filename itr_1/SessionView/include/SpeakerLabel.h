@@ -20,7 +20,9 @@ namespace next {
 
         float            mScale;
         Matrix44f        mTransform;
-        
+
+        Anim<float> mOffsetStateName;
+        Anim<float> mOffsetStateCompany;
         Anim<float> mAlphaStateName;
         Anim<float> mAlphaStateCompany;
 

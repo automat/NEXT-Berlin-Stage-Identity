@@ -182,7 +182,7 @@ namespace next {
     void SessionView::finish(){
         mLabelMeta->off();
         mLabelTitle->off();
-                resetEventViews();
+        resetEventViews();
         delayCallback(1.0f, std::bind(&SessionView::onFinish,this));
         
     }

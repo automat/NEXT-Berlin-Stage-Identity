@@ -14,8 +14,10 @@ namespace next {
     EventTitleLabel::EventTitleLabel() : AbstractLabel(), mDidExceedNumLineMax(false){
         static bool __fontsInitialized(false);
         if(!__fontsInitialized){
-            sFontDefault = Font(app::loadResource(RES_TRANSCRIPT_BOLD), SESSION_LABEL_SESSION_TITLE_FONT_SIZE * SESSION_LABEL_EVENT_TITLE_FONT_SCALAR);
-            sFontExceed  = Font(app::loadResource(RES_TRANSCRIPT_BOLD), SESSION_LABEL_EVENT_TITLE_EXCEED_FONT_SIZE * SESSION_LABEL_EVENT_TITLE_FONT_SCALAR);
+            sFontDefault = Font(app::loadResource(RES_TRANSCRIPT_BOLD),
+                                SESSION_LABEL_SESSION_TITLE_FONT_SIZE * SESSION_LABEL_EVENT_TITLE_FONT_SCALAR);
+            sFontExceed  = Font(app::loadResource(RES_TRANSCRIPT_BOLD),
+                                SESSION_LABEL_EVENT_TITLE_EXCEED_FONT_SIZE * SESSION_LABEL_EVENT_TITLE_FONT_SCALAR);
         }
 
         //
@@ -35,7 +37,8 @@ namespace next {
         
         //mTextBox->setColorUnderline( SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
         mTextBox->gradientUnderline();
-        mTextBox->setColorGradientUnderline(ColorAf::hex(0x87184E), SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
+        mTextBox->setColorGradientUnderline(SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_START,
+                                            SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_END);
         mTextBox->setUnderlineHeight(SESSION_LABEL_EVENT_TITLE_UNDERLINE_HEIGHT);
         mTextBox->underline();
         
@@ -57,7 +60,8 @@ namespace next {
         
         //mTextBoxExceed->setColorUnderline( SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
         mTextBoxExceed->gradientUnderline();
-        mTextBoxExceed->setColorGradientUnderline(ColorAf::hex(0x87184E), SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
+        mTextBoxExceed->setColorGradientUnderline(SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_START,
+                                                  SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_END);
         mTextBoxExceed->setUnderlineHeight(SESSION_LABEL_EVENT_TITLE_UNDERLINE_HEIGHT);
         mTextBoxExceed->underline();
         
@@ -129,7 +133,7 @@ namespace next {
         mString = str;
         
         
-        if(mTextBox->getNumLines() >= SESSION_LABEL_EVENT_TITLE_MAX_LINES && !mDidExceedNumLineMax){
+        if(mTextBox->getNumLines() > SESSION_LABEL_EVENT_TITLE_MAX_LINES && !mDidExceedNumLineMax){
             mTextBoxExceed->setString(str);
             mDidExceedNumLineMax = true;
         }
