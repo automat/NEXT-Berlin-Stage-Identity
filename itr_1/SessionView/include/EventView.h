@@ -41,9 +41,7 @@ namespace next {
         
         void stackSpeaker(const std::function<void(int)>& callbackUpdate,const AnimCallback &callbackFinish);
         void resetStack();
-        
-        int getNumStacks();
-        int getStackIndex();
+
     };
 }
 

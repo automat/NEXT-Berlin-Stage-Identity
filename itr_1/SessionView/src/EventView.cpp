@@ -49,12 +49,4 @@ namespace next {
     void EventView::resetStack(){
         mSpeakerStackView->resetStack();
     }
-    
-    int EventView::getNumStacks(){
-        return mData->speakers.size();
-    }
-    
-    int EventView::getStackIndex(){
-        return mSpeakerStackView->getIndex();
-    }
 }

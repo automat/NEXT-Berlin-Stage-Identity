@@ -49,12 +49,12 @@ namespace next {
                 mLabelMeta               = new SessionMetaLabel();
                 mPingPongLabelEventTitle = new PingPongEventTitleLabel();
                 mLabelEventMeta          = new EventMetaLabel();
-                mLabelSpeaker            = new SpeakerLabel();
+                mPingPongLabelSpeaker    = new PingPongSpeakerLabel();
                 
-                mLabelSpeaker->setPosition(mEventViewSlots[2] +
-                                           Vec3f(SESSION_VIEW_SPEAKER_SIZE.x * 0.5f + SESSION_VIEW_SPEAKER_NAME_LABEL_OFFSET,
-                                                 SESSION_VIEW_SPEAKER_SIZE.y * -1,
-                                                 SESSION_VIEW_SPEAKER_SIZE.x * 0.5f));
+                mPingPongLabelSpeaker->setPosition(mEventViewSlots[2] +
+                                                   Vec3f(SESSION_VIEW_SPEAKER_SIZE.x * 0.5f + SESSION_VIEW_SPEAKER_NAME_LABEL_OFFSET,
+                                                         SESSION_VIEW_SPEAKER_SIZE.y * -1,
+                                                         SESSION_VIEW_SPEAKER_SIZE.x * 0.5f));
                 
                 reset(data);
     }
@@ -65,7 +65,7 @@ namespace next {
         delete mLabelMeta;
         delete mPingPongLabelEventTitle;
         delete mLabelEventMeta;
-        delete mLabelSpeaker;
+        delete mPingPongLabelSpeaker;
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -182,8 +182,9 @@ namespace next {
     void SessionView::finish(){
         mLabelMeta->off();
         mLabelTitle->off();
-        resetEventViews();
+                resetEventViews();
         delayCallback(1.0f, std::bind(&SessionView::onFinish,this));
+        
     }
     
     void SessionView::start(){
@@ -192,6 +193,7 @@ namespace next {
         }
         mLabelMeta->on();
         mLabelTitle->on();
+        
         delayCallback(0.5f, std::bind(&SessionView::stepForward_2,this));
       
         mAnimating = true;
@@ -199,8 +201,17 @@ namespace next {
     }
     
     void SessionView::updateSpeakerLabel(int index){
-        //mLabelSpeaker->set(toString(mEventViews[mIndexEventViews]->getStackIndex()), "Microsoft");
-        cout << index << endl;
+        mPingPongLabelSpeaker->hide();
+        mPingPongLabelSpeaker->swap();
+        
+        uint32_t indexEvent = mIndexEventViews - 1;
+        
+        map<uint32_t, Event>::iterator itr_eventData = mData->events->begin();
+        std::advance(itr_eventData, indexEvent);
+        const Speaker* speakerData = itr_eventData->second.speakers[index];
+        
+        mPingPongLabelSpeaker->set(speakerData->name, speakerData->companyName);
+        mPingPongLabelSpeaker->show();
     }
     
     void SessionView::focusView(next::EventView *view){
@@ -221,6 +232,7 @@ namespace next {
                   ViewInOutEasing(),
                   NULL,std::bind(&SessionView::finish, this));
             mPingPongLabelEventTitle->off();
+            mPingPongLabelSpeaker->off();
             mLabelEventMeta->off();
             return;
         }
@@ -280,6 +292,9 @@ namespace next {
                   NULL, std::bind(&SessionView::focusView,this,view));
             
             mIndexEventViews++;
+
+            updateSpeakerLabel();
+            
             return;
         }
         
@@ -324,7 +339,7 @@ namespace next {
         }
         
         glPushMatrix();
-        mLabelSpeaker->draw();
+        mPingPongLabelSpeaker->draw();
         glPopMatrix();
     }
     

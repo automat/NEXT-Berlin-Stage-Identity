@@ -28,8 +28,6 @@ namespace next {
             mTextBoxCompany->setColorFont( SESSION_LABEL_SPEAKER_COMPANY_FONT_COLOR);
             
             mScale = 1.0f / (SESSION_LABEL_EVENT_TITLE_FONT_SIZE * 10);
-                
-            set("Christian Deilmann", "Singularity University");
     }
     
     SpeakerLabel::~SpeakerLabel(){
@@ -51,24 +49,31 @@ namespace next {
         if(mTextBox->getString().empty()){
             return;
         }
+        float alphaName    = mAlphaStateName();
+        float alphaCompany = mAlphaStateCompany();
+        
+        
         Vec2f pos = mPos + mTextBox->getTopLeft();
         
         glPushMatrix();
         glTranslatef(pos.x, 0 , pos.y);
-        glColor4f(1,1,1,1);
+        
         glMultMatrixf(&mTransform[0]);
         glScalef(mScale, mScale, 1.0f);
         
+        glColor4f(1,1,1, alphaName);
         gl::draw(mTextBox->getTexture());
 #ifdef SESSION_VIEW_LABEL_SPEAKER_DEBUG_DRAW
         mTextBox->debugDraw();
 #endif
         
         glTranslatef(0, mTextBoxCompanyOffsetY, 0);
+        glColor4f(1,1,1, alphaCompany);
         gl::draw(mTextBoxCompany->getTexture());
 #ifdef SESSION_VIEW_LABEL_SPEAKER_DEBUG_DRAW
         mTextBoxCompany->debugDraw();
 #endif
+        glColor4f(1,1,1,1);
         
         glPopMatrix();
     }
@@ -81,6 +86,9 @@ namespace next {
         mTextBox->setString(name);
         mTextBoxCompanyOffsetY = mTextBox->getCalculatedSize().y * SESSION_LABEL_SPEAKER_LINE_HEIGHT;
         mTextBoxCompany->setString(company);
+        
+        mAlphaStateName    = 0.0f;
+        mAlphaStateCompany = 0.0f;
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -88,9 +96,13 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SpeakerLabel::show(){
+        tween(&mAlphaStateName,    0.0f, 1.0f, 1.0f, AnimEaseInOut());
+        tween(&mAlphaStateCompany, 0.0f, 1.0f, 1.5f, AnimEaseInOut());
     }
     
     void SpeakerLabel::hide(){
+        tween(&mAlphaStateName,    0.0f, 1.0f, AnimEaseInOut());
+        tween(&mAlphaStateCompany, 0.0f, 1.5f, AnimEaseInOut());
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -99,9 +111,13 @@ namespace next {
     
     
     void SpeakerLabel::on(){
+        tween(&mAlphaStateName,    0.0f, 1.0f, 2.0f, AnimEaseInOut());
+        tween(&mAlphaStateCompany, 0.0f, 1.0f, 2.5f, AnimEaseInOut());
     }
     
     void SpeakerLabel::off(){
+        tween(&mAlphaStateName,    0.0f, 1.0f, AnimEaseInOut());
+        tween(&mAlphaStateCompany, 0.0f, 1.5f, AnimEaseInOut());
     }
     
 }

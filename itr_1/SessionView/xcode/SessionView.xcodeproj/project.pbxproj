@@ -71,6 +71,7 @@
 		CDA788031905D9B700FD83E9 /* SubLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubLabel.h; path = ../include/SubLabel.h; sourceTree = "<group>"; };
 		CDA788041905DA2300FD83E9 /* SubLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SubLabel.cpp; path = ../src/SubLabel.cpp; sourceTree = "<group>"; };
 		CDA788061905DE0D00FD83E9 /* PingPongEventMetaSubLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PingPongEventMetaSubLabel.h; path = ../include/PingPongEventMetaSubLabel.h; sourceTree = "<group>"; };
+		CDA7BC991907B8B200964E4F /* PingPongSpeakerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PingPongSpeakerLabel.h; path = ../include/PingPongSpeakerLabel.h; sourceTree = "<group>"; };
 		CDA8EE331904077D00E7038B /* TextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextBox.h; path = ../include/TextBox.h; sourceTree = "<group>"; };
 		CDCBF23E1902EF740060E875 /* AbstractAnimView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractAnimView.h; path = ../include/AbstractAnimView.h; sourceTree = "<group>"; };
 		CDCBF23F1902EF740060E875 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
@@ -307,10 +308,11 @@
 				CD254C7619047750009D6522 /* EventMetaLabel.h */,
 				CDEA2B93190422F900123D9B /* SessionTitleLabel.h */,
 				CD254C7719047760009D6522 /* SessionMetaLabel.h */,
+				CD9D9D2E1906A3A1002BD852 /* SpeakerLabel.h */,
 				CDA788031905D9B700FD83E9 /* SubLabel.h */,
 				CDA788021905865600FD83E9 /* PingPongEventTitleLabel.h */,
 				CDA788061905DE0D00FD83E9 /* PingPongEventMetaSubLabel.h */,
-				CD9D9D2E1906A3A1002BD852 /* SpeakerLabel.h */,
+				CDA7BC991907B8B200964E4F /* PingPongSpeakerLabel.h */,
 			);
 			name = label;
 			sourceTree = "<group>";

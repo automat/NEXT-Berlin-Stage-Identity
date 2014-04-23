@@ -73,12 +73,7 @@ namespace next {
         }
         mViewIndex = -1;
     }
-    
-    int SpeakerStackView::getIndex(){
-        //cout << mViewIndex << endl;
-        return mViewIndex;
-    }
-    
+
     /*--------------------------------------------------------------------------------------------*/
     //  Draw / Update
     /*--------------------------------------------------------------------------------------------*/
@@ -133,16 +128,17 @@ namespace next {
     
     void SpeakerStackView::next(const AnimCallback_Int_1& callbackUpdate, const AnimCallback& callbackFinish, int index){
         mViewIndex = index;
+        int nextFocusedViewIndex = mViewIndex + 1;
         
         animateOut(mViews[mViewIndex],callbackUpdate, callbackFinish);
-        animateMoveTop(mViews[(mViewIndex+1)%mNumViews]);
+        animateMoveTop(mViews[(nextFocusedViewIndex)%mNumViews]);
         
         int i = 1;
         while(++i < mNumViews){
             animateMove(mViews[(mViewIndex+i)%mNumViews]);
         }
         
-        callbackUpdate(mViewIndex);
+        callbackUpdate(nextFocusedViewIndex);
     }
     
     void SpeakerStackView::triggerNext(const AnimCallback_Int_1& callbackUpdate, const AnimCallback& callbackFinish){

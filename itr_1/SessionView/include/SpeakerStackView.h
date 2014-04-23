@@ -63,8 +63,6 @@ namespace next {
         
         void focus();
         void unfocus();
-        
-        int getIndex();
     };
 }
 

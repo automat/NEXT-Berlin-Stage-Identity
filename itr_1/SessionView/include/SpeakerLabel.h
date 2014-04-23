@@ -17,6 +17,9 @@ namespace next {
     class SpeakerLabel : public AbstractLabel {
         float            mScale;
         Matrix44f        mTransform;
+        
+        Anim<float> mAlphaStateName;
+        Anim<float> mAlphaStateCompany;
 
         TextBox* mTextBoxCompany;
         float    mTextBoxCompanyOffsetY;

@@ -21,6 +21,7 @@
 #include "EventTitleLabel.h"
 #include "EventMetaLabel.h"
 #include "SpeakerLabel.h"
+#include "PingPongSpeakerLabel.h"
 
 namespace next {
     using namespace ci;
@@ -75,9 +76,9 @@ namespace next {
         SessionMetaLabel*          mLabelMeta;
         PingPongEventTitleLabel*   mPingPongLabelEventTitle;
         EventMetaLabel*            mLabelEventMeta;
-        SpeakerLabel*              mLabelSpeaker;
-        
-        void updateSpeakerLabel(int index);
+        //SpeakerLabel*              mLabelSpeaker;
+        PingPongSpeakerLabel*      mPingPongLabelSpeaker;
+        void updateSpeakerLabel(int index = 0);
         
         
       
