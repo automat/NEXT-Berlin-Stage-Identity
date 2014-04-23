@@ -24,7 +24,7 @@ namespace next {
         
 
         mTextBox->underline();
-        mTextBox->setColorUnderline(SESSION_LABEL_SESS);
+        mTextBox->setColorUnderline(SESSION_LABEL_SESSION_TITLE_UNDERLINE_COLOR);
 
         mTextBox->setUnderlineHeight(SESSION_LABEL_SESSION_TITLE_UNDERLINE_HEIGHT);
         mTextBox->underline();
@@ -107,7 +107,7 @@ namespace next {
     void SessionTitleLabel::off(){
         for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
             tween(&itr->alphaState, 1.0f, 0.0f,
-                  SESSION_LABEL_EVENT_TITLE_ANIM_TIME_ALPHA_OUT,
+                  SESSION_LABEL_SESSION_TITLE_ANIM_TIME_ALPHA_OFF,
                   AnimEaseInOut());
         }
     }

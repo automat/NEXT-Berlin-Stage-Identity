@@ -84,13 +84,13 @@ namespace next {
     
     void SessionMetaLabel::on(){
         tween(&mAlphaState, 0.0f, 1.0f,
-              SESSION_LABEL_EVENT_META_ANIM_TIME_ALPHA_ON,
+              SESSION_LABEL_SESSION_META_TIME_ALPHA_ON,
               AnimEaseInOut());
     }
     
     void SessionMetaLabel::off(){
         tween(&mAlphaState, 1.0f, 0.0f,
-              SESSION_LABEL_EVENT_META_ANIM_TIME_ALPHA_ON,
+              SESSION_LABEL_SESSION_META_TIME_ALPHA_OFF,
               AnimEaseInOut());
     }
 }

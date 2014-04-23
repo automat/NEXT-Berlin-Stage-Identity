@@ -72,6 +72,9 @@ namespace next {
         
         void resetEventViews();
         
+        void turnOnSessionLabels();
+        void turnOffSessionLabels();
+        
         SessionTitleLabel*         mLabelTitle;
         SessionMetaLabel*          mLabelMeta;
         PingPongEventTitleLabel*   mPingPongLabelEventTitle;

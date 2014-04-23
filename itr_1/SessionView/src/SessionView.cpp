@@ -178,22 +178,26 @@ namespace next {
 #endif
     }
     
+    void SessionView::turnOnSessionLabels(){
+        mLabelMeta->on();
+        mLabelTitle->on();
+    }
     
-    void SessionView::finish(){
+    void SessionView::turnOffSessionLabels(){
         mLabelMeta->off();
         mLabelTitle->off();
+    }
+    
+    void SessionView::finish(){
         resetEventViews();
         delayCallback(1.0f, std::bind(&SessionView::onFinish,this));
-        
     }
     
     void SessionView::start(){
         if(mAnimating){
             return;
         }
-        mLabelMeta->on();
-        mLabelTitle->on();
-        
+        turnOnSessionLabels();
         delayCallback(0.5f, std::bind(&SessionView::stepForward_2,this));
       
         mAnimating = true;
@@ -231,6 +235,8 @@ namespace next {
                   SESSION_EVENT_ANIM_TIME_OFF,
                   ViewInOutEasing(),
                   NULL,std::bind(&SessionView::finish, this));
+            delayCallback(1.375f, std::bind(&SessionView::turnOffSessionLabels, this));
+            
             mPingPongLabelEventTitle->off();
             mPingPongLabelSpeaker->off();
             mLabelEventMeta->off();
