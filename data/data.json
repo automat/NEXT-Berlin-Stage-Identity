@@ -1,137 +1,5 @@
 {
-  "breaks": [
-    {
-      "endHourString": "16:00", 
-      "endTimestamp": 1399384800, 
-      "eventTypes": "break", 
-      "event_ids": [
-        27489
-      ], 
-      "id": -1, 
-      "startHourClockFile": "15-30.png", 
-      "startHourString": "15:30", 
-      "startTimestamp": 1399383000, 
-      "title": "Coffee break", 
-      "type": "break"
-    }, 
-    {
-      "endHourString": "14:00", 
-      "endTimestamp": 1399377600, 
-      "eventTypes": "break", 
-      "event_ids": [
-        27487
-      ], 
-      "id": -2, 
-      "startHourClockFile": "13-00.png", 
-      "startHourString": "13:00", 
-      "startTimestamp": 1399374000, 
-      "title": "Lunch break", 
-      "type": "break"
-    }, 
-    {
-      "endHourString": "11:30", 
-      "endTimestamp": 1399368600, 
-      "eventTypes": "break", 
-      "event_ids": [
-        27486
-      ], 
-      "id": -3, 
-      "startHourClockFile": "11-00.png", 
-      "startHourString": "11:00", 
-      "startTimestamp": 1399366800, 
-      "title": "Coffee break", 
-      "type": "break"
-    }, 
-    {
-      "endHourString": "18:00", 
-      "endTimestamp": 1399305600, 
-      "eventTypes": "break", 
-      "event_ids": [
-        27492
-      ], 
-      "id": -5, 
-      "startHourClockFile": "17-30.png", 
-      "startHourString": "17:30", 
-      "startTimestamp": 1399303800, 
-      "title": "Coffee break", 
-      "type": "break"
-    }, 
-    {
-      "endHourString": "13:30", 
-      "endTimestamp": 1399289400, 
-      "eventTypes": "break", 
-      "event_ids": [
-        27484
-      ], 
-      "id": -6, 
-      "startHourClockFile": "13-00.png", 
-      "startHourString": "13:00", 
-      "startTimestamp": 1399287600, 
-      "title": "Networking break", 
-      "type": "break"
-    }, 
-    {
-      "endHourString": "11:30", 
-      "endTimestamp": 1399282200, 
-      "eventTypes": "break", 
-      "event_ids": [
-        27481
-      ], 
-      "id": -7, 
-      "startHourClockFile": "11-00.png", 
-      "startHourString": "11:00", 
-      "startTimestamp": 1399280400, 
-      "title": "Coffee Break", 
-      "type": "break"
-    }
-  ], 
-  "ends": [
-    {
-      "endHourString": "23:00", 
-      "endTimestamp": 1399410000, 
-      "eventTypes": "end", 
-      "event_ids": [
-        27491
-      ], 
-      "id": -4, 
-      "startHourClockFile": "17-30.png", 
-      "startHourString": "17:30", 
-      "startTimestamp": 1399390200, 
-      "title": "End", 
-      "type": "end"
-    }, 
-    {
-      "endHourString": "23:59", 
-      "endTimestamp": 1399327140, 
-      "eventTypes": "end", 
-      "event_ids": [
-        27493
-      ], 
-      "id": -8, 
-      "startHourClockFile": "21-00.png", 
-      "startHourString": "21:00", 
-      "startTimestamp": 1399316400, 
-      "title": "NEXT Party", 
-      "type": "end"
-    }
-  ], 
   "events": {
-    "768": {
-      "description": "The post-digital age is blurring the boundaries between offline and online. In his keynote, Prof. Dr. Marc Dr\u00fcner explains how companies can use web analytics, social data and search data to optimize sales and marketing. Specifically, he demonstrates how new data can be used to track campaign success in real-time, guide strategic brand management and forecast future sales. Already today, using these data has become more than number crunching, but the fertile ground on which to grow tomorrow\u2019s ideas.", 
-      "endHourString": "15:30", 
-      "endTimestamp": 1399296600, 
-      "id": 768, 
-      "person_ids": [
-        476, 
-        27232
-      ], 
-      "session_id": 3627, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399291200, 
-      "title": "Post-digital marketing - how new data can revolutionize your business", 
-      "type": "Workshop"
-    }, 
     "19388": {
       "description": "Chris strongly believes that combining efficient use of energy seamlessly into our lifestyle will enable a more comfortable, efficient, and sustainable world. The power of web interconnectivity is currently on the cusp of going beyond the Internet as we experience it every day.\r\n \r\nIn this talk Chris will showcase his IoT product: tado\u00b0 The heating app detects where residents are, sets the temperature accordingly, and saves up to 26% on heating costs. Chris will transform Next into a Home. Every attendee will become a resident and experience real IoT with their own smartphones. The influence of other residents who are roaming outside will be followed live on-screen.  \r\nJoin this session to get a grasp on a virtual assistant for your daily life powered by the Internet of Things.\r\n \r\nLearn about the Internet of Things in practice. See how tado\u00b0 created a useful and desirable Internet of Things service for everyone's daily life. Experience tado\u00b0 on your own phone in a live demo.", 
       "endHourString": "12:30", 
@@ -164,11 +32,11 @@
     }, 
     "26399": {
       "description": "Wearable tech is the term of everyone's lips now. The supposed snake-oil like benefits coming from wearing devices on your face and your wrists are endless. But none of them will happen if you don't want to or can not wear the devices. You don't want to look like a cyborg. You don't want your gadgetry to intrude on people's integrity. Oskar will share his insights from the design process of the Narrative Clip - the world's smallest wearable camera.", 
-      "endHourString": "14:30", 
-      "endTimestamp": 1399379400, 
+      "endHourString": "14:25", 
+      "endTimestamp": 1399379100, 
       "id": 26399, 
       "person_ids": [
-        26395
+        27689
       ], 
       "session_id": 3560, 
       "startHourClockFile": "14-15.png", 
@@ -207,22 +75,6 @@
       "title": "Arms race", 
       "type": "Talk"
     }, 
-    "26645": {
-      "description": "Traditional ways of marketing, especially interruption advertising, is more and more perceived as an annoyance. Marketing of the future needs to both create value for people AND promote business. \r\nService Design regards usefulness, usability and desirability, whereas brand communication is mostly concerned with the promise and very little with its delivery. Combined, the two approaches add up to what we call Brand Services \u2013\u00a0a \u201egive-away service\u201c that addresses relevant user needs and at the same time conveys a brand message. Instead of just giving a promise Brand Service already deliver on it. \r\nOur 1.5h session contains a short introduction to this new thinking, proposes an operational framework on the topic, and is followed by a hands-on workshop session where you will have the chance to design your own brand service.", 
-      "endHourString": "17:30", 
-      "endTimestamp": 1399303800, 
-      "id": 26645, 
-      "person_ids": [
-        15592, 
-        26147
-      ], 
-      "session_id": 3612, 
-      "startHourClockFile": "16-00.png", 
-      "startHourString": "16:00", 
-      "startTimestamp": 1399298400, 
-      "title": "Brand services - a user centric marketing tool", 
-      "type": "Workshop"
-    }, 
     "26825": {
       "description": "The important question isn't \"Does the Internet make us more free or\r\nless free?\" the question is \"How can we make an Internet that frees us?\"", 
       "endHourString": "17:15", 
@@ -237,21 +89,6 @@
       "startTimestamp": 1399387500, 
       "title": "The Internet as a force for liberation, not enslavement", 
       "type": "Keynote"
-    }, 
-    "26835": {
-      "description": "If change is the new constant in modern marketing - what fundamentals can and should we hold onto in the digital world and what new rules apply?\r\n\r\nThis session/workshop will take a look into the changing landscape for brand marketers and how they can leverage both existing and new skills in to meet the challenges ahead.\r\n\r\nCovering the latest trends in marketing and communications including - audience development, the owned and earned media imperative, right-time marketing and the brand newsroom opportunity. \r\n\r\nAs a startup founder or brand marketer who will either see the marketing arena as your biggest challenge or one of limitless opportunity. Whichever camp you fall into this session mixing trends with real world examples will give you new ideas to be executed right when you are back at your desk.", 
-      "endHourString": "15:30", 
-      "endTimestamp": 1399296600, 
-      "id": 26835, 
-      "person_ids": [
-        26694
-      ], 
-      "session_id": 3611, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399291200, 
-      "title": "Marketing & communication reinvented", 
-      "type": "Workshop"
     }, 
     "26875": {
       "description": "The next generation of user interfaces will combine traditional input devices with new perceptual and contextual inputs. By melting a lot of very different inputs and outputs that reflect human communication and interaction into a single omnimodal user experience, we will see a really intuitive and natural human machine interaction for the first time.", 
@@ -298,21 +135,6 @@
       "title": "Industry 4.0 \u2013 from vision to implementation", 
       "type": "Talk"
     }, 
-    "27070": {
-      "description": "Shift 2020: a collaborative look on How Technology Will Impact Our Future in the year 2020. Join Rudy De Waele, author/curator of the book shift 2020 for an overview of foresights by some of the leading technology experts, followed by a panel discussion with contributors of the book and a reality check on exciting things to happen in the area\u2019s of the Internet of Things (IoT), Connected Devices and Wearable Technology.", 
-      "endHourString": "10:00", 
-      "endTimestamp": 1399363200, 
-      "id": 27070, 
-      "person_ids": [
-        26857
-      ], 
-      "session_id": 3563, 
-      "startHourClockFile": "09-30.png", 
-      "startHourString": "09:30", 
-      "startTimestamp": 1399361400, 
-      "title": "Shift 2020: a collaborative look how technology will impact our future in the year 2020", 
-      "type": "Keynote"
-    }, 
     "27135": {
       "description": "An explanation of the technologies used in the Oculus skydive experience and a brief introduction to new interaction models for Virtual Reality worlds.", 
       "endHourString": "15:30", 
@@ -327,21 +149,6 @@
       "startTimestamp": 1399381200, 
       "title": "Interacting in virtual reality", 
       "type": "Demo"
-    }, 
-    "27194": {
-      "description": "The speed in which the world is changing has become mind spinning. Fixed approaches and strategies don\u2019t necessarily apply in our world. A sequence of events might not end up where you expect it to be. Translating a fixed position into one having to learn quick and be responsive and taking into consider the full experience to create satisfaction is now a goal for a brand.\u00a0\r\n\r\nEdenspiekermann would like to guide you through a workshop using some tools that help businesses or organisations being responsive in todays world. This 90 minutes workshop will give you and your organisation insights how to create value, relevance and connection to the people by approaching their problems from their perspectives\u00a0\r\n\r\nAfter our workshop you will have some tools to think lean, break down silos and discover something new. You will have a better experience for your customers to build up a contemporary brand.", 
-      "endHourString": "15:30", 
-      "endTimestamp": 1399296600, 
-      "id": 27194, 
-      "person_ids": [
-        26706, 
-        26705
-      ], 
-      "session_id": 3644, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399291200, 
-      "title": "The lean work shop"
     }, 
     "27197": {
       "description": "Smartphones hold a fascinating paradox. It is the hyper symbol of connectivity, but we've lost any connection with the source of how it is made and the social consequences attached to it during the production process. \r\n\r\nEvery pixel you see, every byte you send has a whole world of minerals, factories, recycling and distribution behind it. Now it is time to start closing the gap between the connected world of our communication systems and the disconnected ancient world of our production systems. \r\n\r\nThe same beautiful possibilities smartphones give us to share information, solve problems together and create shared value can actually be a driver to make people relate again to the geology of our digital systems.", 
@@ -403,24 +210,8 @@
       "title": "All you need is love: a design perspective on connected cars", 
       "type": "Talk"
     }, 
-    "27255": {
-      "description": "Everyone is talking about Big Data - but what's really behind it and how can you make data work for your business? \r\n\r\nCollecting data is just one part of the puzzle. To source the right information, read it so it makes sense and  -finally- how to execute on it is the most important task for successful big data management. \r\n\r\nAt this panel workshop we'll listen to a lot of examples from big companies who're dealing with massive amount of data on a daily basis. Each panel member will give a short demo and insight to their strategies and might revile some surprising facts.", 
-      "endHourString": "13:00", 
-      "endTimestamp": 1399287600, 
-      "id": 27255, 
-      "person_ids": [
-        26650, 
-        27379
-      ], 
-      "session_id": 3613, 
-      "startHourClockFile": "11-30.png", 
-      "startHourString": "11:30", 
-      "startTimestamp": 1399282200, 
-      "title": "Big data management - forget the hype, let's talk facts.", 
-      "type": "Workshop"
-    }, 
     "27275": {
-      "description": "For ninth time NEXT Chairman will open the conference for digital business. Nils Wollny, Managing Director of SinnerSchrader, will join him to tell the \"New Normal\" story - the impact of digital innovations of all areas of our lives, ranging from business to mobility and communication. \r\n\r\nMonique van Dusseldorp, one of NEXT's conference curators, and Jochen Wegner, Editor in Chief of Zeit online, will guide you through the two conference days on our Dome Stage.", 
+      "description": "For the ninth time NEXT Chairman Matthias Schrader will open the conference for digital business. Nils Wollny, Managing Director Strategy of SinnerSchrader, will join him to illustrate how the \u201cNew User\u201d influences the way brands should be managed in the future.\r\n\r\nMonique van Dusseldorp, one of NEXT's conference curators, and Jochen Wegner, Editor in Chief of Zeit online, will guide you through the two conference days on our Dome Stage.", 
       "endHourString": "13:45", 
       "endTimestamp": 1399290300, 
       "id": 27275, 
@@ -453,6 +244,7 @@
       "type": "Talk"
     }, 
     "27280": {
+      "description": "iBeacon is the first global standard for micro location based services. Indoor, where GPS is too inaccurate, NFC and QR-Codes are only offering a bad user experience, is the Bluetooth Low Energy based iBeacon the next big wave. The NEXT Conference App connects speaker in a new and intuitive way to their audience. Get the program, floor plan and presentation based on you indoor location directly to your palm. This talk gives world class insights about how people used the new location based standard on the NEXT14.", 
       "endHourString": "15:20", 
       "endTimestamp": 1399296000, 
       "id": 27280, 
@@ -463,7 +255,7 @@
       "startHourClockFile": "15-10.png", 
       "startHourString": "15:10", 
       "startTimestamp": 1399295400, 
-      "title": "iBeacon demo by Sensorberg", 
+      "title": "Results and usage iBeacon conference app", 
       "type": "Demo"
     }, 
     "27283": {
@@ -481,6 +273,7 @@
       "type": "Keynote"
     }, 
     "27285": {
+      "description": "How can the automotive industry keep their product attractive for the \u201cgeneration share\u201d - without being conquered by Google and Apple? And who wins the race for the best business models? \r\n\r\nVehicle-related services such as Car2X, dynamic routing assistance, remote diagnostics and preventive maintenance are the fields in which the automotive industry can defend their cutting edge and differentiate from the internet industry. The field of consumer-related services is long lost to the smartphone world and just needs to be integrated into the car in the most convenient and intuitive way. \r\n\r\nIn the near future, automated driving will offer new possibilities to use the drive time more efficiently. Cars become mobile homes and offices. To prevent from being reduced to the role of mere \u201cproducers\u201d, OEMs need to establish their own ecosystem based on vehicle-related data and services. And they need a partner who enables them to develop new business models together with other, non-automotive market players such as mobility providers, insurances and location-based services.\r\n\r\nThe prerequisite is a vendor-independent data aggregator, capable to securely handle and process complex data.  And an open, standardized platform to easily connect and administer new partners and services. This is, where Deutsche Telekom comes into action. Our standardized platform enables service providers to connect to nearly each and every vehicle on the road. Instead of dealing with OEMs one by one, we provide a one stop solution across most manufacturers. The more attractive services are available and the more vehicles are connected, the better business models are possible for all partners. Join our mobility ecosystem!", 
       "endHourString": "16:40", 
       "endTimestamp": 1399300800, 
       "id": 27285, 
@@ -491,7 +284,7 @@
       "startHourClockFile": "16-20.png", 
       "startHourString": "16:20", 
       "startTimestamp": 1399299600, 
-      "title": "Talk by T-Systems", 
+      "title": "Mobility as a service \u2013 who owns the ecosystem?", 
       "type": "Talk"
     }, 
     "27291": {
@@ -506,11 +299,11 @@
       "startHourClockFile": "11-30.png", 
       "startHourString": "11:30", 
       "startTimestamp": 1399368600, 
-      "title": "Design: make it inviting to use it", 
+      "title": "Where the brick breaks: augmented humans and the Internet of things", 
       "type": "Talk"
     }, 
     "27292": {
-      "description": "tbd", 
+      "description": "The Internet of Things is on you. It's around you. It's collecting data. It's doin' stuff. But, what is it doing to help us live better? Can it be used to tackle the biggest problem: reverse the trends that are causing the US to be 52% prediabetic by 2020.", 
       "endHourString": "12:10", 
       "endTimestamp": 1399371000, 
       "id": 27292, 
@@ -521,7 +314,7 @@
       "startHourClockFile": "11-50.png", 
       "startHourString": "11:50", 
       "startTimestamp": 1399369800, 
-      "title": "Talk by Aza Raskin", 
+      "title": "On you. Around you. And the very big problem", 
       "type": "Talk"
     }, 
     "27295": {
@@ -541,7 +334,7 @@
       "type": "Demo"
     }, 
     "27303": {
-      "description": "Philosophically, a zombie is a living being, but without any conscious perception. A \u00bbsmartphone zombie\u00ab might thus be the extreme result of our increasingly close relationships to our mobile devices. Are we about to witness the implosion of our collective attention ecosystem? Are we substituting parts of our identity construction with electronic devices? Through some live exercises, we will explore some of the pain points of our relationships to our mobile phones.", 
+      "description": "TBD", 
       "endHourString": "13:00", 
       "endTimestamp": 1399374000, 
       "id": 27303, 
@@ -597,197 +390,6 @@
       "title": "Farewell", 
       "type": "Talk"
     }, 
-    "27312": {
-      "endHourString": "11:00", 
-      "endTimestamp": 1399366800, 
-      "id": 27312, 
-      "person_ids": [
-        26858, 
-        26859, 
-        6735, 
-        27714
-      ], 
-      "session_id": 3563, 
-      "startHourClockFile": "10-05.png", 
-      "startHourString": "10:05", 
-      "startTimestamp": 1399363500, 
-      "title": "Shift 2020", 
-      "type": "Panel Discussion"
-    }, 
-    "27317": {
-      "endHourString": "13:00", 
-      "endTimestamp": 1399374000, 
-      "id": 27317, 
-      "person_ids": [
-        27041
-      ], 
-      "session_id": 3566, 
-      "startHourClockFile": "11-30.png", 
-      "startHourString": "11:30", 
-      "startTimestamp": 1399368600, 
-      "title": "TV if invented today", 
-      "type": "Keynote"
-    }, 
-    "27319": {
-      "endHourString": "15:30", 
-      "endTimestamp": 1399383000, 
-      "id": 27319, 
-      "person_ids": [
-        27224
-      ], 
-      "session_id": 3567, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399377600, 
-      "title": "Content marketing case studies", 
-      "type": "Talk"
-    }, 
-    "27354": {
-      "description": "This session is about ideas, thoughts and practices on the future models of leadership, collaboration and management. A line-up of exciting experts are discussing insights and lessons learned from the transition of the post-industrial management model to a new networked and collaborative organisation. After an introductional discussion the attendees are asked to discuss and exchange ideas in small working groups with the experts. The objective of the interactive part is to explore the practical challenges and levers for the transformation towards these new model approaches.", 
-      "endHourString": "15:30", 
-      "endTimestamp": 1399383000, 
-      "id": 27354, 
-      "person_ids": [
-        27349, 
-        27348, 
-        17580, 
-        6600
-      ], 
-      "session_id": 3630, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399377600, 
-      "title": "The future of leadership and collaboration models for the enterprise of tomorrow", 
-      "type": "Workshop"
-    }, 
-    "27376": {
-      "description": "In our drastically changing world organizations more than ever before need to build a capacity to experiment, learn and innovate and to fully use the potential of their people. Strategic Improvisation is a mindset, a concept and an action well suited to move down that path based on values and principles that can be found in jazz.\r\n\r\nToday's Jazz it! session is about introducing you to both concept and practice of strategic improvisation in the context of future organization, with a focus on leadership. We do that in a highly engaging and fun interactive way with a fantastic live band (jazz and cross-over), joint improvisation exercises and simulations, input, reflection and exchange. The right thing to start with on a Monday morning! Come and feel the groove!", 
-      "endHourString": "11:00", 
-      "endTimestamp": 1399280400, 
-      "id": 27376, 
-      "person_ids": [
-        27323, 
-        27322
-      ], 
-      "session_id": 3610, 
-      "startHourClockFile": "09-30.png", 
-      "startHourString": "09:30", 
-      "startTimestamp": 1399275000, 
-      "title": "Jazz it! An interactive session on leadership, future organisation and strategic improvisation.", 
-      "type": "Workshop"
-    }, 
-    "27402": {
-      "description": "- operationalising of Customer Data \r\n- intelligent RTB \r\n- user-driven Retargeting \r\n- well-known customer and new reach \r\n- first party data to drive cross and up selling \r\n- the new roll of agencies\r\n - data safety", 
-      "endHourString": "13:00", 
-      "endTimestamp": 1399287600, 
-      "id": 27402, 
-      "person_ids": [
-        11773, 
-        27343
-      ], 
-      "session_id": 3609, 
-      "startHourClockFile": "11-30.png", 
-      "startHourString": "11:30", 
-      "startTimestamp": 1399282200, 
-      "title": "Advertising with big data - the new normal", 
-      "type": "Workshop"
-    }, 
-    "27481": {
-      "endHourString": "11:30", 
-      "endTimestamp": 1399282200, 
-      "id": 27481, 
-      "person_ids": [], 
-      "session_id": -7, 
-      "startHourClockFile": "11-00.png", 
-      "startHourString": "11:00", 
-      "startTimestamp": 1399280400, 
-      "title": "Coffee Break", 
-      "type": "break"
-    }, 
-    "27484": {
-      "endHourString": "13:30", 
-      "endTimestamp": 1399289400, 
-      "id": 27484, 
-      "person_ids": [], 
-      "session_id": -6, 
-      "startHourClockFile": "13-00.png", 
-      "startHourString": "13:00", 
-      "startTimestamp": 1399287600, 
-      "title": "Networking break", 
-      "type": "break"
-    }, 
-    "27486": {
-      "endHourString": "11:30", 
-      "endTimestamp": 1399368600, 
-      "id": 27486, 
-      "person_ids": [], 
-      "session_id": -3, 
-      "startHourClockFile": "11-00.png", 
-      "startHourString": "11:00", 
-      "startTimestamp": 1399366800, 
-      "title": "Coffee break", 
-      "type": "break"
-    }, 
-    "27487": {
-      "endHourString": "14:00", 
-      "endTimestamp": 1399377600, 
-      "id": 27487, 
-      "person_ids": [], 
-      "session_id": -2, 
-      "startHourClockFile": "13-00.png", 
-      "startHourString": "13:00", 
-      "startTimestamp": 1399374000, 
-      "title": "Lunch break", 
-      "type": "break"
-    }, 
-    "27489": {
-      "endHourString": "16:00", 
-      "endTimestamp": 1399384800, 
-      "id": 27489, 
-      "person_ids": [], 
-      "session_id": -1, 
-      "startHourClockFile": "15-30.png", 
-      "startHourString": "15:30", 
-      "startTimestamp": 1399383000, 
-      "title": "Coffee break", 
-      "type": "break"
-    }, 
-    "27491": {
-      "endHourString": "23:00", 
-      "endTimestamp": 1399410000, 
-      "id": 27491, 
-      "person_ids": [], 
-      "session_id": -4, 
-      "startHourClockFile": "17-30.png", 
-      "startHourString": "17:30", 
-      "startTimestamp": 1399390200, 
-      "title": "End", 
-      "type": "end"
-    }, 
-    "27492": {
-      "endHourString": "18:00", 
-      "endTimestamp": 1399305600, 
-      "id": 27492, 
-      "person_ids": [], 
-      "session_id": -5, 
-      "startHourClockFile": "17-30.png", 
-      "startHourString": "17:30", 
-      "startTimestamp": 1399303800, 
-      "title": "Coffee break", 
-      "type": "break"
-    }, 
-    "27493": {
-      "endHourString": "23:59", 
-      "endTimestamp": 1399327140, 
-      "id": 27493, 
-      "person_ids": [], 
-      "session_id": -8, 
-      "startHourClockFile": "21-00.png", 
-      "startHourString": "21:00", 
-      "startTimestamp": 1399316400, 
-      "title": "NEXT Party", 
-      "type": "end"
-    }, 
     "27511": {
       "endHourString": "14:00", 
       "endTimestamp": 1399291200, 
@@ -802,59 +404,8 @@
       "title": "The new German dream: start-ups in the digital economy", 
       "type": "Talk"
     }, 
-    "27512": {
-      "description": "A panel discussion summarizing what makes French startups sexy for German companies, where most people think they are not!", 
-      "endHourString": "12:15", 
-      "endTimestamp": 1399371300, 
-      "id": 27512, 
-      "person_ids": [
-        21174, 
-        21177, 
-        21172
-      ], 
-      "session_id": 3617, 
-      "startHourClockFile": "11-30.png", 
-      "startHourString": "11:30", 
-      "startTimestamp": 1399368600, 
-      "title": "Why do companies invest millions in the French Digital Economy?", 
-      "type": "Panel Discussion"
-    }, 
-    "27515": {
-      "description": "France has great examples of successful companies, that embrace the 'New Normal'\r\nWithings and Sigfox will be on stage, demoing their newest devices!", 
-      "endHourString": "13:00", 
-      "endTimestamp": 1399374000, 
-      "id": 27515, 
-      "person_ids": [
-        21132, 
-        26881, 
-        26937
-      ], 
-      "session_id": 3617, 
-      "startHourClockFile": "12-15.png", 
-      "startHourString": "12:15", 
-      "startTimestamp": 1399371300, 
-      "title": "Connected Devices - Meet the French", 
-      "type": "Demo"
-    }, 
-    "27519": {
-      "description": "tba", 
-      "endHourString": "11:00", 
-      "endTimestamp": 1399366800, 
-      "id": 27519, 
-      "person_ids": [
-        26856, 
-        26861, 
-        26313, 
-        26640
-      ], 
-      "session_id": 3616, 
-      "startHourClockFile": "09-30.png", 
-      "startHourString": "09:30", 
-      "startTimestamp": 1399361400, 
-      "title": "Start-ups in eastern europe and asia", 
-      "type": "Start-up Pitch"
-    }, 
     "27528": {
+      "description": "It was 1969, open standards were beginning to be introduced in what today we call the Internet. There are over 1 million unique open source software projects where people have come together to work for a better future. In the meantime, a second movement started: open source hardware. Just like open platforms have shaped the web, open source hardware has already taken over the small to medium electronics development. In October we announced OSVehicle's TABBY, the first open source framework for the creation of vehicles. How will it change the assumptions in the automotive industry? Why is \"open and distributed\" the new business model, that will inevitably overcome the old centralized approach? The world is changing and for the first time it's truly in our own hands. We'll cover how the automotive industry is evolving and understand where we can play an active role in it.", 
       "endHourString": "17:15", 
       "endTimestamp": 1399302900, 
       "id": 27528, 
@@ -865,41 +416,8 @@
       "startHourClockFile": "17-00.png", 
       "startHourString": "17:00", 
       "startTimestamp": 1399302000, 
-      "title": "Talk by OSVehicle", 
+      "title": "Enabling a hybrid economy in smart mobility", 
       "type": "Talk"
-    }, 
-    "27534": {
-      "description": "7 start-ups are pitching on stage in front of our jury", 
-      "endHourString": "10:15", 
-      "endTimestamp": 1399277700, 
-      "id": 27534, 
-      "person_ids": [
-        19641, 
-        26816, 
-        17406
-      ], 
-      "session_id": 3618, 
-      "startHourClockFile": "09-30.png", 
-      "startHourString": "09:30", 
-      "startTimestamp": 1399275000, 
-      "title": "Start-up pitch 1", 
-      "type": "Start-up Pitch"
-    }, 
-    "27536": {
-      "description": "7 start-ups are pitching on stage in front of our jury", 
-      "endHourString": "12:15", 
-      "endTimestamp": 1399284900, 
-      "id": 27536, 
-      "person_ids": [
-        26113, 
-        26110
-      ], 
-      "session_id": 3619, 
-      "startHourClockFile": "11-30.png", 
-      "startHourString": "11:30", 
-      "startTimestamp": 1399282200, 
-      "title": "Start-up pitch 2", 
-      "type": "Start-up Pitch"
     }, 
     "27537": {
       "endHourString": "10:15", 
@@ -933,215 +451,18 @@
       "title": "Panel \"The New Leaders\"", 
       "type": "Panel Discussion"
     }, 
-    "27542": {
-      "description": "7 start-ups are pitching on stage in front of our jury", 
-      "endHourString": "14:45", 
-      "endTimestamp": 1399293900, 
-      "id": 27542, 
-      "person_ids": [
-        17561, 
-        26815, 
-        9440
-      ], 
-      "session_id": 3620, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399291200, 
-      "title": "Start-up pitch 3", 
-      "type": "Start-up Pitch"
-    }, 
-    "27543": {
-      "description": "7 start-ups are pitching on stage in front of our jury", 
-      "endHourString": "16:45", 
-      "endTimestamp": 1399301100, 
-      "id": 27543, 
-      "person_ids": [
-        27094, 
-        27217, 
-        26313
-      ], 
-      "session_id": 3621, 
-      "startHourClockFile": "16-00.png", 
-      "startHourString": "16:00", 
-      "startTimestamp": 1399298400, 
-      "title": "Start-up pitch 4", 
-      "type": "Start-up Pitch"
-    }, 
     "27546": {
-      "endHourString": "14:40", 
-      "endTimestamp": 1399380000, 
+      "endHourString": "14:45", 
+      "endTimestamp": 1399380300, 
       "id": 27546, 
       "person_ids": [
         26066
       ], 
       "session_id": 3560, 
-      "startHourClockFile": "14-30.png", 
-      "startHourString": "14:30", 
-      "startTimestamp": 1399379400, 
+      "startHourClockFile": "14-35.png", 
+      "startHourString": "14:35", 
+      "startTimestamp": 1399379700, 
       "title": "Talk by Tanya Vlach", 
-      "type": "Talk"
-    }, 
-    "27552": {
-      "endHourString": "12:30", 
-      "endTimestamp": 1399372200, 
-      "id": 27552, 
-      "person_ids": [
-        27213
-      ], 
-      "session_id": 3566, 
-      "startHourClockFile": "12-00.png", 
-      "startHourString": "12:00", 
-      "startTimestamp": 1399370400, 
-      "title": "Talk by Seespace", 
-      "type": "Talk"
-    }, 
-    "27554": {
-      "endHourString": "13:00", 
-      "endTimestamp": 1399374000, 
-      "id": 27554, 
-      "person_ids": [
-        27549
-      ], 
-      "session_id": 3566, 
-      "startHourClockFile": "12-30.png", 
-      "startHourString": "12:30", 
-      "startTimestamp": 1399372200, 
-      "title": "Talk by Alibaba", 
-      "type": "Talk"
-    }, 
-    "27560": {
-      "endHourString": "11:00", 
-      "endTimestamp": 1399280400, 
-      "id": 27560, 
-      "person_ids": [], 
-      "session_id": 3618, 
-      "startHourClockFile": "10-15.png", 
-      "startHourString": "10:15", 
-      "startTimestamp": 1399277700, 
-      "title": "Pitching start-ups in session 1", 
-      "type": "Start-up Pitch"
-    }, 
-    "27561": {
-      "description": "tba", 
-      "endHourString": "13:00", 
-      "endTimestamp": 1399287600, 
-      "id": 27561, 
-      "person_ids": [], 
-      "session_id": 3619, 
-      "startHourClockFile": "12-15.png", 
-      "startHourString": "12:15", 
-      "startTimestamp": 1399284900, 
-      "title": "Pitching start-ups in session 2", 
-      "type": "Start-up Pitch"
-    }, 
-    "27568": {
-      "description": "tba", 
-      "endHourString": "15:30", 
-      "endTimestamp": 1399296600, 
-      "id": 27568, 
-      "person_ids": [], 
-      "session_id": 3620, 
-      "startHourClockFile": "14-45.png", 
-      "startHourString": "14:45", 
-      "startTimestamp": 1399293900, 
-      "title": "Pitching start-ups in session 3", 
-      "type": "Start-up Pitch"
-    }, 
-    "27570": {
-      "description": "tba", 
-      "endHourString": "17:30", 
-      "endTimestamp": 1399303800, 
-      "id": 27570, 
-      "person_ids": [], 
-      "session_id": 3621, 
-      "startHourClockFile": "16-45.png", 
-      "startHourString": "16:45", 
-      "startTimestamp": 1399301100, 
-      "title": "Pitching start-ups in session 4", 
-      "type": "Start-up Pitch"
-    }, 
-    "27572": {
-      "description": "tba", 
-      "endHourString": "15:30", 
-      "endTimestamp": 1399383000, 
-      "id": 27572, 
-      "person_ids": [
-        21174, 
-        27408, 
-        27409, 
-        26867, 
-        27410, 
-        27412, 
-        27411
-      ], 
-      "session_id": 3629, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399377600, 
-      "title": "The new normal between start-ups and corporations", 
-      "type": "Panel Discussion"
-    }, 
-    "27575": {
-      "description": "10 learnings from the thriving Berlin Mobile industry: Laurent Burdin (Managing director Sinnerschrader Mobile) gathers and shares all learning from a Mobile business with completely new logic, paces, chances and risk. Get ready to change!", 
-      "endHourString": "13:00", 
-      "endTimestamp": 1399374000, 
-      "id": 27575, 
-      "person_ids": [
-        6606
-      ], 
-      "session_id": 3631, 
-      "startHourClockFile": "11-30.png", 
-      "startHourString": "11:30", 
-      "startTimestamp": 1399368600, 
-      "title": "Berlin & mobile: survival kit for corporate managers", 
-      "type": "Talk"
-    }, 
-    "27576": {
-      "description": "This workshop aims at young companies searching\tfor the\tright employees as well\tas at young professionals searching for their right fit in tech businesses. Besides, the workshop is also directed at traditional companies who are keen on learning from a star-tup mindset \u2013 whether it\u2019s the lean workflow or the\tway of thinking.", 
-      "endHourString": "15:30", 
-      "endTimestamp": 1399383000, 
-      "id": 27576, 
-      "person_ids": [
-        27718, 
-        15839, 
-        6759, 
-        27485
-      ], 
-      "session_id": 3632, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399377600, 
-      "title": "The new normal in business: Why we need to teach a startup mindset", 
-      "type": "Workshop"
-    }, 
-    "27596": {
-      "description": "Our brain already knows it! The next generation of apps will surprise us, will be cool and probably have a very different look and feel. The facilitators will take us on a small journey through the human brain. We will learn about the six social cognitive needs and will find out how to apply this knowledge to prototype app ideas with highest relevancy as they give future answers to unmet needs.\r\n \r\nBy applying knowledge from focus group with digital natives, simple brain science and creativity, we will go into unchartered territory and identify the next killer apps. The workshop will be interactive, fun, with lots of exercises and hands-on, pragmatic tools to enter the future \u2013 no technical background needed, as it is targeted at marketeers and entrepreneurs. \r\n \r\nAll you need to bring is openness, the willingness to experiment and curiosity. The rest will take care of itself!", 
-      "endHourString": "11:00", 
-      "endTimestamp": 1399366800, 
-      "id": 27596, 
-      "person_ids": [
-        27594, 
-        27593
-      ], 
-      "session_id": 3633, 
-      "startHourClockFile": "09-30.png", 
-      "startHourString": "09:30", 
-      "startTimestamp": 1399361400, 
-      "title": "Prototyping a mobile app: how to use lean psychology to build the next killer-app", 
-      "type": "Workshop"
-    }, 
-    "27598": {
-      "endHourString": "15:00", 
-      "endTimestamp": 1399381200, 
-      "id": 27598, 
-      "person_ids": [
-        27592
-      ], 
-      "session_id": 3567, 
-      "startHourClockFile": "14-30.png", 
-      "startHourString": "14:30", 
-      "startTimestamp": 1399379400, 
-      "title": "Talk by Electronic Beats", 
       "type": "Talk"
     }, 
     "27621": {
@@ -1158,21 +479,6 @@
       "title": "Demo of Fraunhofer COMEDD\u2019s Data Glasses", 
       "type": "Demo"
     }, 
-    "27625": {
-      "description": "Evan Luthra is an innovator and an entrepreneur at heart, who tries to build businesses around innovative products. \r\n\r\nHe's also a gadget freak: uses google glass, a Pebble watch, a Withings body monitor and more wearable gadgets at all times. That's why he gets a lot of eyeballs. People are always amazed, surprised or curious to know more. \r\n\r\nThis made him realize the hype that surrounds wearable computing. But what do wearables really provide? What's the hope and what's the reality? That's what he'll discuss with attendees at NEXT14 - join him to dissect wearable technology in detail and find out what it really is.", 
-      "endHourString": "11:00", 
-      "endTimestamp": 1399280400, 
-      "id": 27625, 
-      "person_ids": [
-        27431
-      ], 
-      "session_id": 3643, 
-      "startHourClockFile": "09-30.png", 
-      "startHourString": "09:30", 
-      "startTimestamp": 1399275000, 
-      "title": "Wearable tech: the hope, the hype and the reality", 
-      "type": "Workshop"
-    }, 
     "27629": {
       "endHourString": "17:30", 
       "endTimestamp": 1399303800, 
@@ -1188,89 +494,22 @@
       "title": "Interview with Glass explorer & musician Sarah Willis", 
       "type": "Interview"
     }, 
-    "27666": {
-      "description": "You're raising your first round of investment and a professional investor is sitting across from you who has done it 200 times. Who's got the power?\r\n\r\nGet a crash course in term sheet negotiations and take on the most experienced investors.\r\nWhat Is Investment Lab?\r\n\r\nAn entertaining and educational 2-3 hour event where we show you:\r\n-The basics of fundraising\r\n-The newest trends in the market\r\n-The main event - one VC, one lawyer, and one startup negotiating a Series A term sheet\u00a0LIVE\u00a0on stage!\r\n\r\n\u00a0\r\n\r\nWhy Should You Come?\r\n\r\nToo many startups believe that raising money is like being on an episode of Shark Tank.\u00a0But in reality, negotiating a term sheet is not nearly as glamorous.\r\n\r\nInvestment Lab is about leveling the playing field. \u00a0We want to educate startups on how to effectively negotiate a deal with an investor. From the do's & dont's to the tips & booby traps of raising that sweet, sweet moolah.\r\n\r\n\u00a0\r\n\r\nDetails\r\n\r\n-Tickets are 10\u20ac and include snacks, 1 drink, and a Term Sheet Guide for you to take home.\r\n\r\nHurry and reserve your ticket! Only 150 spots available, and we completely sold out the last 2 times ;)\r\n\r\n-The show begins at 6:00pm at\u00a0<a href=\"http://www.rainmakingloft.de/\" target=\"_blank\">The Rainmaking Loft Berlin</a>.\r\n\r\nGet ready to take on investors.\r\n<p dir=\"ltr\"><span style=\"line-height: 1.5em;\">\u00a0</span></p>", 
-      "endHourString": "21:00", 
-      "endTimestamp": 1399316400, 
-      "id": 27666, 
+    "27754": {
+      "description": "Most professionals within the field of interaction design have at some point heard of \u2018eye tracking\u2019. Not all are aware that the technology have now moved into the mainstream. In this talk, Anders of The Eye Tribe will give an introduction to the interaction principles of eye controlled user interfaces and explain how eye tracking in combination with other input-modalities can create a unique and truly effortless user experience.", 
+      "endHourString": "14:35", 
+      "endTimestamp": 1399379700, 
+      "id": 27754, 
       "person_ids": [
-        17561
+        27690
       ], 
-      "session_id": 3641, 
-      "startHourClockFile": "19-00.png", 
-      "startHourString": "19:00", 
-      "startTimestamp": 1399309200, 
-      "title": "Investment lab @ Startupbootcamp Berlin (Rainmaking Loft, Charlottenstr 2)", 
-      "type": "Start-up Pitch"
-    }, 
-    "27712": {
-      "description": "Digitalization and interconnectedness increasingly put established business models to the test and force companies to take action. As a result, more than half of German businesses expect rising competition from other industry sectors by 2020. These are results from the 2013 KPMG survey \u201cSurvival of the Smartest\u201d among 350 management boards and chief executives.<br><br>\r\nMarc Ennemann, Partner at KPMG and in charge of the company\u2019s Digital Transformation practice, will summarize main results and insights from the study and demonstrate the disruptive methodologies of KPMG\u2019s solution \u201cBusiness Model Reengineering\u201d.", 
-      "endHourString": "11:00", 
-      "endTimestamp": 1399366800, 
-      "id": 27712, 
-      "person_ids": [
-        27710
-      ], 
-      "session_id": 3645, 
-      "startHourClockFile": "09-30.png", 
-      "startHourString": "09:30", 
-      "startTimestamp": 1399361400, 
-      "title": "Digital revolution and disruptive methodologies for business model reengineering", 
-      "type": "Workshop"
+      "session_id": 3560, 
+      "startHourClockFile": "14-25.png", 
+      "startHourString": "14:25", 
+      "startTimestamp": 1399379100, 
+      "title": "Effortless Interaction using eye tracking"
     }
   }, 
   "persons": {
-    "476": {
-      "bio": "Marc Dr\u00fcner is Managing Director and founder of trommsdorff + dr\u00fcner. After completion of his studies in Industrial Engineering in Berlin (1992) followed by his doctorate, he worked as a Strategic Consultant for Roland Berger until the foundation of trommsdorff + dr\u00fcner. He is the chair of Marketing and Innovation Management at Steinbeis University Berlin, the biggest German private university. He has been consulting companies from different industries since 15 years. Marc Dr\u00fcner is active on several advisory boards and committees and regularly publishes on innovation marketing and media.", 
-      "blogName": "td-berlin.com", 
-      "blogUrl": "http://td-berlin.com/de/blog-de", 
-      "companyName": "trommsdorff+dr\u00fcner, innovation+marketing Consultants", 
-      "companyRole": "Managing Director", 
-      "companyUrl": "http://www.td-berlin.com", 
-      "event_ids": [
-        768
-      ], 
-      "id": 476, 
-      "name": "Prof. Dr. Marc Dr\u00fcner", 
-      "profileLinkedin": "http://www.linkedin.com/profile/view?id=10192796&locale=en_US&trk=tyah&trkInfo=tas%3Amarc%20dr%2Cidx%3A1-1-1", 
-      "profileLinkedinHandle": 10192796, 
-      "profileXing": "http://www.xing.com/profile/Marc_Druener", 
-      "profileXingHandle": "Marc_Druener", 
-      "sort_name": "Dr\u00fcner, Prof. Dr. Marc"
-    }, 
-    "6600": {
-      "bio": "Lee Bryant co-founded the pioneering social consultancy Headshift in 2002 to focus on the emerging area of social software, and since then he has become a leading writer and practitioner in the field of social technology and its role in organisational development. Lee has a strong belief in the empowering potential of the Internet, and a commitment to the development of an international knowledge-based society that can transcend cultural and economic barriers.\r\n\r\nIn 2013, Lee and his core team founded a new venture, POST*SHIFT, dedicated to building 21st Century businesses based on social and digital principles and new thinking on organisational structure and culture. POST*SHIFT works with European startups but also with large enterprises that are committed to becoming more agile and competitive in the digital economy.", 
-      "blogName": "postshift.com", 
-      "blogUrl": "http://postshift.com/blog/", 
-      "companyName": "POST*SHIFT", 
-      "companyRole": "MD Europe", 
-      "companyUrl": "http://postshift.com", 
-      "event_ids": [
-        27354
-      ], 
-      "id": 6600, 
-      "name": "Lee Bryant", 
-      "profileFacebook": "http://www.facebook.com/iamleebryant", 
-      "profileLinkedin": "http://uk.linkedin.com/in/leebryant", 
-      "profileTwitter": "http://twitter.com/leebryant", 
-      "profileTwitterHandle": "@leebryant", 
-      "sort_name": "Bryant, Lee"
-    }, 
-    "6606": {
-      "bio": "Laurent Burdin is Managing Director of SinnerSchrader Mobile in Berlin. He joined Germany's leading digital agency SinnerSchrader in 2007 where he forged a strong experience in bringing Marketing and New Technology together.\r\n\u201cMobile is not a hype any longer but serious business: it changes consumers' habits and whole industries. Building Brand and service portfolios in Mobile is key\u201c is Laurent\r\nBurdin\u2019s conviction and wake-up call. \r\nBurdin built up his marketing career in France and Germany at\r\nadvertising agencies like Springer & Jacoby and Euro RSCG. He holds an ESCP Europe business school degree.", 
-      "companyName": "SinnerSchrader Mobile", 
-      "companyRole": "CEO", 
-      "companyUrl": "http://www.sinnerschrader-mobile.com/", 
-      "event_ids": [
-        27575
-      ], 
-      "id": 6606, 
-      "name": "Laurent Burdin", 
-      "profileLinkedin": "http://de.linkedin.com/in/burdin", 
-      "profileTwitter": "http://twitter.com/laurentburdin", 
-      "profileTwitterHandle": "@laurentburdin", 
-      "sort_name": "Burdin, Laurent"
-    }, 
     "6735": {
       "bio": "Louisa is passionate about making connections for humans, . Her company, Superhuman Limited, works with startups, established businesses and governments to design strategies, products, services and organisational structures that use digital technology to improve individual lives, make a positive contribution to society, and achieve sustainable commercial results. \r\n\r\nOver the past 20 years, Louisa has worked with a broad variety of clients across most industry sectors, including Nokia, Volksbank, Ericsson, Voddler, Procter & Gamble, Eli Lilly, Citibank, United Airlines and the BBC. She's led teams for multinational companies and is a highly regarded thought leader and speaker on various topics around the intersection of people, technology and business.", 
       "blogName": "louisaheinrich.com", 
@@ -1285,29 +524,10 @@
       "id": 6735, 
       "name": "Louisa Heinrich", 
       "profileLinkedin": "http://uk.linkedin.com/in/louisaheinrich/", 
+      "profileLinkedinHandle": 2153890, 
       "profileTwitter": "http://twitter.com/customdeluxe", 
       "profileTwitterHandle": "@customdeluxe", 
       "sort_name": "Heinrich, Louisa"
-    }, 
-    "6759": {
-      "bio": "Currently, Paul is running Liquid Labs GmbH in Hamburg, Germany. It's an innovation lab building early-stage companies in the financial tech and financial services space. Previously, he was a managing partner at Neuhaus Partners from 2006 to 2012. He joined that private fund from SAP AG, where he managed SAP\u2019s Corporate Venture fund in Europe from 2000 onwards. Paul was named to head of SAP Ventures Europe in 2001. From 1998 to 2000, Paul led the European business development initiative of Davis Polk & Wardwell, a leading global law firm. Previously, he worked at Andersen Consulting where he focused on the software, telecommunications and public utilities sectors. Initially, he helped to grow an early stage business in real estate financing and consulting with offices in Luebeck, Berlin, and Dresden, Germany.\r\nPaul is both a U.S. and Slovak national.", 
-      "blogName": "jozefak.com", 
-      "blogUrl": "http://www.jozefak.com", 
-      "companyName": "Liquid Labs", 
-      "companyRole": "Managing Partner", 
-      "companyUrl": "http://www.liquidlabs.de", 
-      "event_ids": [
-        27576
-      ], 
-      "id": 6759, 
-      "name": "Paul Jozefak", 
-      "profileLinkedin": "http://www.linkedin.com/profile/view?id=3613499&locale=en_US&trk=tyah&trkInfo=tarId%3A1396889076961%2Ctas%3Apaul%2Cidx%3A1-1-1", 
-      "profileLinkedinHandle": 3613499, 
-      "profileTwitter": "http://twitter.com/pjozefak", 
-      "profileTwitterHandle": "@pjozefak", 
-      "profileXing": "http://www.xing.com/profile/Paul_Jozefak;key=0.0", 
-      "profileXingHandle": "Paul_Jozefak;key=0.0", 
-      "sort_name": "Jozefak, Paul"
     }, 
     "6893": {
       "bio": "Matthias Schrader is CEO of <a href=\"http://sinnerschrader.de/\" target=\"_blank\">SinnerSchrader</a>, one of Europe\u2019s leading digital agency groups. Since the early 80\u2032s he has specialised in the world of technology and Internet. During this time, the IT industry has experienced much change and development, which Matthias excitingly witnessed and experienced himself.\r\n\r\nThis fast growing industry so inspired and captivated him that, in conjunction with Oliver Sinner, he founded SinnerSchrader in 1996.   \r\n\r\nSince 2006 Matthias has been Chairman of the annual NEXT event, which is the leading networking platform and foremost Internet conference of the digital scene in Europe.", 
@@ -1336,29 +556,10 @@
       "id": 6970, 
       "name": "Monique van Dusseldorp", 
       "profileLinkedin": "http://www.linkedin.com/in/vandusseldorp", 
+      "profileLinkedinHandle": 49642, 
       "profileTwitter": "http://twitter.com/dusseldorp", 
       "profileTwitterHandle": "@dusseldorp", 
       "sort_name": "van Dusseldorp, Monique"
-    }, 
-    "9440": {
-      "bio": "Claudia is founder and CEO of DaWanda, the online marketplace for unique and handmade items. She studied Romance Languages and Tourism at LMU Munich, then worked as Head of Operations at lastminute.com. This was followed by a Business Development role at Passado, where she met Michael P\u00fctz. In December 2006, they founded DaWanda together in Berlin. Today, the company has employees from 16 different countries. The website is available in German, English, French, Italian, Spanish, Dutch and Polish. DaWanda is one of the most popular trading companies in Germany, it was ranked fourth on the \"Proposition Index 2012\" by strategy consulting company OC&C. The German-language Startup Monitor of ethority GmbH & Co. KG has found DaWanda to be the most popular startup selected by internet users on several different occasions.", 
-      "blogName": "blog.dawanda.com", 
-      "blogUrl": "http://blog.dawanda.com/", 
-      "companyName": "DaWanda", 
-      "companyRole": "CEO & Co-Founder", 
-      "companyUrl": "http://www.dawanda.com/", 
-      "event_ids": [
-        27542
-      ], 
-      "id": 9440, 
-      "name": "Claudia Helming", 
-      "profileFacebook": "http://www.facebook.com/dawanda.de?fref=ts", 
-      "profileLinkedin": "http://de.linkedin.com/pub/claudia-helming/0/6a/b32", 
-      "profileTwitter": "http://twitter.com/dawanda_DE", 
-      "profileTwitterHandle": "@dawanda_DE", 
-      "profileXing": "http://www.xing.com/profile/Claudia_Helming", 
-      "profileXingHandle": "Claudia_Helming", 
-      "sort_name": "Helming, Claudia"
     }, 
     "10663": {
       "bio": "Uli Hegge (born '66) started, while attending Law School in Muenster, in 1991 \"DaWIN\", back then one of the biggest European Internet projects with the German Scientific Network DFN, and founded with other partners the computer trade magazine \"UpToDate\" (80,000 circulation). After finishing his law studies he was co-responsible for setting up online activities with both the German newspaper \u201cSchweriner Zeitung\u201d (Burda) in 1994 and with Gruner & Jahr from 1995, starting stern.de and conceptualizing Fireball (leading German Web search engine, became part of Lycos Europe). In 1997 he was appointed member of Management Board at G+J EMS. In 1998 Hegge co-founded and lead e-dict (eCommerce entertainment applications) as Managing Partner. In 1999 he co-founded wunderloop and headed the company as CEO until 2008. At the time of his departure wunderloop was the European market leader for online marketing targeting technologies (wunderloop was sold to AudienceScience in 2010). He continued his career as Managing Director of Hubert Burda Media\u2019s \"Media Innovation Lab\" and \"Burda Information Services\" until 2010.\r\n\r\nHe's currently busy on an international level helping start-ups to grow as quickly as possible, and occasionally established companies developing their digital products & services.", 
@@ -1371,6 +572,7 @@
       "id": 10663, 
       "name": "Ulrich Hegge", 
       "profileFacebook": "http://www.facebook.com/uhegge", 
+      "profileFacebookHandle": 1016416742, 
       "profileTwitter": "http://twitter.com/ulihegge", 
       "profileTwitterHandle": "@ulihegge", 
       "profileXing": "http://www.xing.com/profile/Ulrich_Hegge?key=0.0", 
@@ -1383,118 +585,20 @@
       "companyRole": "Founder & CEO", 
       "companyUrl": "http://www.sensorberg.com/de/", 
       "event_ids": [
+        27913, 
         27280
       ], 
       "id": 11096, 
       "name": "Alex Oelling", 
       "profileFacebook": "http://www.facebook.com/alexoelling", 
+      "profileFacebookHandle": 557082895, 
       "profileLinkedin": "http://de.linkedin.com/in/alexanderoelling", 
+      "profileLinkedinHandle": 10847239, 
       "profileTwitter": "http://twitter.com/alexoelling", 
       "profileTwitterHandle": "@alexoelling", 
       "profileXing": "http://www.xing.com/profile/Alexander_Oelling", 
       "profileXingHandle": "Alexander_Oelling", 
       "sort_name": "Oelling, Alex"
-    }, 
-    "11773": {
-      "bio": "Torsten Ahlers was born in 1965 in Bremen, Germany. Until 1994 he studied Business Administation and graduated in Marketing, Law and Psychology at University of Hamburg. After graduation, he started as a trainee for Axel Springer in Hamburg and worked in the Strategy Department until 1997. From 1997 to 1999 we worked as a Project Manager Online Sales for Gruner + Jahr and became in 1999 Managing Director of Tomorrow Focus Media Sales. At Tomorrow Focus he built up an entire Media Sales Organization. In 2004, Torsten started at AOL Germany as Sales Director and was promoted on a yearly base and ended as President of AOL Germany. The editorial and Sales Team reported to him.\r\n\r\n2008 he started as CEO for wunderloop and sold the company to AudienceScience in 2010. In 2010 he was selected as the 4th most innovative Digital Manager from Werben und Verkaufen. From 2011 he is Speaker and Managing Director of NEXT AUDIENCE, a SinnerSchrader company.", 
-      "companyName": "NEXT AUDIENCE", 
-      "companyRole": "CEO", 
-      "companyUrl": "http://www.next-audience.com", 
-      "event_ids": [
-        27402
-      ], 
-      "id": 11773, 
-      "name": "Torsten Ahlers", 
-      "sort_name": "Ahlers, Torsten"
-    }, 
-    "15592": {
-      "bio": "Martin is a brand and user experience consultant. He works as a senior user experience designer at Nokia. Prior to this he served clients of various industries at FutureBrand in Buenos Aires and Thomas Manss & Company in both London and Berlin. He has a background in product, interaction and communication design as well as user-centred innovation. Martin is a co-founder of Service Design Berlin, where he connects people interested in service innovation and facilitates knowledge sharing. Besides, he contributes to bxp, a resource documenting exceptional brand interactions.", 
-      "companyName": "Nokia & Service Design Berlin", 
-      "companyRole": "Senior User Experience Designer", 
-      "companyUrl": "http://www.service-design-berlin.de", 
-      "event_ids": [
-        26645
-      ], 
-      "id": 15592, 
-      "name": "Martin Jordan", 
-      "profileFacebook": "http://www.facebook.com/martinjordan.de", 
-      "profileLinkedin": "http://www.linkedin.com/in/martinjordan", 
-      "profileTwitter": "http://twitter.com/Martin_Jordan", 
-      "profileTwitterHandle": "@Martin_Jordan", 
-      "profileXing": "http://www.xing.com/profile/Martin_Jordan3", 
-      "profileXingHandle": "Martin_Jordan3", 
-      "sort_name": "Jordan, Martin"
-    }, 
-    "15839": {
-      "bio": "Reto is the founder and design director of IxDS, responsible for the overall design strategy. He is also a Professor for \"Interaction Design\" at the University of Applied Sciences in Potsdam. Reto has previously worked as an Associate Professor with the Interaction Design Institute in Ivrea, and as a designer/researcher with Sony in Tokyo and Ideo in San Francisco. He studied Industrial Design at UdK Berlin and Mechanical Engineering at TU Berlin. Prior to his studies, Reto had an apprenticeship as a stonemason in Southern Germany.", 
-      "companyName": "IXDS", 
-      "companyRole": "Founder and Design Director", 
-      "companyUrl": "http://www.ixds.com", 
-      "event_ids": [
-        27576
-      ], 
-      "id": 15839, 
-      "name": "Reto Wettach", 
-      "profileFacebook": "http://www.facebook.com/reto.wettach.3", 
-      "profileLinkedin": "http://www.linkedin.com/profile/view?id=28662", 
-      "profileLinkedinHandle": 28662, 
-      "profileTwitter": "http://twitter.com/IXDSberlin", 
-      "profileTwitterHandle": "@IXDSberlin", 
-      "profileXing": "http://www.xing.com/profile/Reto_Wettach", 
-      "profileXingHandle": "Reto_Wettach", 
-      "sort_name": "Wettach, Reto"
-    }, 
-    "17406": {
-      "bio": "Founder of Geekettes, an organization that unites women in order to foster and create opportunities for burgeoning female entrepreneurs, engineers and designers in Berlin, Hamburg, NYC, London, Portugal, Twin Cities and Maastricht. Geekettes has recently gone full-time as of September 2013 in its new partnership with Deutsche Telekom and Sony.", 
-      "blogName": "jesserickson.me", 
-      "blogUrl": "http://www.jesserickson.me", 
-      "companyName": "Geekettes", 
-      "companyRole": "Founder", 
-      "companyUrl": "http://www.geekettes.io", 
-      "event_ids": [
-        27534
-      ], 
-      "id": 17406, 
-      "name": "Jess Erickson", 
-      "profileFacebook": "http://www.facebook.com/jess.erickson2", 
-      "profileLinkedin": "http://www.linkedin.com/in/jesserickson", 
-      "profileTwitter": "http://twitter.com/jessjerickson", 
-      "profileTwitterHandle": "@jessjerickson", 
-      "sort_name": "Erickson, Jess"
-    }, 
-    "17561": {
-      "bio": "Co-founder of Startupbootcamp, ran 2 programmes in Copenhagen, 1 in Berlin and led expansion across Europe. Has mentored 100+ Startups, heard 500+ pitches and read 1000+ applications.Partner at Rainmaking, 10 startups in portfolio. Previously senior manager at DHL Worldwide, managed \u20ac400M\r\nbudget with line responsibility for 1000 people. After his son and him got cancer in the same year, he decided that life is too short to do something you don't enjoy. Started Startupbootcamp a year later.", 
-      "companyName": "Startupbootcamp", 
-      "companyRole": "CEO", 
-      "companyUrl": "http://www.startupbootcamp.org", 
-      "event_ids": [
-        27666, 
-        27542
-      ], 
-      "id": 17561, 
-      "name": "Alex Farcet", 
-      "profileTwitter": "http://twitter.com/alexfarcet", 
-      "profileTwitterHandle": "@alexfarcet", 
-      "sort_name": "Farcet, Alex"
-    }, 
-    "17580": {
-      "bio": "As a head of content & conferences of Kongress Media Bjoern is both an active member as well as organizer and moderator of the European discussions around the ideas of future of work and collaboration within the enterprise. As a business analyst he helps companies to embrace the new forms of collaboration, leadership and management.", 
-      "blogName": "enterprise20blog.com", 
-      "blogUrl": "http://enterprise20blog.com", 
-      "companyName": "Kongress Media / N-Sight Research", 
-      "companyRole": "Head of Content / Senior Analyst", 
-      "companyUrl": "http://www.kongressmedia.de", 
-      "event_ids": [
-        27354
-      ], 
-      "id": 17580, 
-      "name": "Bj\u00f6rn Negelmann", 
-      "profileFacebook": "http://www.facebook.com/bnegelmann", 
-      "profileTwitter": "http://twitter.com/bjoern_n", 
-      "profileTwitterHandle": "@bjoern_n", 
-      "profileXing": "http://www.xing.com/profile/Bjoern_Negelmann", 
-      "profileXingHandle": "Bjoern_Negelmann", 
-      "sort_name": "Negelmann, Bj\u00f6rn"
     }, 
     "17913": {
       "bio": "Jochen Wegner is Editor-in-Chief of ZEIT ONLINE, one of the leading German news sites. \r\n\r\nBefore that, Jochen worked as a consultant for major media companies. He has been been editor-in-chief of the news site focus.de and developed it into one of the largest and fastest growing news outlets in Germany. \r\n\r\nAs Managing Director of TOMORROW FOCUS Media, the largest digital advertising firm in Germany, he was responsible for innovative media projects like the aggregator nachrichten.de. He founded mag10, an ecosystem for the creation, distribution and marketing of tablet media.\r\n\r\nJochen founded jonet, the largest German-speaking journalism community, in 1994.", 
@@ -1507,7 +611,9 @@
       "id": 17913, 
       "name": "Jochen Wegner", 
       "profileFacebook": "http://www.facebook.com/jochen.wegner", 
+      "profileFacebookHandle": 633931699, 
       "profileLinkedin": "http://www.linkedin.com/in/jochenwegner", 
+      "profileLinkedinHandle": 982988, 
       "profileTwitter": "http://twitter.com/jochenjochen", 
       "profileTwitterHandle": "@jochenjochen", 
       "profileXing": "http://www.xing.com/profile/Jochen_Wegner2", 
@@ -1527,6 +633,7 @@
       "id": 19385, 
       "name": "Christian Deilmann", 
       "profileFacebook": "http://www.facebook.com/christian.deilmann", 
+      "profileFacebookHandle": 533899348, 
       "profileLinkedin": "http://www.linkedin.com/profile/view?id=24493971&trk=hb_tab_pro_top", 
       "profileLinkedinHandle": 24493971, 
       "profileTwitter": "http://twitter.com/tado", 
@@ -1534,81 +641,6 @@
       "profileXing": "http://www.xing.com/profile/Christian_Deilmann?sc_o=mxb_p", 
       "profileXingHandle": "Christian_Deilmann", 
       "sort_name": "Deilmann, Christian"
-    }, 
-    "19641": {
-      "bio": "Matt Cooper, the Vice President of International & Enterprise at oDesk, circles the globe speaking to companies and professionals on talent management and the future of work. He has spoken at TechWeek, eAsia and Startup Weekend New York, and has been featured in The New York Times, Staffing Industry Analysts\u2019 blog, and on Good Morning America. Prior to oDesk, as a member of the executive team at Accolo, Inc. \u2014 a recruiting services and technology firm \u2014 he grew the business from one employee into one of the top 50 companies on the Inc 500 list. He also co-founded a boutique strategic consulting firm for ramping early-stage companies, and started his career in investment banking at JPMorgan. Matt holds an MBA and a B.S. degree in Economics, both from Vanderbilt University.", 
-      "blogName": "odesk.com", 
-      "blogUrl": "http://www.odesk.com/blog/", 
-      "companyName": "oDesk", 
-      "companyRole": "Vice President, International & Enterprise", 
-      "companyUrl": "http://www.odesk.com/", 
-      "event_ids": [
-        27534
-      ], 
-      "id": 19641, 
-      "name": "Matt Cooper", 
-      "profileLinkedin": "http://www.linkedIn.com/in/cooperm", 
-      "profileTwitter": "http://twitter.com/matt_cooper", 
-      "profileTwitterHandle": "@matt_cooper", 
-      "sort_name": "Cooper, Matt"
-    }, 
-    "21132": {
-      "bio": "I am an active member at the \"Digital Club Franco- Allemand\", and myself working as a Mobile Product Manager at BlaBlaCar. Before that I worked as an independent French-German Business Developer for several French and German companies.\r\n\r\nI therefore believe that we should work much more together and take advantage of Europe to build together a strong digital network between our countries.", 
-      "companyName": "Digital Club Franco Allemand (DCFA)", 
-      "companyRole": "Active member at the DCFA", 
-      "companyUrl": "http://digitalclubfrancoallemand.com/", 
-      "event_ids": [
-        27515
-      ], 
-      "id": 21132, 
-      "name": "Theophil Haberstroh", 
-      "profileLinkedin": "http://www.linkedin.com/in/theophilhaberstroh", 
-      "sort_name": "Haberstroh, Theophil"
-    }, 
-    "21172": {
-      "bio": "Wolfgang Krause joined Seventure Partners in 2008. He is in charge of sourcing, and managing Seventure\u2019s ICT portfolio in Germany.Wolfgang is based in Munich.\r\nOver the last 15 years, Wolfgang worked in the information and telecom industry, both in business development functions and as an early stage investor. He was a partner at TeleSoft Partners a Silicon Valley based VC fund, a partner at Deutsche Venture Capital (Munich) and Altos Advisors (Munich). During this time he was a board member at Apertio (sold to Nokia Siemens Network), Sigma-C (sold to Synopsis) and LASOR AG (sold to ISRA AG).\r\nWolfgang started his career at Mannesmann Telecommunication with different operational roles in Germany (Mannesmann Eurokom) and France (Cegetel(SFR). Wolfgang holds a MBA and PhD degree from Universi", 
-      "companyName": "Seventure Partners", 
-      "companyRole": "Partner", 
-      "companyUrl": "http://www.seventure.de", 
-      "event_ids": [
-        27512
-      ], 
-      "id": 21172, 
-      "name": "Wolfgang Krause", 
-      "sort_name": "Krause, Wolfgang"
-    }, 
-    "21174": {
-      "bio": "Yann is the founding CEO of Mutual Benefits, strategic advisory network dedicated to digital economy players.\r\n\r\nHe personally advised 50+ startups CEOs and VCs since 2002 including SecondMarket, FON, XING, Plista, Babbel, DaWanda, Pay-ON, Blacksocks, Swisscom and Statigram.\r\n\r\nHe is always kind to offer business and life coaching to talented geeks, artists and activists and is volunteering on several initiatives such as Astia, Innotribe and Ethires. This year he is also Advisor to GP Bullhound for the organsation of GPBUllhoundSummit.com in Paris May 14/15.\r\n\r\nPrior to that, Yann co-founded Club-Internet in 1995 (ISP sold to T-Online), managed the operations of Studio Grolier (web agency) until 1999, MD Europe of NewsAlert CEO Asia Pacific of Inlumen (CMS sold to Dow Jones in 2004).\r\n\r\nYann, a French citizen, lives in Paris and practices Yoga and Fooding.", 
-      "companyName": "MutualBenefits.net", 
-      "companyRole": "CEO", 
-      "companyUrl": "http://www.mutualbenfits.net", 
-      "event_ids": [
-        27572, 
-        27512
-      ], 
-      "id": 21174, 
-      "name": "Yann Mauchamp", 
-      "profileLinkedin": "http://www.linkedin.com/in/yannmauchamp", 
-      "profileTwitter": "http://twitter.com/mbenefits", 
-      "profileTwitterHandle": "@mbenefits", 
-      "profileXing": "http://www.xing.com/profile/Yann_Mauchamp", 
-      "profileXingHandle": "Yann_Mauchamp", 
-      "sort_name": "Mauchamp, Yann"
-    }, 
-    "21177": {
-      "bio": "Nicolas Celier is a partner at Alven Capital Partners, the French early stage Venture Capital firm specializing in information technology and internet ventures. [He led Alven Capital\u2019s investments in Qosmos, Ercom, Mention.net, TextMaster, Gemmyo, MyFab, Splendia, Monshowroom, Smallable, Happy View, Liligo, Commerce Guys and Socloz.]\r\nHe started his career at Paribas M&A Department in France and in Hong Kong. In 1999, he sailed 14,0000 miles between Hong Kong and Brittany on a 40 ft sailing yacht. In 2000, he cofounded Cr\u00e9dit Lyonnais Venture Capital.\r\nNicolas graduated from HEC, Paris and holds a CEMS master's degree from Luigi Bocconi University in Milan. \r\nNicolas is also co-founder and Chairman of the Investment Committee of Investir&+, a French Social Impact Venture Capital Fund financing and supporting social entrepreneurs, and Board Member of France Digitale, the French startup & venture capital association.", 
-      "companyName": "Alven Capital", 
-      "companyRole": "Partner", 
-      "companyUrl": "", 
-      "event_ids": [
-        27512
-      ], 
-      "id": 21177, 
-      "name": "Nicolas Celier", 
-      "profileLinkedin": "http://fr.linkedin.com/pub/nicolas-celier/0/a24/393/", 
-      "profileTwitter": "http://twitter.com/nicocelier", 
-      "profileTwitterHandle": "@nicocelier", 
-      "sort_name": "Celier, Nicolas"
     }, 
     "22339": {
       "bio": "Fabian Hemmert is a design researcher, born and raised in Germany. During his studies towards an M.A. degree in Interface Design, he worked for Nintendo of Europe and Marvel Comics.\r\n\r\nHe currently finishes his PhD at the the Design Research Lab at the Berlin University of the Arts and is a guest professor for interface design at Muthesius Kunsthochschule in Kiel, Germany.\r\n\r\nFabian is considered one of the leading experts for new ways of mobile telecommunication, having presented his work at multiple visionary events, including TED Global, CeBIT, TEDxBerlin, TEDxSalzburg, Lift Conference, the EuroVision TV Summit, the Chaos Communication Congress, and SXSW.\r\n\r\nFabian's TED talk on mobile phones of the future has been viewed more than 700.000 times and translated into 29 languages. It can be watched here: http://on.ted.com/9Czr\r\n\r\nFurther information: http://www.fabianhemmert.com", 
@@ -1623,6 +655,7 @@
       "id": 22339, 
       "name": "Fabian Hemmert", 
       "profileFacebook": "http://www.facebook.com/fabianhemmert", 
+      "profileFacebookHandle": 629894509, 
       "profileLinkedin": "http://www.linkedin.com/profile/view?id=11691037", 
       "profileLinkedinHandle": 11691037, 
       "profileTwitter": "http://www.twitter.com/fabianhemmert", 
@@ -1632,7 +665,7 @@
       "sort_name": "Hemmert, Fabian"
     }, 
     "24350": {
-      "bio": "Since May 2013 Nils Wollny has been working as Managing Director Strategy for SinnerSchrader. In the six years before he was working for thjnk (former kempertrautmann). As Managing Director Strategy and Executive Partner for the multichannel branch kempertrautmann change he supervised brands like Audi, BRAX, comdirect, Commerzbank, IKEA und Paulaner. Nils Wollny is an expert for brands and communication.\r\n", 
+      "bio": "Nils Wollny is Managing Director Strategy at SinnerSchrader. Nils holds a degree in Foreign Trade and International Management and has an extensive experience in brand and communications strategy. He helps companies from a variety of industries to innovate and digitize.", 
       "companyName": "SinnerSchrader", 
       "companyRole": "Managing Director Strategy", 
       "companyUrl": "http://www.sinnerschrader.com", 
@@ -1670,6 +703,7 @@
       "id": 26021, 
       "name": "Thomas Bendig", 
       "profileLinkedin": "http://www.linkedin.com/pub/thomas-bendig/51/798/6a9", 
+      "profileLinkedinHandle": 184088289, 
       "profileTwitter": "http://twitter.com/ThBendig", 
       "profileTwitterHandle": "@ThBendig", 
       "profileXing": "http://www.xing.com/profile/Thomas_Bendig", 
@@ -1689,6 +723,7 @@
       "id": 26038, 
       "name": "Scott Smith", 
       "profileLinkedin": "http://www.linkedin.com/in/cssmith/", 
+      "profileLinkedinHandle": 16970, 
       "profileTwitter": "http://twitter.com/changeist", 
       "profileTwitterHandle": "@changeist", 
       "sort_name": "Smith, Scott"
@@ -1720,6 +755,7 @@
       "id": 26066, 
       "name": "Tanya Vlach", 
       "profileLinkedin": "http://www.linkedin.com/in/tanyavlach", 
+      "profileLinkedinHandle": 12147640, 
       "profileTwitter": "http://twitter.com/tanyavlach", 
       "profileTwitterHandle": "@tanyavlach", 
       "sort_name": "Vlach, Tanya"
@@ -1739,58 +775,6 @@
       "profileTwitter": "http://twitter.com/basvanabel", 
       "profileTwitterHandle": "@basvanabel", 
       "sort_name": "van Abel, Bas"
-    }, 
-    "26110": {
-      "bio": "Philipp is responsible for all things Europe at AngelList. He\u2019s helping startups to connect to the best investors, and to hire talent through the platform.\r\nPreviously he was a Principal at Seedcamp, Europe\u2019s premier startup accelerator, and a VC at DuMont Venture. As such, he\u2019s been involved in the funding and growth of more than 120 technology startups across all of Europe, and has gained deep insights into the challenges founders face when building fast growing businesses.", 
-      "companyName": "AngelList", 
-      "companyRole": null, 
-      "companyUrl": "http://Angel.co", 
-      "event_ids": [
-        27536
-      ], 
-      "id": 26110, 
-      "name": "Philipp M\u00f6hring", 
-      "profileLinkedin": "http://linkedin.com/in/moehring", 
-      "profileTwitter": "http://twitter.com/pmoe", 
-      "profileTwitterHandle": "@pmoe", 
-      "sort_name": "M\u00f6hring, Philipp"
-    }, 
-    "26113": {
-      "bio": "Shira Abel is the CEO of Hunter & Bard - a full-service marketing, design and development agency for startups, intrapreneurship, and tech enterprises. Shira is a thought leader and a sought-after speaker in the startup marketing space and is regularly invited to  judge at start-up conferences throughout Europe. She also teaches Marketing for Startups at Tel Aviv/Jaffa Academic College and mentors at several accelerators. MBA from Kellogg School of Management.", 
-      "blogName": "medium.com", 
-      "blogUrl": "http://medium.com/@shiraabel", 
-      "companyName": "Hunter & Bard", 
-      "companyRole": "CEO", 
-      "companyUrl": "http://www.hunterandbard.com", 
-      "event_ids": [
-        27536
-      ], 
-      "id": 26113, 
-      "name": "Shira Abel", 
-      "profileFacebook": "http://www.facebook.com/shira.abel", 
-      "profileLinkedin": "http://www.linkedin.com/in/shiraabel/", 
-      "profileTwitter": "http://www.twitter.com/shiraabel", 
-      "profileTwitterHandle": "@shiraabel", 
-      "sort_name": "Abel, Shira"
-    }, 
-    "26147": {
-      "bio": "Christian Vatter is a brand experience consultant and a marketing psychologist. One of his specialty lies in shaping the relationship between user and brand by applying principles of service design to brand management. As a partner of the Berlin-based marketing and innovation company LHBS he develops brands, products & services, experiences and organizational excellence through knowledge, strategies and actionable ideas.", 
-      "blogName": "brandexperiencedesign.net", 
-      "blogUrl": "http://www.brandexperiencedesign.net", 
-      "companyName": "LHBS Consulting", 
-      "companyRole": "Brand Experience Consultant", 
-      "companyUrl": "http://www.lhbs.com", 
-      "event_ids": [
-        26645
-      ], 
-      "id": 26147, 
-      "name": "Christian Vatter", 
-      "profileLinkedin": "http://www.linkedin.com/in/christianvatter", 
-      "profileTwitter": "http://twitter.com/cvatterberlin", 
-      "profileTwitterHandle": "@cvatterberlin", 
-      "profileXing": "http://www.xing.com/profile/Christian_Vatter", 
-      "profileXingHandle": "Christian_Vatter", 
-      "sort_name": "Vatter, Christian"
     }, 
     "26262": {
       "bio": "Brad Templeton is board member of the Electronic Frontier Foundation, a director of the Singularity University faculty and has been a consultant on Google\u2019s team designing a self-driving car. Templeton, active in the computer network community since 1979, was founder and publisher at ClariNet Communications Corp., the electronic newspaper that was perhaps the earliest dot-com company. Additionally he is software architect and internet entrepreneur, futurist lecturer, hobby photographer and an artist.", 
@@ -1817,6 +801,7 @@
       "id": 26273, 
       "name": "Peter Hinssen", 
       "profileLinkedin": "http://www.linkedin.com/in/phinssen", 
+      "profileLinkedinHandle": 52906, 
       "profileTwitter": "http://twitter.com/hinssen", 
       "profileTwitterHandle": "@hinssen", 
       "sort_name": "Hinssen, Peter"
@@ -1836,41 +821,6 @@
       "profileTwitter": "http://twitter.com/mikko", 
       "profileTwitterHandle": "@mikko", 
       "sort_name": "Hypponen, Mikko"
-    }, 
-    "26313": {
-      "bio": "I opened Blonde 2.0 back in 2006 when social media was still in its infancy.\r\nSince then, Blonde 2.0 has become a 23 person company helping 40+ companies as large as: HP, Applied Materials, Microsoft, AIG, PWC and as small as startups such as: Viber, Mobli, Glide, and uTest,  to socialize their brands, engage with consumers, receive coverage in new media publications, and create a consistent buzz on the Web keeping them at users' TOM (top of mind) all the time.\r\n\r\nSpecifically for the startups I work with both in Israel and Europe, I act as a diplomat, enabling them to get the exposure they deserve, the connections they need, and the business opportunities they require in order to have the same equal chance as startups located in Silicon Valley or New York City.", 
-      "blogName": "blonde20.com", 
-      "blogUrl": "http://www.blonde20.com/blog", 
-      "companyName": "Blonde 2.0", 
-      "companyRole": "Founder and Co-CEO", 
-      "companyUrl": "http://www.blonde20.com/", 
-      "event_ids": [
-        27519, 
-        27543
-      ], 
-      "id": 26313, 
-      "name": "Ayelet Noff", 
-      "profileFacebook": "http://www.facebook.com/ayelet", 
-      "profileLinkedin": "http://www.linkedin.com/in/ayelet", 
-      "profileTwitter": "http://twitter.com/ayeletnoff", 
-      "profileTwitterHandle": "@ayeletnoff", 
-      "sort_name": "Noff, Ayelet"
-    }, 
-    "26395": {
-      "bio": "Based in Stockholm, Sweden Oskar co-founded Narrative in 2012. Initially called Memoto, Narrative combines the potentials of wearable technology with the power of social media driven photo sharing to offer users a true photographic memory. Oskar leads the company's Stockholm team and drives marketing and branding, a keystone in the company that is pushing boundaries for how we integrate technology in our everyday life. \r\n\r\nPreviously, Oskar Kalmaru has worked with PR at a major Swedish agency and founded a number of innovative Scandinavian startups. The main thread in Oskar's life runs through starting, growing and shaping projects large and small.", 
-      "blogName": "about.me", 
-      "blogUrl": "http://about.me/oskarkalmaru", 
-      "companyName": "Narrative", 
-      "companyRole": "Co-founder", 
-      "companyUrl": "http://getnarrative.com", 
-      "event_ids": [
-        26399
-      ], 
-      "id": 26395, 
-      "name": "Oskar Kalmaru", 
-      "profileTwitter": "http://twitter.com/okalmaru", 
-      "profileTwitterHandle": "@okalmaru", 
-      "sort_name": "Kalmaru, Oskar"
     }, 
     "26396": {
       "bio": "Since 2003 Bart Remes is project manager for the micro aerial vehicle lab at the aerospace faculty of the TuDelft. When it began, 11 years ago, nobody believed in the future of this small devices. Now the micro aerial vehicle lab of the TuDelft has a central spot in the activities of the aerospace faculty. The prestigious research done at the lab is unique in the world. It ranges from flapping wing vehicles, to hybrids aerial vehicles as well as the smallest open source autopilot in the world, a 2 by 2 cm device.", 
@@ -1909,70 +859,28 @@
       "id": 26639, 
       "name": "Carlo de Micheli", 
       "profileFacebook": "http://www.facebook.com/osvehicle", 
+      "profileFacebookHandle": 504408636301762, 
       "profileLinkedin": "http://www.linkedin.com/company/osvehicle", 
+      "profileLinkedinHandle": 3494883, 
       "profileTwitter": "http://twitter.com/osvehicle", 
       "profileTwitterHandle": "@osvehicle", 
       "sort_name": "De Micheli, Carlo"
     }, 
-    "26640": {
-      "bio": "Piotr is General Manager CEE responsible for regional expansion of BlaBlaCar. Works with local teams introducing new inter-city transport system that disrupts the way how people travel in countries of the region. Joined BlaBlaCar in fall 2012 after acquisition of local ridesharing platform he co-founded. Before joining BlaBlaCar entepreneur who worked on projects around document processing and B2B marketplaces.", 
-      "companyName": "BlaBlaCar", 
-      "companyRole": "General Manager CEE", 
-      "companyUrl": "http://www.blablacar.com", 
-      "event_ids": [
-        27519
-      ], 
-      "id": 26640, 
-      "name": "Piotr Ja\u015b", 
-      "profileLinkedin": "http://pl.linkedin.com/pub/piotr-jas/1/4aa/71b", 
-      "sort_name": "Ja\u015b, Piotr"
-    }, 
-    "26650": {
-      "bio": "Lisa Lang has a rich history as a digital information technology and new media game changer. She has worked for organizations like Campus Party, Smashing Magazine and SitePoint, and has extensive experience as team leader and event organizer. Lisa is the the European Marketing Manager for Twilio. And she just knows how to throw a good party. \r\n\r\nLisa volunteers for the Berlin Geekettes with sponsorship coordination, networking - especially for the mentorship program.", 
-      "blogName": "tumblr.com", 
-      "blogUrl": "http://www.tumblr.com/blog/lilathoughts", 
-      "companyName": "Twilio", 
-      "companyRole": "European Marketing Manager", 
-      "companyUrl": "http://www.twilio.com/", 
-      "event_ids": [
-        27255
-      ], 
-      "id": 26650, 
-      "name": "Lisa Lang", 
-      "profileLinkedin": "http://de.linkedin.com/in/lilaworks/", 
-      "profileTwitter": "http://twitter.com/lilaineurope", 
-      "profileTwitterHandle": "@lilaineurope", 
-      "sort_name": "Lang, Lisa"
-    }, 
     "26655": {
       "bio": "In 2009, Thomas Spreitzer was appointed Chief Marketing Officer at T-Systems International \r\nGmbH, one of the three biggest European IT Service Providers and part of Deutsche \r\nTelekom. Under his leadership, Marketing has developed into a global centralized \r\norganization characterized by its integrated, sales-oriented marketing approach driving both \r\nefficiencies and impact. \r\n \r\nSpreitzer\u2019s focus on brand management and positioning, tightly integrates both economical \r\nand technological trends, their impact on customers and relevance of ICT solutions. \r\n \r\nPrior to this role he has held different VP positions in Business Development, Strategy and \r\nMarketing at T-Systems. He started his career in Product Management for PC-based Server \r\nat Siemens-Nixdorf in Augsburg (Germany) and Siemens Pyramid in San Jose (USA). In \r\n1999, Spreitzer joined debis IT Services (DaimlerChrysler IT Services) as International Sales \r\nManager responsible for Business Development in Italy and Spain. He graduated with a \r\nmaster degree in International Management at the University of Augsburg and the University \r\nof Modena (Italy). \r\n \r\nSpreitzer has been a recipient of several awards most notably Superbrand Winner in the \r\nCategory IT, best b2b customer magazine, Sales Enablement and customer portal. \r\n \r\nHe is married, has two daughters and is author of several publications regarding ICT trends \r\nand innovations, ICT marketing and change management & communications.", 
+      "blogName": "blogs.t-systems.de", 
+      "blogUrl": "http://blogs.t-systems.de/zerodistance/", 
       "companyName": "T-Systems International", 
-      "companyRole": "CMO", 
+      "companyRole": "SVP Marketing", 
       "companyUrl": "http://www.t-systems.com/", 
       "event_ids": [
         27541
       ], 
       "id": 26655, 
       "name": "Thomas Spreitzer", 
+      "profileXing": "http://www.xing.com/profile/Thomas_Spreitzer", 
+      "profileXingHandle": "Thomas_Spreitzer", 
       "sort_name": "Spreitzer, Thomas"
-    }, 
-    "26694": {
-      "bio": "Jonathan is the Chief Operating Officer of Mynewsdesk, the world's leading brand newsroom and multimedia PR platform. He is a renowned speaker on all things related to marketing and innovation. Prior to joining Mynewsdesk Jonathan held various management positions at one of the UK's leading media companies UBM. Based at Mynewsdesk's Stockholm HQ he is a lover of all things digital but in the physical world is a father to three young Beans who are the ones that really teach him how best to navigate the global, mobile and social world offered by smartphones and tablets.", 
-      "blogName": "jonobean.com", 
-      "blogUrl": "http://www.jonobean.com", 
-      "companyName": "Mynewsdesk", 
-      "companyRole": "Chief Operating Officer", 
-      "companyUrl": "http://www.mynewsdesk.com/de", 
-      "event_ids": [
-        26835
-      ], 
-      "id": 26694, 
-      "name": "Jonathan Bean", 
-      "profileFacebook": "http://www.facebook.com/jonathanpbean", 
-      "profileLinkedin": "http://www.linkedin.com/in/jonathanpbean", 
-      "profileTwitter": "http://twitter.com/jonobean", 
-      "profileTwitterHandle": "@jonobean", 
-      "sort_name": "Bean, Jonathan"
     }, 
     "26704": {
       "bio": "Pascal is a consultant, technical lead and developer working with interactive creative technologies. For 14 years he was co-founder and technical director at Specialmoves, a high-end interactive production company based in London. He\u2019s worked with big global brands, advertising agencies, universities, charities and artists. His strong attention to detail and in-depth technical know-how helped him to make ambitious creative ideas happen.\r\n\r\nHis new company Lumacode allows him to focus on making great interactive experiences with new technologies and currently he\u2019s on pre-release programmes for Oculus, Kinect for Windows 2, Myo and LEAP.", 
@@ -1988,145 +896,21 @@
       "profileTwitterHandle": "@pauberson", 
       "sort_name": "Auberson, Pascal"
     }, 
-    "26705": {
-      "bio": "Steven Cook is driven by his passion of how people interact and identify with ideas. Starting his visual communication career in Los Angeles, Steven worked with international lifestyle and sportswear brands right from the start. He ran his own design studio and worked in New York for fashion brands like Tommy Hilfiger and Marc Jacobs. In Berlin, he was back on the agency side and joined Edenspiekermann in 2011. Steven always sees the chance to create a customized experience \u2013 to make brands relevant.", 
-      "companyName": "Edenspiekermann", 
-      "companyRole": "Creative Director and Partner", 
-      "companyUrl": "http://www.edenspiekermann.com", 
-      "event_ids": [
-        27194
-      ], 
-      "id": 26705, 
-      "name": "Steven Cook", 
-      "profileLinkedin": "http://de.linkedin.com/in/stevencook/", 
-      "profileTwitter": "http://twitter.com/sberlincook", 
-      "profileTwitterHandle": "@sberlincook", 
-      "sort_name": "Cook, Steven"
-    }, 
-    "26706": {
-      "bio": "Robert Stulle has worked in digital communication since 1995. He studied in Switzerland and the Netherlands and then worked for some of the bigger German and Dutch agencies. Robert spent five years as a Business Consultant for PWC and IBM in The Netherlands. Since 2006 he has been back to design and communication; since 2009 as a partner at Edenspiekermann in Berlin. With almost two decades of professional experience as a designer and consultant, Robert is the director of Digital Products and Services at Edenspiekermann.", 
-      "blogName": "edenspiekermann.com", 
-      "blogUrl": "http://www.edenspiekermann.com/blog", 
-      "companyName": "Edenspiekermann", 
-      "companyRole": "Creative Director, Partner", 
-      "companyUrl": "http://www.edenspiekermann.com", 
-      "event_ids": [
-        27194
-      ], 
-      "id": 26706, 
-      "name": "Robert Stulle", 
-      "profileFacebook": "http://www.facebook.com/robertstulle", 
-      "profileLinkedin": "http://www.linkedin.com/in/robertstulle", 
-      "profileTwitter": "http://twitter.com/robertstulle", 
-      "profileTwitterHandle": "@robertstulle", 
-      "profileXing": "http://www.xing.com/profile/Robert_Stulle", 
-      "profileXingHandle": "Robert_Stulle", 
-      "sort_name": "Stulle, Robert"
-    }, 
     "26710": {
+      "bio": "Named a Master of Design by Fast Company and a 30-under-30 entrepreneur by both Inc and Forbes magazines, Aza is currently VP of Innovation at Jawbone, an industry leader and innovator in the wearable technology space. In early 2013, Jawbone acquired Massive Health, which Aza founded. Previously, he was Creative Lead for Firefox and a founding member of Mozilla Labs.  Even more previously he founded Songza.com which is still a top music app. He also creates modular cardboard furniture called Bloxes which are used everywhere from Google to Twitter. In another life, Aza has done Dark Matter research at both Tokyo University and the University of Chicago, from where he graduated in math and physics.", 
+      "blogName": "azarask.in", 
+      "blogUrl": "http://azarask.in", 
       "companyName": "Jawbone", 
-      "companyRole": "VP", 
+      "companyRole": "VP Innovation", 
       "companyUrl": "http://jawbone.com/", 
       "event_ids": [
         27292
       ], 
       "id": 26710, 
       "name": "Aza Raskin", 
+      "profileTwitter": "http://twitter.com/aza", 
+      "profileTwitterHandle": "@aza", 
       "sort_name": "Raskin, Aza"
-    }, 
-    "26815": {
-      "bio": "I am the Lead Editor at Gr\u00fcnderszene.de, Germany's leading magazine for the digital economy \u2013 covering startups, tech and business. Before that I was a business and finance correspondent in Berlin, founded and lead a banking tech magazine and worked as an editor for a renowned finance trade journal in Frankfurt. I studied Business Administration as well as Information Management in Edinburgh/Scotland.", 
-      "blogName": "about.me", 
-      "blogUrl": "http://about.me/hofmann", 
-      "companyName": "Gr\u00fcnderszene/Vertical Media", 
-      "companyRole": "Lead Editor", 
-      "companyUrl": "http://www.gruenderszene.de", 
-      "event_ids": [
-        27542
-      ], 
-      "id": 26815, 
-      "name": "Alexander Hofmann", 
-      "profileFacebook": "http://alexhofmann.net", 
-      "profileLinkedin": "http://alexhfm", 
-      "profileTwitter": "http://twitter.com/alexhfm", 
-      "profileTwitterHandle": "@alexhfm", 
-      "sort_name": "Hofmann, Alexander"
-    }, 
-    "26816": {
-      "bio": "Christoph Gerlinger is a passionate entrepreneur who has founded and built up a number of companies and has experienced the accompanying highs and lows. Christoph has gained over 15 years of management experience in the internet business. One of the businesses he founded is Frogster Interactive Pictures AG, which he took public and managed as CEO for seven years. Before that he was head of German operations for Infogrames/Atari, co-founder and CFO of the publicly listed CDV Software Entertainment and CFO for Psygnosis Deutschland (Sony Group). Christoph holds a graduate degree in business administration and is a qualified banker.", 
-      "companyName": "German Startups Group Berlin AG", 
-      "companyRole": "CEO", 
-      "companyUrl": "http://www.german-startups.com", 
-      "event_ids": [
-        27534
-      ], 
-      "id": 26816, 
-      "name": "Christoph Gerlinger", 
-      "profileFacebook": "http://www.facebook.com/GermanStartupsGroup", 
-      "profileTwitter": "http://twitter.com/GermanStartupsG", 
-      "profileTwitterHandle": "@GermanStartupsG", 
-      "profileXing": "http://www.xing.com/companies/germanstartupsgroupberlinag", 
-      "sort_name": "Gerlinger, Christoph"
-    }, 
-    "26856": {
-      "bio": "Paulina is Program Manager for Google for Entrepreneurs Krak\u00f3w. She got her M.Sc. in human sciences at the Jagiellonian University. During her studies, she started working for Motorola until she moved to Google as Managing Assistant. Currently, she works on several programs including \u201cGoogle for Entrepreneurs Krak\u00f3w\u201d (GEK), with the goal of building a strong entrepreneurial ecosystem in Poland. Passionate about volunteering, Paulina used these experiences in Ghana, working with NGOs as well as local developers and business communities on creating sustainable growth models.\r\n", 
-      "companyName": "Google Poland", 
-      "companyRole": "Program Manager", 
-      "companyUrl": "http://www.google.com", 
-      "event_ids": [
-        27519
-      ], 
-      "id": 26856, 
-      "name": "Paulina Mazurek", 
-      "profileLinkedin": "http://www.linkedin.com/profile/view?id=11726113&trk=nav_responsive_tab_profile", 
-      "profileLinkedinHandle": 11726113, 
-      "sort_name": "Mazurek, Paulina"
-    }, 
-    "26857": {
-      "bio": "Shift 2020 delivers impactful insights into how emerging technologies such as wearables, IoT, Robotics and AI will have on our lives and includes foresights by some of the world's leading technology experts. \r\n\r\nRudy is known as a thought leader in Mobile 2.0 where he was a proponent of open innovation and the development of the app economy ecosystem. Over the past 18 years he has coached CXOs of global brands on how to unpack grassroots innovations that pose a risk to core business and how to predict staying ahead of the early adopter to mass-market conversion. \r\n\r\nRudy is a graduate from Singularity University and he has developed more than 200 leading industry events across more than 50 cities globally such as Mobile 2.0, Mobile Mondays, AppCircus and, more recently, Wearable Wednesdays.", 
-      "blogName": "m-trends.org", 
-      "blogUrl": "http://m-trends.org", 
-      "companyName": "shift 2020", 
-      "companyRole": "Innovation Strategist, Curator of Shift 2020", 
-      "companyUrl": "http://shift2020.com", 
-      "event_ids": [
-        27070
-      ], 
-      "id": 26857, 
-      "name": "Rudy De Waele", 
-      "profileFacebook": "http://www.facebook.com/rudydewaelebiz", 
-      "profileLinkedin": "http://www.linkedin.com/in/rudydewaele", 
-      "profileTwitter": "http://twitter.com/mtrends", 
-      "profileTwitterHandle": "@mtrends", 
-      "sort_name": "De Waele, Rudy"
-    }, 
-    "26858": {
-      "companyName": "KoruLab", 
-      "companyRole": "CEO & Co-Founder", 
-      "companyUrl": "http://www.korulab.com/", 
-      "event_ids": [
-        27312
-      ], 
-      "id": 26858, 
-      "name": "Christian Lindholm", 
-      "sort_name": "Lindholm, Christian"
-    }, 
-    "26859": {
-      "bio": "In 2013 Priya founded Design for Social Change (D4SC) - A studio for community operating systems to crowdpower smarter cities. D4SC\u2019s - Changify has been featured in Wired, Ted City 2.0, shortlisted for MEFFYs and Zumtobel awards. Prakash enjoys creating new habits and behaviours with13 years design and leadership experience leading product development teams at BBC, Nokia and Hachette Filipacchi. An invited speaker at SXSW, O'Reilly ETech,TEDx, FOWA, visiting tutor at UCL, RCA, D&AD judge, Priya is a RSA fellow with a MA in Computer Related Design from Royal College of Art and holds patents for iPlayer and Nokia Asha.", 
-      "blogName": "blog.changify.org", 
-      "blogUrl": "http://blog.changify.org", 
-      "companyName": "Design for Social Change (D4SC)", 
-      "companyRole": "Founder", 
-      "companyUrl": "http://www.changify.org", 
-      "event_ids": [
-        27312
-      ], 
-      "id": 26859, 
-      "name": "Priya Prakash", 
-      "profileFacebook": "http://www.facebook.com/design4socialchange", 
-      "profileLinkedin": "http://uk.linkedin.com/in/priyaprakash/", 
-      "profileTwitter": "http://twitter.com/D4SC/@changify", 
-      "sort_name": "Prakash, Priya"
     }, 
     "26860": {
       "bio": "Daan Lucas is the Managing Director of Random Studio.", 
@@ -2141,42 +925,12 @@
       "id": 26860, 
       "name": "Daan Lucas", 
       "profileFacebook": "http://www.facebook.com/RandomStudio", 
+      "profileFacebookHandle": 124590364259654, 
       "profileLinkedin": "http://www.linkedin.com/company/random-studio", 
+      "profileLinkedinHandle": 611850, 
       "profileTwitter": "http://twitter.com/random_studio", 
       "profileTwitterHandle": "@random_studio", 
       "sort_name": "Lucas, Daan"
-    }, 
-    "26861": {
-      "bio": "Howard Hunt is a disinformation architect from Brisbane, Australia. He specializes in building expensive looking things for not much money. His latest venture is The Dustcloud, a first person shooter game for wearable computing. Think lasertag in the street, with headset graphics.", 
-      "blogName": "blog.thedustcloud.com", 
-      "blogUrl": "http://www.blog.thedustcloud.com", 
-      "companyName": "The Dustcloud", 
-      "companyRole": "CEO", 
-      "companyUrl": "http://www.thedustcloud.com", 
-      "event_ids": [
-        27519
-      ], 
-      "id": 26861, 
-      "name": "Howard Hunt", 
-      "profileFacebook": "http://www.facebook.com/enterdustcloud", 
-      "profileLinkedin": "http://de.linkedin.com/in/hunthoward", 
-      "profileTwitter": "http://twitter.com/dstcld", 
-      "profileTwitterHandle": "@dstcld", 
-      "profileXing": "http://www.xing.com/profile/Howard_Hunt2", 
-      "profileXingHandle": "Howard_Hunt2", 
-      "sort_name": "Hunt, Howard"
-    }, 
-    "26867": {
-      "bio": "Regine is one of the leading european pioneers in digital media. She is founder & CEO of Seedlab, a company which offers consulting and support in digital transformation & digital business strategies and product development, based in Berlin & Tel Aviv.  Regine has more then 20 years experience in management, digital strategy consulting & product development. She is Business Angel, Startup mentor. Former CEO of I-D Media AG a public listed digital international company.", 
-      "companyName": "Seedlab GmbH", 
-      "companyRole": "Founder & CEO", 
-      "companyUrl": "http://www.seedlab.tv", 
-      "event_ids": [
-        27572
-      ], 
-      "id": 26867, 
-      "name": "Regine Haschka-Helmer", 
-      "sort_name": "Haschka-Helmer, Regine"
     }, 
     "26881": {
       "bio": "Driver of the connected-health revolution\r\nPlaying a vital role in the birth and growth of the connected-health revolution, C\u00e9dric\u2019s expertise in this field is also demonstrated in the constant evolution of Withings. Armed with an engineering degree from Ecole Centrale and masters from MIT, C\u00e9dric first worked as product manager at Inventel, overseeing the launch of residential wireless gateways. Here,  he first met Eric Carreel before they both went on to Thompson; C\u00e9dric working as marketing director of domestic products. This accumulation of experience gave C\u00e9dric the knowledge and passion that drove him to co-found Withings.", 
@@ -2190,6 +944,7 @@
       "id": 26881, 
       "name": "Cedric Hutchings", 
       "profileFacebook": "http://www.facebook.com/withings", 
+      "profileFacebookHandle": 111046008981029, 
       "profileTwitter": "http://twitter.com/withings", 
       "profileTwitterHandle": "@withings", 
       "sort_name": "Hutchings, Cedric"
@@ -2218,25 +973,8 @@
       "name": "Brigitte Zypries", 
       "sort_name": "Zypries, Brigitte"
     }, 
-    "26937": {
-      "bio": "Thomas Nicholls is in charge of marketing and communication at SIGFOX. Thomas has a multi-national, technical and business development background covering both B2B and B2C solutions and is deeply involved in building and promoting M2M and Internet of Things ecosystems.", 
-      "blogName": "scoop.it", 
-      "blogUrl": "http://www.scoop.it/t/sigfox", 
-      "companyName": "Sigfox", 
-      "companyRole": "Head of Marketing and Communication", 
-      "companyUrl": "http://www.sigfox.com", 
-      "event_ids": [
-        27515
-      ], 
-      "id": 26937, 
-      "name": "Thomas Nicholls", 
-      "profileFacebook": "http://www.facebook.com/sigfox", 
-      "profileLinkedin": "http://www.linkedin.com/company/sigfox", 
-      "profileTwitter": "http://twitter.com/sigfox", 
-      "profileTwitterHandle": "@sigfox", 
-      "sort_name": "Nicholls, Thomas"
-    }, 
     "26994": {
+      "bio": "Since May 2014 Anita is the representative chief editor of \"Stern\" magazine in Hamburg. Before that, from 2007 until 2011 she was in charge of the fields domestic policy and education at the Austrian newspaper \"derStandard.at\". In 2012, Anita, as the first Austrian, she was chosen for the honorable \"Knight Journalism Fellowship\" from Stanford University (Palo Alto, California). \r\nBetween 1998 and 2006 she studied law & political sciences and graduated with a master's degree. During this time she also worked as a freelance journalist.\r\nAnita has great passion for digital, tech and media innovation.", 
       "companyName": "Gruner + Jahr", 
       "companyRole": "Deputy Editor-in-Chief Stern", 
       "companyUrl": "http://www.guj.de/en/", 
@@ -2245,38 +983,9 @@
       ], 
       "id": 26994, 
       "name": "Anita Zielina", 
+      "profileTwitter": "http://twitter.com/Zielina", 
+      "profileTwitterHandle": "@Zielina", 
       "sort_name": "Zielina, Anita"
-    }, 
-    "27041": {
-      "bio": "Mattias Hjelmstedt is the CEO and Founder of Magine (www.magine.com). Created in 2010, Magine is the pioneering cloud-based service for watching live and catch-up TV in the same place and across all devices. In place of complicated set-ups and costly subscriptions, Magine has created TV as it should be. As featured in Bloomberg, The Guardian, Wall Street Journal, and Wired, serial entrepreneur, Hjelmstedt has successfully created companies since the early 1990s in the areas of: content distribution; streaming; online gaming; social media; and computer technologies. An unparalleled innovator, Hjelmstedt\u2019s commitment to online user experience, and turning online TV into a global reality, sees him partnering with the leading figures in TV, electronics, and digital industries, as well as discerning consumers.", 
-      "companyName": "Magine AB", 
-      "companyRole": "CEO and Founder", 
-      "companyUrl": "http://www.maginetv.com", 
-      "event_ids": [
-        27317
-      ], 
-      "id": 27041, 
-      "name": "Mattias Hjelmstedt", 
-      "profileFacebook": "http://www.facebook.com/Magine", 
-      "profileTwitter": "http://twitter.com/MagineDE", 
-      "profileTwitterHandle": "@MagineDE", 
-      "sort_name": "Hjelmstedt, Mattias"
-    }, 
-    "27094": {
-      "bio": "Claudius helps startups and brands to shape and grow digital products. Together with his technology-driven team at n\u00e9mata he concepts, designs, builds and markets platforms and apps. Claudius has a background in advertising and design, where he won numerous international awards \u2013 including all the precious metals Cannes Lions had to offer. Most recently he led the Innovation Lab at SinnerSchrader.", 
-      "companyName": "n\u00e9mata GmbH", 
-      "companyRole": "Chief Enabling Officer", 
-      "companyUrl": "http://www.nemata.com", 
-      "event_ids": [
-        27543
-      ], 
-      "id": 27094, 
-      "name": "Claudius Gerstner", 
-      "profileTwitter": "http://twitter.com/claudius", 
-      "profileTwitterHandle": "@claudius", 
-      "profileXing": "http://www.xing.com/profile/Claudius_Gerstner", 
-      "profileXingHandle": "Claudius_Gerstner", 
-      "sort_name": "Gerstner, Claudius"
     }, 
     "27200": {
       "bio": "Peter Skillman is head of Design for HERE, a Nokia business. Previously, Peter led the Nokia Mobile Phones user interface and service design team. Under his leadership, the MP design team developed UI and services for the successful Asha range. In his first Nokia role leading Meego Ux design, Peter and team delivered the Nokia N9 swipe-enabled Ux.\r\n\r\nPrior to Nokia, Peter led User Experience for many years at Palm, where he also managed industrial design for a variety of mobile phones including the Palm Pre. Before Palm, he drove consumer electronic product design at IDEO, an internationally-recognized design firm. Peter is a passionate promoter of sustainable architecture and design.", 
@@ -2294,22 +1003,6 @@
       "profileTwitterHandle": "@peterskillman", 
       "sort_name": "Skillman, Peter"
     }, 
-    "27213": {
-      "bio": "Anne-Marie joined the Seespace adventure in Spring 2013, with 20 years of experience as a technology executive.\r\nPrior to Seespace, Anne-Marie was a corporate investor with Microsoft and Sharp TV, then a VC with Illuminate Ventures. At Microsoft, Anne-Marie managed the Xbox, IPTV and Surface portfolio. She then moved to Sharp to head up their U.S. corporate venture activities and partnerships in TV and Digital Health. As a VC with Illuminate, Anne-Marie evaluates deals in media and cloud-based early-stage startups.\r\nPrior to her tech investment activities, Anne-Marie was Vice President at Gartner Group in Europe for ten years. Anne-Marie was responsible for the creation and launch of several flagship products, including: \u201cGartner\u2019s Cool Vendors List\u201d --a yearly round-up of the best and brightest startups in IT; and \u201cGartner Invest\u201d -- an advisory service for investors in tech.\r\nAnne-Marie was born and raised in Paris, France and attended college and graduate school in the US. She has been based in San Francisco since 2005. In her spare time, Anne-Marie is a wine aficionado \u2013 forever seeking the perfect bottle of red wherever around the globe.", 
-      "blogName": "edgeofdigitalculture.com", 
-      "blogUrl": "http://www.edgeofdigitalculture.com", 
-      "companyName": "Seespace", 
-      "companyRole": "Co-Founder", 
-      "companyUrl": "http://www.seespace.co", 
-      "event_ids": [
-        27552
-      ], 
-      "id": 27213, 
-      "name": "Anne-Marie Roussel", 
-      "profileLinkedin": "http://www.linkedin.com/pub/anne-marie-roussel/3/611/6b9/", 
-      "profileTwitter": "http://twitter.com/A-M Roussel", 
-      "sort_name": "Roussel, Anne-Marie"
-    }, 
     "27217": {
       "bio": "Morten\u2019s journey as an entrepreneur has seen him reach great highs and lows. The pinnacle of\r\n\r\nSkype\u2019s sale to eBay in September 2007 for $2.5 billion (again in May 2011 to Microsoft for $8.5\r\n\r\nbillion), and the low of personal bankruptcy in January 2009 following a disastrous end to his free\r\n\r\nnewspaper venture Nyhedsavisen.\r\n\r\nThe intrigue surrounding Morten and his current projects can be seen on his Twitter account, where\r\n\r\nhe has the highest number of followers of any entrepreneur in Denmark. The focus of his varied and \r\n\r\nunorthodox career has tended to shift with each decade. For example, in his 20s, he moved \r\n\r\nin the advertising business, selling his web design agency to Leo Burnett at the age of 27. In \r\n\r\nhis 30s, Morten created Denmark\u2019s first incubator, active in Skype, ZYB, Polar Rose, Zecco \r\n\r\nand 80 other startups. A recent smash hit was Tradeshift, a digital invoicing group founded\r\n\r\nin his basement in November 2009. Some years later (in March 2014), the company closed \r\n\r\na $75 million investment, driving it into the Asian market with PayPal and Intuit as fellow\r\n\r\ninvestors.\r\n\r\nNow in his 40s, he is concentrating on financial technology companies linked to Tradeshift, \r\n\r\nwith Capital Aid as the star project. Morten is also building a portfolio of startups that match \r\n\r\nhis needs as a serial entrepreneur such as pitchXO, Tofte Company and Sharkboard.", 
       "blogName": "lundxy.com", 
@@ -2324,44 +1017,12 @@
       "id": 27217, 
       "name": "Morten Lund", 
       "profileFacebook": "http://www.facebook.com/mortenlundxy", 
+      "profileFacebookHandle": 516818690, 
       "profileLinkedin": "http://www.linkedin.com/in/mortenlund", 
+      "profileLinkedinHandle": 66296, 
       "profileTwitter": "http://twitter.com/ml", 
       "profileTwitterHandle": "@ml", 
       "sort_name": "Lund, Morten"
-    }, 
-    "27224": {
-      "bio": "Failed cook, bass player and database developer, Axel Bergander became a copywriter in 2000. He wrote for a number of medias, including beer mats, parliaments and bmw.com. \r\n\r\nHe joined SinnerSchrader in 2013 to set up the office in Prague and later moved on to the HQ in Hamburg to help with CURVED.  Here he enjoys the editorial world very much.", 
-      "companyName": "SinnerSchrader", 
-      "companyRole": "Director Content Strategy", 
-      "companyUrl": "http://www.sinnerschrader.com", 
-      "event_ids": [
-        27319
-      ], 
-      "id": 27224, 
-      "name": "Axel Bergander", 
-      "profileFacebook": "http://www.facebook.com/axel.bergander", 
-      "profileLinkedin": "http://de.linkedin.com/in/axelbergander/", 
-      "profileTwitter": "http://twitter.com/sixand20", 
-      "profileTwitterHandle": "@sixand20", 
-      "profileXing": "http://www.xing.com/profile/Axel_Bergander", 
-      "profileXingHandle": "Axel_Bergander", 
-      "sort_name": "Bergander, Axel"
-    }, 
-    "27232": {
-      "bio": "Lars-Alexander Mayer is Partner of trommsdorff + dr\u00fcner. After completion of his studies in Industrial Engineering in Berlin (1999) he worked as a Strategic Consultant for McKinsey before joining trommsdorff + dr\u00fcner in 2000. He is the international expert in Smart Data Analysis at td heading the Innovation & Strategy and Consumer Insights & Smart Data departments. Lars-Alexander Mayer has been consulting companies from different industries since 15 years and besides his position at Berlin overseeing the Chinese office of td as Legal Representative.", 
-      "companyName": "trommsdorff+dr\u00fcner innovation+marketing consultants", 
-      "companyRole": "Owner", 
-      "companyUrl": "http://www.td-berlin.com", 
-      "event_ids": [
-        768
-      ], 
-      "id": 27232, 
-      "name": "Lars-Alexander Mayer", 
-      "profileLinkedin": "http://www.linkedin.com/profile/view?id=5497047&locale=en_US&trk=tyah&trkInfo=tarId%3A1396342331669%2Ctas%3Alars%20mayer%2Cidx%3A1-1-1", 
-      "profileLinkedinHandle": 5497047, 
-      "profileXing": "http://www.xing.com/profile/LarsAlexander_Mayer", 
-      "profileXingHandle": "LarsAlexander_Mayer", 
-      "sort_name": "Mayer, Lars-Alexander"
     }, 
     "27236": {
       "bio": "Tony Douglas is responsible for the marketing and sales of BMW i Mobility Services. The goal of the BMW Groups new brand is to provide sustainable innovative mobile solutions that improve urban mobility inside and outside of the car. The current portfolio includes DriveNow, ParkNow and ChargeNow as well as a number of strategic investments made via BMW i Ventures. As Marketing Innovation Manager at BMW he was previously responsible for emerging media innovations such as blogs, communities, search, bmw.tv and most recently social media boosting and nurturing the millions of BMW Facebook fans. Before joining the BMW Group he worked as a Product Manager on advanced user experiences for Vodafone and spent eight years in the mobile industry designing and developing mobile phones and services. He started his career as a Product Design Consultant working in the UK and Germany. Educated in Edinburgh Scotland he now lives in Munich Germany.", 
@@ -2388,96 +1049,12 @@
       "id": 27263, 
       "name": "Michael Pelletier", 
       "profileFacebook": "http://www.facebook.com/RandomStudio", 
+      "profileFacebookHandle": 124590364259654, 
       "profileLinkedin": "http://www.linkedin.com/company/random-studio", 
+      "profileLinkedinHandle": 611850, 
       "profileTwitter": "http://twitter.com/random_studio", 
       "profileTwitterHandle": "@random_studio", 
       "sort_name": "Pelletier, Michael"
-    }, 
-    "27322": {
-      "bio": "Marion King is a Managing Partner at Integrated Consulting Group. With a background in Business Administration, International Marketing and HR, Marion has spent her entire career in the creative industries - in advertising, design and interactive agencies like Leo Burnett, HORT or Razorfish. Since 2005 she has been working as a consultant, trainer and coach for organizational and leadership development drawing on qualifications in systemic consulting, organizational setup, change management, transaction analysis and design thinking. Marion's research focus is on future organizations, she is particularly interested in how digitalization changes our ways of collaborating, cooperating and leading.", 
-      "blogName": "innotiimi-icg.com", 
-      "blogUrl": "http://innotiimi-icg.com/blog/", 
-      "companyName": "Integrated Consulting Group", 
-      "companyRole": "Managing Partner", 
-      "companyUrl": "http://www.innotiimi-icg.com/", 
-      "event_ids": [
-        27376
-      ], 
-      "id": 27322, 
-      "name": "Marion King", 
-      "profileFacebook": "http://www.facebook.com/integratedconsulting", 
-      "profileLinkedin": "http://www.linkedin.com/pub/marion-king/0/89b/197", 
-      "profileXing": "http://www.xing.com/profile/Marion_King", 
-      "profileXingHandle": "Marion_King", 
-      "sort_name": "King, Marion"
-    }, 
-    "27323": {
-      "bio": "Lutz Hempel, Managing Partner at Integrated Consulting Group, a leading partner in change in Europe, represents a new generation of consultants who are both competent in consulting, facilitating and training and in artistic work and who combine both competences to inspire and to facilitate change in organizations. He is particularly passionate about the concept of strategic organizational improvisation which he uses in his Jazz it! development program to help leaders and teams improve collaboration and thrive. Lutz has a Bachelor in Arts Management, an MBA from the University of Strathclyde in Glasgow and is a member of the international Arts, Aesthetics, Creativity & Organization Research Network.", 
-      "blogName": "innotiimi-icg.com", 
-      "blogUrl": "http://innotiimi-icg.com/blog/", 
-      "companyName": "Integrated Consulting Group", 
-      "companyRole": "Managing Partner", 
-      "companyUrl": "http://www.innotiimi-icg.com", 
-      "event_ids": [
-        27376
-      ], 
-      "id": 27323, 
-      "name": "Lutz Hempel", 
-      "profileFacebook": "http://www.facebook.com/integratedconsulting", 
-      "profileLinkedin": "http://ch.linkedin.com/pub/lutz-hempel/10/924/956", 
-      "sort_name": "Hempel, Lutz"
-    }, 
-    "27343": {
-      "bio": "Oliver H\u00fclse joined Rocket Fuel as Managing Director for Germany, Austria and Switzerland in 2012. H\u00fclse is responsible for the growth of Rocket Fuel in the DACH region, leading the development of relationships with advertisers and agencies, and building the Hamburg-based team.\r\nPreviously Oliver H\u00fclse held the position of Managing Director at Adconion Media Group. He started his career in digital media sales at German media companies like Verlagsgruppe Milchstrasse and Tomorrow Internet AG, before being appointed VP International Operations at Interactive Media CCSP GmbH.", 
-      "companyName": "Rocket Fuel GmbH ", 
-      "companyRole": "Managing Director ", 
-      "companyUrl": "http://www.rocketfuel.com.de/", 
-      "event_ids": [
-        27402
-      ], 
-      "id": 27343, 
-      "name": "Oliver H\u00fclse", 
-      "sort_name": "H\u00fclse, Oliver"
-    }, 
-    "27348": {
-      "bio": "Stephan founded Innovation Evangelists in June 2013. Innovation Evangelists are independent experts in business and science. They advise companies on Social Business and help them to innovate faster. Stephan Grabmeier is a thought leader in Enterprise2.0, Future Work and Innovation Culture. He is also a Business Angel investing in Start Ups to foster HR Innovation. \r\n\r\nBefore founding Innovation Evangelists, Stephan was Head of Culture Initiatives at Deutsche Telekom AG. He led the Center of Excellence Enterprise 2.0 and was responsible for the internal transformational change to connected life and work. In 2011 he was elected as \"Social Media Innovator\" by W&V, a leading German advertising magazine. \r\n\r\nTogether with Frank Schabel and Prof. Jutta Rump he is editor of the book \"Organization2.0 - courage of uncertainty\". At the beginning of 2012 he was awarded the \u201eCorporate Web 2.0 Award\u201c by IIR Technology. Stephan has not only been a longtime member of the board of \"Initiative Selbst GmbH e.V.\", the most innovative HR association in Germany with more than 500 HR managers, but is also one of the brains behind the \u201eHR Innovation Slam\u201c - the biggest online event for HR Innovations in Europe!", 
-      "blogName": "youtube.com", 
-      "blogUrl": "http://www.youtube.com/user/Stephan1703/videos", 
-      "companyName": "Innovation Evangelists GmbH", 
-      "companyRole": "Chief Evangelist", 
-      "companyUrl": "http://innovation-evangelists.com/", 
-      "event_ids": [
-        27354
-      ], 
-      "id": 27348, 
-      "name": "Stephan Grabmeier", 
-      "profileFacebook": "http://www.facebook.com/stephan.grabmeier", 
-      "profileLinkedin": "http://www.linkedin.com/in/stephangrabmeier", 
-      "profileTwitter": "http://twitter.com/trill_stephan", 
-      "profileTwitterHandle": "@trill_stephan", 
-      "profileXing": "http://www.xing.com/profile/Stephan_Grabmeier", 
-      "profileXingHandle": "Stephan_Grabmeier", 
-      "sort_name": "Grabmeier, Stephan"
-    }, 
-    "27349": {
-      "bio": "Niels Pflaeging is a passionate and thoughtful advocate for a \u201cnew breed\u201c of leadership and profound change in organizations. He is an acclaimed speaker and author of several books, a co-founder and associate of the BetaCodex Network, and president of his own consulting firm based in New York and Wiesbaden. Niels was a director with the prestigious Beyond Budgeting Round Table, BBRT, for five years, between 2003 and 2007. \r\nNiels wrote four books and many articles on leadership and transformation. His second book, \u201cLeading with flexible Targets. Practice guide to high performance\u201d was awarded the Financial Times Germany Best Business Book award, in 2006. All his books were lauded by critics and readers and became bestsellers. \r\nSince 2006, Niels has been strongly involved in transformational change initiatives as a short-time and long-time advisor, in firms both in Europe and in the Americas. He not only speaks \u2013 he walks the talk.", 
-      "blogName": "nielspflaeging.com", 
-      "blogUrl": "http://www.nielspflaeging.com", 
-      "companyName": "BetaCodex Network", 
-      "companyRole": "Management exorcist, change curator, thought innovator, speaker, author, globally working advisor on leadership transformation", 
-      "companyUrl": "http://www.nielspflaeging.com", 
-      "event_ids": [
-        27354
-      ], 
-      "id": 27349, 
-      "name": "Niels Pflaeging", 
-      "profileFacebook": "http://www.facebook.com/pages/Niels-Pflaeging-Speaker-Advisor-Author-Management-Exorcist/191897347571793", 
-      "profileLinkedin": "http://www.linkedin.com/pub/niels-pflaeging/0/89/11a/", 
-      "profileTwitter": "http://twitter.com/NielsPflaeging", 
-      "profileTwitterHandle": "@NielsPflaeging", 
-      "profileXing": "http://www.xing.com/profile/Niels_Pflaeging", 
-      "profileXingHandle": "Niels_Pflaeging", 
-      "sort_name": "Pflaeging, Niels"
     }, 
     "27362": {
       "bio": "Horst Leonberger studied engineering cybernetics at the University of Stuttgart. \r\nAfter holding several posts in the IT and telecommunications industry, he moved to the Deutsche Telekom Group as Senior Key Account Manager, heading up various sales teams. \r\nSoon Horst Leonberger took over as Global Account Executive for Daimler as well as Volkswagen Group. Over the next few years, he was also responsible for the global T-Systems automotive business including  steering projects such as the launch of T-Systems in China and Japan. \r\nIn September 2010, Horst Leonberger was announced by Ren\u00e9 Obermann as one of the three top managers for the new strategic growth area of \u201cIntelligent networks\u201d within Deutsche Telekom. Since then, he leads the group-wide activities in the field of Connected Car and directly reports to Reinhard Clemens, board member of Deutsche Telekom and CEO T-Systems.", 
@@ -2491,81 +1068,8 @@
       "name": "Horst Leonberger", 
       "sort_name": "Leonberger, Horst"
     }, 
-    "27379": {
-      "companyName": "Freelance", 
-      "companyRole": "Publicist, Activist & Politician", 
-      "companyUrl": "http://ankedomscheitberg.de/", 
-      "event_ids": [
-        27255
-      ], 
-      "id": 27379, 
-      "name": "Anke Domscheit-Berg", 
-      "sort_name": "Domscheit-Berg, Anke"
-    }, 
-    "27408": {
-      "companyName": "Deutsche Lufthansa AG", 
-      "companyRole": "Global Coordinator Social Media Marketing", 
-      "companyUrl": "http://www.lufthansa.com/de/de/Homepage", 
-      "event_ids": [
-        27572
-      ], 
-      "id": 27408, 
-      "name": "Torsten Wingenter", 
-      "sort_name": "Wingenter, Torsten"
-    }, 
-    "27409": {
-      "bio": "Claas van Delden has worked for SevenVentures since 2012. He leads the Digital Commerce division which has executed multiple investments over the last two years such as weg.de, billiger-mietwagen, mydays.de, Preis24.de and moebel.de. Before he had worked six years for Holtzbrinck GmbH as managing director. Claas started his career with the Boston Consulting Group, lastly as Project Leader for industrial goods engagements.", 
-      "companyName": "SevenVentures GmbH", 
-      "companyRole": "Managing Director", 
-      "companyUrl": "http://www.sevenventures.de/", 
-      "event_ids": [
-        27572
-      ], 
-      "id": 27409, 
-      "name": "Claas van Delden", 
-      "sort_name": "van Delden, Claas"
-    }, 
-    "27410": {
-      "companyName": "fromAtoB GmbH", 
-      "companyRole": "Managing Director", 
-      "companyUrl": "http://www.fromatob.de/", 
-      "event_ids": [
-        27572
-      ], 
-      "id": 27410, 
-      "name": "Veit Blumschein", 
-      "profileLinkedin": "http://www.linkedin.com/in/blumschein", 
-      "profileXing": "http://www.xing.com/profile/Veit_Blumschein", 
-      "profileXingHandle": "Veit_Blumschein", 
-      "sort_name": "Blumschein, Veit"
-    }, 
-    "27411": {
-      "bio": "Holger has  12+ year track record in managing technology driven companies with  focus on consumer centric services. He helped develop gate5 from the early days \u2013 a global leader in mobile navigation software, which was acquired by Nokia in 2006. First from Berlin and later from Hong Kong, Holger built the global software licensing business for Nokia Maps. In 2008 he became one of the first angel investors and board members in AUPEO! and joined in summer 2010 as CEO. AUPEO! is the leading provider of personalized audio streams for internet-capable hardware devices and offers radio stations that compile an individual music program for users and recommend songs to them. In addition, AUPEO! is leading supplier for audio content solutions for the connected automotive market In April 2013 AUPEO! got acquired by Panasonic Automotive Systems of America.\r\nHolger also is an active business angel and startup mentor. He supports the Berlin Startup Academy, the Startup Bootcamp as well as the Microsoft Accelerator Berlin.  He holds board and advisor seats in several startup companies in Europe and the US.", 
-      "companyName": "AUPEO GmbH", 
-      "companyRole": "CEO", 
-      "companyUrl": "http://www.aupeo.com", 
-      "event_ids": [
-        27572
-      ], 
-      "id": 27411, 
-      "name": "Holger G. Weiss", 
-      "profileLinkedin": "http://de.linkedin.com/in/holgerweiss/", 
-      "profileTwitter": "http://twitter.com/travlr", 
-      "profileTwitterHandle": "@travlr", 
-      "sort_name": "Weiss, Holger G."
-    }, 
-    "27412": {
-      "companyName": "SBB AG", 
-      "companyRole": "Head of Startup Relations", 
-      "companyUrl": "http://www.sbb.ch/home.html", 
-      "event_ids": [
-        27572
-      ], 
-      "id": 27412, 
-      "name": "Manuel Gerres", 
-      "sort_name": "Gerres, Manuel"
-    }, 
     "27419": {
+      "bio": "Kay Schwabedal has been Chief Commercial Officer since September 2011, responsible for all of the E-Plus Group\u2019s sales divisions excluding the wholesale business, taking on the responsibility for the entire customer business. Schwabedal has extensive experience in managing large organisations in the ITC sector. After working at Procter & Gamble and McKinsey, the industrial engineer held various roles at CC Compunet, including CEO, and later became COO on the board of directors for the fixed-line network provider Arcor.", 
       "companyName": "E-Plus", 
       "companyRole": "Chief Commercial Officer", 
       "companyUrl": "http://eplus-gruppe.de/english/", 
@@ -2576,104 +1080,6 @@
       "id": 27419, 
       "name": "Kay Schwabedal", 
       "sort_name": "Schwabedal, Kay"
-    }, 
-    "27431": {
-      "bio": "I am a 19 year old entrepreneur who is thinking of new ideas to make this world a better place. I Conceptualize, Innovate and then work on Executing world changing ideas. I love building and rebuilding Products. Using creativity, ideas and magic, I build products in a way you\u2019ll never forget. \r\n\r\nI started out by curating Technology news at the age of 12. After crossing 200,000 readers - I moved on to developing mobile apps when I was just 13 , since then I haven't looked back and have helped create various start-ups and have reached a user base of over 1,000,000 . I consult, advise and help execute on start-ups on a daily basis. I also occasionally speak at universities and corporates about entrepreneurship.", 
-      "blogName": "Instagram.com", 
-      "blogUrl": "http://Instagram.com/Evanluthra", 
-      "companyName": "ELGroupInternational - InARdia", 
-      "companyRole": "CEO", 
-      "companyUrl": "", 
-      "event_ids": [
-        27625
-      ], 
-      "id": 27431, 
-      "name": "Evan Luthra", 
-      "profileFacebook": "http://Facebook.com/EvanLuthra", 
-      "profileLinkedin": "http://linkedin/in/evanluthra", 
-      "profileTwitter": "http://Twitter.com/Evanluthra", 
-      "profileTwitterHandle": "@Evanluthra", 
-      "sort_name": "Luthra, Evan"
-    }, 
-    "27485": {
-      "bio": "Andrew Hoag is a Managing Director of Startup Institute, where he manages their European presence out of Berlin and oversees their global products. Startup Institute helps individuals gain the skills, mindset, and network to succeed at careers in digital businesses. \r\n\r\nAndrew has been a successful founder, investor and advisor to award-winning start-ups, exiting his first company in 2012. He has spent more than 20 years in the technology business, including engineering supercomputers for NASA and securing banks for VeriSign.", 
-      "companyName": "Startup Institute", 
-      "companyRole": "Managing Director Europe", 
-      "companyUrl": "http://startupinstitute.com/", 
-      "event_ids": [
-        27576
-      ], 
-      "id": 27485, 
-      "name": "Andrew Hoag", 
-      "profileLinkedin": "http://www.linkedin.com/profile/view?id=3972&locale=en_US&trk=tyah2&trkInfo=tarId%3A1396889385717%2Ctas%3AAndrew%20hoag%2Cidx%3A1-1-1", 
-      "profileLinkedinHandle": 3972, 
-      "profileTwitter": "http://twitter.com/ajhoag", 
-      "profileTwitterHandle": "@ajhoag", 
-      "sort_name": "Hoag, Andrew"
-    }, 
-    "27549": {
-      "companyName": "Alibaba", 
-      "companyRole": null, 
-      "companyUrl": null, 
-      "event_ids": [
-        27554
-      ], 
-      "id": 27549, 
-      "name": "Porter Erisman", 
-      "sort_name": "Erisman, Porter"
-    }, 
-    "27592": {
-      "companyName": "Deutsche Telekom AG", 
-      "companyRole": "Expert International Market Communications", 
-      "companyUrl": "http://www.electronicbeats.net", 
-      "event_ids": [
-        27598
-      ], 
-      "id": 27592, 
-      "name": "Kathleen Karrer", 
-      "profileFacebook": "http://www.facebook.com/kathleen.karrer", 
-      "profileXing": "http://www.xing.com/profile/Kathleen_Karrer?sc_o=mxb_p", 
-      "profileXingHandle": "Kathleen_Karrer", 
-      "sort_name": "Karrer, Kathleen"
-    }, 
-    "27593": {
-      "bio": "Who I am:\r\nStrategic Planning Executive with strong ties in Creative Planning and Branding. Experienced in building brands through visionary thinking, branding strategies, communication strategies and brand implementation throughout companies. Over 17 years experiences in Germany's Top 10 independent, creative agencies. Strongly interested in User-Centric Organisation/Business Development.\r\nVery good at analysis and interpretation, creative thinking, coupling pragmatic vision with evangelism, working in a fast pace environment, assertiveness, process and implementation orientation, team leadership, motivation and training.\r\nWhat I like:\r\nPlanning for People, because people have always fascinated me. Finding human truths and building communication solutions as well as product and service design innovations on this proven knowledge (and on common sense!) is therefore crucial to my kind of planning.", 
-      "blogName": "planningforpeople.tumblr.com", 
-      "blogUrl": "http://planningforpeople.tumblr.com/", 
-      "companyName": "Grabarz & Partner Werbeagentur GmbH", 
-      "companyRole": "Head of Planning/Partner", 
-      "companyUrl": "http://www.grabarzundpartner.de", 
-      "event_ids": [
-        27596
-      ], 
-      "id": 27593, 
-      "name": "Stefanie Kuhnhen", 
-      "profileLinkedin": "http://de.linkedin.com/in/stefaniekuhnhen/", 
-      "profileTwitter": "http://twitter.com/kastanie1210", 
-      "profileTwitterHandle": "@kastanie1210", 
-      "profileXing": "http://www.xing.com/profile/Stefanie_Kuhnhen?sc_o=mxb_p", 
-      "profileXingHandle": "Stefanie_Kuhnhen", 
-      "sort_name": "Kuhnhen, Stefanie"
-    }, 
-    "27594": {
-      "bio": "Mobile and digital Advertising Executive with strong ties to Psychology and Neuro-Leadership. Many years of Sales, international Consulting, Business Development, Marketing and Market Research experience covering Online Media, Agencies, Top 5 Consultancies and Mobile Telecommunications. Lived and worked in Germany, US, Spain and Australia. Experienced in building up international sales organizations, digital leadership, significant online advertising and mobile Telco deals. Prior positions held with msn, Price Waterhouse Coopers, Nielsen/Netratings, and OgilvyOne in Australia and in Germany. Studies of Psychology in Australia.", 
-      "companyName": "Adknowledge", 
-      "companyRole": "Managing Director", 
-      "companyUrl": "http://www.adparlor.com/", 
-      "event_ids": [
-        27596
-      ], 
-      "id": 27594, 
-      "name": "Markus von der L\u00fche", 
-      "profileFacebook": "http://www.facebook.com/markus.vonderluehe", 
-      "profileFacebookHandle": 501693843, 
-      "profileLinkedin": "http://www.linkedin.com/profile/view?id=2605757&trk=nav_responsive_tab_profile", 
-      "profileLinkedinHandle": 2605757, 
-      "profileTwitter": "http://twitter.com/mluehe", 
-      "profileTwitterHandle": "@mluehe", 
-      "profileXing": "http://www.xing.com/profile/Markus_vonderLuehe?sc_o=mxb_p", 
-      "profileXingHandle": "Markus_vonderLuehe", 
-      "sort_name": "von der L\u00fche, Markus"
     }, 
     "27605": {
       "bio": "Sarah Willis was born in Maryland, USA and holds dual citizenship, British and American.\r\n\r\nHer father was a foreign correspondent and her family lived in the USA, Tokyo and Moscow before moving to England when she was 13. She began playing the horn aged 14 at school and then attended the Royal College of Music Junior Department. She went on to study full time at the Guildhall School of Music and Drama, where her teachers included Anthony Halstead and Jeff Bryant.\r\n\r\nShe later studied with Fergus McWilliam in Berlin, where she became 2nd Horn in the Berlin State Opera under Daniel Barenboim in 1991. During this time, Sarah played as a guest with many top orchestras such as Chicago Symphony, London Symphony and the Sydney Symphony Orchestra and performed worldwide as a soloist and in various chamber music ensembles.\r\n\r\nIn 2001 Sarah Willis joined the Berlin Philharmonic, becoming the first female member of the brass section. She has recorded various acclaimed CDs including works such as the Brahms Horn Trio and the Rosetti Double Horn Concertos as well as the much celebrated CDs Opera! and Four Corners! with the Berlin Philharmonic Horns.\r\n\r\nSarah is involved in Zukunft@BerlinPhil Education projects and enjoys creating and presenting BPh concerts for children. She also interviews conductors and soloists for the BPh\u00b4s Digital Concert Hall and in 2011 she presented live to 33 million viewers during the Final Concert of the YouTube Symphony Orchestra.", 
@@ -2688,6 +1094,7 @@
       "id": 27605, 
       "name": "Sarah Willis", 
       "profileFacebook": "http://www.facebook.com/sarah.willis.39750", 
+      "profileFacebookHandle": 1255467682, 
       "profileTwitter": "http://twitter.com/hornsarahberlin", 
       "profileTwitterHandle": "@hornsarahberlin", 
       "sort_name": "Willis, Sarah"
@@ -2703,167 +1110,47 @@
       "id": 27617, 
       "name": "Uwe Vogel", 
       "profileFacebook": "http://www.facebook.com/pages/Fraunhofer-COMEDD/122748211227062", 
+      "profileFacebookHandle": 122748211227062, 
       "profileLinkedin": "http://www.linkedin.com/company/fraunhofer-comedd", 
+      "profileLinkedinHandle": 2844097, 
       "profileTwitter": "http://twitter.com/fhg_comedd", 
       "profileTwitterHandle": "@fhg_comedd", 
       "profileXing": "http://www.xing.com/companies/fraunhofercomedd", 
       "sort_name": "Vogel, Uwe"
     }, 
-    "27710": {
-      "bio": "Marc Ennemann has over 12 years industry and consulting experience in the areas of organizational & process optimization as well as IT management and was mainly responsible for complex projects, starting from strategy up to operationalize processes. As part of his role as Head of Telecommunication, Mr. Ennemann is responsible for developing digital business models in converging markets and across various industries. Moreover, Marc is responsible for the development of diverse consulting services associated with corporate digital transformation. A related study titled \"Survival of the Smartest\" has recently been released. His passion is especially his three kids as well as diverse sports like football and skiing.", 
-      "companyName": "KPMG", 
-      "companyRole": "Partner & Head of Telecommunication", 
-      "companyUrl": "http://www.kpmg.com/de/de/seiten/default.aspx", 
+    "27689": {
+      "companyName": null, 
+      "companyRole": null, 
+      "companyUrl": null, 
       "event_ids": [
-        27712
+        26399
       ], 
-      "id": 27710, 
-      "name": "Marc Ennemann", 
-      "sort_name": "Ennemann, Marc"
+      "id": 27689, 
+      "name": "Elisabet Stig\u00e5rd", 
+      "sort_name": "Stig\u00e5rd, Elisabet"
     }, 
-    "27714": {
-      "bio": "Peggy Anne Salz is the lead analyst and founder of MobileGroove, a top 50 ranked influential destination producing custom research, strategic Thought Leadership and knowledge resources for the global mobile industry. She is also a Gigaom Research mobile analyst, where her focus is mobile loyalty, engagement and contextual commerce.\r\n\r\nPeggy has written nine books about mobile, both as a lead author and in partnership with companies including SAP Mobile Services, Gemalto and InMobi, examining topics ranging from mobile marketing to mobile payments. Her latest book, Apponomics: The Insider's Guide to a Billion Dollar App Business, provides developers with an advanced guide to marketing and monetizing their apps. Her next book focuses on the impact of 'connectedness' on life, work and society.", 
-      "blogName": "mobilegroove.com", 
-      "blogUrl": "http://www.mobilegroove.com/", 
-      "companyName": "MobileGroove", 
-      "companyRole": "Lead Analyst", 
-      "companyUrl": "http://www.mobilegroove.com/", 
+    "27690": {
+      "bio": "Mobile dev specialist, professional mobile software & business developer since 2005.\r\n\r\nExpert in multiple mobile platforms and skilled in all phases of mobile development. Several award winning app productions in portfolio. Founder of several successful start-ups and passionate about the art of building healthy companies.\r\n\r\nSpeaker, spokesperson, expert, organizer and in general open to sharing knowledge and meeting new people.", 
+      "blogName": "theeyetribe.com", 
+      "blogUrl": "http://theeyetribe.com/blog/", 
+      "companyName": "The Eye Tribe", 
+      "companyRole": "Mobile Lead & partner", 
+      "companyUrl": "http://theeyetribe.com/", 
       "event_ids": [
-        27312
+        27754
       ], 
-      "id": 27714, 
-      "name": "Peggy Anne Salz", 
-      "profileFacebook": "http://www.facebook.com/peggy.salz\u200e", 
-      "profileLinkedin": "http://de.linkedin.com/in/peggysalz\u200e", 
-      "profileTwitter": "http://twitter.com/peggyanne", 
-      "profileTwitterHandle": "@peggyanne", 
-      "sort_name": "Salz, Peggy Anne"
-    }, 
-    "27718": {
-      "companyName": "Berlin Geekettes", 
-      "companyRole": "Co-Founder", 
-      "companyUrl": "http://www.geekettes.io/", 
-      "event_ids": [
-        27576
-      ], 
-      "id": 27718, 
-      "name": "Denise Philipps", 
-      "sort_name": "Philipps, Denise"
+      "id": 27690, 
+      "name": "Anders Bo Pedersen", 
+      "profileFacebook": "http://www.facebook.com/theeyetribe", 
+      "profileFacebookHandle": 316708181683801, 
+      "profileLinkedin": "http://www.linkedin.com/company/the-eye-tribe", 
+      "profileLinkedinHandle": 2423549, 
+      "profileTwitter": "http://twitter.com/TheEyeTribe", 
+      "profileTwitterHandle": "@TheEyeTribe", 
+      "sort_name": "Pedersen, Anders Bo"
     }
   }, 
   "sessions": {
-    "-8": {
-      "endHourString": "23:59", 
-      "endTimestamp": 1399327140, 
-      "eventTypes": "end", 
-      "event_ids": [
-        27493
-      ], 
-      "id": -8, 
-      "startHourClockFile": "21-00.png", 
-      "startHourString": "21:00", 
-      "startTimestamp": 1399316400, 
-      "title": "NEXT Party", 
-      "type": "end"
-    }, 
-    "-7": {
-      "endHourString": "11:30", 
-      "endTimestamp": 1399282200, 
-      "eventTypes": "break", 
-      "event_ids": [
-        27481
-      ], 
-      "id": -7, 
-      "startHourClockFile": "11-00.png", 
-      "startHourString": "11:00", 
-      "startTimestamp": 1399280400, 
-      "title": "Coffee Break", 
-      "type": "break"
-    }, 
-    "-6": {
-      "endHourString": "13:30", 
-      "endTimestamp": 1399289400, 
-      "eventTypes": "break", 
-      "event_ids": [
-        27484
-      ], 
-      "id": -6, 
-      "startHourClockFile": "13-00.png", 
-      "startHourString": "13:00", 
-      "startTimestamp": 1399287600, 
-      "title": "Networking break", 
-      "type": "break"
-    }, 
-    "-5": {
-      "endHourString": "18:00", 
-      "endTimestamp": 1399305600, 
-      "eventTypes": "break", 
-      "event_ids": [
-        27492
-      ], 
-      "id": -5, 
-      "startHourClockFile": "17-30.png", 
-      "startHourString": "17:30", 
-      "startTimestamp": 1399303800, 
-      "title": "Coffee break", 
-      "type": "break"
-    }, 
-    "-4": {
-      "endHourString": "23:00", 
-      "endTimestamp": 1399410000, 
-      "eventTypes": "end", 
-      "event_ids": [
-        27491
-      ], 
-      "id": -4, 
-      "startHourClockFile": "17-30.png", 
-      "startHourString": "17:30", 
-      "startTimestamp": 1399390200, 
-      "title": "End", 
-      "type": "end"
-    }, 
-    "-3": {
-      "endHourString": "11:30", 
-      "endTimestamp": 1399368600, 
-      "eventTypes": "break", 
-      "event_ids": [
-        27486
-      ], 
-      "id": -3, 
-      "startHourClockFile": "11-00.png", 
-      "startHourString": "11:00", 
-      "startTimestamp": 1399366800, 
-      "title": "Coffee break", 
-      "type": "break"
-    }, 
-    "-2": {
-      "endHourString": "14:00", 
-      "endTimestamp": 1399377600, 
-      "eventTypes": "break", 
-      "event_ids": [
-        27487
-      ], 
-      "id": -2, 
-      "startHourClockFile": "13-00.png", 
-      "startHourString": "13:00", 
-      "startTimestamp": 1399374000, 
-      "title": "Lunch break", 
-      "type": "break"
-    }, 
-    "-1": {
-      "endHourString": "16:00", 
-      "endTimestamp": 1399384800, 
-      "eventTypes": "break", 
-      "event_ids": [
-        27489
-      ], 
-      "id": -1, 
-      "startHourClockFile": "15-30.png", 
-      "startHourString": "15:30", 
-      "startTimestamp": 1399383000, 
-      "title": "Coffee break", 
-      "type": "break"
-    }, 
     "3554": {
       "description": "Mikko Hypponen, Scott Smith, Jessi Baker, Alex Oelling, Uwe Vogel", 
       "endHourString": "15:30", 
@@ -2977,13 +1264,14 @@
       "type": "session"
     }, 
     "3560": {
-      "description": "Thomas Bendig, Oskar Kalmaru, Tanya Vlach, Michael Pelletier, Daan Lucas, Pascal Auberson", 
+      "description": "Thomas Bendig, Elisabet Stig\u00e5rd, Anders Bo Pedersen, Tanya Vlach, Michael Pelletier, Daan Lucas, Pascal Auberson", 
       "endHourString": "15:30", 
       "endTimestamp": 1399383000, 
       "eventTypes": "Talk, Talk, Talk, Demo, Demo", 
       "event_ids": [
         26875, 
         26399, 
+        27754, 
         27546, 
         27295, 
         27135
@@ -3015,138 +1303,6 @@
       "title": "Closing session", 
       "type": "session"
     }, 
-    "3563": {
-      "description": "Rudy De Waele, Christian Lindholm, Priya Prakash, Louisa Heinrich, Peggy Anne Salz", 
-      "endHourString": "11:00", 
-      "endTimestamp": 1399366800, 
-      "eventTypes": "Keynote, Panel Discussion", 
-      "event_ids": [
-        27070, 
-        27312
-      ], 
-      "id": 3563, 
-      "stage_id": 20946, 
-      "startHourClockFile": "09-30.png", 
-      "startHourString": "09:30", 
-      "startTimestamp": 1399361400, 
-      "title": "Shift 2020", 
-      "type": "session"
-    }, 
-    "3566": {
-      "description": "This session will shed light on the future developments of television. What could the future of television look like and what kind of business models will lead and inspire the market? How will users retrieve TV-content and which benefits will both users and broadcasters have from the TV of the future?", 
-      "endHourString": "13:00", 
-      "endTimestamp": 1399374000, 
-      "eventTypes": "Keynote, Talk, Talk", 
-      "event_ids": [
-        27317, 
-        27552, 
-        27554
-      ], 
-      "id": 3566, 
-      "stage_id": 20946, 
-      "startHourClockFile": "11-30.png", 
-      "startHourString": "11:30", 
-      "startTimestamp": 1399368600, 
-      "title": "The future of TV", 
-      "type": "session"
-    }, 
-    "3567": {
-      "description": "Axel Bergander, Kathleen Karrer", 
-      "endHourString": "15:00", 
-      "endTimestamp": 1399381200, 
-      "eventTypes": "Talk, Talk", 
-      "event_ids": [
-        27319, 
-        27598
-      ], 
-      "id": 3567, 
-      "stage_id": 20946, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399377600, 
-      "title": "Content marketing case studies", 
-      "type": "session"
-    }, 
-    "3609": {
-      "description": "Torsten Ahlers, Oliver H\u00fclse", 
-      "endHourString": "13:00", 
-      "endTimestamp": 1399287600, 
-      "eventTypes": "Workshop", 
-      "event_ids": [
-        27402
-      ], 
-      "id": 3609, 
-      "stage_id": 20942, 
-      "startHourClockFile": "11-30.png", 
-      "startHourString": "11:30", 
-      "startTimestamp": 1399282200, 
-      "title": "Advertising with big data - the new normal", 
-      "type": "session"
-    }, 
-    "3610": {
-      "description": "Lutz Hempel, Marion King", 
-      "endHourString": "11:00", 
-      "endTimestamp": 1399280400, 
-      "eventTypes": "Workshop", 
-      "event_ids": [
-        27376
-      ], 
-      "id": 3610, 
-      "stage_id": 20945, 
-      "startHourClockFile": "09-30.png", 
-      "startHourString": "09:30", 
-      "startTimestamp": 1399275000, 
-      "title": "Jazz it!", 
-      "type": "session"
-    }, 
-    "3611": {
-      "description": "Jonathan Bean", 
-      "endHourString": "15:30", 
-      "endTimestamp": 1399296600, 
-      "eventTypes": "Workshop", 
-      "event_ids": [
-        26835
-      ], 
-      "id": 3611, 
-      "stage_id": 20945, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399291200, 
-      "title": "Marketing & communication reinvented", 
-      "type": "session"
-    }, 
-    "3612": {
-      "description": "Martin Jordan, Christian Vatter", 
-      "endHourString": "17:30", 
-      "endTimestamp": 1399303800, 
-      "eventTypes": "Workshop", 
-      "event_ids": [
-        26645
-      ], 
-      "id": 3612, 
-      "stage_id": 20945, 
-      "startHourClockFile": "16-00.png", 
-      "startHourString": "16:00", 
-      "startTimestamp": 1399298400, 
-      "title": "Brand services", 
-      "type": "session"
-    }, 
-    "3613": {
-      "description": "Lisa Lang, Anke Domscheit-Berg", 
-      "endHourString": "13:00", 
-      "endTimestamp": 1399287600, 
-      "eventTypes": "Workshop", 
-      "event_ids": [
-        27255
-      ], 
-      "id": 3613, 
-      "stage_id": 20946, 
-      "startHourClockFile": "11-30.png", 
-      "startHourString": "11:30", 
-      "startTimestamp": 1399282200, 
-      "title": "Big data management", 
-      "type": "session"
-    }, 
     "3615": {
       "description": "Matthias Schrader, Nils Wollny, Jochen Wegner, Monique van Dusseldorp, Brigitte Zypries", 
       "endHourString": "14:00", 
@@ -3162,267 +1318,6 @@
       "startHourString": "13:30", 
       "startTimestamp": 1399289400, 
       "title": "Opening session", 
-      "type": "session"
-    }, 
-    "3616": {
-      "description": "Paulina Mazurek, Howard Hunt, Ayelet Noff, Piotr Ja\u015b", 
-      "endHourString": "11:00", 
-      "endTimestamp": 1399366800, 
-      "eventTypes": "Start-up Pitch", 
-      "event_ids": [
-        27519
-      ], 
-      "id": 3616, 
-      "stage_id": 20215, 
-      "startHourClockFile": "09-30.png", 
-      "startHourString": "09:30", 
-      "startTimestamp": 1399361400, 
-      "title": "Looking East", 
-      "type": "session"
-    }, 
-    "3617": {
-      "description": "Yann Mauchamp, Nicolas Celier, Wolfgang Krause, Theophil Haberstroh, Cedric Hutchings, Thomas Nicholls", 
-      "endHourString": "13:00", 
-      "endTimestamp": 1399374000, 
-      "eventTypes": "Panel Discussion, Demo", 
-      "event_ids": [
-        27512, 
-        27515
-      ], 
-      "id": 3617, 
-      "stage_id": 20215, 
-      "startHourClockFile": "11-30.png", 
-      "startHourString": "11:30", 
-      "startTimestamp": 1399368600, 
-      "title": "Why are french start-ups so sexy?", 
-      "type": "session"
-    }, 
-    "3618": {
-      "description": "Matt Cooper, Christoph Gerlinger, Jess Erickson", 
-      "endHourString": "11:00", 
-      "endTimestamp": 1399280400, 
-      "eventTypes": "Start-up Pitch, Start-up Pitch", 
-      "event_ids": [
-        27534, 
-        27560
-      ], 
-      "id": 3618, 
-      "stage_id": 20215, 
-      "startHourClockFile": "09-30.png", 
-      "startHourString": "09:30", 
-      "startTimestamp": 1399275000, 
-      "title": "Start-up pitch 1", 
-      "type": "session"
-    }, 
-    "3619": {
-      "description": "Shira Abel, Philipp M\u00f6hring", 
-      "endHourString": "13:00", 
-      "endTimestamp": 1399287600, 
-      "eventTypes": "Start-up Pitch, Start-up Pitch", 
-      "event_ids": [
-        27536, 
-        27561
-      ], 
-      "id": 3619, 
-      "stage_id": 20215, 
-      "startHourClockFile": "11-30.png", 
-      "startHourString": "11:30", 
-      "startTimestamp": 1399282200, 
-      "title": "Start-up pitch 2", 
-      "type": "session"
-    }, 
-    "3620": {
-      "description": "Alex Farcet, Alexander Hofmann, Claudia Helming", 
-      "endHourString": "15:30", 
-      "endTimestamp": 1399296600, 
-      "eventTypes": "Start-up Pitch, Start-up Pitch", 
-      "event_ids": [
-        27542, 
-        27568
-      ], 
-      "id": 3620, 
-      "stage_id": 20215, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399291200, 
-      "title": "Start-up pitch 3", 
-      "type": "session"
-    }, 
-    "3621": {
-      "description": "Claudius Gerstner, Morten Lund, Ayelet Noff", 
-      "endHourString": "17:30", 
-      "endTimestamp": 1399303800, 
-      "eventTypes": "Start-up Pitch, Start-up Pitch", 
-      "event_ids": [
-        27543, 
-        27570
-      ], 
-      "id": 3621, 
-      "stage_id": 20215, 
-      "startHourClockFile": "16-00.png", 
-      "startHourString": "16:00", 
-      "startTimestamp": 1399298400, 
-      "title": "Start-up pitch 4", 
-      "type": "session"
-    }, 
-    "3627": {
-      "description": "Prof. Dr. Marc Dr\u00fcner, Lars-Alexander Mayer", 
-      "endHourString": "15:30", 
-      "endTimestamp": 1399296600, 
-      "eventTypes": "Workshop", 
-      "event_ids": [
-        768
-      ], 
-      "id": 3627, 
-      "stage_id": 20946, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399291200, 
-      "title": "Post-digital marketing", 
-      "type": "session"
-    }, 
-    "3629": {
-      "description": "Yann Mauchamp, Torsten Wingenter, Claas van Delden, Regine Haschka-Helmer, Veit Blumschein, Manuel Gerres, Holger G. Weiss", 
-      "endHourString": "15:30", 
-      "endTimestamp": 1399383000, 
-      "eventTypes": "Panel Discussion", 
-      "event_ids": [
-        27572
-      ], 
-      "id": 3629, 
-      "stage_id": 20215, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399377600, 
-      "title": "The new normal between start-ups and corporations", 
-      "type": "session"
-    }, 
-    "3630": {
-      "description": "Niels Pflaeging, Stephan Grabmeier, Bj\u00f6rn Negelmann, Lee Bryant", 
-      "endHourString": "15:30", 
-      "endTimestamp": 1399383000, 
-      "eventTypes": "Workshop", 
-      "event_ids": [
-        27354
-      ], 
-      "id": 3630, 
-      "stage_id": 20944, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399377600, 
-      "title": "The future of leadership", 
-      "type": "session"
-    }, 
-    "3631": {
-      "description": "Laurent Burdin", 
-      "endHourString": "13:00", 
-      "endTimestamp": 1399374000, 
-      "eventTypes": "Talk", 
-      "event_ids": [
-        27575
-      ], 
-      "id": 3631, 
-      "stage_id": 20945, 
-      "startHourClockFile": "11-30.png", 
-      "startHourString": "11:30", 
-      "startTimestamp": 1399368600, 
-      "title": "Berlin & mobile: survival kit for corporate managers", 
-      "type": "session"
-    }, 
-    "3632": {
-      "description": "Denise Philipps, Reto Wettach, Paul Jozefak, Andrew Hoag", 
-      "endHourString": "15:30", 
-      "endTimestamp": 1399383000, 
-      "eventTypes": "Workshop", 
-      "event_ids": [
-        27576
-      ], 
-      "id": 3632, 
-      "stage_id": 20942, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399377600, 
-      "title": "The new normal in business: Why we need to teach a startup mindset", 
-      "type": "session"
-    }, 
-    "3633": {
-      "description": "Markus von der L\u00fche, Stefanie Kuhnhen", 
-      "endHourString": "11:00", 
-      "endTimestamp": 1399366800, 
-      "eventTypes": "Workshop", 
-      "event_ids": [
-        27596
-      ], 
-      "id": 3633, 
-      "stage_id": 20945, 
-      "startHourClockFile": "09-30.png", 
-      "startHourString": "09:30", 
-      "startTimestamp": 1399361400, 
-      "title": "Prototyping a mobile app: how to use lean psychology to build the next killer-app", 
-      "type": "session"
-    }, 
-    "3641": {
-      "description": "Alex Farcet", 
-      "endHourString": "21:00", 
-      "endTimestamp": 1399316400, 
-      "eventTypes": "Start-up Pitch", 
-      "event_ids": [
-        27666
-      ], 
-      "id": 3641, 
-      "stage_id": 20215, 
-      "startHourClockFile": "19-00.png", 
-      "startHourString": "19:00", 
-      "startTimestamp": 1399309200, 
-      "title": "Investment lab @ Startupbootcamp Berlin (Rainmaking Loft, Charlottenstr 2)", 
-      "type": "session"
-    }, 
-    "3643": {
-      "description": "Evan Luthra", 
-      "endHourString": "11:00", 
-      "endTimestamp": 1399280400, 
-      "eventTypes": "Workshop", 
-      "event_ids": [
-        27625
-      ], 
-      "id": 3643, 
-      "stage_id": 20944, 
-      "startHourClockFile": "09-30.png", 
-      "startHourString": "09:30", 
-      "startTimestamp": 1399275000, 
-      "title": "Wearable tech: the hope, the hype and the reality", 
-      "type": "session"
-    }, 
-    "3644": {
-      "description": "Robert Stulle, Steven Cook", 
-      "endHourString": "15:30", 
-      "endTimestamp": 1399296600, 
-      "eventTypes": "", 
-      "event_ids": [
-        27194
-      ], 
-      "id": 3644, 
-      "stage_id": 20944, 
-      "startHourClockFile": "14-00.png", 
-      "startHourString": "14:00", 
-      "startTimestamp": 1399291200, 
-      "title": "The lean work shop", 
-      "type": "session"
-    }, 
-    "3645": {
-      "description": "Marc Ennemann", 
-      "endHourString": "11:00", 
-      "endTimestamp": 1399366800, 
-      "eventTypes": "Workshop", 
-      "event_ids": [
-        27712
-      ], 
-      "id": 3645, 
-      "stage_id": 20944, 
-      "startHourClockFile": "09-30.png", 
-      "startHourString": "09:30", 
-      "startTimestamp": 1399361400, 
-      "title": "Digital revolution and disruptive methodologies for business model reengineering", 
       "type": "session"
     }
   }, 
@@ -3443,318 +1338,7 @@
         3555
       ], 
       "type": "track"
-    }, 
-    "20215": {
-      "content": "", 
-      "id": 20215, 
-      "name": "Start-up Stage B05/B06", 
-      "session_ids": [
-        3629, 
-        3616, 
-        3617, 
-        3641, 
-        3621, 
-        3619, 
-        3620, 
-        3618
-      ], 
-      "type": "track"
-    }, 
-    "20942": {
-      "content": "", 
-      "id": 20942, 
-      "name": "Workshop B03", 
-      "session_ids": [
-        3632, 
-        3609
-      ], 
-      "type": "track"
-    }, 
-    "20944": {
-      "content": "", 
-      "id": 20944, 
-      "name": "Workshop B04", 
-      "session_ids": [
-        3645, 
-        3630, 
-        3643, 
-        3644
-      ], 
-      "type": "track"
-    }, 
-    "20945": {
-      "content": "", 
-      "id": 20945, 
-      "name": "Workshop B08", 
-      "session_ids": [
-        3633, 
-        3631, 
-        3612, 
-        3611, 
-        3610
-      ], 
-      "type": "track"
-    }, 
-    "20946": {
-      "content": "", 
-      "id": 20946, 
-      "name": "Yellow Saloon B09", 
-      "session_ids": [
-        3567, 
-        3566, 
-        3563, 
-        3613, 
-        3627
-      ], 
-      "type": "track"
     }
   }, 
-  "timeline": [
-    {
-      "endTimestamp": 1399280400, 
-      "session_id": 3643, 
-      "startTimestamp": 1399275000, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399280400, 
-      "session_id": 3610, 
-      "startTimestamp": 1399275000, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399280400, 
-      "session_id": 3618, 
-      "startTimestamp": 1399275000, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399282200, 
-      "session_id": -7, 
-      "startTimestamp": 1399280400, 
-      "type": "break"
-    }, 
-    {
-      "endTimestamp": 1399287600, 
-      "session_id": 3613, 
-      "startTimestamp": 1399282200, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399287600, 
-      "session_id": 3609, 
-      "startTimestamp": 1399282200, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399287600, 
-      "session_id": 3619, 
-      "startTimestamp": 1399282200, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399289400, 
-      "session_id": -6, 
-      "startTimestamp": 1399287600, 
-      "type": "break"
-    }, 
-    {
-      "endTimestamp": 1399291200, 
-      "session_id": 3615, 
-      "startTimestamp": 1399289400, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399296600, 
-      "session_id": 3627, 
-      "startTimestamp": 1399291200, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399296600, 
-      "session_id": 3644, 
-      "startTimestamp": 1399291200, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399296600, 
-      "session_id": 3611, 
-      "startTimestamp": 1399291200, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399296600, 
-      "session_id": 3620, 
-      "startTimestamp": 1399291200, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399296600, 
-      "session_id": 3554, 
-      "startTimestamp": 1399291200, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399303800, 
-      "session_id": 3612, 
-      "startTimestamp": 1399298400, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399303800, 
-      "session_id": 3621, 
-      "startTimestamp": 1399298400, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399303800, 
-      "session_id": 3555, 
-      "startTimestamp": 1399298400, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399305600, 
-      "session_id": -5, 
-      "startTimestamp": 1399303800, 
-      "type": "break"
-    }, 
-    {
-      "endTimestamp": 1399308300, 
-      "session_id": 3556, 
-      "startTimestamp": 1399305600, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399311000, 
-      "session_id": 3557, 
-      "startTimestamp": 1399308300, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399316400, 
-      "session_id": 3641, 
-      "startTimestamp": 1399309200, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399327140, 
-      "session_id": -8, 
-      "startTimestamp": 1399316400, 
-      "type": "end"
-    }, 
-    {
-      "endTimestamp": 1399366800, 
-      "session_id": 3563, 
-      "startTimestamp": 1399361400, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399366800, 
-      "session_id": 3645, 
-      "startTimestamp": 1399361400, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399366800, 
-      "session_id": 3633, 
-      "startTimestamp": 1399361400, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399366800, 
-      "session_id": 3616, 
-      "startTimestamp": 1399361400, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399366800, 
-      "session_id": 3558, 
-      "startTimestamp": 1399361400, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399368600, 
-      "session_id": -3, 
-      "startTimestamp": 1399366800, 
-      "type": "break"
-    }, 
-    {
-      "endTimestamp": 1399374000, 
-      "session_id": 3566, 
-      "startTimestamp": 1399368600, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399374000, 
-      "session_id": 3631, 
-      "startTimestamp": 1399368600, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399374000, 
-      "session_id": 3617, 
-      "startTimestamp": 1399368600, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399374000, 
-      "session_id": 3559, 
-      "startTimestamp": 1399368600, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399377600, 
-      "session_id": -2, 
-      "startTimestamp": 1399374000, 
-      "type": "break"
-    }, 
-    {
-      "endTimestamp": 1399381200, 
-      "session_id": 3567, 
-      "startTimestamp": 1399377600, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399383000, 
-      "session_id": 3630, 
-      "startTimestamp": 1399377600, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399383000, 
-      "session_id": 3632, 
-      "startTimestamp": 1399377600, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399383000, 
-      "session_id": 3629, 
-      "startTimestamp": 1399377600, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399383000, 
-      "session_id": 3560, 
-      "startTimestamp": 1399377600, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399384800, 
-      "session_id": -1, 
-      "startTimestamp": 1399383000, 
-      "type": "break"
-    }, 
-    {
-      "endTimestamp": 1399390200, 
-      "session_id": 3562, 
-      "startTimestamp": 1399384800, 
-      "type": "session"
-    }, 
-    {
-      "endTimestamp": 1399410000, 
-      "session_id": -4, 
-      "startTimestamp": 1399390200, 
-      "type": "end"
-    }
-  ]
+  "timeline": []
 }
