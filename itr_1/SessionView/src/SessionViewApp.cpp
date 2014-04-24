@@ -28,8 +28,6 @@ using namespace std;
 using namespace boost::assign;
 
 
-#define HELLO_WORLD_SAFE std::cout << "Hello World." << std::endl;
-
 class SessionViewApp : public AppNative {
 public:
     ~SessionViewApp();
@@ -75,7 +73,7 @@ void SessionViewApp::setup(){
     mDataEvents     = nullptr;
     mDataSession    = nullptr;
 
-    next::Mapping::Get(3559, mImagesClocks, mImagesSpeakers,
+    next::Mapping::Get(3560, mImagesClocks, mImagesSpeakers,
                              mDataSpeakers, mDataEvents, mDataSession);
     mViewSession = new next::SessionView(mDataSession);
     

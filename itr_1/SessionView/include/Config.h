@@ -12,11 +12,8 @@
 #include "cinder/Color.h"
 #include "cinder/Vector.h"
 
-#define SCALE 2
-
 #define COLOR_NEXT_FUCHSIA ci::Color::hex(0xDE3865)
 #define COLOR_NEXT_BLUE
-
 
 #define RES_PATH_DATA_JSON      "/Users/automat/Projects/next/itr_1/SessionView/resources/data.json"
 #define RES_PATH_IMAGES_SPEAKER "/Users/automat/Projects/next/data/images_dome_stage"
@@ -216,6 +213,7 @@
 #define SESSION_LABEL_SPEAKER_FONT_SIZE SESSION_LABEL_TITLE_DEFAULT_FONT_SIZE
 #define SESSION_LABEL_SPEAKER_NAME_FONT_COLOR ci::ColorAf::white()
 #define SESSION_LABEL_SPEAKER_COMPANY_FONT_COLOR ci::Color::hex(0xDE3865)
+#define SESSION_LABEL_SPEAKER_COMPANY_LINE_HEIGHT 1.095f
 
 
 #define SESSION_LABEL_SESSION_TIME_FONT_SIZE 24 * SCALE
