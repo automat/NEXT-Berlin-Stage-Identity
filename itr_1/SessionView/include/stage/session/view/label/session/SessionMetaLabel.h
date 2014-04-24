@@ -12,6 +12,7 @@
 #include "stage/session/view/label/AbstractLabel.h"
 #include <string>
 
+
 namespace next {
     using namespace std;
     class SessionMetaLabel : public AbstractLabel {
@@ -19,14 +20,19 @@ namespace next {
         Anim<float>    mAlphaState;
         next::TextBox* mTextBoxTimeRemaining;
         float          mTextBoxTimeWidth;
+        
+        bool           mReachedTargetTimestamp;
+        time_t         mTargetTimestamp;
 
         Vec2f mVertexTrapezoid[4];
+        
+        gl::Texture    mClockImageRef;
         
     public:
         SessionMetaLabel();
         ~SessionMetaLabel();
         
-        void set(const string& timeStart, const string& endTime, time_t timestamp);
+        void set(const string& timeStart, const string& endTime, time_t timestamp, const gl::Texture& clockImageRef);
         void update();
         
         void draw();

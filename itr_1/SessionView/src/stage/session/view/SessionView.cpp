@@ -103,7 +103,7 @@ namespace next {
         }
         
         mLabelTitle->set(mData->title);
-        mLabelMeta->set(mData->startHourString, mData->endHourString, mData->startTimeStamp);
+        mLabelMeta->set(mData->startHourString, mData->endHourString, mData->startTimeStamp, mData->clockImageRef);
     }
     
     void SessionView::resetEventViews(){

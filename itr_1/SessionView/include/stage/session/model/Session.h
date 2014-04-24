@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "stage/session/model/Event.h"
+#include "cinder/gl/Texture.h"
 #include <map>
 
 using namespace std;
@@ -29,6 +30,8 @@ namespace next {
         string   type;
         
         map<uint32_t,Event>* events;
+    
+        ci::gl::Texture clockImageRef;
     };
 }
 

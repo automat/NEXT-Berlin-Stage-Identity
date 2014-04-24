@@ -66,7 +66,7 @@ namespace next {
         mTextBox->setString(str);
         mTextBoxWidth = mTextBox->getCalculatedSize().x + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
 
-        float trapezoidWidth = mTextBoxWidth + SESSION_LABEL_META_OFFSET_X * -2;
+        float trapezoidWidth = mTextBoxWidth + SESSION_LABEL_META_OFFSET_X * -1;
         static const float slope = 14.5f;
         
         mVertexTrapezoid[0] = Vec2f(slope,0);

@@ -40,7 +40,8 @@ public:
     
     CameraOrtho  mCamera;
     
-    map<uint32_t, gl::Texture>*   mDataImages;
+    map<uint32_t, gl::Texture>*   mImagesClocks;
+    map<uint32_t, gl::Texture>*   mImagesSpeakers;
     map<uint32_t, next::Speaker>* mDataSpeakers;
     map<uint32_t, next::Event>*   mDataEvents;
     next::Session*                mDataSession;
@@ -63,17 +64,15 @@ void SessionViewApp::setup(){
     float zoom = 0.65f;
     mCamera.setOrtho(-aspectRatio * zoom, aspectRatio * zoom, -zoom, zoom, -1, 10);
     mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
-    
-    string jsonFilepath  = "/Users/automat/Projects/next/itr_1/SessionView/resources/data.json";
-    string imageFilepath = "/Users/automat/Projects/next/data/images_dome_stage";
-    
-    mDataImages   = nullptr;
-    mDataSpeakers = nullptr;
-    mDataEvents   = nullptr;
-    mDataSession  = nullptr;
+   
+    mImagesClocks   = nullptr;
+    mImagesSpeakers = nullptr;
+    mDataSpeakers   = nullptr;
+    mDataEvents     = nullptr;
+    mDataSession    = nullptr;
 
-    next::Mapping::Get(jsonFilepath, imageFilepath,     3559,
-                       mDataImages, mDataSpeakers, mDataEvents, mDataSession);
+    next::Mapping::Get(3560, mImagesClocks, mImagesSpeakers,
+                             mDataSpeakers, mDataEvents, mDataSession);
     mViewSession = new next::SessionView(mDataSession);
     
     mDrawMeasurements = false;
@@ -89,7 +88,8 @@ SessionViewApp::~SessionViewApp(){
     delete mDataSession;
     delete mDataEvents;
     delete mDataSpeakers;
-    delete mDataImages;
+    delete mImagesSpeakers;
+    delete mImagesClocks;
 }
 
 void SessionViewApp::keyDown(KeyEvent event) {

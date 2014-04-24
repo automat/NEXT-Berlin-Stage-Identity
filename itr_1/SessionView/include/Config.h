@@ -14,6 +14,14 @@
 
 #define SCALE 2
 
+#define COLOR_NEXT_FUCHSIA ci::Color::hex(0xDE3865)
+#define COLOR_NEXT_BLUE
+
+
+#define RES_PATH_DATA_JSON      "/Users/automat/Projects/next/itr_1/SessionView/resources/data.json"
+#define RES_PATH_IMAGES_SPEAKER "/Users/automat/Projects/next/data/images_dome_stage"
+#define RES_PATH_IMAGES_CLOCK   "/Users/automat/Projects/next/data/clocks"
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //  Session View
@@ -104,6 +112,7 @@
 #define SESSION_LABEL_SESSION_TITLE_SHADOW_OFFSET    SESSION_LABEL_TITLE_SHADOW_OFFSET
 #define SESSION_LABEL_SESSION_TITLE_SHADOW_STRENGTH  SESSION_LABEL_TITLE_SHADOW_STRENGTH
 
+
 //  anim
 #define SESSION_LABEL_SESSION_TITLE_ANIM_TIME_ALPHA_OFF  0.9f
 
@@ -159,6 +168,7 @@
 #define SESSION_LABEL_META_BOX_HEIGHT 70
 #define SESSION_LABEL_META_OFFSET_X -22
 #define SESSION_LABEL_META_OFFSET_Y -11
+#define SESSION_LABEL_META_CLOCK_MARGIN_RIGHT 60
 
 //
 //  Session

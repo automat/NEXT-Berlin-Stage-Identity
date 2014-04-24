@@ -1,6 +1,7 @@
 #include "SessionMetaLabel.h"
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/join.hpp>
+#include <ctime>
 
 
 namespace next {
@@ -14,7 +15,9 @@ namespace next {
     SessionMetaLabel::SessionMetaLabel() :
         AbstractLabel(),
         mAlphaState(0),
-        mTextBoxTimeWidth(0){
+        mTextBoxTimeWidth(0),
+        mTargetTimestamp(0),
+        mReachedTargetTimestamp(false){
             mTextBox->setFont(      Font(app::loadResource(RES_AKKURAT_BOLD), SESSION_LABEL_META_FONT_SIZE * SESSION_LABEL_META_FONT_SCALAR));
             mTextBox->setWidth(     SESSION_LABEL_SESSION_META_BOX_WIDTH);
             mTextBox->setFontSize(  SESSION_LABEL_META_FONT_SIZE);
@@ -57,6 +60,17 @@ namespace next {
             glDisableClientState(GL_VERTEX_ARRAY);
         glPopMatrix();
         
+        ColorAf clockColor = COLOR_NEXT_FUCHSIA;
+                clockColor.a = alpha;
+        glColor4f(clockColor.r,clockColor.g,clockColor.b,clockColor.a);
+        gl::draw(mClockImageRef);
+        
+        
+        
+        glPushMatrix();
+       
+        glTranslatef(SESSION_LABEL_META_CLOCK_MARGIN_RIGHT,0,0);
+        
         glColor4f(1, 1, 1, alpha);
         glTranslatef(topLeft.x, topLeft.y, 0);
         gl::draw(mTextBox->getTexture());
@@ -71,15 +85,16 @@ namespace next {
 #endif
         glColor4f(1, 1, 1, 1);
         glPopMatrix();
+        glPopMatrix();
     }
     
-    void SessionMetaLabel::set(const string& timeStart, const string& endTime, time_t timestamp){
+    void SessionMetaLabel::set(const string& timeStart, const string& endTime, time_t timestamp, const gl::Texture& clockImageRef){
         mTextBox->setString(timeStart + " - " + endTime);
         mTextBoxTimeRemaining->setString("in 23 min");
         mTextBoxTimeWidth = mTextBox->getCalculatedSize().x + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
         
         float textBoxesWidth = mTextBoxTimeWidth + mTextBoxTimeRemaining->getCalculatedSize().x;
-        float trapezoidWidth = textBoxesWidth + SESSION_LABEL_META_OFFSET_X * -2;
+        float trapezoidWidth = textBoxesWidth + SESSION_LABEL_META_OFFSET_X * -2 + SESSION_LABEL_META_CLOCK_MARGIN_RIGHT * 1.5f;
         
         static const float slope = 14.5f;
         
@@ -87,10 +102,38 @@ namespace next {
         mVertexTrapezoid[1] = Vec2f(trapezoidWidth + slope,0);
         mVertexTrapezoid[2] = Vec2f(0,SESSION_LABEL_META_BOX_HEIGHT);
         mVertexTrapezoid[3] = Vec2f(trapezoidWidth, SESSION_LABEL_META_BOX_HEIGHT);
+        
+        mTargetTimestamp = timestamp;
+        mClockImageRef   = clockImageRef.weakClone();
     }
     
     void SessionMetaLabel::update(){
+        if(mReachedTargetTimestamp){
+            return;
+        }
+        time_t timestamp  = time(0);
+        time_t diffTarget = mTargetTimestamp - timestamp;
         
+        if(diffTarget > 0){
+            string timeFormat;
+            string timeSuffix;
+            
+            if (diffTarget > 5400){ // 90 min
+                timeFormat = "90+";
+                timeSuffix = "min";
+            } else if(diffTarget > 60) {
+                timeFormat = toString(static_cast<int>(round(static_cast<float>(diffTarget) / 60.0f)));
+                timeSuffix = "min";
+            } else {
+                timeFormat = toString(diffTarget);
+                timeSuffix = "sec";
+            }
+            
+            mTextBoxTimeRemaining->setString("in " + timeFormat + " " + timeSuffix);
+        } else {
+            mTextBoxTimeRemaining->setString("Now");
+            mReachedTargetTimestamp = true;
+        }
     }
 
     /*--------------------------------------------------------------------------------------------*/

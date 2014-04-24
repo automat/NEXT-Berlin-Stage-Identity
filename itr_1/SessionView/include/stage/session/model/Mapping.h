@@ -25,6 +25,8 @@
 #include <boost/assign/std/map.hpp>
 #include <boost/assign/std/vector.hpp>
 
+#include "Config.h"
+
 namespace next {
     using namespace ci;
     using namespace ci::app;
@@ -102,24 +104,24 @@ namespace next {
         //
         ////////////////////////////////////////////////////////////////////////////////////////////////
 
-        inline static void Get(const string& jsonFilepath,
-                               const string& imageFilepath,
-                               uint32_t session_id,
-                               map<uint32_t, gl::Texture>*& images ,
+        inline static void Get(uint32_t session_id,
+                               map<uint32_t, gl::Texture>*& imagesClocks,
+                               map<uint32_t, gl::Texture>*& imagesSpeaker ,
                                map<uint32_t, Speaker>*& speakers ,
                                map<uint32_t, Event>*& events ,
                                Session*& session){
             
-            if(images)   delete images;
-            if(speakers) delete speakers;
-            if(events)   delete events;
-            if(session)  delete session;
-             
+            if(imagesSpeaker)   delete imagesSpeaker;
+            if(speakers)        delete speakers;
+            if(events)          delete events;
+            if(session)         delete session;
+            
+            map<uint32_t, gl::Texture>* _clocks   = new map<uint32_t, gl::Texture>();
             map<uint32_t, gl::Texture>* _images   = new map<uint32_t, gl::Texture>();
             map<uint32_t, Speaker>*     _speakers = new map<uint32_t, Speaker>();
             map<uint32_t, Event>*       _events   = new map<uint32_t, Event>();
             
-            JsonTree data = JsonTree(loadFile(jsonFilepath));
+            JsonTree data = JsonTree(loadFile(RES_PATH_DATA_JSON));
             
             const JsonTree& jsonSessions = data.getChild("sessions");
             const JsonTree& jsonPersons  = data.getChild("persons");
@@ -147,7 +149,7 @@ namespace next {
                     if (!static_cast<bool>(_speakers->count(_person_id))) {
                         const JsonTree& jsonPerson = getChild(jsonPersons, _person_id);
                         
-                        string _imageFilepath = imageFilepath + "/" + toString(_person_id) + ".png";
+                        string _imageFilepath = string(RES_PATH_IMAGES_SPEAKER) + "/" + toString(_person_id) + ".png";
                         const gl::Texture& image = (*_images)[_person_id] = gl::Texture(loadImage(_imageFilepath));
                         
                         Speaker& speaker      = (*_speakers)[_person_id] = Speaker();
@@ -165,14 +167,11 @@ namespace next {
                 }
                 
                 (*_events)[_event_id] = event;
-           
             }
             
-            images   = _images;
-            speakers = _speakers;
-            events   = _events;
-            
-            
+            imagesSpeaker = _images;
+            speakers      = _speakers;
+            events        = _events;
             
             session = new Session();
             Session& _session = *session;
@@ -186,6 +185,12 @@ namespace next {
             _session.type                = jsonSession.getChild("type").getValue<string>();
             _session.events              = events;
             
+            string clockFilepath   = string(RES_PATH_IMAGES_CLOCK) + "/" + _session.startHourClockFile;
+            (*_clocks)[session_id] = gl::Texture(loadImage(clockFilepath));
+            
+            _session.clockImageRef = (*_clocks)[session_id].weakClone();
+            
+            imagesClocks = _clocks;
         }
         
     };
