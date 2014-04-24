@@ -32,13 +32,11 @@ namespace next {
                 sFontCompany = Font(app::loadResource(RES_AKKURAT_LIGHT), SESSION_LABEL_SPEAKER_FONT_SIZE * SESSION_LABEL_SPEAKER_FONT_SCALE);
             }
 
-
             mTextBox->setFont(      sFontName);
             mTextBox->setWidth(     SESSION_LABEL_SPEAKER_BOX_WIDTH);
             mTextBox->setFontSize(  SESSION_LABEL_SPEAKER_FONT_SIZE);
             mTextBox->setColorFont( SESSION_LABEL_SPEAKER_NAME_FONT_COLOR);
-            
-                
+
             mTextBoxCompany = new TextBox();
             mTextBoxCompany->setFont(      sFontCompany);
             mTextBoxCompany->setWidth(     SESSION_LABEL_SPEAKER_BOX_WIDTH);
@@ -131,22 +129,17 @@ namespace next {
         tween(&mAlphaStateCompany, 0.0f, 1.0f, 0.75f, AnimEaseInOut());
         tween(&mOffsetStateName,   -100.0f, 0.0f, 1.0f, AnimEaseInOut());
         tween(&mOffsetStateCompany, 100.0f, 0.0f, 1.0f, AnimEaseInOut());
-        
-        
     }
     
     void SpeakerLabel::hide(){
         tween(&mAlphaStateName,    0.0f, 0.25f, AnimEaseInOut());
         tween(&mAlphaStateCompany, 0.0f, 0.25f, AnimEaseInOut());
-        //tween(&mOffsetStateName,   0.0f, 100.0f, 1.5f, AnimEaseInOut());
-        //tween(&mOffsetStateCompany,0.0f,-100.0f, 1.5f, AnimEaseInOut());
     }
     
     /*--------------------------------------------------------------------------------------------*/
     // On / Off
     /*--------------------------------------------------------------------------------------------*/
-    
-    
+
     void SpeakerLabel::on(){
         tween(&mAlphaStateName,    0.0f, 1.0f, 2.0f, AnimEaseInOut());
         tween(&mAlphaStateCompany, 0.0f, 1.0f, 2.5f, AnimEaseInOut());
@@ -156,5 +149,4 @@ namespace next {
         tween(&mAlphaStateName,    0.0f, 1.0f, AnimEaseInOut());
         tween(&mAlphaStateCompany, 0.0f, 1.0f, AnimEaseInOut());
     }
-    
 }

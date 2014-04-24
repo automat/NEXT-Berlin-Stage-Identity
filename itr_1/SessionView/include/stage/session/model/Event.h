@@ -15,7 +15,7 @@
 
 namespace next {
     using namespace std;
-   
+
     struct Event{
         string endHourString;
         time_t endTimeStamp;

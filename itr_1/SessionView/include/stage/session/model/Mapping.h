@@ -133,7 +133,7 @@ namespace next {
                 
                 const JsonTree& jsonEvent = getChild(jsonEvents, _event_id);
                 
-                Event& event         = (*_events)[_event_id] = Event();
+                Event event;
                 event.title          = jsonEvent.getChild("title").getValue<string>();
                 event.endHourString  = jsonEvent.getChild("endHourString").getValue<string>();
                 event.endTimeStamp   = jsonEvent.getChild("endTimeStamp").getValue<time_t>();
@@ -163,11 +163,16 @@ namespace next {
                  
                     event.speakers += &(*_speakers)[_person_id];
                 }
+                
+                (*_events)[_event_id] = event;
+           
             }
             
             images   = _images;
             speakers = _speakers;
             events   = _events;
+            
+            
             
             session = new Session();
             Session& _session = *session;

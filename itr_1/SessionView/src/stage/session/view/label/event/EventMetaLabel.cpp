@@ -1,4 +1,5 @@
 #include "EventMetaLabel.h"
+#include "EventMetaLabel.h"
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/join.hpp>
 

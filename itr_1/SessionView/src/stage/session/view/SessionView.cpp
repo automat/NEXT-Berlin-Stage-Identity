@@ -89,7 +89,7 @@ namespace next {
         mValid           = mNumEventViews != 0;
         mIndexEventViews = 0;
 
-        mAnimating = false;
+        mActive    = false;
 
         if(!mValid){
             return;
@@ -114,7 +114,6 @@ namespace next {
         mEventViewStep = 0;
         mIndexEventViews = 0;
         mEventViewFront = 0;
-        mAnimating = false;
         
         for(vector<EventView*>::iterator itr = mEventViews.begin(); itr != mEventViews.end(); ++itr){
             (*itr)->mPositionState = mEventViewSlots[0];
@@ -180,17 +179,18 @@ namespace next {
     void SessionView::finish(){
         resetEventViews();
         delayCallback(SESSION_VIEW_ON_FINISH_DELAY, std::bind(&SessionView::onFinish,this));
+        mActive = false;
     }
     
     // public fire!
     void SessionView::start(){
-        if(mAnimating){
+        if(mActive){
             return;
         }
         turnOnSessionLabels();
         delayCallback(SESSION_VIEW_START_DELAY, std::bind(&SessionView::stepForward_2,this));
         
-        mAnimating = true;
+        mActive = true;
         onStart();
     }
 
@@ -246,7 +246,6 @@ namespace next {
                   SESSION_EVENT_ANIM_TIME_OFF,
                   ViewInOutEasing(),
                   NULL,std::bind(&SessionView::finish, this));
-            //view->unfocus();
             view->unfocusOut();
             
             delayCallback(1.375f, std::bind(&SessionView::turnOffSessionLabels, this));
@@ -346,6 +345,9 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SessionView::draw(){
+        if(!mActive){
+            return;
+        }
         for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
             (*itr)->draw();
         }
@@ -353,10 +355,16 @@ namespace next {
     }
 
     void SessionView::update(){
-
+        if(!mActive){
+            return;
+        }
+        mLabelMeta->update();
     }
     
     void SessionView::drawLabels(){
+        if(!mActive){
+            return;
+        }
         gl::disableDepthRead();
         mLabelTitle->draw();
         mLabelMeta->draw();
@@ -397,5 +405,13 @@ namespace next {
         gl::drawSphere(mEventViewSlots[3], 0.025f);
         gl::drawSphere(mEventViewSlots[4], 0.025f);
         
+    }
+    
+    /*--------------------------------------------------------------------------------------------*/
+    //  Stage
+    /*--------------------------------------------------------------------------------------------*/
+    
+    bool SessionView::isActive(){
+        return mActive;
     }
 }

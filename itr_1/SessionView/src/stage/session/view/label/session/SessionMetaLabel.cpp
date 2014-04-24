@@ -88,6 +88,10 @@ namespace next {
         mVertexTrapezoid[2] = Vec2f(0,SESSION_LABEL_META_BOX_HEIGHT);
         mVertexTrapezoid[3] = Vec2f(trapezoidWidth, SESSION_LABEL_META_BOX_HEIGHT);
     }
+    
+    void SessionMetaLabel::update(){
+        
+    }
 
     /*--------------------------------------------------------------------------------------------*/
     // Trigger state

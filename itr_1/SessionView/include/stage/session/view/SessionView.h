@@ -28,7 +28,7 @@ namespace next {
         Session* mData;
         
         bool mValid;    //  is valid, data > 0
-        bool mAnimating;
+        bool mActive;
         
         int                mNumEventViews;
         int                mIndexEventViews;
@@ -63,9 +63,9 @@ namespace next {
         void onFinish();
         //! on begin
         void onStart();
-        
+
         void finish();
-        
+
         void resetEventViews();
         
         void turnOnSessionLabels();
@@ -94,6 +94,7 @@ namespace next {
         void debugDraw();
         void update();
 
+        bool isActive();
     };
 }
 

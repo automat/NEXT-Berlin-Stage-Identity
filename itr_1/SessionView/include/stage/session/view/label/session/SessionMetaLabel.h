@@ -27,6 +27,7 @@ namespace next {
         ~SessionMetaLabel();
         
         void set(const string& timeStart, const string& endTime, time_t timestamp);
+        void update();
         
         void draw();
         
