@@ -120,7 +120,7 @@ namespace next {
                 timeFormat = diffTarget > 5400 /*90 min*/ ? "90+" : toString(static_cast<int>(round(static_cast<float>(diffTarget) / 60.0f)));
                 timeSuffix = "min";
                 
-                if (diffTarget % 30) { //just update every 30 seconds
+                if ((diffTarget % 30) == 0) { //just update every 30 seconds
                     updateTimeRemainingLabel("in " + timeFormat + " " + timeSuffix);
                 }
             } else {
