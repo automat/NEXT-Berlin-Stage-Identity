@@ -71,7 +71,7 @@ void SessionViewApp::setup(){
     mDataEvents     = nullptr;
     mDataSession    = nullptr;
 
-    next::Mapping::Get(3560, mImagesClocks, mImagesSpeakers,
+    next::Mapping::Get(3558, mImagesClocks, mImagesSpeakers,
                              mDataSpeakers, mDataEvents, mDataSession);
     mViewSession = new next::SessionView(mDataSession);
     

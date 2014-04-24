@@ -32,7 +32,6 @@
 //  Views
 /*--------------------------------------------------------------------------------------------*/
 
-
 //#define SESSION_VIEW_DEBUG_STATE
 //#define SESSION_VIEW_DEBUG_DRAW
 
@@ -168,7 +167,8 @@
 #define SESSION_LABEL_META_BOX_HEIGHT 70
 #define SESSION_LABEL_META_OFFSET_X -22
 #define SESSION_LABEL_META_OFFSET_Y -11
-#define SESSION_LABEL_META_CLOCK_MARGIN_RIGHT 60
+#define SESSION_LABEL_META_CLOCK_MARGIN_RIGHT 65
+#define SESSION_LABEL_META_CLOCK_MARGIN_TOP -1
 
 //
 //  Session

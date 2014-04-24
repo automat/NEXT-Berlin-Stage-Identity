@@ -49,62 +49,53 @@ namespace next {
         float alpha   = mAlphaState();
         
         glPushMatrix();
-        glTranslatef(mPos.x, mPos.y, 0);
+            glTranslatef(mPos.x, mPos.y, 0);
+            
+            glPushMatrix();
+                glTranslatef(SESSION_LABEL_META_OFFSET_X, SESSION_LABEL_META_OFFSET_Y, 0);
+                glColor4f(0,0,0,alpha);
+                glEnableClientState(GL_VERTEX_ARRAY);
+                glVertexPointer(2, GL_FLOAT, 0, &mVertexTrapezoid[0]);
+                glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+                glDisableClientState(GL_VERTEX_ARRAY);
+            glPopMatrix();
         
-        glPushMatrix();
-            glTranslatef(SESSION_LABEL_META_OFFSET_X, SESSION_LABEL_META_OFFSET_Y, 0);
-            glColor4f(0,0,0,alpha);
-            glEnableClientState(GL_VERTEX_ARRAY);
-            glVertexPointer(2, GL_FLOAT, 0, &mVertexTrapezoid[0]);
-            glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-            glDisableClientState(GL_VERTEX_ARRAY);
-        glPopMatrix();
+            glPushMatrix();
+                glTranslatef(0, SESSION_LABEL_META_CLOCK_MARGIN_TOP, 0);
+                    ColorAf clockColor = COLOR_NEXT_FUCHSIA;
+                            clockColor.a = alpha;
+                    glColor4f(clockColor.r,clockColor.g,clockColor.b,clockColor.a);
+                gl::draw(mClockImageRef);
+            glPopMatrix();
         
-        ColorAf clockColor = COLOR_NEXT_FUCHSIA;
-                clockColor.a = alpha;
-        glColor4f(clockColor.r,clockColor.g,clockColor.b,clockColor.a);
-        gl::draw(mClockImageRef);
-        
-        
-        
-        glPushMatrix();
-       
-        glTranslatef(SESSION_LABEL_META_CLOCK_MARGIN_RIGHT,0,0);
-        
-        glColor4f(1, 1, 1, alpha);
-        glTranslatef(topLeft.x, topLeft.y, 0);
-        gl::draw(mTextBox->getTexture());
+            glPushMatrix();
+            
+                glTranslatef(SESSION_LABEL_META_CLOCK_MARGIN_RIGHT,0,0);
+                
+                glColor4f(1, 1, 1, alpha);
+                glTranslatef(topLeft.x, topLeft.y, 0);
+                gl::draw(mTextBox->getTexture());
 #ifdef SESSION_VIEW_LABEL_SESSION_META_DEBUG_DRAW
-        mTextBox->debugDraw();
+                mTextBox->debugDraw();
 #endif
-        glColor4f(1,1,1,alpha);
-        glTranslatef(mTextBoxTimeWidth, 0, 0);
-        gl::draw(mTextBoxTimeRemaining->getTexture());
+                glColor4f(1,1,1,alpha);
+                glTranslatef(mTextBoxTimeWidth, 0, 0);
+                gl::draw(mTextBoxTimeRemaining->getTexture());
 #ifdef SESSION_VIEW_LABEL_SESSION_META_DEBUG_DRAW
-        mTextBoxTimeRemaining->debugDraw();
+                mTextBoxTimeRemaining->debugDraw();
 #endif
-        glColor4f(1, 1, 1, 1);
-        glPopMatrix();
+                glColor4f(1, 1, 1, 1);
+            glPopMatrix();
         glPopMatrix();
     }
     
     void SessionMetaLabel::set(const string& timeStart, const string& endTime, time_t timestamp, const gl::Texture& clockImageRef){
         mTextBox->setString(timeStart + " - " + endTime);
-        mTextBoxTimeRemaining->setString("in 23 min");
-        mTextBoxTimeWidth = mTextBox->getCalculatedSize().x + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
-        
-        float textBoxesWidth = mTextBoxTimeWidth + mTextBoxTimeRemaining->getCalculatedSize().x;
-        float trapezoidWidth = textBoxesWidth + SESSION_LABEL_META_OFFSET_X * -2 + SESSION_LABEL_META_CLOCK_MARGIN_RIGHT * 1.5f;
-        
-        static const float slope = 14.5f;
-        
-        mVertexTrapezoid[0] = Vec2f(slope,0);
-        mVertexTrapezoid[1] = Vec2f(trapezoidWidth + slope,0);
-        mVertexTrapezoid[2] = Vec2f(0,SESSION_LABEL_META_BOX_HEIGHT);
-        mVertexTrapezoid[3] = Vec2f(trapezoidWidth, SESSION_LABEL_META_BOX_HEIGHT);
         
         mTargetTimestamp = timestamp;
         mClockImageRef   = clockImageRef.weakClone();
+        
+        mTextBoxTimeWidth = mTextBox->getCalculatedSize().x + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
     }
     
     void SessionMetaLabel::update(){
@@ -134,6 +125,20 @@ namespace next {
             mTextBoxTimeRemaining->setString("Now");
             mReachedTargetTimestamp = true;
         }
+        
+        updateTrapezoid();
+    }
+    
+    void SessionMetaLabel::updateTrapezoid(){
+        float textBoxesWidth = mTextBoxTimeWidth + mTextBoxTimeRemaining->getCalculatedSize().x;
+        float trapezoidWidth = SESSION_LABEL_META_OFFSET_X * -2.0f + textBoxesWidth + SESSION_LABEL_META_CLOCK_MARGIN_RIGHT;
+        
+        static const float slope = 14.5f;
+        
+        mVertexTrapezoid[0] = Vec2f(slope,0);
+        mVertexTrapezoid[1] = Vec2f(trapezoidWidth + slope,0);
+        mVertexTrapezoid[2] = Vec2f(0,SESSION_LABEL_META_BOX_HEIGHT);
+        mVertexTrapezoid[3] = Vec2f(trapezoidWidth, SESSION_LABEL_META_BOX_HEIGHT);
     }
 
     /*--------------------------------------------------------------------------------------------*/
