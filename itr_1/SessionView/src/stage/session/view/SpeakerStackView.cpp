@@ -17,15 +17,6 @@ namespace next {
     using namespace ci::app;
     using namespace boost::assign;
 
-    // to be replaced with config
-    static const float sTimeAnimateOut(0.35f);
-    static const float sTimeAnimateOutAlpha(0.35f);
-    static const float sTimeAnimateMove(1.5f);
-    static const float sTimeAnimateInScale(0.75f);
-    static const float sTimeAnimateInTranslate(1.5f);
-    static const float sTimeAnimateFocus(1.0f);
-    static const float sTimeAnimateUnfocus(1.0f);
-    
     const Vec3f SpeakerStackView::sStackStep(0,0.05f,0);
     
     /*--------------------------------------------------------------------------------------------*/
@@ -138,12 +129,8 @@ namespace next {
         //  curr : move out & blur & hide
         //
         SpeakerView* curr = mViews[mViewIndex];
-        tween(&curr->mPositionState, mStackTopOut, sTimeAnimateOut, EaseOutQuad(),
-                NULL, std::bind(&SpeakerStackView::restack,
-                        this,
-                        curr,
-                        callbackUpdate,
-                        callbackFinish));
+        tween(&curr->mPositionState, mStackTopOut, SESSION_SPEAKER_STACK_ANIM_OUT, EaseOutQuad(),
+              NULL, std::bind(&SpeakerStackView::restack, this, curr, callbackUpdate, callbackFinish));
 
         curr->unfocusImage();
         curr->hide();
@@ -152,7 +139,7 @@ namespace next {
         //  next : move up & focus
         //
         SpeakerView* next = mViews[indexNext];
-        tween(&next->mPositionState, next->mPositionState() + sStackStep, sTimeAnimateMove, EaseOutCirc());
+        tween(&next->mPositionState, next->mPositionState() + sStackStep, SESSION_SPEAKER_STACK_ANIM_MOVE, EaseOutCirc());
         next->focus();
 
         //
@@ -161,7 +148,7 @@ namespace next {
         int i = 1;
         while(++i < mNumViews){
             next = mViews[(mViewIndex+i)%mNumViews];
-            tween(&next->mPositionState, next->mPositionState() + sStackStep, sTimeAnimateMove, EaseOutCirc());
+            tween(&next->mPositionState, next->mPositionState() + sStackStep, SESSION_SPEAKER_STACK_ANIM_MOVE, EaseOutCirc());
         }
         
         callbackUpdate(indexNext);
@@ -199,8 +186,8 @@ namespace next {
 
         view->show();
 
-        tween(&view->mScaleState, 1.0f, sTimeAnimateInScale, EaseOutCirc());
-        tween(&view->mPositionState, zero, sTimeAnimateInTranslate, EaseOutCirc(),
+        tween(&view->mScaleState, 1.0f, SESSION_SPEAKER_STACK_ANIM_IN_SCALE, EaseOutCirc());
+        tween(&view->mPositionState, zero, SESSION_SPEAKER_STACK_ANIM_IN_TRANSLATION, EaseOutCirc(),
               NULL, std::bind(&SpeakerStackView::triggerNext,
                               this,
                               callbackUpdate,

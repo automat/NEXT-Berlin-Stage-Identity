@@ -14,6 +14,9 @@
 namespace next {
     using namespace std;
     
+    typedef EaseOutQuad   AnimEaseOut;
+    typedef EaseOutInSine AnimEaseHide;
+    
     /*--------------------------------------------------------------------------------------------*/
     //  Const coords texture facing orthographic camera
     /*--------------------------------------------------------------------------------------------*/
@@ -89,8 +92,7 @@ namespace next {
     
     SpeakerView::SpeakerView(Speaker* data) :
         AbstractAnimView(),
-        mData(data),
-        mScaleState(1.0f){
+        mData(data){
         //
         //  Setup Fbo
         //
@@ -152,59 +154,58 @@ namespace next {
 
     void SpeakerView::drawFocus(){
         static const float scale = 10.0f;
-        float factorColor = mFocusColorState();
-        float factorBlur  = mFocusBlurState();
-        
-        
-        float factorFocusInv = 1.0f - factorBlur;
-        float factorColorInv = 1.0f - factorColor;
+
+        float focusColor    = mFocusColorState();
+        float focusBlur     = mFocusBlurState();
+        float focusBlurInv  = 1.0f - focusBlur;
+        float focusColorInv = 1.0f - focusColor;
         
         const gl::Texture& image = mData->imageRef.weakClone();
         
         glPushAttrib(GL_VIEWPORT_BIT);
-        gl::setViewport(image.getBounds());
-        gl::pushMatrices();
-        gl::setMatricesWindow(image.getSize(), false);
-        
-        mFbo0.bindFramebuffer();
-        gl::clear();
-        glColor3f(1,1,1);
-        gl::draw(image);
-        mFbo0.unbindFramebuffer();
-        
-        mFbo1.bindFramebuffer();
-        mShaderBlurHRef->bind();
-        mShaderBlurHRef->uniform("uTexture", 0);
-        mShaderBlurHRef->uniform("uTexelSize", mTexelSize.x);
-        mShaderBlurHRef->uniform("uScale", scale * factorFocusInv);
-        gl::clear();
-        glColor3f(1,1,1);
-        gl::draw(mFbo0.getTexture());
-        mShaderBlurHRef->unbind();
-        mFbo1.unbindFramebuffer();
-        
-        
-        mFbo0.bindFramebuffer();
-        mShaderBlurVRef->bind();
-        mShaderBlurVRef->uniform("uTexture", 0);
-        mShaderBlurVRef->uniform("uTexelSize", mTexelSize.y);
-        mShaderBlurVRef->uniform("uScale", scale * factorFocusInv);
-        gl::clear();
-        glColor3f(1,1,1);
-        gl::draw(mFbo1.getTexture());
-        mShaderBlurHRef->unbind();
-        mFbo0.unbindFramebuffer();
-        
-        mFbo1.bindFramebuffer();
-        gl::clear();
-        //blue to red
-        glColor3f(0.87450980392157f * factorColor + 0.0f * factorColorInv,
-                  0.06274509803922f * factorColor + 0.39607843137255f * factorColorInv,
-                  0.39607843137255f * factorColor + 0.89019607843137f * factorColorInv);
-        gl::draw(mFbo0.getTexture());
-        mFbo1.unbindFramebuffer();
-        
-        gl::popMatrices();
+            gl::setViewport(image.getBounds());
+            gl::pushMatrices();
+                gl::setMatricesWindow(image.getSize(), false);
+                
+                mFbo0.bindFramebuffer();
+                    gl::clear();
+                    glColor3f(1,1,1);
+                    gl::draw(image);
+                mFbo0.unbindFramebuffer();
+                
+                mFbo1.bindFramebuffer();
+                    mShaderBlurHRef->bind();
+                    mShaderBlurHRef->uniform("uTexture", 0);
+                    mShaderBlurHRef->uniform("uTexelSize", mTexelSize.x);
+                    mShaderBlurHRef->uniform("uScale", scale * focusBlurInv);
+                    gl::clear();
+                    glColor3f(1,1,1);
+                    gl::draw(mFbo0.getTexture());
+                    mShaderBlurHRef->unbind();
+                mFbo1.unbindFramebuffer();
+                
+                
+                mFbo0.bindFramebuffer();
+                    mShaderBlurVRef->bind();
+                    mShaderBlurVRef->uniform("uTexture", 0);
+                    mShaderBlurVRef->uniform("uTexelSize", mTexelSize.y);
+                    mShaderBlurVRef->uniform("uScale", scale * focusBlurInv);
+                    gl::clear();
+                    glColor3f(1,1,1);
+                    gl::draw(mFbo1.getTexture());
+                    mShaderBlurHRef->unbind();
+                mFbo0.unbindFramebuffer();
+                
+                mFbo1.bindFramebuffer();
+                    gl::clear();
+                    //blue to red
+                    glColor3f(0.87450980392157f * focusColor + 0.0f * focusColorInv,
+                              0.06274509803922f * focusColor + 0.39607843137255f * focusColorInv,
+                              0.39607843137255f * focusColor + 0.89019607843137f * focusColorInv);
+                    gl::draw(mFbo0.getTexture());
+                mFbo1.unbindFramebuffer();
+                
+            gl::popMatrices();
         glPopAttrib();
     }
     
@@ -217,37 +218,37 @@ namespace next {
         float scale = mScaleState();
         
         glPushMatrix();
-        glTranslatef(pos.x,pos.y,pos.z);
-        glScalef(scale,scale,scale);
-        
-        glEnableClientState(GL_VERTEX_ARRAY);
-        
-        glColor3f(1,1,1);
-        mFbo1.getTexture().enableAndBind();
-        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-        glEnableClientState(GL_NORMAL_ARRAY);
-        glEnableClientState(GL_COLOR_ARRAY);
-        
-        glNormalPointer(   3, GL_FLOAT,    &sCardNormals[0]);
-        glTexCoordPointer( 2, GL_FLOAT, 0, &mTexcoords[0]);
-        glColorPointer(    4, GL_FLOAT, 0, &mVertexColors[0]);
-        glVertexPointer(   3, GL_FLOAT, 0, &sCardVertices[0]);
-        glDrawArrays(GL_TRIANGLES, 0,sCardVerticesLen);
-        
-        glDisableClientState(GL_COLOR_ARRAY);
-        glDisableClientState(GL_NORMAL_ARRAY);
-        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-        mFbo1.unbindTexture();
-        mFbo1.getTexture().disable();
-     
-        /*
-        glColor4f(1,1,1,mColorState * 0.135f);
-        static int indices[3] = {1,3,2};
-        
-        glVertexPointer(3, GL_FLOAT, 0, &sCubeVertices[0]);
-        glDrawElements(GL_LINE_STRIP, 3, GL_UNSIGNED_INT, &indices[0]);
-        glDisableClientState(GL_VERTEX_ARRAY);
-        */
+            glTranslatef(pos.x,pos.y,pos.z);
+            glScalef(scale,scale,scale);
+            
+            glEnableClientState(GL_VERTEX_ARRAY);
+            
+            glColor3f(1,1,1);
+            mFbo1.getTexture().enableAndBind();
+            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            glEnableClientState(GL_NORMAL_ARRAY);
+            glEnableClientState(GL_COLOR_ARRAY);
+            
+            glNormalPointer(   3, GL_FLOAT,    &sCardNormals[0]);
+            glTexCoordPointer( 2, GL_FLOAT, 0, &mTexcoords[0]);
+            glColorPointer(    4, GL_FLOAT, 0, &mVertexColors[0]);
+            glVertexPointer(   3, GL_FLOAT, 0, &sCardVertices[0]);
+            glDrawArrays(GL_TRIANGLES, 0,sCardVerticesLen);
+            
+            glDisableClientState(GL_COLOR_ARRAY);
+            glDisableClientState(GL_NORMAL_ARRAY);
+            glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+            mFbo1.unbindTexture();
+            mFbo1.getTexture().disable();
+         
+            /*
+            glColor4f(1,1,1,mColorState * 0.135f);
+            static int indices[3] = {1,3,2};
+            
+            glVertexPointer(3, GL_FLOAT, 0, &sCubeVertices[0]);
+            glDrawElements(GL_LINE_STRIP, 3, GL_UNSIGNED_INT, &indices[0]);
+            glDisableClientState(GL_VERTEX_ARRAY);
+            */
         glPopMatrix();
     }
     
@@ -260,41 +261,41 @@ namespace next {
     }
 
     void SpeakerView::focus(){
-        tween(&mFocusColorState,0.0f, 1.0f, 0.35f, EaseOutQuad());
-        tween(&mFocusBlurState, 0.0f, 1.0f, 0.35f, EaseOutQuad(),
+        tween(&mFocusColorState,0.0f, 1.0f, SESSION_SPEAKER_VIEW_ANIM_FOCUS, AnimEaseOut());
+        tween(&mFocusBlurState, 0.0f, 1.0f, SESSION_SPEAKER_VIEW_ANIM_FOCUS, AnimEaseOut(),
               std::bind(&SpeakerView::drawFocus, this));
     }
     
     void SpeakerView::unfocus(){
-        tween(&mFocusColorState,1.0f, 0.0f, 2.5f, EaseOutQuad());
-        tween(&mFocusBlurState, 0.0f,       2.5f, EaseOutQuad(),
+        tween(&mFocusColorState,1.0f, 0.0f, SESSION_SPEAKER_VIEW_ANIM_UNFOCUS, AnimEaseOut());
+        tween(&mFocusBlurState, 0.0f,       SESSION_SPEAKER_VIEW_ANIM_UNFOCUS, AnimEaseOut(),
               std::bind(&SpeakerView::drawFocus, this));
 }
 
     void SpeakerView::unfocusOut(){
-        tween(&mFocusColorState, 1.0f, 0.0f, 2.5f, EaseOutQuad());
-        tween(&mFocusBlurState,  0.0f,       2.5f, EaseOutQuad(),
+        tween(&mFocusColorState, 1.0f, 0.0f, SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_OUT, AnimEaseOut());
+        tween(&mFocusBlurState,  0.0f,       SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_OUT, AnimEaseOut(),
               std::bind(&SpeakerView::drawFocus, this));
     }
     
     void SpeakerView::focusIn(){
-        tween(&mFocusColorState, 0.0f, 1.0f, 2.5f, EaseOutQuad());
-        tween(&mFocusBlurState,  0.0f, 1.0f, 2.5f, EaseOutQuad(),
+        tween(&mFocusColorState, 0.0f, 1.0f, SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_IN, AnimEaseOut());
+        tween(&mFocusBlurState,  0.0f, 1.0f, SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_IN, AnimEaseOut(),
               std::bind(&SpeakerView::drawFocus, this));
     }
 
     void SpeakerView::show() {
-        tween(&mAlphaState, 1.0f, 8.0f, EaseOutQuad(),
+        tween(&mAlphaState, 1.0f, SESSION_SPEAKER_VIEW_ANIM_SHOW, AnimEaseOut(),
                 std::bind(&SpeakerView::updateAlpha, this));
     }
 
     void SpeakerView::hide() {
-        tween(&mAlphaState, 0.0f, 0.35f, EaseOutInSine(),
+        tween(&mAlphaState, 0.0f, SESSION_SPEAKER_VIEW_ANIM_HIDE, AnimEaseHide(),
                 std::bind(&SpeakerView::updateAlpha, this));
     }
 
     void SpeakerView::unfocusImage(){
-        tween(&mFocusBlurState, 0.0f, 0.35f, EaseOutQuad(),
+        tween(&mFocusBlurState, 0.0f ,SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_IMAGE, AnimEaseOut(),
                 std::bind(&SpeakerView::drawFocus, this));
     }
 
@@ -302,6 +303,7 @@ namespace next {
         mFocusColorState = 0.0f;
         mFocusBlurState  = 0.0f;
         mAlphaState      = 1.0f;
+        mScaleState      = 1.0f;
         
         updateAlpha();
         drawFocus();

@@ -20,6 +20,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
+/*--------------------------------------------------------------------------------------------*/
+//  Views
+/*--------------------------------------------------------------------------------------------*/
+
+
 //#define SESSION_VIEW_DEBUG_STATE
 //#define SESSION_VIEW_DEBUG_DRAW
 
@@ -44,6 +49,27 @@
 
 #define SESSION_VIEW_START_DELAY 0.5f
 #define SESSION_VIEW_ON_FINISH_DELAY 1.0f
+
+//
+//  SpeakerStack
+//
+
+#define SESSION_SPEAKER_STACK_ANIM_OUT 0.35f
+#define SESSION_SPEAKER_STACK_ANIM_MOVE 1.5f
+#define SESSION_SPEAKER_STACK_ANIM_IN_SCALE 0.75f
+#define SESSION_SPEAKER_STACK_ANIM_IN_TRANSLATION 1.5f
+
+//
+//  Speaker
+//
+
+#define SESSION_SPEAKER_VIEW_ANIM_FOCUS 0.35f
+#define SESSION_SPEAKER_VIEW_ANIM_UNFOCUS 2.5f
+#define SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_OUT 2.5f
+#define SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_IN 2.5f
+#define SESSION_SPEAKER_VIEW_ANIM_SHOW 8.0f
+#define SESSION_SPEAKER_VIEW_ANIM_HIDE 0.35f
+#define SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_IMAGE 0.35f
 
 /*--------------------------------------------------------------------------------------------*/
 //  Title Labels

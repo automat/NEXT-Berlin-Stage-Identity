@@ -55,7 +55,7 @@ namespace next {
         Anim<float> mFocusColorState;
         Anim<float> mFocusBlurState;
         
-        void drawFocus();   //   0 = unfocused, 1 = focused
+        void drawFocus();   
         void updateAlpha();
 
     public:
