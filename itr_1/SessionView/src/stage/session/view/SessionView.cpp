@@ -365,12 +365,10 @@ namespace next {
         if(!mActive){
             return;
         }
-        gl::disableDepthRead();
         mLabelTitle->draw();
         mLabelMeta->draw();
         mPingPongLabelEventTitle->draw();
         mLabelEventMeta->draw();
-        gl::enableDepthRead();
     }
 
     void SessionView::debugDraw(){

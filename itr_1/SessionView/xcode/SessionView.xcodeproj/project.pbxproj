@@ -30,6 +30,7 @@
 		CD17C8F81908325F00780CE7 /* TextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8EC1908325F00780CE7 /* TextBox.cpp */; };
 		CD254C7019044EA6009D6522 /* measurements.png in Resources */ = {isa = PBXBuildFile; fileRef = CD254C6F19044EA6009D6522 /* measurements.png */; };
 		CD51E586190553B000570C16 /* akkurat_regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = CD51E585190553A900570C16 /* akkurat_regular.otf */; };
+		CD8779C2190964AE00CA4EB8 /* logo_180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = CD8779C1190964AE00CA4EB8 /* logo_180x180.png */; };
 		CDCBF24E1902EF7D0060E875 /* 6893.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF24A1902EF7D0060E875 /* 6893.png */; };
 		CDCBF24F1902EF7D0060E875 /* 26092.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF24B1902EF7D0060E875 /* 26092.png */; };
 		CDCBF2501902EF7D0060E875 /* 26262.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF24C1902EF7D0060E875 /* 26262.png */; };
@@ -93,6 +94,8 @@
 		CD17C8EC1908325F00780CE7 /* TextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextBox.cpp; sourceTree = "<group>"; };
 		CD254C6F19044EA6009D6522 /* measurements.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = measurements.png; path = ../resources/measurements.png; sourceTree = "<group>"; };
 		CD51E585190553A900570C16 /* akkurat_regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = akkurat_regular.otf; path = ../resources/akkurat_regular.otf; sourceTree = "<group>"; };
+		CD8779C1190964AE00CA4EB8 /* logo_180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_180x180.png; path = ../resources/logo_180x180.png; sourceTree = "<group>"; };
+		CD8779C4190964F600CA4EB8 /* NextLogo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextLogo.h; sourceTree = "<group>"; };
 		CDCBF23F1902EF740060E875 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
 		CDCBF24A1902EF7D0060E875 /* 6893.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6893.png; path = ../resources/6893.png; sourceTree = "<group>"; };
 		CDCBF24B1902EF7D0060E875 /* 26092.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 26092.png; path = ../resources/26092.png; sourceTree = "<group>"; };
@@ -202,6 +205,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CD8779C1190964AE00CA4EB8 /* logo_180x180.png */,
 				CD51E585190553A900570C16 /* akkurat_regular.otf */,
 				CD254C6F19044EA6009D6522 /* measurements.png */,
 				CDEA2B8E1904220A00123D9B /* akkurat_light.ttf */,
@@ -230,6 +234,7 @@
 		CD17C8B81908325700780CE7 /* stage */ = {
 			isa = PBXGroup;
 			children = (
+				CD8779C3190964DD00CA4EB8 /* overlay */,
 				CD17C8B91908325700780CE7 /* session */,
 			);
 			name = stage;
@@ -406,6 +411,14 @@
 			path = ../src/util;
 			sourceTree = "<group>";
 		};
+		CD8779C3190964DD00CA4EB8 /* overlay */ = {
+			isa = PBXGroup;
+			children = (
+				CD8779C4190964F600CA4EB8 /* NextLogo.h */,
+			);
+			path = overlay;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -468,6 +481,7 @@
 				CDCBF24F1902EF7D0060E875 /* 26092.png in Resources */,
 				CDCBF2501902EF7D0060E875 /* 26262.png in Resources */,
 				CDEA2B8F1904220A00123D9B /* akkurat_light.ttf in Resources */,
+				CD8779C2190964AE00CA4EB8 /* logo_180x180.png in Resources */,
 				CDCBF24E1902EF7D0060E875 /* 6893.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

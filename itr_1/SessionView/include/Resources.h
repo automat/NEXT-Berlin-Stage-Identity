@@ -10,3 +10,5 @@
 #define RES_AKKURAT_REGULAR CINDER_RESOURCE( ../resources/, akkurat_regular.otf, 131, FONT )
 
 
+#define RES_NEXT_LOGO CINDER_RESOURCE( ../resources/, logo_180x180.png, 132, IMAGE )
+

@@ -12,6 +12,8 @@
 #include "cinder/Rand.h"
 #include "cinder/gl/Texture.h"
 
+#include "stage/overlay/NextLogo.h"
+
 #include "stage/session/model/Speaker.h"
 #include "stage/session/model/Event.h"
 #include "stage/session/model/Session.h"
@@ -50,6 +52,8 @@ public:
     
     bool        mDrawMeasurements;
     gl::Texture mRefMeasurements;
+    
+    next::NEXTLogo* mLogo;
 };
 
 void SessionViewApp::prepareSettings(Settings *settings) {
@@ -71,9 +75,11 @@ void SessionViewApp::setup(){
     mDataEvents     = nullptr;
     mDataSession    = nullptr;
 
-    next::Mapping::Get(3558, mImagesClocks, mImagesSpeakers,
+    next::Mapping::Get(3562, mImagesClocks, mImagesSpeakers,
                              mDataSpeakers, mDataEvents, mDataSession);
     mViewSession = new next::SessionView(mDataSession);
+    
+    mLogo = new next::NEXTLogo();
     
     mDrawMeasurements = false;
     mRefMeasurements = gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SessionView/resources/measurements.png"));
@@ -145,6 +151,7 @@ void SessionViewApp::draw(){
     gl::pushMatrices();
     gl::setMatricesWindow(app::getWindowSize());
     mViewSession->drawLabels();
+    mLogo->draw();
     gl::popMatrices();
     gl::enableDepthRead();
     
@@ -152,11 +159,6 @@ void SessionViewApp::draw(){
     glDisable(GL_BLEND);
     glDisable(GL_ALPHA_TEST);
     glAlphaFunc(GL_GREATER, 0.5); // clearStates what seems to be cinders default
-    
-    
-    
-    
-    
     
 }
 

@@ -22,6 +22,11 @@
 #define RES_PATH_IMAGES_SPEAKER "/Users/automat/Projects/next/data/images_dome_stage"
 #define RES_PATH_IMAGES_CLOCK   "/Users/automat/Projects/next/data/clocks"
 
+
+#define LOGO_SIZE 180
+#define LOGO_MARGIN_TOP 100
+#define LOGO_MARGIN_RIGHT 100 - LOGO_SIZE
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //  Session View
