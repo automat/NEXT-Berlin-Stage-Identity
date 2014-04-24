@@ -75,7 +75,7 @@ void SessionViewApp::setup(){
     mDataEvents     = nullptr;
     mDataSession    = nullptr;
 
-    next::Mapping::Get(3562, mImagesClocks, mImagesSpeakers,
+    next::Mapping::Get(3559, mImagesClocks, mImagesSpeakers,
                              mDataSpeakers, mDataEvents, mDataSession);
     mViewSession = new next::SessionView(mDataSession);
     
@@ -85,8 +85,6 @@ void SessionViewApp::setup(){
     mRefMeasurements = gl::Texture(loadImage("/Users/automat/Projects/next/itr_1/SessionView/resources/measurements.png"));
     
     gl::enableDepthRead();
-
-
 }
 
 SessionViewApp::~SessionViewApp(){
@@ -146,7 +144,6 @@ void SessionViewApp::draw(){
     mViewSession->draw();
     
     gl::enableAlphaBlending();
-    
     gl::disableDepthRead();
     gl::pushMatrices();
     gl::setMatricesWindow(app::getWindowSize());
@@ -155,7 +152,6 @@ void SessionViewApp::draw(){
     gl::popMatrices();
     gl::enableDepthRead();
     
-    gl::disableAlphaBlending();
     glDisable(GL_BLEND);
     glDisable(GL_ALPHA_TEST);
     glAlphaFunc(GL_GREATER, 0.5); // clearStates what seems to be cinders default

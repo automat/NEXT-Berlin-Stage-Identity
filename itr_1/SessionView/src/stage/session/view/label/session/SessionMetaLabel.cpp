@@ -102,31 +102,37 @@ namespace next {
         if(mReachedTargetTimestamp){
             return;
         }
+        
         time_t timestamp  = time(0);
         time_t diffTarget = mTargetTimestamp - timestamp;
+       
+
+        void (^updateTimeRemainingLabel)(const string& string) = ^(const string& string) {
+            mTextBoxTimeRemaining->setString(string);
+            updateTrapezoid();
+        };
         
         if(diffTarget > 0){
             string timeFormat;
             string timeSuffix;
             
-            if (diffTarget > 5400){ // 90 min
-                timeFormat = "90+";
+            if (diffTarget > 60){
+                timeFormat = diffTarget > 5400 /*90 min*/ ? "90+" : toString(static_cast<int>(round(static_cast<float>(diffTarget) / 60.0f)));
                 timeSuffix = "min";
-            } else if(diffTarget > 60) {
-                timeFormat = toString(static_cast<int>(round(static_cast<float>(diffTarget) / 60.0f)));
-                timeSuffix = "min";
+                
+                if (diffTarget % 30) { //just update every 30 seconds
+                    updateTimeRemainingLabel("in " + timeFormat + " " + timeSuffix);
+                }
             } else {
                 timeFormat = toString(diffTarget);
                 timeSuffix = "sec";
+                updateTimeRemainingLabel("in " + timeFormat + " " + timeSuffix);
             }
-            
-            mTextBoxTimeRemaining->setString("in " + timeFormat + " " + timeSuffix);
         } else {
-            mTextBoxTimeRemaining->setString("Now");
+            updateTimeRemainingLabel("Now");
             mReachedTargetTimestamp = true;
         }
         
-        updateTrapezoid();
     }
     
     void SessionMetaLabel::updateTrapezoid(){
