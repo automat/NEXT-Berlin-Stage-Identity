@@ -65,9 +65,6 @@ namespace next{
 #ifndef STAGE_SKIP_THEME_VIEW
         ThemeView*       mThemeView;
 #endif
-#ifndef STAGE_SKIP_SCHEDULE_VIEW
-    ScheduleView*    mScheduleView;
-#endif
 
 #if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(STAGE_SKIP_FX_SHADER)
         FileWatcherRef mFileWatcher;
@@ -106,10 +103,7 @@ namespace next{
         void drawThemeView(bool useMaterialShaders);
         void processThemeView();
 #endif
-#ifndef STAGE_SKIP_SCHEDULE_VIEW
-    void drawScheduleView(bool useMaterialShaders);
-    void processScheduleView();
-#endif
+
 
         void loadLightProperties();
 

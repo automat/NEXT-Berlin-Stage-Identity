@@ -75,7 +75,6 @@ extern int   PROJECTION_OVERLAP_EDGE;
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-#define STAGE_SKIP_SCHEDULE_VIEW
 //#define STAGE_SKIP_THEME_VIEW
 
 #define STAGE_MODEL_SCALE_MIN 0.65f

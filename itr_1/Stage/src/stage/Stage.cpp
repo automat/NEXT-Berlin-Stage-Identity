@@ -95,9 +95,6 @@ namespace next{
 #ifndef STAGE_SKIP_THEME_VIEW
         mThemeView    = new ThemeView(mGrid, areaScaled, mOscillator, &mQuotes);
 #endif
-#ifndef STAGE_SKIP_SCHEDULE_VIEW
-        mScheduleView = new ScheduleView(mGrid, areaScaled);
-#endif
 
         /*--------------------------------------------------------------------------------------------*/
         //  Fbo + Post Process
@@ -176,9 +173,6 @@ namespace next{
         delete mBackground;
 #ifndef STAGE_SKIP_THEME_VIEW
         delete mThemeView;
-#endif
-#ifndef STAGE_SKIP_SCHEDULE_VIEW
-    delete mScheduleView;
 #endif
         delete mOscillator;
         delete mTypesetter;
@@ -486,38 +480,6 @@ namespace next{
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef STAGE_SKIP_SCHEDULE_VIEW
-/*--------------------------------------------------------------------------------------------*/
-//  Draw schedule view
-/*--------------------------------------------------------------------------------------------*/
-
-void Stage::drawScheduleView(bool useMaterialShaders){
-    gl::enableDepthRead();
-    gl::clear(ColorAf(0,0,0,0));
-
-    gl::pushMatrices();
-    glMultMatrixf(&mTransform[0]);
-    mScheduleView->draw(mCamera, useMaterialShaders);
-    gl::popMatrices();
-
-    gl::disableDepthRead();
-}
-
-/*--------------------------------------------------------------------------------------------*/
-//  Post process schedule view
-/*--------------------------------------------------------------------------------------------*/
-
-void Stage::processScheduleView(){
-
-    mFboScheduleView.bindFramebuffer();
-
-    drawScheduleView(true);
-    mFboScheduleView.unbindFramebuffer();
-
-}
-#endif
-
-
 
 /*--------------------------------------------------------------------------------------------*/
 //  Update
@@ -542,9 +504,6 @@ void Stage::processScheduleView(){
 #ifndef STAGE_SKIP_THEME_VIEW
         mThemeView->update();
 #endif
-#ifndef STAGE_SKIP_SCHEDULE_VIEW
-    mScheduleView->update();
-#endif
     }
 
 
@@ -557,11 +516,6 @@ void Stage::processScheduleView(){
         //  Process theme fx pipe
         processThemeView();
 #endif
-#ifndef STAGE_SKIP_SCHEDULE_VIEW
-    //  Process schedule fx pipe
-    processScheduleView();
-#endif
-
         //  Draw Scene
         gl::pushMatrices();
         gl::setMatricesWindow(app::getWindowSize(),false);
@@ -572,22 +526,6 @@ void Stage::processScheduleView(){
 #else
     gl::draw(mFboThemeView.getTexture(), mFboThemeView.getBounds());
 #endif
-#endif
-
-#ifndef STAGE_SKIP_SCHEDULE_VIEW
-
-    glAlphaFunc(GL_GREATER, 0.0);
-    glEnable(GL_ALPHA_TEST);
-    glEnable( GL_BLEND );
-    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-
-    gl::draw(mFboScheduleView.getTexture(), mFboScheduleView.getBounds());
-
-    glDisable(GL_BLEND);
-    glDisable(GL_ALPHA_TEST);
-    glAlphaFunc(GL_GREATER, 0.5); // reset what seems to be cinders default
-
-
 #endif
 
 #ifdef DEBUG_STAGE_TYPESETTER_TEXTURE
