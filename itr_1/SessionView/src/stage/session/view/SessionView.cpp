@@ -241,11 +241,14 @@ namespace next {
 
     void SessionView::setViewState(EventView *view, int slot) {
         // view is last, target is last
-        if(view == mEventViews.back() && slot == mEventViewSlotOut){
+        if((view == mEventViews.back() && slot == mEventViewSlotOut) ||
+           (view == mEventViews.back() && slot == mEventViewSlotEnd && mNumEventViews == 1)){
+            
             tween(&view->mPositionState,mEventViewSlots[mEventViewSlotEnd], // skip one, and proceed to last
                   SESSION_EVENT_ANIM_TIME_OFF,
                   ViewInOutEasing(),
                   NULL,std::bind(&SessionView::finish, this));
+        
             view->unfocusOut();
             
             delayCallback(1.375f, std::bind(&SessionView::turnOffSessionLabels, this));
@@ -334,7 +337,7 @@ namespace next {
                 return;
             }
         }
-        
+
         tween(&view->mPositionState, mEventViewSlots[slot],
               SESSION_EVENT_ANIM_IN_OUT,
               ViewInOutEasing());
