@@ -12,7 +12,7 @@
 #include <vector>
 
 #include "cinder/Plane.h"
-#include "layout/geom/LayoutArea.h"
+#include "util/LayoutArea.h"
 
 namespace next{
     namespace util {

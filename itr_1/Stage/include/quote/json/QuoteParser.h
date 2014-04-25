@@ -10,7 +10,7 @@
 #define grid_00_JsonLoader_h
 
 #include "cinder/Json.h"
-#include "layout/quote/json/QuoteJson.h"
+#include "quote/json/QuoteJson.h"
 
 namespace next{
     using namespace std;

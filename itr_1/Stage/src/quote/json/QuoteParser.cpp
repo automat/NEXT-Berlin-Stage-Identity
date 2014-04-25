@@ -1,4 +1,4 @@
-#include "layout/quote/json/QuoteParser.h"
+#include "quote/json/QuoteParser.h"
 
 namespace next{
 

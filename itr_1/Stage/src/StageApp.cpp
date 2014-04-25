@@ -5,8 +5,8 @@
 #include "Config.h"
 
 #include "util/ExcInfoPanel.h"
-#include "layout/quote/json/QuoteJson.h"
-#include "layout/quote/json/QuoteParser.h"
+#include "quote/json/QuoteJson.h"
+#include "quote/json/QuoteParser.h"
 
 #include "stage/Stage.h"
 

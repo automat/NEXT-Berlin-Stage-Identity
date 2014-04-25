@@ -12,8 +12,8 @@
 #include "util/gl/ShaderUtil.h"
 #include "util/gl/DrawUtil.h"
 
-#include "layout/quote/QuoteAlign.h"
-#include "layout/quote/Quote.h"
+#include "quote/QuoteAlign.h"
+#include "quote/Quote.h"
 
 #include "stage/theme/path/PathSurface.h"
 
@@ -152,15 +152,18 @@ namespace next{
                            loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
                            &mShaderMixRadial);
 #elif !defined(STAGE_SKIP_FX_SHADER)
-    util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
-                     app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
-                     &mShaderNormalDepth);
-    util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_SSAO_VERT),
-                     app::loadResource(RES_GLSL_WORLD_FX_SSAO_FRAG),
-                     &mShaderSSAO);
-    util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_MIX_VERT),
-                     LoadResource(RES_GLSL_WORLD_FX_MIX_FRAG),
-                     &mShaderMix);
+        ::util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
+                           app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
+                           &mShaderNormalDepth);
+        ::util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_SSAO_VERT),
+                           app::loadResource(RES_GLSL_WORLD_FX_SSAO_FRAG),
+                           &mShaderSSAO);
+        ::util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_MIX_VERT),
+                           app::loadResource(RES_GLSL_WORLD_FX_MIX_FRAG),
+                           &mShaderMix);
+        ::util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_RADIAL_MIX_VERT),
+                           app::loadResource(RES_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
+                           &mShaderMixRadial);
 #endif
 
     }

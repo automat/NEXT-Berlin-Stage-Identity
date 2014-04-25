@@ -11,7 +11,7 @@
 
 #include "cinder/Vector.h"
 
-#include "layout/geom/LayoutArea.h"
+#include "util/LayoutArea.h"
 #include "stage/grid/Index.h"
 
 namespace next{

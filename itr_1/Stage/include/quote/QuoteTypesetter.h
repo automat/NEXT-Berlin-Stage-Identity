@@ -32,10 +32,10 @@
 #include "cinder/gl/Fbo.h"
 #include "cinder/Utilities.h"
 
-#include "layout/geom/LayoutArea.h"
-#include "layout/quote/QuoteAlign.h"
-#include "layout/quote/Quote.h"
-#include "layout/quote/QuoteLine.h"
+#include "util/LayoutArea.h"
+#include "quote/QuoteAlign.h"
+#include "quote/Quote.h"
+#include "quote/QuoteLine.h"
 
 #include "stage/grid/Index.h"
 #include "stage/grid/Cell.h"

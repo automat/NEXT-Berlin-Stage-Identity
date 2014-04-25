@@ -11,7 +11,7 @@
 
 #include <vector>
 #include "cinder/Vector.h"
-#include "layout/quote/QuoteAlign.h"
+#include "quote/QuoteAlign.h"
 #include "stage/grid/Index.h"
 
 namespace next{

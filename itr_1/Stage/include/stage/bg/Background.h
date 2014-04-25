@@ -25,7 +25,7 @@
 #include "util/FileWatcher.h"
 #endif
 
-#include "layout/geom/LayoutArea.h"
+#include "util/LayoutArea.h"
 #include "stage/grid/Grid.h"
 #include "stage/Oscillator.h"
 

@@ -13,7 +13,7 @@
 #include "cinder/Vector.h"
 #include "cinder/gl/Texture.h"
 
-#include "layout/quote/QuoteLine.h"
+#include "quote/QuoteLine.h"
 #include "stage/grid/Grid.h"
 #include "stage/grid/Cell.h"
 #include "stage/grid/Index.h"

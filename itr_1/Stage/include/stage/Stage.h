@@ -26,9 +26,9 @@
 #include "util/gl/FxResources.h"
 #include "util/FrustumOrtho.h"
 
-#include "layout/geom/LayoutArea.h"
-#include "layout/quote/QuoteTypesetter.h"
-#include "layout/quote/json/QuoteJson.h"
+#include "util/LayoutArea.h"
+#include "quote/QuoteTypesetter.h"
+#include "quote/json/QuoteJson.h"
 
 #include "stage/Oscillator.h"
 #include "stage/bg/Background.h"

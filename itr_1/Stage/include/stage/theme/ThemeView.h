@@ -16,8 +16,8 @@
 #include "cinder/gl/Material.h"
 
 #include "util/FileWatcher.h"
-#include "layout/quote/Quote.h"
-#include "layout/quote/QuoteLine.h"
+#include "quote/Quote.h"
+#include "quote/QuoteLine.h"
 
 #include "stage/grid/Index.h"
 #include "stage/Oscillator.h"

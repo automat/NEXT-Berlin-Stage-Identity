@@ -10,7 +10,7 @@
 #define grid_01_AbstractView_h
 
 #include "cinder/Camera.h"
-#include "layout/geom/LayoutArea.h"
+#include "util/LayoutArea.h"
 #include "stage/grid/Grid.h"
 
 using namespace ci;

@@ -1,4 +1,4 @@
-#include "layout/geom/LayoutArea.h"
+#include "util/LayoutArea.h"
 
 namespace next{
     LayoutArea::LayoutArea(const LayoutArea& area)  :

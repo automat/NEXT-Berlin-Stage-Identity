@@ -9,7 +9,7 @@
 #ifndef grid_00_QuoteJson_h
 #define grid_00_QuoteJson_h
 
-#include "layout/quote/QuoteAlign.h"
+#include "quote/QuoteAlign.h"
 #include <iostream>
 
 namespace next{
