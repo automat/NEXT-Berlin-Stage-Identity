@@ -15,7 +15,7 @@
 #define COLOR_NEXT_FUCHSIA ci::Color::hex(0xDE3865)
 #define COLOR_NEXT_BLUE
 
-#define RES_PATH_DATA_JSON      "/Users/automat/Projects/next/itr_1/SessionView/resources/data.json"
+#define RES_PATH_DATA_JSON      "/Users/automat/Projects/next/data/data.json"
 #define RES_PATH_IMAGES_SPEAKER "/Users/automat/Projects/next/data/images_dome_stage"
 #define RES_PATH_IMAGES_CLOCK   "/Users/automat/Projects/next/data/clocks"
 
