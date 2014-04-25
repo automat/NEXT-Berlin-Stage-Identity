@@ -70,6 +70,7 @@ public:
     
     inline void unbindSourceTexture(int index = 0){
         getSource().getTexture().unbind(index);
+        getSource().getTexture().disable();
     }
     
     inline void swap() {
