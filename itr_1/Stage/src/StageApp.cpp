@@ -58,8 +58,8 @@ void StageApp::setup(){
         return;
     }
     
-    vector<QuoteJson> quoteData;
-    if(!QuoteParser::LoadJson("/Users/automat/Projects/next/itr_1/Stage/resources/test.json", &quoteData, &excCatch)){
+    vector<next::QuoteJson> quoteData;
+    if(!next::QuoteParser::LoadJson("/Users/automat/Projects/next/itr_1/Stage/resources/test.json", &quoteData, &excCatch)){
         mExcPanel->setString(excCatch);
         return;
     }

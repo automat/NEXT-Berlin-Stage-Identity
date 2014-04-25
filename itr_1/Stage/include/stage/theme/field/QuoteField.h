@@ -15,30 +15,33 @@
 #include "layout/quote/QuoteLine.h"
 #include "stage/theme/field/AbstractField.h"
 
-typedef std::map<const Index, class QuoteField*> IndexQuoteFieldMap;
+namespace next{
+    typedef std::map<const Index, class QuoteField*> IndexQuoteFieldMap;
 
-class QuoteField : public AbstractField {
-    QuoteLine* mQuote;
-    Vec2f      mTexcoordStart;
-    Vec2f      mTexcoordStep;
-    
-    void addMeshColors();
-    void updateDivers();
-    
-public:
-    QuoteField(const Vec3f& pos, int numPathSlices, const QuoteLine& quoteLine);
-    
-    void debugDrawArea();
-    
-    
-    
-    void draw();
-    void update(Oscillator* osc, float t);
-    void reset(const Vec3f& pos, int numPathSlices, const QuoteLine& quoteLine);
-    
-    
-    void debugDrawIndices(const CameraOrtho& camera);
-    void debugDrawDiverIndices(const CameraOrtho& camera);
-};
+    class QuoteField : public AbstractField {
+        QuoteLine* mQuote;
+        Vec2f      mTexcoordStart;
+        Vec2f      mTexcoordStep;
+
+        void addMeshColors();
+        void updateDivers();
+
+    public:
+        QuoteField(const Vec3f& pos, int numPathSlices, const QuoteLine& quoteLine);
+
+        void debugDrawArea();
+
+
+
+        void draw();
+        void update(Oscillator* osc, float t);
+        void reset(const Vec3f& pos, int numPathSlices, const QuoteLine& quoteLine);
+
+
+        void debugDrawIndices(const CameraOrtho& camera);
+        void debugDrawDiverIndices(const CameraOrtho& camera);
+    };
+}
+
 
 #endif

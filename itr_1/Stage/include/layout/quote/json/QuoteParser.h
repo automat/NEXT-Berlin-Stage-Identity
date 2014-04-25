@@ -12,18 +12,19 @@
 #include "cinder/Json.h"
 #include "layout/quote/json/QuoteJson.h"
 
-using namespace std;
-using namespace ci;
+namespace next{
+    using namespace std;
+    using namespace ci;
 
-class QuoteParser {
-    static bool      IsValidQuoteObj(const JsonTree& tree, string* msg);
-    static QuoteJson ReadQuote(const JsonTree& tree);
-    
-    QuoteParser();
-public:
-    static bool LoadJson(const string& filepath, vector<QuoteJson>* data, string* msg);
-    
-};
+    class QuoteParser {
+        static bool      IsValidQuoteObj(const JsonTree& tree, string* msg);
+        static QuoteJson ReadQuote(const JsonTree& tree);
+
+    public:
+        static bool LoadJson(const string& filepath, vector<QuoteJson>* data, string* msg);
+
+    };
+}
 
 
 #endif

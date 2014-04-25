@@ -12,21 +12,23 @@
 #include "layout/quote/QuoteAlign.h"
 #include <iostream>
 
-using namespace std;
+namespace next{
+    using namespace std;
 
-struct QuoteJson {
-    struct Format{
-        float      scale;
-        int        padding[4];
-        QuoteAlign align;
-        bool       balance;
-        Format() : scale(0.70f), align(QuoteAlign::CENTER), balance(false){
-            padding[0] = padding[1] = padding[2] = padding[3] = 0;
-        }
+    struct QuoteJson {
+        struct Format{
+            float      scale;
+            int        padding[4];
+            QuoteAlign align;
+            bool       balance;
+            Format() : scale(0.70f), align(QuoteAlign::CENTER), balance(false){
+                padding[0] = padding[1] = padding[2] = padding[3] = 0;
+            }
+        };
+
+        std::string str;
+        Format format;
     };
-    
-    std::string str;
-    Format format;
-};
+}
 
 #endif

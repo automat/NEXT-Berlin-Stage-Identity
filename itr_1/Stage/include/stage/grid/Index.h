@@ -11,30 +11,32 @@
 
 #include <iostream>
 
-class Index{
-private:
-    int x,y;
-public:
-    Index(const Index& index) : x(index.x), y(index.y){}
-    Index(int x = 0,int y = 0) : x(x), y(y){}
-    
-    inline const int& operator[](int n) const {
-        assert( n >= 0 && n <= 1);
-        return (&x)[n];
-    }
+namespace next{
+    class Index{
+    private:
+        int x,y;
+    public:
+        Index(const Index& index) : x(index.x), y(index.y){}
+        Index(int x = 0,int y = 0) : x(x), y(y){}
 
-    inline friend std::ostream& operator<<( std::ostream& lhs, const Index& rhs ){
-		lhs << "[" << rhs.x << "," << rhs.y << "]";
-		return lhs;
-	}
-    
-    inline bool operator < (const Index& rhs) const{
-        if(x == rhs.x){
-            return y < rhs.y;
+        inline const int& operator[](int n) const {
+            assert( n >= 0 && n <= 1);
+            return (&x)[n];
         }
-        return x < rhs.x;
-    }
-};
+
+        inline friend std::ostream& operator<<( std::ostream& lhs, const Index& rhs ){
+            lhs << "[" << rhs.x << "," << rhs.y << "]";
+            return lhs;
+        }
+
+        inline bool operator < (const Index& rhs) const{
+            if(x == rhs.x){
+                return y < rhs.y;
+            }
+            return x < rhs.x;
+        }
+    };
+}
 
 
 #endif

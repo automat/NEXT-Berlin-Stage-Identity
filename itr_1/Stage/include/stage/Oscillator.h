@@ -11,17 +11,20 @@
 
 #include "cinder/Perlin.h"
 
-using namespace ci;
+namespace next{
 
-class Oscillator {
-    Perlin mPerlin;
-    
-public:
-    Oscillator();
-    float getValue(float x, float y, float t);
-    float getValue(float x, float y, float offsetX, float offsetY, float t);
-    
-};
+    using namespace ci;
+
+    class Oscillator {
+        Perlin mPerlin;
+
+    public:
+        Oscillator();
+        float getValue(float x, float y, float t);
+        float getValue(float x, float y, float offsetX, float offsetY, float t);
+
+    };
+}
 
 
 #endif

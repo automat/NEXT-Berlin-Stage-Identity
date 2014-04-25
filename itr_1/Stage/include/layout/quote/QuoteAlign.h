@@ -9,11 +9,14 @@
 #ifndef grid_00_QuoteAlign_h
 #define grid_00_QuoteAlign_h
 
-enum QuoteAlign{
-    LEFT   = 0,
-    CENTER = 1,
-    RIGHT  = 2
-};
+namespace next{
+    enum QuoteAlign{
+        LEFT   = 0,
+        CENTER = 1,
+        RIGHT  = 2
+    };
+}
+
 
 
 #endif

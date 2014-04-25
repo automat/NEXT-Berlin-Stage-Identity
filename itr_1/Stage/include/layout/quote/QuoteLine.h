@@ -14,33 +14,36 @@
 #include "layout/quote/QuoteAlign.h"
 #include "stage/grid/Index.h"
 
+namespace next{
+    using namespace std;
+    using namespace ci;
 
-using namespace std;
-using namespace ci;
+    class QuoteLine {
+    private:
+        vector<Index> mIndices;
+        vector<Vec2f> mTexcoords;
+        QuoteAlign    mAlignment;
 
-class QuoteLine {
-private:
-    vector<Index> mIndices;
-    vector<Vec2f> mTexcoords;
-    QuoteAlign    mAlignment;
-    
-public:
-    QuoteLine(){};
-    QuoteLine(const vector<Index>& indices, const vector<Vec2f>& texcoords, QuoteAlign align = QuoteAlign::CENTER) :
+    public:
+        QuoteLine(){};
+        QuoteLine(const vector<Index>& indices, const vector<Vec2f>& texcoords, QuoteAlign align = QuoteAlign::CENTER) :
         mIndices(indices), mTexcoords(texcoords),mAlignment(align){}
-    
-    inline const vector<Index>& getIndices() const{
-        return mIndices;
-    }
-    
-    inline const vector<Vec2f>& getTexcoords() const{
-        return mTexcoords;
-    }
-    
-    inline QuoteAlign getAlignment(){
-        return mAlignment;
-    }
-};
+
+        inline const vector<Index>& getIndices() const{
+            return mIndices;
+        }
+
+        inline const vector<Vec2f>& getTexcoords() const{
+            return mTexcoords;
+        }
+
+        inline QuoteAlign getAlignment(){
+            return mAlignment;
+        }
+    };
+}
+
+
 
 
 #endif

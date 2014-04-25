@@ -12,18 +12,20 @@
 #include <map>
 #include "stage/theme/field/AbstractField.h"
 
-typedef std::map<const Index,class DiverField*> IndexDiverFieldMap;
+namespace next{
+    typedef std::map<const Index,class DiverField*> IndexDiverFieldMap;
 
-class DiverField : public AbstractField {
+    class DiverField : public AbstractField {
 
-    void addMeshColors();
-public:
-    DiverField(const Vec3f& pos, int numPathSlices);
-    void debugDrawArea();
-    
-    void draw();
-    void update(Oscillator* osc, float t);
-};
+        void addMeshColors();
+    public:
+        DiverField(const Vec3f& pos, int numPathSlices);
+        void debugDrawArea();
+
+        void draw();
+        void update(Oscillator* osc, float t);
+    };
+}
 
 
 #endif
