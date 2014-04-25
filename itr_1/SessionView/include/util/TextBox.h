@@ -143,7 +143,7 @@ namespace next {
         // set / get font properties
         /*--------------------------------------------------------------------------------------------*/
         
-        void setFont(const Font& font);
+        void setFont(const Font& font, const string& supportedChars = gl::TextureFont::defaultChars());
         void setFontSize(float size);
         void setLineHeight(float height);
         
@@ -170,6 +170,8 @@ namespace next {
         void  setString(const string& str);
         const string& getString();
         const Vec2f& getTopLeft();
+        
+        bool empty();
         
         /*--------------------------------------------------------------------------------------------*/
         // get / set draw properties

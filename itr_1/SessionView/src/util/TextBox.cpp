@@ -93,6 +93,15 @@ namespace next {
     }
 
     void TextBox::renderToTexture(){
+        if(mString.empty()){    //  reset to least valid state
+            mOrigin.x = mOrigin.y = 0;
+            mTextureBounds.set(0,0,0,0);
+            mFbo0 = gl::Fbo(1,1,mFboFormat);
+            mFbo1 = gl::Fbo(1,1,mFboFormat);
+            mTexcoords.resize(0);
+            return;
+        }
+        
         float offset       = mDrawUnderline ? mUnderlineOffsetH_2 : 0;
         float maxLineWidth = mMaxLineWidth + offset;
 
@@ -355,8 +364,8 @@ namespace next {
     // set / get font properties
     /*--------------------------------------------------------------------------------------------*/
 
-    void TextBox::setFont(const Font& font){
-        mTexFontRef = gl::TextureFont::create(font,mTexFontFormat);
+    void TextBox::setFont(const Font& font, const string& supportedChars){
+        mTexFontRef = gl::TextureFont::create(font,mTexFontFormat, supportedChars);
         setFontSize(mTexFontRef->getFont().getSize());
     }
 
@@ -440,7 +449,8 @@ namespace next {
         reset();
         
         if(str.empty()){
-            renderToTexture();  // well, in this case clearStates
+            mString.clear();
+            renderToTexture();  // well, in this case clear states
             return;
         }
         
@@ -573,6 +583,10 @@ namespace next {
 
     const string& TextBox::getString(){
         return mString;
+    }
+    
+    bool TextBox::empty(){
+        return mString.empty();
     }
 
     const Vec2f& TextBox::getTopLeft(){
