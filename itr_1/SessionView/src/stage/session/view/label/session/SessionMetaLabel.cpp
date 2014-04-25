@@ -41,7 +41,7 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
 
     void SessionMetaLabel::draw(){
-        if(mTextBox->getString().empty()){
+        if(mTextBox->empty()){
             return;
         }
         
@@ -78,12 +78,14 @@ namespace next {
 #ifdef SESSION_VIEW_LABEL_SESSION_META_DEBUG_DRAW
                 mTextBox->debugDraw();
 #endif
-                glColor4f(1,1,1,alpha);
-                glTranslatef(mTextBoxTimeWidth, 0, 0);
-                gl::draw(mTextBoxTimeRemaining->getTexture());
+        if(!mTextBoxTimeRemaining->empty()){
+            glColor4f(1,1,1,alpha);
+            glTranslatef(mTextBoxTimeWidth, 0, 0);
+            gl::draw(mTextBoxTimeRemaining->getTexture());
 #ifdef SESSION_VIEW_LABEL_SESSION_META_DEBUG_DRAW
-                mTextBoxTimeRemaining->debugDraw();
+            mTextBoxTimeRemaining->debugDraw();
 #endif
+        }
                 glColor4f(1, 1, 1, 1);
             glPopMatrix();
         glPopMatrix();
@@ -96,17 +98,14 @@ namespace next {
         mClockImageRef   = clockImageRef.weakClone();
         
         mTextBoxTimeWidth = mTextBox->getCalculatedSize().x + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
+        //mTextBoxTimeRemaining->setString("h");
+        updateTimeRemaining();
     }
     
-    void SessionMetaLabel::update(){
-        if(mReachedTargetTimestamp){
-            return;
-        }
-        
+    void SessionMetaLabel::updateTimeRemaining(){
         time_t timestamp  = time(0);
         time_t diffTarget = mTargetTimestamp - timestamp;
-       
-
+        
         void (^updateTimeRemainingLabel)(const string& string) = ^(const string& string) {
             mTextBoxTimeRemaining->setString(string);
             updateTrapezoid();
@@ -120,7 +119,7 @@ namespace next {
                 timeFormat = diffTarget > 5400 /*90 min*/ ? "90+" : toString(static_cast<int>(round(static_cast<float>(diffTarget) / 60.0f)));
                 timeSuffix = "min";
                 
-                if ((diffTarget % 30) == 0) { //just update every 30 seconds
+                if ((diffTarget % 30) == 0 || mTextBoxTimeRemaining->empty()) { //just update every 30 seconds + initial
                     updateTimeRemainingLabel("in " + timeFormat + " " + timeSuffix);
                 }
             } else {
@@ -132,7 +131,13 @@ namespace next {
             updateTimeRemainingLabel("Now");
             mReachedTargetTimestamp = true;
         }
-        
+    }
+    
+    void SessionMetaLabel::update(){
+        if(mReachedTargetTimestamp){
+            return;
+        }
+        updateTimeRemaining();
     }
     
     void SessionMetaLabel::updateTrapezoid(){

@@ -29,6 +29,7 @@ namespace next {
         gl::Texture    mClockImageRef;
         
         void updateTrapezoid();
+        void updateTimeRemaining();
         
     public:
         SessionMetaLabel();
