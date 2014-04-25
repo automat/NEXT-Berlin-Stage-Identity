@@ -1,11 +1,6 @@
 #include "Config.h"
 
-#include <map>
-#include <boost/variant.hpp>
-
 #include "util/FileWatcher.h"
-
-
 
 // (with default values, in case the initial config.json is not initially parsable)
 int   WINDOW_WIDTH(3840);
@@ -68,8 +63,6 @@ namespace next{
     }
 
 // lifetime = application time
-
-    bool   __init;
     string __filePath("");
     bool   __isValid(false);
     bool   __isValidInit(false);
@@ -194,7 +187,7 @@ namespace next{
         if(!GetChild(parent, key, &node, msg)){
             return false;
         }
-        float _value;
+        int _value;
         try {
             _value = node.getValue<int>();
         } catch (JsonTree::Exception& exc) {
@@ -234,7 +227,8 @@ namespace next{
             configJson = JsonTree(loadFile(filepath), __parseOptions);
         } catch (JsonTree::ExcJsonParserError& exc) {
             *msg = exc.what();
-            return __isValid = false;
+            __isValid = false;
+            return __isValid;
         }
 
         JsonTree nodeWindow;
@@ -251,7 +245,8 @@ namespace next{
             nodeStageSchedule = nodeStage.getChild("schedule");
         } catch (JsonTree::Exception& exc) {
             *msg = exc.what();
-            return __isValid = false;
+            __isValid = false;
+            return __isValid;
         }
 
         //
@@ -334,7 +329,8 @@ namespace next{
                         !Parse(nodeStageTheme, "quote_field.material.diffuse", &QUOTE_FIELD_MATERIAL_DIFFUSE, msg) ||
                         !Parse(nodeStageTheme, "quote_field.material.specular", &QUOTE_FIELD_MATERIAL_SPECULAR, msg) ||
                         !Parse(nodeStageTheme, "quote_field.material.shininess", &QUOTE_FIELD_MATERIAL_SHININESS, msg)){
-            return __isValid = false;
+            __isValid = false;
+            return __isValid;
         }
 
         if(filepath != __filePath){
@@ -345,7 +341,8 @@ namespace next{
             __sharedFileWatcher->addFile(__filePath);
             __isValidInit = true;
         }
-        return __isValid = true;
+        __isValid = true;
+        return __isValid;
     }
 
     bool Config::Reload(string* msg){
