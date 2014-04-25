@@ -67,6 +67,7 @@
 		CD40A32D190AAC67003F790B /* test_texture_2x2_red.png in Resources */ = {isa = PBXBuildFile; fileRef = CD40A30E190AAC67003F790B /* test_texture_2x2_red.png */; };
 		CD40A32E190AAC67003F790B /* test_texture_font_black.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD40A30F190AAC67003F790B /* test_texture_font_black.jpg */; };
 		CDAC7AE5190AE32700430DCF /* ShaderUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AE4190AE32700430DCF /* ShaderUtil.cpp */; };
+		CDAC7AEA190AE56000430DCF /* FxResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AE9190AE56000430DCF /* FxResources.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -168,6 +169,8 @@
 		CDAC7AE1190AE2FE00430DCF /* TextureFontAkkurat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureFontAkkurat.h; sourceTree = "<group>"; };
 		CDAC7AE2190AE2FE00430DCF /* TextureFontTranscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureFontTranscript.h; sourceTree = "<group>"; };
 		CDAC7AE4190AE32700430DCF /* ShaderUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderUtil.cpp; sourceTree = "<group>"; };
+		CDAC7AE6190AE51800430DCF /* FxResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FxResources.h; sourceTree = "<group>"; };
+		CDAC7AE9190AE56000430DCF /* FxResources.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FxResources.cpp; sourceTree = "<group>"; };
 		D97A31D43A19E7918D5DF134 /* Stage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Stage.h; path = ../../Stage.h; sourceTree = "<group>"; };
 		D9FE5E0683C54EB7AA47C5B8 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		FEB0F387E5E741BC8D330A4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -644,6 +647,7 @@
 		CDAC7ADA190AE2FE00430DCF /* gl */ = {
 			isa = PBXGroup;
 			children = (
+				CDAC7AE6190AE51800430DCF /* FxResources.h */,
 				CDAC7ADB190AE2FE00430DCF /* DrawUtil.h */,
 				CDAC7ADC190AE2FE00430DCF /* PingPongFbo.h */,
 				CDAC7ADD190AE2FE00430DCF /* ShaderUtil.h */,
@@ -665,6 +669,7 @@
 		CDAC7AE3190AE32700430DCF /* gl */ = {
 			isa = PBXGroup;
 			children = (
+				CDAC7AE9190AE56000430DCF /* FxResources.cpp */,
 				CDAC7AE4190AE32700430DCF /* ShaderUtil.cpp */,
 			);
 			path = gl;
@@ -778,6 +783,7 @@
 				CD40A2DF190AAC55003F790B /* AbstractField.cpp in Sources */,
 				CDAC7AE5190AE32700430DCF /* ShaderUtil.cpp in Sources */,
 				CD40A2CE190AAC55003F790B /* Config.cpp in Sources */,
+				CDAC7AEA190AE56000430DCF /* FxResources.cpp in Sources */,
 				CD40A2DE190AAC55003F790B /* Diver.cpp in Sources */,
 				CD40A2D1190AAC55003F790B /* QuoteParser.cpp in Sources */,
 				CD40A2E6190AAC55003F790B /* FrustumOrtho.cpp in Sources */,

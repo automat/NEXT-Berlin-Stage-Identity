@@ -136,18 +136,15 @@ namespace next{
 
         mFboThemeView    = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
         mFboScheduleView = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_RGBA_MSAA_4);
+        
+        mShaderBlurHRef = FxResources::GetBlurH();
+        mShaderBlurVRef = FxResources::GetBlurV();
 
 #if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(STAGE_SKIP_FX_SHADER)
         mFileWatcher = FileWatcher::Get();
         ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
                            loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
                            &mShaderNormalDepth);
-        ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
-                           loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_H_FRAG),
-                           &mShaderBlurH);
-        ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
-                           loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_V_FRAG),
-                           &mShaderBlurV);
         ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_VERT),
                            loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_FRAG),
                            &mShaderSSAO);
@@ -161,12 +158,6 @@ namespace next{
     util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
                      app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
                      &mShaderNormalDepth);
-    util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_BLUR_VERT),
-                     app::loadResource(RES_GLSL_WORLD_FX_BLUR_H_FRAG),
-                     &mShaderBlurH);
-    util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_BLUR_V_VERT),
-                     app::loadResource(RES_GLSL_WORLD_FX_BLUE_V_FRAG),
-                     &mShaderBlurV);
     util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_SSAO_VERT),
                      app::loadResource(RES_GLSL_WORLD_FX_SSAO_FRAG),
                      &mShaderSSAO);
@@ -365,12 +356,12 @@ namespace next{
 
         mFboPingPong_2.bindFramebuffer();
         mFboPingPong_2.bindSourceTexture(0);
-        mShaderBlurH.bind();
-        mShaderBlurH.uniform("uTexture", 0);
-        mShaderBlurH.uniform("uTexelSize", mFboTexelSize_2.x);
-        mShaderBlurH.uniform("uScale", STAGE_FX_SHADER_BLUR_SCALE);
+        mShaderBlurHRef->bind();
+        mShaderBlurHRef->uniform("uTexture", 0);
+        mShaderBlurHRef->uniform("uTexelSize", mFboTexelSize_2.x);
+        mShaderBlurHRef->uniform("uScale", STAGE_FX_SHADER_BLUR_SCALE);
         util::drawClearedScreenRect(mFboSize_2);
-        mShaderBlurH.unbind();
+        mShaderBlurHRef->unbind();
         mFboPingPong_2.unbindSourceTexture(0);
         mFboPingPong_2.unbindFramebuffer();
         mFboPingPong_2.swap();
@@ -382,12 +373,12 @@ namespace next{
 
         mFboPingPong_2.bindFramebuffer();
         mFboPingPong_2.bindSourceTexture(0);
-        mShaderBlurV.bind();
-        mShaderBlurV.uniform("uTexture", 0);
-        mShaderBlurV.uniform("uTexelSize", mFboTexelSize_2.y);
-        mShaderBlurV.uniform("uScale", STAGE_FX_SHADER_BLUR_SCALE);
+        mShaderBlurVRef->bind();
+        mShaderBlurVRef->uniform("uTexture", 0);
+        mShaderBlurVRef->uniform("uTexelSize", mFboTexelSize_2.y);
+        mShaderBlurVRef->uniform("uScale", STAGE_FX_SHADER_BLUR_SCALE);
         util::drawClearedScreenRect(mFboSize_2);
-        mShaderBlurV.unbind();
+        mShaderBlurVRef->unbind();
         mFboPingPong_2.unbindSourceTexture(0);
         mFboPingPong_2.unbindFramebuffer();
         mFboPingPong_2.swap();
@@ -431,12 +422,12 @@ namespace next{
         mFboPingPong_1.bindFramebuffer();
         mFboThemeViewSSAO.getTexture().bind(0);
 
-        mShaderBlurH.bind();
-        mShaderBlurH.uniform("uTexture", 0);
-        mShaderBlurH.uniform("uTexelSize", mFboTexelSize_1.x);
-        mShaderBlurH.uniform("uScale", STAGE_FX_SHADER_BLUR_RADIAL_SCALE);
+        mShaderBlurHRef->bind();
+        mShaderBlurHRef->uniform("uTexture", 0);
+        mShaderBlurHRef->uniform("uTexelSize", mFboTexelSize_1.x);
+        mShaderBlurHRef->uniform("uScale", STAGE_FX_SHADER_BLUR_RADIAL_SCALE);
         util::drawClearedScreenRect(mFboSize_1);
-        mShaderBlurH.unbind();
+        mShaderBlurHRef->unbind();
 
         mFboThemeViewSSAO.getTexture().unbind(0);
         mFboPingPong_1.unbindFramebuffer();
@@ -450,12 +441,12 @@ namespace next{
         mFboPingPong_1.bindFramebuffer();
         mFboPingPong_1.bindSourceTexture(0);
 
-        mShaderBlurV.bind();
-        mShaderBlurV.uniform("uTexture", 0);
-        mShaderBlurV.uniform("uTexelSize", mFboTexelSize_1.x);
-        mShaderBlurV.uniform("uScale", STAGE_FX_SHADER_BLUR_RADIAL_SCALE);
+        mShaderBlurVRef->bind();
+        mShaderBlurVRef->uniform("uTexture", 0);
+        mShaderBlurVRef->uniform("uTexelSize", mFboTexelSize_1.x);
+        mShaderBlurVRef->uniform("uScale", STAGE_FX_SHADER_BLUR_RADIAL_SCALE);
         util::drawClearedScreenRect(mFboPingPong_1.getSize(),false);
-        mShaderBlurV.unbind();
+        mShaderBlurVRef->unbind();
 
         mFboPingPong_1.unbindSourceTexture(0);
         mFboPingPong_1.unbindFramebuffer();
@@ -542,14 +533,6 @@ void Stage::processScheduleView(){
                 loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_VERT),
                 loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_FRAG),
                 &mShaderSSAO);
-        ::util::watchShaderSource(mFileWatcher,
-                loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
-                loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_H_FRAG),
-                &mShaderBlurH);
-        ::util::watchShaderSource(mFileWatcher,
-                loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
-                loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_V_FRAG),
-                &mShaderBlurV);
         ::util::watchShaderSource(mFileWatcher,
                 loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_VERT),
                 loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_FRAG),

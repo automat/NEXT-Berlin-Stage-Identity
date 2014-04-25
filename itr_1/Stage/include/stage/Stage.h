@@ -23,6 +23,7 @@
 #include "Config.h"
 
 #include "util/gl/PingPongFbo.h"
+#include "util/gl/FxResources.h"
 #include "util/FrustumOrtho.h"
 
 #include "layout/geom/LayoutArea.h"
@@ -90,8 +91,8 @@ namespace next{
 
         gl::GlslProg     mShaderNormalDepth;
         gl::GlslProg     mShaderSSAO;
-        gl::GlslProg     mShaderBlurH;
-        gl::GlslProg     mShaderBlurV;
+        gl::GlslProgRef  mShaderBlurHRef;
+        gl::GlslProgRef  mShaderBlurVRef;
         gl::GlslProg     mShaderMix;
         gl::GlslProg     mShaderMixRadial;
 
