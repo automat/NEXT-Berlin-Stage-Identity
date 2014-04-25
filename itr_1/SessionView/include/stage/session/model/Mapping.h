@@ -96,7 +96,6 @@ namespace next {
             throw NoChildExc(toString(_id));
         }
         
-        
     public:
         ////////////////////////////////////////////////////////////////////////////////////////////////
         //
@@ -116,6 +115,37 @@ namespace next {
             if(events)          delete events;
             if(session)         delete session;
             
+            
+            // keys session
+            static const string session_title("title");
+            static const string session_endHourString("endHourString");
+            static const string session_endTimeStamp("endTimeStamp");
+            static const string session_startTimeStamp("startTimeStamp");
+            static const string session_startHourTimeStamp("startHourTimeStamp");
+            static const string session_startHourClockFile("startHourClockFile");
+            static const string session_startHourString("startHourString");
+            static const string session_type("type");
+            static const string session_event_ids("event_ids");
+            
+            
+            //  keys event
+            static const string key_event_type("type");
+            static const string key_event_title("title");
+            static const string key_event_endHourString("endHourString");
+            static const string key_event_endTimeStamp("endTimeStamp");
+            static const string key_event_startTimeStamp("startTimeStamp");
+            static const string key_event_person_ids("person_ids");
+            
+            
+            //  keys speaker
+            static const string key_speaker_companyName("companyName");
+            static const string key_speaker_companyRole("companyRole");
+            static const string key_speaker_name("name");
+            static const string key_speaker_profileTwitterHandle("profileTwitterHandle");
+            
+            static const string stringEmpty("");
+            
+            
             map<uint32_t, gl::Texture>* _clocks   = new map<uint32_t, gl::Texture>();
             map<uint32_t, gl::Texture>* _images   = new map<uint32_t, gl::Texture>();
             map<uint32_t, Speaker>*     _speakers = new map<uint32_t, Speaker>();
@@ -128,7 +158,7 @@ namespace next {
             const JsonTree& jsonEvents   = data.getChild("events");
             
             const JsonTree& jsonSession = getChild(jsonSessions, session_id);
-            const JsonTree& jsonEvent_ids = jsonSession.getChild("event_ids");
+            const JsonTree& jsonEvent_ids = jsonSession.getChild(session_event_ids);
             
             for(const auto& event_id : jsonEvent_ids){
                 uint32_t _event_id = event_id.getValue<uint32_t>();
@@ -136,13 +166,16 @@ namespace next {
                 const JsonTree& jsonEvent = getChild(jsonEvents, _event_id);
                 
                 Event event;
-                event.title          = jsonEvent.getChild("title").getValue<string>();
-                event.endHourString  = jsonEvent.getChild("endHourString").getValue<string>();
-                event.endTimeStamp   = jsonEvent.getChild("endTimeStamp").getValue<time_t>();
-                event.startTimeStamp = jsonEvent.getChild("startTimeStamp").getValue<string>();
-                event.type           = jsonEvent.getChild("type").getValue<string>();
+                event.title          = jsonEvent.getChild(key_event_title).getValue<string>();
+                event.endHourString  = jsonEvent.getChild(key_event_endHourString).getValue<string>();
+                event.endTimeStamp   = jsonEvent.getChild(key_event_endTimeStamp).getValue<time_t>();
+                event.startTimeStamp = jsonEvent.getChild(key_event_startTimeStamp).getValue<string>();
                 
-                const JsonTree& jsonPerson_ids = jsonEvent.getChild("person_ids");
+                if(jsonEvent.hasChild(key_event_type)){
+                    event.type = jsonEvent.getChild(key_event_type).getValue<string>();
+                }
+                
+                const JsonTree& jsonPerson_ids = jsonEvent.getChild(key_event_person_ids);
                 for(const auto& person_id : jsonPerson_ids){
                     uint32_t _person_id = person_id.getValue<uint32_t>();
                     
@@ -153,14 +186,12 @@ namespace next {
                         const gl::Texture& image = (*_images)[_person_id] = gl::Texture(loadImage(_imageFilepath));
                         
                         Speaker& speaker      = (*_speakers)[_person_id] = Speaker();
-                        speaker.imageRef      = image.weakClone();
-                        speaker.companyName   = jsonPerson.getChild("companyName").getValue<string>();
-                        speaker.companyRole   = jsonPerson.getChild("companyRole").getValue<string>();
-                        speaker.name          = jsonPerson.getChild("name").getValue<string>();
                         
-                        if(jsonPerson.hasChild("profileTwitterHandle")){
-                            speaker.twitterHandle = jsonPerson.getChild("profileTwitterHandle").getValue<string>();
-                        }
+                        speaker.imageRef      = image.weakClone();
+                        speaker.companyName   = jsonPerson.hasChild(key_speaker_companyName)          ? jsonPerson.getChild(key_speaker_companyName).getValue<string>() : stringEmpty;
+                        speaker.companyRole   = jsonPerson.hasChild(key_speaker_companyRole)          ? jsonPerson.getChild(key_speaker_companyRole).getValue<string>() : stringEmpty;
+                        speaker.name          = jsonPerson.hasChild(key_speaker_name)                 ? jsonPerson.getChild(key_speaker_name).getValue<string>() : stringEmpty;
+                        speaker.twitterHandle = jsonPerson.hasChild(key_speaker_profileTwitterHandle) ? jsonPerson.getChild(key_speaker_profileTwitterHandle).getValue<string>() : stringEmpty;
                     }
                  
                     event.speakers += &(*_speakers)[_person_id];
@@ -176,13 +207,13 @@ namespace next {
             session = new Session();
             Session& _session = *session;
             _session._id                 = session_id;
-            _session.title               = jsonSession.getChild("title").getValue<string>();
-            _session.endHourString       = jsonSession.getChild("endHourString").getValue<string>();
-            _session.endTimeStamp        = jsonSession.getChild("endTimeStamp").getValue<time_t>();
-            _session.startHourClockFile  = jsonSession.getChild("startHourClockFile").getValue<string>();
-            _session.startHourString     = jsonSession.getChild("startHourString").getValue<string>();
-            _session.startTimeStamp      = jsonSession.getChild("startTimeStamp").getValue<time_t>();
-            _session.type                = jsonSession.getChild("type").getValue<string>();
+            _session.title               = jsonSession.getChild(session_title).getValue<string>();
+            _session.endHourString       = jsonSession.getChild(session_endHourString).getValue<string>();
+            _session.endTimeStamp        = jsonSession.getChild(session_endTimeStamp).getValue<time_t>();
+            _session.startHourClockFile  = jsonSession.getChild(session_startHourClockFile).getValue<string>();
+            _session.startHourString     = jsonSession.getChild(session_startHourString).getValue<string>();
+            _session.startTimeStamp      = jsonSession.getChild(session_startTimeStamp).getValue<time_t>();
+            _session.type                = jsonSession.getChild(session_type).getValue<string>();
             _session.events              = events;
             
             string clockFilepath   = string(RES_PATH_IMAGES_CLOCK) + "/" + _session.startHourClockFile;
