@@ -13,7 +13,6 @@
 using namespace ci;
 using namespace ci::app;
 using namespace std;
-using namespace utils;
 
 string excCatch;
 
@@ -30,9 +29,9 @@ public:
     bool          mInitialConfigIsValid;
     string        mInitialConfigExcMsg;
     
-    ExcInfoPanel* mExcPanel;
-    next::StageRef      mStage;
-    Controller*   mController;
+    next::util::ExcInfoPanel* mExcPanel;
+    next::StageRef            mStage;
+    Controller*               mController;
 };
 
 /*--------------------------------------------------------------------------------------------*/
@@ -41,9 +40,9 @@ public:
 
 void StageApp::prepareSettings(Settings* settings){
 #ifdef CONFIG_USE_BAKED
-    mInitialConfigIsValid = Config::LoadJson(CONFIG_FILE_PATH_BAKED, &mInitialConfigExcMsg);
+    mInitialConfigIsValid = next::Config::LoadJson(CONFIG_FILE_PATH_BAKED, &mInitialConfigExcMsg);
 #else
-    mInitialConfigIsValid = Config::LoadJson(app::getAppPath() + "/config.json", &mInitialConfigExcMsg);
+    mInitialConfigIsValid = next::Config::LoadJson(app::getAppPath() + "/config.json", &mInitialConfigExcMsg);
 #endif
     settings->setWindowSize(APP_WIDTH,APP_HEIGHT);
     settings->setFrameRate(APP_FPS);
@@ -51,7 +50,7 @@ void StageApp::prepareSettings(Settings* settings){
 }
 
 void StageApp::setup(){
-    mExcPanel = new ExcInfoPanel();
+    mExcPanel = new next::util::ExcInfoPanel();
     
     if(!mInitialConfigIsValid){
         mExcPanel->setString(mInitialConfigExcMsg);
@@ -80,7 +79,7 @@ void StageApp::keyDown( KeyEvent event ){
         default:
             break;
     }
-    if(!Config::IsValid()){
+    if(!next::Config::IsValid()){
         return;
     }
     
@@ -92,16 +91,16 @@ void StageApp::keyDown( KeyEvent event ){
 /*--------------------------------------------------------------------------------------------*/
 
 void StageApp::update(){
-    if(Config::DidChange()){
-        Config::Reload(&excCatch);
-        if(Config::IsValid()){
+    if(next::Config::DidChange()){
+        next::Config::Reload(&excCatch);
+        if(next::Config::IsValid()){
             mStage->onConfigDidChange();
             mExcPanel->clear();
         } else {
             mExcPanel->setString(excCatch);
         }
     }
-    if(!Config::IsValid()){
+    if(!next::Config::IsValid()){
         return;
     }
     
@@ -110,7 +109,7 @@ void StageApp::update(){
 
 void StageApp::draw(){
     gl::clear( Color( 0, 0, 0 ) );
-    if(!Config::IsValid()){
+    if(!next::Config::IsValid()){
         mExcPanel->draw();
         return;
     }

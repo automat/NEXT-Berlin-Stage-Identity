@@ -101,7 +101,6 @@
 		CD40A278190AAC45003F790B /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
 		CD40A279190AAC45003F790B /* Index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index.h; sourceTree = "<group>"; };
 		CD40A27A190AAC45003F790B /* Oscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Oscillator.h; sourceTree = "<group>"; };
-		CD40A288190AAC45003F790B /* Stage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stage.h; sourceTree = "<group>"; };
 		CD40A28B190AAC45003F790B /* Diver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Diver.h; sourceTree = "<group>"; };
 		CD40A28D190AAC45003F790B /* AbstractField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractField.h; sourceTree = "<group>"; };
 		CD40A28E190AAC45003F790B /* DiverField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiverField.h; sourceTree = "<group>"; };
@@ -172,6 +171,7 @@
 		CD40A30D190AAC67003F790B /* test_texture_2x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_texture_2x2.png; sourceTree = "<group>"; };
 		CD40A30E190AAC67003F790B /* test_texture_2x2_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_texture_2x2_red.png; sourceTree = "<group>"; };
 		CD40A30F190AAC67003F790B /* test_texture_font_black.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test_texture_font_black.jpg; sourceTree = "<group>"; };
+		D97A31D43A19E7918D5DF134 /* Stage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Stage.h; path = ../../Stage.h; sourceTree = "<group>"; };
 		D9FE5E0683C54EB7AA47C5B8 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		FEB0F387E5E741BC8D330A4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -344,7 +344,6 @@
 				CD40A274190AAC45003F790B /* env */,
 				CD40A276190AAC45003F790B /* grid */,
 				CD40A27A190AAC45003F790B /* Oscillator.h */,
-				CD40A288190AAC45003F790B /* Stage.h */,
 				CD40A289190AAC45003F790B /* theme */,
 			);
 			name = stage;
@@ -392,6 +391,7 @@
 			isa = PBXGroup;
 			children = (
 				CD40A28B190AAC45003F790B /* Diver.h */,
+				D97A31D43A19E7918D5DF134 /* Stage.h */,
 			);
 			path = diver;
 			sourceTree = "<group>";

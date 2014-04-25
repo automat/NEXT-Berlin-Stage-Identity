@@ -59,7 +59,7 @@ namespace next{
             vertex.y = osc->getValue(vertex.x * scale, vertex.z * scale, angle) * factor;
         }
 
-        utils::subdivide(vertices, indices, 2);
+        util::subdivide(vertices, indices, 2);
 
         i = -1;
         while(++i < vertices.size()){
@@ -68,17 +68,17 @@ namespace next{
         }
 
 
-        //utils::genUniqueFaces(vertices, indices, normals);
+        //util::genUniqueFaces(vertices, indices, normals);
 
         mMesh.recalculateNormals();
 
 #ifdef BACKGROUND_LIVE_EDIT_SHADER
         mFileWatcher = FileWatcher::Get();
-        utils::loadShader(loadFile(RES_ABS_GLSL_BG_MESH_VERT),
+        ::util::loadShader(loadFile(RES_ABS_GLSL_BG_MESH_VERT),
                 loadFile(RES_ABS_GLSL_BG_MESH_FRAG),
                 &mShaderMesh);
 #else
-    utils::loadShader(app::loadResource(RES_GLSL_BG_MESH_VERT),
+    util::loadShader(app::loadResource(RES_GLSL_BG_MESH_VERT),
                       app::loadResource(RES_GLSL_BG_MESH_FRAG),
                       &mShaderMesh);
 #endif
@@ -111,7 +111,7 @@ namespace next{
         mMesh.recalculateNormals();
 
 #ifdef BACKGROUND_LIVE_EDIT_SHADER
-        utils::watchShaderSource(mFileWatcher,
+        ::util::watchShaderSource(mFileWatcher,
                 loadFile(RES_ABS_GLSL_BG_MESH_VERT),
                 loadFile(RES_ABS_GLSL_BG_MESH_FRAG),
                 &mShaderMesh);

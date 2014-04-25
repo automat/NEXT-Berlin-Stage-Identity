@@ -12,16 +12,19 @@
 #include "cinder/Color.h"
 #include "cinder/Vector.h"
 
-namespace utils {
-    using namespace ci;
-    inline static Colorf toColor(const Vec3f& normal){
-        return Colorf(normal.x * 0.5f + 0.5f,normal.y * 0.5f + 0.5f,normal.z * 0.5f + 0.5f);
-    }
-    
-    inline static ColorAf toColorA(const Vec3f& normal, float a = 1.0f){
-        return ColorAf(normal.x * 0.5f + 0.5f,normal.y * 0.5f + 0.5f,normal.z * 0.5f + 0.5f,a);
+namespace next{
+    namespace util {
+        using namespace ci;
+        inline static Colorf toColor(const Vec3f& normal){
+            return Colorf(normal.x * 0.5f + 0.5f,normal.y * 0.5f + 0.5f,normal.z * 0.5f + 0.5f);
+        }
+
+        inline static ColorAf toColorA(const Vec3f& normal, float a = 1.0f){
+            return ColorAf(normal.x * 0.5f + 0.5f,normal.y * 0.5f + 0.5f,normal.z * 0.5f + 0.5f,a);
+        }
     }
 }
+
 
 
 

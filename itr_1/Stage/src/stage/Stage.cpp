@@ -55,10 +55,10 @@ namespace next{
         const vector<Vec3f>& frPlaneFar  = mFrustum.getFarPlane();
         Planef xzPlane(Vec3f::zero(), Vec3f::yAxis());
         Vec3f tl,tr,bl,br;
-        utils::getIntersection(xzPlane, frPlaneNear[0], frPlaneFar[0], &tl);
-        utils::getIntersection(xzPlane, frPlaneNear[1], frPlaneFar[1], &tr);
-        utils::getIntersection(xzPlane, frPlaneNear[2], frPlaneFar[2], &br);
-        utils::getIntersection(xzPlane, frPlaneNear[3], frPlaneFar[3], &bl);
+        util::getIntersection(xzPlane, frPlaneNear[0], frPlaneFar[0], &tl);
+        util::getIntersection(xzPlane, frPlaneNear[1], frPlaneFar[1], &tr);
+        util::getIntersection(xzPlane, frPlaneNear[2], frPlaneFar[2], &br);
+        util::getIntersection(xzPlane, frPlaneNear[3], frPlaneFar[3], &bl);
 
         LayoutArea area(tl,tr,bl,br);
         LayoutArea areaScaled;
@@ -139,38 +139,38 @@ namespace next{
 
 #if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(STAGE_SKIP_FX_SHADER)
         mFileWatcher = FileWatcher::Get();
-        utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
+        ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
                 loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
                 &mShaderNormalDepth);
-        utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
+        ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
                 loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_H_FRAG),
                 &mShaderBlurH);
-        utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
+        ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
                 loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_V_FRAG),
                 &mShaderBlurV);
-        utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_VERT),
+        ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_VERT),
                 loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_FRAG),
                 &mShaderSSAO);
-        utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_MIX_VERT),
+        ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_MIX_VERT),
                 loadFile(RES_ABS_GLSL_WORLD_FX_MIX_FRAG),
                 &mShaderMix);
-        utils::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_VERT),
+        ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_VERT),
                 loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
                 &mShaderMixRadial);
 #elif !defined(STAGE_SKIP_FX_SHADER)
-    utils::loadShader(app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
+    util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
                       app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
                       &mShaderNormalDepth);
-    utils::loadShader(app::loadResource(RES_GLSL_WORLD_FX_BLUR_VERT),
+    util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_BLUR_VERT),
                       app::loadResource(RES_GLSL_WORLD_FX_BLUR_H_FRAG),
                       &mShaderBlurH);
-    utils::loadShader(app::loadResource(RES_GLSL_WORLD_FX_BLUR_V_VERT),
+    util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_BLUR_V_VERT),
                       app::loadResource(RES_GLSL_WORLD_FX_BLUE_V_FRAG),
                       &mShaderBlurV);
-    utils::loadShader(app::loadResource(RES_GLSL_WORLD_FX_SSAO_VERT),
+    util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_SSAO_VERT),
                       app::loadResource(RES_GLSL_WORLD_FX_SSAO_FRAG),
                       &mShaderSSAO);
-    utils::loadShader(app::loadResource(RES_GLSL_WORLD_FX_MIX_VERT),
+    util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_MIX_VERT),
                       LoadResource(RES_GLSL_WORLD_FX_MIX_FRAG),
                       &mShaderMix);
 #endif
@@ -350,7 +350,7 @@ namespace next{
         mShaderSSAO.bind();
         mShaderSSAO.uniform("uTextureRandom", 1);
         mShaderSSAO.uniform("uTextureNormalMap", 2);
-        utils::drawClearedScreenRect(mFboSize_2);
+        util::drawClearedScreenRect(mFboSize_2);
 
         mShaderSSAO.unbind();
         mFboPingPong_2.unbindSourceTexture(2);
@@ -369,7 +369,7 @@ namespace next{
         mShaderBlurH.uniform("uTexture", 0);
         mShaderBlurH.uniform("uTexelSize", mFboTexelSize_2.x);
         mShaderBlurH.uniform("uScale", STAGE_FX_SHADER_BLUR_SCALE);
-        utils::drawClearedScreenRect(mFboSize_2);
+        util::drawClearedScreenRect(mFboSize_2);
         mShaderBlurH.unbind();
         mFboPingPong_2.unbindSourceTexture(0);
         mFboPingPong_2.unbindFramebuffer();
@@ -386,7 +386,7 @@ namespace next{
         mShaderBlurV.uniform("uTexture", 0);
         mShaderBlurV.uniform("uTexelSize", mFboTexelSize_2.y);
         mShaderBlurV.uniform("uScale", STAGE_FX_SHADER_BLUR_SCALE);
-        utils::drawClearedScreenRect(mFboSize_2);
+        util::drawClearedScreenRect(mFboSize_2);
         mShaderBlurV.unbind();
         mFboPingPong_2.unbindSourceTexture(0);
         mFboPingPong_2.unbindFramebuffer();
@@ -416,7 +416,7 @@ namespace next{
         mShaderMix.bind();
         mShaderMix.uniform("uTextureSSAO", 0);
         mShaderMix.uniform("uTextureBase", 1);
-        utils::drawClearedScreenRect(mFboSize_1,false);
+        util::drawClearedScreenRect(mFboSize_1,false);
         mShaderMix.unbind();
 
         mFboThemeView.getTexture().unbind(1);
@@ -435,7 +435,7 @@ namespace next{
         mShaderBlurH.uniform("uTexture", 0);
         mShaderBlurH.uniform("uTexelSize", mFboTexelSize_1.x);
         mShaderBlurH.uniform("uScale", STAGE_FX_SHADER_BLUR_RADIAL_SCALE);
-        utils::drawClearedScreenRect(mFboSize_1);
+        util::drawClearedScreenRect(mFboSize_1);
         mShaderBlurH.unbind();
 
         mFboThemeViewSSAO.getTexture().unbind(0);
@@ -454,7 +454,7 @@ namespace next{
         mShaderBlurV.uniform("uTexture", 0);
         mShaderBlurV.uniform("uTexelSize", mFboTexelSize_1.x);
         mShaderBlurV.uniform("uScale", STAGE_FX_SHADER_BLUR_RADIAL_SCALE);
-        utils::drawClearedScreenRect(mFboPingPong_1.getSize(),false);
+        util::drawClearedScreenRect(mFboPingPong_1.getSize(),false);
         mShaderBlurV.unbind();
 
         mFboPingPong_1.unbindSourceTexture(0);
@@ -475,7 +475,7 @@ namespace next{
         mShaderMixRadial.uniform("uTexture1", 1);
         mShaderMixRadial.uniform("uScreenSize", Vec2f(app::getWindowWidth(),app::getWindowHeight()));
         mShaderMixRadial.uniform("uScaleGradient", STAGE_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE);
-        utils::drawClearedScreenRect(mFboThemeViewFinal.getSize());
+        util::drawClearedScreenRect(mFboThemeViewFinal.getSize());
         mShaderMixRadial.unbind();
 
         mFboPingPong_1.unbindSourceTexture(1);
@@ -534,23 +534,23 @@ void Stage::processScheduleView(){
 
     void Stage::update(){
 #if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(STAGE_SKIP_FX_SHADER)
-        utils::watchShaderSource(mFileWatcher,
+        ::util::watchShaderSource(mFileWatcher,
                 loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
                 loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
                 &mShaderNormalDepth);
-        utils::watchShaderSource(mFileWatcher,
+        ::util::watchShaderSource(mFileWatcher,
                 loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_VERT),
                 loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_FRAG),
                 &mShaderSSAO);
-        utils::watchShaderSource(mFileWatcher,
+        ::util::watchShaderSource(mFileWatcher,
                 loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
                 loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_H_FRAG),
                 &mShaderBlurH);
-        utils::watchShaderSource(mFileWatcher,
+        ::util::watchShaderSource(mFileWatcher,
                 loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
                 loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_V_FRAG),
                 &mShaderBlurV);
-        utils::watchShaderSource(mFileWatcher,
+        ::util::watchShaderSource(mFileWatcher,
                 loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_VERT),
                 loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
                 &mShaderMixRadial);

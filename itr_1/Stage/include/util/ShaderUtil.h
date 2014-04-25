@@ -16,7 +16,7 @@
 
 #include "util/FileWatcher.h"
 
-namespace utils {
+namespace util {
     using namespace ci;
     using namespace std;
     

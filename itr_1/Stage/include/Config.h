@@ -229,14 +229,17 @@ extern float   QUOTE_FIELD_MATERIAL_SHININESS;
 #include <string>
 #include "cinder/Json.h"
 
-using namespace std;
-using namespace ci;
+namespace next{
 
-class Config {
-public:
-    static bool LoadJson(const string& filepath, string* msg);
-    static bool Reload(string* msg);
-    static bool DidChange();
-    static bool IsValid();
-};
+    using namespace std;
+    using namespace ci;
+
+    class Config {
+    public:
+        static bool LoadJson(const string& filepath, string* msg);
+        static bool Reload(string* msg);
+        static bool DidChange();
+        static bool IsValid();
+    };
+}
 

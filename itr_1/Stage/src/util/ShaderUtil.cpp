@@ -1,7 +1,7 @@
 #include "util/ShaderUtil.h"
 #include "cinder/app/App.h"
 
-namespace utils {
+namespace util {
     using namespace ci;
     using namespace std;
     

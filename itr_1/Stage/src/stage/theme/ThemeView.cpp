@@ -49,17 +49,17 @@ mQuotes(quotes){
 
 #ifdef THEME_LIVE_EDIT_MATERIAL_SHADER
     mFileWatcher = FileWatcher::Get();
-    utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
+    ::util::loadShader(loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
             loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
             &mShaderQuoteFields);
-    utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_VERT),
+    ::util::loadShader(loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_VERT),
             loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_FRAG),
             &mShaderDiverFields);
 #else
-        utils::loadShader(LoadResource(RES_GLSL_BOARD_QUOTE_FIELD_VERT),
+        util::loadShader(LoadResource(RES_GLSL_BOARD_QUOTE_FIELD_VERT),
                           LoadResource(RES_GLSL_BOARD_QUOTE_FIELD_FRAG),
                           &mShaderQuoteFields);
-        utils::loadShader(LoadResource(RES_GLSL_BOARD_DIVER_FIELD_VERT),
+        util::loadShader(LoadResource(RES_GLSL_BOARD_DIVER_FIELD_VERT),
                           LoadResource(RES_GLSL_BOARD_DIVER_FIELD_FRAG),
                           &mShaderQuoteDivers);
 #endif
@@ -167,11 +167,11 @@ void ThemeView::draw(const CameraOrtho& camera, bool useMaterialShaders){
 
 void ThemeView::update(){
 #ifdef THEME_LIVE_EDIT_MATERIAL_SHADER
-    utils::watchShaderSource(mFileWatcher,
+    ::util::watchShaderSource(mFileWatcher,
             loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
             loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
             &mShaderQuoteFields);
-    utils::watchShaderSource(mFileWatcher,
+    ::util::watchShaderSource(mFileWatcher,
             loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_VERT),
             loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_FRAG),
             &mShaderDiverFields);

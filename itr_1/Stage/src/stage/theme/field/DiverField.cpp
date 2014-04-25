@@ -49,10 +49,10 @@ namespace next{
             j = 0;
             while(j < mDiverNumPoints){
 #ifdef DIVER_FIELD_PUT_NORMAL_COLORS
-                meshColors += utils::toColor(down), utils::toColor(down);
-                meshColors += utils::toColor(  up), utils::toColor(  up);
-                meshColors += utils::toColor(right),utils::toColor(left);
-                meshColors += utils::toColor(right),utils::toColor(left);
+                meshColors += util::toColor(down), util::toColor(down);
+                meshColors += util::toColor(  up), util::toColor(  up);
+                meshColors += util::toColor(right), util::toColor(left);
+                meshColors += util::toColor(right), util::toColor(left);
 #else
             meshColors += white,white;
             meshColors += white,white;
@@ -62,10 +62,10 @@ namespace next{
                 ++j;
             }
 #ifdef DIVER_FIELD_PUT_NORMAL_COLORS
-            meshColors += utils::toColor(front),utils::toColor(front);
-            meshColors += utils::toColor(front),utils::toColor(front);
-            meshColors += utils::toColor( back),utils::toColor( back);
-            meshColors += utils::toColor( back),utils::toColor( back);
+            meshColors += util::toColor(front), util::toColor(front);
+            meshColors += util::toColor(front), util::toColor(front);
+            meshColors += util::toColor( back), util::toColor( back);
+            meshColors += util::toColor( back), util::toColor( back);
 #else
         meshColors += white,white;
         meshColors += white,white;

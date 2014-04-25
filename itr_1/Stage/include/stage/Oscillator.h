@@ -12,7 +12,6 @@
 #include "cinder/Perlin.h"
 
 namespace next{
-
     using namespace ci;
 
     class Oscillator {
@@ -22,7 +21,6 @@ namespace next{
         Oscillator();
         float getValue(float x, float y, float t);
         float getValue(float x, float y, float offsetX, float offsetY, float t);
-
     };
 }
 

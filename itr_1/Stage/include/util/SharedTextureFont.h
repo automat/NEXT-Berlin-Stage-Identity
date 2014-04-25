@@ -14,15 +14,18 @@
 #include "cinder/gl/TextureFont.h"
 #include "Resources.h"
 
-using namespace  ci;
+namespace next{
+    using namespace  ci;
 
-class SharedTextureFont {
-public:
-    inline static const gl::TextureFontRef& Get(){
-        const static gl::TextureFontRef fontRef = gl::TextureFont::create(ci::Font(app::loadResource(RES_FONT_APERCU_MONO),18));
-        return fontRef;
-    }
-};
+    class SharedTextureFont {
+    public:
+        inline static const gl::TextureFontRef& Get(){
+            const static gl::TextureFontRef fontRef = gl::TextureFont::create(ci::Font(app::loadResource(RES_FONT_APERCU_MONO),18));
+            return fontRef;
+        }
+    };
+}
+
 
 
 
