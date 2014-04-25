@@ -1,14 +1,11 @@
 #include "stage/theme/path/PathSurface.h"
 
-#include <cassert>
 #include <boost/assign/std/vector.hpp>
 #include <boost/assign.hpp>
 
-#include <OpenGL/OpenGL.h>
-
 #include "Config.h"
 #include "stage/Oscillator.h"
-#include "stage/theme/path/PathSlice.h"
+
 
 namespace next{
     using namespace boost::assign;
@@ -30,8 +27,8 @@ namespace next{
         //
         //  Init points
         //
-        mDistance       = float(mSize);                                // cell border left to cell border right + width
-        mNumPointsSlice = mDistance * 0.5f * PATH_SLICE_NUM_POINTS;    // number of points per slice, relative to distance
+        mDistance       = float(mSize);                                                  // cell border left to cell border right + width
+        mNumPointsSlice = static_cast<int>(mDistance * 0.5f * PATH_SLICE_NUM_POINTS);    // number of points per slice, relative to distance
         mNumPoints      = mNumSlices * mNumPointsSlice;
 
         int   numPointsSlice_1 = mNumPointsSlice - 1;
@@ -85,8 +82,6 @@ namespace next{
     }
 
     void PathSurface::drawSurface(){
-        static const Vec3f zero;
-
         gl::color(PATH_SURFACE_COLOR);
         glPointSize(2);
         glEnableClientState(GL_VERTEX_ARRAY);
@@ -98,8 +93,6 @@ namespace next{
     }
 
     void PathSurface::debugDraw(){
-        static const Vec3f zero;
-
         glColor3f(0.575,0,0.575);
         glPointSize(2);
         glEnableClientState(GL_VERTEX_ARRAY);

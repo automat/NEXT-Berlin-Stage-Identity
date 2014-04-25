@@ -1,7 +1,6 @@
 #include "layout/geom/LayoutArea.h"
 
 namespace next{
-
     LayoutArea::LayoutArea(const LayoutArea& area)  :
     mA(area.mA),mB(area.mB),mC(area.mC),mD(area.mD){}
 

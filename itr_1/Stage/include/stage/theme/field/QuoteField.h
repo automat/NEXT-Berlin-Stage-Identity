@@ -19,7 +19,6 @@ namespace next{
     typedef std::map<const Index, class QuoteField*> IndexQuoteFieldMap;
 
     class QuoteField : public AbstractField {
-        QuoteLine* mQuote;
         Vec2f      mTexcoordStart;
         Vec2f      mTexcoordStep;
 

@@ -13,7 +13,6 @@
 #include "cinder/Matrix44.h"
 #include <iostream>
 
-
 namespace next{
     using namespace ci;
 
@@ -67,7 +66,6 @@ namespace next{
             return lhs;
         }
     };
-
 }
 
 #endif

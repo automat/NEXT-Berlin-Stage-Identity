@@ -3,20 +3,15 @@
 #include <boost/assign/std/vector.hpp>
 #include <boost/assign.hpp>
 
-#include "Resources.h"
-
 #include "cinder/app/App.h"
 #include "cinder/gl/Texture.h"
-#include "cinder/Utilities.h"
 
 #include "Config.h"
-
 #include "util/SharedTextureFont.h"
-#include "util/ColorUtil.h"
+
 
 namespace next{
-
-using namespace boost::assign;
+    using namespace boost::assign;
 
     QuoteField::QuoteField(const Vec3f& pos, int numPathSlices, const QuoteLine& quoteLine) :
     AbstractField(pos - Vec3f(quoteLine.getIndices().size(),0,0),numPathSlices,quoteLine.getIndices().size()){
@@ -143,7 +138,6 @@ using namespace boost::assign;
 
             ++vbItr; ++vbItr; ++vbItr; ++vbItr;         //  skip front
             ++vbItr; ++vbItr; ++vbItr; ++vbItr;         //  skip back
-
         }
     }
 

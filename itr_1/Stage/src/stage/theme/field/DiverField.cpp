@@ -3,13 +3,10 @@
 #include <boost/assign/std/vector.hpp>
 #include <boost/assign.hpp>
 
-#include "cinder/Rand.h"
-
 #include "Config.h"
 #include "util/ColorUtil.h"
 
 namespace next{
-
     using namespace boost::assign;
 
     DiverField::DiverField(const Vec3f& pos, int numPathSlices) :

@@ -8,6 +8,7 @@ namespace next{
         static const float zero[3] = {
                 0,0,0
         };
+
         static const float verticesArea[12] = {
                 -0.5f,0,-0.5f,
                 0.5f,0,-0.5f,

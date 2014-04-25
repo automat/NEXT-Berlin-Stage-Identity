@@ -13,8 +13,6 @@
 #include "stage/theme/field/AbstractField.h"
 
 namespace next{
-    typedef std::map<const Index,class DiverField*> IndexDiverFieldMap;
-
     class DiverField : public AbstractField {
 
         void addMeshColors();

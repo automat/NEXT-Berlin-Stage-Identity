@@ -24,9 +24,8 @@ namespace next{
 
     class Grid {
     private:
-        Vec2f mSize;
+        Vec2i         mSize;
         vector<Cell*> mCells;
-        vector<int*> mTest;
 
         // No copy
         Grid();

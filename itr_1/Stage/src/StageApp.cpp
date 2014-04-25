@@ -31,7 +31,6 @@ public:
     
     next::util::ExcInfoPanel* mExcPanel;
     next::StageRef            mStage;
-    Controller*               mController;
 };
 
 /*--------------------------------------------------------------------------------------------*/
@@ -63,8 +62,7 @@ void StageApp::setup(){
         return;
     }
     
-    mStage      = next::Stage::create(quoteData);
-    mController = new Controller(mStage);
+    mStage = next::Stage::create(quoteData);
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -79,11 +77,25 @@ void StageApp::keyDown( KeyEvent event ){
         default:
             break;
     }
+
     if(!next::Config::IsValid()){
         return;
     }
-    
-    mController->keyDown(event);
+    switch (event.getCode()) {
+        case KeyEvent::KEY_UP:
+            mStage->zoomModelIn();
+            break;
+        case KeyEvent::KEY_DOWN:
+            mStage->zoomModelOut();
+            break;
+        case KeyEvent::KEY_LEFT:
+            mStage->viewOrtho();
+            break;
+        case KeyEvent::KEY_RIGHT:
+            mStage->viewTop();
+        default:
+            break;
+    }
 }
 
 /*--------------------------------------------------------------------------------------------*/

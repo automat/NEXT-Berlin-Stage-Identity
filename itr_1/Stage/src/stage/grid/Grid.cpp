@@ -14,7 +14,7 @@ namespace next{
     using namespace boost::assign;
 
     Grid::Grid(int numCellsX, int numCellsY) :
-    mSize(numCellsX,numCellsY){
+        mSize(numCellsX,numCellsY){
         int size_2 = mSize.x / 2;
         int i,j;
 
@@ -40,7 +40,8 @@ namespace next{
     }
 
     const Cell* Grid::getCell(int n) const{
-        return getCell(n);
+        assert( n > -1 && n < mCells.size());
+        return mCells[n];
     }
 
     Cell* Grid::getCell(int x, int y){
@@ -67,7 +68,7 @@ namespace next{
 
         Matrix44f mat;
         Matrix44f rot = Matrix44f::createRotationOnb(u,w,v);
-        rot*= Matrix44f::createRotation(Vec3f::zAxis(), M_PI_2);
+        rot*= Matrix44f::createRotation(Vec3f::zAxis(), static_cast<float>(M_PI_2));
         rot*= Matrix44f::createScale(Vec3f(fontScale,fontScale,fontScale));
 
         gl::enableAlphaTest();

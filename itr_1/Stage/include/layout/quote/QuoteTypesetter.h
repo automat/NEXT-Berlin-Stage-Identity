@@ -41,7 +41,6 @@
 #include "stage/grid/Cell.h"
 #include "stage/grid/Grid.h"
 
-
 using namespace std;
 using namespace ci;
 using namespace boost;

@@ -14,10 +14,8 @@
 #include "stage/theme/path/PathSlice.h"
 
 namespace next{
-
     using namespace ci;
     using namespace std;
-
 
     class Oscillator;
 
@@ -73,11 +71,6 @@ namespace next{
         const PathSlice& getSlice(int index);
 
         PathSlice* getSlicePtr(int index);
-
-
-
-
-
     };
 }
 

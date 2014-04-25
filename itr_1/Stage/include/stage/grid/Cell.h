@@ -19,9 +19,9 @@ namespace next{
 
     class Cell {
     protected:
-        Index mIndex;
-        Vec3f         mPos;
-        LayoutArea    mArea;
+        Index      mIndex;
+        Vec3f      mPos;
+        LayoutArea mArea;
 
         void debugDrawArea_Internal();
 

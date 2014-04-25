@@ -74,7 +74,7 @@ namespace next{
         mTypesetter->constrain(false);
         mTypesetter->manualLineBreak(true);
 #ifdef DEBUG_STAGE_TYPESETTER_TEXCOORDS
-    mTypesetter->debugTexture();
+        mTypesetter->debugTexture();
 #endif
 
         for(auto& data : quoteData){
@@ -96,7 +96,7 @@ namespace next{
         mThemeView    = new ThemeView(mGrid, areaScaled, mOscillator, &mQuotes);
 #endif
 #ifndef STAGE_SKIP_SCHEDULE_VIEW
-    mScheduleView = new ScheduleView(mGrid, areaScaled);
+        mScheduleView = new ScheduleView(mGrid, areaScaled);
 #endif
 
         /*--------------------------------------------------------------------------------------------*/
@@ -140,39 +140,39 @@ namespace next{
 #if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(STAGE_SKIP_FX_SHADER)
         mFileWatcher = FileWatcher::Get();
         ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
-                loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
-                &mShaderNormalDepth);
+                           loadFile(RES_ABS_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
+                           &mShaderNormalDepth);
         ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
-                loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_H_FRAG),
-                &mShaderBlurH);
+                           loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_H_FRAG),
+                           &mShaderBlurH);
         ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_VERT),
-                loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_V_FRAG),
-                &mShaderBlurV);
+                           loadFile(RES_ABS_GLSL_WORLD_FX_BLUR_V_FRAG),
+                           &mShaderBlurV);
         ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_VERT),
-                loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_FRAG),
-                &mShaderSSAO);
+                           loadFile(RES_ABS_GLSL_WORLD_FX_SSAO_FRAG),
+                           &mShaderSSAO);
         ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_MIX_VERT),
-                loadFile(RES_ABS_GLSL_WORLD_FX_MIX_FRAG),
-                &mShaderMix);
+                           loadFile(RES_ABS_GLSL_WORLD_FX_MIX_FRAG),
+                           &mShaderMix);
         ::util::loadShader(loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_VERT),
-                loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
-                &mShaderMixRadial);
+                           loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
+                           &mShaderMixRadial);
 #elif !defined(STAGE_SKIP_FX_SHADER)
     util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_VERT),
-                      app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
-                      &mShaderNormalDepth);
+                     app::loadResource(RES_GLSL_WORLD_FX_NORMAL_DEPTH_FRAG),
+                     &mShaderNormalDepth);
     util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_BLUR_VERT),
-                      app::loadResource(RES_GLSL_WORLD_FX_BLUR_H_FRAG),
-                      &mShaderBlurH);
+                     app::loadResource(RES_GLSL_WORLD_FX_BLUR_H_FRAG),
+                     &mShaderBlurH);
     util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_BLUR_V_VERT),
-                      app::loadResource(RES_GLSL_WORLD_FX_BLUE_V_FRAG),
-                      &mShaderBlurV);
+                     app::loadResource(RES_GLSL_WORLD_FX_BLUE_V_FRAG),
+                     &mShaderBlurV);
     util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_SSAO_VERT),
-                      app::loadResource(RES_GLSL_WORLD_FX_SSAO_FRAG),
-                      &mShaderSSAO);
+                     app::loadResource(RES_GLSL_WORLD_FX_SSAO_FRAG),
+                     &mShaderSSAO);
     util::loadShader(app::loadResource(RES_GLSL_WORLD_FX_MIX_VERT),
-                      LoadResource(RES_GLSL_WORLD_FX_MIX_FRAG),
-                      &mShaderMix);
+                     LoadResource(RES_GLSL_WORLD_FX_MIX_FRAG),
+                     &mShaderMix);
 #endif
 
     }

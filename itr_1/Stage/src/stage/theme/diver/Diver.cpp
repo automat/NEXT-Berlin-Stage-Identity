@@ -144,7 +144,7 @@ namespace next{
 
         Matrix44f mat;
         Matrix44f rot = Matrix44f::createRotationOnb(u,w,v);
-        rot*= Matrix44f::createRotation(Vec3f::zAxis(), M_PI_2);
+        rot*= Matrix44f::createRotation(Vec3f::zAxis(), static_cast<float>(M_PI_2));
         rot*= Matrix44f::createScale(Vec3f(fontScale,fontScale,fontScale));
 
         gl::enableAlphaTest();
