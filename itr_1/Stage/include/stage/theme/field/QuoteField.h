@@ -23,8 +23,7 @@ namespace next{
         Vec2f      mTexcoordStep;
 
         void addMeshColors();
-        void updateDivers();
-
+        
     public:
         QuoteField(const Vec3f& pos, int numPathSlices, const QuoteLine& quoteLine);
 
@@ -35,7 +34,7 @@ namespace next{
         void draw();
         void update(Oscillator* osc, float t);
         void reset(const Vec3f& pos, int numPathSlices, const QuoteLine& quoteLine);
-
+        void updateDivers(float value);
 
         void debugDrawIndices(const CameraOrtho& camera);
         void debugDrawDiverIndices(const CameraOrtho& camera);

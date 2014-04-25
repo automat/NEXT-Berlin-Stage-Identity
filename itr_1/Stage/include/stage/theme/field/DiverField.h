@@ -16,6 +16,8 @@ namespace next{
     class DiverField : public AbstractField {
 
         void addMeshColors();
+        void updateDivers();
+        
     public:
         DiverField(const Vec3f& pos, int numPathSlices);
         void debugDrawArea();

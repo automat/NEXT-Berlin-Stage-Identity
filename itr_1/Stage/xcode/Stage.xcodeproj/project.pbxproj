@@ -69,6 +69,7 @@
 		CDAC7AEE190AF4CF00430DCF /* QuoteFieldManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AED190AF4CF00430DCF /* QuoteFieldManager.cpp */; };
 		CDAC7AFF190AF6CB00430DCF /* QuoteParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AFE190AF6CB00430DCF /* QuoteParser.cpp */; };
 		CDAC7B01190AF6F500430DCF /* LayoutArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7B00190AF6F500430DCF /* LayoutArea.cpp */; };
+		CDFB0AF4190B0B70008A75DF /* logo_180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFB0AF3190B0B70008A75DF /* logo_180x180.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -175,6 +176,8 @@
 		CDAC7AFB190AF6BA00430DCF /* QuoteTypesetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteTypesetter.h; sourceTree = "<group>"; };
 		CDAC7AFE190AF6CB00430DCF /* QuoteParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuoteParser.cpp; sourceTree = "<group>"; };
 		CDAC7B00190AF6F500430DCF /* LayoutArea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutArea.cpp; sourceTree = "<group>"; };
+		CDFB0AF2190B0AB2008A75DF /* NEXTLogo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEXTLogo.h; sourceTree = "<group>"; };
+		CDFB0AF3190B0B70008A75DF /* logo_180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_180x180.png; sourceTree = "<group>"; };
 		D97A31D43A19E7918D5DF134 /* Stage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stage.h; sourceTree = "<group>"; };
 		D9FE5E0683C54EB7AA47C5B8 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		FEB0F387E5E741BC8D330A4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -306,7 +309,6 @@
 				CD40A274190AAC45003F790B /* env */,
 				CD40A276190AAC45003F790B /* grid */,
 				CD40A289190AAC45003F790B /* theme */,
-				CDAC7AEB190AF15D00430DCF /* session */,
 				CD40A27A190AAC45003F790B /* Oscillator.h */,
 				CD40A271190AAC45003F790B /* AbstractView.h */,
 				D97A31D43A19E7918D5DF134 /* Stage.h */,
@@ -344,6 +346,7 @@
 		CD40A289190AAC45003F790B /* theme */ = {
 			isa = PBXGroup;
 			children = (
+				CDFB0AF1190B0AB2008A75DF /* overlay */,
 				CD40A28A190AAC45003F790B /* diver */,
 				CD40A28C190AAC45003F790B /* field */,
 				CD40A290190AAC45003F790B /* path */,
@@ -402,9 +405,9 @@
 				CD40A2AA190AAC55003F790B /* bg */,
 				CD40A2AC190AAC55003F790B /* env */,
 				CD40A2AD190AAC55003F790B /* grid */,
+				CD40A2BE190AAC55003F790B /* theme */,
 				CD40A2B0190AAC55003F790B /* Oscillator.cpp */,
 				CD40A2BD190AAC55003F790B /* Stage.cpp */,
-				CD40A2BE190AAC55003F790B /* theme */,
 			);
 			name = stage;
 			path = ../src/stage;
@@ -562,6 +565,7 @@
 		CD40A307190AAC67003F790B /* image */ = {
 			isa = PBXGroup;
 			children = (
+				CDFB0AF3190B0B70008A75DF /* logo_180x180.png */,
 				CD40A308190AAC67003F790B /* test_person.jpg */,
 			);
 			name = image;
@@ -612,13 +616,6 @@
 			path = gl;
 			sourceTree = "<group>";
 		};
-		CDAC7AEB190AF15D00430DCF /* session */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = session;
-			sourceTree = "<group>";
-		};
 		CDAC7AF4190AF6BA00430DCF /* quote */ = {
 			isa = PBXGroup;
 			children = (
@@ -656,6 +653,15 @@
 				CDAC7AFE190AF6CB00430DCF /* QuoteParser.cpp */,
 			);
 			path = json;
+			sourceTree = "<group>";
+		};
+		CDFB0AF1190B0AB2008A75DF /* overlay */ = {
+			isa = PBXGroup;
+			children = (
+				CDFB0AF2190B0AB2008A75DF /* NEXTLogo.h */,
+			);
+			name = overlay;
+			path = ../overlay;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -738,6 +744,7 @@
 				CD40A31E190AAC67003F790B /* radial_mix_vert.glsl in Resources */,
 				CD40A320190AAC67003F790B /* ssao_vert.glsl in Resources */,
 				CD40A324190AAC67003F790B /* normal_vert.glsl in Resources */,
+				CDFB0AF4190B0B70008A75DF /* logo_180x180.png in Resources */,
 				CD40A321190AAC67003F790B /* diver_field_frag.glsl in Resources */,
 				CD40A326190AAC67003F790B /* quote_field_vert.glsl in Resources */,
 				CD40A32A190AAC67003F790B /* noise.png in Resources */,

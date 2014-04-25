@@ -35,8 +35,9 @@
 #include "stage/grid/Grid.h"
 #include "stage/env/Lantern.h"
 
-
 #include "stage/theme/ThemeView.h"
+#include "stage/overlay/NEXTLogo.h"
+
 
 /*--------------------------------------------------------------------------------------------*/
 
@@ -65,6 +66,8 @@ namespace next{
 #ifndef STAGE_SKIP_THEME_VIEW
         ThemeView*       mThemeView;
 #endif
+        
+        NEXTLogo*   mLogoNEXT;
 
 #if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(STAGE_SKIP_FX_SHADER)
         FileWatcherRef mFileWatcher;
@@ -129,6 +132,8 @@ namespace next{
         inline static StageRef create(const vector<QuoteJson>& quoteData){
             return std::make_shared<Stage>(quoteData);
         }
+        
+        const Quote* getCurrQuote();
     };
 }
 

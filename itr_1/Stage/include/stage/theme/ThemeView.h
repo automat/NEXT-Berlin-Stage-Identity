@@ -24,6 +24,7 @@
 
 #include "stage/theme/field/DiverField.h"
 #include "stage/theme/field/QuoteField.h"
+#include "stage/theme/QuoteFieldManager.h"
 
 #include "stage/AbstractView.h"
 
@@ -36,15 +37,15 @@ namespace next{
 
         vector<Quote>*      mQuotes;        //  quote data
         Oscillator*         mOscillator;
-        Quote*              mQuoteCurrent;  //  ref to curr quote
         vector<QuoteField*> mQuoteFields;   //  quote fields
+        
+        QuoteFieldManager*  mQuoteFieldManager;
 
         gl::GlslProg mShaderDiverFields;
         gl::GlslProg mShaderQuoteFields;
         gl::Material mMaterialDiverFields;
         gl::Material mMaterialQuoteFields;
-
-
+        
 
 #if defined(THEME_LIVE_EDIT_MATERIAL_SHADER)
         FileWatcherRef mFileWatcher;
@@ -65,10 +66,10 @@ namespace next{
         void onConfigDidChange();
         void draw(const CameraOrtho& camera, bool useMaterialShader);
         void update();
-
-        inline const Quote* getCurrentQuote() const{
-            return mQuoteCurrent;
-        }
+        
+        const Quote* getCurrQuote();
+        
+        void debugDrawQuoteManager();
     };
 }
 

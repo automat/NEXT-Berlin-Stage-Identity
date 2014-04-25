@@ -96,6 +96,8 @@ namespace next{
         mThemeView    = new ThemeView(mGrid, areaScaled, mOscillator, &mQuotes);
 #endif
 
+        mLogoNEXT = new NEXTLogo();
+        
         /*--------------------------------------------------------------------------------------------*/
         //  Fbo + Post Process
         /*--------------------------------------------------------------------------------------------*/
@@ -527,27 +529,34 @@ namespace next{
 #ifndef STAGE_SKIP_FX_SHADER
         gl::draw(mFboThemeViewFinal.getTexture(), mFboThemeViewSSAO.getBounds());
 #else
-    gl::draw(mFboThemeView.getTexture(), mFboThemeView.getBounds());
+        gl::draw(mFboThemeView.getTexture(), mFboThemeView.getBounds());
 #endif
 #endif
 
 #ifdef DEBUG_STAGE_TYPESETTER_TEXTURE
-    gl::disableDepthRead();
-    glColor3f(1, 1, 1);
-    const Quote* quote = mThemeView->getCurrentQuote();
-    if(quote != nullptr){
-        gl::draw(quote->getTexture(),Rectf(mFboSize_1.x - 256,mFboSize_1.y,mFboSize_1.x,mFboSize_1.y - 256));
-    }
-    gl::enableDepthRead();
+        gl::disableDepthRead();
+        glColor3f(1, 1, 1);
+        const Quote* quote = mThemeView->getCurrentQuote();
+        if(quote != nullptr){
+            gl::draw(quote->getTexture(),Rectf(mFboSize_1.x - 256,mFboSize_1.y,mFboSize_1.x,mFboSize_1.y - 256));
+        }
+        gl::enableDepthRead();
 #endif
-
+        gl::disableDepthRead();
+        gl::setMatricesWindow(app::getWindowSize(), true);
+        
+        mThemeView->debugDrawQuoteManager();
+        mLogoNEXT->draw();
+        
+        gl::enableDepthRead();
+        
         gl::popMatrices();
     }
 
 
-/*--------------------------------------------------------------------------------------------*/
-//  View
-/*--------------------------------------------------------------------------------------------*/
+    /*--------------------------------------------------------------------------------------------*/
+    //  View
+    /*--------------------------------------------------------------------------------------------*/
 
     void Stage::zoomModelIn(){
         mModelScale = MIN(STAGE_MODEL_SCALE_MIN, mModelScale * 2);
@@ -568,9 +577,9 @@ namespace next{
     }
 
 
-/*--------------------------------------------------------------------------------------------*/
-//  Control
-/*--------------------------------------------------------------------------------------------*/
+    /*--------------------------------------------------------------------------------------------*/
+    //  Control
+    /*--------------------------------------------------------------------------------------------*/
 
     void Stage::onConfigDidChange(){
         loadLightProperties();
@@ -584,6 +593,14 @@ namespace next{
     void Stage::tearDown(){
 
     }
+    
+    /*--------------------------------------------------------------------------------------------*/
+    //  get
+    /*--------------------------------------------------------------------------------------------*/
 
+    const Quote* Stage::getCurrQuote(){
+        return mThemeView->getCurrQuote();
+    }
+    
 }
 

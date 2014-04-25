@@ -82,7 +82,14 @@ namespace next{
     void DiverField::draw(){
         drawMesh();
     }
-
+    
+    void DiverField::updateDivers(){
+        for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
+            Diver* diver = (*itr);
+            diver->increaseOffset(diver->getSpeed());
+            diver->update();
+        }
+    }
     void DiverField::update(Oscillator* osc, float t){
         mSurfaceOffset -= mSurfaceOffsetSpeed;
         updatePathSurface(osc, mSurfaceOffset);

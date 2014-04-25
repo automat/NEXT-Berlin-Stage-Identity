@@ -149,6 +149,8 @@ namespace next{
 
         void activate();
         void deactivate();
+        
+        const vector<Diver*>& getDivers();
 
     };
 }

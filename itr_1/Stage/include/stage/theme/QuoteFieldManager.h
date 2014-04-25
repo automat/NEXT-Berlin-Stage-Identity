@@ -11,18 +11,30 @@
 
 #include <vector>
 
+#include "stage/grid/Grid.h"
 #include "stage/theme/field/QuoteField.h"
 #include "quote/Quote.h"
 
 namespace next {
     using namespace std;
     class QuoteFieldManager{
-        vector<Quote>* mQuotes;
-        vector<QuoteField>* mQuoteFields;
+        Grid*                mGrid;
+        vector<Quote>*       mQuotes;
+        vector<QuoteField*>* mQuoteFields;
+        
+        int mIndexQuotes;
+        
+        void setQuote(const Quote& quote);
         
     public:
-        QuoteFieldManager();
+        QuoteFieldManager(vector<Quote>* quotes, vector<QuoteField*>* quoteFields, Grid* grid);
         ~QuoteFieldManager();
+        
+        void debugDraw();
+        void update();
+        
+        //! return the current active quote
+        const Quote* getCurrQuote();
     };
 }
 

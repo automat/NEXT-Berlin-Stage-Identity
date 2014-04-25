@@ -55,16 +55,26 @@ namespace next{
             return;
         }
 
+        //  -1-0 : complete length outside before
+        //   0-1 : start to end
+        //   1-2 : complete length outside after
+        
         if(mOffset >= 2.0f){
             mOffset = -1;
         }
-
-        mOffset += mSpeed;
 
         int i = -1;
         for(vector<Vec3f>::iterator itr = mPoints.begin(); itr != mPoints.end(); itr++){
             mPathSlice->getPointOn(mOffset - mLengthStep * float(++i), &(*itr));
         }
+    }
+    
+    void Diver::setOffset(float offset){
+        mOffset = offset;
+    }
+    
+    void Diver::increaseOffset(float value){
+        mOffset += value;
     }
 
     void Diver::updateTexcoords(){

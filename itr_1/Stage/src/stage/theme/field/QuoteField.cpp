@@ -96,7 +96,7 @@ namespace next{
 /*--------------------------------------------------------------------------------------------*/
 
 
-    void QuoteField::updateDivers(){
+    void QuoteField::updateDivers(float value){
         const static Vec2f zero;
         Vec2f tex_0;   //upper tex coord
         Vec2f tex_1;   //lower tex coord
@@ -110,8 +110,11 @@ namespace next{
         i = 0;
         gl::VboMesh::VertexIter vbItr = mMesh.mapVertexBuffer();
         for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
-            (*itr)->update();           //  update diver position
-            (*itr)->updateTexcoords();  //  update diver texcooord
+            Diver* diver = *itr;
+            
+            diver->setOffset(value);
+            diver->update();           //  update diver position
+            diver->updateTexcoords();  //  update diver texcooord
 
             //
             //  Update mesh texcoords according to diver texcoords
@@ -148,7 +151,6 @@ namespace next{
     void QuoteField::update(Oscillator *osc, float t){
         mSurfaceOffset -= mSurfaceOffsetSpeed;
         updatePathSurface(osc, mSurfaceOffset);
-        updateDivers();
         updateMesh();
     }
 

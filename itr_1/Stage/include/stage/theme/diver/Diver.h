@@ -89,6 +89,9 @@ namespace next{
             return mIsOutPrev;
         }
 
+        void setOffset(float offset);
+        void increaseOffset(float value);
+        
         void update();
         void updateInOut();
         void updateTexcoords();
@@ -110,6 +113,18 @@ namespace next{
 
         inline float getHeight(){
             return mHeight;
+        }
+        
+        inline float getSpeed(){
+            return mSpeed;
+        }
+        
+        inline float getOffset(){
+            return mOffset;
+        }
+        
+        inline float getLength(){
+            return mLength;
         }
     };
 }
