@@ -16,10 +16,10 @@ using namespace ci;
 using namespace ci::app;
 
 class Controller {
-    StageRef mWorld;
+    next::StageRef mWorld;
     
 public:
-    Controller(StageRef world);
+    Controller(next::StageRef world);
     void keyDown(KeyEvent event);
 };
 

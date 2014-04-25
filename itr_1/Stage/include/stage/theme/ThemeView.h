@@ -27,47 +27,50 @@
 
 #include "stage/AbstractView.h"
 
-using namespace std;
-using namespace ci;
+namespace next{
+    using namespace std;
+    using namespace ci;
 
-class ThemeView : public AbstractView {
-    vector<DiverField*> mDiverFields;
-  
-    vector<Quote>*      mQuotes;        //  quote data
-    Oscillator*         mOscillator;
-    Quote*              mQuoteCurrent;  //  ref to curr quote
-    vector<QuoteField*> mQuoteFields;   //  quote fields
-    
-    gl::GlslProg mShaderDiverFields;
-    gl::GlslProg mShaderQuoteFields;
-    gl::Material mMaterialDiverFields;
-    gl::Material mMaterialQuoteFields;
+    class ThemeView : public AbstractView {
+        vector<DiverField*> mDiverFields;
 
-    
+        vector<Quote>*      mQuotes;        //  quote data
+        Oscillator*         mOscillator;
+        Quote*              mQuoteCurrent;  //  ref to curr quote
+        vector<QuoteField*> mQuoteFields;   //  quote fields
+
+        gl::GlslProg mShaderDiverFields;
+        gl::GlslProg mShaderQuoteFields;
+        gl::Material mMaterialDiverFields;
+        gl::Material mMaterialQuoteFields;
+
+
 
 #if defined(THEME_LIVE_EDIT_MATERIAL_SHADER)
-    FileWatcherRef mFileWatcher;
+        FileWatcherRef mFileWatcher;
 #endif
-    
-    void loadMaterialProperties();
-    
-    void deleteQuoteFields();
-    void deleteDiverFields();
-    
-    void setQuote(Quote& quote);
-    
-    
-public:
-    ThemeView(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<Quote>* quotes);
-    ~ThemeView();
-    
-    void onConfigDidChange();
-    void draw(const CameraOrtho& camera, bool useMaterialShader);
-    void update();
-    
-    inline const Quote* getCurrentQuote() const{
-        return mQuoteCurrent;
-    }
-};
+
+        void loadMaterialProperties();
+
+        void deleteQuoteFields();
+        void deleteDiverFields();
+
+        void setQuote(Quote& quote);
+
+
+    public:
+        ThemeView(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<Quote>* quotes);
+        ~ThemeView();
+
+        void onConfigDidChange();
+        void draw(const CameraOrtho& camera, bool useMaterialShader);
+        void update();
+
+        inline const Quote* getCurrentQuote() const{
+            return mQuoteCurrent;
+        }
+    };
+}
+
 
 #endif

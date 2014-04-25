@@ -25,13 +25,6 @@
 		CD40A2D3190AAC55003F790B /* Cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2AE190AAC55003F790B /* Cell.cpp */; };
 		CD40A2D4190AAC55003F790B /* Grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2AF190AAC55003F790B /* Grid.cpp */; };
 		CD40A2D5190AAC55003F790B /* Oscillator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2B0190AAC55003F790B /* Oscillator.cpp */; };
-		CD40A2D6190AAC55003F790B /* Event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2B3190AAC55003F790B /* Event.cpp */; };
-		CD40A2D7190AAC55003F790B /* EventView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2B4190AAC55003F790B /* EventView.cpp */; };
-		CD40A2D8190AAC55003F790B /* Person.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2B6190AAC55003F790B /* Person.cpp */; };
-		CD40A2D9190AAC55003F790B /* PersonView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2B7190AAC55003F790B /* PersonView.cpp */; };
-		CD40A2DA190AAC55003F790B /* PersonViewStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2B8190AAC55003F790B /* PersonViewStack.cpp */; };
-		CD40A2DB190AAC55003F790B /* ScheduleView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2B9190AAC55003F790B /* ScheduleView.cpp */; };
-		CD40A2DC190AAC55003F790B /* Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2BB190AAC55003F790B /* Session.cpp */; };
 		CD40A2DD190AAC55003F790B /* Stage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2BD190AAC55003F790B /* Stage.cpp */; };
 		CD40A2DE190AAC55003F790B /* Diver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2C0190AAC55003F790B /* Diver.cpp */; };
 		CD40A2DF190AAC55003F790B /* AbstractField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2C2190AAC55003F790B /* AbstractField.cpp */; };
@@ -108,15 +101,6 @@
 		CD40A278190AAC45003F790B /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
 		CD40A279190AAC45003F790B /* Index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index.h; sourceTree = "<group>"; };
 		CD40A27A190AAC45003F790B /* Oscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Oscillator.h; sourceTree = "<group>"; };
-		CD40A27D190AAC45003F790B /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		CD40A27E190AAC45003F790B /* EventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventView.h; sourceTree = "<group>"; };
-		CD40A280190AAC45003F790B /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
-		CD40A281190AAC45003F790B /* PersonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonView.h; sourceTree = "<group>"; };
-		CD40A282190AAC45003F790B /* PersonViewStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewStack.h; sourceTree = "<group>"; };
-		CD40A283190AAC45003F790B /* Schedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Schedule.h; sourceTree = "<group>"; };
-		CD40A284190AAC45003F790B /* ScheduleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleView.h; sourceTree = "<group>"; };
-		CD40A286190AAC45003F790B /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
-		CD40A287190AAC45003F790B /* SessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionView.h; sourceTree = "<group>"; };
 		CD40A288190AAC45003F790B /* Stage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stage.h; sourceTree = "<group>"; };
 		CD40A28B190AAC45003F790B /* Diver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Diver.h; sourceTree = "<group>"; };
 		CD40A28D190AAC45003F790B /* AbstractField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractField.h; sourceTree = "<group>"; };
@@ -145,14 +129,6 @@
 		CD40A2AE190AAC55003F790B /* Cell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cell.cpp; sourceTree = "<group>"; };
 		CD40A2AF190AAC55003F790B /* Grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Grid.cpp; sourceTree = "<group>"; };
 		CD40A2B0190AAC55003F790B /* Oscillator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Oscillator.cpp; sourceTree = "<group>"; };
-		CD40A2B3190AAC55003F790B /* Event.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Event.cpp; sourceTree = "<group>"; };
-		CD40A2B4190AAC55003F790B /* EventView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventView.cpp; sourceTree = "<group>"; };
-		CD40A2B6190AAC55003F790B /* Person.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Person.cpp; sourceTree = "<group>"; };
-		CD40A2B7190AAC55003F790B /* PersonView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PersonView.cpp; sourceTree = "<group>"; };
-		CD40A2B8190AAC55003F790B /* PersonViewStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PersonViewStack.cpp; sourceTree = "<group>"; };
-		CD40A2B9190AAC55003F790B /* ScheduleView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScheduleView.cpp; sourceTree = "<group>"; };
-		CD40A2BB190AAC55003F790B /* Session.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Session.cpp; sourceTree = "<group>"; };
-		CD40A2BC190AAC55003F790B /* SessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionView.h; sourceTree = "<group>"; };
 		CD40A2BD190AAC55003F790B /* Stage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Stage.cpp; sourceTree = "<group>"; };
 		CD40A2C0190AAC55003F790B /* Diver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Diver.cpp; sourceTree = "<group>"; };
 		CD40A2C2190AAC55003F790B /* AbstractField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractField.cpp; sourceTree = "<group>"; };
@@ -368,7 +344,6 @@
 				CD40A274190AAC45003F790B /* env */,
 				CD40A276190AAC45003F790B /* grid */,
 				CD40A27A190AAC45003F790B /* Oscillator.h */,
-				CD40A27B190AAC45003F790B /* schedule */,
 				CD40A288190AAC45003F790B /* Stage.h */,
 				CD40A289190AAC45003F790B /* theme */,
 			);
@@ -400,46 +375,6 @@
 				CD40A279190AAC45003F790B /* Index.h */,
 			);
 			path = grid;
-			sourceTree = "<group>";
-		};
-		CD40A27B190AAC45003F790B /* schedule */ = {
-			isa = PBXGroup;
-			children = (
-				CD40A27C190AAC45003F790B /* event */,
-				CD40A27F190AAC45003F790B /* person */,
-				CD40A283190AAC45003F790B /* Schedule.h */,
-				CD40A284190AAC45003F790B /* ScheduleView.h */,
-				CD40A285190AAC45003F790B /* session */,
-			);
-			path = schedule;
-			sourceTree = "<group>";
-		};
-		CD40A27C190AAC45003F790B /* event */ = {
-			isa = PBXGroup;
-			children = (
-				CD40A27D190AAC45003F790B /* Event.h */,
-				CD40A27E190AAC45003F790B /* EventView.h */,
-			);
-			path = event;
-			sourceTree = "<group>";
-		};
-		CD40A27F190AAC45003F790B /* person */ = {
-			isa = PBXGroup;
-			children = (
-				CD40A280190AAC45003F790B /* Person.h */,
-				CD40A281190AAC45003F790B /* PersonView.h */,
-				CD40A282190AAC45003F790B /* PersonViewStack.h */,
-			);
-			path = person;
-			sourceTree = "<group>";
-		};
-		CD40A285190AAC45003F790B /* session */ = {
-			isa = PBXGroup;
-			children = (
-				CD40A286190AAC45003F790B /* Session.h */,
-				CD40A287190AAC45003F790B /* SessionView.h */,
-			);
-			path = session;
 			sourceTree = "<group>";
 		};
 		CD40A289190AAC45003F790B /* theme */ = {
@@ -541,7 +476,6 @@
 				CD40A2AC190AAC55003F790B /* env */,
 				CD40A2AD190AAC55003F790B /* grid */,
 				CD40A2B0190AAC55003F790B /* Oscillator.cpp */,
-				CD40A2B1190AAC55003F790B /* schedule */,
 				CD40A2BD190AAC55003F790B /* Stage.cpp */,
 				CD40A2BE190AAC55003F790B /* theme */,
 			);
@@ -571,45 +505,6 @@
 				CD40A2AF190AAC55003F790B /* Grid.cpp */,
 			);
 			path = grid;
-			sourceTree = "<group>";
-		};
-		CD40A2B1190AAC55003F790B /* schedule */ = {
-			isa = PBXGroup;
-			children = (
-				CD40A2B2190AAC55003F790B /* event */,
-				CD40A2B5190AAC55003F790B /* person */,
-				CD40A2B9190AAC55003F790B /* ScheduleView.cpp */,
-				CD40A2BA190AAC55003F790B /* session */,
-			);
-			path = schedule;
-			sourceTree = "<group>";
-		};
-		CD40A2B2190AAC55003F790B /* event */ = {
-			isa = PBXGroup;
-			children = (
-				CD40A2B3190AAC55003F790B /* Event.cpp */,
-				CD40A2B4190AAC55003F790B /* EventView.cpp */,
-			);
-			path = event;
-			sourceTree = "<group>";
-		};
-		CD40A2B5190AAC55003F790B /* person */ = {
-			isa = PBXGroup;
-			children = (
-				CD40A2B6190AAC55003F790B /* Person.cpp */,
-				CD40A2B7190AAC55003F790B /* PersonView.cpp */,
-				CD40A2B8190AAC55003F790B /* PersonViewStack.cpp */,
-			);
-			path = person;
-			sourceTree = "<group>";
-		};
-		CD40A2BA190AAC55003F790B /* session */ = {
-			isa = PBXGroup;
-			children = (
-				CD40A2BB190AAC55003F790B /* Session.cpp */,
-				CD40A2BC190AAC55003F790B /* SessionView.h */,
-			);
-			path = session;
 			sourceTree = "<group>";
 		};
 		CD40A2BE190AAC55003F790B /* theme */ = {
@@ -850,22 +745,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD40A2DC190AAC55003F790B /* Session.cpp in Sources */,
 				CD40A2E1190AAC55003F790B /* QuoteField.cpp in Sources */,
 				B9AE9F52D4414C7EA6908694 /* StageApp.cpp in Sources */,
-				CD40A2D9190AAC55003F790B /* PersonView.cpp in Sources */,
 				CD40A2CF190AAC55003F790B /* Controller.cpp in Sources */,
-				CD40A2D6190AAC55003F790B /* Event.cpp in Sources */,
 				CD40A2D0190AAC55003F790B /* LayoutArea.cpp in Sources */,
-				CD40A2DB190AAC55003F790B /* ScheduleView.cpp in Sources */,
 				CD40A2E8190AAC55003F790B /* ShaderUtil.cpp in Sources */,
 				CD40A2E7190AAC55003F790B /* GeomUtil.cpp in Sources */,
 				CD40A2D3190AAC55003F790B /* Cell.cpp in Sources */,
 				CD40A2D2190AAC55003F790B /* Background.cpp in Sources */,
 				CD40A2D5190AAC55003F790B /* Oscillator.cpp in Sources */,
-				CD40A2DA190AAC55003F790B /* PersonViewStack.cpp in Sources */,
 				CD40A2E4190AAC55003F790B /* ThemeView.cpp in Sources */,
-				CD40A2D7190AAC55003F790B /* EventView.cpp in Sources */,
 				CD40A2DD190AAC55003F790B /* Stage.cpp in Sources */,
 				CD40A2E3190AAC55003F790B /* PathSurface.cpp in Sources */,
 				CD40A2E0190AAC55003F790B /* DiverField.cpp in Sources */,
@@ -874,7 +763,6 @@
 				CD40A2DE190AAC55003F790B /* Diver.cpp in Sources */,
 				CD40A2D1190AAC55003F790B /* QuoteParser.cpp in Sources */,
 				CD40A2E6190AAC55003F790B /* FrustumOrtho.cpp in Sources */,
-				CD40A2D8190AAC55003F790B /* Person.cpp in Sources */,
 				CD40A2E5190AAC55003F790B /* FileWatcher.cpp in Sources */,
 				CD40A2D4190AAC55003F790B /* Grid.cpp in Sources */,
 				CD40A2E2190AAC55003F790B /* PathSlice.cpp in Sources */,

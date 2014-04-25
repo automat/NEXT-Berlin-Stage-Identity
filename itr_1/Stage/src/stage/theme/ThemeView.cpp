@@ -16,6 +16,7 @@
 #include "util/ExcInfoPanel.h"
 #include "layout/quote/QuoteAlign.h"
 
+namespace next{
 
 using namespace std;
 using namespace boost::assign;
@@ -26,34 +27,34 @@ using namespace ci;
 /*--------------------------------------------------------------------------------------------*/
 
 ThemeView::ThemeView(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<Quote>* quotes) :
-    AbstractView(grid,area),
-    mOscillator(oscillator),
-    mQuotes(quotes){
+AbstractView(grid,area),
+mOscillator(oscillator),
+mQuotes(quotes){
 
-        const vector<Cell*>& gridCells = mGrid->getCells();
-        // Create diverfields according to layoutarea
-        for(vector<Cell*>::const_iterator itr = gridCells.begin(); itr != gridCells.end(); ++itr){
-            const Cell* cell = *itr;
-            const Vec3f& pos =cell->getCenter();
-            if(area.contains(pos)){
-                //const Index& index = cell->getIndex();
-                mDiverFields += new DiverField(pos,Rand::randInt(DIVER_FIELD_NUM_DIVERS_MIN, DIVER_FIELD_NUM_DIVERS_MAX));
-                //mIndexDiverFieldMap[index] = mDiverFields.back();
-            }
+    const vector<Cell*>& gridCells = mGrid->getCells();
+    // Create diverfields according to layoutarea
+    for(vector<Cell*>::const_iterator itr = gridCells.begin(); itr != gridCells.end(); ++itr){
+        const Cell* cell = *itr;
+        const Vec3f& pos =cell->getCenter();
+        if(area.contains(pos)){
+            //const Index& index = cell->getIndex();
+            mDiverFields += new DiverField(pos,Rand::randInt(DIVER_FIELD_NUM_DIVERS_MIN, DIVER_FIELD_NUM_DIVERS_MAX));
+            //mIndexDiverFieldMap[index] = mDiverFields.back();
         }
-        
-        loadMaterialProperties();
-        
-        setQuote((*mQuotes)[0]);
-        
+    }
+
+    loadMaterialProperties();
+
+    setQuote((*mQuotes)[0]);
+
 #ifdef THEME_LIVE_EDIT_MATERIAL_SHADER
-        mFileWatcher = FileWatcher::Get();
-        utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
-                          loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
-                          &mShaderQuoteFields);
-        utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_VERT),
-                          loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_FRAG),
-                          &mShaderDiverFields);
+    mFileWatcher = FileWatcher::Get();
+    utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
+            loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
+            &mShaderQuoteFields);
+    utils::loadShader(loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_VERT),
+            loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_FRAG),
+            &mShaderDiverFields);
 #else
         utils::loadShader(LoadResource(RES_GLSL_BOARD_QUOTE_FIELD_VERT),
                           LoadResource(RES_GLSL_BOARD_QUOTE_FIELD_FRAG),
@@ -62,8 +63,8 @@ ThemeView::ThemeView(Grid* grid, const LayoutArea& area, Oscillator* oscillator,
                           LoadResource(RES_GLSL_BOARD_DIVER_FIELD_FRAG),
                           &mShaderQuoteDivers);
 #endif
-        
-    
+
+
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -95,7 +96,7 @@ void ThemeView::loadMaterialProperties(){
     mMaterialDiverFields.setDiffuse(  DIVER_FIELD_MATERIAL_DIFFUSE);
     mMaterialDiverFields.setSpecular( DIVER_FIELD_MATERIAL_SPECULAR);
     mMaterialDiverFields.setShininess(DIVER_FIELD_MATERIAL_SHININESS);
-    
+
     mMaterialQuoteFields.setAmbient(  QUOTE_FIELD_MATERIAL_AMBIENT);
     mMaterialQuoteFields.setDiffuse(  QUOTE_FIELD_MATERIAL_DIFFUSE);
     mMaterialQuoteFields.setSpecular( QUOTE_FIELD_MATERIAL_SPECULAR);
@@ -134,7 +135,7 @@ void ThemeView::draw(const CameraOrtho& camera, bool useMaterialShaders){
     if(useMaterialShaders){
         mShaderDiverFields.unbind();
     }
-    
+
 #ifndef THEME_SKIP_DRAW_QUOTE_DIVER
     glEnable(GL_POLYGON_OFFSET_FILL);
     glPolygonOffset(0.0, 0.9);
@@ -160,20 +161,20 @@ void ThemeView::draw(const CameraOrtho& camera, bool useMaterialShaders){
         mShaderQuoteFields.unbind();
     }
     glDisable(GL_POLYGON_OFFSET_FILL);
-    
+
 #endif
 }
 
 void ThemeView::update(){
 #ifdef THEME_LIVE_EDIT_MATERIAL_SHADER
     utils::watchShaderSource(mFileWatcher,
-                             loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
-                             loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
-                             &mShaderQuoteFields);
+            loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_VERT),
+            loadFile(RES_ABS_GLSL_BOARD_QUOTE_FIELD_FRAG),
+            &mShaderQuoteFields);
     utils::watchShaderSource(mFileWatcher,
-                             loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_VERT),
-                             loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_FRAG),
-                             &mShaderDiverFields);
+            loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_VERT),
+            loadFile(RES_ABS_GLSL_BOARD_DIVER_FIELD_FRAG),
+            &mShaderDiverFields);
 #endif
     float t = app::getElapsedSeconds();
 #ifndef THEME_SKIP_DRAW_FIELD_DIVER
@@ -194,14 +195,14 @@ void ThemeView::update(){
 
 void ThemeView::setQuote(Quote& quote){
     deleteQuoteFields();
-    
+
     const vector<QuoteLine>& lines = quote.getLines();
     for(vector<QuoteLine>::const_iterator itr = lines.begin(); itr != lines.end(); ++itr){
         mQuoteFields += new QuoteField( mGrid->getCell(itr->getIndices().front())->getCenter(),
-                                       Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
-                                       *itr );
+                Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
+                *itr );
     }
-    
+
     mQuoteCurrent = &quote;
 }
 
@@ -212,4 +213,5 @@ void ThemeView::setQuote(Quote& quote){
 
 void ThemeView::onConfigDidChange(){
     loadMaterialProperties();
+}
 }

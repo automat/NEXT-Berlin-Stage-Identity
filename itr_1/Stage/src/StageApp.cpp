@@ -31,7 +31,7 @@ public:
     string        mInitialConfigExcMsg;
     
     ExcInfoPanel* mExcPanel;
-    StageRef      mStage;
+    next::StageRef      mStage;
     Controller*   mController;
 };
 
@@ -64,7 +64,7 @@ void StageApp::setup(){
         return;
     }
     
-    mStage      = Stage::create(quoteData);
+    mStage      = next::Stage::create(quoteData);
     mController = new Controller(mStage);
 }
 
