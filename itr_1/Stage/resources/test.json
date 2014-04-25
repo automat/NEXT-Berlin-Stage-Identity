@@ -1,0 +1,13 @@
+{
+   "quotes" : [
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 1
+               },
+               "string" : "Knowing what your customers want before they do."
+      }
+   ]
+}
