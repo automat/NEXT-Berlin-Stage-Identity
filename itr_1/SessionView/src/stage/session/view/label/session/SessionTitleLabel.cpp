@@ -42,7 +42,7 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
 
     void SessionTitleLabel::draw(){
-        if(mTextBox->getString().empty()){
+        if(mTextBox->empty()){
             return;
         }
         Vec2f topLeft = mTextBox->getTopLeft();

@@ -28,7 +28,7 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
 
     void SubLabel::draw(){
-        if(mTextBox->getString().empty()){
+        if(mTextBox->empty()){
             return;
         }
         Vec2f offset  = mPositionState();
@@ -64,6 +64,7 @@ namespace next {
 
     void SubLabel::set(const string& str){
         mTextBox->setString(str);
+        
         mTextBoxWidth = mTextBox->getCalculatedSize().x + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
 
         float trapezoidWidth = mTextBoxWidth + SESSION_LABEL_META_OFFSET_X * -1;

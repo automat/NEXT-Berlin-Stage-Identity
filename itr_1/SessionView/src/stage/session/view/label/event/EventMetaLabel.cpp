@@ -32,7 +32,7 @@ namespace next {
     }
 
     void EventMetaLabel::draw(){
-        if(mTextBox->getString().empty()){
+        if(mTextBox->empty()){
             return;
         }
         

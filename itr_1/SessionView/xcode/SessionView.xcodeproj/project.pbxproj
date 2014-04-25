@@ -21,7 +21,6 @@
 		CD17C8EF1908325F00780CE7 /* EventTitleLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8E01908325F00780CE7 /* EventTitleLabel.cpp */; };
 		CD17C8F01908325F00780CE7 /* SessionMetaLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8E21908325F00780CE7 /* SessionMetaLabel.cpp */; };
 		CD17C8F11908325F00780CE7 /* SessionTitleLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8E31908325F00780CE7 /* SessionTitleLabel.cpp */; };
-		CD17C8F21908325F00780CE7 /* SpeakerLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8E41908325F00780CE7 /* SpeakerLabel.cpp */; };
 		CD17C8F31908325F00780CE7 /* SubLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8E61908325F00780CE7 /* SubLabel.cpp */; };
 		CD17C8F41908325F00780CE7 /* SessionView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8E71908325F00780CE7 /* SessionView.cpp */; };
 		CD17C8F51908325F00780CE7 /* SpeakerStackView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8E81908325F00780CE7 /* SpeakerStackView.cpp */; };
@@ -29,12 +28,9 @@
 		CD17C8F71908325F00780CE7 /* FxResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8EB1908325F00780CE7 /* FxResources.cpp */; };
 		CD17C8F81908325F00780CE7 /* TextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD17C8EC1908325F00780CE7 /* TextBox.cpp */; };
 		CD254C7019044EA6009D6522 /* measurements.png in Resources */ = {isa = PBXBuildFile; fileRef = CD254C6F19044EA6009D6522 /* measurements.png */; };
+		CD40A262190A8E0A003F790B /* SpeakerLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A261190A8E0A003F790B /* SpeakerLabel.cpp */; };
 		CD51E586190553B000570C16 /* akkurat_regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = CD51E585190553A900570C16 /* akkurat_regular.otf */; };
 		CD8779C2190964AE00CA4EB8 /* logo_180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = CD8779C1190964AE00CA4EB8 /* logo_180x180.png */; };
-		CDCBF24E1902EF7D0060E875 /* 6893.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF24A1902EF7D0060E875 /* 6893.png */; };
-		CDCBF24F1902EF7D0060E875 /* 26092.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF24B1902EF7D0060E875 /* 26092.png */; };
-		CDCBF2501902EF7D0060E875 /* 26262.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF24C1902EF7D0060E875 /* 26262.png */; };
-		CDCBF2511902EF7D0060E875 /* 27263.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF24D1902EF7D0060E875 /* 27263.png */; };
 		CDCBF26A1902FF570060E875 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = CDCBF2691902FF570060E875 /* data.json */; };
 		CDEA2B8C1904219400123D9B /* akkurat_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDEA2B8A1904219400123D9B /* akkurat_bold.ttf */; };
 		CDEA2B8D1904219400123D9B /* transcript_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CDEA2B8B1904219400123D9B /* transcript_bold.otf */; };
@@ -85,7 +81,6 @@
 		CD17C8E01908325F00780CE7 /* EventTitleLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventTitleLabel.cpp; sourceTree = "<group>"; };
 		CD17C8E21908325F00780CE7 /* SessionMetaLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SessionMetaLabel.cpp; sourceTree = "<group>"; };
 		CD17C8E31908325F00780CE7 /* SessionTitleLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SessionTitleLabel.cpp; sourceTree = "<group>"; };
-		CD17C8E41908325F00780CE7 /* SpeakerLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpeakerLabel.cpp; sourceTree = "<group>"; };
 		CD17C8E61908325F00780CE7 /* SubLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SubLabel.cpp; sourceTree = "<group>"; };
 		CD17C8E71908325F00780CE7 /* SessionView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SessionView.cpp; sourceTree = "<group>"; };
 		CD17C8E81908325F00780CE7 /* SpeakerStackView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpeakerStackView.cpp; sourceTree = "<group>"; };
@@ -93,14 +88,11 @@
 		CD17C8EB1908325F00780CE7 /* FxResources.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FxResources.cpp; sourceTree = "<group>"; };
 		CD17C8EC1908325F00780CE7 /* TextBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextBox.cpp; sourceTree = "<group>"; };
 		CD254C6F19044EA6009D6522 /* measurements.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = measurements.png; path = ../resources/measurements.png; sourceTree = "<group>"; };
+		CD40A261190A8E0A003F790B /* SpeakerLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpeakerLabel.cpp; sourceTree = "<group>"; };
 		CD51E585190553A900570C16 /* akkurat_regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = akkurat_regular.otf; path = ../resources/akkurat_regular.otf; sourceTree = "<group>"; };
 		CD8779C1190964AE00CA4EB8 /* logo_180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_180x180.png; path = ../resources/logo_180x180.png; sourceTree = "<group>"; };
 		CD8779C4190964F600CA4EB8 /* NextLogo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextLogo.h; sourceTree = "<group>"; };
 		CDCBF23F1902EF740060E875 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
-		CDCBF24A1902EF7D0060E875 /* 6893.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 6893.png; path = ../resources/6893.png; sourceTree = "<group>"; };
-		CDCBF24B1902EF7D0060E875 /* 26092.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 26092.png; path = ../resources/26092.png; sourceTree = "<group>"; };
-		CDCBF24C1902EF7D0060E875 /* 26262.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 26262.png; path = ../resources/26262.png; sourceTree = "<group>"; };
-		CDCBF24D1902EF7D0060E875 /* 27263.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 27263.png; path = ../resources/27263.png; sourceTree = "<group>"; };
 		CDCBF2691902FF570060E875 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = data.json; path = ../resources/data.json; sourceTree = "<group>"; };
 		CDEA2B8A1904219400123D9B /* akkurat_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = akkurat_bold.ttf; path = ../resources/akkurat_bold.ttf; sourceTree = "<group>"; };
 		CDEA2B8B1904219400123D9B /* transcript_bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = transcript_bold.otf; path = ../resources/transcript_bold.otf; sourceTree = "<group>"; };
@@ -212,10 +204,6 @@
 				CDEA2B8A1904219400123D9B /* akkurat_bold.ttf */,
 				CDEA2B8B1904219400123D9B /* transcript_bold.otf */,
 				CDCBF2691902FF570060E875 /* data.json */,
-				CDCBF24A1902EF7D0060E875 /* 6893.png */,
-				CDCBF24B1902EF7D0060E875 /* 26092.png */,
-				CDCBF24C1902EF7D0060E875 /* 26262.png */,
-				CDCBF24D1902EF7D0060E875 /* 27263.png */,
 				CB6C92C76E38424199AAC0C4 /* CinderApp.icns */,
 				A1931C39A6074054B53A290A /* Info.plist */,
 			);
@@ -389,7 +377,6 @@
 			children = (
 				CD17C8E21908325F00780CE7 /* SessionMetaLabel.cpp */,
 				CD17C8E31908325F00780CE7 /* SessionTitleLabel.cpp */,
-				CD17C8E41908325F00780CE7 /* SpeakerLabel.cpp */,
 			);
 			path = session;
 			sourceTree = "<group>";
@@ -397,6 +384,7 @@
 		CD17C8E51908325F00780CE7 /* speaker */ = {
 			isa = PBXGroup;
 			children = (
+				CD40A261190A8E0A003F790B /* SpeakerLabel.cpp */,
 			);
 			path = speaker;
 			sourceTree = "<group>";
@@ -476,13 +464,9 @@
 				CDEA2B8C1904219400123D9B /* akkurat_bold.ttf in Resources */,
 				CD254C7019044EA6009D6522 /* measurements.png in Resources */,
 				CDCBF26A1902FF570060E875 /* data.json in Resources */,
-				CDCBF2511902EF7D0060E875 /* 27263.png in Resources */,
 				CDEA2B8D1904219400123D9B /* transcript_bold.otf in Resources */,
-				CDCBF24F1902EF7D0060E875 /* 26092.png in Resources */,
-				CDCBF2501902EF7D0060E875 /* 26262.png in Resources */,
 				CDEA2B8F1904220A00123D9B /* akkurat_light.ttf in Resources */,
 				CD8779C2190964AE00CA4EB8 /* logo_180x180.png in Resources */,
-				CDCBF24E1902EF7D0060E875 /* 6893.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,12 +478,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD17C8F01908325F00780CE7 /* SessionMetaLabel.cpp in Sources */,
+				CD40A262190A8E0A003F790B /* SpeakerLabel.cpp in Sources */,
 				CD17C8F51908325F00780CE7 /* SpeakerStackView.cpp in Sources */,
 				CD17C8EF1908325F00780CE7 /* EventTitleLabel.cpp in Sources */,
 				D89712634BA0486685DCE17F /* SessionViewApp.cpp in Sources */,
 				CD17C8EE1908325F00780CE7 /* EventMetaLabel.cpp in Sources */,
 				CD17C8F71908325F00780CE7 /* FxResources.cpp in Sources */,
-				CD17C8F21908325F00780CE7 /* SpeakerLabel.cpp in Sources */,
 				CD17C8F11908325F00780CE7 /* SessionTitleLabel.cpp in Sources */,
 				CD17C8F61908325F00780CE7 /* SpeakerView.cpp in Sources */,
 				CD17C8F41908325F00780CE7 /* SessionView.cpp in Sources */,

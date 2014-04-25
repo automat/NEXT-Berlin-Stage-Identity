@@ -20,10 +20,12 @@ namespace next {
                                 SESSION_LABEL_EVENT_TITLE_EXCEED_FONT_SIZE * SESSION_LABEL_EVENT_TITLE_FONT_SCALAR);
         }
 
+        string supportedChars = gl::TextureFont::defaultChars() + "–";
+        
         //
         //  Default
         //
-        mTextBox->setFont(sFontDefault);
+        mTextBox->setFont(sFontDefault, supportedChars);
         
         mTextBox->setWidth(SESSION_LABEL_EVENT_TITLE_DEFAULT_BOX_WIDTH);
         mTextBox->setFontSize(  SESSION_LABEL_EVENT_TITLE_FONT_SIZE);
@@ -46,7 +48,7 @@ namespace next {
         //  Exceeded
         //
         mTextBoxExceed = new TextBox();
-        mTextBoxExceed->setFont(sFontExceed);
+        mTextBoxExceed->setFont(sFontExceed, supportedChars);
         
         mTextBoxExceed->setWidth(     SESSION_LABEL_EVENT_TITLE_EXCEED_BOX_WIDTH);
         mTextBoxExceed->setFontSize(  SESSION_LABEL_EVENT_TITLE_EXCEED_FONT_SIZE);
@@ -78,7 +80,7 @@ namespace next {
     
     
     void EventTitleLabel::draw(){
-        if(mTextBox->getString().empty()){
+        if(mTextBox->empty()){
             return;
         }
         Vec2f topLeft = mTextBox->getTopLeft();
