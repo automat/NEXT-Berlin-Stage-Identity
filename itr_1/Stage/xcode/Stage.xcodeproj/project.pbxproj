@@ -18,7 +18,6 @@
 		9F9ED98CAD5A4159B099B7A3 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = A200FDDB200A46B39AB8AFE1 /* CinderApp.icns */; };
 		B9AE9F52D4414C7EA6908694 /* StageApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71CE24BB14374A35A1F78BCC /* StageApp.cpp */; };
 		CD40A2CE190AAC55003F790B /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2A1190AAC55003F790B /* Config.cpp */; };
-		CD40A2CF190AAC55003F790B /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2A2190AAC55003F790B /* Controller.cpp */; };
 		CD40A2D0190AAC55003F790B /* LayoutArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2A5190AAC55003F790B /* LayoutArea.cpp */; };
 		CD40A2D1190AAC55003F790B /* QuoteParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2A8190AAC55003F790B /* QuoteParser.cpp */; };
 		CD40A2D2190AAC55003F790B /* Background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2AB190AAC55003F790B /* Background.cpp */; };
@@ -36,7 +35,6 @@
 		CD40A2E5190AAC55003F790B /* FileWatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2CA190AAC55003F790B /* FileWatcher.cpp */; };
 		CD40A2E6190AAC55003F790B /* FrustumOrtho.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2CB190AAC55003F790B /* FrustumOrtho.cpp */; };
 		CD40A2E7190AAC55003F790B /* GeomUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2CC190AAC55003F790B /* GeomUtil.cpp */; };
-		CD40A2E8190AAC55003F790B /* ShaderUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD40A2CD190AAC55003F790B /* ShaderUtil.cpp */; };
 		CD40A310190AAC67003F790B /* Apercu_Mono.otf in Resources */ = {isa = PBXBuildFile; fileRef = CD40A2EA190AAC67003F790B /* Apercu_Mono.otf */; };
 		CD40A311190AAC67003F790B /* transcript_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CD40A2EB190AAC67003F790B /* transcript_bold.otf */; };
 		CD40A312190AAC67003F790B /* gradient_frag.glsl in Resources */ = {isa = PBXBuildFile; fileRef = CD40A2EE190AAC67003F790B /* gradient_frag.glsl */; };
@@ -68,6 +66,7 @@
 		CD40A32C190AAC67003F790B /* test_texture_2x2.png in Resources */ = {isa = PBXBuildFile; fileRef = CD40A30D190AAC67003F790B /* test_texture_2x2.png */; };
 		CD40A32D190AAC67003F790B /* test_texture_2x2_red.png in Resources */ = {isa = PBXBuildFile; fileRef = CD40A30E190AAC67003F790B /* test_texture_2x2_red.png */; };
 		CD40A32E190AAC67003F790B /* test_texture_font_black.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CD40A30F190AAC67003F790B /* test_texture_font_black.jpg */; };
+		CDAC7AE5190AE32700430DCF /* ShaderUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AE4190AE32700430DCF /* ShaderUtil.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,7 +85,6 @@
 		8D1107320486CEB800E47090 /* Stage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A200FDDB200A46B39AB8AFE1 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		CD40A263190AAC45003F790B /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../include/Config.h; sourceTree = "<group>"; };
-		CD40A264190AAC45003F790B /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = ../include/Controller.h; sourceTree = "<group>"; };
 		CD40A267190AAC45003F790B /* LayoutArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutArea.h; sourceTree = "<group>"; };
 		CD40A26A190AAC45003F790B /* QuoteJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteJson.h; sourceTree = "<group>"; };
 		CD40A26B190AAC45003F790B /* QuoteParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteParser.h; sourceTree = "<group>"; };
@@ -109,19 +107,11 @@
 		CD40A292190AAC45003F790B /* PathSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathSurface.h; sourceTree = "<group>"; };
 		CD40A293190AAC45003F790B /* ThemeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeView.h; sourceTree = "<group>"; };
 		CD40A295190AAC45003F790B /* ColorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorUtil.h; sourceTree = "<group>"; };
-		CD40A296190AAC45003F790B /* DrawUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawUtil.h; sourceTree = "<group>"; };
 		CD40A297190AAC45003F790B /* ExcInfoPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExcInfoPanel.h; sourceTree = "<group>"; };
 		CD40A298190AAC45003F790B /* FileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWatcher.h; sourceTree = "<group>"; };
 		CD40A299190AAC45003F790B /* FrustumOrtho.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrustumOrtho.h; sourceTree = "<group>"; };
 		CD40A29A190AAC45003F790B /* GeomUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeomUtil.h; sourceTree = "<group>"; };
-		CD40A29B190AAC45003F790B /* PingPongFbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongFbo.h; sourceTree = "<group>"; };
-		CD40A29C190AAC45003F790B /* ShaderUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderUtil.h; sourceTree = "<group>"; };
-		CD40A29D190AAC45003F790B /* SharedTextureFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedTextureFont.h; sourceTree = "<group>"; };
-		CD40A29E190AAC45003F790B /* TextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextBox.h; sourceTree = "<group>"; };
-		CD40A29F190AAC45003F790B /* TextureFontAkkurat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureFontAkkurat.h; sourceTree = "<group>"; };
-		CD40A2A0190AAC45003F790B /* TextureFontTranscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureFontTranscript.h; sourceTree = "<group>"; };
 		CD40A2A1190AAC55003F790B /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Config.cpp; path = ../src/Config.cpp; sourceTree = "<group>"; };
-		CD40A2A2190AAC55003F790B /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Controller.cpp; path = ../src/Controller.cpp; sourceTree = "<group>"; };
 		CD40A2A5190AAC55003F790B /* LayoutArea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutArea.cpp; sourceTree = "<group>"; };
 		CD40A2A8190AAC55003F790B /* QuoteParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuoteParser.cpp; sourceTree = "<group>"; };
 		CD40A2AB190AAC55003F790B /* Background.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Background.cpp; sourceTree = "<group>"; };
@@ -139,7 +129,6 @@
 		CD40A2CA190AAC55003F790B /* FileWatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileWatcher.cpp; sourceTree = "<group>"; };
 		CD40A2CB190AAC55003F790B /* FrustumOrtho.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrustumOrtho.cpp; sourceTree = "<group>"; };
 		CD40A2CC190AAC55003F790B /* GeomUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GeomUtil.cpp; sourceTree = "<group>"; };
-		CD40A2CD190AAC55003F790B /* ShaderUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderUtil.cpp; sourceTree = "<group>"; };
 		CD40A2EA190AAC67003F790B /* Apercu_Mono.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Apercu_Mono.otf; sourceTree = "<group>"; };
 		CD40A2EB190AAC67003F790B /* transcript_bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = transcript_bold.otf; sourceTree = "<group>"; };
 		CD40A2EE190AAC67003F790B /* gradient_frag.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gradient_frag.glsl; sourceTree = "<group>"; };
@@ -171,6 +160,14 @@
 		CD40A30D190AAC67003F790B /* test_texture_2x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_texture_2x2.png; sourceTree = "<group>"; };
 		CD40A30E190AAC67003F790B /* test_texture_2x2_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_texture_2x2_red.png; sourceTree = "<group>"; };
 		CD40A30F190AAC67003F790B /* test_texture_font_black.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test_texture_font_black.jpg; sourceTree = "<group>"; };
+		CDAC7ADB190AE2FE00430DCF /* DrawUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawUtil.h; sourceTree = "<group>"; };
+		CDAC7ADC190AE2FE00430DCF /* PingPongFbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongFbo.h; sourceTree = "<group>"; };
+		CDAC7ADD190AE2FE00430DCF /* ShaderUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderUtil.h; sourceTree = "<group>"; };
+		CDAC7ADF190AE2FE00430DCF /* SharedTextureFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedTextureFont.h; sourceTree = "<group>"; };
+		CDAC7AE0190AE2FE00430DCF /* TextBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextBox.h; sourceTree = "<group>"; };
+		CDAC7AE1190AE2FE00430DCF /* TextureFontAkkurat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureFontAkkurat.h; sourceTree = "<group>"; };
+		CDAC7AE2190AE2FE00430DCF /* TextureFontTranscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureFontTranscript.h; sourceTree = "<group>"; };
+		CDAC7AE4190AE32700430DCF /* ShaderUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderUtil.cpp; sourceTree = "<group>"; };
 		D97A31D43A19E7918D5DF134 /* Stage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Stage.h; path = ../../Stage.h; sourceTree = "<group>"; };
 		D9FE5E0683C54EB7AA47C5B8 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		FEB0F387E5E741BC8D330A4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -206,7 +203,6 @@
 			isa = PBXGroup;
 			children = (
 				CD40A2A1190AAC55003F790B /* Config.cpp */,
-				CD40A2A2190AAC55003F790B /* Controller.cpp */,
 				CD40A2A3190AAC55003F790B /* layout */,
 				CD40A2A9190AAC55003F790B /* stage */,
 				CD40A2C9190AAC55003F790B /* util */,
@@ -264,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				CD40A263190AAC45003F790B /* Config.h */,
-				CD40A264190AAC45003F790B /* Controller.h */,
 				CD40A265190AAC45003F790B /* layout */,
 				CD40A270190AAC45003F790B /* stage */,
 				CD40A294190AAC45003F790B /* util */,
@@ -418,18 +413,13 @@
 		CD40A294190AAC45003F790B /* util */ = {
 			isa = PBXGroup;
 			children = (
+				CDAC7ADA190AE2FE00430DCF /* gl */,
+				CDAC7ADE190AE2FE00430DCF /* text */,
 				CD40A295190AAC45003F790B /* ColorUtil.h */,
-				CD40A296190AAC45003F790B /* DrawUtil.h */,
 				CD40A297190AAC45003F790B /* ExcInfoPanel.h */,
 				CD40A298190AAC45003F790B /* FileWatcher.h */,
 				CD40A299190AAC45003F790B /* FrustumOrtho.h */,
 				CD40A29A190AAC45003F790B /* GeomUtil.h */,
-				CD40A29B190AAC45003F790B /* PingPongFbo.h */,
-				CD40A29C190AAC45003F790B /* ShaderUtil.h */,
-				CD40A29D190AAC45003F790B /* SharedTextureFont.h */,
-				CD40A29E190AAC45003F790B /* TextBox.h */,
-				CD40A29F190AAC45003F790B /* TextureFontAkkurat.h */,
-				CD40A2A0190AAC45003F790B /* TextureFontTranscript.h */,
 			);
 			name = util;
 			path = ../include/util;
@@ -548,10 +538,10 @@
 		CD40A2C9190AAC55003F790B /* util */ = {
 			isa = PBXGroup;
 			children = (
+				CDAC7AE3190AE32700430DCF /* gl */,
 				CD40A2CA190AAC55003F790B /* FileWatcher.cpp */,
 				CD40A2CB190AAC55003F790B /* FrustumOrtho.cpp */,
 				CD40A2CC190AAC55003F790B /* GeomUtil.cpp */,
-				CD40A2CD190AAC55003F790B /* ShaderUtil.cpp */,
 			);
 			name = util;
 			path = ../src/util;
@@ -651,6 +641,35 @@
 			path = ../resources/texture;
 			sourceTree = "<group>";
 		};
+		CDAC7ADA190AE2FE00430DCF /* gl */ = {
+			isa = PBXGroup;
+			children = (
+				CDAC7ADB190AE2FE00430DCF /* DrawUtil.h */,
+				CDAC7ADC190AE2FE00430DCF /* PingPongFbo.h */,
+				CDAC7ADD190AE2FE00430DCF /* ShaderUtil.h */,
+			);
+			path = gl;
+			sourceTree = "<group>";
+		};
+		CDAC7ADE190AE2FE00430DCF /* text */ = {
+			isa = PBXGroup;
+			children = (
+				CDAC7ADF190AE2FE00430DCF /* SharedTextureFont.h */,
+				CDAC7AE0190AE2FE00430DCF /* TextBox.h */,
+				CDAC7AE1190AE2FE00430DCF /* TextureFontAkkurat.h */,
+				CDAC7AE2190AE2FE00430DCF /* TextureFontTranscript.h */,
+			);
+			path = text;
+			sourceTree = "<group>";
+		};
+		CDAC7AE3190AE32700430DCF /* gl */ = {
+			isa = PBXGroup;
+			children = (
+				CDAC7AE4190AE32700430DCF /* ShaderUtil.cpp */,
+			);
+			path = gl;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -747,9 +766,7 @@
 			files = (
 				CD40A2E1190AAC55003F790B /* QuoteField.cpp in Sources */,
 				B9AE9F52D4414C7EA6908694 /* StageApp.cpp in Sources */,
-				CD40A2CF190AAC55003F790B /* Controller.cpp in Sources */,
 				CD40A2D0190AAC55003F790B /* LayoutArea.cpp in Sources */,
-				CD40A2E8190AAC55003F790B /* ShaderUtil.cpp in Sources */,
 				CD40A2E7190AAC55003F790B /* GeomUtil.cpp in Sources */,
 				CD40A2D3190AAC55003F790B /* Cell.cpp in Sources */,
 				CD40A2D2190AAC55003F790B /* Background.cpp in Sources */,
@@ -759,6 +776,7 @@
 				CD40A2E3190AAC55003F790B /* PathSurface.cpp in Sources */,
 				CD40A2E0190AAC55003F790B /* DiverField.cpp in Sources */,
 				CD40A2DF190AAC55003F790B /* AbstractField.cpp in Sources */,
+				CDAC7AE5190AE32700430DCF /* ShaderUtil.cpp in Sources */,
 				CD40A2CE190AAC55003F790B /* Config.cpp in Sources */,
 				CD40A2DE190AAC55003F790B /* Diver.cpp in Sources */,
 				CD40A2D1190AAC55003F790B /* QuoteParser.cpp in Sources */,

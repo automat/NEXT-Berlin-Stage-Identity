@@ -7,7 +7,7 @@
 #include "cinder/gl/Texture.h"
 
 #include "Config.h"
-#include "util/SharedTextureFont.h"
+#include "util/text/SharedTextureFont.h"
 
 
 namespace next{

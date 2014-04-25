@@ -9,8 +9,8 @@
 #include "cinder/Vector.h"
 
 #include "util/GeomUtil.h"
-#include "util/ShaderUtil.h"
-#include "util/DrawUtil.h"
+#include "util/gl/ShaderUtil.h"
+#include "util/gl/DrawUtil.h"
 
 namespace next{
     using namespace boost::assign;

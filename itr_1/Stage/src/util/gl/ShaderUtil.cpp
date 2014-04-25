@@ -1,4 +1,4 @@
-#include "util/ShaderUtil.h"
+#include "util/gl/ShaderUtil.h"
 #include "cinder/app/App.h"
 
 namespace util {

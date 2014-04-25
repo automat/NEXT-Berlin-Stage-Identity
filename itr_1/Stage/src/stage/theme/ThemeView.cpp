@@ -12,7 +12,7 @@
 #include "cinder/Rand.h"
 
 #include "Config.h"
-#include "util/ShaderUtil.h"
+#include "util/gl/ShaderUtil.h"
 #include "util/ExcInfoPanel.h"
 #include "layout/quote/QuoteAlign.h"
 

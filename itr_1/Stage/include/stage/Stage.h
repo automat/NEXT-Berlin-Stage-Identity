@@ -22,7 +22,7 @@
 
 #include "Config.h"
 
-#include "util/PingPongFbo.h"
+#include "util/gl/PingPongFbo.h"
 #include "util/FrustumOrtho.h"
 
 #include "layout/geom/LayoutArea.h"

@@ -3,10 +3,10 @@
 
 #include "Resources.h"
 #include "Config.h"
-#include "Controller.h"
+
+#include "util/ExcInfoPanel.h"
 #include "layout/quote/json/QuoteJson.h"
 #include "layout/quote/json/QuoteParser.h"
-#include "util/ExcInfoPanel.h"
 
 #include "stage/Stage.h"
 
@@ -26,8 +26,8 @@ public:
     void update();
 	void draw();
     
-    bool          mInitialConfigIsValid;
-    string        mInitialConfigExcMsg;
+    bool    mInitialConfigIsValid;
+    string  mInitialConfigExcMsg;
     
     next::util::ExcInfoPanel* mExcPanel;
     next::StageRef            mStage;
@@ -43,7 +43,7 @@ void StageApp::prepareSettings(Settings* settings){
 #else
     mInitialConfigIsValid = next::Config::LoadJson(app::getAppPath() + "/config.json", &mInitialConfigExcMsg);
 #endif
-    settings->setWindowSize(APP_WIDTH,APP_HEIGHT);
+    settings->setWindowSize(APP_WIDTH, APP_HEIGHT);
     settings->setFrameRate(APP_FPS);
     settings->setResizable(false);
 }

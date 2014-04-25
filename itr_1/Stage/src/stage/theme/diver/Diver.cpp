@@ -5,7 +5,7 @@
 #include "cinder/Utilities.h"
 #include "cinder/gl/TextureFont.h"
 
-#include "util/SharedTextureFont.h"
+#include "util/text/SharedTextureFont.h"
 
 namespace next{
     using namespace ci;
