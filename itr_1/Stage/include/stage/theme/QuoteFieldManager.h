@@ -13,37 +13,12 @@
 
 #include "stage/grid/Grid.h"
 #include "stage/theme/field/QuoteField.h"
+#include "stage/theme/Offset.h"
 #include "quote/Quote.h"
 
 namespace next {
     using namespace std;
     class QuoteFieldManager{
-        
-        /*--------------------------------------------------------------------------------------------*/
-        //  Offset
-        /*--------------------------------------------------------------------------------------------*/
-        
-        class Offset{
-            float mTickStart;
-            float mTickEnd;
-            float mOrigin;
-            float mDist;
-            float mTarget;
-            float mValue;
-            float mDuration;
-            float mTime;
-            bool  mLoop;
-        public:
-            Offset();
-            Offset(float origin, float target, float duration, bool loop);
-            
-            void loop(bool loop = true);
-            void update();
-            void reset(float origin,float target, float duration, bool loop);
-            
-            float getValue();
-            
-        };
         
         /*--------------------------------------------------------------------------------------------*/
         //  QuoteFieldManager
@@ -52,6 +27,7 @@ namespace next {
         Grid*                mGrid;
         vector<Quote>*       mQuotes;
         vector<QuoteField*>* mQuoteFields;
+        size_t               mNumQuoteFields;
         vector<Offset>       mOffsets;
         
         int mIndexQuotes;

@@ -12,46 +12,7 @@
 namespace next {
     using namespace ci;
     using namespace boost::assign;
-    
-    /*--------------------------------------------------------------------------------------------*/
-    //  Offset
-    /*--------------------------------------------------------------------------------------------*/
-    
-    QuoteFieldManager::Offset::Offset() :
-        mOrigin(0),
-        mTarget(0),
-        mDuration(1),
-        mTime(0),
-        mLoop(false){}
-    
-    QuoteFieldManager::Offset::Offset(float origin, float target, float duration, bool loop) : mTime(0){
-        reset(origin, target, duration, loop);
-    }
-    
-    void QuoteFieldManager::Offset::reset(float origin, float target, float duration, bool loop){
-        mOrigin   = mValue = origin;
-        mTarget   = target;
-        mDist     = mTarget - mOrigin;
-        mTime     = 0;
-        mDuration = duration * APP_FPS;
-        mLoop     = loop;
-    }
-    
-    void QuoteFieldManager::Offset::update(){
-        if (mTime > mDuration){
-            if(mLoop){
-                mTime = 0;
-            } else {
-                return;
-            }
-        }
-        mValue = mDist * mTime++ / mDuration + mOrigin;
-    }
-    
-    float QuoteFieldManager::Offset::getValue(){
-        return mValue;
-    }
-
+   
     /*--------------------------------------------------------------------------------------------*/
     //  QuoteFieldManager
     /*--------------------------------------------------------------------------------------------*/
@@ -62,7 +23,7 @@ namespace next {
         mGrid(grid),
         mIndexQuotes(0){
         
-            mOffset.reset(-1, 3, 10.0f, true);
+            mOffset.reset(-1, 2, 20.0f, 0,true);
             setQuote((*mQuotes).front());
     }
     
@@ -70,22 +31,35 @@ namespace next {
     
     void QuoteFieldManager::update(){
         vector<QuoteField*>& quoteFields = (*mQuoteFields);
-
-        for(vector<QuoteField*>::iterator itr = quoteFields.begin(); itr != quoteFields.end(); itr++){
-            (*itr)->updateDivers(mOffset.getValue());
+        
+        int i = -1;
+        while(++i < mNumQuoteFields){
+            Offset& offset = mOffsets[i];
+            offset.update();
+            quoteFields[i]->updateDivers(offset.getValue());
         }
-
-        mOffset.update();
+        
     }
     
     void QuoteFieldManager::setQuote(const next::Quote &quote){
+        mOffsets.clear();
+        
+        static const float from     = -1;
+        static const float to       = 1.9125f;
+        static const float duration = 2.0f;
+        
+        float delayStep = 1.0f;
+        float delay     = 0;
         
         const vector<QuoteLine>& lines = quote.getLines();
         for(vector<QuoteLine>::const_iterator itr = lines.begin(); itr != lines.end(); ++itr){
             (*mQuoteFields) += new QuoteField(mGrid->getCell(itr->getIndices().front())->getCenter(),
                                               Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
                                               *itr );
+            mOffsets += Offset(from, to, duration, delay, false);
+            delay    += delayStep;
         }
+        mNumQuoteFields = mQuoteFields->size();
     }
     
     

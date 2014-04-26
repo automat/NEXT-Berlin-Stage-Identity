@@ -69,6 +69,7 @@
 		CDAC7AEE190AF4CF00430DCF /* QuoteFieldManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AED190AF4CF00430DCF /* QuoteFieldManager.cpp */; };
 		CDAC7AFF190AF6CB00430DCF /* QuoteParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AFE190AF6CB00430DCF /* QuoteParser.cpp */; };
 		CDAC7B01190AF6F500430DCF /* LayoutArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7B00190AF6F500430DCF /* LayoutArea.cpp */; };
+		CDECFA78190C3748006B8079 /* Offset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDECFA77190C3748006B8079 /* Offset.cpp */; };
 		CDFB0AF4190B0B70008A75DF /* logo_180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFB0AF3190B0B70008A75DF /* logo_180x180.png */; };
 /* End PBXBuildFile section */
 
@@ -176,6 +177,8 @@
 		CDAC7AFB190AF6BA00430DCF /* QuoteTypesetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteTypesetter.h; sourceTree = "<group>"; };
 		CDAC7AFE190AF6CB00430DCF /* QuoteParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuoteParser.cpp; sourceTree = "<group>"; };
 		CDAC7B00190AF6F500430DCF /* LayoutArea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutArea.cpp; sourceTree = "<group>"; };
+		CDECFA76190C370E006B8079 /* Offset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Offset.h; sourceTree = "<group>"; };
+		CDECFA77190C3748006B8079 /* Offset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Offset.cpp; sourceTree = "<group>"; };
 		CDFB0AF2190B0AB2008A75DF /* NEXTLogo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEXTLogo.h; sourceTree = "<group>"; };
 		CDFB0AF3190B0B70008A75DF /* logo_180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_180x180.png; sourceTree = "<group>"; };
 		CDFB0AF5190B39BC008A75DF /* MathUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathUtil.h; sourceTree = "<group>"; };
@@ -353,6 +356,7 @@
 				CD40A290190AAC45003F790B /* path */,
 				CDAC7AEC190AF19F00430DCF /* QuoteFieldManager.h */,
 				CD40A293190AAC45003F790B /* ThemeView.h */,
+				CDECFA76190C370E006B8079 /* Offset.h */,
 			);
 			path = theme;
 			sourceTree = "<group>";
@@ -410,6 +414,7 @@
 				CD40A2BE190AAC55003F790B /* theme */,
 				CD40A2B0190AAC55003F790B /* Oscillator.cpp */,
 				CD40A2BD190AAC55003F790B /* Stage.cpp */,
+				CDECFA77190C3748006B8079 /* Offset.cpp */,
 			);
 			name = stage;
 			path = ../src/stage;
@@ -769,6 +774,7 @@
 				CD40A2D2190AAC55003F790B /* Background.cpp in Sources */,
 				CD40A2D5190AAC55003F790B /* Oscillator.cpp in Sources */,
 				CD40A2E4190AAC55003F790B /* ThemeView.cpp in Sources */,
+				CDECFA78190C3748006B8079 /* Offset.cpp in Sources */,
 				CD40A2DD190AAC55003F790B /* Stage.cpp in Sources */,
 				CD40A2E3190AAC55003F790B /* PathSurface.cpp in Sources */,
 				CD40A2E0190AAC55003F790B /* DiverField.cpp in Sources */,

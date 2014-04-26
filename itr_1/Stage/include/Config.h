@@ -205,8 +205,8 @@ extern float   DIVER_FIELD_MATERIAL_SHININESS;
 // QuoteField
 /*--------------------------------------------------------------------------------------------*/
 
-#define QUOTE_FIELD_NUM_DIVERS_MIN 10//10
-#define QUOTE_FIELD_NUM_DIVERS_MAX 50//50
+#define QUOTE_FIELD_NUM_DIVERS_MIN 10//10//10
+#define QUOTE_FIELD_NUM_DIVERS_MAX 50//50//50
 #define QUOTE_FIELD_SURFACE_PATH_DENSITY 0.75f
 #define QUOTE_FIELD_SURFACE_PATH_OFFSET_SPEED   0.0075f
 #define QUOTE_FIELD_SURFACE_PATH_AMPLITUDE 0.55f//0.25f//0.125f//0.325f
