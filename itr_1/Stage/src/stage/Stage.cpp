@@ -545,8 +545,9 @@ namespace next{
 #endif
         gl::disableDepthRead();
         gl::setMatricesWindow(app::getWindowSize(), true);
-        
+#ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER
         mThemeView->debugDrawQuoteManager();
+#endif
 #ifndef STAGE_SKIP_LOGO
         mLogoNEXT->draw();
 #endif

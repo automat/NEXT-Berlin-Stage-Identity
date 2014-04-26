@@ -80,11 +80,8 @@ namespace next{
 
         mTexcoordStart    = quoteLine.getTexcoords()[0];
         mTexcoordStep     = Vec2f((quoteLine.getTexcoords()[1].x - mTexcoordStart.x),
-                (quoteLine.getTexcoords()[2].y - mTexcoordStart.y) / static_cast<float>(mSurfaceNumSlices));
-
-
-
-
+                                  (quoteLine.getTexcoords()[2].y - mTexcoordStart.y) / static_cast<float>(mSurfaceNumSlices));
+        
         mTransform.setToIdentity();
         mTransform.translate(pos);
 
@@ -112,8 +109,8 @@ namespace next{
         for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
             Diver* diver = *itr;
             
-            diver->setOffset(value);//diver->getOffsetInitial() + value);
-            diver->update();           //  update diver position
+            diver->setOffset(diver->getOffsetInitial() + value);    //  diver->getOffsetInitial() + value);
+            diver->update();            //  update diver position
           
             //
             //  Update mesh texcoords according to diver texcoords
@@ -141,8 +138,7 @@ namespace next{
             ++vbItr; ++vbItr; ++vbItr; ++vbItr;         //  skip front
             ++vbItr; ++vbItr; ++vbItr; ++vbItr;         //  skip back
             
-            diver->updateTexcoords();  //  update diver texcooord
-
+            diver->updateTexcoords();   //  update diver texcooord
         }
         
     }

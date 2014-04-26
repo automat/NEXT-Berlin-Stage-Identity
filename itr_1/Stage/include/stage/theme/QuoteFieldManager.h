@@ -18,22 +18,36 @@
 namespace next {
     using namespace std;
     class QuoteFieldManager{
-        struct Offset{
-            float tickStart;
-            float tickEnd;
-            float origin;
-            float dist;
-            float target;
-            float value;
-            float duration;
-            float time;
-            
-            void update();
-            void reset(float origin,float target, float duration);
+        
+        /*--------------------------------------------------------------------------------------------*/
+        //  Offset
+        /*--------------------------------------------------------------------------------------------*/
+        
+        class Offset{
+            float mTickStart;
+            float mTickEnd;
+            float mOrigin;
+            float mDist;
+            float mTarget;
+            float mValue;
+            float mDuration;
+            float mTime;
+            bool  mLoop;
+        public:
             Offset();
-            Offset(float origin, float target, float duration);
+            Offset(float origin, float target, float duration, bool loop);
+            
+            void loop(bool loop = true);
+            void update();
+            void reset(float origin,float target, float duration, bool loop);
+            
+            float getValue();
             
         };
+        
+        /*--------------------------------------------------------------------------------------------*/
+        //  QuoteFieldManager
+        /*--------------------------------------------------------------------------------------------*/
         
         Grid*                mGrid;
         vector<Quote>*       mQuotes;
@@ -48,8 +62,9 @@ namespace next {
     public:
         QuoteFieldManager(vector<Quote>* quotes, vector<QuoteField*>* quoteFields, Grid* grid);
         ~QuoteFieldManager();
-        
+#ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER
         void debugDraw();
+#endif
         void update();
         
         //! return the current active quote

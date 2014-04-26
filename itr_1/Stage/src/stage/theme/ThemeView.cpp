@@ -173,10 +173,18 @@ namespace next{
 
 #endif
     }
-    
+#ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER
     void ThemeView::debugDrawQuoteManager(){
+        glAlphaFunc(GL_GREATER, 0.0);
+        glEnable(GL_ALPHA_TEST);
+        glEnable( GL_BLEND );
+        glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
         mQuoteFieldManager->debugDraw();
+        glDisable(GL_BLEND);
+        glDisable(GL_ALPHA_TEST);
+        glAlphaFunc(GL_GREATER, 0.5); // clearStates what seems to be cinders default
     }
+#endif
     
 
     /*--------------------------------------------------------------------------------------------*/

@@ -141,10 +141,12 @@ extern bool STAGE_LANTERN_1_DEBUG_DRAW;
 #define THEME_SKIP_DRAW_FIELD_DIVER
 //#define THEME_SKIP_DRAW_QUOTE_DIVER
 
+
 //#define DEBUG_THEME_FIELD_DIVER_PATH_SURFACE
 //#define DEBUG_THEME_FIELD_DIVER
-#define DEBUG_THEME_FIELD_QUOTE
+//#define DEBUG_THEME_FIELD_QUOTE
 //#define DEBUG_THEME_FIELD_QUOTE_TEXCOORDS
+#define DEBUG_THEME_FIELD_QUOTE_MANAGER
 
 /*--------------------------------------------------------------------------------------------*/
 // Background
@@ -203,14 +205,14 @@ extern float   DIVER_FIELD_MATERIAL_SHININESS;
 // QuoteField
 /*--------------------------------------------------------------------------------------------*/
 
-#define QUOTE_FIELD_NUM_DIVERS_MIN 1//10//10
-#define QUOTE_FIELD_NUM_DIVERS_MAX 1//50//50
+#define QUOTE_FIELD_NUM_DIVERS_MIN 10//10
+#define QUOTE_FIELD_NUM_DIVERS_MAX 50//50
 #define QUOTE_FIELD_SURFACE_PATH_DENSITY 0.75f
 #define QUOTE_FIELD_SURFACE_PATH_OFFSET_SPEED   0.0075f
-#define QUOTE_FIELD_SURFACE_PATH_AMPLITUDE 0.0f//0.55f//0.25f//0.125f//0.325f
+#define QUOTE_FIELD_SURFACE_PATH_AMPLITUDE 0.55f//0.25f//0.125f//0.325f
 
 
-#define QUOTE_FIELD_DIVER_NUM_POINTS 2//20
+#define QUOTE_FIELD_DIVER_NUM_POINTS 15//20
 #define QUOTE_FIELD_DIVER_MIN_HEIGHT 0.015f
 #define QUOTE_FIELD_DIVER_MAX_HEIGHT 0.05f
 #define QUOTE_FIELD_DIVER_MIN_OFFSET -1.0f
