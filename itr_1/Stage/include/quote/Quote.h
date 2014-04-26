@@ -30,6 +30,8 @@ namespace next{
         gl::Texture       mTexture;  // src texture
 
     public:
+        Quote(){}
+        
         Quote(const vector<QuoteLine>& lines, const gl::Texture& texture) :
         mLines(lines), mTexture(texture){}
 

@@ -31,6 +31,7 @@
 #include "cinder/gl/TextureFont.h"
 #include "cinder/gl/Fbo.h"
 #include "cinder/Utilities.h"
+#include "cinder/Surface.h"
 
 #include "util/LayoutArea.h"
 #include "quote/QuoteAlign.h"
@@ -103,7 +104,7 @@ namespace next{
         bool                    mConstrain;         // string doesnt fit?, draw anyway
         bool                    mBalancedBaseline;  // if ascent is less then descent, shift baselin
         vector<Line_Internal>   mLines;             // calculated string segments
-        QuoteRef                mQuote;             // current resulting quote
+        Quote                   mQuote;             // current resulting quote
 
 
         // texture
@@ -423,8 +424,8 @@ namespace next{
             gl::disableAlphaTest();
             glPopAttrib();
             mFbo.unbindFramebuffer();
-
-            mQuote = make_shared<Quote>(lines,mFbo.getTexture());
+            
+            mQuote = Quote(lines,gl::Texture(Surface(mFbo.getTexture())));
         }
 
         inline void addLine_Internal(vector<Line_Internal>& target, const string& line, int row){
@@ -814,7 +815,7 @@ namespace next{
             return true;
         }
 
-        inline QuoteRef getQuote(){
+        inline Quote getQuote(){
             return mQuote;
         }
 

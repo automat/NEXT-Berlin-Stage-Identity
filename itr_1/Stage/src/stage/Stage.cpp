@@ -85,7 +85,7 @@ namespace next{
             mTypesetter->setPadding(format.padding[0],format.padding[1],format.padding[2],format.padding[3]);
             mTypesetter->setFontScale(format.scale);
             mTypesetter->setString(data.str);
-            mQuotes += *mTypesetter->getQuote();
+            mQuotes += mTypesetter->getQuote();
         }
 
         Vec2i windowSize = app::getWindowSize();
