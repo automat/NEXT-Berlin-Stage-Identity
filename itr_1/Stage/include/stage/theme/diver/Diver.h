@@ -28,10 +28,10 @@ namespace next{
 
         PathSlice* mPathSlice;
         int        mPathSurfaceSize;
-        Vec3f      mPos;
 
         float      mSpeed;
         float      mOffset;
+        float      mOffsetInitial;
         float      mLength;
         float      mLengthStep;
 
@@ -63,10 +63,6 @@ namespace next{
                 float      speed,
                 float      length,
                 float      height);
-
-        inline const Vec3f& getPos() const{
-            return mPos;
-        }
 
         inline const vector<Vec3f>& getPoints() const{
             return mPoints;
@@ -121,6 +117,10 @@ namespace next{
         
         inline float getOffset(){
             return mOffset;
+        }
+        
+        inline float getOffsetInitial(){
+            return mOffsetInitial;
         }
         
         inline float getLength(){

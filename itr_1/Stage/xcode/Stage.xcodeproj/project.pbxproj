@@ -178,6 +178,7 @@
 		CDAC7B00190AF6F500430DCF /* LayoutArea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutArea.cpp; sourceTree = "<group>"; };
 		CDFB0AF2190B0AB2008A75DF /* NEXTLogo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEXTLogo.h; sourceTree = "<group>"; };
 		CDFB0AF3190B0B70008A75DF /* logo_180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_180x180.png; sourceTree = "<group>"; };
+		CDFB0AF5190B39BC008A75DF /* MathUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathUtil.h; sourceTree = "<group>"; };
 		D97A31D43A19E7918D5DF134 /* Stage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stage.h; sourceTree = "<group>"; };
 		D9FE5E0683C54EB7AA47C5B8 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
 		FEB0F387E5E741BC8D330A4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -394,6 +395,7 @@
 				CD40A298190AAC45003F790B /* FileWatcher.h */,
 				CD40A299190AAC45003F790B /* FrustumOrtho.h */,
 				CD40A29A190AAC45003F790B /* GeomUtil.h */,
+				CDFB0AF5190B39BC008A75DF /* MathUtil.h */,
 			);
 			name = util;
 			path = ../include/util;

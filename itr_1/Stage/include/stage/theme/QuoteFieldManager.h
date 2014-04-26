@@ -18,6 +18,10 @@
 namespace next {
     using namespace std;
     class QuoteFieldManager{
+        struct Offset{
+            
+        };
+        
         Grid*                mGrid;
         vector<Quote>*       mQuotes;
         vector<QuoteField*>* mQuoteFields;

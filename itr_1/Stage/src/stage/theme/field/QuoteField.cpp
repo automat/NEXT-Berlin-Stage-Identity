@@ -112,7 +112,7 @@ namespace next{
         for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
             Diver* diver = *itr;
             
-            diver->setOffset(value);
+            diver->setOffset(diver->getOffsetInitial() + value);
             diver->update();           //  update diver position
             diver->updateTexcoords();  //  update diver texcooord
 

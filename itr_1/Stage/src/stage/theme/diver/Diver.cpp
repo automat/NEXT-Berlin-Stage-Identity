@@ -32,7 +32,7 @@ namespace next{
             float      height){
         mPathSlice = pathSlice;
         mNumPoints = numPoints;
-        mOffset    = offset;
+        mOffset    = mOffsetInitial = offset;
         mSpeed     = speed;
         mWidth     = pathSlice->getWidth();
         mLength    = length;
