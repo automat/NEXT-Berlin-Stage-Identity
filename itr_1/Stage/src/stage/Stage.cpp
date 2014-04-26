@@ -130,14 +130,15 @@ namespace next{
 
         mFboPingPong_1     = PingPongFbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
         mFboPingPong_2     = PingPongFbo(mFboSize_2.x, mFboSize_2.y, fboFormat_MSAA_4);
-
+        
+        mShaderBlurHRef = FxResources::GetBlurH();
+        mShaderBlurVRef = FxResources::GetBlurV();
 #endif
 
         mFboThemeView    = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
         mFboScheduleView = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_RGBA_MSAA_4);
         
-        mShaderBlurHRef = FxResources::GetBlurH();
-        mShaderBlurVRef = FxResources::GetBlurV();
+        
 
 #if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(STAGE_SKIP_FX_SHADER)
         mFileWatcher = FileWatcher::Get();

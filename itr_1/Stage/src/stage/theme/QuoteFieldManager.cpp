@@ -56,7 +56,7 @@ namespace next {
     void QuoteFieldManager::update(){
         static float t(0.5);
         
-        t+=0.025f;
+        t+=0.0125f;
         t = t > 1.0f ? 0.5f : t;
         
         
@@ -70,7 +70,7 @@ namespace next {
   
         
         for(vector<QuoteField*>::iterator itr = quoteFields.begin(); itr != quoteFields.end(); itr++){
-            if(t > 0.75f)break;
+            if(t > 1.0f)break;
             (*itr)->updateDivers(t);//mOffset.value);
         }
     }
@@ -140,7 +140,7 @@ namespace next {
                 diverLength  = diver->getLength();
                 
                 pos.x  = MAX(0,lmap<float>(diverOffset, -1, 2, 0, rect.x2));
-                pos.y  = stepFieldV * rowDiver++;
+                pos.y  = stepFieldV * rowDiver++ + stepFieldV * 0.5f;
      
                 offsetInNormRange = diverOffset >= 0 && diverOffset <= 1;
                 

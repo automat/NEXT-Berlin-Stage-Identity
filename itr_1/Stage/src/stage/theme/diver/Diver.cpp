@@ -79,12 +79,10 @@ namespace next{
 
     void Diver::updateTexcoords(){
         mTexcoords[0] = MIN(mLength,mOffset);
-
         int i = 0;
         while(++i < mTexcoords.size()){
             mTexcoords[i] = MAX(0,mTexcoords[i-1] - (mPoints[i-1].distance(mPoints[i]) / mPathLength)) ;
         }
-
     }
 
     void Diver::updateInOut(){
@@ -101,7 +99,7 @@ namespace next{
         glGetFloatv(GL_CURRENT_POINT_SIZE_APPLE, &prevPointSize);
 
         glPointSize(3);
-        glColor3f(1, 1, 1);
+        glColor4f(1, 1, 1, 1);
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_FLOAT, 0, &mPoints[0].x);
         glDrawArrays(GL_POINTS, 0, mPoints.size());

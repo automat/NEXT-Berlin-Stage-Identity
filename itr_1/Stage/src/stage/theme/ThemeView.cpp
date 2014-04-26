@@ -142,14 +142,14 @@ namespace next{
         }
 
 #ifndef THEME_SKIP_DRAW_QUOTE_DIVER
-        const Quote* quoteCurr = mQuoteFieldManager->getCurrQuote();
+        const gl::Texture& quoteTexture = mQuoteFieldManager->getCurrQuote()->getTexture();
         
         glEnable(GL_POLYGON_OFFSET_FILL);
         glPolygonOffset(0.0, 0.9);
         if(useMaterialShaders){
             mShaderQuoteFields.bind();
             mMaterialQuoteFields.apply();
-            quoteCurr->getTexture().bind();
+            quoteTexture.bind();
             mShaderQuoteFields.uniform("uTexture", 0);
         }
         for(vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr){
@@ -159,12 +159,14 @@ namespace next{
             (*itr)->debugDrawDivers();
 #endif
 #ifdef DEBUG_THEME_FIELD_QUOTE_TEXCOORDS
+            
             (*itr)->debugDrawDiverIndices(camera);
 #endif
             (*itr)->draw();
         }
         if(useMaterialShaders){
-            quoteCurr->getTexture().unbind();
+            quoteTexture.unbind();
+            quoteTexture.disable();
             mShaderQuoteFields.unbind();
         }
         glDisable(GL_POLYGON_OFFSET_FILL);

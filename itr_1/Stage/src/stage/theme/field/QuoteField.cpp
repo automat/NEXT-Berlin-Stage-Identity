@@ -114,8 +114,7 @@ namespace next{
             
             diver->setOffset(value);//diver->getOffsetInitial() + value);
             diver->update();           //  update diver position
-            diver->updateTexcoords();  //  update diver texcooord
-
+          
             //
             //  Update mesh texcoords according to diver texcoords
             //
@@ -127,7 +126,7 @@ namespace next{
             j = -1;
             while (++j < mDiverNumPoints) {
                 tex_0.x = tex_1.x = texcoordStartX + texcoordStepX * texcoords[j];  //  get sliced hotizontal
-
+                
                 ++vbItr; ++vbItr;                       //  skip bottom
                 vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top
                 vbItr.setTexCoord2d0(tex_1); ++vbItr;
@@ -141,7 +140,11 @@ namespace next{
 
             ++vbItr; ++vbItr; ++vbItr; ++vbItr;         //  skip front
             ++vbItr; ++vbItr; ++vbItr; ++vbItr;         //  skip back
+            
+            diver->updateTexcoords();  //  update diver texcooord
+
         }
+        
     }
 
     void QuoteField::draw(){
