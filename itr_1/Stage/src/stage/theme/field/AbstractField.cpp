@@ -515,7 +515,7 @@ namespace next{
         int i = -1;
         while (++i < mSize) {
             glPushMatrix();
-            glTranslatef(0, 0, i);
+            glTranslatef(0, 0, -i);
             glEnableClientState(GL_VERTEX_ARRAY);
             glVertexPointer(3, GL_FLOAT, 0, &verticesArea[0]);
             glDrawArrays(GL_LINE_LOOP, 0, 4);
