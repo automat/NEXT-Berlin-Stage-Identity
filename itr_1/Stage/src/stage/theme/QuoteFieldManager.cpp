@@ -24,31 +24,47 @@ namespace next {
         mIndex(0){
             mQuoteFields[0]    = &quoteFields[0];
             mQuoteFields[1]    = &quoteFields[1];
-            mQuotesSelected[0] = &mQuotes->at(0);
-            mQuotesSelected[1] = &mQuotes->at(0);
             
-            setQuote((*mQuotes).front());
+            mNumQuotes = mQuotes->size();
+            mQuotesSelected[0] = &mQuotes->at(0);
+            mQuotesSelected[1] = &mQuotes->at(1 % mNumQuotes);
+            
+            mQuoteFieldsActiveStates[0] = true;
+            mQuoteFieldsActiveStates[1] = false;
+            
+            setQuote(*mQuotesSelected[0],mIndex);
+            setQuote(*mQuotesSelected[1],1 - mIndex);
     }
     
     QuoteFieldManager::~QuoteFieldManager(){}
     
     void QuoteFieldManager::update(){
-        vector<QuoteField*>& quoteFields = (*mQuoteFields[0]);
-        vector<Offset>&      offsets     = mOffsets[0];
-        
-        int i = -1;
-        while(++i < mNumQuoteFields){
-            Offset& offset = offsets[i];
-            offset.update();
-            quoteFields[i]->updateDivers(offset.getValue());
+        int k = -1;
+        while (++k < 2) {
+            vector<QuoteField*>& quoteFields = (*mQuoteFields[k]);
+            vector<Offset>&      offsets     = mOffsets[k];
+            
+            int i = -1;
+            while(++i < quoteFields.size()){
+                Offset& offset = offsets[i];
+                offset.update();
+                quoteFields[i]->updateDivers(offset.getValue());
+            }
         }
     }
     
-    void QuoteFieldManager::setQuote(const next::Quote &quote){
-        mOffsets[0].clear();
-        vector<QuoteField*>& quoteFields = (*mQuoteFields[0]);
-        vector<Offset>&      offsets     = mOffsets[0];
+    void QuoteFieldManager::draw(){
         
+    }
+    
+    void QuoteFieldManager::setQuote(const next::Quote &quote, int index){
+        vector<QuoteField*>& quoteFields = (*mQuoteFields[index]);
+        vector<Offset>&      offsets     = mOffsets[index];
+        
+        
+        
+        while (!quoteFields.empty()) delete quoteFields.back(), quoteFields.pop_back();
+        offsets.clear();
         
         static const float from     = -1;
         static const float to       = 1.9125f;
@@ -63,25 +79,30 @@ namespace next {
                                               Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
                                               *itr );
             offsets += Offset(from, to, duration, delay, false);
-            offsets.back().setCallback(std::bind(&QuoteFieldManager::onQuoteAtTarget,this));
+            offsets.back().setCallback(std::bind(&QuoteFieldManager::onQuoteAtTarget,this,index));
             delay    += delayStep;
         }
-        mIndexQuotes      = 0;
-        mIndexQuoteFields = 0;
-        mNumQuoteFields   = quoteFields.size();
+        
+        mIndexQuotes             = 0;
+        mIndexQuoteFields[index] = 0;
+        mNumQuoteFields[index]   = quoteFields.size();
     }
     
-    void QuoteFieldManager::onQuoteAtTarget(){
-        /*
-        mIndexQuoteFields++;
-        if(mIndexQuoteFields == (mNumQuoteFields - 1)){
+    void QuoteFieldManager::onQuoteAtTarget(int index){
+        mIndexQuoteFields[index]++;
+        if(mIndexQuoteFields[index] == (mNumQuoteFields[index] - 1)){
+            vector<Offset>& offsets = mOffsets[mIndex];
+        
+            float delayBase = 2.0f;
+            float delayStep = 0.5f;
+            
             int i = -1;
-            float step = 0.5f;
-            while (++i <mOffsets.size()) {
-                mOffsets[i].reset(mOffsets[i].getValue(), 4.0f, 15.0f, static_cast<float>(i) * step, false);
-                mOffsets[i].setCallback(NULL);
+            while (++i <offsets.size()) {
+                offsets[i].reset(offsets[i].getValue(), 4.0f, 15.0f, delayBase + static_cast<float>(i) * delayStep, false);
+                offsets[i].setCallback(NULL);
             }
-        }*/
+            
+        }
     }
     
     void QuoteFieldManager::swap(){
@@ -109,6 +130,7 @@ namespace next {
         float stepFieldV;
         bool  offsetInNormRange; // offset >= 0 && offset <= 1
         
+        
         //
         
         glPushMatrix();
@@ -117,15 +139,24 @@ namespace next {
         int k = -1;
         while (++k < 2) {
             glTranslatef(rect.x2 * k, 0, 0);
-            
             const gl::Texture& texture = (*mQuotesSelected[k]).getTexture();
             
             glPushMatrix();
             glTranslatef(0, rect.y2, 0);
             glColor4f(0, 0, 0, 0.75f);
             gl::drawSolidRect(rect);
-            glColor3f(0, 0, 1);
-            gl::drawStrokedRect(rect);
+            
+            if (k != mIndex) {
+                glColor3f(0, 0, 1);
+                gl::drawStrokedRect(rect);
+            } else {
+                glColor3f(1,1,1);
+                glLineWidth(4);
+                gl::drawStrokedRect(rect);
+                glLineWidth(1);
+                glColor3f(0, 0, 1);
+            }
+            
             glColor4f(1, 1, 1, 1);
             gl::draw(texture, rect);
             glPopMatrix();
@@ -224,12 +255,9 @@ namespace next {
     //  get
     /*--------------------------------------------------------------------------------------------*/
     
-    const Quote* QuoteFieldManager::getQuotePrimary(){
-        return mQuotesSelected[mIndex];
+    const Quote* QuoteFieldManager::getSelectedQuote(int index){
+        return mQuotesSelected[index];
     }
-    
-    const Quote* QuoteFieldManager::getQuoteSecondary(){
-        return mQuotesSelected[1 - mIndex];
-    }
+
     
 }

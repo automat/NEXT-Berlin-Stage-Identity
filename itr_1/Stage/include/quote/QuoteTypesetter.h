@@ -815,7 +815,7 @@ namespace next{
             return true;
         }
 
-        inline Quote getQuote(){
+        inline const Quote& getQuote(){
             return mQuote;
         }
 

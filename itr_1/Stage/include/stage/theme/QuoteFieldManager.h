@@ -24,22 +24,25 @@ namespace next {
         //  QuoteFieldManager
         /*--------------------------------------------------------------------------------------------*/
         
+        int mIndex;
+        
         Grid*                mGrid;
         vector<Quote>*       mQuotes;
+        size_t               mNumQuotes;
         int                  mIndexQuotes;
         
         Quote*               mQuotesSelected[2];
         vector<QuoteField*>* mQuoteFields[2];
+        bool                 mQuoteFieldsActiveStates[2];
         vector<Offset>       mOffsets[2];
-        int                  mIndex;
+        size_t               mNumQuoteFields[2];
+        int                  mIndexQuoteFields[2];
         
-        size_t               mNumQuoteFields;
-        int                  mIndexQuoteFields;
-
         
-        void onQuoteAtTarget();
+        
+        void onQuoteAtTarget(int index);
         void swap();
-        void setQuote(const Quote& quote);
+        void setQuote(const Quote& quote, int index);
         
     public:
         QuoteFieldManager(vector<Quote>* quotes, vector<QuoteField*>* quoteFields, Grid* grid);
@@ -48,11 +51,11 @@ namespace next {
         void debugDraw();
 #endif
         void update();
+        void draw();
         
         //! return the current active quote
         
-        const Quote* getQuotePrimary();
-        const Quote* getQuoteSecondary();
+        const Quote* getSelectedQuote(int index);
     };
 }
 

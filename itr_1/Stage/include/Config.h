@@ -33,7 +33,7 @@ using namespace ci;
 
 #define STAGE_WIDTH  3552
 #define STAGE_HEIGHT 1105
-#define STAGE_SCALE  2
+#define STAGE_SCALE  1
 
 /*--------------------------------------------------------------------------------------------*/
 // App
@@ -94,7 +94,7 @@ extern int   PROJECTION_OVERLAP_EDGE;
 #define STAGE_TYPESETTER_FONT_SIZE 400.0f
 #define STAGE_TYPESETTER_FONT_SCALE 0.7f
 
-#define STAGE_SKIP_FX_SHADER
+//#define STAGE_SKIP_FX_SHADER
 #define STAGE_LIVE_EDIT_FX_SHADER
 
 extern float STAGE_FX_SHADER_BLUR_SCALE;
@@ -138,7 +138,7 @@ extern bool STAGE_LANTERN_1_DEBUG_DRAW;
 
 #define THEME_LIVE_EDIT_MATERIAL_SHADER
 
-#define THEME_SKIP_DRAW_FIELD_DIVER
+//#define THEME_SKIP_DRAW_FIELD_DIVER
 //#define THEME_SKIP_DRAW_QUOTE_DIVER
 
 
@@ -146,7 +146,7 @@ extern bool STAGE_LANTERN_1_DEBUG_DRAW;
 //#define DEBUG_THEME_FIELD_DIVER
 //#define DEBUG_THEME_FIELD_QUOTE
 //#define DEBUG_THEME_FIELD_QUOTE_TEXCOORDS
-#define DEBUG_THEME_FIELD_QUOTE_MANAGER
+//#define DEBUG_THEME_FIELD_QUOTE_MANAGER
 
 /*--------------------------------------------------------------------------------------------*/
 // Background
@@ -212,7 +212,7 @@ extern float   DIVER_FIELD_MATERIAL_SHININESS;
 #define QUOTE_FIELD_SURFACE_PATH_AMPLITUDE 0.55f//0.25f//0.125f//0.325f
 
 
-#define QUOTE_FIELD_DIVER_NUM_POINTS 15//20
+#define QUOTE_FIELD_DIVER_NUM_POINTS 10//20
 #define QUOTE_FIELD_DIVER_MIN_HEIGHT 0.015f
 #define QUOTE_FIELD_DIVER_MAX_HEIGHT 0.05f
 #define QUOTE_FIELD_DIVER_MIN_OFFSET -1.0f

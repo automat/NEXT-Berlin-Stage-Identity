@@ -66,9 +66,7 @@ namespace next{
         void onConfigDidChange();
         void draw(const CameraOrtho& camera, bool useMaterialShader);
         void update();
-        
-        const Quote* getQuotePrimary();
-        const Quote* getQuoteSecondary();
+
         
         void debugDrawQuoteManager();
     };
