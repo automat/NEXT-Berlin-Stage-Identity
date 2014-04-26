@@ -45,7 +45,7 @@ namespace next{
 
         loadMaterialProperties();
         
-        mQuoteFieldManager = new QuoteFieldManager(mQuotes,&mQuoteFields,mGrid);
+        mQuoteFieldManager = new QuoteFieldManager(mQuotes,mQuoteFields,mGrid);
         
         
         //setQuote((*mQuotes)[0]);
@@ -81,7 +81,10 @@ namespace next{
 
     void ThemeView::deleteQuoteFields(){
         //mIndexQuoteFieldMap.clear();
-        while (!mQuoteFields.empty()) delete mQuoteFields.back(), mQuoteFields.pop_back();
+        vector<QuoteField*>& quoteFields = mQuoteFields[0];
+        while (!quoteFields.empty()) delete quoteFields.back(), quoteFields.pop_back();
+        quoteFields = mQuoteFields[1];
+        while (!quoteFields.empty()) delete quoteFields.back(), quoteFields.pop_back();
     }
 
     ThemeView::~ThemeView(){
@@ -142,7 +145,7 @@ namespace next{
         }
 
 #ifndef THEME_SKIP_DRAW_QUOTE_DIVER
-        const gl::Texture& quoteTexture = mQuoteFieldManager->getCurrQuote()->getTexture();
+        const gl::Texture& quoteTexture = mQuoteFieldManager->getQuotePrimary()->getTexture();
         
         glEnable(GL_POLYGON_OFFSET_FILL);
         glPolygonOffset(0.0, 0.9);
@@ -152,7 +155,9 @@ namespace next{
             quoteTexture.bind();
             mShaderQuoteFields.uniform("uTexture", 0);
         }
-        for(vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr){
+        const vector<QuoteField*>& quoteFields = mQuoteFields[0];
+        
+        for(vector<QuoteField*>::const_iterator itr = quoteFields.begin(); itr != quoteFields.end(); ++itr){
 #ifdef DEBUG_THEME_FIELD_QUOTE
             (*itr)->debugDrawArea();
             (*itr)->debugDrawPathSurface();
@@ -209,8 +214,11 @@ namespace next{
         }
 #endif
 #ifndef BOARD_SKIP_DRAW_FIELD_QUOTE
-        for (vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr) {
-            (*itr)->update(mOscillator,t);
+        int i = -1;
+        while (++i < 2) {
+            for (vector<QuoteField*>::const_iterator itr = mQuoteFields[i].begin(); itr != mQuoteFields[i].end(); ++itr) {
+                (*itr)->update(mOscillator,t);
+            }
         }
         mQuoteFieldManager->update();
 #endif
@@ -249,7 +257,11 @@ namespace next{
     // get
     /*--------------------------------------------------------------------------------------------*/
 
-    const Quote* ThemeView::getCurrQuote(){
-        return mQuoteFieldManager->getCurrQuote();
+    const Quote* ThemeView::getQuotePrimary(){
+        return mQuoteFieldManager->getQuotePrimary();
+    }
+    
+    const Quote* ThemeView::getQuoteSecondary(){
+        return mQuoteFieldManager->getQuoteSecondary();
     }
 }

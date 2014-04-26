@@ -1,5 +1,4 @@
 #include "stage/theme/Offset.h"
-#include "util/MathUtil.h"
 #include "Config.h"
 
 namespace next {
@@ -33,10 +32,10 @@ namespace next {
             mTime     = 0;
         }
         if ((mTime - mDelay) > mDuration){
-            mFinished = true;
-            if(mCallback){
+            if(mCallback && !mFinished){
                 mCallback();
             }
+            mFinished = true;
             return;
         }
         mTime++;
@@ -44,7 +43,24 @@ namespace next {
             return;
         }
         
-        mValue = mDist * util::stepInvCubedf((mTime - mDelay) / mDuration) + mOrigin;
+         // step inv cubed
+         float step = 1.0f - (mTime - mDelay) / mDuration;
+              step = 1.0f - step * step * step * step;
+        
+        /*
+         // step smooth
+         float step = (mTime - mDelay) / mDuration;
+              step = step * step * (3.0f - 2.0f * step);
+         */
+        /*
+         // step smooth squared
+        float step = (mTime - mDelay) / mDuration;
+        step = step * step * (3.0f - 2.0f * step);
+        step = step * step;
+        */
+        
+        
+        mValue = mDist * step + mOrigin;
     }
     
     float Offset::getValue(){
@@ -53,6 +69,10 @@ namespace next {
     
     bool Offset::isFinished(){
         return mFinished;
+    }
+    
+    void Offset::setCallback(const std::function<void()>& func){
+        mCallback = func;
     }
     
 }

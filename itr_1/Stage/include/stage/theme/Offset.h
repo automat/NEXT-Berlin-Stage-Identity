@@ -30,6 +30,7 @@ namespace next {
         
         void loop(bool loop = true);
         void reset(float origin,float target, float duration, float delay, bool loop);
+        void setCallback(const std::function<void()>& func);
         
         void update();
         float getValue();

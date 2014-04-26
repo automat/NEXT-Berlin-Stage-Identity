@@ -19,64 +19,83 @@ namespace next {
     
     QuoteFieldManager::QuoteFieldManager(vector<Quote>* quotes, vector<QuoteField*>* quoteFields, Grid* grid) :
         mQuotes(quotes),
-        mQuoteFields(quoteFields),
         mGrid(grid),
-        mIndexQuotes(0){
-        
-            mOffset.reset(-1, 2, 20.0f, 0,true);
+        mIndexQuotes(0),
+        mIndex(0){
+            mQuoteFields[0]    = &quoteFields[0];
+            mQuoteFields[1]    = &quoteFields[1];
+            mQuotesSelected[0] = &mQuotes->at(0);
+            mQuotesSelected[1] = &mQuotes->at(0);
+            
             setQuote((*mQuotes).front());
     }
     
     QuoteFieldManager::~QuoteFieldManager(){}
     
     void QuoteFieldManager::update(){
-        vector<QuoteField*>& quoteFields = (*mQuoteFields);
+        vector<QuoteField*>& quoteFields = (*mQuoteFields[0]);
+        vector<Offset>&      offsets     = mOffsets[0];
         
         int i = -1;
         while(++i < mNumQuoteFields){
-            Offset& offset = mOffsets[i];
+            Offset& offset = offsets[i];
             offset.update();
             quoteFields[i]->updateDivers(offset.getValue());
         }
-        
     }
     
     void QuoteFieldManager::setQuote(const next::Quote &quote){
-        mOffsets.clear();
+        mOffsets[0].clear();
+        vector<QuoteField*>& quoteFields = (*mQuoteFields[0]);
+        vector<Offset>&      offsets     = mOffsets[0];
+        
         
         static const float from     = -1;
         static const float to       = 1.9125f;
-        static const float duration = 2.0f;
+        static const float duration = 10.0f;
         
-        float delayStep = 1.0f;
+        float delayStep = 2.0f;
         float delay     = 0;
         
         const vector<QuoteLine>& lines = quote.getLines();
         for(vector<QuoteLine>::const_iterator itr = lines.begin(); itr != lines.end(); ++itr){
-            (*mQuoteFields) += new QuoteField(mGrid->getCell(itr->getIndices().front())->getCenter(),
+            quoteFields += new QuoteField(mGrid->getCell(itr->getIndices().front())->getCenter(),
                                               Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
                                               *itr );
-            mOffsets += Offset(from, to, duration, delay, false);
+            offsets += Offset(from, to, duration, delay, false);
+            offsets.back().setCallback(std::bind(&QuoteFieldManager::onQuoteAtTarget,this));
             delay    += delayStep;
         }
-        mNumQuoteFields = mQuoteFields->size();
+        mIndexQuotes      = 0;
+        mIndexQuoteFields = 0;
+        mNumQuoteFields   = quoteFields.size();
     }
     
+    void QuoteFieldManager::onQuoteAtTarget(){
+        /*
+        mIndexQuoteFields++;
+        if(mIndexQuoteFields == (mNumQuoteFields - 1)){
+            int i = -1;
+            float step = 0.5f;
+            while (++i <mOffsets.size()) {
+                mOffsets[i].reset(mOffsets[i].getValue(), 4.0f, 15.0f, static_cast<float>(i) * step, false);
+                mOffsets[i].setCallback(NULL);
+            }
+        }*/
+    }
+    
+    void QuoteFieldManager::swap(){
+        mIndex = 1 - mIndex;
+    }
     
     /*--------------------------------------------------------------------------------------------*/
     //  Debug Draw
     /*--------------------------------------------------------------------------------------------*/
 #ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER
     void QuoteFieldManager::debugDraw(){
-        vector<QuoteField*>& quoteFields = (*mQuoteFields);
         
-        Rectf rect(0,0,app::getWindowWidth() * 0.25f - 50,400);
-        float stepV   = rect.y2 / static_cast<float>(quoteFields.size());
-        float stepH   = rect.x2 / static_cast<float>(3); //-1,0,1,2
-        float stepH_2 = stepH * 2.0f;
         
-        Rectf rectFieldH(0,0,rect.x2,stepV);
-        Rectf rectFieldV(0,0,stepH,rect.y2);
+        Rectf rect(0,0,200,200);
         
         Vec2f tailLeft;
         Vec2f tailRight;
@@ -95,79 +114,108 @@ namespace next {
         glPushMatrix();
         glTranslatef(50, 50, 0);
         
-        glColor4f(0, 0, 0, 0.45f);
-        gl::drawSolidRect(rect);
-        
-        glColor3f(0, 0, 1);
-        gl::drawStrokedRect(rect);
-        
-        glColor3f(1, 0, 0);
-        float i = 0;
-        while (i < 3) {
+        int k = -1;
+        while (++k < 2) {
+            glTranslatef(rect.x2 * k, 0, 0);
+            
+            const gl::Texture& texture = (*mQuotesSelected[k]).getTexture();
+            
             glPushMatrix();
-            glTranslatef(stepH * i, 0, 0);
-            gl::drawStrokedRect(rectFieldV);
+            glTranslatef(0, rect.y2, 0);
+            glColor4f(0, 0, 0, 0.75f);
+            gl::drawSolidRect(rect);
+            glColor3f(0, 0, 1);
+            gl::drawStrokedRect(rect);
+            glColor4f(1, 1, 1, 1);
+            gl::draw(texture, rect);
             glPopMatrix();
-            ++i;
-        }
-        
-        i = 0;
-        for (vector<QuoteField*>::iterator itr = quoteFields.begin(); itr != quoteFields.end(); ++itr) {
-            const vector<Diver*>& divers = (*itr)->getDivers();
             
-            rowDiver   = 0;
-            stepFieldV = stepV / static_cast<float>(divers.size());
-           
-            glPushMatrix();
-            glTranslatef(0, stepV * i++, 0);
+            vector<QuoteField*>& quoteFields = *mQuoteFields[k];;
             
-            glColor4f(0, 0, 0, 0.0125f);
-            gl::drawSolidRect(rectFieldH);
+            float stepV   = rect.y2 / static_cast<float>(quoteFields.size());
+            float stepH   = rect.x2 / static_cast<float>(3); //-1,0,1,2
+            float stepH_2 = stepH * 2.0f;
+            
+            Rectf rectFieldH(0,0,rect.x2,stepV);
+            Rectf rectFieldV(0,0,stepH,rect.y2);
+            
+            
+            glColor4f(0, 0, 0, 0.75f);
+            gl::drawSolidRect(rect);
             
             glColor3f(0, 0, 1);
-            gl::drawStrokedRect(rectFieldH);
+            gl::drawStrokedRect(rect);
             
-            for(vector<Diver*>::const_iterator _itr = divers.begin(); _itr != divers.end(); _itr++){
-                Diver* diver = (*_itr);
-                diverOffset  = diver->getOffset();
-                diverLength  = diver->getLength();
-                
-                pos.x  = MAX(0,lmap<float>(diverOffset, -1, 2, 0, rect.x2));
-                pos.y  = stepFieldV * rowDiver++ + stepFieldV * 0.5f;
-     
-                offsetInNormRange = diverOffset >= 0 && diverOffset <= 1;
-                
-                tailLeft.y  = tailRight.y = tailLeftVisible.y = tailRightVisible.y = pos.y;
-                tailRight.x = pos.x;
-                tailLeft.x  = MAX(0, tailRight.x - diverLength * stepH);
-
-                glColor3f(0, 0, 1);
-                gl::drawLine(tailLeft, tailRight);
-                
-                if(!offsetInNormRange){
-                    glColor3f(0, 0, 1);
-                } else {
-                    glColor3f(1, 1, 1);
-                }
-                
-                gl::drawSolidCircle(pos, 2.0f);
-
-                tailLeftVisible.x  = MAX(stepH,tailLeft.x);
-                tailRightVisible.x = MAX(stepH,MIN(stepH_2,tailRight.x));
-
-                if(tailLeftVisible.x == tailRightVisible.x){
-                    continue;
-                }
-
-                glColor3f(1,1,1);
-                gl::drawSolidCircle(tailLeftVisible, 2);
-                gl::drawSolidCircle(tailRightVisible, 2);
-                glLineWidth(2);
-                gl::drawLine(tailLeftVisible,tailRightVisible);
-                glLineWidth(1);
+            glColor3f(1, 0, 0);
+            float i = 0;
+            while (i < 3) {
+                glPushMatrix();
+                glTranslatef(stepH * i, 0, 0);
+                gl::drawStrokedRect(rectFieldV);
+                glPopMatrix();
+                ++i;
             }
-            glPopMatrix();
+            
+            i = 0;
+            for (vector<QuoteField*>::iterator itr = quoteFields.begin(); itr != quoteFields.end(); ++itr) {
+                const vector<Diver*>& divers = (*itr)->getDivers();
+                
+                rowDiver   = 0;
+                stepFieldV = stepV / static_cast<float>(divers.size());
+                
+                glPushMatrix();
+                glTranslatef(0, stepV * i++, 0);
+                
+                glColor4f(0, 0, 0, 0.0125f);
+                gl::drawSolidRect(rectFieldH);
+                
+                glColor3f(0, 0, 1);
+                gl::drawStrokedRect(rectFieldH);
+                
+                for(vector<Diver*>::const_iterator _itr = divers.begin(); _itr != divers.end(); _itr++){
+                    Diver* diver = (*_itr);
+                    diverOffset  = diver->getOffset();
+                    diverLength  = diver->getLength();
+                    
+                    pos.x  = MAX(0,lmap<float>(diverOffset, -1, 2, 0, rect.x2));
+                    pos.y  = stepFieldV * rowDiver++ + stepFieldV * 0.5f;
+                    
+                    offsetInNormRange = diverOffset >= 0 && diverOffset <= 1;
+                    
+                    tailLeft.y  = tailRight.y = tailLeftVisible.y = tailRightVisible.y = pos.y;
+                    tailRight.x = pos.x;
+                    tailLeft.x  = MAX(0, tailRight.x - diverLength * stepH);
+                    
+                    glColor3f(0, 0, 1);
+                    gl::drawLine(tailLeft, tailRight);
+                    
+                    if(!offsetInNormRange){
+                        glColor3f(0, 0, 1);
+                    } else {
+                        glColor3f(1, 1, 1);
+                    }
+                    
+                    gl::drawSolidCircle(pos, 2.0f);
+                    
+                    tailLeftVisible.x  = MAX(stepH,tailLeft.x);
+                    tailRightVisible.x = MAX(stepH,MIN(stepH_2,tailRight.x));
+                    
+                    if(tailLeftVisible.x == tailRightVisible.x){
+                        continue;
+                    }
+                    
+                    glColor3f(1,1,1);
+                    gl::drawSolidCircle(tailLeftVisible, 2);
+                    gl::drawSolidCircle(tailRightVisible, 2);
+                    glLineWidth(2);
+                    gl::drawLine(tailLeftVisible,tailRightVisible);
+                    glLineWidth(1);
+                }
+                glPopMatrix();
+            }
         }
+        
+        
         glPopMatrix();
     }
 #endif
@@ -176,8 +224,12 @@ namespace next {
     //  get
     /*--------------------------------------------------------------------------------------------*/
     
-    const Quote* QuoteFieldManager::getCurrQuote(){
-        return &(*mQuotes)[mIndexQuotes];
+    const Quote* QuoteFieldManager::getQuotePrimary(){
+        return mQuotesSelected[mIndex];
+    }
+    
+    const Quote* QuoteFieldManager::getQuoteSecondary(){
+        return mQuotesSelected[1 - mIndex];
     }
     
 }

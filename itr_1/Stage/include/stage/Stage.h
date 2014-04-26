@@ -132,8 +132,7 @@ namespace next{
         inline static StageRef create(const vector<QuoteJson>& quoteData){
             return std::make_shared<Stage>(quoteData);
         }
-        
-        const Quote* getCurrQuote();
+
     };
 }
 

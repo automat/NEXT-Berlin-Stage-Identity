@@ -601,9 +601,5 @@ namespace next{
     //  get
     /*--------------------------------------------------------------------------------------------*/
 
-    const Quote* Stage::getCurrQuote(){
-        return mThemeView->getCurrQuote();
-    }
-    
 }
 

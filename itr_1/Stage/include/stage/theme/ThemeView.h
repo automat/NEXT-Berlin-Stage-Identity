@@ -37,7 +37,7 @@ namespace next{
 
         vector<Quote>*      mQuotes;        //  quote data
         Oscillator*         mOscillator;
-        vector<QuoteField*> mQuoteFields;   //  quote fields
+        vector<QuoteField*> mQuoteFields[2]; //  quote fields
         
         QuoteFieldManager*  mQuoteFieldManager;
 
@@ -67,7 +67,8 @@ namespace next{
         void draw(const CameraOrtho& camera, bool useMaterialShader);
         void update();
         
-        const Quote* getCurrQuote();
+        const Quote* getQuotePrimary();
+        const Quote* getQuoteSecondary();
         
         void debugDrawQuoteManager();
     };

@@ -26,13 +26,19 @@ namespace next {
         
         Grid*                mGrid;
         vector<Quote>*       mQuotes;
-        vector<QuoteField*>* mQuoteFields;
+        int                  mIndexQuotes;
+        
+        Quote*               mQuotesSelected[2];
+        vector<QuoteField*>* mQuoteFields[2];
+        vector<Offset>       mOffsets[2];
+        int                  mIndex;
+        
         size_t               mNumQuoteFields;
-        vector<Offset>       mOffsets;
+        int                  mIndexQuoteFields;
+
         
-        int mIndexQuotes;
-        Offset mOffset;
-        
+        void onQuoteAtTarget();
+        void swap();
         void setQuote(const Quote& quote);
         
     public:
@@ -44,7 +50,9 @@ namespace next {
         void update();
         
         //! return the current active quote
-        const Quote* getCurrQuote();
+        
+        const Quote* getQuotePrimary();
+        const Quote* getQuoteSecondary();
     };
 }
 
