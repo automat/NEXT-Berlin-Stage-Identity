@@ -66,9 +66,9 @@ namespace next{
 #ifndef STAGE_SKIP_THEME_VIEW
         ThemeView*       mThemeView;
 #endif
-        
+#ifndef STAGE_SKIP_LOGO
         NEXTLogo*   mLogoNEXT;
-
+#endif
 #if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(STAGE_SKIP_FX_SHADER)
         FileWatcherRef mFileWatcher;
 #endif

@@ -80,7 +80,7 @@ namespace next{
 
         mTexcoordStart    = quoteLine.getTexcoords()[0];
         mTexcoordStep     = Vec2f((quoteLine.getTexcoords()[1].x - mTexcoordStart.x),
-                (quoteLine.getTexcoords()[2].y - mTexcoordStart.y) / mSurfaceNumSlices);
+                (quoteLine.getTexcoords()[2].y - mTexcoordStart.y) / static_cast<float>(mSurfaceNumSlices));
 
 
 
@@ -112,7 +112,7 @@ namespace next{
         for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
             Diver* diver = *itr;
             
-            diver->setOffset(diver->getOffsetInitial() + value);
+            diver->setOffset(value);//diver->getOffsetInitial() + value);
             diver->update();           //  update diver position
             diver->updateTexcoords();  //  update diver texcooord
 
@@ -121,7 +121,7 @@ namespace next{
             //
 
             const vector<float>& texcoords = (*itr)->getTexcoords();
-            tex_0.y = texcoordStartY + texcoordStepY  * (i++);
+            tex_0.y = texcoordStartY + texcoordStepY  * static_cast<float>(i++);
             tex_1.y = tex_0.y + texcoordStepY;
 
             j = -1;

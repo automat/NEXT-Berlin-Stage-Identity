@@ -84,6 +84,7 @@ namespace next{
         while(++i < mTexcoords.size()){
             mTexcoords[i] = MAX(0,mTexcoords[i-1] - (mPoints[i-1].distance(mPoints[i]) / mPathLength)) ;
         }
+
     }
 
     void Diver::updateInOut(){

@@ -19,14 +19,29 @@ namespace next {
     using namespace std;
     class QuoteFieldManager{
         struct Offset{
+            float tickStart;
+            float tickEnd;
+            float origin;
+            float dist;
+            float target;
+            float value;
+            float duration;
+            float time;
+            
+            void update();
+            void reset(float origin,float target, float duration);
+            Offset();
+            Offset(float origin, float target, float duration);
             
         };
         
         Grid*                mGrid;
         vector<Quote>*       mQuotes;
         vector<QuoteField*>* mQuoteFields;
+        vector<Offset>       mOffsets;
         
         int mIndexQuotes;
+        Offset mOffset;
         
         void setQuote(const Quote& quote);
         

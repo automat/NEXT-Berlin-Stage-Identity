@@ -33,7 +33,7 @@ using namespace ci;
 
 #define STAGE_WIDTH  3552
 #define STAGE_HEIGHT 1105
-#define STAGE_SCALE  1
+#define STAGE_SCALE  2
 
 /*--------------------------------------------------------------------------------------------*/
 // App
@@ -79,6 +79,7 @@ extern int   PROJECTION_OVERLAP_EDGE;
 #define LOGO_MARGIN_TOP 100
 #define LOGO_MARGIN_RIGHT 100 - LOGO_SIZE
 
+#define STAGE_SKIP_LOGO
 
 //#define STAGE_SKIP_THEME_VIEW
 
@@ -137,7 +138,7 @@ extern bool STAGE_LANTERN_1_DEBUG_DRAW;
 
 #define THEME_LIVE_EDIT_MATERIAL_SHADER
 
-//#define THEME_SKIP_DRAW_FIELD_DIVER
+#define THEME_SKIP_DRAW_FIELD_DIVER
 //#define THEME_SKIP_DRAW_QUOTE_DIVER
 
 //#define DEBUG_THEME_FIELD_DIVER_PATH_SURFACE
@@ -202,8 +203,8 @@ extern float   DIVER_FIELD_MATERIAL_SHININESS;
 // QuoteField
 /*--------------------------------------------------------------------------------------------*/
 
-#define QUOTE_FIELD_NUM_DIVERS_MIN 2//10
-#define QUOTE_FIELD_NUM_DIVERS_MAX 2//50
+#define QUOTE_FIELD_NUM_DIVERS_MIN 10//10
+#define QUOTE_FIELD_NUM_DIVERS_MAX 50//50
 #define QUOTE_FIELD_SURFACE_PATH_DENSITY 0.75f
 #define QUOTE_FIELD_SURFACE_PATH_OFFSET_SPEED   0.0075f
 #define QUOTE_FIELD_SURFACE_PATH_AMPLITUDE 0.55f//0.25f//0.125f//0.325f

@@ -95,9 +95,9 @@ namespace next{
 #ifndef STAGE_SKIP_THEME_VIEW
         mThemeView    = new ThemeView(mGrid, areaScaled, mOscillator, &mQuotes);
 #endif
-
+#ifndef STAGE_SKIP_LOGO
         mLogoNEXT = new NEXTLogo();
-        
+#endif
         /*--------------------------------------------------------------------------------------------*/
         //  Fbo + Post Process
         /*--------------------------------------------------------------------------------------------*/
@@ -546,8 +546,9 @@ namespace next{
         gl::setMatricesWindow(app::getWindowSize(), true);
         
         mThemeView->debugDrawQuoteManager();
+#ifndef STAGE_SKIP_LOGO
         mLogoNEXT->draw();
-        
+#endif
         gl::enableDepthRead();
         
         gl::popMatrices();

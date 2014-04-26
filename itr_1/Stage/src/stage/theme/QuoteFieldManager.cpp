@@ -12,6 +12,29 @@
 namespace next {
     using namespace ci;
     using namespace boost::assign;
+    QuoteFieldManager::Offset::Offset() : origin(0), target(0), duration(1), time(0){}
+    
+    QuoteFieldManager::Offset::Offset(float origin, float target, float duration) : time(0){
+        reset(origin, target, duration);
+    }
+    
+    void QuoteFieldManager::Offset::reset(float origin, float target, float duration){
+        this->origin = this->value = origin;
+        this->target = target;
+        this->dist   = this->target - this->origin;
+        this->time   = 0;
+        this->duration = duration;
+    }
+    
+    void QuoteFieldManager::Offset::update(){
+        if (time > duration) return;
+        
+        value = dist * time++ / duration + origin;
+        //cout << value << endl;
+        
+    }
+
+    //
     
     QuoteFieldManager::QuoteFieldManager(vector<Quote>* quotes, vector<QuoteField*>* quoteFields, Grid* grid) :
         mQuotes(quotes),
@@ -19,6 +42,10 @@ namespace next {
         mGrid(grid),
         mIndexQuotes(0){
         
+            mOffset.reset(-1, 2, 30.0 * APP_FPS);
+            
+            cout << 1.0 * APP_FPS << endl;
+            
             setQuote((*mQuotes).front());
     }
     
@@ -27,18 +54,24 @@ namespace next {
     }
     
     void QuoteFieldManager::update(){
-        static float t(0);
-        t+=0.0125f;
+        static float t(0.5);
+        
+        t+=0.025f;
+        t = t > 1.0f ? 0.5f : t;
+        
         
         //float ta = -2 + (sinf(t) * 0.5f + 0.5f) * 5.0f;
         
-        float ta = -1 + (sinf(t) * 0.5f + 0.5f) * 4.0f;
+        float ta = t;
         
-        
-        
+        mOffset.update();
         vector<QuoteField*>& quoteFields = (*mQuoteFields);
+        
+  
+        
         for(vector<QuoteField*>::iterator itr = quoteFields.begin(); itr != quoteFields.end(); itr++){
-            (*itr)->updateDivers(util::stepSmoothf(ta));
+            if(t > 0.75f)break;
+            (*itr)->updateDivers(t);//mOffset.value);
         }
     }
     
@@ -58,7 +91,7 @@ namespace next {
         glPushMatrix();
         glTranslatef(50, 50, 0);
         glColor3f(0, 0, 1);
-        Rectf rect(0,0,400,400);
+        Rectf rect(0,0,app::getWindowWidth() * 0.5f - 50,400);
         gl::drawStrokedRect(rect);
         
         float stepV = rect.y2 / static_cast<float>(quoteFields.size());
@@ -121,7 +154,7 @@ namespace next {
                     glColor3f(1, 1, 1);
                 }
                 
-                gl::drawLine(startVisible, endVisible);
+                //gl::drawLine(startVisible, endVisible);
                 gl::drawSolidCircle(pos, 2.0f);
             }
             glPopMatrix();
