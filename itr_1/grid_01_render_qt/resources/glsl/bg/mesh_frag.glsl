@@ -14,10 +14,10 @@ vec4 lightSpecular = vec4(0.75,0.125,0.5,1);
 vec4  matAmbient   = toColor_255(120,7,22,1.0);
 vec4  matDiffuse   = toColor_255(125,22,75,1.0);
 vec4  matSpecular  = toColor_255(175,22,126,1.0);
-float matShininess = 2.0; // 1.0
+float matShininess = 5.0; // 1.0
 
 float scalar = 0.75;
-float colorScalar = 3.05;
+float colorScalar = 3.125;
 
 void main(){
 	vec4 frontLightProduct_ambient  = matAmbient  * lightAmbient;
