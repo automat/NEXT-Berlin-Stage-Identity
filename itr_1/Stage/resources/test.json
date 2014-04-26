@@ -15,9 +15,9 @@
                "align" : "center",
                "balance" : true,
                "padding" : [ 1, 0, 0, 0 ],
-               "scale" : 1.0
+               "scale" : 0.9
                },
-               "string" : "Alghoritms are the new art direction."
+               "string" : "Alghoritms are the new Art Direction."
       },
       {
                "format" : {

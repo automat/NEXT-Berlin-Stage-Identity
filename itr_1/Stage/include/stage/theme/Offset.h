@@ -22,6 +22,7 @@ namespace next {
         float mDelay;
         bool  mLoop;
         bool  mFinished;
+        bool  mStop;
         std::function<void()> mCallback;
         
     public:
@@ -34,6 +35,9 @@ namespace next {
         
         void update();
         float getValue();
+        
+        void pause();
+        void resume();
         
         bool isFinished();
     };

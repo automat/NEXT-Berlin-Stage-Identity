@@ -56,9 +56,6 @@ namespace next{
         void deleteQuoteFields();
         void deleteDiverFields();
 
-        void setQuote(Quote& quote);
-
-
     public:
         ThemeView(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<Quote>* quotes);
         ~ThemeView();

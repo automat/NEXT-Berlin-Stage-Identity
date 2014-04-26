@@ -46,9 +46,6 @@ namespace next{
         loadMaterialProperties();
         
         mQuoteFieldManager = new QuoteFieldManager(mQuotes,mQuoteFields,mGrid);
-        
-        
-        //setQuote((*mQuotes)[0]);
 
 #ifdef THEME_LIVE_EDIT_MATERIAL_SHADER
         mFileWatcher = FileWatcher::Get();
@@ -149,19 +146,20 @@ namespace next{
         glEnable(GL_POLYGON_OFFSET_FILL);
         glPolygonOffset(0.0, 0.9);
         
+        if(useMaterialShaders){
+            mShaderQuoteFields.bind();
+            mMaterialQuoteFields.apply();
+        }
         
         int i = -1;
         while (++i < 2) {
             const vector<QuoteField*>& quoteFields = mQuoteFields[i];
-             const gl::Texture& quoteTexture = mQuoteFieldManager->getSelectedQuote(i)->getTexture();
+            const gl::Texture& quoteTexture = mQuoteFieldManager->getSelectedQuote(i)->getTexture();
             
             if(useMaterialShaders){
-                mShaderQuoteFields.bind();
-                mMaterialQuoteFields.apply();
                 quoteTexture.bind();
                 mShaderQuoteFields.uniform("uTexture", 0);
             }
-            
             
             for(vector<QuoteField*>::const_iterator itr = quoteFields.begin(); itr != quoteFields.end(); ++itr){
 #ifdef DEBUG_THEME_FIELD_QUOTE
@@ -178,10 +176,12 @@ namespace next{
             if(useMaterialShaders){
                 quoteTexture.unbind();
                 quoteTexture.disable();
-                mShaderQuoteFields.unbind();
             }
         }
         
+        if(useMaterialShaders){
+            mShaderQuoteFields.unbind();
+        }
         
         glDisable(GL_POLYGON_OFFSET_FILL);
 
@@ -233,26 +233,6 @@ namespace next{
 #endif
         
     }
-
-    /*--------------------------------------------------------------------------------------------*/
-    // Quote Handling
-    /*--------------------------------------------------------------------------------------------*/
-
-    void ThemeView::setQuote(Quote& quote){
-        /*
-        deleteQuoteFields();
-
-        const vector<QuoteLine>& lines = quote.getLines();
-        for(vector<QuoteLine>::const_iterator itr = lines.begin(); itr != lines.end(); ++itr){
-            mQuoteFields += new QuoteField( mGrid->getCell(itr->getIndices().front())->getCenter(),
-                    Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
-                    *itr );
-        }
-
-        mQuoteCurrent = &quote;
-         */
-    }
-
 
     /*--------------------------------------------------------------------------------------------*/
     // Config Change Handling

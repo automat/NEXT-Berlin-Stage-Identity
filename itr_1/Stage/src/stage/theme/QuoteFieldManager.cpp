@@ -33,7 +33,6 @@ namespace next {
             mQuoteFieldsActiveStates[1] = false;
             
             setQuote(*mQuotesSelected[0],mIndex);
-            setQuote(*mQuotesSelected[1],1 - mIndex);
     }
     
     QuoteFieldManager::~QuoteFieldManager(){}
@@ -99,8 +98,18 @@ namespace next {
             int i = -1;
             while (++i <offsets.size()) {
                 offsets[i].reset(offsets[i].getValue(), 4.0f, 15.0f, delayBase + static_cast<float>(i) * delayStep, false);
-                offsets[i].setCallback(NULL);
+                offsets[i].setCallback(std::bind(&QuoteFieldManager::onQuoteAtTarget,this,index));
             }
+            
+            /*
+            mIndexQuotes++;
+            mIndexQuotes = mIndexQuotes % mNumQuotes;
+            cout << mIndexQuotes << endl;
+            */
+
+            mQuotesSelected[1-mIndex] = &mQuotes->at(mIndexQuotes);
+            setQuote(*mQuotesSelected[1-mIndex], 1-mIndex);
+            swap();
             
         }
     }
