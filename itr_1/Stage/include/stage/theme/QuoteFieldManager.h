@@ -58,6 +58,7 @@ namespace next {
         //! return the current active quote
         
         const Quote* getSelectedQuote(int index);
+        int getNumQuotes();
     };
 }
 

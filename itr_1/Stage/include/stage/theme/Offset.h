@@ -11,23 +11,26 @@
 
 namespace next {
     class Offset{
-        float mOrigin;
-        float mDist;
-        float mTarget;
         float mValue;
-        float mDuration;
+        float mOrigin;
+        float mTarget;
+        
+        float mDist;
+        
         float mTime;
+        float mDuration;
         float mDelay;
-        bool  mLoop;
+        
         bool  mFinished;
+        
         std::function<void()> mCallback;
         
     public:
         Offset();
-        Offset(float origin, float target, float duration, float delay, bool loop);
+        Offset(float origin, float target, float duration, float delay);
         
         void loop(bool loop = true);
-        void reset(float origin,float target, float duration, float delay, bool loop);
+        void reset(float origin,float target, float duration, float delay);
         void setCallback(const std::function<void()>& func);
         
         void update();

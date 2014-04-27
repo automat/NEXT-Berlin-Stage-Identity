@@ -27,8 +27,8 @@ namespace next {
             mQuoteFields[0] = &quoteFields[0];
             mQuoteFields[1] = &quoteFields[1];
             
-            mIndexQuoteFields[0] = 0;
-            mIndexQuoteFields[1] = 0;
+            mIndexQuoteFields[0] = -1;
+            mIndexQuoteFields[1] = -1;
             
             mQuotesSelected[0] = &mQuotes->at(0);
             mQuotesSelected[1] = &mQuotes->at(1 % mNumQuotes);
@@ -36,14 +36,14 @@ namespace next {
             mQuoteFieldsActiveStates[0] = true;
             mQuoteFieldsActiveStates[1] = false;
             
-            setQuote(0);
+            setQuote(mIndex);
     }
     
     QuoteFieldManager::~QuoteFieldManager(){}
     
     void QuoteFieldManager::update(){
         int k = -1;
-        while (++k < 1) {
+        while (++k < 2) {
             vector<QuoteField*>& quoteFields = (*mQuoteFields[k]);
             vector<Offset>&      offsets     = mOffsets[k];
             
@@ -57,6 +57,8 @@ namespace next {
     }
     
     void QuoteFieldManager::setQuote( int index){
+        cout << index << endl;
+        
         Quote& quote                     = mQuotes->at(mIndexQuotes);
         vector<QuoteField*>& quoteFields = *mQuoteFields[index];
         vector<Offset>&      offsets     = mOffsets[index];
@@ -74,47 +76,55 @@ namespace next {
         
         float delayStep = 1.0f;
         float delay     = 0;
-        cout << index << endl;
+        
         const vector<QuoteLine>& lines = quote.getLines();
         for(vector<QuoteLine>::const_iterator itr = lines.begin(); itr != lines.end(); ++itr){
             quoteFields += new QuoteField(mGrid->getCell(itr->getIndices().front())->getCenter(),
                                               Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
                                               *itr );
-            offsets += Offset(from, to, duration, delay, false);
-            offsets.back().setCallback(std::bind(&QuoteFieldManager::onQuoteAtTarget,this,0));
+            offsets += Offset(from, to, duration, delay);
+            offsets.back().setCallback(std::bind(&QuoteFieldManager::onQuoteAtTarget,this,index));
             delay    += delayStep;
+            quoteFields.back()->updateDivers(offsets.back().getValue());
         }
         
         mIndexQuoteFields[index] = -1;
         mNumQuoteFields[index]   = quoteFields.size();
-        mIndexQuotes = (mIndexQuotes + 1) % mNumQuotes;
+        mIndexQuotes = (mIndexQuotes+1)%mNumQuotes;
     }
     
     
     
     void QuoteFieldManager::onQuoteAtTarget(int index){
         mIndexQuoteFields[index]++;
-        //cout <<  index  << " : " << mIndexQuoteFields[index] << " / " << (mNumQuoteFields[index] - 1) << endl;
+        cout <<  index  << " : " << mIndexQuoteFields[index] << " / " << (mNumQuoteFields[index] - 1) << endl;
         
         if(mIndexQuoteFields[index] == (mNumQuoteFields[index] - 1)){
-            float i = 0;
+            cout << "onQuoteAtTarget All" << endl;
+            float to = 3.0f;
+            float duration = 2.0f;
+            
+           
+            mIndexQuoteFields[index] = -1;
             vector<Offset>& offsets = mOffsets[index];
             for (vector<Offset>::iterator itr = offsets.begin(); itr != offsets.end(); ++itr) {
-                itr->reset(itr->getValue(), 3.0f, 2.0f, 0, false);
-                itr->setCallback(std::bind(&QuoteFieldManager::onQuoteAtEnd,this, 0));
+                itr->reset(itr->getValue(), to, duration, 2.0f);
+                itr->setCallback(std::bind(&QuoteFieldManager::onQuoteAtEnd,this, mIndex));
             }
-            mIndexQuoteFields[index] = -1;
-            //swap();
-            //setQuote(mIndex);
+           
+           
             
         }
     }
     
     void QuoteFieldManager::onQuoteAtEnd(int index){
         mIndexQuoteFields[index]++;
+        cout <<  index  << " : " << mIndexQuoteFields[index] << " / " << (mNumQuoteFields[index] - 1) << endl;
         if(mIndexQuoteFields[index] == (mNumQuoteFields[index] - 1)){
-            setQuote(index);
-            
+            mIndexQuoteFields[index] = -1;
+            swap();
+            setQuote(mIndex);
+            //swap();
         }
     }
     

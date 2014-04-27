@@ -3,19 +3,20 @@
 
 namespace next {
     Offset::Offset() :
+    mValue(0),
     mOrigin(0),
     mTarget(0),
     mDuration(1),
     mTime(0),
     mDelay(0),
-    mLoop(false),
     mCallback(NULL){}
     
-    Offset::Offset(float origin, float target, float duration, float delay, bool loop) : mTime(0), mCallback(NULL){
-        reset(origin, target, duration, delay, loop);
+    Offset::Offset(float origin, float target, float duration, float delay) :  mCallback(NULL){
+        reset(origin, target, duration, delay);
     }
     
-    void Offset::reset(float origin, float target, float duration, float delay, bool loop){
+    void Offset::reset(float origin, float target, float duration, float delay){
+        mFinished = false;
         mOrigin   = mValue = origin;
         mTarget   = target;
         mDist     = mTarget - mOrigin;
@@ -23,31 +24,23 @@ namespace next {
         mTime     = 0;
         mDuration = duration * APP_FPS;
         mDelay    = delay    * APP_FPS;
-        mLoop     = loop;
-        mFinished = false;
-        
-        cout << mFinished << endl;
+
     }
    
     
     void Offset::update(){
         if(mFinished){
-            if(!mLoop){
+            return;
+        } else {
+            if( (mTime - mDelay) > mDuration ){
+                mFinished = true;
+                if (mCallback) {
+                    mCallback();
+                }
                 return;
-            } else {
-                mFinished = false;
-                mTime     = 0;
             }
         }
         
-        if ((mTime - mDelay)> mDuration){
-            if(mCallback && !mFinished){
-                cout << "callback" << endl;
-                mCallback();
-            }
-            mFinished = true;
-            return;
-        }
         mTime++;
         if(mTime < mDelay){
             return;
@@ -55,20 +48,7 @@ namespace next {
         
          // step inv cubed
          float step = 1.0f - (mTime - mDelay) / mDuration;
-              step = 1.0f - step * step * step * step;
-        
-        /*
-         // step smooth
-         float step = (mTime - mDelay) / mDuration;
-              step = step * step * (3.0f - 2.0f * step);
-         */
-        /*
-         // step smooth squared
-        float step = (mTime - mDelay) / mDuration;
-        step = step * step * (3.0f - 2.0f * step);
-        step = step * step;
-        */
-        
+               step = 1.0f - step * step * step * step;
         
         mValue = mDist * step + mOrigin;
     }
