@@ -11,8 +11,6 @@
 
 namespace next {
     class Offset{
-        float mTickStart;
-        float mTickEnd;
         float mOrigin;
         float mDist;
         float mTarget;
@@ -22,7 +20,6 @@ namespace next {
         float mDelay;
         bool  mLoop;
         bool  mFinished;
-        bool  mStop;
         std::function<void()> mCallback;
         
     public:

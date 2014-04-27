@@ -41,6 +41,8 @@ namespace next {
         
         
         void onQuoteAtTarget(int index);
+        void onQuoteAtEnd(int index);
+        void onTriggerNext(int index);
         void swap();
         void setQuote(int index);
         

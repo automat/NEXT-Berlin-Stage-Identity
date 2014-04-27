@@ -36,14 +36,14 @@ namespace next {
             mQuoteFieldsActiveStates[0] = true;
             mQuoteFieldsActiveStates[1] = false;
             
-            setQuote(mIndex);
+            setQuote(0);
     }
     
     QuoteFieldManager::~QuoteFieldManager(){}
     
     void QuoteFieldManager::update(){
         int k = -1;
-        while (++k < 2) {
+        while (++k < 1) {
             vector<QuoteField*>& quoteFields = (*mQuoteFields[k]);
             vector<Offset>&      offsets     = mOffsets[k];
             
@@ -70,44 +70,51 @@ namespace next {
         
         static const float from     = -1;
         static const float to       = 1.9125f;
-        static const float duration = 10.0f;
+        static const float duration = 5.0f;
         
-        float delayStep = 2.0f;
+        float delayStep = 1.0f;
         float delay     = 0;
-        
+        cout << index << endl;
         const vector<QuoteLine>& lines = quote.getLines();
         for(vector<QuoteLine>::const_iterator itr = lines.begin(); itr != lines.end(); ++itr){
             quoteFields += new QuoteField(mGrid->getCell(itr->getIndices().front())->getCenter(),
                                               Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
                                               *itr );
             offsets += Offset(from, to, duration, delay, false);
-            offsets.back().setCallback(std::bind(&QuoteFieldManager::onQuoteAtTarget,this,index));
+            offsets.back().setCallback(std::bind(&QuoteFieldManager::onQuoteAtTarget,this,0));
             delay    += delayStep;
         }
         
-        mIndexQuoteFields[index] = 0;
+        mIndexQuoteFields[index] = -1;
         mNumQuoteFields[index]   = quoteFields.size();
-        mIndexQuotes++;
-        mIndexQuotes = mIndexQuotes % mNumQuotes;
+        mIndexQuotes = (mIndexQuotes + 1) % mNumQuotes;
     }
     
     
     
     void QuoteFieldManager::onQuoteAtTarget(int index){
         mIndexQuoteFields[index]++;
+        //cout <<  index  << " : " << mIndexQuoteFields[index] << " / " << (mNumQuoteFields[index] - 1) << endl;
         
         if(mIndexQuoteFields[index] == (mNumQuoteFields[index] - 1)){
-            cout <<  index  << " : " << mIndexQuoteFields[index] << " / " << (mNumQuoteFields[index] - 1) << endl;
-            
+            float i = 0;
             vector<Offset>& offsets = mOffsets[index];
             for (vector<Offset>::iterator itr = offsets.begin(); itr != offsets.end(); ++itr) {
                 itr->reset(itr->getValue(), 3.0f, 2.0f, 0, false);
-                itr->setCallback(std::bind(&QuoteFieldManager::setQuote,this,(mIndex - 1)));
-                
+                itr->setCallback(std::bind(&QuoteFieldManager::onQuoteAtEnd,this, 0));
             }
+            mIndexQuoteFields[index] = -1;
+            //swap();
+            //setQuote(mIndex);
             
+        }
+    }
+    
+    void QuoteFieldManager::onQuoteAtEnd(int index){
+        mIndexQuoteFields[index]++;
+        if(mIndexQuoteFields[index] == (mNumQuoteFields[index] - 1)){
+            setQuote(index);
             
-            swap();
         }
     }
     

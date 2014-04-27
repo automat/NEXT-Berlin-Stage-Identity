@@ -154,10 +154,10 @@ namespace next{
         int i = -1;
         while (++i < 2) {
             const vector<QuoteField*>& quoteFields = mQuoteFields[i];
-            const gl::Texture& quoteTexture = mQuoteFieldManager->getSelectedQuote(i)->getTexture();
+            //const gl::Texture& quoteTexture = mQuoteFieldManager->getSelectedQuote(i)->getTexture();
             
             if(useMaterialShaders){
-                quoteTexture.bind();
+              //  quoteTexture.bind();
                 mShaderQuoteFields.uniform("uTexture", 0);
             }
             
@@ -174,8 +174,8 @@ namespace next{
                 (*itr)->draw();
             }
             if(useMaterialShaders){
-                quoteTexture.unbind();
-                quoteTexture.disable();
+              //  quoteTexture.unbind();
+              //  quoteTexture.disable();
             }
         }
         

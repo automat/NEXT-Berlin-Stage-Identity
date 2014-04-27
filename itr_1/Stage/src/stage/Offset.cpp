@@ -9,8 +9,7 @@ namespace next {
     mTime(0),
     mDelay(0),
     mLoop(false),
-    mCallback(NULL),
-    mStop(false){}
+    mCallback(NULL){}
     
     Offset::Offset(float origin, float target, float duration, float delay, bool loop) : mTime(0), mCallback(NULL){
         reset(origin, target, duration, delay, loop);
@@ -25,27 +24,25 @@ namespace next {
         mDuration = duration * APP_FPS;
         mDelay    = delay    * APP_FPS;
         mLoop     = loop;
-        mStop     = false;
+        mFinished = false;
+        
+        cout << mFinished << endl;
     }
-    
-    void Offset::pause(){
-        mStop = true;
-    }
-    
-    void Offset::resume(){
-        mStop = false;
-    }
+   
     
     void Offset::update(){
-        if(mStop){
-            return;
+        if(mFinished){
+            if(!mLoop){
+                return;
+            } else {
+                mFinished = false;
+                mTime     = 0;
+            }
         }
-        if(mLoop && mFinished){
-            mFinished = false;
-            mTime     = 0;
-        }
-        if ((mTime - mDelay) > mDuration){
+        
+        if ((mTime - mDelay)> mDuration){
             if(mCallback && !mFinished){
+                cout << "callback" << endl;
                 mCallback();
             }
             mFinished = true;
