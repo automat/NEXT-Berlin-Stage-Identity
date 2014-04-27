@@ -38,6 +38,8 @@
 #include "stage/theme/ThemeView.h"
 #include "stage/overlay/NEXTLogo.h"
 
+#include "stage/session/model/Session.h"
+
 
 /*--------------------------------------------------------------------------------------------*/
 
@@ -111,7 +113,7 @@ namespace next{
         void loadLightProperties();
 
     public:
-        Stage(const vector<QuoteJson>& quoteData);
+        Stage(vector<QuoteJson>* quoteData, Session* sessionData);
         ~Stage();
 
         void update();
@@ -129,8 +131,8 @@ namespace next{
         //! stage dims down, enters info layer
         void tearDown();
 
-        inline static StageRef create(const vector<QuoteJson>& quoteData){
-            return std::make_shared<Stage>(quoteData);
+        inline static StageRef create(vector<QuoteJson>* quoteData, Session* sessionData){
+            return std::make_shared<Stage>(quoteData, sessionData);
         }
 
     };

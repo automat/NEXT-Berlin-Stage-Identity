@@ -8,6 +8,11 @@
 #include "quote/json/QuoteJson.h"
 #include "quote/json/QuoteParser.h"
 
+#include "stage/session/model/Speaker.h"
+#include "stage/session/model/Event.h"
+#include "stage/session/model/Session.h"
+#include "stage/session/model/Mapping.h"
+
 #include "stage/Stage.h"
 
 using namespace ci;
@@ -20,6 +25,8 @@ string excCatch;
 
 class StageApp : public AppNative {
 public:
+    ~StageApp();
+    
     void prepareSettings(Settings* settings);
 	void setup();
 	void keyDown( KeyEvent event);
@@ -29,9 +36,25 @@ public:
     bool    mInitialConfigIsValid;
     string  mInitialConfigExcMsg;
     
+    map<uint32_t, gl::Texture>*   mImagesClocks;
+    map<uint32_t, gl::Texture>*   mImagesSpeakers;
+    map<uint32_t, next::Speaker>* mDataSpeakers;
+    map<uint32_t, next::Event>*   mDataEvents;
+    next::Session*                mDataSession;
+    
+    vector<next::QuoteJson>* mDataQuotes;
+    
     next::util::ExcInfoPanel* mExcPanel;
     next::StageRef            mStage;
 };
+
+StageApp::~StageApp(){
+    delete mDataSession;
+    delete mDataEvents;
+    delete mDataSpeakers;
+    delete mImagesSpeakers;
+    delete mImagesClocks;
+}
 
 /*--------------------------------------------------------------------------------------------*/
 // Setup
@@ -56,13 +79,31 @@ void StageApp::setup(){
         return;
     }
     
-    vector<next::QuoteJson> quoteData;
-    if(!next::QuoteParser::LoadJson("/Users/automat/Projects/next/itr_1/Stage/resources/test.json", &quoteData, &excCatch)){
+    //
+    //  Load data - json quotes
+    //
+    mDataQuotes = new vector<next::QuoteJson>();
+    if(!next::QuoteParser::LoadJson("/Users/automat/Projects/next/itr_1/Stage/resources/test.json", mDataQuotes, &excCatch)){
         mExcPanel->setString(excCatch);
         return;
     }
     
-    mStage = next::Stage::create(quoteData);
+    //
+    //  Load data - json session
+    //
+    mImagesClocks   = nullptr;
+    mImagesSpeakers = nullptr;
+    mDataSpeakers   = nullptr;
+    mDataEvents     = nullptr;
+    mDataSession    = nullptr;
+    
+    next::Mapping::Get(3615, mImagesClocks, mImagesSpeakers,
+                       mDataSpeakers, mDataEvents, mDataSession);
+    
+    //
+    //  Init
+    //
+    mStage = next::Stage::create(mDataQuotes, mDataSession);
 }
 
 /*--------------------------------------------------------------------------------------------*/

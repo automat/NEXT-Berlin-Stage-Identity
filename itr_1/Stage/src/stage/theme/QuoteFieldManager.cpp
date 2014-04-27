@@ -48,7 +48,7 @@ namespace next {
                 }
             }
             
-            play(2, NULL);
+            play(10, NULL);
     }
     
     QuoteFieldManager::~QuoteFieldManager(){

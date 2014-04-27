@@ -23,7 +23,7 @@ namespace next{
 /*--------------------------------------------------------------------------------------------*/
 
 
-    Stage::Stage(const vector<QuoteJson>& quoteData){
+    Stage::Stage(vector<QuoteJson>* quoteData, Session* sessionData){
         /*--------------------------------------------------------------------------------------------*/
         //  View
         /*--------------------------------------------------------------------------------------------*/
@@ -77,7 +77,7 @@ namespace next{
         mTypesetter->debugTexture();
 #endif
 
-        for(auto& data : quoteData){
+        for(auto& data : *quoteData){
             const QuoteJson::Format& format = data.format;
 
             mTypesetter->balanceBaseline(format.balance);
