@@ -19,120 +19,117 @@ namespace next {
     
     QuoteFieldManager::QuoteFieldManager(vector<Quote>* quotes, vector<QuoteField*>* quoteFields, Grid* grid) :
         mQuotes(quotes),
+        mNumQuotes(mQuotes->size()),
+        mQuoteFields(quoteFields),
+        mIndexQuoteFields(0),
         mGrid(grid),
         mIndexQuotes(0),
-        mIndex(0){
-            mNumQuotes = mQuotes->size();
-            
-            mQuoteFields[0] = &quoteFields[0];
-            mQuoteFields[1] = &quoteFields[1];
-            
-            mIndexQuoteFields[0] = -1;
-            mIndexQuoteFields[1] = -1;
-            
-            mQuotesSelected[0] = &mQuotes->at(0);
-            mQuotesSelected[1] = &mQuotes->at(1 % mNumQuotes);
-            
-            mQuoteFieldsActiveStates[0] = true;
-            mQuoteFieldsActiveStates[1] = false;
-            
-            setQuote(mIndex);
+        mDraw(true),
+        mFramesSkipped(-1){
+
+            setQuote();
     }
     
     QuoteFieldManager::~QuoteFieldManager(){}
     
     void QuoteFieldManager::update(){
-        int k = -1;
-        while (++k < 2) {
-            vector<QuoteField*>& quoteFields = (*mQuoteFields[k]);
-            vector<Offset>&      offsets     = mOffsets[k];
-            
-            int i = -1;
-            while(++i < quoteFields.size()){
-                Offset& offset = offsets[i];
-                offset.update();
-                quoteFields[i]->updateDivers(offset.getValue());
+        int i = -1;
+        int l = mQuoteFields->size();
+        
+        while (++i < l) {
+            mOffsets[i].update();
+            if(l != mNumQuoteFields){
+                mDraw = false;  // prevent drawing corrupt vbo data next frame
+                return;         // size has been changed, escape!
             }
+        
+            mQuoteFields->at(i)->updateDivers(mOffsets[i].getValue());
+            l = mQuoteFields->size();
         }
-    }
-    
-    void QuoteFieldManager::setQuote( int index){
-        cout << index << endl;
-        
-        Quote& quote                     = mQuotes->at(mIndexQuotes);
-        vector<QuoteField*>& quoteFields = *mQuoteFields[index];
-        vector<Offset>&      offsets     = mOffsets[index];
-        mQuotesSelected[index]           = &quote;
-        
-        //
-        //  clear
-        //
-        while (!quoteFields.empty()) delete quoteFields.back(), quoteFields.pop_back();
-        offsets.clear();
-        
-        static const float from     = -1;
-        static const float to       = 1.9125f;
-        static const float duration = 5.0f;
-        
-        float delayStep = 1.0f;
-        float delay     = 0;
-        
-        const vector<QuoteLine>& lines = quote.getLines();
-        for(vector<QuoteLine>::const_iterator itr = lines.begin(); itr != lines.end(); ++itr){
-            quoteFields += new QuoteField(mGrid->getCell(itr->getIndices().front())->getCenter(),
-                                              Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
-                                              *itr );
-            offsets += Offset(from, to, duration, delay);
-            offsets.back().setCallback(std::bind(&QuoteFieldManager::onQuoteAtTarget,this,index));
-            delay    += delayStep;
-            quoteFields.back()->updateDivers(offsets.back().getValue());
-        }
-        
-        mIndexQuoteFields[index] = -1;
-        mNumQuoteFields[index]   = quoteFields.size();
-        mIndexQuotes = (mIndexQuotes+1)%mNumQuotes;
-    }
-    
-    
-    
-    void QuoteFieldManager::onQuoteAtTarget(int index){
-        mIndexQuoteFields[index]++;
-        cout <<  index  << " : " << mIndexQuoteFields[index] << " / " << (mNumQuoteFields[index] - 1) << endl;
-        
-        if(mIndexQuoteFields[index] == (mNumQuoteFields[index] - 1)){
-            cout << "onQuoteAtTarget All" << endl;
-            float to = 3.0f;
-            float duration = 2.0f;
-            
-           
-            mIndexQuoteFields[index] = -1;
-            vector<Offset>& offsets = mOffsets[index];
-            for (vector<Offset>::iterator itr = offsets.begin(); itr != offsets.end(); ++itr) {
-                itr->reset(itr->getValue(), to, duration, 2.0f);
-                itr->setCallback(std::bind(&QuoteFieldManager::onQuoteAtEnd,this, mIndex));
-            }
-           
-           
-            
-        }
-    }
-    
-    void QuoteFieldManager::onQuoteAtEnd(int index){
-        mIndexQuoteFields[index]++;
-        cout <<  index  << " : " << mIndexQuoteFields[index] << " / " << (mNumQuoteFields[index] - 1) << endl;
-        if(mIndexQuoteFields[index] == (mNumQuoteFields[index] - 1)){
-            mIndexQuoteFields[index] = -1;
-            swap();
-            setQuote(mIndex);
-            //swap();
-        }
-    }
-    
-    void QuoteFieldManager::swap(){
-        mIndex = 1 - mIndex;
     }
     
     void QuoteFieldManager::draw(){
+        if(!mDraw){
+            //  skip 5 frames, after reseting the quote fields and its vbos
+            //  theres some corrupt data, when resizing the quotefields
+            //  make sure we dont draw it
+            //  overall: NOT GOOD!
+            mFramesSkipped++;
+            if(mFramesSkipped == 5){
+                mFramesSkipped = -1;
+                mDraw = true;
+            }
+            return;
+        }
+        
+        const vector<QuoteField*>& quoteFields = *mQuoteFields;
+        
+        int i = -1;
+        int l = quoteFields.size();
+        
+        while (++i < l) {
+#ifdef DEBUG_THEME_FIELD_QUOTE
+            quoteFields[i]->debugDrawArea();
+            quoteFields[i]->debugDrawPathSurface();
+            quoteFields[i]->debugDrawDivers();
+#endif
+#ifdef DEBUG_THEME_FIELD_QUOTE_TEXCOORDS
+            
+            quoteFields[i]->debugDrawDiverIndices(camera);
+#endif
+            quoteFields[i]->draw();
+        }
+    }
+    
+    void QuoteFieldManager::setQuote(){
+        mOffsets.resize(0);
+        while(!mQuoteFields->empty()) delete mQuoteFields->back(), mQuoteFields->pop_back();
+        
+        float delay = 0;
+        float delayStep = 2.5f;
+        float time = 8.0f;
+        
+        mQuoteSelected = &(mQuotes->at(mIndexQuotes));
+        const vector<QuoteLine>& lines = mQuoteSelected->getLines();
+        for(vector<QuoteLine>::const_iterator itr = lines.begin(); itr != lines.end(); ++itr){
+            Offset offset(0.0f, 1.925f, time, delay);
+            offset.setCallback(std::bind(&QuoteFieldManager::onQuoteAtTarget, this));
+            mOffsets += offset;
+            
+            mQuoteFields->push_back(new QuoteField(mGrid->getCell(itr->getIndicesFront())->getCenter(),
+                                                   Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
+                                                   *itr ));
+            delay += delayStep;
+        }
+        
+        mNumQuoteFields   = lines.size();
+        mIndexQuotes      = (mIndexQuotes + 1) % mNumQuotes;
+        mIndexQuoteFields = 0;
+    }
+    
+    
+    
+    void QuoteFieldManager::onQuoteAtTarget(){
+        if(mIndexQuoteFields == mQuoteFields->size() - 1){
+            float delay = 0;
+            float delayStep = 0.5f;
+            float time = 10.0f;
+            for(vector<Offset>::iterator itr = mOffsets.begin(); itr != mOffsets.end(); ++itr){
+                itr->reset(itr->getValue(), 3.0f, time, delay);
+                itr->setCallback(std::bind(&QuoteFieldManager::onQuoteAtEnd, this));
+                delay += delayStep;
+            }
+            mIndexQuoteFields = 0;
+        }
+        mIndexQuoteFields++;
+        
+    }
+    
+    void QuoteFieldManager::onQuoteAtEnd(){
+        if(mIndexQuoteFields == mQuoteFields->size() - 1){
+            setQuote();
+        }
+        mIndexQuoteFields++;
         
     }
     
@@ -163,16 +160,18 @@ namespace next {
         glPushMatrix();
         glTranslatef(50, 50, 0);
         
-        int k = -1;
-        while (++k < 2) {
-            glTranslatef(rect.x2 * k, 0, 0);
-            const gl::Texture& texture = (*mQuotesSelected[k]).getTexture();
-            
+        //int k = -1;
+        //while (++k < 2) {
+            glTranslatef(0, 0, 0);
+            //const gl::Texture& texture = (*mQuotesSelected[k]).getTexture();
+        const gl::Texture& texture = mQuoteSelected->getTexture();
+        
             glPushMatrix();
             glTranslatef(0, rect.y2, 0);
             glColor4f(0, 0, 0, 0.75f);
             gl::drawSolidRect(rect);
-            
+        
+        /*
             if (k != mIndex) {
                 glColor3f(0, 0, 1);
                 gl::drawStrokedRect(rect);
@@ -183,14 +182,15 @@ namespace next {
                 glLineWidth(1);
                 glColor3f(0, 0, 1);
             }
+         */
             
             glColor4f(1, 1, 1, 1);
             gl::draw(texture, rect);
             glPopMatrix();
             
-            vector<QuoteField*>& quoteFields = *mQuoteFields[k];;
+        
             
-            float stepV   = rect.y2 / static_cast<float>(quoteFields.size());
+            float stepV   = rect.y2 / static_cast<float>(mQuoteFields->size());
             float stepH   = rect.x2 / static_cast<float>(3); //-1,0,1,2
             float stepH_2 = stepH * 2.0f;
             
@@ -215,7 +215,7 @@ namespace next {
             }
             
             i = 0;
-            for (vector<QuoteField*>::iterator itr = quoteFields.begin(); itr != quoteFields.end(); ++itr) {
+            for (vector<QuoteField*>::iterator itr = mQuoteFields->begin(); itr != mQuoteFields->end(); ++itr) {
                 const vector<Diver*>& divers = (*itr)->getDivers();
                 
                 rowDiver   = 0;
@@ -271,7 +271,7 @@ namespace next {
                 }
                 glPopMatrix();
             }
-        }
+        //}
         
         
         glPopMatrix();
@@ -282,8 +282,8 @@ namespace next {
     //  get
     /*--------------------------------------------------------------------------------------------*/
     
-    const Quote* QuoteFieldManager::getSelectedQuote(int index){
-        return mQuotesSelected[index];
+    const gl::Texture& QuoteFieldManager::getTexture(){
+        return mQuoteSelected->getTexture();
     }
 
     

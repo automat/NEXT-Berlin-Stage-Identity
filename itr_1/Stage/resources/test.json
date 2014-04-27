@@ -19,6 +19,7 @@
                },
                "string" : "Alghoritms are the new Art Direction."
       },
+               
       {
                "format" : {
                "align" : "center",
@@ -37,5 +38,6 @@
                },
                "string" : "Knowing what your customers want before they do."
       }
+         
    ]
 }

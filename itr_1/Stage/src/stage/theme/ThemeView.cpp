@@ -45,7 +45,7 @@ namespace next{
 
         loadMaterialProperties();
         
-        mQuoteFieldManager = new QuoteFieldManager(mQuotes,mQuoteFields,mGrid);
+        mQuoteFieldManager = new QuoteFieldManager(mQuotes,&mQuoteFields,mGrid);
 
 #ifdef THEME_LIVE_EDIT_MATERIAL_SHADER
         mFileWatcher = FileWatcher::Get();
@@ -72,16 +72,11 @@ namespace next{
     /*--------------------------------------------------------------------------------------------*/
 
     void ThemeView::deleteDiverFields(){
-        //mIndexDiverFieldMap.clear();
         while (!mDiverFields.empty()) delete mDiverFields.back(), mDiverFields.pop_back();
     }
 
     void ThemeView::deleteQuoteFields(){
-        //mIndexQuoteFieldMap.clear();
-        vector<QuoteField*>& quoteFields = mQuoteFields[0];
-        while (!quoteFields.empty()) delete quoteFields.back(), quoteFields.pop_back();
-        quoteFields = mQuoteFields[1];
-        while (!quoteFields.empty()) delete quoteFields.back(), quoteFields.pop_back();
+       while (!mQuoteFields.empty()) delete mQuoteFields.back(), mQuoteFields.pop_back();
     }
 
     ThemeView::~ThemeView(){
@@ -151,32 +146,18 @@ namespace next{
             mMaterialQuoteFields.apply();
         }
         
-        int i = -1;
-        while (++i < 1) {
-            const vector<QuoteField*>& quoteFields = mQuoteFields[i];
-            const gl::Texture& quoteTexture = mQuoteFieldManager->getSelectedQuote(i)->getTexture();
-            
-            if(useMaterialShaders){
-                quoteTexture.bind();
-                mShaderQuoteFields.uniform("uTexture", 0);
-            }
-            
-            for(vector<QuoteField*>::const_iterator itr = quoteFields.begin(); itr != quoteFields.end(); ++itr){
-#ifdef DEBUG_THEME_FIELD_QUOTE
-                (*itr)->debugDrawArea();
-                (*itr)->debugDrawPathSurface();
-                (*itr)->debugDrawDivers();
-#endif
-#ifdef DEBUG_THEME_FIELD_QUOTE_TEXCOORDS
-                
-                (*itr)->debugDrawDiverIndices(camera);
-#endif
-                (*itr)->draw();
-            }
-            if(useMaterialShaders){
-                quoteTexture.unbind();
-                quoteTexture.disable();
-            }
+   
+        const gl::Texture& quoteTexture = mQuoteFieldManager->getTexture();
+        
+        if(useMaterialShaders){
+            quoteTexture.bind();
+            mShaderQuoteFields.uniform("uTexture", 0);
+        }
+        mQuoteFieldManager->draw();
+        
+        if(useMaterialShaders){
+            quoteTexture.unbind();
+            quoteTexture.disable();
         }
         
         if(useMaterialShaders){
@@ -223,11 +204,8 @@ namespace next{
         }
 #endif
 #ifndef BOARD_SKIP_DRAW_FIELD_QUOTE
-        int i = -1;
-        while (++i < 2) {
-            for (vector<QuoteField*>::const_iterator itr = mQuoteFields[i].begin(); itr != mQuoteFields[i].end(); ++itr) {
-                (*itr)->update(mOscillator,t);
-            }
+        for (vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr) {
+            (*itr)->update(mOscillator,t);
         }
         mQuoteFieldManager->update();
 #endif

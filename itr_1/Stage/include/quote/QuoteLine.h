@@ -23,7 +23,7 @@ namespace next{
         vector<Index> mIndices;
         vector<Vec2f> mTexcoords;
         QuoteAlign    mAlignment;
-
+        
     public:
         QuoteLine(){};
         QuoteLine(const vector<Index>& indices, const vector<Vec2f>& texcoords, QuoteAlign align = QuoteAlign::CENTER) :
@@ -31,6 +31,10 @@ namespace next{
 
         inline const vector<Index>& getIndices() const{
             return mIndices;
+        }
+        
+        inline const Index& getIndicesFront() const{
+            return mIndices.front();
         }
 
         inline const vector<Vec2f>& getTexcoords() const{
