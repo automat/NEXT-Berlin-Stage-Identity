@@ -109,7 +109,7 @@ namespace next{
         for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
             Diver* diver = *itr;
             
-            diver->setOffset(diver->getOffsetInitial() + value);    //  diver->getOffsetInitial() + value);
+            diver->setOffset(diver->getOffsetInitial() + value); //diver->getOffsetInitial() + value);    //  diver->getOffsetInitial() + value);
             diver->update();            //  update diver position
           
             //
