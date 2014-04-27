@@ -17,6 +17,13 @@
 namespace next{
     using namespace ci;
     class Lantern : public gl::Light{
+        ColorAf mAbientOn;
+        ColorAf mAbientOff;
+        ColorAf mDiffuseOn;
+        ColorAf mDiffuseOff;
+        ColorAf mSpecularOn;
+        ColorAf mSpecularOff;
+        
         ColorAf mAmbientTarget;
         ColorAf mDiffuseTarget;
         ColorAf mSpecularTarget;

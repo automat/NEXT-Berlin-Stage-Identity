@@ -70,7 +70,7 @@ namespace next{
         //  Typesetter init
 
         mTypesetter = new QuoteTypesetter(mGrid, area);
-        mTypesetter->setFont(Font(app::loadResource(RES_FONT_TRANSCRIPT),STAGE_TYPESETTER_FONT_SIZE), STAGE_TYPESETTER_FONT_SCALE);
+        mTypesetter->setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),STAGE_TYPESETTER_FONT_SIZE), STAGE_TYPESETTER_FONT_SCALE);
         mTypesetter->constrain(false);
         mTypesetter->manualLineBreak(true);
 #ifdef DEBUG_STAGE_TYPESETTER_TEXCOORDS
