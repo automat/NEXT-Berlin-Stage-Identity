@@ -17,13 +17,13 @@
 
 #include "cinder/Timeline.h"
 
-#include "stage/session/view/AbstractAnimView.h"
+#include "stage/session/view/AbstractAnimBase.h"
 #include "stage/session/model/Speaker.h"
 
 
 using namespace ci;
 namespace next {
-    class SpeakerView : public AbstractAnimView{
+    class SpeakerView : public AbstractAnimBase{
         friend class SpeakerStackView;
 
         //

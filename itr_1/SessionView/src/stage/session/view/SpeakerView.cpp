@@ -91,7 +91,7 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     SpeakerView::SpeakerView(Speaker* data) :
-        AbstractAnimView(),
+        AbstractAnimBase(),
         mData(data){
         //
         //  Setup Fbo

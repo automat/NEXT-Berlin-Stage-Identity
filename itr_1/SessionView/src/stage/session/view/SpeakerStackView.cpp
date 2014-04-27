@@ -24,7 +24,7 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     SpeakerStackView::SpeakerStackView(const vector<Speaker*>& data) :
-        AbstractAnimView(){
+        AbstractAnimBase(){
         reset(data);
     }
     

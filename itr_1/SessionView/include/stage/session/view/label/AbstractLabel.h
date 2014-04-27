@@ -11,7 +11,7 @@
 
 #include <string>
 
-#include "stage/session/view/AbstractAnimView.h"
+#include "stage/session/view/AbstractAnimBase.h"
 
 #include "Resources.h"
 #include "cinder/app/App.h"
@@ -25,13 +25,13 @@ namespace next {
     using namespace std;
     using namespace ci;
     
-    class AbstractLabel : public AbstractAnimView{
+    class AbstractLabel : public AbstractAnimBase{
     protected:
         next::TextBox* mTextBox;
         Vec2f mPos;
         
     public:
-        AbstractLabel() : AbstractAnimView(){
+        AbstractLabel() : AbstractAnimBase(){
             mTextBox = new TextBox();
         };
         

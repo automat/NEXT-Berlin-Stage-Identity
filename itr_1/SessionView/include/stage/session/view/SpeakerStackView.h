@@ -10,13 +10,13 @@
 #define SpeakerImageFilter_SpeakerStackView_h
 
 #include <vector>
-#include "stage/session/view/AbstractAnimView.h"
+#include "stage/session/view/AbstractAnimBase.h"
 #include "stage/session/view/SpeakerView.h"
 
 namespace next {
     using namespace std;
 
-    class SpeakerStackView : public AbstractAnimView {
+    class SpeakerStackView : public AbstractAnimBase {
         static const Vec3f sStackStep;
         
         vector<SpeakerView*> mViews;
@@ -47,7 +47,7 @@ namespace next {
 
 
     public:
-        SpeakerStackView() : AbstractAnimView() {};
+        SpeakerStackView() : AbstractAnimBase() {};
         SpeakerStackView(const vector<Speaker*>& data);
         ~SpeakerStackView();
 

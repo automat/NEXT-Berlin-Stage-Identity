@@ -2,7 +2,7 @@
 
 namespace next {
     EventView::EventView(Event* data) :
-        AbstractAnimView(){
+        AbstractAnimBase(){
         mSpeakerStackView = new SpeakerStackView();
         reset(data);
     }

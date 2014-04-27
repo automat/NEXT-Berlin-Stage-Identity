@@ -15,7 +15,7 @@ namespace next {
     using namespace ci;
     using namespace ci::app;
     
-    class AbstractAnimView {
+    class AbstractAnimBase {
     public :
         typedef std::function<void ()>    AnimCallback;
         typedef std::function<void (int)> AnimCallback_Int_1;
@@ -41,12 +41,7 @@ namespace next {
             timeline().apply(&_mTime, 0.0f, 1.0f, duration).finishFn(callback);
         };
         
-        AbstractAnimView() : _mTime(0){};
-        
-    public:
-        
-        virtual void draw() = 0;
-        
+        AbstractAnimBase() : _mTime(0){};
     };
 }
 

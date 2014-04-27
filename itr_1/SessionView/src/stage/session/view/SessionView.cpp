@@ -29,7 +29,7 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     SessionView::SessionView(Session* data) :
-        AbstractAnimView(),
+        AbstractAnimBase(),
             mEventViewStep(0),
             mEventViewFront(0),
             mEventViewSlotBegin(0),

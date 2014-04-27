@@ -57,7 +57,7 @@
 		CD17C8BC1908325700780CE7 /* Mapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mapping.h; sourceTree = "<group>"; };
 		CD17C8BD1908325700780CE7 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
 		CD17C8BE1908325700780CE7 /* Speaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Speaker.h; sourceTree = "<group>"; };
-		CD17C8C01908325700780CE7 /* AbstractAnimView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractAnimView.h; sourceTree = "<group>"; };
+		CD17C8C01908325700780CE7 /* AbstractAnimBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractAnimBase.h; sourceTree = "<group>"; };
 		CD17C8C11908325700780CE7 /* EventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventView.h; sourceTree = "<group>"; };
 		CD17C8C31908325700780CE7 /* AbstractLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractLabel.h; sourceTree = "<group>"; };
 		CD17C8C51908325700780CE7 /* EventMetaLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventMetaLabel.h; sourceTree = "<group>"; };
@@ -253,7 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				CD17C8C21908325700780CE7 /* label */,
-				CD17C8C01908325700780CE7 /* AbstractAnimView.h */,
+				CD17C8C01908325700780CE7 /* AbstractAnimBase.h */,
 				CD17C8C11908325700780CE7 /* EventView.h */,
 				CD17C8D11908325700780CE7 /* SessionView.h */,
 				CD17C8D21908325700780CE7 /* SpeakerStackView.h */,

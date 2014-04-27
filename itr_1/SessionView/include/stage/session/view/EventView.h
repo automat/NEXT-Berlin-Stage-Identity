@@ -10,7 +10,7 @@
 #define EventsDeck_EventView_h
 
 #include "stage/session/model/Event.h"
-#include "stage/session/view/AbstractAnimView.h"
+#include "stage/session/view/AbstractAnimBase.h"
 #include "stage/session/view/SpeakerStackView.h"
 #include "cinder/Timeline.h"
 #include "cinder/Vector.h"
@@ -18,7 +18,7 @@
 namespace next {
     using namespace ci;
     
-    class EventView : public AbstractAnimView{
+    class EventView : public AbstractAnimBase{
         friend class SessionView;
 
         Event* mData;

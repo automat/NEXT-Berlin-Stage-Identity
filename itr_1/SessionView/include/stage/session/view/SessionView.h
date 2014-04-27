@@ -9,7 +9,7 @@
 #ifndef EventsDeck_SessionView_h
 #define EventsDeck_SessionView_h
 
-#include "stage/session/view/AbstractAnimView.h"
+#include "stage/session/view/AbstractAnimBase.h"
 #include "stage/session/model/Session.h"
 #include "stage/session/view/EventView.h"
 
@@ -24,7 +24,7 @@
 namespace next {
     using namespace ci;
     
-    class SessionView : public AbstractAnimView{
+    class SessionView : public AbstractAnimBase{
         Session* mData;
         
         bool mValid;    //  is valid, data > 0
