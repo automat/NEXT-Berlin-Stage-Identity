@@ -11,11 +11,15 @@
 
 #include <vector>
 
+#include "quote/Quote.h"
+
 #include "stage/grid/Grid.h"
 #include "stage/theme/field/QuoteField.h"
 #include "stage/theme/Offset.h"
-#include "quote/Quote.h"
 #include "stage/Oscillator.h"
+
+#include <boost/random/uniform_int_distribution.hpp>
+
 
 namespace next {
     using namespace std;
@@ -25,10 +29,15 @@ namespace next {
         //  QuoteFieldManager
         /*--------------------------------------------------------------------------------------------*/
         
-        Grid*                 mGrid;
         vector<Quote>*        mQuotes;
         size_t                mNumQuotes;
         int                   mIndexQuotes;
+        int                   mIndexSelected;
+        
+        
+        vector<int>      mRandomIndicesQuotes;
+        std::mt19937     mRandBase;
+        
         
         Quote*                       mQuoteSelected;
         vector<vector<QuoteField*>>  mQuoteFields;
@@ -38,16 +47,12 @@ namespace next {
         
         size_t                       mNumQuoteFields;
         int                          mIndexQuoteFields;
-        
-        bool                 mReset;
-        bool                 mDraw;
-        int                  mFramesSkipped;
-        
-        
+
         void onQuoteAtTarget();
         void onQuoteAtEnd();
-        void onTriggerNext(int index);
-        void setQuote();
+        void nextQuote();
+        
+        int getRandomIndex(int index);
         
     public:
         QuoteFieldManager(vector<Quote>* quotes, Grid* grid);
@@ -56,9 +61,7 @@ namespace next {
         void debugDraw();
 #endif
         void update(Oscillator* osc, float t);
-        void draw();
-        
-        //! return the current active quote
+        void draw(const CameraOrtho& camera);
         
         const gl::Texture& getTexture();
     };

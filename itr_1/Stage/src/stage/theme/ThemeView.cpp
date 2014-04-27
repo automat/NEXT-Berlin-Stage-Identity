@@ -63,8 +63,6 @@ namespace next{
                               LoadResource(RES_GLSL_BOARD_DIVER_FIELD_FRAG),
                               &mShaderQuoteDivers);
 #endif
-
-
     }
 
     /*--------------------------------------------------------------------------------------------*/
@@ -74,8 +72,6 @@ namespace next{
     void ThemeView::deleteDiverFields(){
         while (!mDiverFields.empty()) delete mDiverFields.back(), mDiverFields.pop_back();
     }
-
-
     ThemeView::~ThemeView(){
         deleteDiverFields();
         delete mQuoteFieldManager;
@@ -149,7 +145,8 @@ namespace next{
             quoteTexture.bind();
             mShaderQuoteFields.uniform("uTexture", 0);
         }
-        mQuoteFieldManager->draw();
+        
+        mQuoteFieldManager->draw(camera);
         
         if(useMaterialShaders){
             quoteTexture.unbind();

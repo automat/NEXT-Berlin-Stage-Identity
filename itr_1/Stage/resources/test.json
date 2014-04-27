@@ -38,46 +38,6 @@
                "scale" : 1
                },
                "string" : "Knowing what your customers want before they do."
-      },
-           {
-               "format" : {
-               "align" : "center",
-               "balance" : true,
-               "padding" : [ 0, 0, 0, 0 ],
-               "scale" : 1.0
-               },
-               "string" : "You\n will be\n disrupted soon"
-      },
-      
-      {
-               "format" : {
-               "align" : "center",
-               "balance" : true,
-               "padding" : [ 1, 0, 0, 0 ],
-               "scale" : 0.9
-               },
-               "string" : "Alghoritms are the new Art Direction."
-      },
-
-               
-      {
-               "format" : {
-               "align" : "center",
-               "balance" : true,
-               "padding" : [ 0, 0, 0, 0 ],
-               "scale" : 1.0
-               },
-               "string" : "You cant\n choose\n not to support one device."
-      },
-      {
-               "format" : {
-               "align" : "center",
-               "balance" : true,
-               "padding" : [ 0, 0, 0, 0 ],
-               "scale" : 1
-               },
-               "string" : "Knowing what your customers want before they do."
-      }
-         
+      }  
    ]
 }
