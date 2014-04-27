@@ -121,6 +121,8 @@ namespace next{
             i = -1;
             while(++i < mDiverNumPoints){
                 const Vec3f& point = points[i];
+                
+                
                 x0 = point.x - diverWidth_2;
                 x1 = point.x + diverWidth_2;
                 y0 = point.y - diverHeight_2;
@@ -279,17 +281,18 @@ namespace next{
         mPathSurface.set(mPos,mSurfaceNumSlices,mSize);
         mSurfaceSliceWidth = mPathSurface.getSliceWidth();
 
-        float offset,speed,length,height;
+        float offsetX, offsetY, speed,length,height;
         mDiverNumPoints = mDiverUnitNumPoints * mPathSurface.getSize();
 
         int i = -1;
         while(++i < mSurfaceNumSlices){
-            offset = Rand::randFloat(mDiverOffsetMin, mDiverOffsetMax);
+            offsetX = Rand::randFloat(mDiverOffsetXMin, mDiverOffsetXMax);
+            offsetY = Rand::randFloat(mDiverOffsetYMin, mDiverOffsetYMax);
             speed  = Rand::randFloat(mDiverSpeedMin,  mDiverSpeedMax);
             length = Rand::randFloat(mDiverLengthMin, mDiverLengthMax);
             height = Rand::randFloat(mDiverHeightMin, mDiverHeightMax);
 
-            mDivers += new Diver(mPathSurface.getSlicePtr(i),mDiverNumPoints,offset,speed,length,height);
+            mDivers += new Diver(mPathSurface.getSlicePtr(i),mDiverNumPoints, offsetX,offsetY,speed,length,height);
         }
 
         mNumDivers            = mSurfaceNumSlices;

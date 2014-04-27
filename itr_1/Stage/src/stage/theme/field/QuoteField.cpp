@@ -23,8 +23,10 @@ namespace next{
         mDiverUnitNumPoints = QUOTE_FIELD_DIVER_NUM_POINTS;
         mDiverHeightMin     = QUOTE_FIELD_DIVER_MIN_HEIGHT;
         mDiverHeightMax     = QUOTE_FIELD_DIVER_MAX_HEIGHT;
-        mDiverOffsetMin     = QUOTE_FIELD_DIVER_MIN_OFFSET;
-        mDiverOffsetMax     = QUOTE_FIELD_DIVER_MAX_OFFSET;
+        mDiverOffsetXMin    = QUOTE_FIELD_DIVER_MIN_OFFSET_X;
+        mDiverOffsetXMax    = QUOTE_FIELD_DIVER_MAX_OFFSET_X;
+        mDiverOffsetYMin    = QUOTE_FIELD_DIVER_MIN_OFFSET_Y;
+        mDiverOffsetYMax    = QUOTE_FIELD_DIVER_MAX_OFFSET_Y;
         mDiverSpeedMin      = QUOTE_FIELD_DIVER_MIN_SPEED;
         mDiverSpeedMax      = QUOTE_FIELD_DIVER_MAX_SPEED;
         mDiverLengthMin     = QUOTE_FIELD_DIVER_MIN_LENGTH;
@@ -109,7 +111,7 @@ namespace next{
         for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
             Diver* diver = *itr;
             
-            diver->setOffset(diver->getOffsetInitial() + value); //diver->getOffsetInitial() + value);    //  diver->getOffsetInitial() + value);
+            diver->setOffset(diver->getOffsetXInitial() + value); //diver->getOffsetXInitial() + value);    //  diver->getOffsetInitial() + value);
             diver->update();            //  update diver position
           
             //

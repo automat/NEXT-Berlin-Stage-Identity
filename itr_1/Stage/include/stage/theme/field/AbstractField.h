@@ -70,8 +70,10 @@ namespace next{
         int            mNumDivers;
         int            mDiverUnitNumPoints; //  number of points per cell
         int            mDiverNumPoints;     //  unit points * number of cells
-        float          mDiverOffsetMin;     //  lower bound initial diver offset
-        float          mDiverOffsetMax;     //  upper bound initial diver offset
+        float          mDiverOffsetXMin;     //  lower bound initial diver offset
+        float          mDiverOffsetXMax;     //  upper bound initial diver offset
+        float          mDiverOffsetYMin;
+        float          mDiverOffsetYMax;
         float          mDiverSpeedMin;      //  lower bound diver speed
         float          mDiverSpeedMax;      //  upper bound diver speed
         float          mDiverLengthMin;     //  lower bound diver trail length

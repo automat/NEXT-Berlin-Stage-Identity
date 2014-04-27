@@ -19,8 +19,10 @@ namespace next{
         mDiverUnitNumPoints = DIVER_FIELD_DIVER_NUM_POINTS;
         mDiverHeightMin     = DIVER_FIELD_DIVER_MIN_HEIGHT;
         mDiverHeightMax     = DIVER_FIELD_DIVER_MAX_HEIGHT;
-        mDiverOffsetMin     = DIVER_FIELD_DIVER_MIN_OFFSET;
-        mDiverOffsetMax     = DIVER_FIELD_DIVER_MAX_OFFSET;
+        mDiverOffsetXMin    = DIVER_FIELD_DIVER_MIN_OFFSET_X;
+        mDiverOffsetXMax    = DIVER_FIELD_DIVER_MAX_OFFSET_X;
+        mDiverOffsetYMin    = DIVER_FIELD_DIVER_MIN_OFFSET_Y;
+        mDiverOffsetYMax    = DIVER_FIELD_DIVER_MAX_OFFSET_Y;
         mDiverSpeedMin      = DIVER_FIELD_DIVER_MIN_SPEED;
         mDiverSpeedMax      = DIVER_FIELD_DIVER_MAX_SPEED;
         mDiverLengthMin     = DIVER_FIELD_DIVER_MIN_LENGTH;

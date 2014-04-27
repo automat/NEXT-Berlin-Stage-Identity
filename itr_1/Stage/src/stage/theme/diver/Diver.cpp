@@ -12,13 +12,15 @@ namespace next{
 
     Diver::Diver(PathSlice* pathSlice,
             int        numPoints,
-            float      offset,
+            float      offsetX,
+            float      offsetY,
             float      speed,
             float      length,
             float      height){
         reset(pathSlice,
                 numPoints,
-                offset,
+                offsetX,
+                offsetY,
                 speed,
                 length,
                 height);
@@ -26,13 +28,15 @@ namespace next{
 
     void Diver::reset(PathSlice* pathSlice,
             int        numPoints,
-            float      offset,
+            float      offsetX,
+            float      offsetY,
             float      speed,
             float      length,
             float      height){
         mPathSlice = pathSlice;
         mNumPoints = numPoints;
-        mOffset    = mOffsetInitial = offset;
+        mOffsetX   = mOffsetXInitial = offsetX;
+        mOffsetY   = offsetY;
         mSpeed     = speed;
         mWidth     = pathSlice->getWidth();
         mLength    = length;
@@ -59,26 +63,27 @@ namespace next{
         //   0-1 : start to end
         //   1-2 : complete length outside after
         
-        if(mOffset >= 2.0f){
-            mOffset = -1;
+        if(mOffsetX >= 2.0f){
+            mOffsetX = -1;
         }
 
         int i = -1;
         for(vector<Vec3f>::iterator itr = mPoints.begin(); itr != mPoints.end(); itr++){
-            mPathSlice->getPointOn(mOffset - mLengthStep * float(++i), &(*itr));
+            mPathSlice->getPointOn(mOffsetX - mLengthStep * float(++i), &(*itr));
+            itr->y += mOffsetY;
         }
     }
     
     void Diver::setOffset(float offset){
-        mOffset = offset;
+        mOffsetX = offset;
     }
     
     void Diver::increaseOffset(float value){
-        mOffset += value;
+        mOffsetX += value;
     }
 
     void Diver::updateTexcoords(){
-        mTexcoords[0] = MIN(mLength,mOffset);
+        mTexcoords[0] = MIN(mLength, mOffsetX);
         int i = 0;
         while(++i < mTexcoords.size()){
             mTexcoords[i] = MAX(0,mTexcoords[i-1] - (mPoints[i-1].distance(mPoints[i]) / mPathLength)) ;
@@ -87,7 +92,7 @@ namespace next{
 
     void Diver::updateInOut(){
         mIsOutPrev = mIsOut;
-        mIsOut = (mOffset >= (1.0f + mLength)) || (mOffset <= 0.0f);
+        mIsOut = (mOffsetX >= (1.0f + mLength)) || (mOffsetX <= 0.0f);
     }
 
     void Diver::debugDraw(){

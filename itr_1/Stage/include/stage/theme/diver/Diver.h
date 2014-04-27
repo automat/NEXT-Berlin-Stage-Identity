@@ -30,8 +30,9 @@ namespace next{
         int        mPathSurfaceSize;
 
         float      mSpeed;
-        float      mOffset;
-        float      mOffsetInitial;
+        float      mOffsetX;
+        float      mOffsetXInitial;
+        float      mOffsetY;
         float      mLength;
         float      mLengthStep;
 
@@ -52,14 +53,16 @@ namespace next{
     public:
         Diver(PathSlice* pathSlice,
                 int        numPoints,
-                float      offset,
+                float      offsetX,
+                float      offsetY,
                 float      speed,
                 float      length,
                 float      height = 0.125f);
 
         void reset(PathSlice* pathSlice,
                 int        numPoints,
-                float      offset,
+                float      offsetX,
+                float      offsetY,
                 float      speed,
                 float      length,
                 float      height);
@@ -115,12 +118,12 @@ namespace next{
             return mSpeed;
         }
         
-        inline float getOffset(){
-            return mOffset;
+        inline float getOffsetX(){
+            return mOffsetX;
         }
         
-        inline float getOffsetInitial(){
-            return mOffsetInitial;
+        inline float getOffsetXInitial(){
+            return mOffsetXInitial;
         }
         
         inline float getLength(){
