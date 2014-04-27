@@ -38,6 +38,11 @@ namespace next {
         vector<int>      mRandomIndicesQuotes;
         std::mt19937     mRandBase;
         
+        bool                  mActive;
+        int                   mPlayCount;
+        int                   mMaxPlays;
+        std::function<void()> mCallback;
+        
         
         Quote*                       mQuoteSelected;
         vector<vector<QuoteField*>>  mQuoteFields;
@@ -64,6 +69,10 @@ namespace next {
         void draw(const CameraOrtho& camera);
         
         const gl::Texture& getTexture();
+        
+        void play(int num, std::function<void()> callback);
+        
+        bool isActive();
     };
 }
 

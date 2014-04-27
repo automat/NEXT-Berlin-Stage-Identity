@@ -130,35 +130,35 @@ namespace next{
 
 #ifndef THEME_SKIP_DRAW_QUOTE_DIVER
         
-        glEnable(GL_POLYGON_OFFSET_FILL);
-        glPolygonOffset(0.0, 0.9);
-        
-        if(useMaterialShaders){
-            mShaderQuoteFields.bind();
-            mMaterialQuoteFields.apply();
+        if(mQuoteFieldManager->isActive()){
+            glEnable(GL_POLYGON_OFFSET_FILL);
+            glPolygonOffset(0.0, 0.9);
+            
+            if(useMaterialShaders){
+                mShaderQuoteFields.bind();
+                mMaterialQuoteFields.apply();
+            }
+            const gl::Texture& quoteTexture = mQuoteFieldManager->getTexture();
+            
+            if(useMaterialShaders){
+                quoteTexture.bind();
+                mShaderQuoteFields.uniform("uTexture", 0);
+            }
+            
+            mQuoteFieldManager->draw(camera);
+            
+            if(useMaterialShaders){
+                quoteTexture.unbind();
+                quoteTexture.disable();
+            }
+            
+            if(useMaterialShaders){
+                mShaderQuoteFields.unbind();
+            }
+            
+            glDisable(GL_POLYGON_OFFSET_FILL);
         }
         
-   
-        const gl::Texture& quoteTexture = mQuoteFieldManager->getTexture();
-        
-        if(useMaterialShaders){
-            quoteTexture.bind();
-            mShaderQuoteFields.uniform("uTexture", 0);
-        }
-        
-        mQuoteFieldManager->draw(camera);
-        
-        if(useMaterialShaders){
-            quoteTexture.unbind();
-            quoteTexture.disable();
-        }
-        
-        if(useMaterialShaders){
-            mShaderQuoteFields.unbind();
-        }
-        
-        glDisable(GL_POLYGON_OFFSET_FILL);
-
 #endif
     }
 #ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER

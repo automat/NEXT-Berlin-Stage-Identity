@@ -24,7 +24,8 @@ namespace next {
         mNumQuotes(mQuotes->size()),
         mIndexQuoteFields(0),
         mIndexQuotes(0),
-        mIndexSelected(-1){
+        mIndexSelected(-1),
+        mActive(false){
             std::random_device rd;
             mRandBase = std::mt19937(rd());
             
@@ -46,8 +47,8 @@ namespace next {
                     offsetsBack += Offset();
                 }
             }
-
-        nextQuote();
+            
+            play(2, NULL);
     }
     
     QuoteFieldManager::~QuoteFieldManager(){
@@ -67,25 +68,38 @@ namespace next {
             while(++i < l){mRandomIndicesQuotes += i;}
             
             std::shuffle(mRandomIndicesQuotes.begin(), mRandomIndicesQuotes.end(), mRandBase);
-            
             while (mRandomIndicesQuotes.front() == mIndexSelected) { //prevent end == start
                 std::shuffle(mRandomIndicesQuotes.begin(), mRandomIndicesQuotes.end(), mRandBase);
             }
         }
-        
         return mRandomIndicesQuotes[index];
     }
     
+    void QuoteFieldManager::play(int num, std::function<void ()> callback){
+        mActive    = true;
+        mMaxPlays  = num;
+        mPlayCount = 0;
+        nextQuote();
+    }
+    
+    bool QuoteFieldManager::isActive(){
+        return mActive;
+    }
     
     /*--------------------------------------------------------------------------------------------*/
     // Update
     /*--------------------------------------------------------------------------------------------*/
 
     void QuoteFieldManager::update(Oscillator* osc, float t){
-        int i = 0, l = mQuoteFieldsSelected->size();
+        if (!mActive) {
+            return;
+        }
+        size_t selectedAdress = reinterpret_cast<size_t>(mQuoteFieldsSelected);
+        
+        int i = 0;
         for(vector<QuoteField*>::const_iterator itr = mQuoteFieldsSelected->begin(); itr != mQuoteFieldsSelected->end();++itr){
-            if(mNumQuoteFields != l || i == l){
-                return;
+            if(reinterpret_cast<size_t>(mQuoteFieldsSelected) != selectedAdress){
+                return; //  current adress did change 
             }
             QuoteField* quoteField(*itr);
             Offset&     offset((*mOffsetsSelected)[i++]);
@@ -101,6 +115,10 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
 
     void QuoteFieldManager::draw(const CameraOrtho& camera){
+        if (!mActive) {
+            return;
+        }
+        
         for(vector<QuoteField*>::const_iterator itr = mQuoteFieldsSelected->begin(); itr != mQuoteFieldsSelected->end(); itr++){
 #ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER_QUOTES
             (*itr)->debugDrawArea();
@@ -121,7 +139,6 @@ namespace next {
 
     void QuoteFieldManager::nextQuote(){
         int randIndex = getRandomIndex(mIndexQuotes);
-        cout << randIndex << endl;
         
         vector<QuoteField*>* quoteFieldSelected = &mQuoteFields[randIndex];
         vector<Offset>*      offsetsSelected    = &mOffsets[randIndex];
@@ -149,7 +166,7 @@ namespace next {
         mQuoteSelected       = quoteSelected;
         
         mNumQuoteFields   = mQuoteFieldsSelected->size();
-        mIndexQuotes      = (mIndexQuotes + 1) % mNumQuotes;
+        mIndexQuotes      = mPlayCount++ % mNumQuotes;
         mIndexQuoteFields = 0;
         mIndexSelected    = randIndex;
     }
@@ -182,6 +199,13 @@ namespace next {
     
     void QuoteFieldManager::onQuoteAtEnd(){
         if(mIndexQuoteFields == mOffsetsSelected->size() - 1){
+            if(mPlayCount == mMaxPlays){
+                if(mCallback){
+                    mCallback();
+                }
+                mActive = false;
+                return;
+            }
             nextQuote();
         }
         mIndexQuoteFields++;
@@ -192,6 +216,10 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
 #ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER
     void QuoteFieldManager::debugDraw(){
+        if(!mActive){
+            return;
+        }
+        
         Rectf rect(0,0,200,200);
         
         Vec2f tailLeft;
@@ -262,7 +290,7 @@ namespace next {
                 
                 for(vector<Diver*>::const_iterator _itr = divers.begin(); _itr != divers.end(); _itr++){
                     Diver* diver = (*_itr);
-                    diverOffset  = diver->getOffset();
+                    diverOffset  = diver->getOffsetX();
                     diverLength  = diver->getLength();
                     
                     pos.x  = MAX(0,lmap<float>(diverOffset, -1, 2, 0, rect.x2));
