@@ -42,7 +42,7 @@ namespace next {
         
         void onQuoteAtTarget(int index);
         void swap();
-        void setQuote(const Quote& quote, int index);
+        void setQuote(int index);
         
     public:
         QuoteFieldManager(vector<Quote>* quotes, vector<QuoteField*>* quoteFields, Grid* grid);
