@@ -45,7 +45,7 @@ namespace next{
 
         loadMaterialProperties();
         
-        mQuoteFieldManager = new QuoteFieldManager(mQuotes,&mQuoteFields,mGrid);
+        mQuoteFieldManager = new QuoteFieldManager(mQuotes,mGrid);
 
 #ifdef THEME_LIVE_EDIT_MATERIAL_SHADER
         mFileWatcher = FileWatcher::Get();
@@ -75,13 +75,9 @@ namespace next{
         while (!mDiverFields.empty()) delete mDiverFields.back(), mDiverFields.pop_back();
     }
 
-    void ThemeView::deleteQuoteFields(){
-       while (!mQuoteFields.empty()) delete mQuoteFields.back(), mQuoteFields.pop_back();
-    }
 
     ThemeView::~ThemeView(){
         deleteDiverFields();
-        deleteQuoteFields();
         delete mQuoteFieldManager;
     }
 
@@ -204,10 +200,7 @@ namespace next{
         }
 #endif
 #ifndef BOARD_SKIP_DRAW_FIELD_QUOTE
-        for (vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr) {
-            (*itr)->update(mOscillator,t);
-        }
-        mQuoteFieldManager->update();
+        mQuoteFieldManager->update(mOscillator, t);
 #endif
         
     }

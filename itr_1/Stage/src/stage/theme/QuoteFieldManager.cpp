@@ -17,22 +17,66 @@ namespace next {
     //  QuoteFieldManager
     /*--------------------------------------------------------------------------------------------*/
     
-    QuoteFieldManager::QuoteFieldManager(vector<Quote>* quotes, vector<QuoteField*>* quoteFields, Grid* grid) :
+    QuoteFieldManager::QuoteFieldManager(vector<Quote>* quotes, Grid* grid) :
         mQuotes(quotes),
         mNumQuotes(mQuotes->size()),
-        mQuoteFields(quoteFields),
         mIndexQuoteFields(0),
         mGrid(grid),
         mIndexQuotes(0),
         mDraw(true),
         mFramesSkipped(-1){
-
+            
+            //
+            //  preallocate every single quote
+            //
+            for(vector<Quote>::const_iterator itr = mQuotes->begin(); itr != mQuotes->end(); ++itr){
+                mQuoteFields += vector<QuoteField*>();
+                vector<QuoteField*>& quoteFieldsBack = mQuoteFields.back();
+                mOffsets     += vector<Offset>();
+                vector<Offset>& offsetsBack = mOffsets.back();
+                
+                const vector<QuoteLine>& lines = itr->getLines();
+                for(vector<QuoteLine>::const_iterator _itr = lines.begin(); _itr != lines.end(); ++_itr){
+                    quoteFieldsBack += new QuoteField(mGrid->getCell(_itr->getIndicesFront())->getCenter(),
+                                                      Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
+                                                      *_itr );
+                    offsetsBack += Offset();
+                }
+            }
+            
+            
+            
             setQuote();
     }
     
-    QuoteFieldManager::~QuoteFieldManager(){}
+    QuoteFieldManager::~QuoteFieldManager(){
+        while(!mQuoteFields.empty()){
+            while (!mQuoteFields.back().empty()) {
+                delete mQuoteFields.back().back();
+                mQuoteFields.back().pop_back();
+            }
+            mQuoteFields.pop_back();
+        }
+    }
     
-    void QuoteFieldManager::update(){
+    void QuoteFieldManager::update(Oscillator* osc, float t){
+        int i = 0, l = mQuoteFieldsSelected->size();
+        for(vector<QuoteField*>::const_iterator itr = mQuoteFieldsSelected->begin(); itr != mQuoteFieldsSelected->end();++itr){
+            if(mNumQuoteFields != l || i == l){
+                return;
+            }
+            (*itr)->update(osc, t);
+            mOffsetsSelected->at(i).update();
+            (*itr)->updateDivers(mOffsetsSelected->at(i++).getValue());
+            
+        }
+        
+        /*
+        for (vector<QuoteField*>::const_iterator itr = mQuoteFields.begin(); itr != mQuoteFields.end(); ++itr) {
+            (*itr)->update(mOscillator,t);
+        }*/
+        
+        /*
         int i = -1;
         int l = mQuoteFields->size();
         
@@ -45,10 +89,17 @@ namespace next {
         
             mQuoteFields->at(i)->updateDivers(mOffsets[i].getValue());
             l = mQuoteFields->size();
-        }
+        }*/
+        
+        
     }
     
     void QuoteFieldManager::draw(){
+        for(vector<QuoteField*>::const_iterator itr = mQuoteFieldsSelected->begin(); itr != mQuoteFieldsSelected->end(); itr++){
+            (*itr)->draw();
+        }
+        
+        /*
         if(!mDraw){
             //  skip 5 frames, after reseting the quote fields and its vbos
             //  theres some corrupt data, when resizing the quotefields
@@ -79,7 +130,9 @@ namespace next {
 #endif
             quoteFields[i]->draw();
         }
+         */
     }
+         
     
     /*
     void QuoteFieldManager::setQuote(){
@@ -109,11 +162,32 @@ namespace next {
     }*/
     
     void QuoteFieldManager::setQuote(){
-        if(mQuoteFields->empty()){
-            mOffsets.resize(0);
-            while(!mQuoteFields->empty()) delete mQuoteFields->back(), mQuoteFields->pop_back();
+        
+        vector<QuoteField*>* quoteFieldSelected = &mQuoteFields[mIndexQuotes];
+        vector<Offset>*      offsetsSelected    = &mOffsets[mIndexQuotes];
+        Quote*               quoteSelected      = &(*mQuotes)[mIndexQuotes];
+        
+        float delay     = 0;
+        float delayStep = 0.125f;//2.5f;
+        float time      = 2.0f;//8.0f;
+        
+        int i = -1;
+        while (++i < quoteFieldSelected->size()) {
+            (*offsetsSelected)[i].reset(0.0f, 1.925f, time, delay);
+            (*offsetsSelected)[i].setCallback(std::bind(&QuoteFieldManager::onQuoteAtTarget, this));
+            //reset quotefield offset here
+            delay += delayStep;
         }
         
+        mQuoteFieldsSelected = quoteFieldSelected;
+        mOffsetsSelected     = offsetsSelected;
+        mQuoteSelected       = quoteSelected;
+        
+        mNumQuoteFields   = mQuoteFieldsSelected->size();
+        mIndexQuotes      = (mIndexQuotes + 1) % mNumQuotes;
+        mIndexQuoteFields = 0;
+        
+        /*
         float delay     = 0;
         float delayStep = 0.125f;//2.5f;
         float time      = 2.0f;//8.0f;
@@ -144,16 +218,18 @@ namespace next {
         
         mNumQuoteFields   = lines.size();
         mIndexQuoteFields = 0;
+         */
     }
     
     
     
     void QuoteFieldManager::onQuoteAtTarget(){
-        if(mIndexQuoteFields == mQuoteFields->size() - 1){
+       
+        if(mIndexQuoteFields == mQuoteFieldsSelected->size() - 1){
             float delay     = 0;
             float delayStep = 0.125f; //0.5f;
             float time      = 2.0f;//10.0f;
-            for(vector<Offset>::iterator itr = mOffsets.begin(); itr != mOffsets.end(); ++itr){
+            for(vector<Offset>::iterator itr = mOffsetsSelected->begin(); itr != mOffsetsSelected->end(); ++itr){
                 itr->reset(itr->getValue(), 3.0f, time, delay);
                 itr->setCallback(std::bind(&QuoteFieldManager::onQuoteAtEnd, this));
                 delay += delayStep;
@@ -162,13 +238,16 @@ namespace next {
         }
         mIndexQuoteFields++;
         
+        
     }
     
     void QuoteFieldManager::onQuoteAtEnd(){
-        if(mIndexQuoteFields == mQuoteFields->size() - 1){
+        
+        if(mIndexQuoteFields == mOffsetsSelected->size() - 1){
             setQuote();
         }
         mIndexQuoteFields++;
+        
         
     }
     
@@ -226,10 +305,11 @@ namespace next {
             glColor4f(1, 1, 1, 1);
             gl::draw(texture, rect);
             glPopMatrix();
-            
+        
+            vector<QuoteField*>& quoteFields = *mQuoteFieldsSelected;
         
             
-            float stepV   = rect.y2 / static_cast<float>(mQuoteFields->size());
+            float stepV   = rect.y2 / static_cast<float>(quoteFields.size());
             float stepH   = rect.x2 / static_cast<float>(3); //-1,0,1,2
             float stepH_2 = stepH * 2.0f;
             
@@ -254,7 +334,7 @@ namespace next {
             }
             
             i = 0;
-            for (vector<QuoteField*>::iterator itr = mQuoteFields->begin(); itr != mQuoteFields->end(); ++itr) {
+            for (vector<QuoteField*>::iterator itr = quoteFields.begin(); itr != quoteFields.end(); ++itr) {
                 const vector<Diver*>& divers = (*itr)->getDivers();
                 
                 rowDiver   = 0;

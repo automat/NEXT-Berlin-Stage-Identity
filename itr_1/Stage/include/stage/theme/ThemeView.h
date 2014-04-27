@@ -37,7 +37,6 @@ namespace next{
 
         vector<Quote>*      mQuotes;        //  quote data
         Oscillator*         mOscillator;
-        vector<QuoteField*> mQuoteFields; //  quote fields
         
         QuoteFieldManager*  mQuoteFieldManager;
 
@@ -53,7 +52,6 @@ namespace next{
 
         void loadMaterialProperties();
 
-        void deleteQuoteFields();
         void deleteDiverFields();
 
     public:

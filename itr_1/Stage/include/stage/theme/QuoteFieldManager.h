@@ -15,6 +15,7 @@
 #include "stage/theme/field/QuoteField.h"
 #include "stage/theme/Offset.h"
 #include "quote/Quote.h"
+#include "stage/Oscillator.h"
 
 namespace next {
     using namespace std;
@@ -24,16 +25,19 @@ namespace next {
         //  QuoteFieldManager
         /*--------------------------------------------------------------------------------------------*/
         
-        Grid*                mGrid;
-        vector<Quote>*       mQuotes;
-        size_t               mNumQuotes;
-        int                  mIndexQuotes;
+        Grid*                 mGrid;
+        vector<Quote>*        mQuotes;
+        size_t                mNumQuotes;
+        int                   mIndexQuotes;
         
-        Quote*               mQuoteSelected;
-        vector<QuoteField*>* mQuoteFields;
-        vector<Offset>       mOffsets;
-        size_t               mNumQuoteFields;
-        int                  mIndexQuoteFields;
+        Quote*                       mQuoteSelected;
+        vector<vector<QuoteField*>>  mQuoteFields;
+        vector<QuoteField*>*         mQuoteFieldsSelected;
+        vector<vector<Offset>>       mOffsets;
+        vector<Offset>*              mOffsetsSelected;
+        
+        size_t                       mNumQuoteFields;
+        int                          mIndexQuoteFields;
         
         bool                 mReset;
         bool                 mDraw;
@@ -46,12 +50,12 @@ namespace next {
         void setQuote();
         
     public:
-        QuoteFieldManager(vector<Quote>* quotes, vector<QuoteField*>* quoteFields, Grid* grid);
+        QuoteFieldManager(vector<Quote>* quotes, Grid* grid);
         ~QuoteFieldManager();
 #ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER
         void debugDraw();
 #endif
-        void update();
+        void update(Oscillator* osc, float t);
         void draw();
         
         //! return the current active quote
