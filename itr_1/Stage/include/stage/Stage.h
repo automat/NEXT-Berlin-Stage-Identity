@@ -27,8 +27,8 @@
 #include "util/FrustumOrtho.h"
 
 #include "util/LayoutArea.h"
-#include "data/quote/QuoteTypesetter.h"
-#include "data/quote/json/QuoteJson.h"
+#include "quote/QuoteTypesetter.h"
+#include "quote/json/QuoteJson.h"
 
 #include "stage/Oscillator.h"
 #include "stage/bg/Background.h"
@@ -38,7 +38,7 @@
 #include "stage/theme/ThemeView.h"
 #include "stage/overlay/NEXTLogo.h"
 
-#include "data/session/Session.h"
+#include "stage/session/model/Session.h"
 
 
 /*--------------------------------------------------------------------------------------------*/

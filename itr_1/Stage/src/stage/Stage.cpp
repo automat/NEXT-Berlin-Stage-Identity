@@ -12,8 +12,8 @@
 #include "util/gl/ShaderUtil.h"
 #include "util/gl/DrawUtil.h"
 
-#include "data/quote/QuoteAlign.h"
-#include "data/quote/Quote.h"
+#include "quote/QuoteAlign.h"
+#include "quote/Quote.h"
 
 #include "stage/theme/path/PathSurface.h"
 
