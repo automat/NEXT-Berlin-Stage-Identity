@@ -268,6 +268,8 @@ namespace next{
         mThemeView->draw(mCamera,useMaterialShaders);
         
         
+        
+        
         if(useMaterialShaders){
             mLantern0->disable();
             mLantern1->disable();
@@ -414,6 +416,8 @@ namespace next{
         mFboThemeView.getTexture().unbind(1);
         mFboPingPong_2.unbindSourceTexture(0);
         mFboThemeViewSSAO.unbindFramebuffer();
+        mFboPingPong_2.swap();
+        
         
         
         /*--------------------------------------------------------------------------------------------*/
@@ -529,34 +533,6 @@ namespace next{
         gl::setMatricesWindow(app::getWindowSize(),false);
         gl::draw(mFboThemeViewFinal.getTexture(), mFboThemeViewSSAO.getBounds());
 
-        
-        /*
-         #ifndef STAGE_SKIP_THEME_VIEW
-         #ifndef STAGE_SKIP_FX_SHADER
-         gl::draw(mFboThemeViewFinal.getTexture(), mFboThemeViewSSAO.getBounds());
-         #else
-         gl::draw(mFboThemeView.getTexture(), mFboThemeView.getBounds());
-         #endif
-         #endif
-         */
-        /*
-         #ifdef DEBUG_STAGE_TYPESETTER_TEXTURE
-         gl::disableDepthRead();
-         glColor3f(1, 1, 1);
-         const Quote* quote = mThemeView->getCurrentQuote();
-         if(quote != nullptr){
-         gl::draw(quote->getTexture(),Rectf(mFboSize_1.x - 256,mFboSize_1.y,mFboSize_1.x,mFboSize_1.y - 256));
-         }
-         gl::enableDepthRead();
-         #endif
-         */
-        /*
-         gl::disableDepthRead();
-         gl::setMatricesWindow(app::getWindowSize(), true);
-         #ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER
-         mThemeView->debugDrawQuoteManager();
-         #endif
-         */
         gl::enableDepthRead();
         glAlphaFunc(GL_GREATER, 0.0);
         glEnable(GL_ALPHA_TEST);
@@ -565,34 +541,20 @@ namespace next{
         
         gl::pushMatrices();
         gl::setMatrices(mCamera);
-        mSessionView->draw();
+        //mSessionView->draw();
         gl::popMatrices();
         gl::enableAlphaBlending();
         gl::disableDepthRead();
         
+        
         gl::setMatricesWindow(app::getWindowSize(),true);
-        mSessionView->drawLabels();
+        //mSessionView->drawLabels();
         mLogoNEXT->draw();
         
         glDisable(GL_BLEND);
         glDisable(GL_ALPHA_TEST);
         glAlphaFunc(GL_GREATER, 0.5); // clearStates what seems to be cinders default
         gl::enableDepthRead();
-
-        /*
-         gl::pushMatrices();
-         gl::setMatricesWindow(app::getWindowSize());
-         mSessionView->drawLabels();
-         gl::popMatrices();
-         
-         #ifndef STAGE_SKIP_LOGO
-         mLogoNEXT->draw();
-         #endif
-         glDisable(GL_BLEND);
-         glDisable(GL_ALPHA_TEST);
-         glAlphaFunc(GL_GREATER, 0.5); // clearStates what seems to be cinders default
-         gl::enableDepthRead();
-         */
         
         gl::popMatrices();
     }

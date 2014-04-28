@@ -68,6 +68,8 @@ namespace next{
                               LoadResource(RES_GLSL_BOARD_DIVER_FIELD_FRAG),
                               &mShaderQuoteDivers);
 #endif
+        
+        mQuoteFieldManager->play(50, NULL);
     }
 
     /*--------------------------------------------------------------------------------------------*/

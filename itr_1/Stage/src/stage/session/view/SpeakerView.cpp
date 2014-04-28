@@ -157,11 +157,11 @@ namespace next {
     //  Dont do this on the timeline!
     //
     void SpeakerView::repaint(){
-        return;
         if(!mFboDirty){
             return;
         }
         
+        /*
         static const float scale = 10.0f;
 
         float focusColor    = mFocusColorState();
@@ -213,9 +213,11 @@ namespace next {
                               0.39607843137255f * focusColor + 0.89019607843137f * focusColorInv);
                     gl::draw(mFbo0.getTexture());
                 mFbo1.unbindFramebuffer();
+         
                 
             gl::popMatrices();
         glPopAttrib();
+         */
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -228,6 +230,11 @@ namespace next {
         Vec3f pos   = mPositionState();
         float scale = mScaleState();
         
+        float focusColor    = mFocusColorState();
+        float focusBlur     = mFocusBlurState();
+        float focusBlurInv  = 1.0f - focusBlur;
+        float focusColorInv = 1.0f - focusColor;
+        
         glPushMatrix();
             glTranslatef(pos.x,pos.y,pos.z);
             glScalef(scale,scale,scale);
@@ -236,22 +243,29 @@ namespace next {
             
             glColor3f(1,1,1);
             //mData->imageRef.enableAndBind();
-            mFbo1.getTexture().enableAndBind();
+            //mFbo1.getTexture().enableAndBind();
+            mData->imageRef.enableAndBind();
             glEnableClientState(GL_TEXTURE_COORD_ARRAY);
             glEnableClientState(GL_NORMAL_ARRAY);
-            glEnableClientState(GL_COLOR_ARRAY);
+            //glEnableClientState(GL_COLOR_ARRAY);
             
             glNormalPointer(   3, GL_FLOAT,    &sCardNormals[0]);
             glTexCoordPointer( 2, GL_FLOAT, 0, &mTexcoords[0]);
-            glColorPointer(    4, GL_FLOAT, 0, &mVertexColors[0]);
+            //glColorPointer(    4, GL_FLOAT, 0, &mVertexColors[0]);
             glVertexPointer(   3, GL_FLOAT, 0, &sCardVertices[0]);
+        
+            glColor3f(0.87450980392157f * focusColor + 0.0f * focusColorInv,
+                      0.06274509803922f * focusColor + 0.39607843137255f * focusColorInv,
+                      0.39607843137255f * focusColor + 0.89019607843137f * focusColorInv);
             glDrawArrays(GL_TRIANGLES, 0,sCardVerticesLen);
             
-            glDisableClientState(GL_COLOR_ARRAY);
+            //glDisableClientState(GL_COLOR_ARRAY);
             glDisableClientState(GL_NORMAL_ARRAY);
             glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-            mFbo1.unbindTexture();
-            mFbo1.getTexture().disable();
+            mData->imageRef.unbind();
+            mData->imageRef.disable();
+            //mFbo1.unbindTexture();
+            //mFbo1.getTexture().disable();
         
         //mData->imageRef.unbind();
         //mData->imageRef.disable();
