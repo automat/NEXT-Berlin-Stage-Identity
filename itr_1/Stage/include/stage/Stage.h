@@ -44,7 +44,6 @@
 /*--------------------------------------------------------------------------------------------*/
 
 namespace next{
-    typedef std::shared_ptr<class Stage> StageRef;
 
     class Stage {
         CameraOrtho  mCamera;
@@ -55,8 +54,6 @@ namespace next{
 
         Lantern*     mLantern0;
         Lantern*     mLantern1;
-        bool         mLantern0DebugDraw;
-        bool         mLantern1DebugDraw;
 
         Oscillator*      mOscillator;
         Background*      mBackground;
@@ -88,8 +85,6 @@ namespace next{
 
         gl::Fbo mFboThemeViewSSAO;      //  original theme view + ssao
         gl::Fbo mFboThemeViewFinal;     //  final theme view completely post-processed
-        gl::Fbo mFboScheduleViewSSAO;   //  original schedule view + ssao
-        gl::Fbo mFboScheduleViewFinal;  //  final schedule view completely post-processed
 
         gl::GlslProg     mShaderNormalDepth;
         gl::GlslProg     mShaderSSAO;
@@ -101,13 +96,10 @@ namespace next{
 #endif
         Vec2i   mFboSize_1;         //  cache size 1
         gl::Fbo mFboThemeView;      //  original theme view unprocessed
-        gl::Fbo mFboScheduleView;   //  original schedule view unprocessed
 
 
-#ifndef STAGE_SKIP_THEME_VIEW
-        void drawThemeView(bool useMaterialShaders);
-        void processThemeView();
-#endif
+        void drawThemeScene(bool useMaterialShaders);
+        void processThemeScene();
 
 
         void loadLightProperties();
@@ -125,16 +117,6 @@ namespace next{
         void viewTop();
         void viewOrtho();
         void onConfigDidChange();
-
-        //! stage leaves info layer, enters quote layer
-        void wakeUp();
-        //! stage dims down, enters info layer
-        void tearDown();
-
-        inline static StageRef create(vector<QuoteJson>* quoteData, Session* sessionData){
-            return std::make_shared<Stage>(quoteData, sessionData);
-        }
-
     };
 }
 

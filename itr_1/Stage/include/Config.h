@@ -33,7 +33,7 @@ using namespace ci;
 
 #define STAGE_WIDTH  3552
 #define STAGE_HEIGHT 1105
-#define STAGE_SCALE  1
+#define STAGE_SCALE  2
 
 /*--------------------------------------------------------------------------------------------*/
 // App
@@ -84,7 +84,6 @@ extern int   PROJECTION_OVERLAP_EDGE;
 
 //#define STAGE_SKIP_LOGO
 
-//#define STAGE_SKIP_THEME_VIEW
 
 #define STAGE_MODEL_SCALE_MIN 0.65f
 #define STAGE_MODEL_SCALE STAGE_MODEL_SCALE_MIN

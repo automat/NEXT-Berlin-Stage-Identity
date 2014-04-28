@@ -20,13 +20,14 @@
 namespace next{
     using namespace boost::assign;
 
-/*--------------------------------------------------------------------------------------------*/
-
-
     Stage::Stage(vector<QuoteJson>* quoteData, Session* sessionData){
-        /*--------------------------------------------------------------------------------------------*/
+        //
+        //
+        //
         //  View
-        /*--------------------------------------------------------------------------------------------*/
+        //
+        //
+        //
 
         mCameraAspectRatio = app::getWindowAspectRatio();
         mCamera.setOrtho(-mCameraAspectRatio * STAGE_MODEL_CAM_ZOOM, mCameraAspectRatio * STAGE_MODEL_CAM_ZOOM,
@@ -37,10 +38,8 @@ namespace next{
         mTransform  = Matrix44f::createScale(Vec3f(mModelScale,mModelScale,mModelScale));
         mFrustum.set(mCamera);
 
-        mLantern0         = new Lantern(0);
-        mLantern1         = new Lantern(1);
-        mLantern0DebugDraw = false;
-        mLantern1DebugDraw = false;
+        mLantern0 = new Lantern(0);
+        mLantern1 = new Lantern(1);
         loadLightProperties();
 
 
@@ -92,9 +91,8 @@ namespace next{
 
         mOscillator   = new Oscillator();
         mBackground   = new Background(mGrid, areaScaled, mOscillator, windowSize.x, windowSize.y);
-#ifndef STAGE_SKIP_THEME_VIEW
         mThemeView    = new ThemeView(mGrid, areaScaled, mOscillator, &mQuotes);
-#endif
+
 #ifndef STAGE_SKIP_LOGO
         mLogoNEXT = new NEXTLogo();
 #endif
@@ -105,14 +103,8 @@ namespace next{
         gl::Fbo::Format fboFormat_MSAA_4;
         fboFormat_MSAA_4.setSamples(4);
 
-        gl::Fbo::Format fboFormat_MSAA_2;
-        fboFormat_MSAA_2.setSamples(2);
-
-        gl::Fbo::Format fboFormat_RGBA_MSAA_4;
-        fboFormat_RGBA_MSAA_4.setSamples(4);
-        fboFormat_RGBA_MSAA_4.setColorInternalFormat(GL_RGBA16F_ARB);
-
         mFboSize_1      = windowSize;
+
 #ifndef STAGE_SKIP_FX_SHADER
         mTextureNoise   = loadImage(app::loadResource(RES_TEXTURE_NOISE));
 
@@ -125,8 +117,6 @@ namespace next{
 
         mFboThemeViewSSAO     = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
         mFboThemeViewFinal    = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
-        mFboScheduleViewSSAO  = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
-        mFboScheduleViewFinal = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
 
         mFboPingPong_1     = PingPongFbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
         mFboPingPong_2     = PingPongFbo(mFboSize_2.x, mFboSize_2.y, fboFormat_MSAA_4);
@@ -136,9 +126,6 @@ namespace next{
 #endif
 
         mFboThemeView    = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
-        mFboScheduleView = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_RGBA_MSAA_4);
-        
-        
 
 #if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(STAGE_SKIP_FX_SHADER)
         mFileWatcher = FileWatcher::Get();
@@ -177,9 +164,7 @@ namespace next{
 
     Stage::~Stage(){
         delete mBackground;
-#ifndef STAGE_SKIP_THEME_VIEW
         delete mThemeView;
-#endif
         delete mOscillator;
         delete mTypesetter;
         delete mGrid;
@@ -206,8 +191,6 @@ namespace next{
         mLantern0->setLinearAttenuation(STAGE_LANTERN_0_LINEAR_ATTENUATION);
         mLantern0->setQuadraticAttenuation(STAGE_LANTERN_0_QUADRIC_ATTENUATION);
 
-        mLantern0DebugDraw = STAGE_LANTERN_0_DEBUG_DRAW;
-
         //
         //  Lantern 1
         //
@@ -221,9 +204,6 @@ namespace next{
         mLantern1->setConstantAttenuation(STAGE_LANTERN_1_CONSTANT_ATTENUATION);
         mLantern1->setLinearAttenuation(STAGE_LANTERN_1_LINEAR_ATTENUATION);
         mLantern1->setQuadraticAttenuation(STAGE_LANTERN_1_QUADRIC_ATTENUATION);
-
-        mLantern1DebugDraw = STAGE_LANTERN_1_DEBUG_DRAW;
-
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -237,7 +217,7 @@ namespace next{
 //  Draw theme view
 /*--------------------------------------------------------------------------------------------*/
 
-    void Stage::drawThemeView(bool useMaterialShaders){
+    void Stage::drawThemeScene(bool useMaterialShaders){
         gl::enableDepthRead();
 
         gl::clear(Color(1,1,1));
@@ -277,14 +257,6 @@ namespace next{
     gl::enableDepthRead();
 #endif
 
-        if(mLantern0DebugDraw){
-            mLantern0->debugDraw();
-        }
-
-        if(mLantern1DebugDraw){
-            mLantern1->debugDraw();
-        }
-
         gl::popMatrices();
         gl::disableDepthRead();
     }
@@ -293,7 +265,7 @@ namespace next{
 //  Post process theme view
 /*--------------------------------------------------------------------------------------------*/
 
-    void Stage::processThemeView(){
+    void Stage::processThemeScene(){
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
         //
@@ -302,7 +274,7 @@ namespace next{
         ////////////////////////////////////////////////////////////////////////////////////////////////
 
         mFboThemeView.bindFramebuffer();
-        drawThemeView(true);
+        drawThemeScene(true);
         mFboThemeView.unbindFramebuffer();
 
 #ifndef STAGE_SKIP_FX_SHADER
@@ -323,7 +295,7 @@ namespace next{
         mFboPingPong_2.bindFramebuffer();
 
         mShaderNormalDepth.bind();
-        drawThemeView(false);
+        drawThemeScene(false);
         mShaderNormalDepth.unbind();
 
         mFboPingPong_2.unbindFramebuffer();
@@ -506,10 +478,9 @@ namespace next{
                 loadFile(RES_ABS_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
                 &mShaderMixRadial);
 #endif
+
         mBackground->update(mOscillator,app::getElapsedSeconds());
-#ifndef STAGE_SKIP_THEME_VIEW
         mThemeView->update();
-#endif
     }
 
 
@@ -518,36 +489,22 @@ namespace next{
 /*--------------------------------------------------------------------------------------------*/
 
     void Stage::draw(){
-#ifndef STAGE_SKIP_THEME_VIEW
+
         //  Process theme fx pipe
-        processThemeView();
-#endif
+        processThemeScene();
         //  Draw Scene
         gl::pushMatrices();
         gl::setMatricesWindow(app::getWindowSize(),false);
 
-#ifndef STAGE_SKIP_THEME_VIEW
-#ifndef STAGE_SKIP_FX_SHADER
-        gl::draw(mFboThemeViewFinal.getTexture(), mFboThemeViewSSAO.getBounds());
-#else
-        gl::draw(mFboThemeView.getTexture(), mFboThemeView.getBounds());
-#endif
-#endif
+        gl::draw(mFboThemeViewFinal.getTexture(), mFboBounds_1);
 
-#ifdef DEBUG_STAGE_TYPESETTER_TEXTURE
-        gl::disableDepthRead();
-        glColor3f(1, 1, 1);
-        const Quote* quote = mThemeView->getCurrentQuote();
-        if(quote != nullptr){
-            gl::draw(quote->getTexture(),Rectf(mFboSize_1.x - 256,mFboSize_1.y,mFboSize_1.x,mFboSize_1.y - 256));
-        }
-        gl::enableDepthRead();
-#endif
         gl::disableDepthRead();
         gl::setMatricesWindow(app::getWindowSize(), true);
+
 #ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER
         mThemeView->debugDrawQuoteManager();
 #endif
+
 #ifndef STAGE_SKIP_LOGO
         mLogoNEXT->draw();
 #endif
@@ -587,14 +544,6 @@ namespace next{
     void Stage::onConfigDidChange(){
         loadLightProperties();
         mThemeView->onConfigDidChange();
-    }
-
-    void Stage::wakeUp(){
-
-    }
-
-    void Stage::tearDown(){
-
     }
     
     /*--------------------------------------------------------------------------------------------*/
