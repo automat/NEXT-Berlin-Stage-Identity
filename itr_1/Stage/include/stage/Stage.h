@@ -36,6 +36,7 @@
 #include "stage/env/Lantern.h"
 
 #include "stage/theme/ThemeView.h"
+#include "stage/session/view/SessionView.h"
 #include "stage/overlay/NEXTLogo.h"
 
 #include "stage/session/model/Session.h"
@@ -68,6 +69,8 @@ namespace next{
 #ifndef STAGE_SKIP_THEME_VIEW
         ThemeView*       mThemeView;
 #endif
+        SessionView*     mSessionView;
+        
 #ifndef STAGE_SKIP_LOGO
         NEXTLogo*   mLogoNEXT;
 #endif

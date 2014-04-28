@@ -126,6 +126,8 @@ namespace next {
         Area  textureViewport = Area(0, 0, textureWidth, textureHeight);
         Vec2f texelSize       = Vec2f(1.0f / textureWidth, 1.0f / textureHeight);
 
+        
+        
         mFbo0 = gl::Fbo(textureWidth, textureHeight, mFboFormat);
         mFbo1 = gl::Fbo(textureWidth, textureHeight, mFboFormat);
 

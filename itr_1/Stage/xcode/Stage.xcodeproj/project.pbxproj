@@ -78,12 +78,12 @@
 		CD6DD1A0190DC24D00005D56 /* akkurat_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD6DD19D190DC24D00005D56 /* akkurat_bold.ttf */; };
 		CD6DD1A1190DC24D00005D56 /* akkurat_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD6DD19E190DC24D00005D56 /* akkurat_light.ttf */; };
 		CD6DD1A2190DC24D00005D56 /* akkurat_regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = CD6DD19F190DC24D00005D56 /* akkurat_regular.otf */; };
+		CD8496B8190E7B37007B64C9 /* Offset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8496B7190E7B37007B64C9 /* Offset.cpp */; };
 		CDAC7AE5190AE32700430DCF /* ShaderUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AE4190AE32700430DCF /* ShaderUtil.cpp */; };
 		CDAC7AEA190AE56000430DCF /* FxResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AE9190AE56000430DCF /* FxResources.cpp */; };
 		CDAC7AEE190AF4CF00430DCF /* QuoteFieldManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AED190AF4CF00430DCF /* QuoteFieldManager.cpp */; };
 		CDAC7AFF190AF6CB00430DCF /* QuoteParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AFE190AF6CB00430DCF /* QuoteParser.cpp */; };
 		CDAC7B01190AF6F500430DCF /* LayoutArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7B00190AF6F500430DCF /* LayoutArea.cpp */; };
-		CDECFA78190C3748006B8079 /* Offset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDECFA77190C3748006B8079 /* Offset.cpp */; };
 		CDFB0AF4190B0B70008A75DF /* logo_180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFB0AF3190B0B70008A75DF /* logo_180x180.png */; };
 /* End PBXBuildFile section */
 
@@ -204,6 +204,7 @@
 		CD6DD19D190DC24D00005D56 /* akkurat_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = akkurat_bold.ttf; sourceTree = "<group>"; };
 		CD6DD19E190DC24D00005D56 /* akkurat_light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = akkurat_light.ttf; sourceTree = "<group>"; };
 		CD6DD19F190DC24D00005D56 /* akkurat_regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = akkurat_regular.otf; sourceTree = "<group>"; };
+		CD8496B7190E7B37007B64C9 /* Offset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Offset.cpp; sourceTree = "<group>"; };
 		CDAC7ADB190AE2FE00430DCF /* DrawUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawUtil.h; sourceTree = "<group>"; };
 		CDAC7ADC190AE2FE00430DCF /* PingPongFbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongFbo.h; sourceTree = "<group>"; };
 		CDAC7ADD190AE2FE00430DCF /* ShaderUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderUtil.h; sourceTree = "<group>"; };
@@ -227,7 +228,6 @@
 		CDAC7AFE190AF6CB00430DCF /* QuoteParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuoteParser.cpp; sourceTree = "<group>"; };
 		CDAC7B00190AF6F500430DCF /* LayoutArea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutArea.cpp; sourceTree = "<group>"; };
 		CDECFA76190C370E006B8079 /* Offset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Offset.h; sourceTree = "<group>"; };
-		CDECFA77190C3748006B8079 /* Offset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Offset.cpp; sourceTree = "<group>"; };
 		CDFB0AF2190B0AB2008A75DF /* NEXTLogo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEXTLogo.h; sourceTree = "<group>"; };
 		CDFB0AF3190B0B70008A75DF /* logo_180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_180x180.png; sourceTree = "<group>"; };
 		CDFB0AF5190B39BC008A75DF /* MathUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathUtil.h; sourceTree = "<group>"; };
@@ -466,7 +466,6 @@
 				CD40A2BE190AAC55003F790B /* theme */,
 				CD40A2B0190AAC55003F790B /* Oscillator.cpp */,
 				CD40A2BD190AAC55003F790B /* Stage.cpp */,
-				CDECFA77190C3748006B8079 /* Offset.cpp */,
 			);
 			name = stage;
 			path = ../src/stage;
@@ -504,6 +503,7 @@
 				CD40A2C5190AAC55003F790B /* path */,
 				CD40A2C8190AAC55003F790B /* ThemeView.cpp */,
 				CDAC7AED190AF4CF00430DCF /* QuoteFieldManager.cpp */,
+				CD8496B7190E7B37007B64C9 /* Offset.cpp */,
 			);
 			path = theme;
 			sourceTree = "<group>";
@@ -982,8 +982,8 @@
 				CD6DD179190DC06900005D56 /* EventMetaLabel.cpp in Sources */,
 				CD40A2D5190AAC55003F790B /* Oscillator.cpp in Sources */,
 				CD40A2E4190AAC55003F790B /* ThemeView.cpp in Sources */,
-				CDECFA78190C3748006B8079 /* Offset.cpp in Sources */,
 				CD6DD17D190DC06900005D56 /* SpeakerLabel.cpp in Sources */,
+				CD8496B8190E7B37007B64C9 /* Offset.cpp in Sources */,
 				CD40A2DD190AAC55003F790B /* Stage.cpp in Sources */,
 				CD6DD166190DC04F00005D56 /* TextBox.cpp in Sources */,
 				CD6DD17C190DC06900005D56 /* SessionTitleLabel.cpp in Sources */,
