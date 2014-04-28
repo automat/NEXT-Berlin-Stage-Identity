@@ -153,6 +153,7 @@ namespace next {
 
 
     void SpeakerView::drawFocus(){
+        return;
         static const float scale = 10.0f;
 
         float focusColor    = mFocusColorState();
@@ -216,7 +217,9 @@ namespace next {
     void SpeakerView::draw(){
         Vec3f pos   = mPositionState();
         float scale = mScaleState();
-        
+
+        const gl::Texture& image = mData->imageRef.weakClone();
+
         glPushMatrix();
             glTranslatef(pos.x,pos.y,pos.z);
             glScalef(scale,scale,scale);
@@ -224,7 +227,7 @@ namespace next {
             glEnableClientState(GL_VERTEX_ARRAY);
             
             glColor3f(1,1,1);
-            mFbo1.getTexture().enableAndBind();
+            image.enableAndBind();
             glEnableClientState(GL_TEXTURE_COORD_ARRAY);
             glEnableClientState(GL_NORMAL_ARRAY);
             glEnableClientState(GL_COLOR_ARRAY);
@@ -238,9 +241,8 @@ namespace next {
             glDisableClientState(GL_COLOR_ARRAY);
             glDisableClientState(GL_NORMAL_ARRAY);
             glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-            mFbo1.unbindTexture();
-            mFbo1.getTexture().disable();
-         
+            image.unbind();
+            image.disable();
             /*
             glColor4f(1,1,1,mColorState * 0.135f);
             static int indices[3] = {1,3,2};
