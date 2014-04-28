@@ -5,13 +5,13 @@
 #include "Config.h"
 
 #include "util/ExcInfoPanel.h"
-#include "quote/json/QuoteJson.h"
-#include "quote/json/QuoteParser.h"
+#include "data/quote/json/QuoteJson.h"
+#include "data/quote/json/QuoteParser.h"
 
-#include "stage/session/model/Speaker.h"
-#include "stage/session/model/Event.h"
-#include "stage/session/model/Session.h"
-#include "stage/session/model/Mapping.h"
+#include "data/session/Speaker.h"
+#include "data/session/Event.h"
+#include "data/session/Session.h"
+#include "data/session/Mapping.h"
 
 #include "stage/Stage.h"
 

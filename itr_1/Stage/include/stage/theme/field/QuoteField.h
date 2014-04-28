@@ -12,7 +12,7 @@
 #include <map>
 #include "cinder/Camera.h"
 
-#include "quote/QuoteLine.h"
+#include "data/quote/QuoteLine.h"
 #include "stage/theme/field/AbstractField.h"
 
 namespace next{

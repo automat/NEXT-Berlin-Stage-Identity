@@ -11,7 +11,7 @@
 
 #include <vector>
 
-#include "quote/Quote.h"
+#include "data/quote/Quote.h"
 
 #include "stage/grid/Grid.h"
 #include "stage/theme/field/QuoteField.h"
