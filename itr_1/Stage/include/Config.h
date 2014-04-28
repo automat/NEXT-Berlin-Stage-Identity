@@ -41,7 +41,7 @@ using namespace ci;
 
 #define APP_WIDTH  STAGE_WIDTH / STAGE_SCALE
 #define APP_HEIGHT STAGE_HEIGHT / STAGE_SCALE
-#define APP_FPS 36.0f
+#define APP_FPS 60.0f
 
 #define APP_USE_BAKED_CONFIG
 
@@ -403,7 +403,7 @@ extern ColorAf PATH_SURFACE_COLOR;
 /*--------------------------------------------------------------------------------------------*/
 
 #define DIVER_FIELD_NUM_DIVERS_MIN 10
-#define DIVER_FIELD_NUM_DIVERS_MAX 40
+#define DIVER_FIELD_NUM_DIVERS_MAX 30
 #define DIVER_FIELD_SURFACE_PATH_DENSITY 1.25f
 #define DIVER_FIELD_SURFACE_PATH_OFFSET_SPEED  0.001f //0.0125f
 #define DIVER_FIELD_SURFACE_PATH_AMPLITUDE 0.65f//0.325f

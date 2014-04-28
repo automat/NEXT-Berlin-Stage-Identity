@@ -21,6 +21,9 @@
 
 #include "stage/grid/Index.h"
 #include "stage/Oscillator.h"
+#include "stage/bg/Background.h"
+#include "stage/grid/Grid.h"
+#include "stage/env/Lantern.h"
 
 #include "stage/theme/field/DiverField.h"
 #include "stage/theme/field/QuoteField.h"
