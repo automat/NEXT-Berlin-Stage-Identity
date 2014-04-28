@@ -92,6 +92,7 @@ namespace next{
         mOscillator   = new Oscillator();
         mBackground   = new Background(mGrid, areaScaled, mOscillator, windowSize.x, windowSize.y);
         mThemeView    = new ThemeView(mGrid, areaScaled, mOscillator, &mQuotes);
+        mSessionView  = new SessionView(sessionData);
 
 #ifndef STAGE_SKIP_LOGO
         mLogoNEXT = new NEXTLogo();
@@ -156,6 +157,7 @@ namespace next{
                            &mShaderMixRadial);
 #endif
         mThemeView->play(100, NULL);
+        //mSessionView->start();
     }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -165,6 +167,7 @@ namespace next{
     Stage::~Stage(){
         delete mBackground;
         delete mThemeView;
+        delete mSessionView;
         delete mOscillator;
         delete mTypesetter;
         delete mGrid;
@@ -481,6 +484,7 @@ namespace next{
 
         mBackground->update(mOscillator,app::getElapsedSeconds());
         mThemeView->update();
+        mSessionView->update();
     }
 
 
@@ -505,9 +509,26 @@ namespace next{
         mThemeView->debugDrawQuoteManager();
 #endif
 
-#ifndef STAGE_SKIP_LOGO
+        glAlphaFunc(GL_GREATER, 0.0);
+        glEnable(GL_ALPHA_TEST);
+        glEnable( GL_BLEND );
+        glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+        
+        gl::enableAlphaBlending();
+        gl::disableDepthRead();
+        gl::pushMatrices();
+        gl::setMatricesWindow(app::getWindowSize());
+        mSessionView->drawLabels();
         mLogoNEXT->draw();
-#endif
+        gl::popMatrices();
+        gl::enableDepthRead();
+        
+        glDisable(GL_BLEND);
+        glDisable(GL_ALPHA_TEST);
+        glAlphaFunc(GL_GREATER, 0.5);;
+    
+        
+        
         gl::enableDepthRead();
         
         gl::popMatrices();

@@ -75,7 +75,6 @@
 		CD6DD17F190DC06900005D56 /* SessionView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD6DD175190DC06900005D56 /* SessionView.cpp */; };
 		CD6DD180190DC06900005D56 /* SpeakerStackView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD6DD176190DC06900005D56 /* SpeakerStackView.cpp */; };
 		CD6DD181190DC06900005D56 /* SpeakerView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD6DD177190DC06900005D56 /* SpeakerView.cpp */; };
-		CD6DD1A0190DC24D00005D56 /* akkurat_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD6DD19D190DC24D00005D56 /* akkurat_bold.ttf */; };
 		CD6DD1A1190DC24D00005D56 /* akkurat_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD6DD19E190DC24D00005D56 /* akkurat_light.ttf */; };
 		CD6DD1A2190DC24D00005D56 /* akkurat_regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = CD6DD19F190DC24D00005D56 /* akkurat_regular.otf */; };
 		CDAC7AE5190AE32700430DCF /* ShaderUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AE4190AE32700430DCF /* ShaderUtil.cpp */; };
@@ -83,6 +82,7 @@
 		CDAC7AEE190AF4CF00430DCF /* QuoteFieldManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AED190AF4CF00430DCF /* QuoteFieldManager.cpp */; };
 		CDAC7AFF190AF6CB00430DCF /* QuoteParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AFE190AF6CB00430DCF /* QuoteParser.cpp */; };
 		CDAC7B01190AF6F500430DCF /* LayoutArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7B00190AF6F500430DCF /* LayoutArea.cpp */; };
+		CDDEAAB6190EEF93004FE6D0 /* akkurat_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDDEAAB5190EEF93004FE6D0 /* akkurat_bold.ttf */; };
 		CDECFA78190C3748006B8079 /* Offset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDECFA77190C3748006B8079 /* Offset.cpp */; };
 		CDFB0AF4190B0B70008A75DF /* logo_180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFB0AF3190B0B70008A75DF /* logo_180x180.png */; };
 /* End PBXBuildFile section */
@@ -201,7 +201,6 @@
 		CD6DD19A190DC09100005D56 /* SessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionView.h; sourceTree = "<group>"; };
 		CD6DD19B190DC09100005D56 /* SpeakerStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakerStackView.h; sourceTree = "<group>"; };
 		CD6DD19C190DC09100005D56 /* SpeakerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakerView.h; sourceTree = "<group>"; };
-		CD6DD19D190DC24D00005D56 /* akkurat_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = akkurat_bold.ttf; sourceTree = "<group>"; };
 		CD6DD19E190DC24D00005D56 /* akkurat_light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = akkurat_light.ttf; sourceTree = "<group>"; };
 		CD6DD19F190DC24D00005D56 /* akkurat_regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = akkurat_regular.otf; sourceTree = "<group>"; };
 		CDAC7ADB190AE2FE00430DCF /* DrawUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawUtil.h; sourceTree = "<group>"; };
@@ -226,6 +225,7 @@
 		CDAC7AFB190AF6BA00430DCF /* QuoteTypesetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteTypesetter.h; sourceTree = "<group>"; };
 		CDAC7AFE190AF6CB00430DCF /* QuoteParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QuoteParser.cpp; sourceTree = "<group>"; };
 		CDAC7B00190AF6F500430DCF /* LayoutArea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutArea.cpp; sourceTree = "<group>"; };
+		CDDEAAB5190EEF93004FE6D0 /* akkurat_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = akkurat_bold.ttf; sourceTree = "<group>"; };
 		CDECFA76190C370E006B8079 /* Offset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Offset.h; sourceTree = "<group>"; };
 		CDECFA77190C3748006B8079 /* Offset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Offset.cpp; sourceTree = "<group>"; };
 		CDFB0AF2190B0AB2008A75DF /* NEXTLogo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEXTLogo.h; sourceTree = "<group>"; };
@@ -553,7 +553,7 @@
 		CD40A2E9190AAC67003F790B /* font */ = {
 			isa = PBXGroup;
 			children = (
-				CD6DD19D190DC24D00005D56 /* akkurat_bold.ttf */,
+				CDDEAAB5190EEF93004FE6D0 /* akkurat_bold.ttf */,
 				CD6DD19E190DC24D00005D56 /* akkurat_light.ttf */,
 				CD6DD19F190DC24D00005D56 /* akkurat_regular.otf */,
 				CD40A2EA190AAC67003F790B /* Apercu_Mono.otf */,
@@ -938,6 +938,7 @@
 				CD40A31A190AAC67003F790B /* mix_vert.glsl in Resources */,
 				CD40A327190AAC67003F790B /* pass_thru.glsl in Resources */,
 				CD40A316190AAC67003F790B /* blur_h_frag.glsl in Resources */,
+				CDDEAAB6190EEF93004FE6D0 /* akkurat_bold.ttf in Resources */,
 				CD40A329190AAC67003F790B /* test.json in Resources */,
 				CD40A32E190AAC67003F790B /* test_texture_font_black.jpg in Resources */,
 				CD40A31C190AAC67003F790B /* normal_depth_vert.glsl in Resources */,
@@ -947,7 +948,6 @@
 				CD40A325190AAC67003F790B /* quote_field_frag.glsl in Resources */,
 				CD6DD1A2190DC24D00005D56 /* akkurat_regular.otf in Resources */,
 				CD40A313190AAC67003F790B /* mesh_frag.glsl in Resources */,
-				CD6DD1A0190DC24D00005D56 /* akkurat_bold.ttf in Resources */,
 				CD40A322190AAC67003F790B /* diver_field_vert.glsl in Resources */,
 				CD40A31F190AAC67003F790B /* ssao_frag.glsl in Resources */,
 				CD40A314190AAC67003F790B /* mesh_vert.glsl in Resources */,

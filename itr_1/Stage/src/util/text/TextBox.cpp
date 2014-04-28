@@ -349,8 +349,8 @@ namespace next {
         mTexFontFormat.textureHeight(fontTextureSize);
 
         mFboFormat.setSamples(8);
-        mFboFormat.setColorInternalFormat(GL_RGBA16F_ARB);
-        mFboFormat.setWrap(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+        //mFboFormat.setColorInternalFormat(GL_RGBA16F_ARB);
+        //mFboFormat.setWrap(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
         
         mBlurShaderHRef = FxResources::GetBlurH();
         mBlurShaderVRef = FxResources::GetBlurV();
