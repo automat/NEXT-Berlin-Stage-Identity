@@ -28,8 +28,6 @@ protected:
     int        mPathSurfaceSize;
     Vec3f      mPos;
     
-    bool       mLoop;
-    
     float      mSpeed;
     float      mOffset;
     float      mLength;
@@ -55,16 +53,14 @@ public:
           float      offset,
           float      speed,
           float      length,
-          float      height,
-          bool       loop = true);
+          float      height = 0.125f);
     
     void reset(PathSlice* pathSlice,
                int        numPoints,
                float      offset,
                float      speed,
                float      length,
-               float      height,
-               bool       loop);
+               float      height);
     
     inline const Vec3f& getPos() const{
         return mPos;

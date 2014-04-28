@@ -55,11 +55,7 @@ namespace next {
         Anim<float> mFocusColorState;
         Anim<float> mFocusBlurState;
         
-        void startRepaint();
-        void endRepaint();
-        bool mFboDirty;
-        void repaint();
-        
+        void drawFocus();   
         void updateAlpha();
 
     public:

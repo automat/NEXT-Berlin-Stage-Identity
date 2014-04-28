@@ -14,7 +14,7 @@ using namespace boost::assign;
 /*--------------------------------------------------------------------------------------------*/
 
 AbstractField::AbstractField(const Vec3f& pos, int size, int numPathSlices) :
-    mActive(true),mPos(pos),mSize(size),mSurfaceNumSlices(numPathSlices),mSurfaceOffset(0),mLoop(false){
+    mActive(true),mPos(pos),mSize(size),mSurfaceNumSlices(numPathSlices),mSurfaceOffset(0){
         mTransform.translate(mPos);
         
         //
@@ -287,7 +287,7 @@ void AbstractField::reset_Internal(){
         length = Rand::randFloat(mDiverLengthMin, mDiverLengthMax);
         height = Rand::randFloat(mDiverHeightMin, mDiverHeightMax);
 
-        mDivers += new Diver(mPathSurface.getSlicePtr(i),mDiverNumPoints,offset,speed,length,height,mLoop);
+        mDivers += new Diver(mPathSurface.getSlicePtr(i),mDiverNumPoints,offset,speed,length,height);
     }
     
     mNumDivers            = mSurfaceNumSlices;

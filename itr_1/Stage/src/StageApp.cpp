@@ -45,11 +45,10 @@ public:
     vector<next::QuoteJson>* mDataQuotes;
     
     next::util::ExcInfoPanel* mExcPanel;
-    next::Stage*              mStage;
+    next::StageRef            mStage;
 };
 
 StageApp::~StageApp(){
-    delete mStage;
     delete mDataSession;
     delete mDataEvents;
     delete mDataSpeakers;
@@ -98,13 +97,13 @@ void StageApp::setup(){
     mDataEvents     = nullptr;
     mDataSession    = nullptr;
     
-    next::Mapping::Get(3560, mImagesClocks, mImagesSpeakers,
+    next::Mapping::Get(3615, mImagesClocks, mImagesSpeakers,
                        mDataSpeakers, mDataEvents, mDataSession);
     
     //
     //  Init
     //
-    mStage = new next::Stage(mDataQuotes, mDataSession);
+    mStage = next::Stage::create(mDataQuotes, mDataSession);
 }
 
 /*--------------------------------------------------------------------------------------------*/

@@ -14,15 +14,13 @@ Diver::Diver(PathSlice* pathSlice,
              float      offset,
              float      speed,
              float      length,
-             float      height,
-             bool       loop){
+             float      height){
     reset(pathSlice,
           numPoints,
           offset,
           speed,
           length,
-          height,
-          loop);
+          height);
 }
 
 void Diver::reset(PathSlice* pathSlice,
@@ -30,8 +28,7 @@ void Diver::reset(PathSlice* pathSlice,
                   float      offset,
                   float      speed,
                   float      length,
-                  float      height,
-                  bool       loop){
+                  float      height){
     mPathSlice = pathSlice;
     mNumPoints = numPoints;
     mOffset    = offset;
@@ -40,7 +37,6 @@ void Diver::reset(PathSlice* pathSlice,
     mLength    = length;
     mHeight    = height;
     mIsHidden  = false;
-    mLoop      = loop;
     
     mPathSurfaceSize = mPathSlice->getSurfaceSize();
     mPathLength      = mPathSurfaceSize;
@@ -58,7 +54,7 @@ void Diver::update(){
         return;
     }
     
-    if(mOffset >= 2.0f && mLoop){
+    if(mOffset >= 2.0f){
         mOffset = -1;
     }
     

@@ -31,20 +31,15 @@ namespace next{
     mOscillator(oscillator),
     mQuotes(quotes){
 
-        
-        
-        
-        //
-        //  Init
-        //
-        
         const vector<Cell*>& gridCells = mGrid->getCells();
         // Create diverfields according to layoutarea
         for(vector<Cell*>::const_iterator itr = gridCells.begin(); itr != gridCells.end(); ++itr){
             const Cell* cell = *itr;
             const Vec3f& pos =cell->getCenter();
             if(area.contains(pos)){
+                //const Index& index = cell->getIndex();
                 mDiverFields += new DiverField(pos,Rand::randInt(DIVER_FIELD_NUM_DIVERS_MIN, DIVER_FIELD_NUM_DIVERS_MAX));
+                //mIndexDiverFieldMap[index] = mDiverFields.back();
             }
         }
 
@@ -68,8 +63,6 @@ namespace next{
                               LoadResource(RES_GLSL_BOARD_DIVER_FIELD_FRAG),
                               &mShaderQuoteDivers);
 #endif
-        
-        mQuoteFieldManager->play(50, NULL);
     }
 
     /*--------------------------------------------------------------------------------------------*/
