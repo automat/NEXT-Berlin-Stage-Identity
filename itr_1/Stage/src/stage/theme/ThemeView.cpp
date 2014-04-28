@@ -214,4 +214,7 @@ namespace next{
     // get
     /*--------------------------------------------------------------------------------------------*/
 
+    void ThemeView::play(int num, const std::function<void()>& callback){
+        mQuoteFieldManager->play(num, callback);
+    }
 }

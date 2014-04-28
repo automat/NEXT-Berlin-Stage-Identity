@@ -47,8 +47,6 @@ namespace next {
                     offsetsBack += Offset();
                 }
             }
-            
-            play(10, NULL);
     }
     
     QuoteFieldManager::~QuoteFieldManager(){

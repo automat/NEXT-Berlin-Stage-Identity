@@ -370,7 +370,7 @@ extern bool STAGE_LANTERN_1_DEBUG_DRAW;
 
 //#define DEBUG_THEME_FIELD_QUOTE_MANAGER_QUOTES
 //#define DEBUG_THEME_FIELD_QUOTE_MANAGER_QUOTES_TEXCOORDS
-#define DEBUG_THEME_FIELD_QUOTE_MANAGER
+//#define DEBUG_THEME_FIELD_QUOTE_MANAGER
 
 /*--------------------------------------------------------------------------------------------*/
 // Background

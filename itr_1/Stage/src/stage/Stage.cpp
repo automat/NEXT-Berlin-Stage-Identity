@@ -168,7 +168,7 @@ namespace next{
                            app::loadResource(RES_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
                            &mShaderMixRadial);
 #endif
-
+        mThemeView->play(100, NULL);
     }
 
 /*--------------------------------------------------------------------------------------------*/
