@@ -1,5 +1,50 @@
 {
    "quotes" : [
+   {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 1.0
+               },
+               "string" : "Your\n car might\n bar you\n from driving soon."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 1.0
+               },
+               "string" : "Robots autonomously optimizing supply chains."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 1.0
+               },
+               "string" : "Objects talking to people talking to objects."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 1.0
+               },
+               "string" : "A\n prototpye says more than 1000 images."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 0.8
+               },
+               "string" : "100h\n of video uploaded every minute at YouTube."
+      },
       {
                "format" : {
                "align" : "center",
