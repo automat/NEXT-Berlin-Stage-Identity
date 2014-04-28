@@ -5,14 +5,14 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>596C7386-B15A-463E-9914-0D69E4CB2E0C</string>
+	<string>39C6FAAF-B3DC-4447-A881-072287EAA8D1</string>
 	<key>IDESourceControlProjectName</key>
 	<string>grid_01_render_qt</string>
 	<key>IDESourceControlProjectPath</key>
 	<string>xcode/grid_01_render_qt.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>1C9ECA67-5177-46D0-B31D-CC7FB657B9BA</key>
+		<key>4E103173-1218-43CE-A24F-392AF712CDFF</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -20,14 +20,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>1C9ECA67-5177-46D0-B31D-CC7FB657B9BA</string>
+	<string>4E103173-1218-43CE-A24F-392AF712CDFF</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>1C9ECA67-5177-46D0-B31D-CC7FB657B9BA</string>
+			<string>4E103173-1218-43CE-A24F-392AF712CDFF</string>
 			<key>IDESourceControlWCCName</key>
 			<string>grid_01_render_qt</string>
 		</dict>

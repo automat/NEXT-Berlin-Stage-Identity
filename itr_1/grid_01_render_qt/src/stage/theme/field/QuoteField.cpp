@@ -33,6 +33,8 @@ AbstractField(pos - Vec3f(quoteLine.getIndices().size(),0,0),numPathSlices,quote
     mDiverLengthMin     = QUOTE_FIELD_DIVER_MIN_LENGTH;
     mDiverLengthMax     = QUOTE_FIELD_DIVER_MAX_LENGTH;
     
+    mLoop = false;
+    
     mMeshLayout.setDynamicTexCoords2d();
     mMeshLayout.setStaticColorsRGB();
     reset(pos, numPathSlices, quoteLine);

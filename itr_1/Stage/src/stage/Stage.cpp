@@ -569,6 +569,16 @@ namespace next{
         gl::popMatrices();
         gl::enableAlphaBlending();
         gl::disableDepthRead();
+        
+        gl::setMatricesWindow(app::getWindowSize(),true);
+        mSessionView->drawLabels();
+        mLogoNEXT->draw();
+        
+        glDisable(GL_BLEND);
+        glDisable(GL_ALPHA_TEST);
+        glAlphaFunc(GL_GREATER, 0.5); // clearStates what seems to be cinders default
+        gl::enableDepthRead();
+
         /*
          gl::pushMatrices();
          gl::setMatricesWindow(app::getWindowSize());
