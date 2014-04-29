@@ -171,6 +171,7 @@ namespace next {
         mIndexQuotes      = mPlayCount++ % mNumQuotes;
         mIndexQuoteFields = 0;
         mIndexSelected    = randIndex;
+        cout << mPlayCount << " / " << mMaxPlays << endl;
     }
     
     /*--------------------------------------------------------------------------------------------*/

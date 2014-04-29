@@ -156,8 +156,8 @@ namespace next{
                            app::loadResource(RES_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
                            &mShaderMixRadial);
 #endif
-        //mThemeView->play(1000, NULL);
-        mSessionView->start();
+        mThemeView->play(100000, NULL);
+        //mSessionView->start();
     }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -167,7 +167,7 @@ namespace next{
     Stage::~Stage(){
         delete mBackground;
         delete mThemeView;
-       // delete mSessionView;
+        delete mSessionView;
         delete mOscillator;
         delete mTypesetter;
         delete mGrid;
