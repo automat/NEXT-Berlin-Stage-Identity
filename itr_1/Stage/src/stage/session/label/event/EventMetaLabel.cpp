@@ -8,21 +8,41 @@ namespace next {
     using namespace boost;
     
     typedef EaseInOutQuad AnimEaseInOut;
-
-    Font EventMetaLabel::sFont;
     
-    EventMetaLabel::EventMetaLabel() : AbstractLabel(), mTextBoxFrontWidth(0), mAlphaState(0), mActive(false){
-        static bool __fontInitialzed(false);
-        if(!__fontInitialzed){
-            sFont = Font(app::loadResource(RES_AKKURAT_BOLD),SESSION_LABEL_META_FONT_SIZE * SESSION_LABEL_META_FONT_SCALAR);
+    map<string,   TextBoxTexture> EventMetaLabel::sMapTypeTexture;
+    map<uint32_t, TextBoxTexture> EventMetaLabel::sMapIndexTexture;
+    
+
+    void EventMetaLabel::Map(map<uint32_t,next::Event>* events){
+        Font font(app::loadResource(RES_AKKURAT_BOLD),SESSION_LABEL_META_FONT_SIZE * SESSION_LABEL_META_FONT_SCALAR);
+        
+        TextBox* textbox = new TextBox();
+        textbox->setFont(        font);
+        textbox->setWidth(     SESSION_LABEL_EVENT_BOX_WIDTH);
+        textbox->setFontSize(  SESSION_LABEL_META_FONT_SIZE);
+        textbox->setColorFont( SESSION_LABEL_EVENT_META_FONT_COLOR);
+        
+        
+        size_t numEvents    = events->size();
+        string numEventsStr = toString(numEvents);
+        
+        int i = -1;
+        while (++i < numEvents) {
+            textbox->setString(toString(i + 1) + " / " + numEventsStr);
+            
+            sMapIndexTexture[i] = TextBoxTexture();
+            sMapIndexTexture[i].calculatedSize = textbox->getCalculatedSize();
+            sMapIndexTexture[i].texcoords      = textbox->getTexcoords();
+            sMapIndexTexture[i].topleft        = textbox->getTopLeft();
+            sMapIndexTexture[i].texture        = gl::Texture(Surface(textbox->getTexture()));
         }
-
-        mTextBox->setFont(      sFont);
-        mTextBox->setWidth(     SESSION_LABEL_EVENT_BOX_WIDTH);
-        mTextBox->setFontSize(  SESSION_LABEL_META_FONT_SIZE);
-        mTextBox->setColorFont( SESSION_LABEL_EVENT_META_FONT_COLOR);
-
-        mSubLabel = new PingPongEventMetaSubLabel();
+        
+        delete textbox;
+    }
+    
+    
+    EventMetaLabel::EventMetaLabel() : AbstractLabel(), mTextBoxFrontWidth(0), mAlphaState(0), mActive(false), mIndex(-1){
+        mSubLabel = new PingPongEventMetaTypeLabel();
         
         setPosition(SESSION_LABEL_EVENT_META_POS);
     }
@@ -32,11 +52,13 @@ namespace next {
     }
 
     void EventMetaLabel::draw(){
-        if(mTextBox->empty()){
+        if(mIndex == -1){
             return;
         }
+
+        const TextBoxTexture& index = sMapIndexTexture[mIndex];
+        const Vec2f& topLeft = index.topleft;
         
-        Vec2f topLeft = mTextBox->getTopLeft();
         float alpha   = mAlphaState();
         
         glPushMatrix();
@@ -59,7 +81,7 @@ namespace next {
         
                     glColor4f(1,1,1,alpha);
                     glTranslatef(topLeft.x, topLeft.y, 0);
-                    gl::draw(mTextBox->getTexture());
+                    gl::draw(index.texture);
 #ifdef SESSION_VIEW_LABEL_EVENT_META_DEBUG_DRAW
                     mTextBox->debugDraw();
 #endif
@@ -68,10 +90,12 @@ namespace next {
        glPopMatrix();
     }
     
-    void EventMetaLabel::set(const string& type, const string& index){
-        mTextBox->setString(index);
-        mTextBoxFrontWidth = mTextBox->getCalculatedSize().x + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
-
+    void EventMetaLabel::set(const string& type, uint32_t index){
+        mIndex = index;
+        
+        float textBoxFrontWidth = sMapIndexTexture[mIndex].calculatedSize.x;
+        mTextBoxFrontWidth      = textBoxFrontWidth + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
+        
         float trapezoidIndexWidth = mTextBoxFrontWidth + SESSION_LABEL_META_OFFSET_X * -0.5f;
         static const float slope = 14.5f;
         
@@ -79,6 +103,7 @@ namespace next {
         mVertexTrapezoidIndex[1] = Vec2f(trapezoidIndexWidth + slope,0);
         mVertexTrapezoidIndex[2] = Vec2f(0, SESSION_LABEL_META_BOX_HEIGHT);
         mVertexTrapezoidIndex[3] = Vec2f(trapezoidIndexWidth, SESSION_LABEL_META_BOX_HEIGHT);
+        
         
         if(mActive){
             mSubLabel->hide();

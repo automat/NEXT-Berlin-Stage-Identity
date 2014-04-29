@@ -74,10 +74,10 @@
 		CDA69B6B190FCF3D0087ADA1 /* SessionMetaLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA69B60190FCF3D0087ADA1 /* SessionMetaLabel.cpp */; };
 		CDA69B6C190FCF3D0087ADA1 /* SessionTitleLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA69B61190FCF3D0087ADA1 /* SessionTitleLabel.cpp */; };
 		CDA69B6D190FCF3D0087ADA1 /* SpeakerLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA69B63190FCF3D0087ADA1 /* SpeakerLabel.cpp */; };
-		CDA69B6E190FCF3D0087ADA1 /* SubLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA69B64190FCF3D0087ADA1 /* SubLabel.cpp */; };
 		CDA69B6F190FCF3D0087ADA1 /* SessionView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA69B65190FCF3D0087ADA1 /* SessionView.cpp */; };
 		CDA69B70190FCF3D0087ADA1 /* SpeakerStackView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA69B66190FCF3D0087ADA1 /* SpeakerStackView.cpp */; };
 		CDA69B71190FCF3D0087ADA1 /* SpeakerView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA69B67190FCF3D0087ADA1 /* SpeakerView.cpp */; };
+		CDA69B9E191027F30087ADA1 /* EventTypeLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA69B9D191027F30087ADA1 /* EventTypeLabel.cpp */; };
 		CDAC7AE5190AE32700430DCF /* ShaderUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AE4190AE32700430DCF /* ShaderUtil.cpp */; };
 		CDAC7AEA190AE56000430DCF /* FxResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AE9190AE56000430DCF /* FxResources.cpp */; };
 		CDAC7AEE190AF4CF00430DCF /* QuoteFieldManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AED190AF4CF00430DCF /* QuoteFieldManager.cpp */; };
@@ -190,7 +190,6 @@
 		CDA69B60190FCF3D0087ADA1 /* SessionMetaLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SessionMetaLabel.cpp; sourceTree = "<group>"; };
 		CDA69B61190FCF3D0087ADA1 /* SessionTitleLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SessionTitleLabel.cpp; sourceTree = "<group>"; };
 		CDA69B63190FCF3D0087ADA1 /* SpeakerLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpeakerLabel.cpp; sourceTree = "<group>"; };
-		CDA69B64190FCF3D0087ADA1 /* SubLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SubLabel.cpp; sourceTree = "<group>"; };
 		CDA69B65190FCF3D0087ADA1 /* SessionView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SessionView.cpp; sourceTree = "<group>"; };
 		CDA69B66190FCF3D0087ADA1 /* SpeakerStackView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpeakerStackView.cpp; sourceTree = "<group>"; };
 		CDA69B67190FCF3D0087ADA1 /* SpeakerView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpeakerView.cpp; sourceTree = "<group>"; };
@@ -199,18 +198,19 @@
 		CDA69B8B190FCF4F0087ADA1 /* AbstractLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractLabel.h; sourceTree = "<group>"; };
 		CDA69B8D190FCF4F0087ADA1 /* EventMetaLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventMetaLabel.h; sourceTree = "<group>"; };
 		CDA69B8E190FCF4F0087ADA1 /* EventTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTitleLabel.h; sourceTree = "<group>"; };
-		CDA69B8F190FCF4F0087ADA1 /* PingPongEventMetaSubLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongEventMetaSubLabel.h; sourceTree = "<group>"; };
+		CDA69B8F190FCF4F0087ADA1 /* PingPongEventMetaTypeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongEventMetaTypeLabel.h; sourceTree = "<group>"; };
 		CDA69B90190FCF4F0087ADA1 /* PingPongEventTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongEventTitleLabel.h; sourceTree = "<group>"; };
 		CDA69B91190FCF4F0087ADA1 /* LineQuad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineQuad.h; sourceTree = "<group>"; };
 		CDA69B93190FCF4F0087ADA1 /* SessionMetaLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionMetaLabel.h; sourceTree = "<group>"; };
 		CDA69B94190FCF4F0087ADA1 /* SessionTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionTitleLabel.h; sourceTree = "<group>"; };
 		CDA69B96190FCF4F0087ADA1 /* PingPongSpeakerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongSpeakerLabel.h; sourceTree = "<group>"; };
 		CDA69B97190FCF4F0087ADA1 /* SpeakerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakerLabel.h; sourceTree = "<group>"; };
-		CDA69B98190FCF4F0087ADA1 /* SubLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubLabel.h; sourceTree = "<group>"; };
 		CDA69B99190FCF4F0087ADA1 /* SessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionView.h; sourceTree = "<group>"; };
 		CDA69B9A190FCF4F0087ADA1 /* SpeakerStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakerStackView.h; sourceTree = "<group>"; };
 		CDA69B9B190FCF4F0087ADA1 /* SpeakerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakerView.h; sourceTree = "<group>"; };
 		CDA69B9C190FF30C0087ADA1 /* TextBoxTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextBoxTexture.h; sourceTree = "<group>"; };
+		CDA69B9D191027F30087ADA1 /* EventTypeLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventTypeLabel.cpp; sourceTree = "<group>"; };
+		CDA69B9F1910280B0087ADA1 /* EventTypeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTypeLabel.h; sourceTree = "<group>"; };
 		CDAC7ADB190AE2FE00430DCF /* DrawUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawUtil.h; sourceTree = "<group>"; };
 		CDAC7ADC190AE2FE00430DCF /* PingPongFbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongFbo.h; sourceTree = "<group>"; };
 		CDAC7ADD190AE2FE00430DCF /* ShaderUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderUtil.h; sourceTree = "<group>"; };
@@ -742,7 +742,6 @@
 				CDA69B5C190FCF3D0087ADA1 /* event */,
 				CDA69B5F190FCF3D0087ADA1 /* session */,
 				CDA69B62190FCF3D0087ADA1 /* speaker */,
-				CDA69B64190FCF3D0087ADA1 /* SubLabel.cpp */,
 			);
 			path = label;
 			sourceTree = "<group>";
@@ -750,6 +749,7 @@
 		CDA69B5C190FCF3D0087ADA1 /* event */ = {
 			isa = PBXGroup;
 			children = (
+				CDA69B9D191027F30087ADA1 /* EventTypeLabel.cpp */,
 				CDA69B5D190FCF3D0087ADA1 /* EventMetaLabel.cpp */,
 				CDA69B5E190FCF3D0087ADA1 /* EventTitleLabel.cpp */,
 			);
@@ -794,7 +794,6 @@
 				CDA69B91190FCF4F0087ADA1 /* LineQuad.h */,
 				CDA69B92190FCF4F0087ADA1 /* session */,
 				CDA69B95190FCF4F0087ADA1 /* speaker */,
-				CDA69B98190FCF4F0087ADA1 /* SubLabel.h */,
 			);
 			path = label;
 			sourceTree = "<group>";
@@ -802,9 +801,10 @@
 		CDA69B8C190FCF4F0087ADA1 /* event */ = {
 			isa = PBXGroup;
 			children = (
+				CDA69B9F1910280B0087ADA1 /* EventTypeLabel.h */,
 				CDA69B8D190FCF4F0087ADA1 /* EventMetaLabel.h */,
 				CDA69B8E190FCF4F0087ADA1 /* EventTitleLabel.h */,
-				CDA69B8F190FCF4F0087ADA1 /* PingPongEventMetaSubLabel.h */,
+				CDA69B8F190FCF4F0087ADA1 /* PingPongEventMetaTypeLabel.h */,
 				CDA69B90190FCF4F0087ADA1 /* PingPongEventTitleLabel.h */,
 			);
 			path = event;
@@ -981,7 +981,6 @@
 				CD40A2DD190AAC55003F790B /* Stage.cpp in Sources */,
 				CD6DD166190DC04F00005D56 /* TextBox.cpp in Sources */,
 				CDA69B6C190FCF3D0087ADA1 /* SessionTitleLabel.cpp in Sources */,
-				CDA69B6E190FCF3D0087ADA1 /* SubLabel.cpp in Sources */,
 				CDA69B6B190FCF3D0087ADA1 /* SessionMetaLabel.cpp in Sources */,
 				CD40A2E3190AAC55003F790B /* PathSurface.cpp in Sources */,
 				CD40A2E0190AAC55003F790B /* DiverField.cpp in Sources */,
@@ -1001,6 +1000,7 @@
 				CD40A2D4190AAC55003F790B /* Grid.cpp in Sources */,
 				CD40A2E2190AAC55003F790B /* PathSlice.cpp in Sources */,
 				CDA69B6F190FCF3D0087ADA1 /* SessionView.cpp in Sources */,
+				CDA69B9E191027F30087ADA1 /* EventTypeLabel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,8 +14,8 @@
 
 namespace next {
     class SessionTitleLabel : public AbstractLabel {
+        TextBoxTexture   mTitle;
         vector<LineQuad> mLineQuads;
-        void genQuads();
         
     public:
         SessionTitleLabel();

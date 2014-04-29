@@ -9,15 +9,15 @@
 #ifndef SessionView_PingPongEventMetaSubLabel_h
 #define SessionView_PingPongEventMetaSubLabel_h
 
-#include "stage/session/label/SubLabel.h"
+#include "stage/session/label/event/EventTypeLabel.h"
 
 namespace next {
-     class PingPongEventMetaSubLabel {
+     class PingPongEventMetaTypeLabel {
          int mIndex;
-         SubLabel mLabels[2];
+         EventTypeLabel mLabels[2];
         
     public:
-         PingPongEventMetaSubLabel() : mIndex(0){}
+         PingPongEventMetaTypeLabel() : mIndex(0){}
          
          inline void draw(){
              mLabels[0].draw();

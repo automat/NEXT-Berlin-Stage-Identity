@@ -26,7 +26,7 @@ namespace next {
     public:
         static void Map(map<uint32_t,Event>* events);
     private:
-        string           mString;
+        string mString;
         
     public:
         EventTitleLabel();

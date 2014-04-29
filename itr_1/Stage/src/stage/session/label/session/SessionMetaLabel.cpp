@@ -18,6 +18,7 @@ namespace next {
         mTextBoxTimeWidth(0),
         mTargetTimestamp(0),
         mReachedTargetTimestamp(false){
+            mTextBox = new TextBox();
             mTextBox->setFont(      Font(app::loadResource(RES_AKKURAT_BOLD), SESSION_LABEL_META_FONT_SIZE * SESSION_LABEL_META_FONT_SCALAR));
             mTextBox->setWidth(     SESSION_LABEL_SESSION_META_BOX_WIDTH);
             mTextBox->setFontSize(  SESSION_LABEL_META_FONT_SIZE);
@@ -33,6 +34,7 @@ namespace next {
     }
 
     SessionMetaLabel::~SessionMetaLabel() {
+        delete mTextBox;
         delete mTextBoxTimeRemaining;
     }
 

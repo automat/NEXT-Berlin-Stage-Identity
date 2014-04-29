@@ -11,29 +11,7 @@ namespace next {
     //  Constructor
     /*--------------------------------------------------------------------------------------------*/
 
-
     SessionTitleLabel::SessionTitleLabel() : AbstractLabel(){
-        mTextBox->setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),
-                               SESSION_LABEL_SESSION_TITLE_FONT_SIZE * SESSION_LABEL_SESSION_TITLE_FONT_SCALAR));
-        
-        mTextBox->setWidth(SESSION_LABEL_SESSION_TITLE_BOX_WIDTH);
-        
-        mTextBox->setFontSize(  SESSION_LABEL_SESSION_TITLE_FONT_SIZE);
-        mTextBox->setLineHeight(SESSION_LABEL_SESSION_TITLE_LINE_HEIGHT);
-        mTextBox->setColorFont( SESSION_LABEL_SESSION_TITLE_FONT_COLOR);
-        
-        mTextBox->setColorDropShadow( SESSION_LABEL_SESSION_TITLE_SHADOW_COLOR);
-        mTextBox->setDropShadowOffset(SESSION_LABEL_SESSION_TITLE_SHADOW_OFFSET);
-        mTextBox->setDropShadowScale( SESSION_LABEL_SESSION_TITLE_SHADOW_STRENGTH);
-        mTextBox->dropShadow();
-        
-
-        mTextBox->underline();
-        mTextBox->setColorUnderline(SESSION_LABEL_SESSION_TITLE_UNDERLINE_COLOR);
-
-        mTextBox->setUnderlineHeight(SESSION_LABEL_SESSION_TITLE_UNDERLINE_HEIGHT);
-        mTextBox->underline();
-        
         setPosition(SESSION_LABEL_SESSION_TITLE_POS);
     }
 
@@ -42,12 +20,12 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
 
     void SessionTitleLabel::draw(){
-        if(mTextBox->empty()){
+        if(mTitle.calculatedSize.x == 0){
             return;
         }
-        Vec2f topLeft = mTextBox->getTopLeft();
-
-        const gl::Texture& texture = mTextBox->getTexture();
+        
+        const Vec2f& topLeft       = mTitle.topleft;
+        const gl::Texture& texture = mTitle.texture;
         Vec2f quadPos;
         
         glPushMatrix();
@@ -88,9 +66,67 @@ namespace next {
             token[0] = toupper(token[0]);
         }
         string _str = algorithm::join(tokens, " ");
-        mTextBox->setString(_str);
         
-        genQuads();
+        
+        next::TextBox textbox;
+        textbox.setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),
+                               SESSION_LABEL_SESSION_TITLE_FONT_SIZE * SESSION_LABEL_SESSION_TITLE_FONT_SCALAR));
+        
+        textbox.setWidth(SESSION_LABEL_SESSION_TITLE_BOX_WIDTH);
+        
+        textbox.setFontSize(  SESSION_LABEL_SESSION_TITLE_FONT_SIZE);
+        textbox.setLineHeight(SESSION_LABEL_SESSION_TITLE_LINE_HEIGHT);
+        textbox.setColorFont( SESSION_LABEL_SESSION_TITLE_FONT_COLOR);
+        
+        textbox.setColorDropShadow( SESSION_LABEL_SESSION_TITLE_SHADOW_COLOR);
+        textbox.setDropShadowOffset(SESSION_LABEL_SESSION_TITLE_SHADOW_OFFSET);
+        textbox.setDropShadowScale( SESSION_LABEL_SESSION_TITLE_SHADOW_STRENGTH);
+        textbox.dropShadow();
+        
+        textbox.setColorUnderline(SESSION_LABEL_SESSION_TITLE_UNDERLINE_COLOR);
+        textbox.setUnderlineHeight(SESSION_LABEL_SESSION_TITLE_UNDERLINE_HEIGHT);
+        textbox.underline();
+       
+        textbox.setString(_str);
+        
+        
+        mTitle.topleft        = textbox.getTopLeft();
+        mTitle.texcoords      = textbox.getTexcoords();
+        mTitle.calculatedSize = textbox.getCalculatedSize();
+        mTitle.texture        = gl::Texture(Surface(textbox.getTexture()));
+    
+        const Vec2f& textureSize = mTitle.calculatedSize;
+        float textureWidth       = textureSize.x;
+        float textureHeight      = textureSize.y;
+        
+        int numLines = textbox.getNumLines();
+        vector<vector<Vec2f>> texcoords = textbox.getTexcoords();
+        
+        Vec2f topLeft;
+        float width, height;
+        
+        int i;
+        i = -1;
+        while(++i < numLines){
+            const vector<Vec2f>& _texcoords = texcoords[i];
+            
+            LineQuad quad;
+            quad.posTarget = topLeft = Vec2f(_texcoords[0].x * textureWidth, _texcoords[0].y * textureHeight);;
+            quad.posState  = quad.posTarget;
+            quad.texcoords = _texcoords;
+            
+            vector<Vec2f>& vertices = quad.vertices;
+            width  = topLeft.x + _texcoords[1].x * textureWidth;
+            height = _texcoords[2].y * textureHeight - topLeft.y;
+            
+            vertices.push_back(Vec2f());
+            vertices.push_back(Vec2f(width,0));
+            vertices.push_back(Vec2f(0,height));
+            vertices.push_back(Vec2f(width,height));
+            
+            mLineQuads.push_back(quad);
+        }
+        
     }
 
     /*--------------------------------------------------------------------------------------------*/
@@ -125,44 +161,6 @@ namespace next {
         }
     }
     
-    /*--------------------------------------------------------------------------------------------*/
-    // Gen Textured Lines
-    /*--------------------------------------------------------------------------------------------*/
-    
-    void SessionTitleLabel::genQuads(){
-        mLineQuads.clear();
-        
-        Vec2f textureSize   = mTextBox->getCalculatedSize();
-        float textureWidth  = textureSize.x;
-        float textureHeight = textureSize.y;
-        
-        int   numLines = mTextBox->getNumLines();
-        vector<vector<Vec2f>> texcoords = mTextBox->getTexcoords();
-        
-        Vec2f topLeft;
-        float width, height;
-        
-        int i;
-        i = -1;
-        while(++i < numLines){
-            const vector<Vec2f>& _texcoords = texcoords[i];
-            
-            LineQuad quad;
-            quad.posTarget = topLeft = Vec2f(_texcoords[0].x * textureWidth, _texcoords[0].y * textureHeight);;
-            quad.posState  = quad.posTarget;
-            quad.texcoords = _texcoords;
-            
-            vector<Vec2f>& vertices = quad.vertices;
-            width  = topLeft.x + _texcoords[1].x * textureWidth;
-            height = _texcoords[2].y * textureHeight - topLeft.y;
-            
-            vertices.push_back(Vec2f());
-            vertices.push_back(Vec2f(width,0));
-            vertices.push_back(Vec2f(0,height));
-            vertices.push_back(Vec2f(width,height));
-            
-            mLineQuads.push_back(quad);
-        }
-    }
+
     
 }

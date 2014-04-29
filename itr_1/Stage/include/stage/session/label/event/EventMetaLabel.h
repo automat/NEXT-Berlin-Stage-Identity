@@ -10,27 +10,37 @@
 #define SessionView_EventMetaLabel_h
 
 #include "stage/session/label/AbstractLabel.h"
-#include "stage/session/label/event/PingPongEventMetaSubLabel.h"
-#include <string>
+#include "stage/session/label/event/PingPongEventMetaTypeLabel.h"
+#include "data/session/Event.h"
+#include "util/text/TextBoxTexture.h"
+
+#include <map>
+#include <vector>
 
 namespace next {
     using namespace std;
     class EventMetaLabel : public AbstractLabel {
-        static Font sFont;
-
+        static map<string,   TextBoxTexture> sMapTypeTexture;
+        static map<uint32_t, TextBoxTexture> sMapIndexTexture;
+        
+    public:
+         static void Map(map<uint32_t,Event>* events);
+    private:
+        
+        int  mIndex;
         bool mActive;
         
         Anim<float> mAlphaState;
-        float mTextBoxFrontWidth;
-        Vec2f mVertexTrapezoidIndex[4];
+        float       mTextBoxFrontWidth;
+        Vec2f       mVertexTrapezoidIndex[4];
 
-        PingPongEventMetaSubLabel* mSubLabel;
+        PingPongEventMetaTypeLabel* mSubLabel;
         
     public:
         EventMetaLabel();
         ~EventMetaLabel();
         
-        void set(const string& type, const string& index);
+        void set(const string& type, uint32_t index);
         
         void draw();
         

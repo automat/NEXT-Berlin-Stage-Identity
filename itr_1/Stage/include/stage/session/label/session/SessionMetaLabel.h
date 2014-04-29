@@ -17,6 +17,8 @@ namespace next {
     using namespace std;
     class SessionMetaLabel : public AbstractLabel {
     private:
+        TextBox*       mTextBox;
+        
         Anim<float>    mAlphaState;
         next::TextBox* mTextBoxTimeRemaining;
         float          mTextBoxTimeWidth;

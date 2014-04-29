@@ -19,6 +19,7 @@
 
 #include "Config.h"
 #include "util/text/Textbox.h"
+#include "util/text/TextBoxTexture.h"
 
 
 namespace next {
@@ -27,17 +28,10 @@ namespace next {
     
     class AbstractLabel : public AbstractAnimBase{
     protected:
-        next::TextBox* mTextBox;
         Vec2f mPos;
         
     public:
-        AbstractLabel() : AbstractAnimBase(){
-            mTextBox = new TextBox();
-        };
-        
-        ~AbstractLabel() {
-            delete mTextBox;
-        }
+        AbstractLabel() : AbstractAnimBase(){};
         
         inline void setPosition(const Vec2f& pos){
             mPos = pos;

@@ -47,7 +47,9 @@ namespace next {
                 mSpeakerLabelPos = mEventViewSlots[2];
                 
                 EventTitleLabel::Map(data->events);
-                SpeakerLabel::Map(speakerData);
+                EventMetaLabel::Map( data->events);
+                EventTypeLabel::Map( data->events);
+                SpeakerLabel::Map(   speakerData);
                 
                 
                 mLabelTitle              = new SessionTitleLabel();
@@ -262,7 +264,7 @@ namespace next {
             
             mPingPongLabelEventTitle->off();
             mPingPongLabelSpeaker->off();
-            //mLabelEventMeta->off();
+            mLabelEventMeta->off();
             return;
         }
         
@@ -283,7 +285,7 @@ namespace next {
                 //  Hide previous event label
                 //
                 mPingPongLabelEventTitle->hide();
-                //mPingPongLabelEventTitle->swap();
+                mPingPongLabelEventTitle->swap();
             }
             
             //
@@ -300,7 +302,7 @@ namespace next {
                 //  turn label on
                 //
                 mPingPongLabelEventTitle->on();
-                //mLabelEventMeta->on();
+                mLabelEventMeta->on();
             } else {
                 
                 //
@@ -309,7 +311,7 @@ namespace next {
                 mPingPongLabelEventTitle->show();
             }
             
-            //mLabelEventMeta->set(data->type, toString(mIndexEventViews + 1) + " / " + toString(mNumEventViews));
+            mLabelEventMeta->set(data->type, mIndexEventViews);
             
             //
             //  trigger focus
@@ -378,7 +380,7 @@ namespace next {
         mLabelTitle->draw();
         mLabelMeta->draw();
         mPingPongLabelEventTitle->draw();
-        //mLabelEventMeta->draw();
+        mLabelEventMeta->draw();
     }
 
     void SessionView::debugDraw(){
