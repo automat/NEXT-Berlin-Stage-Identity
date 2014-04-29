@@ -14,7 +14,7 @@
 #include "Config.h"
 #include "util/gl/ShaderUtil.h"
 #include "util/ExcInfoPanel.h"
-#include "quote/QuoteAlign.h"
+#include "data/quote/QuoteAlign.h"
 
 namespace next{
 

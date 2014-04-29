@@ -12,8 +12,8 @@
 #include "util/gl/ShaderUtil.h"
 #include "util/gl/DrawUtil.h"
 
-#include "quote/QuoteAlign.h"
-#include "quote/Quote.h"
+#include "data/quote/QuoteAlign.h"
+#include "data/quote/Quote.h"
 
 #include "stage/theme/path/PathSurface.h"
 
@@ -156,8 +156,8 @@ namespace next{
                            app::loadResource(RES_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
                            &mShaderMixRadial);
 #endif
-        mThemeView->play(100000, NULL);
-        //mSessionView->start();
+        //mThemeView->play(100000, NULL);
+        mSessionView->start();
     }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -499,43 +499,37 @@ namespace next{
         //  Draw Scene
         gl::pushMatrices();
         gl::setMatricesWindow(app::getWindowSize(),false);
-
         gl::draw(mFboThemeViewFinal.getTexture(), mFboBounds_1);
-
         
-        gl::setMatricesWindow(app::getWindowSize(), true);
 
 #ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER
+        gl::setMatricesWindow(app::getWindowSize(), true);
         gl::disableDepthRead();
         mThemeView->debugDrawQuoteManager();
 #endif
+        
         gl::enableDepthRead();
         glAlphaFunc(GL_GREATER, 0.0);
         glEnable(GL_ALPHA_TEST);
         glEnable( GL_BLEND );
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
         
+        gl::pushMatrices();
         gl::setMatrices(mCamera);
         mSessionView->draw();
-        
+        gl::popMatrices();
         gl::enableAlphaBlending();
         gl::disableDepthRead();
-        gl::pushMatrices();
-        gl::setMatricesWindow(app::getWindowSize());
-        gl::disableDepthRead();
+        
+        gl::setMatricesWindow(app::getWindowSize(),true);
         mSessionView->drawLabels();
         mLogoNEXT->draw();
-        gl::enableDepthRead();
-        gl::popMatrices();
-        
         
         glDisable(GL_BLEND);
         glDisable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.5);;
-    
-        
-        
+        glAlphaFunc(GL_GREATER, 0.5); // clearStates what seems to be cinders default
         gl::enableDepthRead();
+        
         
         gl::popMatrices();
     }
