@@ -96,8 +96,10 @@ namespace next {
         if(mString.empty()){    //  reset to least valid state
             mOrigin.x = mOrigin.y = 0;
             mTextureBounds.set(0,0,0,0);
-            mFbo0 = gl::Fbo(1,1,mFboFormat);
-            mFbo1 = gl::Fbo(1,1,mFboFormat);
+            if(!mFixedFbo && mFbo0){
+                mFbo0 = gl::Fbo(1,1,mFboFormat);
+                mFbo1 = gl::Fbo(1,1,mFboFormat);
+            }
             mTexcoords.resize(0);
             return;
         }
@@ -126,8 +128,25 @@ namespace next {
         Area  textureViewport = Area(0, 0, textureWidth, textureHeight);
         Vec2f texelSize       = Vec2f(1.0f / textureWidth, 1.0f / textureHeight);
 
-        mFbo0 = gl::Fbo(textureWidth, textureHeight, mFboFormat);
-        mFbo1 = gl::Fbo(textureWidth, textureHeight, mFboFormat);
+        
+        if(mFixedFbo){
+            if(!mFbo0 || mFbo0.getSize() != mFixedFboSize){ // not initalized
+                mFbo0 = gl::Fbo(mFixedFboSize.x, mFixedFboSize.y, mFboFormat);
+                mFbo1 = gl::Fbo(mFixedFboSize.x, mFixedFboSize.y, mFboFormat);
+            }
+        } else {
+            mFbo0.reset();
+            mFbo1.reset();
+            mFbo0 = gl::Fbo(textureWidth, textureHeight, mFboFormat);
+            mFbo1 = gl::Fbo(textureWidth, textureHeight, mFboFormat);
+        }
+         /*
+         mFbo0.reset();
+         mFbo1.reset();
+         mFbo0 = gl::Fbo(textureWidth, textureHeight, mFboFormat);
+         mFbo1 = gl::Fbo(textureWidth, textureHeight, mFboFormat);
+        */
+        
 
         Vec2f zero;
         float row = 0;
@@ -303,25 +322,49 @@ namespace next {
 
         float lineStep = 1.0f / static_cast<float>(mLines.size());
         Vec2f down(0,lineStep);
-        Vec2f lineHeight(0,mFontHeight / fontTextureSize.y);
-
+        Vec2f lineHeight;
+        
         float shadowOffset = mShadowOffset.y / fontTextureSize.y;
         float rowStep = MAX(0,1.0f - shadowOffset);
 
-
         float row = 0;
-        for(const auto& line : mLines){
-            texcoords.resize(0);
-
-            texcoords += down * row;
-            texcoords += Vec2f((line.width + mUnderlineOffsetH) / fontTextureSize.x, texcoords.back().y);
-            texcoords += *(texcoords.end() - 2) + lineHeight;
-            texcoords += *(texcoords.end() - 2) + lineHeight;
-
-            mTexcoords += texcoords;
-
-            row += rowStep;
+        if(mFixedFbo){
+            cout << "heelo" << endl;
+            float fboFixedWidth  = mFixedFboSize.x;
+            float fboFixedHeight = mFixedFboSize.y;
+            lineHeight = Vec2f(0,mFontHeight / fboFixedHeight);
+            
+            for(const auto& line : mLines){
+                texcoords.resize(0);
+                
+                texcoords += down * row;
+                texcoords += Vec2f(0,0);
+                texcoords += *(texcoords.end() - 2) + lineHeight;
+                texcoords += *(texcoords.end() - 2) + lineHeight;
+                
+                mTexcoords += texcoords;
+                
+                row += rowStep;
+            }
+        } else {
+            lineHeight = Vec2f(0,mFontHeight / fontTextureSize.y);
+            
+            for(const auto& line : mLines){
+                texcoords.resize(0);
+                
+                texcoords += down * row;
+                texcoords += Vec2f((line.width + mUnderlineOffsetH) / fontTextureSize.x, texcoords.back().y);
+                texcoords += *(texcoords.end() - 2) + lineHeight;
+                texcoords += *(texcoords.end() - 2) + lineHeight;
+                
+                mTexcoords += texcoords;
+                
+                row += rowStep;
+            }
         }
+
+       
+        
     }
 
 
@@ -342,7 +385,9 @@ namespace next {
     mDropShadowScale(0.125f),
     mUnderlineHeight(10),
     mUnderlineBaselineOffset(0),
-    mUnderlineUseGradient(false){
+    mUnderlineUseGradient(false),
+    mFixedFbo(false),
+    mFixedFboSize(0,0){
         mTexFontFormat.enableMipmapping();
         mTexFontFormat.premultiply();
         mTexFontFormat.textureWidth(fontTextureSize);
@@ -429,6 +474,11 @@ namespace next {
 
     int TextBox::getNumLines(){
         return mLines.size();
+    }
+    
+    void TextBox::setFixedFboSize(const Vec2i &size){
+        mFixedFboSize = size;
+        mFixedFbo     = true;
     }
 
     /*--------------------------------------------------------------------------------------------*/
@@ -740,6 +790,9 @@ namespace next {
 
     void TextBox::debugDraw(){
         glPushMatrix();
+        glColor3f(1,0,0);
+        gl::drawStrokedRect(mFbo0.getBounds());
+        
         glTranslatef(-mOrigin.x, -mOrigin.y, 0);
         Vec2f zero;
         Vec2f right;

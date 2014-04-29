@@ -35,6 +35,11 @@ namespace next {
             glPopMatrix();
         }
         
+        inline void update(){
+            mLabels[0].update();
+            mLabels[1].update();
+        }
+        
         inline void set(const string& name, const string& company){
             mLabels[mIndex].set(name, company);
         }

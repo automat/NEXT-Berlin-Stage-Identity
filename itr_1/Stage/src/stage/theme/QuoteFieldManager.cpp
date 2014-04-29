@@ -81,6 +81,7 @@ namespace next {
         mActive    = true;
         mMaxPlays  = num;
         mPlayCount = 0;
+        mCallback  = callback;
         nextQuote();
     }
     

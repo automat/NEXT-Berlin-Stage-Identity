@@ -11,12 +11,24 @@
 
 #include "stage/session/label/AbstractLabel.h"
 #include "cinder/Matrix.h"
+#include <map>
+#include <vector>
+#include "data/session/Speaker.h"
 
 namespace next {
     using namespace std;
     class SpeakerLabel : public AbstractLabel {
         static Font sFontName;
         static Font sFontCompany;
+        static map<string,gl::Texture> sStringNameTextures;
+        static map<string,gl::Texture> sStringCompanyTextures;
+    public:
+        void Map(map<uint32_t,next::Speaker>* speaker);
+    private:
+        
+        string mName;
+        string mCompany;
+        bool   mTextBoxDirty;
 
         float      mScale;
         Matrix44f  mTransform;
@@ -32,6 +44,7 @@ namespace next {
         SpeakerLabel();
         ~SpeakerLabel();
         
+        void update();
         void draw();
         void set(const string& name, const string& company);
         

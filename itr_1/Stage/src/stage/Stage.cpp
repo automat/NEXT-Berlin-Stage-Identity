@@ -157,7 +157,17 @@ namespace next{
                            &mShaderMixRadial);
 #endif
         //mThemeView->play(100000, NULL);
-        mSessionView->start();
+        playSessionView();
+        //playThemeView();
+    }
+    
+    void Stage::playThemeView(){
+        mThemeView->play(1, std::bind(&Stage::playSessionView, this));
+    }
+    
+    void Stage::playSessionView(){
+        mSessionView->play(std::bind(&Stage::playThemeView,this));
+        
     }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -484,7 +494,7 @@ namespace next{
 
         mBackground->update(mOscillator,app::getElapsedSeconds());
         mThemeView->update();
-       // mSessionView->update();
+        mSessionView->update();
     }
 
 
@@ -494,19 +504,12 @@ namespace next{
 
     void Stage::draw(){
 
-        //  Process theme fx pipe
         processThemeScene();
+        
         //  Draw Scene
         gl::pushMatrices();
         gl::setMatricesWindow(app::getWindowSize(),false);
-        gl::draw(mFboThemeViewFinal.getTexture(), mFboBounds_1);
-        
-
-#ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER
-        gl::setMatricesWindow(app::getWindowSize(), true);
-        gl::disableDepthRead();
-        mThemeView->debugDrawQuoteManager();
-#endif
+        gl::draw(mFboThemeViewFinal.getTexture(), mFboThemeViewSSAO.getBounds());
         
         gl::enableDepthRead();
         glAlphaFunc(GL_GREATER, 0.0);
@@ -521,6 +524,7 @@ namespace next{
         gl::enableAlphaBlending();
         gl::disableDepthRead();
         
+        
         gl::setMatricesWindow(app::getWindowSize(),true);
         mSessionView->drawLabels();
         mLogoNEXT->draw();
@@ -529,7 +533,6 @@ namespace next{
         glDisable(GL_ALPHA_TEST);
         glAlphaFunc(GL_GREATER, 0.5); // clearStates what seems to be cinders default
         gl::enableDepthRead();
-        
         
         gl::popMatrices();
     }

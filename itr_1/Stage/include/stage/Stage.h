@@ -67,6 +67,9 @@ namespace next{
         ThemeView*       mThemeView;
         SessionView*     mSessionView;
         
+        void playThemeView();
+        void playSessionView();
+        
         
 #ifndef STAGE_SKIP_LOGO
         NEXTLogo*   mLogoNEXT;

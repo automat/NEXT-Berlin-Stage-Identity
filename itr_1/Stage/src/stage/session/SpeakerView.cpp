@@ -225,7 +225,7 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SpeakerView::draw(){
-        //repaint();
+        repaint();
         
         Vec3f pos   = mPositionState();
         float scale = mScaleState();

@@ -30,6 +30,8 @@ namespace next {
         bool mValid;    //  is valid, data > 0
         bool mActive;
         
+        std::function<void()> mCallback;
+        
         int                mNumEventViews;
         int                mIndexEventViews;
         vector<EventView*> mEventViews;
@@ -85,7 +87,7 @@ namespace next {
         ~SessionView();
         
         void reset(Session* data);  //  clearStates session with new data
-        void start();               //  start animation
+        void play(const std::function<void()>& callback);               //  start animation
 
 
         void draw();

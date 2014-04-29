@@ -136,8 +136,8 @@ namespace next {
     }
     
     void SessionView::updateSpeakerLabel(int index){
-      //  mPingPongLabelSpeaker->hide();
-      //  mPingPongLabelSpeaker->swap();
+        mPingPongLabelSpeaker->hide();
+        mPingPongLabelSpeaker->swap();
         
         uint32_t indexEvent = mIndexEventViews - 1;
         
@@ -145,8 +145,8 @@ namespace next {
         std::advance(itr_eventData, indexEvent);
         const Speaker* speakerData = itr_eventData->second.speakers[index];
         
-      //  mPingPongLabelSpeaker->set(speakerData->name, speakerData->companyName);
-      //  mPingPongLabelSpeaker->show();
+        mPingPongLabelSpeaker->set(speakerData->name, speakerData->companyName);
+        mPingPongLabelSpeaker->show();
     }
     
     void SessionView::focusView(next::EventView *view){
@@ -167,7 +167,9 @@ namespace next {
 #ifdef SESSION_VIEW_DEBUG_STATE
         cout << "### Session View End ###" << endl;
 #endif
-        start();
+        if(mCallback){
+            mCallback();
+        }
     }
     
     void SessionView::onStart(){
@@ -183,10 +185,11 @@ namespace next {
     }
     
     // public fire!
-    void SessionView::start(){
+    void SessionView::play(const std::function<void()>& callback){
         if(mActive){
             return;
         }
+        mCallback = callback;
         turnOnSessionLabels();
         delayCallback(SESSION_VIEW_START_DELAY, std::bind(&SessionView::stepForward_2,this));
         
@@ -253,9 +256,9 @@ namespace next {
             
             delayCallback(1.375f, std::bind(&SessionView::turnOffSessionLabels, this));
             
-            mPingPongLabelEventTitle->off();
+            //mPingPongLabelEventTitle->off();
             mPingPongLabelSpeaker->off();
-            mLabelEventMeta->off();
+            //mLabelEventMeta->off();
             return;
         }
         
@@ -275,8 +278,8 @@ namespace next {
                 //
                 //  Hide previous event label
                 //
-                mPingPongLabelEventTitle->hide();
-                mPingPongLabelEventTitle->swap();
+                //mPingPongLabelEventTitle->hide();
+                //mPingPongLabelEventTitle->swap();
             }
             
             //
@@ -286,23 +289,23 @@ namespace next {
             std::advance(eventData, mIndexEventViews);
             Event* data = &eventData->second;
             
-            mPingPongLabelEventTitle->set(data->title);
+            //mPingPongLabelEventTitle->set(data->title);
             
             if(mIndexEventViews == 0){
                 //
                 //  turn label on
                 //
-                mPingPongLabelEventTitle->on();
-                mLabelEventMeta->on();
+                //mPingPongLabelEventTitle->on();
+                //mLabelEventMeta->on();
             } else {
                 
                 //
                 //  show next label
                 //
-                mPingPongLabelEventTitle->show();
+                //mPingPongLabelEventTitle->show();
             }
             
-            mLabelEventMeta->set(data->type, toString(mIndexEventViews + 1) + " / " + toString(mNumEventViews));
+            //mLabelEventMeta->set(data->type, toString(mIndexEventViews + 1) + " / " + toString(mNumEventViews));
             
             //
             //  trigger focus
@@ -320,7 +323,7 @@ namespace next {
             
             mIndexEventViews++;
 
-           // updateSpeakerLabel();
+            updateSpeakerLabel();
             
             return;
         }
@@ -362,17 +365,17 @@ namespace next {
             return;
         }
         mLabelMeta->update();
+        mPingPongLabelSpeaker->update();
     }
     
     void SessionView::drawLabels(){
-        return;
         if(!mActive){
             return;
         }
         mLabelTitle->draw();
         mLabelMeta->draw();
-        mPingPongLabelEventTitle->draw();
-        mLabelEventMeta->draw();
+        //mPingPongLabelEventTitle->draw();
+        //mLabelEventMeta->draw();
     }
 
     void SessionView::debugDraw(){

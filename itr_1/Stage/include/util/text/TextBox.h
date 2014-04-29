@@ -102,6 +102,9 @@ namespace next {
         gl::Fbo         mFbo0;
         gl::Fbo         mFbo1;
         
+        bool  mFixedFbo;
+        Vec2i mFixedFboSize;
+        
         /*--------------------------------------------------------------------------------------------*/
         // handle string
         /*--------------------------------------------------------------------------------------------*/
@@ -161,6 +164,9 @@ namespace next {
         const vector<vector<Vec2f>>& getTexcoords();
         
         int getNumLines();
+        
+        //! restrict the used fbo to one not changeble size
+        void setFixedFboSize(const Vec2i& size);
 
         /*--------------------------------------------------------------------------------------------*/
         // set / get string
