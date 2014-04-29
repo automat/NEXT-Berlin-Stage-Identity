@@ -135,6 +135,10 @@ void StageApp::keyDown( KeyEvent event ){
             break;
         case KeyEvent::KEY_RIGHT:
             mStage->viewTop();
+        case KeyEvent::KEY_SPACE:
+            mStage->releaseTest();
+            break;
+            
         default:
             break;
     }

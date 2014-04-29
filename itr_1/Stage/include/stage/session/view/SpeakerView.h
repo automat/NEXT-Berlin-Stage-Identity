@@ -25,7 +25,7 @@ using namespace ci;
 namespace next {
     class SpeakerView : public AbstractAnimBase{
         friend class SpeakerStackView;
-
+        
         //
         // shared
         //
@@ -55,25 +55,29 @@ namespace next {
         Anim<float> mFocusColorState;
         Anim<float> mFocusBlurState;
         
-        void drawFocus();   
+        bool mFboDirty;
+        
+        void beginPaint();
+        void repaint();
+        void endPaint();
         void updateAlpha();
-
+        
     public:
         SpeakerView(Speaker* data);
-
+        
         void draw();
-
+        
         void unfocusImage();
         void unfocus();
-
+        
         void focus();
-
+        
         void show();
         void hide();
-
+        
         void focusIn();
         void unfocusOut();
-
+        
         void clearStates();
     };
 }

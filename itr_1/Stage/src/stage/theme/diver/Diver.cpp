@@ -86,7 +86,7 @@ namespace next{
         mTexcoords[0] = MIN(mLength, mOffsetX);
         int i = 0;
         while(++i < mTexcoords.size()){
-            mTexcoords[i] = MAX(0,mTexcoords[i-1] - (mPoints[i-1].distance(mPoints[i]) / mPathLength)) ;
+            mTexcoords[i] = MAX(0,MIN(mTexcoords[i-1] - (mPoints[i-1].distance(mPoints[i]) / mPathLength),1.0f)) ;
         }
     }
 

@@ -32,8 +32,11 @@ namespace next{
         mDiverLengthMin     = QUOTE_FIELD_DIVER_MIN_LENGTH;
         mDiverLengthMax     = QUOTE_FIELD_DIVER_MAX_LENGTH;
 
-        mMeshLayout.setDynamicTexCoords2d();
+       // mBufferTexcoords.resize(m)
+        
+        //mMeshLayout.setStaticTexCoords2d();
         mMeshLayout.setStaticColorsRGB();
+        mMeshLayout.setStaticTexCoords2d();
         reset(pos, numPathSlices, quoteLine);
     }
 
@@ -88,6 +91,9 @@ namespace next{
         mTransform.translate(pos);
 
         reset_Internal();
+        
+        mBufferTexcoords.resize(mMesh.getNumVertices());
+        
     }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -105,28 +111,51 @@ namespace next{
         float texcoordStepX  = mTexcoordStep.x;
         float texcoordStepY  = mTexcoordStep.y;
 
-        int i,j;
-        i = 0;
-        gl::VboMesh::VertexIter vbItr = mMesh.mapVertexBuffer();
+        int i,j,k;
+        i = k = 0;
+ 
+        //
+        //  Moved from using dynamic texcoords to a static buffer,
+        //  because vbomesh itr.setTexcoodX was messing up the overal mesh geomertry,
+        //  although it stepped through correctly
+        //
+        
+        
+        //gl::VboMesh::VertexIter vbItr = mMesh.mapVertexBuffer();
         for(vector<Diver*>::const_iterator itr = mDivers.begin(); itr != mDivers.end(); ++itr){
             Diver* diver = *itr;
             
             diver->setOffset(diver->getOffsetXInitial() + value); //diver->getOffsetXInitial() + value);    //  diver->getOffsetInitial() + value);
             diver->update();            //  update diver position
-          
+            
             //
             //  Update mesh texcoords according to diver texcoords
             //
 
-            const vector<float>& texcoords = (*itr)->getTexcoords();
+            const vector<float>& texcoords = diver->getTexcoords();
             tex_0.y = texcoordStartY + texcoordStepY  * static_cast<float>(i++);
             tex_1.y = tex_0.y + texcoordStepY;
-
+            
+            
+            static const Vec2f zero;
+            
             j = -1;
             while (++j < mDiverNumPoints) {
                 tex_0.x = tex_1.x = texcoordStartX + texcoordStepX * texcoords[j];  //  get sliced hotizontal
                 
-                ++vbItr; ++vbItr;                       //  skip bottom
+                k+=2;
+                mBufferTexcoords[k++] = tex_0;
+                mBufferTexcoords[k++] = tex_1;
+                
+                mBufferTexcoords[k++] = tex_0;
+                mBufferTexcoords[k++] = tex_1;
+                mBufferTexcoords[k++] = tex_0;
+                mBufferTexcoords[k++] = tex_1;
+                
+                /*
+                vbItr.setTexCoord2d0(zero); ++vbItr;    //  skip bottom
+                vbItr.setTexCoord2d0(zero); ++vbItr;
+
                 vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top
                 vbItr.setTexCoord2d0(tex_1); ++vbItr;
 
@@ -134,19 +163,32 @@ namespace next{
                 vbItr.setTexCoord2d0(tex_1); ++vbItr;
                 vbItr.setTexCoord2d0(tex_0); ++vbItr;   //  top / bottom right
                 vbItr.setTexCoord2d0(tex_1); ++vbItr;
-
+                 */
             }
-
-            ++vbItr; ++vbItr; ++vbItr; ++vbItr;         //  skip front
-            ++vbItr; ++vbItr; ++vbItr; ++vbItr;         //  skip back
+            
+            k += 8;
+            /*
+            vbItr.setTexCoord2d0(zero); ++vbItr;        //  skip front
+            vbItr.setTexCoord2d0(zero); ++vbItr;
+            vbItr.setTexCoord2d0(zero); ++vbItr;
+            vbItr.setTexCoord2d0(zero); ++vbItr;
+            
+            vbItr.setTexCoord2d0(zero); ++vbItr;        //  skip back
+            vbItr.setTexCoord2d0(zero); ++vbItr;
+            vbItr.setTexCoord2d0(zero); ++vbItr;
+            vbItr.setTexCoord2d0(zero); ++vbItr;
+             */
             
             diver->updateTexcoords();   //  update diver texcooord
-        }
         
+            
+        }
     }
 
     void QuoteField::draw(){
+        mMesh.bufferTexCoords2d(0, mBufferTexcoords);
         drawMesh();
+        mMesh.unbindBuffers();
     }
 
     void QuoteField::update(Oscillator *osc, float t){

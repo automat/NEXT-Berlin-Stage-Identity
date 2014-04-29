@@ -151,9 +151,19 @@ namespace next {
         clearStates();
     }
 
-
-    void SpeakerView::drawFocus(){
-        return;
+    void SpeakerView::beginPaint(){
+        mFboDirty = true;
+    }
+    
+    void SpeakerView::endPaint(){
+        mFboDirty = false;
+    }
+    
+    void SpeakerView::repaint(){
+        if(!mFboDirty){
+            return;
+        }
+        
         static const float scale = 10.0f;
 
         float focusColor    = mFocusColorState();
@@ -215,10 +225,12 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SpeakerView::draw(){
+        repaint();
+        
         Vec3f pos   = mPositionState();
         float scale = mScaleState();
 
-        const gl::Texture& image = mData->imageRef.weakClone();
+        const gl::Texture& image = mFbo1.getTexture();
 
         glPushMatrix();
             glTranslatef(pos.x,pos.y,pos.z);
@@ -265,25 +277,29 @@ namespace next {
     void SpeakerView::focus(){
         tween(&mFocusColorState,0.0f, 1.0f, SESSION_SPEAKER_VIEW_ANIM_FOCUS, AnimEaseOut());
         tween(&mFocusBlurState, 0.0f, 1.0f, SESSION_SPEAKER_VIEW_ANIM_FOCUS, AnimEaseOut(),
-              std::bind(&SpeakerView::drawFocus, this));
+              std::bind(&SpeakerView::beginPaint, this),
+              std::bind(&SpeakerView::endPaint, this));
     }
     
     void SpeakerView::unfocus(){
         tween(&mFocusColorState,1.0f, 0.0f, SESSION_SPEAKER_VIEW_ANIM_UNFOCUS, AnimEaseOut());
         tween(&mFocusBlurState, 0.0f,       SESSION_SPEAKER_VIEW_ANIM_UNFOCUS, AnimEaseOut(),
-              std::bind(&SpeakerView::drawFocus, this));
+              std::bind(&SpeakerView::beginPaint, this),
+              std::bind(&SpeakerView::endPaint, this));
 }
 
     void SpeakerView::unfocusOut(){
         tween(&mFocusColorState, 1.0f, 0.0f, SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_OUT, AnimEaseOut());
         tween(&mFocusBlurState,  0.0f,       SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_OUT, AnimEaseOut(),
-              std::bind(&SpeakerView::drawFocus, this));
+              std::bind(&SpeakerView::beginPaint, this),
+              std::bind(&SpeakerView::endPaint, this));
     }
     
     void SpeakerView::focusIn(){
         tween(&mFocusColorState, 0.0f, 1.0f, SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_IN, AnimEaseOut());
         tween(&mFocusBlurState,  0.0f, 1.0f, SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_IN, AnimEaseOut(),
-              std::bind(&SpeakerView::drawFocus, this));
+              std::bind(&SpeakerView::beginPaint, this),
+              std::bind(&SpeakerView::endPaint, this));
     }
 
     void SpeakerView::show() {
@@ -298,7 +314,8 @@ namespace next {
 
     void SpeakerView::unfocusImage(){
         tween(&mFocusBlurState, 0.0f ,SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_IMAGE, AnimEaseOut(),
-                std::bind(&SpeakerView::drawFocus, this));
+              std::bind(&SpeakerView::beginPaint, this),
+              std::bind(&SpeakerView::endPaint, this));
     }
 
     void SpeakerView::clearStates(){
@@ -308,7 +325,9 @@ namespace next {
         mScaleState      = 1.0f;
         
         updateAlpha();
-        drawFocus();
+        beginPaint();
+        repaint();
+        endPaint();
     }
     
 }

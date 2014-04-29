@@ -156,8 +156,8 @@ namespace next{
                            app::loadResource(RES_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
                            &mShaderMixRadial);
 #endif
-        mThemeView->play(100, NULL);
-        //mSessionView->start();
+        //mThemeView->play(1000, NULL);
+        mSessionView->start();
     }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -167,7 +167,7 @@ namespace next{
     Stage::~Stage(){
         delete mBackground;
         delete mThemeView;
-        delete mSessionView;
+       // delete mSessionView;
         delete mOscillator;
         delete mTypesetter;
         delete mGrid;
@@ -484,7 +484,7 @@ namespace next{
 
         mBackground->update(mOscillator,app::getElapsedSeconds());
         mThemeView->update();
-        mSessionView->update();
+       // mSessionView->update();
     }
 
 
@@ -502,26 +502,32 @@ namespace next{
 
         gl::draw(mFboThemeViewFinal.getTexture(), mFboBounds_1);
 
-        gl::disableDepthRead();
+        
         gl::setMatricesWindow(app::getWindowSize(), true);
 
 #ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER
+        gl::disableDepthRead();
         mThemeView->debugDrawQuoteManager();
 #endif
-
+        gl::enableDepthRead();
         glAlphaFunc(GL_GREATER, 0.0);
         glEnable(GL_ALPHA_TEST);
         glEnable( GL_BLEND );
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
         
+        gl::setMatrices(mCamera);
+        mSessionView->draw();
+        
         gl::enableAlphaBlending();
         gl::disableDepthRead();
         gl::pushMatrices();
         gl::setMatricesWindow(app::getWindowSize());
+        gl::disableDepthRead();
         mSessionView->drawLabels();
         mLogoNEXT->draw();
-        gl::popMatrices();
         gl::enableDepthRead();
+        gl::popMatrices();
+        
         
         glDisable(GL_BLEND);
         glDisable(GL_ALPHA_TEST);
@@ -571,5 +577,8 @@ namespace next{
     //  get
     /*--------------------------------------------------------------------------------------------*/
 
+    void Stage::releaseTest(){
+        mThemeView->play(3, NULL);
+    }
 }
 

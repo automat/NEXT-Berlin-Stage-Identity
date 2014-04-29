@@ -67,6 +67,7 @@ namespace next{
         ThemeView*       mThemeView;
         SessionView*     mSessionView;
         
+        
 #ifndef STAGE_SKIP_LOGO
         NEXTLogo*   mLogoNEXT;
 #endif
@@ -119,6 +120,8 @@ namespace next{
         void viewTop();
         void viewOrtho();
         void onConfigDidChange();
+        
+        void releaseTest();
     };
 }
 

@@ -22,6 +22,8 @@ namespace next{
         Vec2f      mTexcoordStart;
         Vec2f      mTexcoordStep;
 
+        vector<Vec2f> mBufferTexcoords;
+        
         void addMeshColors();
         
     public:

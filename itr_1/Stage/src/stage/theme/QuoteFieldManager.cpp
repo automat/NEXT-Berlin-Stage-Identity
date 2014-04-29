@@ -74,6 +74,10 @@ namespace next {
     }
     
     void QuoteFieldManager::play(int num, std::function<void ()> callback){
+        if(mActive){
+            return;
+        }
+        
         mActive    = true;
         mMaxPlays  = num;
         mPlayCount = 0;

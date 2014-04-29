@@ -47,7 +47,7 @@ namespace next {
             mTextBoxCompany->setColorFont( SESSION_LABEL_SPEAKER_COMPANY_FONT_COLOR);
             mTextBoxCompany->setLineHeight(SESSION_LABEL_SPEAKER_COMPANY_LINE_HEIGHT);
             
-            mScale = 1.0f / (SESSION_LABEL_EVENT_TITLE_FONT_SIZE * 10);
+            mScale = 1.0f / (SESSION_LABEL_EVENT_TITLE_FONT_SIZE * 7);
     }
     
     SpeakerLabel::~SpeakerLabel(){
