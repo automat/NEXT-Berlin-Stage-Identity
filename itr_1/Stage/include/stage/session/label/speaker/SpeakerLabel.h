@@ -14,21 +14,20 @@
 #include <map>
 #include <vector>
 #include "data/session/Speaker.h"
+#include "util/text/TextBoxTexture.h"
 
 namespace next {
     using namespace std;
     class SpeakerLabel : public AbstractLabel {
-        static Font sFontName;
-        static Font sFontCompany;
-        static map<string,gl::Texture> sStringNameTextures;
-        static map<string,gl::Texture> sStringCompanyTextures;
+        static map<string, TextBoxTexture> sMapNameTexture;
+        static map<string, TextBoxTexture> sMapCompanyTexture;
+        
     public:
-        void Map(map<uint32_t,next::Speaker>* speaker);
+        static void Map(map<uint32_t,next::Speaker>* speaker);
     private:
         
         string mName;
         string mCompany;
-        bool   mTextBoxDirty;
 
         float      mScale;
         Matrix44f  mTransform;
@@ -38,13 +37,10 @@ namespace next {
         Anim<float> mAlphaStateName;
         Anim<float> mAlphaStateCompany;
 
-        TextBox* mTextBoxCompany;
         float    mTextBoxCompanyOffsetY;
     public:
         SpeakerLabel();
-        ~SpeakerLabel();
-        
-        void update();
+
         void draw();
         void set(const string& name, const string& company);
         

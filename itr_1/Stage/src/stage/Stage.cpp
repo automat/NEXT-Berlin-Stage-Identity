@@ -20,7 +20,7 @@
 namespace next{
     using namespace boost::assign;
 
-    Stage::Stage(vector<QuoteJson>* quoteData, Session* sessionData){
+    Stage::Stage(vector<QuoteJson>* quoteData, Session* sessionData, map<uint32_t,Speaker>* speakersData){
         //
         //
         //
@@ -92,7 +92,7 @@ namespace next{
         mOscillator   = new Oscillator();
         mBackground   = new Background(mGrid, areaScaled, mOscillator, windowSize.x, windowSize.y);
         mThemeView    = new ThemeView(mGrid, areaScaled, mOscillator, &mQuotes);
-        mSessionView  = new SessionView(sessionData);
+        mSessionView  = new SessionView(sessionData,speakersData);
 
 #ifndef STAGE_SKIP_LOGO
         mLogoNEXT = new NEXTLogo();

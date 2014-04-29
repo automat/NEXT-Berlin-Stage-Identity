@@ -14,34 +14,49 @@ namespace next {
     //  Shared
     /*--------------------------------------------------------------------------------------------*/
 
-    Font SpeakerLabel::sFontName;
-    Font SpeakerLabel::sFontCompany;
-    map<string,gl::Texture> SpeakerLabel::sStringNameTextures;
-    map<string,gl::Texture> SpeakerLabel::sStringCompanyTextures;
+    map<string, TextBoxTexture> SpeakerLabel::sMapNameTexture;
+    map<string, TextBoxTexture> SpeakerLabel::sMapCompanyTexture;
     
-    void SpeakerLabel::Map(map<uint32_t,next::Speaker>*){
-        sFontName    = Font(app::loadResource(RES_AKKURAT_BOLD),  SESSION_LABEL_SPEAKER_FONT_SIZE * SESSION_LABEL_SPEAKER_FONT_SCALE);
-        sFontCompany = Font(app::loadResource(RES_AKKURAT_LIGHT), SESSION_LABEL_SPEAKER_FONT_SIZE * SESSION_LABEL_SPEAKER_FONT_SCALE);
+    void SpeakerLabel::Map(map<uint32_t,next::Speaker>* speakers){
+        Font fontName(   app::loadResource(RES_AKKURAT_BOLD),  SESSION_LABEL_SPEAKER_FONT_SIZE * SESSION_LABEL_SPEAKER_FONT_SCALE);
+        Font fontCompany(app::loadResource(RES_AKKURAT_LIGHT), SESSION_LABEL_SPEAKER_FONT_SIZE * SESSION_LABEL_SPEAKER_FONT_SCALE);
         
         TextBox* textBoxName    = new TextBox();
         TextBox* textBoxCompany = new TextBox();
         
         string supportedChars = gl::TextureFont::defaultChars() + "å";
         
-        textBoxName->setFont(   sFontName, supportedChars);
+        textBoxName->setFont(      fontName, supportedChars);
         textBoxName->setWidth(     SESSION_LABEL_SPEAKER_BOX_WIDTH);
         textBoxName->setFontSize(  SESSION_LABEL_SPEAKER_FONT_SIZE);
         textBoxName->setColorFont( SESSION_LABEL_SPEAKER_NAME_FONT_COLOR);
         
-        textBoxCompany->setFont(      sFontCompany, supportedChars);
+        textBoxCompany->setFont(      fontCompany, supportedChars);
         textBoxCompany->setWidth(     SESSION_LABEL_SPEAKER_BOX_WIDTH);
         textBoxCompany->setFontSize(  SESSION_LABEL_SPEAKER_FONT_SIZE);
         textBoxCompany->setColorFont( SESSION_LABEL_SPEAKER_COMPANY_FONT_COLOR);
         textBoxCompany->setLineHeight(SESSION_LABEL_SPEAKER_COMPANY_LINE_HEIGHT);
         
         
-        
-        
+        for(map<uint32_t, next::Speaker>::const_iterator itr = speakers->begin(); itr != speakers->end(); ++itr){
+            const string& name    = itr->second.name;
+            const string& company = itr->second.companyName;
+            
+            textBoxName->setString(name);
+            
+            sMapNameTexture[name] = TextBoxTexture();
+            sMapNameTexture[name].calculatedSize = textBoxName->getCalculatedSize();
+            sMapNameTexture[name].texcoords      = textBoxName->getTexcoords();
+            sMapNameTexture[name].topleft        = textBoxName->getTopLeft();
+            sMapNameTexture[name].texture        = gl::Texture(Surface(textBoxName->getTexture()));
+            
+            textBoxCompany->setString(company);
+            sMapCompanyTexture[company] = TextBoxTexture();
+            sMapCompanyTexture[company].calculatedSize = textBoxCompany->getCalculatedSize();
+            sMapCompanyTexture[company].texcoords      = textBoxCompany->getTexcoords();
+            sMapCompanyTexture[company].topleft        = textBoxCompany->getTopLeft();
+            sMapCompanyTexture[company].texture        = gl::Texture(Surface(textBoxCompany->getTexture()));
+        }
         
         delete textBoxName;
         delete textBoxCompany;
@@ -58,44 +73,8 @@ namespace next {
         mOffsetStateName(0),
         mOffsetStateCompany(0),
         mName(""),
-        mCompany(""),
-        mTextBoxDirty(false){
-            /*
-            static bool __fontInitialized(false);
-            if(!__fontInitialized){
-                sFontName    = Font(app::loadResource(RES_AKKURAT_BOLD),  SESSION_LABEL_SPEAKER_FONT_SIZE * SESSION_LABEL_SPEAKER_FONT_SCALE);
-                sFontCompany = Font(app::loadResource(RES_AKKURAT_LIGHT), SESSION_LABEL_SPEAKER_FONT_SIZE * SESSION_LABEL_SPEAKER_FONT_SCALE);
-            }*/
-
-            /*
-            string supportedChars = gl::TextureFont::defaultChars() + "å";
-            
-            
-            mTextBox->setFont(      sFontName, supportedChars);
-            mTextBox->setWidth(     SESSION_LABEL_SPEAKER_BOX_WIDTH);
-            mTextBox->setFontSize(  SESSION_LABEL_SPEAKER_FONT_SIZE);
-            mTextBox->setColorFont( SESSION_LABEL_SPEAKER_NAME_FONT_COLOR);
-            //mTextBox->setFixedFboSize(Vec2f(SESSION_LABEL_SPEAKER_BOX_WIDTH, SESSION_LABEL_SPEAKER_BOX_HEIGHT));
-
-            mTextBoxCompany = new TextBox();
-            mTextBoxCompany->setFont(      sFontCompany, supportedChars);
-            mTextBoxCompany->setWidth(     SESSION_LABEL_SPEAKER_BOX_WIDTH);
-            mTextBoxCompany->setFontSize(  SESSION_LABEL_SPEAKER_FONT_SIZE);
-            mTextBoxCompany->setColorFont( SESSION_LABEL_SPEAKER_COMPANY_FONT_COLOR);
-            mTextBoxCompany->setLineHeight(SESSION_LABEL_SPEAKER_COMPANY_LINE_HEIGHT);
-             */
-            /*
-            mTextBoxCompany->setFixedFboSize(Vec2f(500,500));
-            
-            mTextBox->setString("null");
-            mTextBoxCompany->setString("null");
-             */
-            
+        mCompany(""){
             mScale = 1.0f / (SESSION_LABEL_EVENT_TITLE_FONT_SIZE * 7);
-    }
-    
-    SpeakerLabel::~SpeakerLabel(){
-        delete mTextBoxCompany;
     }
 
     /*--------------------------------------------------------------------------------------------*/
@@ -114,34 +93,16 @@ namespace next {
     // Update / draw
     /*--------------------------------------------------------------------------------------------*/
     
-    void SpeakerLabel::update(){
-        /*
-        if(!mTextBoxDirty){
-            return;
-        }
-        
-        mTextBox->setString(mName);
-        mTextBoxCompanyOffsetY = mTextBox->getCalculatedSize().y * SESSION_LABEL_SPEAKER_LINE_HEIGHT;
-        
-        if(!mCompany.empty()){
-            mTextBoxCompany->setString(mCompany);
-        }
-        
-        
-        mTextBoxDirty = false;
-         */
-    }
-    
     void SpeakerLabel::draw(){
-        if(mTextBox->empty()){
+        if(mName.empty()){
             return;
         }
-        float alphaName     = mAlphaStateName();
-        float alphaCompany  = mAlphaStateCompany();
-        float offsetName    = mOffsetStateName();
-        float offsetCompany = mOffsetStateCompany();
+ 
+        const TextBoxTexture& name = sMapNameTexture[mName];
+        float alphaName  = mAlphaStateName();
+        float offsetName = mOffsetStateName();
         
-        Vec2f pos = mPos + mTextBox->getTopLeft();
+        Vec2f pos = mPos + name.topleft;
         
         glPushMatrix();
         glTranslatef(pos.x, 0 , pos.y);
@@ -152,25 +113,23 @@ namespace next {
             glColor4f(1,1,1, alphaName);
             glPushMatrix();
                 glTranslatef(offsetName,0,0);
-                //gl::draw(mTextBox->getTexture());
-#ifdef SESSION_VIEW_LABEL_SPEAKER_DEBUG_DRAW
-                //mTextBox->debugDraw();
-#endif
+                gl::draw(name.texture);
             glPopMatrix();
-        /*
-        if(!mTextBoxCompany->empty()){
-            glPushMatrix();
-            glTranslatef(0, mTextBoxCompanyOffsetY, 0);
-            glColor4f(1,1,1, alphaCompany);
-            glTranslatef(offsetCompany,0,0);
-            gl::draw(mTextBoxCompany->getTexture());
-#ifdef SESSION_VIEW_LABEL_SPEAKER_DEBUG_DRAW
-            mTextBoxCompany->debugDraw();
-#endif
-            glPopMatrix();
-        }
-         */
         
+            if(!mCompany.empty()){
+                const TextBoxTexture& company = sMapCompanyTexture[mCompany];
+                
+                float alphaCompany         = mAlphaStateCompany();
+                float offsetCompany        = mOffsetStateCompany();
+                float offsetCompanyTexture = company.calculatedSize.y * SESSION_LABEL_SPEAKER_LINE_HEIGHT;
+                
+                glPushMatrix();
+                    glTranslatef(0, offsetCompanyTexture, 0);
+                    glColor4f(1,1,1, alphaCompany);
+                    glTranslatef(offsetCompany,0,0);
+                    gl::draw(company.texture);
+                glPopMatrix();
+            }
             glColor4f(1,1,1,1);
         
         glPopMatrix();
@@ -181,9 +140,8 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SpeakerLabel::set(const string& name, const string& company){
-        mName = name;
-        mCompany = company;
-        mTextBoxDirty = true;
+        mName         = name;
+        mCompany      = company;
         
         mAlphaStateName     = 0.0f;
         mAlphaStateCompany  = 0.0f;

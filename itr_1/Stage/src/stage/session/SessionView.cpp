@@ -28,7 +28,7 @@ namespace next {
     //  Constructor / Destructor
     /*--------------------------------------------------------------------------------------------*/
     
-    SessionView::SessionView(Session* data) :
+    SessionView::SessionView(Session* data, map<uint32_t, Speaker>* speakerData) :
         AbstractAnimBase(),
             mEventViewStep(0),
             mEventViewFront(0),
@@ -45,6 +45,10 @@ namespace next {
                 mEventViewSlots[4] = Vec3f(SESSION_VIEW_SLIDE_SCREEN_CENTER_OFFSET,0, SESSION_VIEW_SLIDE_LENGTH - SESSION_VIEW_SLIDE_SCREEN_CENTER_OFFSET);
             
                 mSpeakerLabelPos = mEventViewSlots[2];
+                
+                EventTitleLabel::Map(data->events);
+                SpeakerLabel::Map(speakerData);
+                
                 
                 mLabelTitle              = new SessionTitleLabel();
                 mLabelMeta               = new SessionMetaLabel();
@@ -256,7 +260,7 @@ namespace next {
             
             delayCallback(1.375f, std::bind(&SessionView::turnOffSessionLabels, this));
             
-            //mPingPongLabelEventTitle->off();
+            mPingPongLabelEventTitle->off();
             mPingPongLabelSpeaker->off();
             //mLabelEventMeta->off();
             return;
@@ -278,7 +282,7 @@ namespace next {
                 //
                 //  Hide previous event label
                 //
-                //mPingPongLabelEventTitle->hide();
+                mPingPongLabelEventTitle->hide();
                 //mPingPongLabelEventTitle->swap();
             }
             
@@ -289,20 +293,20 @@ namespace next {
             std::advance(eventData, mIndexEventViews);
             Event* data = &eventData->second;
             
-            //mPingPongLabelEventTitle->set(data->title);
+            mPingPongLabelEventTitle->set(data->title);
             
             if(mIndexEventViews == 0){
                 //
                 //  turn label on
                 //
-                //mPingPongLabelEventTitle->on();
+                mPingPongLabelEventTitle->on();
                 //mLabelEventMeta->on();
             } else {
                 
                 //
                 //  show next label
                 //
-                //mPingPongLabelEventTitle->show();
+                mPingPongLabelEventTitle->show();
             }
             
             //mLabelEventMeta->set(data->type, toString(mIndexEventViews + 1) + " / " + toString(mNumEventViews));
@@ -365,7 +369,6 @@ namespace next {
             return;
         }
         mLabelMeta->update();
-        mPingPongLabelSpeaker->update();
     }
     
     void SessionView::drawLabels(){
@@ -374,7 +377,7 @@ namespace next {
         }
         mLabelTitle->draw();
         mLabelMeta->draw();
-        //mPingPongLabelEventTitle->draw();
+        mPingPongLabelEventTitle->draw();
         //mLabelEventMeta->draw();
     }
 

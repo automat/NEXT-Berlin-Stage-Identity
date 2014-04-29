@@ -210,6 +210,7 @@
 		CDA69B99190FCF4F0087ADA1 /* SessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionView.h; sourceTree = "<group>"; };
 		CDA69B9A190FCF4F0087ADA1 /* SpeakerStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakerStackView.h; sourceTree = "<group>"; };
 		CDA69B9B190FCF4F0087ADA1 /* SpeakerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakerView.h; sourceTree = "<group>"; };
+		CDA69B9C190FF30C0087ADA1 /* TextBoxTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextBoxTexture.h; sourceTree = "<group>"; };
 		CDAC7ADB190AE2FE00430DCF /* DrawUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawUtil.h; sourceTree = "<group>"; };
 		CDAC7ADC190AE2FE00430DCF /* PingPongFbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongFbo.h; sourceTree = "<group>"; };
 		CDAC7ADD190AE2FE00430DCF /* ShaderUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderUtil.h; sourceTree = "<group>"; };
@@ -845,6 +846,7 @@
 				CDAC7AE0190AE2FE00430DCF /* TextBox.h */,
 				CDAC7AE1190AE2FE00430DCF /* TextureFontAkkurat.h */,
 				CDAC7AE2190AE2FE00430DCF /* TextureFontTranscript.h */,
+				CDA69B9C190FF30C0087ADA1 /* TextBoxTexture.h */,
 			);
 			path = text;
 			sourceTree = "<group>";

@@ -83,7 +83,7 @@ namespace next {
         
         
     public:
-        SessionView(Session* data);
+        SessionView(Session* data, map<uint32_t, Speaker>* speakerData);
         ~SessionView();
         
         void reset(Session* data);  //  clearStates session with new data

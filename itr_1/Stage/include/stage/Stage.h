@@ -111,7 +111,7 @@ namespace next{
         void loadLightProperties();
 
     public:
-        Stage(vector<QuoteJson>* quoteData, Session* sessionData);
+        Stage(vector<QuoteJson>* quoteData, Session* sessionData, map<uint32_t,Speaker>* speakersData);
         ~Stage();
 
         void update();

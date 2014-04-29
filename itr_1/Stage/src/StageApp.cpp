@@ -104,7 +104,7 @@ void StageApp::setup(){
     //
     //  Init
     //
-    mStage = new next::Stage(mDataQuotes, mDataSession);
+    mStage = new next::Stage(mDataQuotes, mDataSession, mDataSpeakers);
 }
 
 /*--------------------------------------------------------------------------------------------*/

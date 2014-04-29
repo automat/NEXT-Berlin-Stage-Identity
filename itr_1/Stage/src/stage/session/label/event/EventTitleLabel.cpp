@@ -7,71 +7,137 @@
 namespace next {
     using namespace boost;
     typedef EaseInOutQuad AnimEaseInOut;
-
-    Font EventTitleLabel::sFontDefault;
-    Font EventTitleLabel::sFontExceed;
-
-    EventTitleLabel::EventTitleLabel() : AbstractLabel(), mDidExceedNumLineMax(false){
-        static bool __fontsInitialized(false);
-        if(!__fontsInitialized){
-            sFontDefault = Font(app::loadResource(RES_TRANSCRIPT_BOLD),
-                                SESSION_LABEL_SESSION_TITLE_FONT_SIZE * SESSION_LABEL_EVENT_TITLE_FONT_SCALAR);
-            sFontExceed  = Font(app::loadResource(RES_TRANSCRIPT_BOLD),
-                                SESSION_LABEL_EVENT_TITLE_EXCEED_FONT_SIZE * SESSION_LABEL_EVENT_TITLE_FONT_SCALAR);
-        }
-
+    
+    map<string, TextBoxTexture>   EventTitleLabel::sMapTitleTexture;
+    map<string, vector<LineQuad>> EventTitleLabel::sMapTitleLineQuads;
+    
+    void EventTitleLabel::Map(map<uint32_t, next::Event> *events){
+        Font fontDefault(app::loadResource(RES_TRANSCRIPT_BOLD),
+                         SESSION_LABEL_SESSION_TITLE_FONT_SIZE * SESSION_LABEL_EVENT_TITLE_FONT_SCALAR);
+        Font fontExceed( app::loadResource(RES_TRANSCRIPT_BOLD),
+                         SESSION_LABEL_EVENT_TITLE_EXCEED_FONT_SIZE * SESSION_LABEL_EVENT_TITLE_FONT_SCALAR);
+        
         string supportedChars = gl::TextureFont::defaultChars() + "–";
         
-        //
-        //  Default
-        //
-        mTextBox->setFont(sFontDefault, supportedChars);
+        TextBox* textBoxDefault = new TextBox();
         
-        mTextBox->setWidth(SESSION_LABEL_EVENT_TITLE_DEFAULT_BOX_WIDTH);
-        mTextBox->setFontSize(  SESSION_LABEL_EVENT_TITLE_FONT_SIZE);
-        mTextBox->setLineHeight(SESSION_LABEL_EVENT_TITLE_LINE_HEIGHT);
-        mTextBox->setColorFont( SESSION_LABEL_EVENT_TITLE_FONT_COLOR);
+        textBoxDefault->setFont(fontDefault, supportedChars);
+        textBoxDefault->setWidth(SESSION_LABEL_EVENT_TITLE_DEFAULT_BOX_WIDTH);
+        textBoxDefault->setFontSize(  SESSION_LABEL_EVENT_TITLE_FONT_SIZE);
+        textBoxDefault->setLineHeight(SESSION_LABEL_EVENT_TITLE_LINE_HEIGHT);
+        textBoxDefault->setColorFont( SESSION_LABEL_EVENT_TITLE_FONT_COLOR);
         
-        mTextBox->setColorDropShadow( SESSION_LABEL_EVENT_TITLE_SHADOW_COLOR);
-        mTextBox->setDropShadowOffset(SESSION_LABEL_EVENT_TITLE_SHADOW_OFFSET);
-        mTextBox->setDropShadowScale( SESSION_LABEL_EVENT_TITLE_SHADOW_STRENGTH);
-        mTextBox->dropShadow();
+        textBoxDefault->setColorDropShadow( SESSION_LABEL_EVENT_TITLE_SHADOW_COLOR);
+        textBoxDefault->setDropShadowOffset(SESSION_LABEL_EVENT_TITLE_SHADOW_OFFSET);
+        textBoxDefault->setDropShadowScale( SESSION_LABEL_EVENT_TITLE_SHADOW_STRENGTH);
+        textBoxDefault->dropShadow();
         
-        //mTextBox->setColorUnderline( SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
-        mTextBox->gradientUnderline();
-        mTextBox->setColorGradientUnderline(SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_START,
+        textBoxDefault->gradientUnderline();
+        textBoxDefault->setColorGradientUnderline(SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_START,
                                             SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_END);
-        mTextBox->setUnderlineHeight(SESSION_LABEL_EVENT_TITLE_UNDERLINE_HEIGHT);
-        mTextBox->underline();
+        textBoxDefault->setUnderlineHeight(SESSION_LABEL_EVENT_TITLE_UNDERLINE_HEIGHT);
+        textBoxDefault->underline();
         
-        //
-        //  Exceeded
-        //
-        mTextBoxExceed = new TextBox();
-        mTextBoxExceed->setFont(sFontExceed, supportedChars);
+        TextBox* textBoxExceed  = new TextBox();
+        textBoxExceed->setFont(fontExceed, supportedChars);
         
-        mTextBoxExceed->setWidth(     SESSION_LABEL_EVENT_TITLE_EXCEED_BOX_WIDTH);
-        mTextBoxExceed->setFontSize(  SESSION_LABEL_EVENT_TITLE_EXCEED_FONT_SIZE);
-        mTextBoxExceed->setLineHeight(SESSION_LABEL_EVENT_TITLE_EXCEED_LINE_HEIGHT);
-        mTextBoxExceed->setColorFont( SESSION_LABEL_EVENT_TITLE_FONT_COLOR);
+        textBoxExceed->setWidth(     SESSION_LABEL_EVENT_TITLE_EXCEED_BOX_WIDTH);
+        textBoxExceed->setFontSize(  SESSION_LABEL_EVENT_TITLE_EXCEED_FONT_SIZE);
+        textBoxExceed->setLineHeight(SESSION_LABEL_EVENT_TITLE_EXCEED_LINE_HEIGHT);
+        textBoxExceed->setColorFont( SESSION_LABEL_EVENT_TITLE_FONT_COLOR);
         
-        mTextBoxExceed->setColorDropShadow( SESSION_LABEL_EVENT_TITLE_SHADOW_COLOR);
-        mTextBoxExceed->setDropShadowOffset(SESSION_LABEL_EVENT_TITLE_SHADOW_OFFSET);
-        mTextBoxExceed->setDropShadowScale( SESSION_LABEL_EVENT_TITLE_SHADOW_STRENGTH);
-        mTextBoxExceed->dropShadow();
+        textBoxExceed->setColorDropShadow( SESSION_LABEL_EVENT_TITLE_SHADOW_COLOR);
+        textBoxExceed->setDropShadowOffset(SESSION_LABEL_EVENT_TITLE_SHADOW_OFFSET);
+        textBoxExceed->setDropShadowScale( SESSION_LABEL_EVENT_TITLE_SHADOW_STRENGTH);
+        textBoxExceed->dropShadow();
         
         //mTextBoxExceed->setColorUnderline( SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
-        mTextBoxExceed->gradientUnderline();
-        mTextBoxExceed->setColorGradientUnderline(SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_START,
+        textBoxExceed->gradientUnderline();
+        textBoxExceed->setColorGradientUnderline(SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_START,
                                                   SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_END);
-        mTextBoxExceed->setUnderlineHeight(SESSION_LABEL_EVENT_TITLE_UNDERLINE_HEIGHT);
-        mTextBoxExceed->underline();
+        textBoxExceed->setUnderlineHeight(SESSION_LABEL_EVENT_TITLE_UNDERLINE_HEIGHT);
+        textBoxExceed->underline();
+
         
-        setPosition(SESSION_LABEL_EVENT_TITLE_POS);
+        vector<LineQuad> lineQuads;
+        Vec2f textureSize;
+        float textureWidth;
+        float textureHeight;
+        int   numLines;
+        Vec2f topLeft;
+        float width, height;
+       
+        int i;
+        
+        for(map<uint32_t, next::Event>::const_iterator itr = events->begin(); itr != events->end(); itr++){
+            const string& name = itr->second.title;
+            
+            //
+            //  Gen texture
+            //
+            
+            textBoxDefault->setString(name);
+            numLines = textBoxDefault->getNumLines();
+            if(textBoxDefault->getNumLines() > SESSION_LABEL_EVENT_TITLE_MAX_LINES){
+                textBoxExceed->setString(name);
+                sMapTitleTexture[name] = TextBoxTexture();
+                sMapTitleTexture[name].calculatedSize = textBoxExceed->getCalculatedSize();
+                sMapTitleTexture[name].texcoords      = textBoxExceed->getTexcoords();
+                sMapTitleTexture[name].topleft        = textBoxExceed->getTopLeft();
+                sMapTitleTexture[name].texture        = gl::Texture(Surface(textBoxExceed->getTexture()));
+                numLines = textBoxExceed->getNumLines();
+            } else {
+                sMapTitleTexture[name] = TextBoxTexture();
+                sMapTitleTexture[name].calculatedSize = textBoxDefault->getCalculatedSize();
+                sMapTitleTexture[name].texcoords      = textBoxDefault->getTexcoords();
+                sMapTitleTexture[name].topleft        = textBoxDefault->getTopLeft();
+                sMapTitleTexture[name].texture        = gl::Texture(Surface(textBoxDefault->getTexture()));
+            }
+            
+            //
+            //  Gen quads
+            //
+
+            lineQuads.clear();
+            
+            textureSize   = sMapTitleTexture[name].calculatedSize;
+            textureWidth  = textureSize.x;
+            textureHeight = textureSize.y;
+            
+            const vector<vector<Vec2f>>& texcoords = sMapTitleTexture[name].texcoords;
+            
+            i = -1;
+            while(++i < numLines){
+                const vector<Vec2f>& _texcoords = texcoords[i];
+                
+                LineQuad quad;
+                quad.posTarget = topLeft = Vec2f(_texcoords[0].x * textureWidth, _texcoords[0].y * textureHeight);;
+                quad.posState  = quad.posTarget;
+                quad.texcoords = _texcoords;
+                
+                vector<Vec2f>& vertices = quad.vertices;
+                width  = topLeft.x + _texcoords[1].x * textureWidth;
+                height = _texcoords[2].y * textureHeight - topLeft.y;
+                
+                vertices.push_back(Vec2f());
+                vertices.push_back(Vec2f(width,0));
+                vertices.push_back(Vec2f(0,height));
+                vertices.push_back(Vec2f(width,height));
+                
+                lineQuads.push_back(quad);
+            }
+            
+            sMapTitleLineQuads[name] = lineQuads;
+        }
+        
+        delete textBoxDefault;
+        delete textBoxExceed;
     }
     
-    EventTitleLabel::~EventTitleLabel(){
-        delete mTextBoxExceed;
+    
+
+    EventTitleLabel::EventTitleLabel() : AbstractLabel(){
+        setPosition(SESSION_LABEL_EVENT_TITLE_POS);
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -80,11 +146,15 @@ namespace next {
     
     
     void EventTitleLabel::draw(){
-        if(mTextBox->empty()){
+        if(mString.empty()){
             return;
         }
-        Vec2f topLeft = mTextBox->getTopLeft();
-        const gl::Texture& texture = mTextBox->getTexture();
+        
+        const TextBoxTexture&   title = sMapTitleTexture[mString];
+        const vector<LineQuad>& quads = sMapTitleLineQuads[mString];
+        
+        Vec2f topLeft = title.topleft;
+        const gl::Texture& texture = title.texture;
         Vec2f quadPos;
         
         glPushMatrix();
@@ -95,7 +165,7 @@ namespace next {
         texture.enableAndBind();
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-        for (vector<LineQuad>::const_iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
+        for (vector<LineQuad>::const_iterator itr = quads.begin(); itr != quads.end(); ++itr) {
             quadPos = itr->posState();
             
             glPushMatrix();
@@ -123,24 +193,7 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void EventTitleLabel::set(const string& title){
-        if(mString == title){
-            return;
-        }
-        
-        if(mDidExceedNumLineMax){
-            mDidExceedNumLineMax = false;
-        }
-        
-        mTextBox->setString(title);
         mString = title;
-        
-        
-        if(mTextBox->getNumLines() > SESSION_LABEL_EVENT_TITLE_MAX_LINES && !mDidExceedNumLineMax){
-            mTextBoxExceed->setString(title);
-            mDidExceedNumLineMax = true;
-        }
-
-        genQuads();
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -148,12 +201,14 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void EventTitleLabel::show(){
-        float size = static_cast<float>(MAX(1, mLineQuads.size() - 1));
+        vector<LineQuad>& quads = sMapTitleLineQuads[mString];
+        
+        float size = static_cast<float>(MAX(1, quads.size() - 1));
         float index = 0;
         float offset;
         Vec2f offsetPos;
         
-        for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
+        for (vector<LineQuad>::iterator itr = quads.begin(); itr != quads.end(); ++itr) {
             offset      = 1.0f + index++ / size;
             offsetPos.x = offset * SESSION_LABEL_EVENT_TITLE_ANIM_OFFSET_IN;
             
@@ -168,12 +223,14 @@ namespace next {
     }
     
     void EventTitleLabel::hide(){
-        float size = static_cast<float>(MAX(1, mLineQuads.size() - 1));
+        vector<LineQuad>& quads = sMapTitleLineQuads[mString];
+        
+        float size = static_cast<float>(MAX(1, quads.size() - 1));
         float index = 0;
         float offset;
         Vec2f offsetPos;
         
-        for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
+        for (vector<LineQuad>::iterator itr = quads.begin(); itr != quads.end(); ++itr) {
             offset      = 1.0f + index++ / size;
             offsetPos.x = offset * SESSION_LABEL_EVENT_TITLE_ANIM_OFFSET_OUT;
             
@@ -193,13 +250,14 @@ namespace next {
     
     
     void EventTitleLabel::on(){
-        float size = static_cast<float>(MAX(1, mLineQuads.size() - 1));
+        vector<LineQuad>& quads = sMapTitleLineQuads[mString];
+        
+        float size = static_cast<float>(MAX(1, quads.size() - 1));
         float index = 0;
         float offset;
         Vec2f offsetPos;
         
-        
-        for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
+        for (vector<LineQuad>::iterator itr = quads.begin(); itr != quads.end(); ++itr) {
             offset      = 1.0f + index++ / size;
             offsetPos.x = offset * SESSION_LABEL_EVENT_TITLE_ANIM_OFFSET_IN;
             
@@ -215,7 +273,9 @@ namespace next {
     }
     
     void EventTitleLabel::off(){
-        for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
+         vector<LineQuad>& quads = sMapTitleLineQuads[mString];
+        
+        for (vector<LineQuad>::iterator itr = quads.begin(); itr != quads.end(); ++itr) {
             itr->posState = itr->posTarget;
             
             tween(&itr->alphaState, 1.0f, 0.0f,
@@ -223,50 +283,4 @@ namespace next {
                   AnimEaseInOut());
         }
     }
-    
-    
-    /*--------------------------------------------------------------------------------------------*/
-    // Gen Textured Lines
-    /*--------------------------------------------------------------------------------------------*/
-    
-    void EventTitleLabel::genQuads(){
-        mLineQuads.clear();
-        
-        
-        TextBox* textBox = mDidExceedNumLineMax ? mTextBoxExceed : mTextBox;
-        
-        Vec2f textureSize   = textBox->getCalculatedSize();
-        float textureWidth  = textureSize.x;
-        float textureHeight = textureSize.y;
-        
-        int   numLines = textBox->getNumLines();
-        vector<vector<Vec2f>> texcoords = textBox->getTexcoords();
-        
-        Vec2f topLeft;
-        float width, height;
-        
-        int i;
-        i = -1;
-        while(++i < numLines){
-            const vector<Vec2f>& _texcoords = texcoords[i];
-            
-            LineQuad quad;
-            quad.posTarget = topLeft = Vec2f(_texcoords[0].x * textureWidth, _texcoords[0].y * textureHeight);;
-            quad.posState  = quad.posTarget;
-            quad.texcoords = _texcoords;
-            
-            vector<Vec2f>& vertices = quad.vertices;
-            width  = topLeft.x + _texcoords[1].x * textureWidth;
-            height = _texcoords[2].y * textureHeight - topLeft.y;
-            
-            vertices.push_back(Vec2f());
-            vertices.push_back(Vec2f(width,0));
-            vertices.push_back(Vec2f(0,height));
-            vertices.push_back(Vec2f(width,height));
-            
-            mLineQuads.push_back(quad);
-        }
-    }
-    
-    
 }

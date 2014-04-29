@@ -102,9 +102,6 @@ namespace next {
         gl::Fbo         mFbo0;
         gl::Fbo         mFbo1;
         
-        bool  mFixedFbo;
-        Vec2i mFixedFboSize;
-        
         /*--------------------------------------------------------------------------------------------*/
         // handle string
         /*--------------------------------------------------------------------------------------------*/
@@ -162,6 +159,7 @@ namespace next {
         
         //! Get normalized texcoords of every single line, excluding offset by shadow
         const vector<vector<Vec2f>>& getTexcoords();
+        
         
         int getNumLines();
         
