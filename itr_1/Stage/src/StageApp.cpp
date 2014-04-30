@@ -20,10 +20,10 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-string excCatch;
+string   excCatch;
 uint32_t session_id;
-string   config_path;
-string   data_path;
+string   configPath;
+string   dataPath;
 
 
 /*--------------------------------------------------------------------------------------------*/
@@ -106,7 +106,7 @@ void StageApp::setup(){
     mDataEvents     = nullptr;
     mDataSession    = nullptr;
     //3562 //3559
-    next::Mapping::Get(3615/*atoi(getArgs()[1].c_str())*/ , mImagesClocks, mImagesSpeakers,
+    next::Mapping::Get(3558/*atoi(getArgs()[1].c_str())*/ , mImagesClocks, mImagesSpeakers,
                        mDataSpeakers, mDataEvents, mDataSession);
     
     //

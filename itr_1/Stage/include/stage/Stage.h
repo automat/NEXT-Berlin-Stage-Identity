@@ -71,24 +71,27 @@ namespace next{
         void playSessionView();
         
         
-#ifndef STAGE_SKIP_LOGO
+
         NEXTLogo*   mLogoNEXT;
-#endif
+
 #if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(STAGE_SKIP_FX_SHADER)
         FileWatcherRef mFileWatcher;
 #endif
-#ifndef STAGE_SKIP_FX_SHADER
+
         gl::Texture      mTextureNoise;
 
         PingPongFbo      mFboPingPong_1;    //  ping pong fbo with actual screen size
         PingPongFbo      mFboPingPong_2;    //  ping pong fbo with half the screen size
         Area             mFboBounds_1;      //  cache area 1
         Area             mFboBounds_2;      //  cache area 2
+        
+        Vec2i            mFboSize_1;        //  cache size 1
         Vec2f            mFboSize_1f;       //  cache size 1 float
         Vec2i            mFboSize_2;        //  cache size 2
         Vec2f            mFboTexelSize_1;   //  cache texelSize 1
         Vec2f            mFboTexelSize_2;   //  cache texelSize 2
-
+        
+        gl::Fbo mFboThemeView;          //  original theme view unprocessed
         gl::Fbo mFboThemeViewSSAO;      //  original theme view + ssao
         gl::Fbo mFboThemeViewFinal;     //  final theme view completely post-processed
 
@@ -98,10 +101,6 @@ namespace next{
         gl::GlslProgRef  mShaderBlurVRef;
         gl::GlslProg     mShaderMix;
         gl::GlslProg     mShaderMixRadial;
-
-#endif
-        Vec2i   mFboSize_1;         //  cache size 1
-        gl::Fbo mFboThemeView;      //  original theme view unprocessed
 
 
         void drawThemeScene(bool useMaterialShaders);

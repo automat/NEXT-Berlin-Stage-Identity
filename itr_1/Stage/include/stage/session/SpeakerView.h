@@ -60,7 +60,6 @@ namespace next {
         void beginPaint();
         void repaint();
         void endPaint();
-        void updateAlpha();
         
     public:
         SpeakerView(Speaker* data);

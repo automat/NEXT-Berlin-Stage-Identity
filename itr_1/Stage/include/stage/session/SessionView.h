@@ -92,6 +92,7 @@ namespace next {
 
         void draw();
         void drawLabels();
+        void drawLabelsSpeaker();
         
         void debugDraw();
         void update();

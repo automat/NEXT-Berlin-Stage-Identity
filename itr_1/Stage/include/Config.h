@@ -33,7 +33,7 @@ using namespace ci;
 
 #define STAGE_WIDTH  3552
 #define STAGE_HEIGHT 1105
-#define STAGE_SCALE  2
+#define STAGE_SCALE  1
 
 /*--------------------------------------------------------------------------------------------*/
 // App
@@ -90,8 +90,8 @@ extern int   PROJECTION_OVERLAP_EDGE;
 #define STAGE_MODEL_SCALE STAGE_MODEL_SCALE_MIN
 #define STAGE_MODEL_SCALE_MAX STAGE_MODEL_SCALE_MIN * 4
 #define STAGE_MODEL_CAM_ZOOM  1
-#define STAGE_MODEL_CAM_NEAR_CLIP 0.0001
-#define STAGE_MODEL_CAM_FAR_CLIP 5.0f
+#define STAGE_MODEL_CAM_NEAR_CLIP -5.0f
+#define STAGE_MODEL_CAM_FAR_CLIP   5.0f
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,7 +117,7 @@ extern int   PROJECTION_OVERLAP_EDGE;
 #define SESSION_EVENT_TIME_MAX 2.0f    //10
 #define SESSION_EVENT_TIME_SPEAKER_MIN 1.0f  //3
 
-#define SESSION_VIEW_SPEAKER_SIZE ci::Vec2f(1.6f,0.035f)
+#define SESSION_VIEW_SPEAKER_SIZE ci::Vec2f(1.6f,0.05f)
 #define SESSION_VIEW_SPEAKER_NAME_LABEL_OFFSET 0.065f
 
 #define SESSION_VIEW_START_DELAY 0.5f
@@ -136,8 +136,9 @@ extern int   PROJECTION_OVERLAP_EDGE;
 //
 //  Speaker
 //
-
-#define SESSION_SPEAKER_VIEW_ANIM_FOCUS 0.35f
+#define SESSION_SPEAKER_VIEW_COLOR_ACTIVE   ci::Colorf(0.87450980392157f, 0.06274509803922f, 0.39607843137255f)
+#define SESSION_SPEAKER_VIEW_COLOR_INACTIVE ci::Colorf(0.0f, 0.39607843137255f, 0.89019607843137f)
+#define SESSION_SPEAKER_VIEW_ANIM_FOCUS 1.0f
 #define SESSION_SPEAKER_VIEW_ANIM_UNFOCUS 2.5f
 #define SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_OUT 2.5f
 #define SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_IN 2.5f
@@ -329,11 +330,7 @@ extern bool STAGE_LANTERN_1_DEBUG_DRAW;
 //#define DEBUG_STAGE_TYPESETTER_TEXCOORDS
 //#define DEBUG_STAGE_TYPESETTER
 //#define DEBUG_STAGE_TYPESETTER_TEXTURE
-//#define DEBUG_STAGE_AREA_DRAW
 
-//#define DEBUG_STAGE_COORDINATE_FRAME
-//#define DEBUG_STAGE_CAM_FRUSTUM
-//#define DEBUG_STAGE_GRID_DRAW_INDICES
 
 /*--------------------------------------------------------------------------------------------*/
 // Theme
@@ -429,7 +426,7 @@ extern float   DIVER_FIELD_MATERIAL_SHININESS;
 /*--------------------------------------------------------------------------------------------*/
 
 #define QUOTE_FIELD_NUM_DIVERS_MIN 10//10//10//10//10
-#define QUOTE_FIELD_NUM_DIVERS_MAX 50//50//50//50//50
+#define QUOTE_FIELD_NUM_DIVERS_MAX 38//50//50//50//50
 #define QUOTE_FIELD_SURFACE_PATH_DENSITY 0.75f
 #define QUOTE_FIELD_SURFACE_PATH_OFFSET_SPEED   0.0025f
 #define QUOTE_FIELD_SURFACE_PATH_AMPLITUDE 0.55f//0.25f//0.125f//0.325f

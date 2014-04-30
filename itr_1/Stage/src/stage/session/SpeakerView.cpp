@@ -98,6 +98,7 @@ namespace next {
         //
         gl::Fbo::Format fboFormat;
         fboFormat.setSamples(4);
+            fboFormat.setColorInternalFormat(GL_RGB16F_ARB);
         
         Vec2i imageSize = data->imageRef.getSize();
         int imageWidth  = imageSize.x;
@@ -177,45 +178,48 @@ namespace next {
             gl::setViewport(image.getBounds());
             gl::pushMatrices();
                 gl::setMatricesWindow(image.getSize(), false);
-                
+                gl::disableDepthRead();
                 mFbo0.bindFramebuffer();
-                    gl::clear();
+                    gl::clear(ColorAf::white());
                     glColor3f(1,1,1);
                     gl::draw(image);
                 mFbo0.unbindFramebuffer();
-                
+        
+        
+        
                 mFbo1.bindFramebuffer();
                     mShaderBlurHRef->bind();
                     mShaderBlurHRef->uniform("uTexture", 0);
                     mShaderBlurHRef->uniform("uTexelSize", mTexelSize.x);
                     mShaderBlurHRef->uniform("uScale", scale * focusBlurInv);
-                    gl::clear();
-                    glColor3f(1,1,1);
+                    gl::clear(ColorAf::white());
                     gl::draw(mFbo0.getTexture());
                     mShaderBlurHRef->unbind();
                 mFbo1.unbindFramebuffer();
-                
+        
                 
                 mFbo0.bindFramebuffer();
                     mShaderBlurVRef->bind();
                     mShaderBlurVRef->uniform("uTexture", 0);
                     mShaderBlurVRef->uniform("uTexelSize", mTexelSize.y);
                     mShaderBlurVRef->uniform("uScale", scale * focusBlurInv);
-                    gl::clear();
-                    glColor3f(1,1,1);
+                    gl::clear(ColorAf::white());
                     gl::draw(mFbo1.getTexture());
                     mShaderBlurHRef->unbind();
                 mFbo0.unbindFramebuffer();
-                
+        
+        
                 mFbo1.bindFramebuffer();
                     gl::clear();
                     //blue to red
-                    glColor3f(0.87450980392157f * focusColor + 0.0f * focusColorInv,
-                              0.06274509803922f * focusColor + 0.39607843137255f * focusColorInv,
-                              0.39607843137255f * focusColor + 0.89019607843137f * focusColorInv);
+                    glColor3f(SESSION_SPEAKER_VIEW_COLOR_ACTIVE.r * focusColor + SESSION_SPEAKER_VIEW_COLOR_INACTIVE.r * focusColorInv,
+                              SESSION_SPEAKER_VIEW_COLOR_ACTIVE.g * focusColor + SESSION_SPEAKER_VIEW_COLOR_INACTIVE.g * focusColorInv,
+                              SESSION_SPEAKER_VIEW_COLOR_ACTIVE.b * focusColor + SESSION_SPEAKER_VIEW_COLOR_INACTIVE.b * focusColorInv);
                     gl::draw(mFbo0.getTexture());
                 mFbo1.unbindFramebuffer();
-                
+        
+        
+            gl::enableDepthRead();
             gl::popMatrices();
         glPopAttrib();
     }
@@ -227,32 +231,36 @@ namespace next {
     void SpeakerView::draw(){
         repaint();
         
-        Vec3f pos   = mPositionState();
-        float scale = mScaleState();
+        Vec3f   pos   = mPositionState();
+        float   scale = mScaleState();
+        float   alpha = mAlphaState();
 
         const gl::Texture& image = mFbo1.getTexture();
-
+        
+        gl::enableAlphaBlending(); // i know, but so i dont have to sort them by depth
         glPushMatrix();
             glTranslatef(pos.x,pos.y,pos.z);
             glScalef(scale,scale,scale);
-            
-            glEnableClientState(GL_VERTEX_ARRAY);
-            
-            glColor4f(1,1,1,1);
+       
+        
+            //glColor4f(color.r,color.g,color.b,alpha);
+        glColor4f(1, 1, 1, alpha);
             image.enableAndBind();
+        
+            glEnableClientState(GL_VERTEX_ARRAY);
             glEnableClientState(GL_TEXTURE_COORD_ARRAY);
             glEnableClientState(GL_NORMAL_ARRAY);
-            //glEnableClientState(GL_COLOR_ARRAY);
-            
+        
             glNormalPointer(   3, GL_FLOAT,    &sCardNormals[0]);
             glTexCoordPointer( 2, GL_FLOAT, 0, &mTexcoords[0]);
-            //glColorPointer(    4, GL_FLOAT, 0, &mVertexColors[0]);
             glVertexPointer(   3, GL_FLOAT, 0, &sCardVertices[0]);
+        
             glDrawArrays(GL_TRIANGLES, 0,sCardVerticesLen);
-            
-            //glDisableClientState(GL_COLOR_ARRAY);
+        
             glDisableClientState(GL_NORMAL_ARRAY);
             glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+            glDisableClientState(GL_VERTEX_ARRAY);
+        
             image.unbind();
             image.disable();
             /*
@@ -264,14 +272,7 @@ namespace next {
             glDisableClientState(GL_VERTEX_ARRAY);
             */
         glPopMatrix();
-    }
-    
-    void SpeakerView::updateAlpha(){
-        float alpha = mAlphaState();
-        int i = -1;
-        while(++i < 18){
-            mVertexColors[i].set(1, 1, 1, alpha);
-        }
+        gl::disableAlphaBlending();
     }
 
     void SpeakerView::focus(){
@@ -286,7 +287,7 @@ namespace next {
         tween(&mFocusBlurState, 0.0f,       SESSION_SPEAKER_VIEW_ANIM_UNFOCUS, AnimEaseOut(),
               std::bind(&SpeakerView::beginPaint, this),
               std::bind(&SpeakerView::endPaint, this));
-}
+    }
 
     void SpeakerView::unfocusOut(){
         tween(&mFocusColorState, 1.0f, 0.0f, SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_OUT, AnimEaseOut());
@@ -303,13 +304,11 @@ namespace next {
     }
 
     void SpeakerView::show() {
-        tween(&mAlphaState, 1.0f, SESSION_SPEAKER_VIEW_ANIM_SHOW, AnimEaseOut(),
-                std::bind(&SpeakerView::updateAlpha, this));
+        tween(&mAlphaState, 1.0f, SESSION_SPEAKER_VIEW_ANIM_SHOW, AnimEaseOut());
     }
 
     void SpeakerView::hide() {
-        tween(&mAlphaState, 0.0f, SESSION_SPEAKER_VIEW_ANIM_HIDE, AnimEaseHide(),
-                std::bind(&SpeakerView::updateAlpha, this));
+        tween(&mAlphaState, 0.0f, SESSION_SPEAKER_VIEW_ANIM_HIDE, AnimEaseHide());
     }
 
     void SpeakerView::unfocusImage(){
@@ -324,7 +323,6 @@ namespace next {
         mAlphaState      = 1.0f;
         mScaleState      = 1.0f;
         
-        updateAlpha();
         beginPaint();
         repaint();
         endPaint();

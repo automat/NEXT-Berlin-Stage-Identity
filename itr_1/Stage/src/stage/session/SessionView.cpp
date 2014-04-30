@@ -363,6 +363,12 @@ namespace next {
         for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
             (*itr)->draw();
         }
+    }
+    
+    void SessionView::drawLabelsSpeaker(){
+        if(!mActive){
+            return;
+        }
         mPingPongLabelSpeaker->draw();
     }
 

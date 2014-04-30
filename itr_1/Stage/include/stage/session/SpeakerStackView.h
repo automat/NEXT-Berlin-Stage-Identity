@@ -17,7 +17,6 @@ namespace next {
     using namespace std;
 
     class SpeakerStackView : public AbstractAnimBase {
-        static const Vec3f sStackStep;
         
         vector<SpeakerView*> mViews;
         size_t               mNumViews;

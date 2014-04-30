@@ -94,9 +94,8 @@ namespace next{
         mThemeView    = new ThemeView(mGrid, areaScaled, mOscillator, &mQuotes);
         mSessionView  = new SessionView(sessionData,speakersData);
 
-#ifndef STAGE_SKIP_LOGO
         mLogoNEXT = new NEXTLogo();
-#endif
+
         /*--------------------------------------------------------------------------------------------*/
         //  Fbo + Post Process
         /*--------------------------------------------------------------------------------------------*/
@@ -105,10 +104,7 @@ namespace next{
         fboFormat_MSAA_4.setSamples(4);
 
         mFboSize_1      = windowSize;
-
-#ifndef STAGE_SKIP_FX_SHADER
-        mTextureNoise   = loadImage(app::loadResource(RES_TEXTURE_NOISE));
-
+        
         mFboSize_1f     = Vec2f(windowSize.x,windowSize.y);
         mFboSize_2      = mFboSize_1 / 2;
         mFboBounds_1    = app::getWindowBounds();
@@ -116,17 +112,16 @@ namespace next{
         mFboTexelSize_1 = Vec2f(1.0f / float(mFboSize_1.x), 1.0f / float(mFboSize_1.y));
         mFboTexelSize_2 = Vec2f(1.0f / float(mFboSize_2.x), 1.0f / float(mFboSize_2.y));
 
-        mFboThemeViewSSAO     = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
-        mFboThemeViewFinal    = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
-
+        mFboThemeView      = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
+        mFboThemeViewSSAO  = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
+        mFboThemeViewFinal = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
         mFboPingPong_1     = PingPongFbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
         mFboPingPong_2     = PingPongFbo(mFboSize_2.x, mFboSize_2.y, fboFormat_MSAA_4);
         
         mShaderBlurHRef = FxResources::GetBlurH();
         mShaderBlurVRef = FxResources::GetBlurV();
-#endif
-
-        mFboThemeView    = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
+        
+        mTextureNoise   = loadImage(app::loadResource(RES_TEXTURE_NOISE));
 
 #if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(STAGE_SKIP_FX_SHADER)
         mFileWatcher = FileWatcher::Get();
@@ -162,11 +157,11 @@ namespace next{
     }
     
     void Stage::playThemeView(){
-        mThemeView->play(1, std::bind(&Stage::playSessionView, this));
+        mThemeView->play(3, std::bind(&Stage::playSessionView, this));
     }
     
     void Stage::playSessionView(){
-        mSessionView->play(std::bind(&Stage::playThemeView,this));
+        mSessionView->play(std::bind(&Stage::playSessionView,this));
         
     }
 
@@ -225,7 +220,6 @@ namespace next{
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef STAGE_SKIP_THEME_VIEW
 /*--------------------------------------------------------------------------------------------*/
 //  Draw theme view
 /*--------------------------------------------------------------------------------------------*/
@@ -238,14 +232,7 @@ namespace next{
         gl::setMatrices(mCamera);
 
 
-#ifdef DEBUG_STAGE_CAM_FRUSTUM
-    mFrustum.draw();
-#endif
         glMultMatrixf(&mTransform[0]);
-
-#ifdef DEBUG_STAGE_COORDINATE_FRAME
-    gl::drawCoordinateFrame();
-#endif
 
         if(useMaterialShaders){
             mLantern0->enable();
@@ -264,11 +251,6 @@ namespace next{
             mLantern0->disable();
             mLantern1->disable();
         }
-#ifdef DEBUG_STAGE_GRID_DRAW_INDICES
-    gl::disableDepthRead();
-    mGrid->debugDrawIndices(mCamera);
-    gl::enableDepthRead();
-#endif
 
         gl::popMatrices();
         gl::disableDepthRead();
@@ -289,8 +271,6 @@ namespace next{
         mFboThemeView.bindFramebuffer();
         drawThemeScene(true);
         mFboThemeView.unbindFramebuffer();
-
-#ifndef STAGE_SKIP_FX_SHADER
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
         //
@@ -460,10 +440,7 @@ namespace next{
 
 
         gl::popMatrices();
-#endif
     }
-
-#endif
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -503,36 +480,27 @@ namespace next{
 /*--------------------------------------------------------------------------------------------*/
 
     void Stage::draw(){
-
         processThemeScene();
         
         //  Draw Scene
         gl::pushMatrices();
-        gl::setMatricesWindow(app::getWindowSize(),false);
-        gl::draw(mFboThemeViewFinal.getTexture(), mFboThemeViewSSAO.getBounds());
         
-        gl::enableDepthRead();
-        glAlphaFunc(GL_GREATER, 0.0);
-        glEnable(GL_ALPHA_TEST);
-        glEnable( GL_BLEND );
-        glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+            gl::setMatricesWindow(app::getWindowSize(),false);
+            gl::draw(mFboThemeViewFinal.getTexture(), mFboThemeViewSSAO.getBounds());
+            
+            gl::pushMatrices();
+                gl::enableDepthRead();
+                gl::setMatrices(mCamera);
+                mSessionView->draw();
+                gl::disableDepthRead();
+                gl::enableAlphaBlending();
+                mSessionView->drawLabelsSpeaker();
+            gl::popMatrices();
         
-        gl::pushMatrices();
-        gl::setMatrices(mCamera);
-        mSessionView->draw();
-        gl::popMatrices();
-        gl::enableAlphaBlending();
-        gl::disableDepthRead();
-        
-        
-        gl::setMatricesWindow(app::getWindowSize(),true);
-        mSessionView->drawLabels();
-        mLogoNEXT->draw();
-        
-        glDisable(GL_BLEND);
-        glDisable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.5); // clearStates what seems to be cinders default
-        gl::enableDepthRead();
+            gl::setMatricesWindow(app::getWindowSize(),true);
+            mSessionView->drawLabels();
+            mLogoNEXT->draw();
+            gl::disableAlphaBlending();
         
         gl::popMatrices();
     }
@@ -569,11 +537,5 @@ namespace next{
         loadLightProperties();
         mThemeView->onConfigDidChange();
     }
-    
-    /*--------------------------------------------------------------------------------------------*/
-    //  get
-    /*--------------------------------------------------------------------------------------------*/
-
-
 }
 
