@@ -122,8 +122,8 @@
     }, 
     "26901": {
       "description": "Industry 4.0, Smart Factory, and Industrial Internet \u2013 these are some of the terms used to describe the social and technological revolution that promises to change the current industrial landscape. We will start off by looking at the key drivers and the broader vision for the transformation of the entire global value chain, including communication, planning, logistics, and production. Next, we will look at some concrete business cases as well as potential obstacles on the way. Finally, we will describe some current ongoing projects in the Bosch ecosystem and discuss what they can teach us on the way towards the next generation of production systems.", 
-      "endHourString": "18:30", 
-      "endTimestamp": 1399307400, 
+      "endHourString": "18:15", 
+      "endTimestamp": 1399306500, 
       "id": 26901, 
       "person_ids": [
         26415
@@ -152,16 +152,16 @@
     }, 
     "27197": {
       "description": "Smartphones hold a fascinating paradox. It is the hyper symbol of connectivity, but we've lost any connection with the source of how it is made and the social consequences attached to it during the production process. \r\n\r\nEvery pixel you see, every byte you send has a whole world of minerals, factories, recycling and distribution behind it. Now it is time to start closing the gap between the connected world of our communication systems and the disconnected ancient world of our production systems. \r\n\r\nThe same beautiful possibilities smartphones give us to share information, solve problems together and create shared value can actually be a driver to make people relate again to the geology of our digital systems.", 
-      "endHourString": "18:45", 
-      "endTimestamp": 1399308300, 
+      "endHourString": "18:30", 
+      "endTimestamp": 1399307400, 
       "id": 27197, 
       "person_ids": [
         26092
       ], 
       "session_id": 3556, 
-      "startHourClockFile": "18-30.png", 
-      "startHourString": "18:30", 
-      "startTimestamp": 1399307400, 
+      "startHourClockFile": "18-12.png", 
+      "startHourString": "18:12", 
+      "startTimestamp": 1399306320, 
       "title": "This is not about a phone", 
       "type": "Talk"
     }, 
@@ -284,7 +284,7 @@
       "startHourClockFile": "16-20.png", 
       "startHourString": "16:20", 
       "startTimestamp": 1399299600, 
-      "title": "Mobility as a service \u2013 who owns the ecosystem?", 
+      "title": "Business-2-Car \u2013 who to connect services and vehicles?", 
       "type": "Talk"
     }, 
     "27291": {
@@ -334,7 +334,7 @@
       "type": "Demo"
     }, 
     "27303": {
-      "description": "TBD", 
+      "description": "The Digital Champions on European Level shall help every citizen become digital. Will this be the \"New Normal\"? How do we bridge the digital divide that excludes many people from participating in a digital society? How do we provide knowledge and skills that are crucial for people to engage in the digital age? Collective efforts are needed from Politics, Industry and Society to cope with these challenges. This talk will reflect on the European Digital Agenda and its social and political implications for all of us.", 
       "endHourString": "13:00", 
       "endTimestamp": 1399374000, 
       "id": 27303, 
@@ -363,8 +363,8 @@
       "type": "Keynote"
     }, 
     "27305": {
-      "endHourString": "16:45", 
-      "endTimestamp": 1399387500, 
+      "endHourString": "16:35", 
+      "endTimestamp": 1399386900, 
       "id": 27305, 
       "person_ids": [
         27217
@@ -506,7 +506,40 @@
       "startHourClockFile": "14-25.png", 
       "startHourString": "14:25", 
       "startTimestamp": 1399379100, 
-      "title": "Effortless Interaction using eye tracking"
+      "title": "Effortless Interaction using eye tracking", 
+      "type": "Demo"
+    }, 
+    "28005": {
+      "description": "At NEXT14, the European Commission and their partners Startupbootcamp & Hub Institute will announce the launch of two European start-up initiatives!\r\n\r\nIsidro Laso Ballesteros is head of Sector and leads the Startup Europe Initiative at the European Commission.\r\nIsidro will present the Startup Europe initiative, the action plan from DG CONNECT that aims at strengthening the business environment for web and ICT entrepreneurs in Europe.\r\nMore specifically, he will announce the launch of three new actions that are part of this initiative: the Dynamic Mapping of the European web startups that will feature a dynamic visual map of 20 local ecosystems; the Tech All Stars competition that will invite 12 of the best young European startups to compete and connect with top EU funding sources, successful entrepreneurs and other influential individuals; and EuroPioneers that will award 4 categories of web entrepreneurs for the year 2014.\r\n\r\nLuisa Maier is the lead project manager of the annual Tech All Stars Competition. \r\nTech All Stars is one of the six Startup Europe initiatives launched by the European Commission. The Competition provides a one of a kind exposure and networking opportunities for young European Start ups, connecting them to the most high profile angel investors, VCs and entrepreneurs. \r\nWhy is this competition awesome? Who can be part of it? And why is the European Commission driving this? Luisa will tell.", 
+      "endHourString": "16:45", 
+      "endTimestamp": 1399387500, 
+      "id": 28005, 
+      "person_ids": [
+        27807, 
+        27864, 
+        27808
+      ], 
+      "session_id": 3562, 
+      "startHourClockFile": "16-35.png", 
+      "startHourString": "16:35", 
+      "startTimestamp": 1399386900, 
+      "title": "Big news from the European Commission!", 
+      "type": "Talk"
+    }, 
+    "28007": {
+      "description": "The Digital Champions on European Level shall help every citizen become digital. Will this be the \"New Normal\"? How do we bridge the digital divide that excludes many people from participating in a digital society? How do we provide knowledge and skills that are crucial for people to engage in the digital age? Collective efforts are needed from Politics, Industry and Society to cope with these challenges. This talk will reflect on the European Digital Agenda and its social and political implications for all of us.", 
+      "endHourString": "18:45", 
+      "endTimestamp": 1399308300, 
+      "id": 28007, 
+      "person_ids": [
+        22341
+      ], 
+      "session_id": 3556, 
+      "startHourClockFile": "18-30.png", 
+      "startHourString": "18:30", 
+      "startTimestamp": 1399307400, 
+      "title": "The new normal in a digital society", 
+      "type": "Talk"
     }
   }, 
   "persons": {
@@ -535,8 +568,8 @@
       "companyRole": "CEO & Chairman NEXT Berlin", 
       "companyUrl": "http://www.sinnerschrader.com/", 
       "event_ids": [
-        27306, 
-        27275
+        27275, 
+        27306
       ], 
       "id": 6893, 
       "name": "Matthias Schrader", 
@@ -550,6 +583,7 @@
       "companyRole": "Conference curator", 
       "companyUrl": "http://www.vandusseldorp.com/", 
       "event_ids": [
+        27986, 
         27275, 
         27629
       ], 
@@ -663,6 +697,22 @@
       "profileXing": "http://www.xing.com/profile/Fabian_Hemmert", 
       "profileXingHandle": "Fabian_Hemmert", 
       "sort_name": "Hemmert, Fabian"
+    }, 
+    "22341": {
+      "bio": "Gesche Joost is Professor for Design Research at the University of the Arts Berlin. Since 2005 she has headed the Design Research Lab in cooperation with Telekom Innovation Laboratories, an institute affiliated with TU Berlin. With international partners, she developes research and teaching projects in the areas of human-computer interaction, gender and diversity aspects in technological development,\r\nas well as social sustainability and participation. Since 2014, she is Germany's Digital Champion within the European Commission shaping the Digital Agenda.", 
+      "blogName": "blog.geschejoost.org", 
+      "blogUrl": "http://blog.geschejoost.org/", 
+      "companyName": "Design Research Lab", 
+      "companyRole": "Professor and Head of Research", 
+      "companyUrl": "http://www.drlab.org", 
+      "event_ids": [
+        28007
+      ], 
+      "id": 22341, 
+      "name": "Gesche Joost", 
+      "profileTwitter": "http://twitter.com/GescheJoost", 
+      "profileTwitterHandle": "@GescheJoost", 
+      "sort_name": "Joost, Gesche"
     }, 
     "24350": {
       "bio": "Nils Wollny is Managing Director Strategy at SinnerSchrader. Nils holds a degree in Foreign Trade and International Management and has an extensive experience in brand and communications strategy. He helps companies from a variety of industries to innovate and digitize.", 
@@ -938,8 +988,8 @@
       "companyRole": "Founder & CEO", 
       "companyUrl": "http://www.withings.com", 
       "event_ids": [
-        27515, 
-        26884
+        26884, 
+        27515
       ], 
       "id": 26881, 
       "name": "Cedric Hutchings", 
@@ -1011,8 +1061,8 @@
       "companyRole": "Serial entrepreneur", 
       "companyUrl": "http://onlyxo.com", 
       "event_ids": [
-        27305, 
-        27543
+        27543, 
+        27305
       ], 
       "id": 27217, 
       "name": "Morten Lund", 
@@ -1070,7 +1120,7 @@
     }, 
     "27419": {
       "bio": "Kay Schwabedal has been Chief Commercial Officer since September 2011, responsible for all of the E-Plus Group\u2019s sales divisions excluding the wholesale business, taking on the responsibility for the entire customer business. Schwabedal has extensive experience in managing large organisations in the ITC sector. After working at Procter & Gamble and McKinsey, the industrial engineer held various roles at CC Compunet, including CEO, and later became COO on the board of directors for the fixed-line network provider Arcor.", 
-      "companyName": "E-Plus", 
+      "companyName": "E-Plus Mobilfunk", 
       "companyRole": "Chief Commercial Officer", 
       "companyUrl": "http://eplus-gruppe.de/english/", 
       "event_ids": [
@@ -1148,11 +1198,65 @@
       "profileTwitter": "http://twitter.com/TheEyeTribe", 
       "profileTwitterHandle": "@TheEyeTribe", 
       "sort_name": "Pedersen, Anders Bo"
+    }, 
+    "27807": {
+      "bio": "Isidro Laso Ballesteros is head of Sector and leads the Startup Europe Initiative at the European Commission.\r\n\r\nIsidro had his first taste of entrepreneurship at university, where he created a junior enterprise. After graduating as an Engineer from the Universidad Politecnica de Madrid, he moved into engineering activities, working with Geographic Information Systems and design tools before becoming a strategic consultant to high-level executives (CEOs of large corporations), mainly in the telco and media sector.\r\n\r\nHe then moved to the ICT sector where he worked on research projects related to Workflow Management Systems and Internet Collaboration Systems. This gave him the opportunity to create a new department within his company offering change management projects to customers, to complement traditional ICT projects. Subsequently he spent five months working for one of the Ministries in Spain before being seconded to the European Commission as a National Expert.\r\n\r\nSince becoming a Commission official he has managed research projects and drafted research strategy objectives. From 2010 onwards he has been focused on creating a new endeavour within the EU institutions related to tech start-ups; the first output of this latest work is the Startup Europe initiative. Isidro has written several books and papers, some of which have been translated into other languages, including Japanese.\r\n\r\nIsidro\u2019s objectives for the Policy Fellowship are to share views on policy measures to strengthen the environment for web entrepreneurs in Europe; to learn new ways of policy making better adapted to an era of extremely rapid change that characterise the web startups; and to access international knowledge and best practices related to policies for web startups.", 
+      "companyName": "European Commission", 
+      "companyRole": "Head of Sector", 
+      "companyUrl": "http://ec.europa.eu/", 
+      "event_ids": [
+        28005
+      ], 
+      "id": 27807, 
+      "name": "Isidro Laso", 
+      "profileFacebook": "http://www.facebook.com/groups/startupeurope/", 
+      "profileTwitter": "http://twitter.com/isidrolaso", 
+      "profileTwitterHandle": "@isidrolaso", 
+      "sort_name": "Laso, Isidro"
+    }, 
+    "27808": {
+      "companyName": "Hub Institute", 
+      "companyRole": null, 
+      "companyUrl": "http://www.hubinstitute.com/en", 
+      "event_ids": [
+        28005
+      ], 
+      "id": 27808, 
+      "name": "Vincent Ducrey", 
+      "sort_name": "Ducrey, Vincent"
+    }, 
+    "27864": {
+      "bio": "Proud kraut*. Prouder saffer**. Business Founder & CEO in marketing and recruitment. Social Entrepreneur. Now building the tech ecosystem alongside Startupbootcamp (COO) and the European Commission with Tech All Stars. \r\n\r\n<3: People. Culture. Nature. Travel. Adventure. Learning. Loving. Sport. Art. Living Green. Living Large. Pushing Boundaries. Cooking. Shoes. Sun. Beach. Mostly Friends & Family.\r\n\r\nPhilosophy: Sunshine yellow. Open heart. Open mind. Embrace.\r\n\r\n*People who are German or have German heritage. It comes from the Germans eating a German dish called Sauerkraut\r\n\r\n**South African. Originates from the way some Londoners pronounce \"Saff Africa\" Source: Urban Dictionary", 
+      "companyName": "Tech All Stars", 
+      "companyRole": "Project Manager", 
+      "companyUrl": "http://www.techallstars.eu", 
+      "event_ids": [
+        28005
+      ], 
+      "id": 27864, 
+      "name": "Luisa Maier", 
+      "profileFacebook": "http://www.facebook.com/luisa.maier", 
+      "profileFacebookHandle": 731550225, 
+      "profileLinkedin": "http://za.linkedin.com/pub/luisa-maier/8/508/605/", 
+      "profileLinkedinHandle": 25146725, 
+      "profileTwitter": "http://twitter.com/LaLashling", 
+      "profileTwitterHandle": "@LaLashling", 
+      "profileXing": "http://www.xing.com/profile/Luisa_Maier6?sc_o=mxb_p", 
+      "profileXingHandle": "Luisa_Maier6", 
+      "sort_name": "Maier, Luisa"
     }
   }, 
   "sessions": {
     "3554": {
-      "description": "Mikko Hypponen, Scott Smith, Jessi Baker, Alex Oelling, Uwe Vogel", 
+      "allPersonNames": "Mikko Hypponen, Scott Smith, Jessi Baker, Alex Oelling, Uwe Vogel", 
+      "allPerson_ids": [
+        26312, 
+        26038, 
+        26020, 
+        11096, 
+        27617
+      ], 
+      "description": "How do we unleash the wisdom within the statistics? And where is the line one shouldn\u2019t cross? At NEXT Berlin we will learn from experts whose approach on Big Data couldn\u2019t be more diverse: a NSA critique, a transparency evangelist and an e-commerce expert.", 
       "endHourString": "15:30", 
       "endTimestamp": 1399296600, 
       "eventTypes": "Talk, Talk, Talk, Demo, Demo", 
@@ -1168,11 +1272,21 @@
       "startHourClockFile": "14-00.png", 
       "startHourString": "14:00", 
       "startTimestamp": 1399291200, 
-      "title": "The new data", 
-      "type": "session"
+      "title": "The New Data", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/26432/"
     }, 
     "3555": {
-      "description": "Tony Douglas, Horst Leonberger, Peter Skillman, Carlo de Micheli, Sarah Willis, Monique van Dusseldorp", 
+      "allPersonNames": "Tony Douglas, Horst Leonberger, Peter Skillman, Carlo de Micheli, Sarah Willis, Monique van Dusseldorp", 
+      "allPerson_ids": [
+        27236, 
+        27362, 
+        27200, 
+        26639, 
+        27605, 
+        6970
+      ], 
+      "description": "High speed connectivity in cars heralds a new generation of automobiles. Apart from providing video streaming or traffic information, it is the prerequisite for completely new services and the self-driving car. Fasten your seatbelts.", 
       "endHourString": "17:30", 
       "endTimestamp": 1399303800, 
       "eventTypes": "Talk, Talk, Talk, Talk, Interview", 
@@ -1188,28 +1302,40 @@
       "startHourClockFile": "16-00.png", 
       "startHourString": "16:00", 
       "startTimestamp": 1399298400, 
-      "title": "The new mobility", 
-      "type": "session"
+      "title": "The New Mobility", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/27241/"
     }, 
     "3556": {
-      "description": "Dirk Slama, Bas van Abel", 
+      "allPersonNames": "Dirk Slama, Bas van Abel, Gesche Joost", 
+      "allPerson_ids": [
+        26415, 
+        26092, 
+        22341
+      ], 
+      "description": "As machines and factories get connected to the Internet and one another, we see whole industries change towards agility in production. This will impact strongly all the way up and down the supply chain, from sourcing to design and production to strategy and marketing.", 
       "endHourString": "18:45", 
       "endTimestamp": 1399308300, 
-      "eventTypes": "Talk, Talk", 
+      "eventTypes": "Talk, Talk, Talk", 
       "event_ids": [
         26901, 
-        27197
+        27197, 
+        28007
       ], 
       "id": 3556, 
       "stage_id": 20213, 
       "startHourClockFile": "18-00.png", 
       "startHourString": "18:00", 
       "startTimestamp": 1399305600, 
-      "title": "The new industry", 
-      "type": "session"
+      "title": "The New Industry", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/26901/"
     }, 
     "3557": {
-      "description": "Brad Templeton", 
+      "allPersonNames": "Brad Templeton", 
+      "allPerson_ids": [
+        26262
+      ], 
       "endHourString": "19:30", 
       "endTimestamp": 1399311000, 
       "eventTypes": "Keynote", 
@@ -1221,11 +1347,20 @@
       "startHourClockFile": "18-45.png", 
       "startHourString": "18:45", 
       "startTimestamp": 1399308300, 
-      "title": "Opening keynote", 
-      "type": "session"
+      "title": "Opening Keynote", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/27283/"
     }, 
     "3558": {
-      "description": "Peter Hinssen, Kay Schwabedal, Anita Zielina, Thomas Spreitzer, Ulrich Hegge", 
+      "allPersonNames": "Peter Hinssen, Kay Schwabedal, Anita Zielina, Thomas Spreitzer, Ulrich Hegge", 
+      "allPerson_ids": [
+        26273, 
+        27419, 
+        26994, 
+        26655, 
+        10663
+      ], 
+      "description": "Flexible structures and new C-Level positions mirror the ongoing leadership transformation in companies around the globe. NEXT attendees will experience how organisations can adapt to gain from the changing tides.", 
       "endHourString": "11:00", 
       "endTimestamp": 1399366800, 
       "eventTypes": "Keynote, Talk, Panel Discussion", 
@@ -1239,11 +1374,21 @@
       "startHourClockFile": "09-30.png", 
       "startHourString": "09:30", 
       "startTimestamp": 1399361400, 
-      "title": "The new leaders", 
-      "type": "session"
+      "title": "The New Leaders", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/26292/"
     }, 
     "3559": {
-      "description": "Louisa Heinrich, Aza Raskin, Cedric Hutchings, Christian Deilmann, Bart Remes, Fabian Hemmert", 
+      "allPersonNames": "Louisa Heinrich, Aza Raskin, Cedric Hutchings, Christian Deilmann, Bart Remes, Fabian Hemmert", 
+      "allPerson_ids": [
+        6735, 
+        26710, 
+        26881, 
+        19385, 
+        26396, 
+        22339
+      ], 
+      "description": "With all kinds of machines and devices getting connected, this industry branch is expected to be one of the fastest growing in the next few years. Our speakers know why and will outline some of the endless business opportunities.", 
       "endHourString": "13:00", 
       "endTimestamp": 1399374000, 
       "eventTypes": "Talk, Talk, Demo, Demo, Demo, Talk", 
@@ -1260,14 +1405,25 @@
       "startHourClockFile": "11-30.png", 
       "startHourString": "11:30", 
       "startTimestamp": 1399368600, 
-      "title": "The new internet (of things)", 
-      "type": "session"
+      "title": "The New Internet (of Things)", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/27291/"
     }, 
     "3560": {
-      "description": "Thomas Bendig, Elisabet Stig\u00e5rd, Anders Bo Pedersen, Tanya Vlach, Michael Pelletier, Daan Lucas, Pascal Auberson", 
+      "allPersonNames": "Thomas Bendig, Elisabet Stig\u00e5rd, Anders Bo Pedersen, Tanya Vlach, Michael Pelletier, Daan Lucas, Pascal Auberson", 
+      "allPerson_ids": [
+        26021, 
+        27689, 
+        27690, 
+        26066, 
+        27263, 
+        26860, 
+        26704
+      ], 
+      "description": "Think beyond touch screens: In this session we\u2019ll explore what to expect in the future, when innovations like shapeshifting displays and wearable interfaces will be highly developed.", 
       "endHourString": "15:30", 
       "endTimestamp": 1399383000, 
-      "eventTypes": "Talk, Talk, Talk, Demo, Demo", 
+      "eventTypes": "Talk, Talk, Demo, Talk, Demo, Demo", 
       "event_ids": [
         26875, 
         26399, 
@@ -1281,17 +1437,29 @@
       "startHourClockFile": "14-00.png", 
       "startHourString": "14:00", 
       "startTimestamp": 1399377600, 
-      "title": "The new interfaces", 
-      "type": "session"
+      "title": "The New Interfaces", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/26875/"
     }, 
     "3562": {
-      "description": "Thomas de Maizi\u00e8re, Morten Lund, Cory Doctorow, Matthias Schrader", 
+      "allPersonNames": "Thomas de Maizi\u00e8re, Morten Lund, Isidro Laso, Luisa Maier, Vincent Ducrey, Cory Doctorow, Matthias Schrader", 
+      "allPerson_ids": [
+        26925, 
+        27217, 
+        27807, 
+        27864, 
+        27808, 
+        26065, 
+        6893
+      ], 
+      "description": "Join us in this session for a keynote by Federal Minister Thomas de Maizi\u00e8re, who will outline the ever growing significance of the digital economy. Also don't miss the finale of our Start-up Pitch - the 4 finalists will be pitch live again and, moderated by Serial Entrepreneur Morten Lund, you will get to pick this year's winner! \r\nThe grand finale of this session and NEXT Berlin 2014 will be the keynote by SciFi author Cori Doctorow.", 
       "endHourString": "17:30", 
       "endTimestamp": 1399390200, 
-      "eventTypes": "Keynote, Award Ceremony, Keynote, Talk", 
+      "eventTypes": "Keynote, Award Ceremony, Talk, Keynote, Talk", 
       "event_ids": [
         27304, 
         27305, 
+        28005, 
         26825, 
         27306
       ], 
@@ -1300,11 +1468,20 @@
       "startHourClockFile": "16-00.png", 
       "startHourString": "16:00", 
       "startTimestamp": 1399384800, 
-      "title": "Closing session", 
-      "type": "session"
+      "title": "Closing Session", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/27304/"
     }, 
     "3615": {
-      "description": "Matthias Schrader, Nils Wollny, Jochen Wegner, Monique van Dusseldorp, Brigitte Zypries", 
+      "allPersonNames": "Matthias Schrader, Nils Wollny, Jochen Wegner, Monique van Dusseldorp, Brigitte Zypries", 
+      "allPerson_ids": [
+        6893, 
+        24350, 
+        17913, 
+        6970, 
+        26926
+      ], 
+      "description": "Welcome to NEXT Berlin 2014 - join our Chairmen Matthias Schrader and Volker Sch\u00fctz and meet the moderators Monique van Dusseldorp. The icing on the cake will be Brigitte Zypries, who will talk about the new German dreams and the importance of start-ups & innovation. ", 
       "endHourString": "14:00", 
       "endTimestamp": 1399291200, 
       "eventTypes": "Talk, Talk", 
@@ -1317,15 +1494,16 @@
       "startHourClockFile": "13-30.png", 
       "startHourString": "13:30", 
       "startTimestamp": 1399289400, 
-      "title": "Opening session", 
-      "type": "session"
+      "title": "Opening Session", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/27275/"
     }
   }, 
   "stages": {
     "20213": {
       "content": "", 
       "id": 20213, 
-      "name": "Dome Stage", 
+      "name": "Dome Stage C01", 
       "session_ids": [
         3560, 
         3562, 
