@@ -33,7 +33,7 @@ using namespace ci;
 
 #define STAGE_WIDTH  3552
 #define STAGE_HEIGHT 1105
-#define STAGE_SCALE  1
+#define STAGE_SCALE  2
 
 /*--------------------------------------------------------------------------------------------*/
 // App
@@ -44,6 +44,7 @@ using namespace ci;
 #define APP_FPS 60.0f
 
 #define APP_USE_BAKED_CONFIG
+#define APP_HIDE_MOUSE
 
 /*--------------------------------------------------------------------------------------------*/
 // Window
@@ -116,7 +117,7 @@ extern int   PROJECTION_OVERLAP_EDGE;
 #define SESSION_EVENT_TIME_MAX 2.0f    //10
 #define SESSION_EVENT_TIME_SPEAKER_MIN 1.0f  //3
 
-#define SESSION_VIEW_SPEAKER_SIZE ci::Vec2f(1.6f,0.025f)
+#define SESSION_VIEW_SPEAKER_SIZE ci::Vec2f(1.6f,0.035f)
 #define SESSION_VIEW_SPEAKER_NAME_LABEL_OFFSET 0.065f
 
 #define SESSION_VIEW_START_DELAY 0.5f
@@ -126,6 +127,7 @@ extern int   PROJECTION_OVERLAP_EDGE;
 //  SpeakerStack
 //
 
+#define SESSION_SPEAKER_STACK_STEP ci::Vec3f(0,0.075f,0)
 #define SESSION_SPEAKER_STACK_ANIM_OUT 0.35f
 #define SESSION_SPEAKER_STACK_ANIM_MOVE 0.5f
 #define SESSION_SPEAKER_STACK_ANIM_IN_SCALE 0.75f
@@ -231,9 +233,10 @@ extern int   PROJECTION_OVERLAP_EDGE;
 #define SESSION_LABEL_META_SUB_BOX_WIDTH 400
 #define SESSION_LABEL_META_BOX_HEIGHT 70
 #define SESSION_LABEL_META_OFFSET_X -22
-#define SESSION_LABEL_META_OFFSET_Y -11
+#define SESSION_LABEL_META_OFFSET_Y -13
 #define SESSION_LABEL_META_CLOCK_MARGIN_RIGHT 65
 #define SESSION_LABEL_META_CLOCK_MARGIN_TOP -1
+#define SESSION_LABEL_META_TRAPEZOUD_MARGIN_TOP -2
 
 //
 //  Session
