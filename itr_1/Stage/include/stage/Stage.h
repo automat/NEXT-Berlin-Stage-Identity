@@ -123,8 +123,6 @@ namespace next{
         void viewTop();
         void viewOrtho();
         void onConfigDidChange();
-        
-        void releaseTest();
     };
 }
 

@@ -67,9 +67,11 @@ void StageApp::prepareSettings(Settings* settings){
 #else
     mInitialConfigIsValid = next::Config::LoadJson(app::getAppPath() + "/config.json", &mInitialConfigExcMsg);
 #endif
+    settings->setWindowPos(0, 0);
     settings->setWindowSize(APP_WIDTH, APP_HEIGHT);
     settings->setFrameRate(APP_FPS);
     settings->setResizable(false);
+    settings->setBorderless(true);
 }
 
 void StageApp::setup(){
@@ -98,7 +100,7 @@ void StageApp::setup(){
     mDataEvents     = nullptr;
     mDataSession    = nullptr;
     
-    next::Mapping::Get(3560, mImagesClocks, mImagesSpeakers,
+    next::Mapping::Get(3555, mImagesClocks, mImagesSpeakers,
                        mDataSpeakers, mDataEvents, mDataSession);
     
     //
@@ -116,29 +118,6 @@ void StageApp::keyDown( KeyEvent event ){
         case KeyEvent::KEY_ESCAPE:
             quit();
             break;
-        default:
-            break;
-    }
-
-    if(!next::Config::IsValid()){
-        return;
-    }
-    switch (event.getCode()) {
-        case KeyEvent::KEY_UP:
-            mStage->zoomModelIn();
-            break;
-        case KeyEvent::KEY_DOWN:
-            mStage->zoomModelOut();
-            break;
-        case KeyEvent::KEY_LEFT:
-            mStage->viewOrtho();
-            break;
-        case KeyEvent::KEY_RIGHT:
-            mStage->viewTop();
-        case KeyEvent::KEY_SPACE:
-            mStage->releaseTest();
-            break;
-            
         default:
             break;
     }

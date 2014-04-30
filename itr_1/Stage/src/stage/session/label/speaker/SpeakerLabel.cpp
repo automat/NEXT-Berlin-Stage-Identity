@@ -71,7 +71,7 @@ namespace next {
         mOffsetStateCompany(0),
         mKeyName(""),
         mKeyCompany(""){
-            mScale = 1.0f / (SESSION_LABEL_EVENT_TITLE_FONT_SIZE * 7);
+            mScale = 1.0f / (SESSION_LABEL_EVENT_TITLE_FONT_SIZE * 6);
     }
 
     /*--------------------------------------------------------------------------------------------*/
@@ -118,7 +118,7 @@ namespace next {
                 
                 float alphaCompany         = mAlphaStateCompany();
                 float offsetCompany        = mOffsetStateCompany();
-                float offsetCompanyTexture = company.calculatedSize.y * SESSION_LABEL_SPEAKER_LINE_HEIGHT;
+                float offsetCompanyTexture = name.calculatedSize.y * SESSION_LABEL_SPEAKER_LINE_HEIGHT;
                 
                 glPushMatrix();
                     glTranslatef(0, offsetCompanyTexture, 0);

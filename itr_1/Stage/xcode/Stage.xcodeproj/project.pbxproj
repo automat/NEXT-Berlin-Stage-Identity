@@ -78,6 +78,7 @@
 		CDA69B70190FCF3D0087ADA1 /* SpeakerStackView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA69B66190FCF3D0087ADA1 /* SpeakerStackView.cpp */; };
 		CDA69B71190FCF3D0087ADA1 /* SpeakerView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA69B67190FCF3D0087ADA1 /* SpeakerView.cpp */; };
 		CDA69B9E191027F30087ADA1 /* EventTypeLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDA69B9D191027F30087ADA1 /* EventTypeLabel.cpp */; };
+		CDAA605B1911268D004CEB37 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = CDAA605A1911268D004CEB37 /* config.json */; };
 		CDAC7AE5190AE32700430DCF /* ShaderUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AE4190AE32700430DCF /* ShaderUtil.cpp */; };
 		CDAC7AEA190AE56000430DCF /* FxResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AE9190AE56000430DCF /* FxResources.cpp */; };
 		CDAC7AEE190AF4CF00430DCF /* QuoteFieldManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDAC7AED190AF4CF00430DCF /* QuoteFieldManager.cpp */; };
@@ -211,6 +212,7 @@
 		CDA69B9C190FF30C0087ADA1 /* TextBoxTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextBoxTexture.h; sourceTree = "<group>"; };
 		CDA69B9D191027F30087ADA1 /* EventTypeLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventTypeLabel.cpp; sourceTree = "<group>"; };
 		CDA69B9F1910280B0087ADA1 /* EventTypeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventTypeLabel.h; sourceTree = "<group>"; };
+		CDAA605A1911268D004CEB37 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../resources/config.json; sourceTree = "<group>"; };
 		CDAC7ADB190AE2FE00430DCF /* DrawUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawUtil.h; sourceTree = "<group>"; };
 		CDAC7ADC190AE2FE00430DCF /* PingPongFbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PingPongFbo.h; sourceTree = "<group>"; };
 		CDAC7ADD190AE2FE00430DCF /* ShaderUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderUtil.h; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CDAA605A1911268D004CEB37 /* config.json */,
 				CD40A2E9190AAC67003F790B /* font */,
 				CD40A2EC190AAC67003F790B /* glsl */,
 				CD40A307190AAC67003F790B /* image */,
@@ -921,6 +924,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDAA605B1911268D004CEB37 /* config.json in Resources */,
 				CD40A323190AAC67003F790B /* normal_frag.glsl in Resources */,
 				CD40A32D190AAC67003F790B /* test_texture_2x2_red.png in Resources */,
 				CD40A310190AAC67003F790B /* Apercu_Mono.otf in Resources */,
