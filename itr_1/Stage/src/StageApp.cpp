@@ -14,12 +14,17 @@
 #include "data/session/Mapping.h"
 
 #include "stage/Stage.h"
+#include <stdlib.h>
 
 using namespace ci;
 using namespace ci::app;
 using namespace std;
 
 string excCatch;
+uint32_t session_id;
+string   config_path;
+string   data_path;
+
 
 /*--------------------------------------------------------------------------------------------*/
 
@@ -71,10 +76,11 @@ void StageApp::prepareSettings(Settings* settings){
     settings->setWindowSize(APP_WIDTH, APP_HEIGHT);
     settings->setFrameRate(APP_FPS);
     settings->setResizable(false);
-    settings->setBorderless(true);
+    //settings->setBorderless(true);
 }
 
 void StageApp::setup(){
+    
     mExcPanel = new next::util::ExcInfoPanel();
     
     if(!mInitialConfigIsValid){
@@ -99,14 +105,15 @@ void StageApp::setup(){
     mDataSpeakers   = nullptr;
     mDataEvents     = nullptr;
     mDataSession    = nullptr;
-    
-    next::Mapping::Get(3555, mImagesClocks, mImagesSpeakers,
+    //3562 //3559
+    next::Mapping::Get(3615/*atoi(getArgs()[1].c_str())*/ , mImagesClocks, mImagesSpeakers,
                        mDataSpeakers, mDataEvents, mDataSession);
     
     //
     //  Init
     //
     mStage = new next::Stage(mDataQuotes, mDataSession, mDataSpeakers);
+    
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -128,6 +135,10 @@ void StageApp::keyDown( KeyEvent event ){
 /*--------------------------------------------------------------------------------------------*/
 
 void StageApp::update(){
+#ifdef APP_HIDE_CURSOR
+    hideCursor();
+#endif
+    
     if(next::Config::DidChange()){
         next::Config::Reload(&excCatch);
         if(next::Config::IsValid()){
@@ -154,4 +165,27 @@ void StageApp::draw(){
     mStage->draw();
 }
 
-CINDER_APP_NATIVE( StageApp, RendererGl )
+//CINDER_APP_NATIVE( StageApp, RendererGl )
+// Override Cinders default main
+//
+int main( int argc, char * const argv[] ) {
+    int opt;
+    while((opt = getopt(argc, argv, "dec") != -1)){
+        switch (opt) {
+            case 'e':   // data path
+                cout << optarg << endl;
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    cinder::app::AppBasic::prepareLaunch();
+    cinder::app::AppBasic *app = new StageApp();
+    cinder::app::RendererRef ren( new RendererGl() );
+    cinder::app::AppBasic::executeLaunch( app, ren, "StageApp", argc, argv );
+    cinder::app::AppBasic::cleanupLaunch();
+    return 0;
+}
+
