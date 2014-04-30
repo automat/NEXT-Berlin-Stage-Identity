@@ -18,12 +18,6 @@ namespace next {
         mTextBoxTimeWidth(0),
         mTargetTimestamp(0),
         mReachedTargetTimestamp(false){
-            mTextBox = new TextBox();
-            mTextBox->setFont(      Font(app::loadResource(RES_AKKURAT_BOLD), SESSION_LABEL_META_FONT_SIZE * SESSION_LABEL_META_FONT_SCALAR));
-            mTextBox->setWidth(     SESSION_LABEL_SESSION_META_BOX_WIDTH);
-            mTextBox->setFontSize(  SESSION_LABEL_META_FONT_SIZE);
-            mTextBox->setColorFont( SESSION_LABEL_SESSION_META_FONT_COLOR);
-            
             mTextBoxTimeRemaining = new TextBox();
             mTextBoxTimeRemaining->setFont(      Font(app::loadResource(RES_AKKURAT_REGULAR), SESSION_LABEL_META_FONT_SIZE * SESSION_LABEL_META_FONT_SCALAR));
             mTextBoxTimeRemaining->setWidth(     SESSION_LABEL_META_SUB_BOX_WIDTH);
@@ -34,7 +28,6 @@ namespace next {
     }
 
     SessionMetaLabel::~SessionMetaLabel() {
-        delete mTextBox;
         delete mTextBoxTimeRemaining;
     }
 
@@ -43,12 +36,8 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
 
     void SessionMetaLabel::draw(){
-        if(mTextBox->empty()){
-            return;
-        }
-        
-        Vec2f topLeft = mTextBox->getTopLeft();
-        float alpha   = mAlphaState();
+        const Vec2f& topLeft = mTimeFrame.topleft;
+        float alpha          = mAlphaState();
         
         glPushMatrix();
             glTranslatef(mPos.x, mPos.y, 0);
@@ -76,35 +65,49 @@ namespace next {
                 
                 glColor4f(1, 1, 1, alpha);
                 glTranslatef(topLeft.x, topLeft.y, 0);
-                gl::draw(mTextBox->getTexture());
+                gl::draw(mTimeFrame.texture);
+        
+            if(!mTextBoxTimeRemaining->empty()){
+                glColor4f(1,1,1,alpha);
+                glTranslatef(mTextBoxTimeWidth, 0, 0);
+                gl::draw(mTextBoxTimeRemaining->getTexture());
 #ifdef SESSION_VIEW_LABEL_SESSION_META_DEBUG_DRAW
-                mTextBox->debugDraw();
+                mTextBoxTimeRemaining->debugDraw();
 #endif
-        if(!mTextBoxTimeRemaining->empty()){
-            glColor4f(1,1,1,alpha);
-            glTranslatef(mTextBoxTimeWidth, 0, 0);
-            gl::draw(mTextBoxTimeRemaining->getTexture());
-#ifdef SESSION_VIEW_LABEL_SESSION_META_DEBUG_DRAW
-            mTextBoxTimeRemaining->debugDraw();
-#endif
-        }
+            }
                 glColor4f(1, 1, 1, 1);
             glPopMatrix();
         glPopMatrix();
     }
     
     void SessionMetaLabel::set(const string& timeStart, const string& endTime, time_t timestamp, const gl::Texture& clockImageRef){
-        mTextBox->setString(timeStart + " - " + endTime);
+        Font font(app::loadResource(RES_AKKURAT_BOLD), SESSION_LABEL_META_FONT_SIZE * SESSION_LABEL_META_FONT_SCALAR);
+        
+        TextBox textbox;
+        textbox.setFont(font);
+        textbox.setWidth(     SESSION_LABEL_SESSION_META_BOX_WIDTH);
+        textbox.setFontSize(  SESSION_LABEL_META_FONT_SIZE);
+        textbox.setColorFont( SESSION_LABEL_SESSION_META_FONT_COLOR);
+        textbox.setString(timeStart + " - " + endTime);
+        
+        mTimeFrame.calculatedSize = textbox.getCalculatedSize();
+        mTimeFrame.texcoords      = textbox.getTexcoords();
+        mTimeFrame.topleft        = textbox.getTopLeft();
+        mTimeFrame.texture        = gl::Texture(Surface(textbox.getTexture()));
         
         mTargetTimestamp = timestamp;
         mClockImageRef   = clockImageRef.weakClone();
         
-        mTextBoxTimeWidth = mTextBox->getCalculatedSize().x + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
+        mTextBoxTimeWidth = mTimeFrame.calculatedSize.x + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
         //mTextBoxTimeRemaining->setString("h");
         updateTimeRemaining();
     }
     
     void SessionMetaLabel::updateTimeRemaining(){
+        if(mReachedTargetTimestamp){
+            return;
+        }
+        
         time_t timestamp  = time(0);
         time_t diffTarget = mTargetTimestamp - timestamp;
         

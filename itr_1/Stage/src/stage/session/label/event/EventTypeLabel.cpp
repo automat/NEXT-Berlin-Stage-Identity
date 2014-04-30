@@ -4,34 +4,30 @@
 
 
 namespace next {
-
     using namespace boost;
     typedef EaseInOutQuad AnimEaseInOut;
-    
     
     map<string, TextBoxTexture> EventTypeLabel::sMapTypeTexture;
     
     void EventTypeLabel::Map(map<uint32_t, next::Event> *events){
         Font font(app::loadResource(RES_AKKURAT_BOLD), SESSION_LABEL_META_FONT_SIZE * SESSION_LABEL_META_FONT_SCALAR);
         
-        TextBox* textBox = new TextBox();
-        textBox->setFont(font);
-        textBox->setWidth(     SESSION_LABEL_SESSION_META_BOX_WIDTH);
-        textBox->setFontSize(  SESSION_LABEL_META_FONT_SIZE);
-        textBox->setColorFont( SESSION_LABEL_SESSION_META_FONT_COLOR);
+        TextBox textBox;
+        textBox.setFont(font);
+        textBox.setWidth(     SESSION_LABEL_SESSION_META_BOX_WIDTH);
+        textBox.setFontSize(  SESSION_LABEL_META_FONT_SIZE);
+        textBox.setColorFont( SESSION_LABEL_SESSION_META_FONT_COLOR);
         
         for(map<uint32_t, next::Event>::const_iterator itr = events->begin(); itr != events->end(); ++itr){
             const string& type = itr->second.type;
-            textBox->setString(type);
+            textBox.setString(type);
             
             sMapTypeTexture[type] = TextBoxTexture();
-            sMapTypeTexture[type].calculatedSize = textBox->getCalculatedSize();
-            sMapTypeTexture[type].texcoords      = textBox->getTexcoords();
-            sMapTypeTexture[type].topleft        = textBox->getTopLeft();
-            sMapTypeTexture[type].texture        = gl::Texture(Surface(textBox->getTexture()));
+            sMapTypeTexture[type].calculatedSize = textBox.getCalculatedSize();
+            sMapTypeTexture[type].texcoords      = textBox.getTexcoords();
+            sMapTypeTexture[type].topleft        = textBox.getTopLeft();
+            sMapTypeTexture[type].texture        = gl::Texture(Surface(textBox.getTexture()));
         }
-        
-        delete textBox;
     }
 
     /*--------------------------------------------------------------------------------------------*/
@@ -49,13 +45,13 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
 
     void EventTypeLabel::draw(){
-        if(mType.empty()){
+        if(mKeyType.empty()){
             return;
         }
         Vec2f offset  = mPositionState();
         Vec2f pos     = mPos + offset;
         
-        const TextBoxTexture& type = sMapTypeTexture[mType];
+        const TextBoxTexture& type = sMapTypeTexture[mKeyType];
         const Vec2f& topLeft       = type.topleft;
         
         float alpha   = mAlphaState();
@@ -85,8 +81,8 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
 
     void EventTypeLabel::set(const string& str){
-        mType = str;
-        mTextBoxWidth = sMapTypeTexture[mType].calculatedSize.x + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
+        mKeyType = str;
+        mTextBoxWidth = sMapTypeTexture[mKeyType].calculatedSize.x + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
         float trapezoidWidth = mTextBoxWidth + SESSION_LABEL_META_OFFSET_X * -1;
         static const float slope = 14.5f;
         

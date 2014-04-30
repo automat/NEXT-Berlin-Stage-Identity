@@ -9,26 +9,19 @@
 #ifndef SessionView_SubLabel_h
 #define SessionView_SubLabel_h
 
-#include "stage/session/label/AbstractLabel.h"
 #include <string>
-
-#include "data/session/Event.h"
-#include "util/text/TextBoxTexture.h"
-
-
 #include <map>
 #include <vector>
+
+#include "stage/session/label/AbstractLabel.h"
+#include "data/session/Event.h"
 
 namespace next {
     using namespace std;
     class EventTypeLabel : public AbstractLabel {
-    
         static map<string, TextBoxTexture> sMapTypeTexture;
         
-    public:
-        static void Map(map<uint32_t,Event>* events);
-    private:
-        string      mType;
+        string      mKeyType;
         
         float       mTextBoxWidth;
         Vec2f       mVertexTrapezoid[4];
@@ -47,6 +40,8 @@ namespace next {
         void off();
         
         float getWidth();
+   
+        static void Map(map<uint32_t,Event>* events);
     };
 }
 

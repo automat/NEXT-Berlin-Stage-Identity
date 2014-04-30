@@ -9,13 +9,12 @@
 #ifndef SessionView_EventMetaLabel_h
 #define SessionView_EventMetaLabel_h
 
-#include "stage/session/label/AbstractLabel.h"
-#include "stage/session/label/event/PingPongEventMetaTypeLabel.h"
-#include "data/session/Event.h"
-#include "util/text/TextBoxTexture.h"
-
 #include <map>
 #include <vector>
+
+#include "stage/session/label/AbstractLabel.h"
+#include "stage/session/label/event/PingPongEventMetaTypeLabel.h"
+
 
 namespace next {
     using namespace std;
@@ -23,11 +22,7 @@ namespace next {
         static map<string,   TextBoxTexture> sMapTypeTexture;
         static map<uint32_t, TextBoxTexture> sMapIndexTexture;
         
-    public:
-         static void Map(map<uint32_t,Event>* events);
-    private:
-        
-        int  mIndex;
+        int  mKeyIndex;
         bool mActive;
         
         Anim<float> mAlphaState;
@@ -37,6 +32,8 @@ namespace next {
         PingPongEventMetaTypeLabel* mSubLabel;
         
     public:
+        static void Map(map<uint32_t,Event>* events);
+        
         EventMetaLabel();
         ~EventMetaLabel();
         

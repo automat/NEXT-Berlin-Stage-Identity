@@ -19,44 +19,43 @@ namespace next {
         
         string supportedChars = gl::TextureFont::defaultChars() + "–";
         
-        TextBox* textBoxDefault = new TextBox();
+        TextBox textBoxDefault;
         
-        textBoxDefault->setFont(fontDefault, supportedChars);
-        textBoxDefault->setWidth(SESSION_LABEL_EVENT_TITLE_DEFAULT_BOX_WIDTH);
-        textBoxDefault->setFontSize(  SESSION_LABEL_EVENT_TITLE_FONT_SIZE);
-        textBoxDefault->setLineHeight(SESSION_LABEL_EVENT_TITLE_LINE_HEIGHT);
-        textBoxDefault->setColorFont( SESSION_LABEL_EVENT_TITLE_FONT_COLOR);
+        textBoxDefault.setFont(fontDefault, supportedChars);
+        textBoxDefault.setWidth(SESSION_LABEL_EVENT_TITLE_DEFAULT_BOX_WIDTH);
+        textBoxDefault.setFontSize(  SESSION_LABEL_EVENT_TITLE_FONT_SIZE);
+        textBoxDefault.setLineHeight(SESSION_LABEL_EVENT_TITLE_LINE_HEIGHT);
+        textBoxDefault.setColorFont( SESSION_LABEL_EVENT_TITLE_FONT_COLOR);
         
-        textBoxDefault->setColorDropShadow( SESSION_LABEL_EVENT_TITLE_SHADOW_COLOR);
-        textBoxDefault->setDropShadowOffset(SESSION_LABEL_EVENT_TITLE_SHADOW_OFFSET);
-        textBoxDefault->setDropShadowScale( SESSION_LABEL_EVENT_TITLE_SHADOW_STRENGTH);
-        textBoxDefault->dropShadow();
+        textBoxDefault.setColorDropShadow( SESSION_LABEL_EVENT_TITLE_SHADOW_COLOR);
+        textBoxDefault.setDropShadowOffset(SESSION_LABEL_EVENT_TITLE_SHADOW_OFFSET);
+        textBoxDefault.setDropShadowScale( SESSION_LABEL_EVENT_TITLE_SHADOW_STRENGTH);
+        textBoxDefault.dropShadow();
         
-        textBoxDefault->gradientUnderline();
-        textBoxDefault->setColorGradientUnderline(SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_START,
+        textBoxDefault.gradientUnderline();
+        textBoxDefault.setColorGradientUnderline(SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_START,
                                             SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_END);
-        textBoxDefault->setUnderlineHeight(SESSION_LABEL_EVENT_TITLE_UNDERLINE_HEIGHT);
-        textBoxDefault->underline();
+        textBoxDefault.setUnderlineHeight(SESSION_LABEL_EVENT_TITLE_UNDERLINE_HEIGHT);
+        textBoxDefault.underline();
         
-        TextBox* textBoxExceed  = new TextBox();
-        textBoxExceed->setFont(fontExceed, supportedChars);
+        TextBox textBoxExceed;
+        textBoxExceed.setFont(fontExceed, supportedChars);
         
-        textBoxExceed->setWidth(     SESSION_LABEL_EVENT_TITLE_EXCEED_BOX_WIDTH);
-        textBoxExceed->setFontSize(  SESSION_LABEL_EVENT_TITLE_EXCEED_FONT_SIZE);
-        textBoxExceed->setLineHeight(SESSION_LABEL_EVENT_TITLE_EXCEED_LINE_HEIGHT);
-        textBoxExceed->setColorFont( SESSION_LABEL_EVENT_TITLE_FONT_COLOR);
+        textBoxExceed.setWidth(     SESSION_LABEL_EVENT_TITLE_EXCEED_BOX_WIDTH);
+        textBoxExceed.setFontSize(  SESSION_LABEL_EVENT_TITLE_EXCEED_FONT_SIZE);
+        textBoxExceed.setLineHeight(SESSION_LABEL_EVENT_TITLE_EXCEED_LINE_HEIGHT);
+        textBoxExceed.setColorFont( SESSION_LABEL_EVENT_TITLE_FONT_COLOR);
         
-        textBoxExceed->setColorDropShadow( SESSION_LABEL_EVENT_TITLE_SHADOW_COLOR);
-        textBoxExceed->setDropShadowOffset(SESSION_LABEL_EVENT_TITLE_SHADOW_OFFSET);
-        textBoxExceed->setDropShadowScale( SESSION_LABEL_EVENT_TITLE_SHADOW_STRENGTH);
-        textBoxExceed->dropShadow();
+        textBoxExceed.setColorDropShadow( SESSION_LABEL_EVENT_TITLE_SHADOW_COLOR);
+        textBoxExceed.setDropShadowOffset(SESSION_LABEL_EVENT_TITLE_SHADOW_OFFSET);
+        textBoxExceed.setDropShadowScale( SESSION_LABEL_EVENT_TITLE_SHADOW_STRENGTH);
+        textBoxExceed.dropShadow();
         
-        //mTextBoxExceed->setColorUnderline( SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR);
-        textBoxExceed->gradientUnderline();
-        textBoxExceed->setColorGradientUnderline(SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_START,
+        textBoxExceed.gradientUnderline();
+        textBoxExceed.setColorGradientUnderline(SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_START,
                                                   SESSION_LABEL_EVENT_TITLE_UNDERLINE_COLOR_END);
-        textBoxExceed->setUnderlineHeight(SESSION_LABEL_EVENT_TITLE_UNDERLINE_HEIGHT);
-        textBoxExceed->underline();
+        textBoxExceed.setUnderlineHeight(SESSION_LABEL_EVENT_TITLE_UNDERLINE_HEIGHT);
+        textBoxExceed.underline();
 
         
         vector<LineQuad> lineQuads;
@@ -76,22 +75,22 @@ namespace next {
             //  Gen texture
             //
             
-            textBoxDefault->setString(name);
-            numLines = textBoxDefault->getNumLines();
-            if(textBoxDefault->getNumLines() > SESSION_LABEL_EVENT_TITLE_MAX_LINES){
-                textBoxExceed->setString(name);
+            textBoxDefault.setString(name);
+            numLines = textBoxDefault.getNumLines();
+            if(textBoxDefault.getNumLines() > SESSION_LABEL_EVENT_TITLE_MAX_LINES){
+                textBoxExceed.setString(name);
                 sMapTitleTexture[name] = TextBoxTexture();
-                sMapTitleTexture[name].calculatedSize = textBoxExceed->getCalculatedSize();
-                sMapTitleTexture[name].texcoords      = textBoxExceed->getTexcoords();
-                sMapTitleTexture[name].topleft        = textBoxExceed->getTopLeft();
-                sMapTitleTexture[name].texture        = gl::Texture(Surface(textBoxExceed->getTexture()));
-                numLines = textBoxExceed->getNumLines();
+                sMapTitleTexture[name].calculatedSize = textBoxExceed.getCalculatedSize();
+                sMapTitleTexture[name].texcoords      = textBoxExceed.getTexcoords();
+                sMapTitleTexture[name].topleft        = textBoxExceed.getTopLeft();
+                sMapTitleTexture[name].texture        = gl::Texture(Surface(textBoxExceed.getTexture()));
+                numLines = textBoxExceed.getNumLines();
             } else {
                 sMapTitleTexture[name] = TextBoxTexture();
-                sMapTitleTexture[name].calculatedSize = textBoxDefault->getCalculatedSize();
-                sMapTitleTexture[name].texcoords      = textBoxDefault->getTexcoords();
-                sMapTitleTexture[name].topleft        = textBoxDefault->getTopLeft();
-                sMapTitleTexture[name].texture        = gl::Texture(Surface(textBoxDefault->getTexture()));
+                sMapTitleTexture[name].calculatedSize = textBoxDefault.getCalculatedSize();
+                sMapTitleTexture[name].texcoords      = textBoxDefault.getTexcoords();
+                sMapTitleTexture[name].topleft        = textBoxDefault.getTopLeft();
+                sMapTitleTexture[name].texture        = gl::Texture(Surface(textBoxDefault.getTexture()));
             }
             
             //
@@ -129,9 +128,6 @@ namespace next {
             
             sMapTitleLineQuads[name] = lineQuads;
         }
-        
-        delete textBoxDefault;
-        delete textBoxExceed;
     }
     
     
@@ -146,12 +142,12 @@ namespace next {
     
     
     void EventTitleLabel::draw(){
-        if(mString.empty()){
+        if(mKeyTitle.empty()){
             return;
         }
         
-        const TextBoxTexture&   title = sMapTitleTexture[mString];
-        const vector<LineQuad>& quads = sMapTitleLineQuads[mString];
+        const TextBoxTexture&   title = sMapTitleTexture[mKeyTitle];
+        const vector<LineQuad>& quads = sMapTitleLineQuads[mKeyTitle];
         
         Vec2f topLeft = title.topleft;
         const gl::Texture& texture = title.texture;
@@ -193,7 +189,7 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void EventTitleLabel::set(const string& title){
-        mString = title;
+        mKeyTitle = title;
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -201,7 +197,7 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void EventTitleLabel::show(){
-        vector<LineQuad>& quads = sMapTitleLineQuads[mString];
+        vector<LineQuad>& quads = sMapTitleLineQuads[mKeyTitle];
         
         float size = static_cast<float>(MAX(1, quads.size() - 1));
         float index = 0;
@@ -223,7 +219,7 @@ namespace next {
     }
     
     void EventTitleLabel::hide(){
-        vector<LineQuad>& quads = sMapTitleLineQuads[mString];
+        vector<LineQuad>& quads = sMapTitleLineQuads[mKeyTitle];
         
         float size = static_cast<float>(MAX(1, quads.size() - 1));
         float index = 0;
@@ -250,7 +246,7 @@ namespace next {
     
     
     void EventTitleLabel::on(){
-        vector<LineQuad>& quads = sMapTitleLineQuads[mString];
+        vector<LineQuad>& quads = sMapTitleLineQuads[mKeyTitle];
         
         float size = static_cast<float>(MAX(1, quads.size() - 1));
         float index = 0;
@@ -273,7 +269,7 @@ namespace next {
     }
     
     void EventTitleLabel::off(){
-         vector<LineQuad>& quads = sMapTitleLineQuads[mString];
+         vector<LineQuad>& quads = sMapTitleLineQuads[mKeyTitle];
         
         for (vector<LineQuad>::iterator itr = quads.begin(); itr != quads.end(); ++itr) {
             itr->posState = itr->posTarget;

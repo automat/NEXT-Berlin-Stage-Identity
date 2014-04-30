@@ -9,15 +9,14 @@
 #ifndef SessionView_SessionMetaLabel_h
 #define SessionView_SessionMetaLabel_h
 
-#include "stage/session/label/AbstractLabel.h"
 #include <string>
-
+#include "stage/session/label/AbstractLabel.h"
 
 namespace next {
     using namespace std;
     class SessionMetaLabel : public AbstractLabel {
     private:
-        TextBox*       mTextBox;
+        TextBoxTexture mTimeFrame;
         
         Anim<float>    mAlphaState;
         next::TextBox* mTextBoxTimeRemaining;

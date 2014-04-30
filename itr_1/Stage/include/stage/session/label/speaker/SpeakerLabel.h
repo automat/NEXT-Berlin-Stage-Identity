@@ -22,15 +22,11 @@ namespace next {
         static map<string, TextBoxTexture> sMapNameTexture;
         static map<string, TextBoxTexture> sMapCompanyTexture;
         
-    public:
-        static void Map(map<uint32_t,next::Speaker>* speaker);
-    private:
-        
-        string mName;
-        string mCompany;
+        string      mKeyName;
+        string      mKeyCompany;
 
-        float      mScale;
-        Matrix44f  mTransform;
+        float       mScale;
+        Matrix44f   mTransform;
 
         Anim<float> mOffsetStateName;
         Anim<float> mOffsetStateCompany;
@@ -39,6 +35,8 @@ namespace next {
 
         float    mTextBoxCompanyOffsetY;
     public:
+        static void Map(map<uint32_t,next::Speaker>* speaker);
+        
         SpeakerLabel();
 
         void draw();

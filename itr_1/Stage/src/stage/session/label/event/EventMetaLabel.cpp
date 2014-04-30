@@ -16,11 +16,11 @@ namespace next {
     void EventMetaLabel::Map(map<uint32_t,next::Event>* events){
         Font font(app::loadResource(RES_AKKURAT_BOLD),SESSION_LABEL_META_FONT_SIZE * SESSION_LABEL_META_FONT_SCALAR);
         
-        TextBox* textbox = new TextBox();
-        textbox->setFont(        font);
-        textbox->setWidth(     SESSION_LABEL_EVENT_BOX_WIDTH);
-        textbox->setFontSize(  SESSION_LABEL_META_FONT_SIZE);
-        textbox->setColorFont( SESSION_LABEL_EVENT_META_FONT_COLOR);
+        TextBox textbox;
+        textbox.setFont(      font);
+        textbox.setWidth(     SESSION_LABEL_EVENT_BOX_WIDTH);
+        textbox.setFontSize(  SESSION_LABEL_META_FONT_SIZE);
+        textbox.setColorFont( SESSION_LABEL_EVENT_META_FONT_COLOR);
         
         
         size_t numEvents    = events->size();
@@ -28,20 +28,18 @@ namespace next {
         
         int i = -1;
         while (++i < numEvents) {
-            textbox->setString(toString(i + 1) + " / " + numEventsStr);
+            textbox.setString(toString(i + 1) + " / " + numEventsStr);
             
             sMapIndexTexture[i] = TextBoxTexture();
-            sMapIndexTexture[i].calculatedSize = textbox->getCalculatedSize();
-            sMapIndexTexture[i].texcoords      = textbox->getTexcoords();
-            sMapIndexTexture[i].topleft        = textbox->getTopLeft();
-            sMapIndexTexture[i].texture        = gl::Texture(Surface(textbox->getTexture()));
+            sMapIndexTexture[i].calculatedSize = textbox.getCalculatedSize();
+            sMapIndexTexture[i].texcoords      = textbox.getTexcoords();
+            sMapIndexTexture[i].topleft        = textbox.getTopLeft();
+            sMapIndexTexture[i].texture        = gl::Texture(Surface(textbox.getTexture()));
         }
-        
-        delete textbox;
     }
     
     
-    EventMetaLabel::EventMetaLabel() : AbstractLabel(), mTextBoxFrontWidth(0), mAlphaState(0), mActive(false), mIndex(-1){
+    EventMetaLabel::EventMetaLabel() : AbstractLabel(), mTextBoxFrontWidth(0), mAlphaState(0), mActive(false), mKeyIndex(-1){
         mSubLabel = new PingPongEventMetaTypeLabel();
         
         setPosition(SESSION_LABEL_EVENT_META_POS);
@@ -52,11 +50,11 @@ namespace next {
     }
 
     void EventMetaLabel::draw(){
-        if(mIndex == -1){
+        if(mKeyIndex == -1){
             return;
         }
 
-        const TextBoxTexture& index = sMapIndexTexture[mIndex];
+        const TextBoxTexture& index = sMapIndexTexture[mKeyIndex];
         const Vec2f& topLeft = index.topleft;
         
         float alpha   = mAlphaState();
@@ -91,9 +89,9 @@ namespace next {
     }
     
     void EventMetaLabel::set(const string& type, uint32_t index){
-        mIndex = index;
+        mKeyIndex = index;
         
-        float textBoxFrontWidth = sMapIndexTexture[mIndex].calculatedSize.x;
+        float textBoxFrontWidth = sMapIndexTexture[mKeyIndex].calculatedSize.x;
         mTextBoxFrontWidth      = textBoxFrontWidth + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
         
         float trapezoidIndexWidth = mTextBoxFrontWidth + SESSION_LABEL_META_OFFSET_X * -0.5f;
