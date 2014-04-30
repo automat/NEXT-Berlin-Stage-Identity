@@ -17,8 +17,6 @@ namespace next {
     using namespace ci::app;
     using namespace boost::assign;
 
-    const Vec3f SpeakerStackView::sStackStep(0,0.05f,0);
-    
     /*--------------------------------------------------------------------------------------------*/
     //  Constructor
     /*--------------------------------------------------------------------------------------------*/
@@ -45,14 +43,14 @@ namespace next {
         
         mNumViews    = data.size();
         mViewIndex   = -1;
-        mStackTop    = sStackStep * static_cast<float>(mNumViews);
+        mStackTop    = SESSION_SPEAKER_STACK_STEP * static_cast<float>(mNumViews);
         mStackTopOut = mStackTop + Vec3f(0,0.5f,0);
         
         mTimeAnimDelaySpeaker = MAX(SESSION_EVENT_TIME_SPEAKER_MIN,SESSION_EVENT_TIME_MAX / static_cast<float>(mNumViews));
         
         for(vector<Speaker*>::const_iterator itr = data.begin(); itr != data.end(); ++itr){
             mViews   += new SpeakerView(*itr);
-            mViews.back()->mPositionState = mStackTop - sStackStep * static_cast<float>(mViews.size());
+            mViews.back()->mPositionState = mStackTop - SESSION_SPEAKER_STACK_STEP * static_cast<float>(mViews.size());
         }
     }
     
@@ -60,7 +58,7 @@ namespace next {
         int i = 0;
         while (i < mNumViews) {
             SpeakerView* view = mViews[i];
-            view->mPositionState = mStackTop - sStackStep * static_cast<float>(i + 1);
+            view->mPositionState = mStackTop - SESSION_SPEAKER_STACK_STEP * static_cast<float>(i + 1);
             view->clearStates();
             i++;
         }
@@ -139,7 +137,7 @@ namespace next {
         //  next : move up & focus
         //
         SpeakerView* next = mViews[indexNext];
-        tween(&next->mPositionState, next->mPositionState() + sStackStep, SESSION_SPEAKER_STACK_ANIM_MOVE, EaseOutCirc());
+        tween(&next->mPositionState, next->mPositionState() + SESSION_SPEAKER_STACK_STEP, SESSION_SPEAKER_STACK_ANIM_MOVE, EaseOutCirc());
         next->focus();
 
         //
@@ -148,7 +146,7 @@ namespace next {
         int i = 1;
         while(++i < mNumViews){
             next = mViews[(mViewIndex+i)%mNumViews];
-            tween(&next->mPositionState, next->mPositionState() + sStackStep, SESSION_SPEAKER_STACK_ANIM_MOVE, EaseOutCirc());
+            tween(&next->mPositionState, next->mPositionState() + SESSION_SPEAKER_STACK_STEP, SESSION_SPEAKER_STACK_ANIM_MOVE, EaseOutCirc());
         }
         
         callbackUpdate(indexNext);
