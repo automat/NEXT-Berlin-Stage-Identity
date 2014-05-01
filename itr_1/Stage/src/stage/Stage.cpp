@@ -112,8 +112,15 @@ namespace next{
         mFboThemeView      = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
         mFboThemeViewSSAO  = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
         mFboThemeViewFinal = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
+        
         mFboPingPong_1     = PingPongFbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
         mFboPingPong_2     = PingPongFbo(mFboSize_2.x, mFboSize_2.y, fboFormat_MSAA_4);
+        
+        gl::Fbo::Format fboFormat_MSAA_4_final;
+        fboFormat_MSAA_4_final.setSamples(4);
+        fboFormat_MSAA_4_final.setColorInternalFormat(GL_RGB16F_ARB);
+        mFboFinal          = gl::Fbo(mFboSize_1.x, mFboSize_1.y, fboFormat_MSAA_4);
+        
         
         mShaderBlurHRef = FxResources::GetBlurH();
         mShaderBlurVRef = FxResources::GetBlurV();
@@ -369,7 +376,7 @@ namespace next{
         mShaderMix.bind();
         mShaderMix.uniform("uTextureSSAO", 0);
         mShaderMix.uniform("uTextureBase", 1);
-        util::drawClearedScreenRect(mFboSize_1,false);
+        util::drawClearedScreenRect(mFboSize_1);
         mShaderMix.unbind();
 
         mFboThemeView.getTexture().unbind(1);
@@ -477,31 +484,43 @@ namespace next{
 /*--------------------------------------------------------------------------------------------*/
 
     void Stage::draw(){
-        processThemeScene();
+        glPushAttrib(GL_VIEWPORT_BIT);
+        gl::setViewport(STAGE_BOUNDS);
         
-        //  Draw Scene
+        processThemeScene();
+
+        mFboFinal.bindFramebuffer();
+        gl::clear( ColorA(0,0,0,1));
         gl::pushMatrices();
         
-            gl::setMatricesWindow(STAGE_SIZE,false);
+            glColor4f(1,1,1,1);
+            gl::setMatricesWindow(STAGE_SIZE,true);
             gl::draw(mFboThemeViewFinal.getTexture(), mFboThemeViewSSAO.getBounds());
-            
-            gl::pushMatrices();
-                gl::enableDepthRead();
-                gl::setMatrices(mCamera);
-                mSessionView->draw();
-                gl::disableDepthRead();
-                gl::enableAlphaBlending();
-                mSessionView->drawLabelsSpeaker();
-            gl::popMatrices();
         
+            gl::setMatrices(mCamera);
+        
+            gl::enableDepthRead();
+            mSessionView->draw();
+            gl::disableDepthRead();
+        
+            gl::enableAlphaBlending();
+            mSessionView->drawLabelsSpeaker();
+       
             gl::setMatricesWindow(STAGE_SIZE,true);
             mSessionView->drawLabels();
             mLogoNEXT->draw();
+        
             gl::disableAlphaBlending();
         
         gl::popMatrices();
+        mFboFinal.unbindFramebuffer();
+        
+        glPopAttrib();
     }
 
+    const gl::Texture& Stage::getTexture(){
+        return mFboFinal.getTexture();
+    }
 
     /*--------------------------------------------------------------------------------------------*/
     //  View

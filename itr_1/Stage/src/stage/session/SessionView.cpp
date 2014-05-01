@@ -367,6 +367,9 @@ namespace next {
         if(!mActive){
             return;
         }
+        for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
+            (*itr)->update();
+        }
         mLabelMeta->update();
     }
     

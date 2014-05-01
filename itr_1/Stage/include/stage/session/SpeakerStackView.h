@@ -71,6 +71,8 @@ namespace next {
         void resetStack();
         //! draw
         void draw();
+        
+        void update();
 
     };
 }

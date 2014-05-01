@@ -94,6 +94,7 @@ namespace next{
         gl::Fbo mFboThemeView;          //  original theme view unprocessed
         gl::Fbo mFboThemeViewSSAO;      //  original theme view + ssao
         gl::Fbo mFboThemeViewFinal;     //  final theme view completely post-processed
+        gl::Fbo mFboFinal;              
 
         gl::GlslProg     mShaderNormalDepth;
         gl::GlslProg     mShaderSSAO;
@@ -122,6 +123,8 @@ namespace next{
         void viewTop();
         void viewOrtho();
         void onConfigDidChange();
+        
+        const gl::Texture& getTexture();
     };
 }
 

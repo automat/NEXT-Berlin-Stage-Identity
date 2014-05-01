@@ -181,12 +181,13 @@ namespace next {
             gl::pushMatrices();
                 gl::setMatricesWindow(image.getSize(), false);
                 gl::disableDepthRead();
-        
+       
                 mFbo0.bindFramebuffer();
                     gl::clear(ColorAf::white());
                     glColor3f(1,1,1);
                     gl::draw(image);
                 mFbo0.unbindFramebuffer();
+       
         
                 mFbo1.bindFramebuffer();
                     mShaderBlurHRef->bind();
@@ -209,7 +210,6 @@ namespace next {
                     mShaderBlurHRef->unbind();
                 mFbo0.unbindFramebuffer();
         
-        
             gl::enableDepthRead();
             gl::popMatrices();
         glPopAttrib();
@@ -218,10 +218,12 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     //  Draw / Update
     /*--------------------------------------------------------------------------------------------*/
+
+    void SpeakerView::update(){
+        repaint();
+    }
     
     void SpeakerView::draw(){
-        repaint();
-        
         Vec3f pos           = mPositionState();
         float scale         = mScaleState();
         float alpha         = mAlphaState();
@@ -235,6 +237,7 @@ namespace next {
         if(useBlending){
             gl::enableAlphaBlending(); // i know, but so i dont have to sort them by depth
         }
+        
         glPushMatrix();
             glTranslatef(pos.x,pos.y,pos.z);
             glScalef(scale,scale,scale);
@@ -270,6 +273,7 @@ namespace next {
             glDisableClientState(GL_VERTEX_ARRAY);
             */
         glPopMatrix();
+        
         if(useBlending){
             gl::disableAlphaBlending();
         }

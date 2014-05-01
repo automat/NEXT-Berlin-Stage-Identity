@@ -76,6 +76,12 @@ namespace next {
             mViews[(mViewIndex+i+1)%mNumViews]->draw();
         }
     }
+    
+    void SpeakerStackView::update(){
+        for (vector<SpeakerView*>::iterator itr = mViews.begin(); itr != mViews.end(); ++itr) {
+            (*itr)->update();
+        }
+    }
 
     /*--------------------------------------------------------------------------------------------*/
     //  Focus / Unfocus stack

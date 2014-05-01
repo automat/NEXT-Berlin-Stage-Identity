@@ -67,6 +67,7 @@ namespace next {
     public:
         SpeakerView(Speaker* data);
         
+        void update();
         void draw();
         
         void unfocusImage();
