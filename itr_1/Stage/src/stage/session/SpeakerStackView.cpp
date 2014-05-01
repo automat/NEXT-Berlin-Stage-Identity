@@ -91,6 +91,7 @@ namespace next {
     }
     
     void SpeakerStackView::unfocus(){
+        mViews[mNumViews-1]->unfocusImage();
         for(vector<SpeakerView*>::iterator itr = mViews.begin(); itr != mViews.end(); ++itr){
             (*itr)->unfocus();
         }

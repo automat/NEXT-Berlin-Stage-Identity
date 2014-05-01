@@ -56,7 +56,6 @@ namespace next {
         Anim<float> mFocusBlurState;
         
         bool mFboDirty;
-        bool mActive;
         
         void activate();
         void deactivate();
