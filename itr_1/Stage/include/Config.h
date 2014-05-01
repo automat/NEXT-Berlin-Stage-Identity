@@ -25,7 +25,6 @@
 
 #define STAGE_WIDTH        3552
 #define STAGE_HEIGHT       1105
-#define STAGE_SCALE        1
 #define STAGE_SIZE         ci::Vec2f(STAGE_WIDTH,STAGE_HEIGHT)
 #define STAGE_BOUNDS       ci::Area(0,0,STAGE_WIDTH,STAGE_HEIGHT)
 
@@ -33,34 +32,24 @@
 // App
 /*--------------------------------------------------------------------------------------------*/
 
-#define APP_WIDTH  STAGE_WIDTH / STAGE_SCALE
-#define APP_HEIGHT STAGE_HEIGHT / STAGE_SCALE
-#define APP_SIZE   ci::Vec2f(APP_WIDTH, APP_HEIGHT)
+#define          APP_WIDTH  3840
+#define          APP_HEIGHT 1105
+#define          APP_SIZE   ci::Vec2f(APP_WIDTH, APP_HEIGHT)
 
-#define APP_FPS 60.0f
-
-#define APP_HIDE_MOUSE
-
-/*--------------------------------------------------------------------------------------------*/
-// Window
-/*--------------------------------------------------------------------------------------------*/
-
-extern int       WINDOW_WIDTH;
-extern int       WINDOW_HEIGHT;
-extern bool      WINDOW_BORDERLESS;
-extern int       WINDOW_DISPLAY;
-extern bool      WINDOW_ALWAYS_ON_TOP;
-extern bool      WINDOW_FIXED_POSITION;
-extern ci::Vec2i WINDOW_POSITION;
-extern float     WINDOW_FPS;
+extern bool      APP_BORDERLESS;
+extern int       APP_DISPLAY;
+extern bool      APP_ALWAYS_ON_TOP;
+extern bool      APP_FIXED_POSITION;
+extern ci::Vec2i APP_POSITION;
+extern float     APP_FPS;
+extern bool      APP_HIDE_MOUSE;
 
 /*--------------------------------------------------------------------------------------------*/
 // Projection
 /*--------------------------------------------------------------------------------------------*/
 
-extern float PROJECTION_SCALE;
-extern bool  PROJECTION_OVERLAP;
-extern int   PROJECTION_OVERLAP_EDGE;
+extern bool  PROJECTION_BLEND;
+extern int   PROJECTION_BLEND_EDGE;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -302,8 +291,6 @@ extern float      STAGE_LANTERN_0_CONSTANT_ATTENUATION;
 extern float      STAGE_LANTERN_0_LINEAR_ATTENUATION;
 extern float      STAGE_LANTERN_0_QUADRIC_ATTENUATION;
 
-extern bool STAGE_LANTERN_0_DEBUG_DRAW;
-
 extern ci::Vec3f  STAGE_LANTERN_1_DIRECTION;
 extern ci::Colorf STAGE_LANTERN_1_COLOR_AMBIENT;
 extern ci::Colorf STAGE_LANTERN_1_COLOR_DIFFUSE;
@@ -313,7 +300,6 @@ extern float      STAGE_LANTERN_1_CONSTANT_ATTENUATION;
 extern float      STAGE_LANTERN_1_LINEAR_ATTENUATION;
 extern float      STAGE_LANTERN_1_QUADRIC_ATTENUATION;
 
-extern bool STAGE_LANTERN_1_DEBUG_DRAW;
 
 //#define DEBUG_STAGE_TYPESETTER
 //#define DEBUG_STAGE_TYPESETTER_TEXTURE

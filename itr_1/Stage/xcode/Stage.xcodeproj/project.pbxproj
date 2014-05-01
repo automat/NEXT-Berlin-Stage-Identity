@@ -779,9 +779,9 @@
 		CDA69B87190FCF4F0087ADA1 /* session */ = {
 			isa = PBXGroup;
 			children = (
+				CDA69B8A190FCF4F0087ADA1 /* label */,
 				CDA69B88190FCF4F0087ADA1 /* AbstractAnimBase.h */,
 				CDA69B89190FCF4F0087ADA1 /* EventView.h */,
-				CDA69B8A190FCF4F0087ADA1 /* label */,
 				CDA69B99190FCF4F0087ADA1 /* SessionView.h */,
 				CDA69B9A190FCF4F0087ADA1 /* SpeakerStackView.h */,
 				CDA69B9B190FCF4F0087ADA1 /* SpeakerView.h */,
@@ -792,11 +792,11 @@
 		CDA69B8A190FCF4F0087ADA1 /* label */ = {
 			isa = PBXGroup;
 			children = (
-				CDA69B8B190FCF4F0087ADA1 /* AbstractLabel.h */,
 				CDA69B8C190FCF4F0087ADA1 /* event */,
-				CDA69B91190FCF4F0087ADA1 /* LineQuad.h */,
 				CDA69B92190FCF4F0087ADA1 /* session */,
 				CDA69B95190FCF4F0087ADA1 /* speaker */,
+				CDA69B8B190FCF4F0087ADA1 /* AbstractLabel.h */,
+				CDA69B91190FCF4F0087ADA1 /* LineQuad.h */,
 			);
 			path = label;
 			sourceTree = "<group>";

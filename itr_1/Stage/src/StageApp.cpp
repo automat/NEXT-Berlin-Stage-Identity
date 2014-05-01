@@ -121,6 +121,8 @@ void StageApp::setup(){
     //
     mStage = new next::Stage(mDataQuotes, mDataSession, mDataSpeakers);
     
+    
+    
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -138,7 +140,7 @@ void StageApp::keyDown( KeyEvent event ){
 }
 
 /*--------------------------------------------------------------------------------------------*/
-// Update / Draw
+// Update
 /*--------------------------------------------------------------------------------------------*/
 
 void StageApp::update(){
@@ -162,15 +164,41 @@ void StageApp::update(){
     mStage->update();
 }
 
+/*--------------------------------------------------------------------------------------------*/
+// Draw
+/*--------------------------------------------------------------------------------------------*/
+
 void StageApp::draw(){
     gl::clear( Color( 0, 0, 0 ) );
+ 
+    //
+    //  Display err
+    //
     if(!next::Config::IsValid()){
         mExcPanel->draw();
         return;
     }
     
+    //
+    //  Update fbo stage
+    //
     mStage->draw();
+    
+    
+    //
+    //  Split stage according to projection blending edge
+    //
+    gl::setMatricesWindow(APP_SIZE,false);
+    const gl::Texture& stageTexture = mStage->getTexture();
+    glColor3f(1, 1, 1);
+    gl::draw(stageTexture);
+
+    
 }
+
+/*--------------------------------------------------------------------------------------------*/
+// Init
+/*--------------------------------------------------------------------------------------------*/
 
 //
 // Override Cinders default main
