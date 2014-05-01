@@ -36,9 +36,7 @@ namespace next{
         const Vec3f left(-1,0,0),right(1,0,0);
         const Vec3f front(0,0,-1),back(0,0,1);
 
-#ifndef DIVER_FIELD_PUT_NORMAL_COLORS
-    Colorf white(1,1,1);
-#endif
+        Colorf white(1,1,1);
 
         vector<Colorf> meshColors;  // buffer colors for debug
 
@@ -47,30 +45,17 @@ namespace next{
         while (++i < mNumDivers) {
             j = 0;
             while(j < mDiverNumPoints){
-#ifdef DIVER_FIELD_PUT_NORMAL_COLORS
-                meshColors += util::toColor(down), util::toColor(down);
-                meshColors += util::toColor(  up), util::toColor(  up);
-                meshColors += util::toColor(right), util::toColor(left);
-                meshColors += util::toColor(right), util::toColor(left);
-#else
-            meshColors += white,white;
-            meshColors += white,white;
-            meshColors += white,white;
-            meshColors += white,white;
-#endif
+                meshColors += white,white;
+                meshColors += white,white;
+                meshColors += white,white;
+                meshColors += white,white;
                 ++j;
             }
-#ifdef DIVER_FIELD_PUT_NORMAL_COLORS
-            meshColors += util::toColor(front), util::toColor(front);
-            meshColors += util::toColor(front), util::toColor(front);
-            meshColors += util::toColor( back), util::toColor( back);
-            meshColors += util::toColor( back), util::toColor( back);
-#else
-        meshColors += white,white;
-        meshColors += white,white;
-        meshColors += white,white;
-        meshColors += white,white;
-#endif
+
+            meshColors += white,white;
+            meshColors += white,white;
+            meshColors += white,white;
+            meshColors += white,white;
         }
 
         mMesh.bufferColorsRGB(meshColors);

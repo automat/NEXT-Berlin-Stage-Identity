@@ -62,9 +62,9 @@ namespace next {
     public:
         QuoteFieldManager(vector<Quote>* quotes, Grid* grid);
         ~QuoteFieldManager();
-#ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER
+
         void debugDraw();
-#endif
+
         void update(Oscillator* osc, float t);
         void draw(const CameraOrtho& camera);
         

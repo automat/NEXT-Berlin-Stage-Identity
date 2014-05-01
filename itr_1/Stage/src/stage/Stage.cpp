@@ -72,9 +72,6 @@ namespace next{
         mTypesetter->setFont(Font(app::loadResource(RES_TRANSCRIPT_BOLD),STAGE_TYPESETTER_FONT_SIZE), STAGE_TYPESETTER_FONT_SCALE);
         mTypesetter->constrain(false);
         mTypesetter->manualLineBreak(true);
-#ifdef DEBUG_STAGE_TYPESETTER_TEXCOORDS
-        mTypesetter->debugTexture();
-#endif
 
         for(auto& data : *quoteData){
             const QuoteJson::Format& format = data.format;
@@ -151,7 +148,7 @@ namespace next{
                            app::loadResource(RES_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
                            &mShaderMixRadial);
 #endif
-        //mThemeView->play(100000, NULL);
+  
         playSessionView();
         //playThemeView();
     }
@@ -161,7 +158,7 @@ namespace next{
     }
     
     void Stage::playSessionView(){
-        mSessionView->play(std::bind(&Stage::playSessionView,this));
+        mSessionView->play(std::bind(&Stage::playThemeView,this));
         
     }
 

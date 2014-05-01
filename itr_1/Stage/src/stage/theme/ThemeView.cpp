@@ -114,22 +114,15 @@ namespace next{
             mShaderDiverFields.bind();
             mMaterialDiverFields.apply();
         }
-#ifndef THEME_SKIP_DRAW_FIELD_DIVER
+
         for(vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr){
-#ifdef DEBUG_THEME_FIELD_DIVER
-            (*itr)->debugDrawArea();
-            (*itr)->debugDrawDivers();
-            (*itr)->debugDrawPathSurface();
-#endif
             (*itr)->draw();
         }
-#endif
+
         if(useMaterialShaders){
             mShaderDiverFields.unbind();
         }
 
-#ifndef THEME_SKIP_DRAW_QUOTE_DIVER
-        
         if(mQuoteFieldManager->isActive()){
             glEnable(GL_POLYGON_OFFSET_FILL);
             glPolygonOffset(0.0, 0.9);
@@ -158,10 +151,8 @@ namespace next{
             
             glDisable(GL_POLYGON_OFFSET_FILL);
         }
-        
-#endif
     }
-#ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER
+
     void ThemeView::debugDrawQuoteManager(){
         glAlphaFunc(GL_GREATER, 0.0);
         glEnable(GL_ALPHA_TEST);
@@ -172,7 +163,6 @@ namespace next{
         glDisable(GL_ALPHA_TEST);
         glAlphaFunc(GL_GREATER, 0.5); // clearStates what seems to be cinders default
     }
-#endif
     
 
     /*--------------------------------------------------------------------------------------------*/
@@ -191,11 +181,10 @@ namespace next{
                 &mShaderDiverFields);
 #endif
         float t = app::getElapsedSeconds();
-#ifndef THEME_SKIP_DRAW_FIELD_DIVER
         for (vector<DiverField*>::const_iterator itr = mDiverFields.begin(); itr != mDiverFields.end(); ++itr) {
             (*itr)->update(mOscillator,t);
         }
-#endif
+
 #ifndef BOARD_SKIP_DRAW_FIELD_QUOTE
         mQuoteFieldManager->update(mOscillator, t);
 #endif

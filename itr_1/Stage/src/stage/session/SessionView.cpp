@@ -170,18 +170,12 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     void SessionView::onFinish(){
-#ifdef SESSION_VIEW_DEBUG_STATE
-        cout << "### Session View End ###" << endl;
-#endif
         if(mCallback){
             mCallback();
         }
     }
     
     void SessionView::onStart(){
-#ifdef SESSION_VIEW_DEBUG_STATE
-        cout << "### Session View Start ###" << endl;
-#endif
     }
     
     void SessionView::finish(){
@@ -238,9 +232,6 @@ namespace next {
                 setViewState(mEventViews[j], slot);
             }
         }
-#ifdef SESSION_VIEW_DEBUG_STATE
-        cout << "Front: " << mEventViewFront << endl;
-#endif
     }
     
     

@@ -123,15 +123,6 @@ namespace next {
         }
         
         for(vector<QuoteField*>::const_iterator itr = mQuoteFieldsSelected->begin(); itr != mQuoteFieldsSelected->end(); itr++){
-#ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER_QUOTES
-            (*itr)->debugDrawArea();
-            (*itr)->debugDrawPathSurface();
-            (*itr)->debugDrawDivers();
-#endif
-#ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER_QUOTES_TEXCOORDS
-            
-            (*itr)->debugDrawDiverIndices(camera);
-#endif
             (*itr)->draw();
         }
     }
@@ -217,7 +208,7 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     //  Debug Draw
     /*--------------------------------------------------------------------------------------------*/
-#ifdef DEBUG_THEME_FIELD_QUOTE_MANAGER
+
     void QuoteFieldManager::debugDraw(){
         if(!mActive){
             return;
@@ -334,7 +325,7 @@ namespace next {
         }
         glPopMatrix();
     }
-#endif
+
     
     /*--------------------------------------------------------------------------------------------*/
     //  get

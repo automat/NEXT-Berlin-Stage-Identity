@@ -170,12 +170,10 @@ namespace next {
         }
         
         static const float scale = 10.0f;
-
-        float focusColor    = mFocusColorState();
+        
         float focusBlur     = mFocusBlurState();
         float focusBlurInv  = 1.0f - focusBlur;
-        float focusColorInv = 1.0f - focusColor;
-        
+ 
         const gl::Texture& image = mData->imageRef.weakClone();
         
         glPushAttrib(GL_VIEWPORT_BIT);
@@ -183,13 +181,12 @@ namespace next {
             gl::pushMatrices();
                 gl::setMatricesWindow(image.getSize(), false);
                 gl::disableDepthRead();
+        
                 mFbo0.bindFramebuffer();
                     gl::clear(ColorAf::white());
                     glColor3f(1,1,1);
                     gl::draw(image);
                 mFbo0.unbindFramebuffer();
-        
-        
         
                 mFbo1.bindFramebuffer();
                     mShaderBlurHRef->bind();
@@ -211,7 +208,6 @@ namespace next {
                     gl::draw(mFbo1.getTexture());
                     mShaderBlurHRef->unbind();
                 mFbo0.unbindFramebuffer();
-        
         
         
             gl::enableDepthRead();

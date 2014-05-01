@@ -11,7 +11,6 @@
 #include "cinder/Color.h"
 #include "cinder/Vector.h"
 #include "cinder/CinderResources.h"
-using namespace ci;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -20,20 +19,13 @@ using namespace ci;
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*--------------------------------------------------------------------------------------------*/
-// Config
-/*--------------------------------------------------------------------------------------------*/
-
-#define CONFIG_USE_BAKED
-#define CONFIG_FILE_PATH_BAKED     "/Users/automat/Projects/next/itr_1/Stage/resources/config.json"
-#define CONFIG_FILE_PATH_RELATIVE
-
-/*--------------------------------------------------------------------------------------------*/
 // Stage
 /*--------------------------------------------------------------------------------------------*/
 
 #define STAGE_WIDTH  3552
 #define STAGE_HEIGHT 1105
 #define STAGE_SCALE  1
+#define STAGE_SIZE   ci::Vec2f(STAGE_WIDTH,STAGE_HEIGHT)
 
 /*--------------------------------------------------------------------------------------------*/
 // App
@@ -41,24 +33,24 @@ using namespace ci;
 
 #define APP_WIDTH  STAGE_WIDTH / STAGE_SCALE
 #define APP_HEIGHT STAGE_HEIGHT / STAGE_SCALE
+#define APP_SIZE   ci::Vec2f(APP_WIDTH, APP_HEIGHT)
+
 #define APP_FPS 60.0f
 
-#define APP_USE_BAKED_CONFIG
 #define APP_HIDE_MOUSE
 
 /*--------------------------------------------------------------------------------------------*/
 // Window
 /*--------------------------------------------------------------------------------------------*/
 
-extern int   WINDOW_WIDTH;
-extern int   WINDOW_HEIGHT;
-extern bool  WINDOW_BORDERLESS;
-extern int   WINDOW_DISPLAY;
-extern bool  WINDOW_ALWAYS_ON_TOP;
-extern bool  WINDOW_FIXED_POSITION;
-extern Vec2i WINDOW_POSITION;
-extern float WINDOW_FPS;
-
+extern int       WINDOW_WIDTH;
+extern int       WINDOW_HEIGHT;
+extern bool      WINDOW_BORDERLESS;
+extern int       WINDOW_DISPLAY;
+extern bool      WINDOW_ALWAYS_ON_TOP;
+extern bool      WINDOW_FIXED_POSITION;
+extern ci::Vec2i WINDOW_POSITION;
+extern float     WINDOW_FPS;
 
 /*--------------------------------------------------------------------------------------------*/
 // Projection
@@ -78,12 +70,9 @@ extern int   PROJECTION_OVERLAP_EDGE;
 #define COLOR_NEXT_FUCHSIA ci::Color::hex(0xDE3865)
 #define COLOR_NEXT_BLUE
 
-
 #define LOGO_SIZE 180
 #define LOGO_MARGIN_TOP 100
 #define LOGO_MARGIN_RIGHT 100 - LOGO_SIZE
-
-//#define STAGE_SKIP_LOGO
 
 
 #define STAGE_MODEL_SCALE_MIN 0.65f
@@ -103,9 +92,6 @@ extern int   PROJECTION_OVERLAP_EDGE;
 /*--------------------------------------------------------------------------------------------*/
 //  Views
 /*--------------------------------------------------------------------------------------------*/
-
-//#define SESSION_VIEW_DEBUG_STATE
-//#define SESSION_VIEW_DEBUG_DRAW
 
 #define SESSION_VIEW_SLIDE_LENGTH 5.5f
 #define SESSION_VIEW_SLIDE_SCREEN_CENTER_OFFSET 0.6f
@@ -136,14 +122,14 @@ extern int   PROJECTION_OVERLAP_EDGE;
 //
 //  Speaker
 //
-#define SESSION_SPEAKER_VIEW_COLOR_ACTIVE   ci::Colorf(0.87450980392157f, 0.06274509803922f, 0.39607843137255f)
-#define SESSION_SPEAKER_VIEW_COLOR_INACTIVE ci::Colorf(0.0f, 0.39607843137255f, 0.89019607843137f)
-#define SESSION_SPEAKER_VIEW_ANIM_FOCUS 1.0f
-#define SESSION_SPEAKER_VIEW_ANIM_UNFOCUS 2.5f
-#define SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_OUT 2.5f
-#define SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_IN 2.5f
-#define SESSION_SPEAKER_VIEW_ANIM_SHOW 8.0f
-#define SESSION_SPEAKER_VIEW_ANIM_HIDE 0.35f
+#define SESSION_SPEAKER_VIEW_COLOR_ACTIVE       ci::Colorf(0.87450980392157f, 0.06274509803922f, 0.39607843137255f)
+#define SESSION_SPEAKER_VIEW_COLOR_INACTIVE     ci::Colorf(0.0f, 0.39607843137255f, 0.89019607843137f)
+#define SESSION_SPEAKER_VIEW_ANIM_FOCUS         1.0f
+#define SESSION_SPEAKER_VIEW_ANIM_UNFOCUS       2.5f
+#define SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_OUT   2.5f
+#define SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_IN    2.5f
+#define SESSION_SPEAKER_VIEW_ANIM_SHOW          8.0f
+#define SESSION_SPEAKER_VIEW_ANIM_HIDE          0.35f
 #define SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_IMAGE 0.35f
 
 /*--------------------------------------------------------------------------------------------*/
@@ -305,29 +291,28 @@ extern float STAGE_FX_SHADER_BLUR_SCALE;
 extern float STAGE_FX_SHADER_BLUR_RADIAL_SCALE;
 extern float STAGE_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE;
 
-extern Vec3f  STAGE_LANTERN_0_DIRECTION;
-extern Colorf STAGE_LANTERN_0_COLOR_AMBIENT;
-extern Colorf STAGE_LANTERN_0_COLOR_DIFFUSE;
-extern Colorf STAGE_LANTERN_0_COLOR_SPECULAR;
-extern float  STAGE_LANTERN_0_ATTENUATION;
-extern float  STAGE_LANTERN_0_CONSTANT_ATTENUATION;
-extern float  STAGE_LANTERN_0_LINEAR_ATTENUATION;
-extern float  STAGE_LANTERN_0_QUADRIC_ATTENUATION;
+extern ci::Vec3f  STAGE_LANTERN_0_DIRECTION;
+extern ci::Colorf STAGE_LANTERN_0_COLOR_AMBIENT;
+extern ci::Colorf STAGE_LANTERN_0_COLOR_DIFFUSE;
+extern ci::Colorf STAGE_LANTERN_0_COLOR_SPECULAR;
+extern float      STAGE_LANTERN_0_ATTENUATION;
+extern float      STAGE_LANTERN_0_CONSTANT_ATTENUATION;
+extern float      STAGE_LANTERN_0_LINEAR_ATTENUATION;
+extern float      STAGE_LANTERN_0_QUADRIC_ATTENUATION;
 
 extern bool STAGE_LANTERN_0_DEBUG_DRAW;
 
-extern Vec3f  STAGE_LANTERN_1_DIRECTION;
-extern Colorf STAGE_LANTERN_1_COLOR_AMBIENT;
-extern Colorf STAGE_LANTERN_1_COLOR_DIFFUSE;
-extern Colorf STAGE_LANTERN_1_COLOR_SPECULAR;
-extern float  STAGE_LANTERN_1_ATTENUATION;
-extern float  STAGE_LANTERN_1_CONSTANT_ATTENUATION;
-extern float  STAGE_LANTERN_1_LINEAR_ATTENUATION;
-extern float  STAGE_LANTERN_1_QUADRIC_ATTENUATION;
+extern ci::Vec3f  STAGE_LANTERN_1_DIRECTION;
+extern ci::Colorf STAGE_LANTERN_1_COLOR_AMBIENT;
+extern ci::Colorf STAGE_LANTERN_1_COLOR_DIFFUSE;
+extern ci::Colorf STAGE_LANTERN_1_COLOR_SPECULAR;
+extern float      STAGE_LANTERN_1_ATTENUATION;
+extern float      STAGE_LANTERN_1_CONSTANT_ATTENUATION;
+extern float      STAGE_LANTERN_1_LINEAR_ATTENUATION;
+extern float      STAGE_LANTERN_1_QUADRIC_ATTENUATION;
 
 extern bool STAGE_LANTERN_1_DEBUG_DRAW;
 
-//#define DEBUG_STAGE_TYPESETTER_TEXCOORDS
 //#define DEBUG_STAGE_TYPESETTER
 //#define DEBUG_STAGE_TYPESETTER_TEXTURE
 
@@ -337,12 +322,6 @@ extern bool STAGE_LANTERN_1_DEBUG_DRAW;
 /*--------------------------------------------------------------------------------------------*/
 
 #define THEME_LIVE_EDIT_MATERIAL_SHADER
-
-//#define THEME_SKIP_DRAW_FIELD_DIVER
-//#define THEME_SKIP_DRAW_QUOTE_DIVER
-
-//#define DEBUG_THEME_FIELD_DIVER_PATH_SURFACE
-//#define DEBUG_THEME_FIELD_DIVER
 
 //
 //  Quote Field Manager
@@ -361,10 +340,6 @@ extern bool STAGE_LANTERN_1_DEBUG_DRAW;
 #define THEME_FIELD_QUOTE_MANAGER_ANIM_OUT_DELAY_STEP_MAX 1.0f//1.0f//1.0f
 #define THEME_FIELD_QUOTE_MANAGER_ANIM_OUT_TIME_MIN 3.0f//5.0f//5.0f
 #define THEME_FIELD_QUOTE_MANAGER_ANIM_OUT_TIME_MAX 4.0f//6.0f//6.0f
-
-//#define DEBUG_THEME_FIELD_QUOTE_MANAGER_QUOTES
-//#define DEBUG_THEME_FIELD_QUOTE_MANAGER_QUOTES_TEXCOORDS
-#define DEBUG_THEME_FIELD_QUOTE_MANAGER
 
 /*--------------------------------------------------------------------------------------------*/
 // Background
@@ -385,12 +360,7 @@ extern bool STAGE_LANTERN_1_DEBUG_DRAW;
 /*--------------------------------------------------------------------------------------------*/
 
 #define PATH_SLICE_NUM_POINTS 40
-extern ColorAf PATH_SURFACE_COLOR;
-
-/*--------------------------------------------------------------------------------------------*/
-// Abstract Field
-/*--------------------------------------------------------------------------------------------*/
-//#define ABSTRACT_FIELD_PUT_NORMAL_COLORS
+extern ci::ColorAf PATH_SURFACE_COLOR;
 
 /*--------------------------------------------------------------------------------------------*/
 // DiverField
@@ -414,12 +384,10 @@ extern ColorAf PATH_SURFACE_COLOR;
 #define DIVER_FIELD_DIVER_MIN_LENGTH    0.1f//0.1f
 #define DIVER_FIELD_DIVER_MAX_LENGTH    0.275f//0.275f
 
-#define DIVER_FIELD_PUT_NORMAL_COLORS
-
-extern ColorAf DIVER_FIELD_MATERIAL_AMBIENT;
-extern ColorAf DIVER_FIELD_MATERIAL_DIFFUSE;
-extern ColorAf DIVER_FIELD_MATERIAL_SPECULAR;
-extern float   DIVER_FIELD_MATERIAL_SHININESS;
+extern ci::ColorAf DIVER_FIELD_MATERIAL_AMBIENT;
+extern ci::ColorAf DIVER_FIELD_MATERIAL_DIFFUSE;
+extern ci::ColorAf DIVER_FIELD_MATERIAL_SPECULAR;
+extern float       DIVER_FIELD_MATERIAL_SHININESS;
 
 /*--------------------------------------------------------------------------------------------*/
 // QuoteField
@@ -444,10 +412,10 @@ extern float   DIVER_FIELD_MATERIAL_SHININESS;
 #define QUOTE_FIELD_DIVER_MIN_LENGTH    1.0f//0.1f
 #define QUOTE_FIELD_DIVER_MAX_LENGTH    1.0f//0.275f
 
-extern ColorAf QUOTE_FIELD_MATERIAL_AMBIENT;
-extern ColorAf QUOTE_FIELD_MATERIAL_DIFFUSE;
-extern ColorAf QUOTE_FIELD_MATERIAL_SPECULAR;
-extern float   QUOTE_FIELD_MATERIAL_SHININESS;
+extern ci::ColorAf QUOTE_FIELD_MATERIAL_AMBIENT;
+extern ci::ColorAf QUOTE_FIELD_MATERIAL_DIFFUSE;
+extern ci::ColorAf QUOTE_FIELD_MATERIAL_SPECULAR;
+extern float       QUOTE_FIELD_MATERIAL_SHININESS;
 
 //#define QUOTE_FIELD_PUT_NORMAL_COLORS
 
