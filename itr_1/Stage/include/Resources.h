@@ -20,16 +20,6 @@
 #define RES_TEXTURE_RANDOM CINDER_RESOURCE( ../resources/texture, random.png, 136, DATA )
 #define RES_JSON_TEST      CINDER_RESOURCE( ../resources/, test.json, 137, DATA );
 
-////////////////////////////////////////////////////////////////////////////////////////////////
-//
-//  Data
-//
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-#define RES_PATH_DATA_JSON      "/Users/automat/Projects/next/data/data.json"
-#define RES_PATH_IMAGES_SPEAKER "/Users/automat/Projects/next/data/images_dome_stage"
-#define RES_PATH_IMAGES_CLOCK   "/Users/automat/Projects/next/data/clocks"
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
