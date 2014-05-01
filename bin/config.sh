@@ -10,5 +10,6 @@ PATH_FILE_DATA_SESSION_JSON="/Users/automat/Projects/next/data/data.json"
 PATH_FILE_QUOTE_JSON="/Users/automat/Projects/next/data/quotes.json"
 
 function OPEN_SESSION {
+    killall -9 "Stage"
     open $PATH_FILE_APP --args -c $PATH_FILE_CONFIG_JSON  -d $PATH_FILE_DATA_SESSION_JSON -i $PATH_FOLDER_IMAGES_SPEAKER  -h $PATH_FOLDER_IMAGES_CLOCKS -q $PATH_FILE_QUOTE_JSON -s $1
 }
