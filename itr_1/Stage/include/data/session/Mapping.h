@@ -103,7 +103,10 @@ namespace next {
         //
         ////////////////////////////////////////////////////////////////////////////////////////////////
 
-        inline static void Get(uint32_t session_id,
+        inline static void Get(const string& dataSession,
+                               const string& folderImagesSpeaker,
+                               const string& folderImagesClocks,
+                               uint32_t session_id,
                                map<uint32_t, gl::Texture>*& imagesClocks,
                                map<uint32_t, gl::Texture>*& imagesSpeaker ,
                                map<uint32_t, Speaker>*& speakers ,
@@ -151,7 +154,7 @@ namespace next {
             map<uint32_t, Speaker>*     _speakers = new map<uint32_t, Speaker>();
             map<uint32_t, Event>*       _events   = new map<uint32_t, Event>();
             
-            JsonTree data = JsonTree(loadFile(RES_PATH_DATA_JSON));
+            JsonTree data = JsonTree(loadFile(dataSession));
             
             const JsonTree& jsonSessions = data.getChild("sessions");
             const JsonTree& jsonPersons  = data.getChild("persons");
@@ -182,7 +185,7 @@ namespace next {
                     if (!static_cast<bool>(_speakers->count(_person_id))) {
                         const JsonTree& jsonPerson = getChild(jsonPersons, _person_id);
                         
-                        string _imageFilepath = string(RES_PATH_IMAGES_SPEAKER) + "/" + toString(_person_id) + ".png";
+                        string _imageFilepath = folderImagesSpeaker + "/" + toString(_person_id) + ".png";
                         const gl::Texture& image = (*_images)[_person_id] = gl::Texture(loadImage(_imageFilepath));
                         
                         Speaker& speaker      = (*_speakers)[_person_id] = Speaker();
@@ -216,7 +219,7 @@ namespace next {
             _session.type                = jsonSession.getChild(session_type).getValue<string>();
             _session.events              = events;
             
-            string clockFilepath   = string(RES_PATH_IMAGES_CLOCK) + "/" + _session.startHourClockFile;
+            string clockFilepath   = folderImagesClocks + "/" + _session.startHourClockFile;
             (*_clocks)[session_id] = gl::Texture(loadImage(clockFilepath));
             
             _session.clockImageRef = (*_clocks)[session_id].weakClone();

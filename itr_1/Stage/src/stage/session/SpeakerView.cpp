@@ -161,7 +161,7 @@ namespace next {
     }
     
     void SpeakerView::repaint(){
-        if(!mFboDirty){
+        if(!mFboDirty || !mActive){
             return;
         }
         
@@ -237,7 +237,9 @@ namespace next {
 
         const gl::Texture& image = mFbo1.getTexture();
         
-        gl::enableAlphaBlending(); // i know, but so i dont have to sort them by depth
+        if(mActive){
+            gl::enableAlphaBlending(); // i know, but so i dont have to sort them by depth
+        }
         glPushMatrix();
             glTranslatef(pos.x,pos.y,pos.z);
             glScalef(scale,scale,scale);
@@ -272,9 +274,20 @@ namespace next {
             glDisableClientState(GL_VERTEX_ARRAY);
             */
         glPopMatrix();
-        gl::disableAlphaBlending();
+        if(mActive){
+            gl::disableAlphaBlending();
+        }
+        
     }
 
+    void SpeakerView::activate(){
+        mActive = true;
+    }
+    
+    void SpeakerView::deactivate(){
+        mActive = false;
+    }
+    
     void SpeakerView::focus(){
         tween(&mFocusColorState,0.0f, 1.0f, SESSION_SPEAKER_VIEW_ANIM_FOCUS, AnimEaseOut());
         tween(&mFocusBlurState, 0.0f, 1.0f, SESSION_SPEAKER_VIEW_ANIM_FOCUS, AnimEaseOut(),
@@ -294,6 +307,7 @@ namespace next {
         tween(&mFocusBlurState,  0.0f,       SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_OUT, AnimEaseOut(),
               std::bind(&SpeakerView::beginPaint, this),
               std::bind(&SpeakerView::endPaint, this));
+        mActive = false;
     }
     
     void SpeakerView::focusIn(){
@@ -301,6 +315,7 @@ namespace next {
         tween(&mFocusBlurState,  0.0f, 1.0f, SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_IN, AnimEaseOut(),
               std::bind(&SpeakerView::beginPaint, this),
               std::bind(&SpeakerView::endPaint, this));
+        mActive = true;
     }
 
     void SpeakerView::show() {
@@ -322,6 +337,7 @@ namespace next {
         mFocusBlurState  = 0.0f;
         mAlphaState      = 1.0f;
         mScaleState      = 1.0f;
+        mActive          = false;
         
         beginPaint();
         repaint();

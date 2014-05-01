@@ -15,16 +15,24 @@
 
 #include "stage/Stage.h"
 #include <stdlib.h>
+#include <getopt.h>
 
 using namespace ci;
 using namespace ci::app;
 using namespace std;
 
 string   excCatch;
-uint32_t session_id;
-string   configPath;
-string   dataPath;
 
+//
+//  args
+//
+
+string pathFileConfigJson;
+string pathFolderImagesSpeaker;
+string pathFolderImagesClocks;
+string pathFileQuoteJson;
+string pathFileDataJson;
+int    session_id(-1);
 
 /*--------------------------------------------------------------------------------------------*/
 
@@ -67,11 +75,8 @@ StageApp::~StageApp(){
 /*--------------------------------------------------------------------------------------------*/
 
 void StageApp::prepareSettings(Settings* settings){
-#ifdef CONFIG_USE_BAKED
-    mInitialConfigIsValid = next::Config::LoadJson(CONFIG_FILE_PATH_BAKED, &mInitialConfigExcMsg);
-#else
-    mInitialConfigIsValid = next::Config::LoadJson(app::getAppPath() + "/config.json", &mInitialConfigExcMsg);
-#endif
+    mInitialConfigIsValid = next::Config::LoadJson(pathFileConfigJson, &mInitialConfigExcMsg);
+
     settings->setWindowPos(0, 0);
     settings->setWindowSize(APP_WIDTH, APP_HEIGHT);
     settings->setFrameRate(APP_FPS);
@@ -92,10 +97,11 @@ void StageApp::setup(){
     //  Load data - json quotes
     //
     mDataQuotes = new vector<next::QuoteJson>();
-    if(!next::QuoteParser::LoadJson("/Users/automat/Projects/next/itr_1/Stage/resources/test.json", mDataQuotes, &excCatch)){
+    if(!next::QuoteParser::LoadJson(pathFileQuoteJson, mDataQuotes, &excCatch)){
         mExcPanel->setString(excCatch);
         return;
     }
+
     
     //
     //  Load data - json session
@@ -106,7 +112,8 @@ void StageApp::setup(){
     mDataEvents     = nullptr;
     mDataSession    = nullptr;
     //3562 //3559
-    next::Mapping::Get(3558/*atoi(getArgs()[1].c_str())*/ , mImagesClocks, mImagesSpeakers,
+    next::Mapping::Get(pathFileDataJson, pathFolderImagesSpeaker, pathFolderImagesClocks,
+                       session_id, mImagesClocks, mImagesSpeakers,
                        mDataSpeakers, mDataEvents, mDataSession);
     
     //
@@ -165,20 +172,91 @@ void StageApp::draw(){
     mStage->draw();
 }
 
-//CINDER_APP_NATIVE( StageApp, RendererGl )
+//
 // Override Cinders default main
 //
+
+//CINDER_APP_NATIVE( StageApp, RendererGl )
+
+using namespace boost;
 int main( int argc, char * const argv[] ) {
-    int opt;
-    while((opt = getopt(argc, argv, "dec") != -1)){
-        switch (opt) {
-            case 'e':   // data path
-                cout << optarg << endl;
+    int argc_ = !strcmp(argv[argc-2],"-NSDocumentRevisionsDebugMode") ? argc - 2 :  argc;
+    char *argv_[argc_];
+    std::copy(argv, argv + argc_, argv_);
+    
+    //  -c  :   path file config.json
+    //  -d  :   path file session data.json
+    //  -q  :   path file quote.json
+    //  -i  :   path folder speaker images
+    //  -h  :   path folder clock images
+    //  -s  :   session id
+
+    char args[] = ":c:i:h:d:q:s:";
+    
+    int oc;
+    while ((oc = getopt(argc_, argv_, args)) != -1) {
+        if(optarg[0] == '-'){ // arg value not supplied
+            break;
+        }
+        switch (oc) {
+            case 'c':   //  path file config.json
+                pathFileConfigJson = string(optarg);
                 break;
-                
+            case 'i':
+                pathFolderImagesSpeaker = string(optarg);
+                break;
+            case 'h':
+                pathFolderImagesClocks = string(optarg);
+                break;
+            case 'q':   //  path file quote.json
+                pathFileQuoteJson = string(optarg);
+                break;
+            case 'd':   //  path file session data.json
+                pathFileDataJson = string(optarg);
+                break;
+            case 's':   // session id
+                try {
+                    session_id = boost::lexical_cast<int>(optarg);
+                } catch (boost::bad_lexical_cast& ecx) {
+                    session_id = -1;
+                }
+                session_id = session_id < -1 ? -1 : session_id;
+                break;
+            case '?':
+                break;
             default:
                 break;
         }
+    }
+    
+    if(pathFileConfigJson.empty()){
+        printf("config filepath missing\n");
+        return 1;
+    }
+    
+    if(pathFolderImagesSpeaker.empty()){
+        printf("speaker images folder path missing\n");
+        return 1;
+    }
+    
+    if(pathFolderImagesClocks.empty()){
+        printf("clock images folder path missing\n");
+        return 1;
+    }
+    
+    if(pathFileDataJson.empty()){
+        printf("data filepath missing\n");
+        return 1;
+    }
+    
+    if(pathFileQuoteJson.empty()){
+        printf("quote filepath missing\n");
+        return 1;
+    }
+    
+    if(session_id == -1){
+        printf("session id missing\n");
+        return 1;
     }
     
     cinder::app::AppBasic::prepareLaunch();
