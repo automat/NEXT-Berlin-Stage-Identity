@@ -32,18 +32,6 @@ namespace next{
             glDisableClientState(GL_TEXTURE_COORD_ARRAY);
         }
 
-        using namespace ci;
-        inline void drawTexture(const gl::Texture& texture){
-            const Vec2f windowSize(app::getWindowSize());
-
-            gl::disableDepthRead();
-            gl::pushMatrices();
-            gl::setMatricesWindow(windowSize.x, windowSize.y, true);
-            gl::draw(texture, app::getWindowBounds());
-            gl::popMatrices();
-            gl::enableDepthRead();
-        }
-
         inline void drawClearedScreenRect(const Vec2i& size, bool originUpperLeft = true){
             gl::pushMatrices();
             glClearColor( 1, 1 ,1, 1 );

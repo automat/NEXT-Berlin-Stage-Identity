@@ -29,9 +29,9 @@ namespace next{
         //
         //
 
-        mCameraAspectRatio = app::getWindowAspectRatio();
+        mCameraAspectRatio = static_cast<float>(STAGE_WIDTH) / static_cast<float>(STAGE_HEIGHT);
         mCamera.setOrtho(-mCameraAspectRatio * STAGE_MODEL_CAM_ZOOM, mCameraAspectRatio * STAGE_MODEL_CAM_ZOOM,
-                -STAGE_MODEL_CAM_ZOOM, STAGE_MODEL_CAM_ZOOM, STAGE_MODEL_CAM_NEAR_CLIP, STAGE_MODEL_CAM_FAR_CLIP);
+                         -STAGE_MODEL_CAM_ZOOM, STAGE_MODEL_CAM_ZOOM, STAGE_MODEL_CAM_NEAR_CLIP, STAGE_MODEL_CAM_FAR_CLIP);
         viewOrtho();
 
         mModelScale = STAGE_MODEL_SCALE;
@@ -84,10 +84,10 @@ namespace next{
             mQuotes += mTypesetter->getQuote();
         }
 
-        Vec2i windowSize = app::getWindowSize();
+        Vec2i stageSize = STAGE_SIZE;
 
         mOscillator   = new Oscillator();
-        mBackground   = new Background(mGrid, areaScaled, mOscillator, windowSize.x, windowSize.y);
+        mBackground   = new Background(mGrid, areaScaled, mOscillator, stageSize.x, stageSize.y);
         mThemeView    = new ThemeView(mGrid, areaScaled, mOscillator, &mQuotes);
         mSessionView  = new SessionView(sessionData,speakersData);
 
@@ -100,11 +100,11 @@ namespace next{
         gl::Fbo::Format fboFormat_MSAA_4;
         fboFormat_MSAA_4.setSamples(4);
 
-        mFboSize_1      = windowSize;
+        mFboSize_1      = stageSize;
         
-        mFboSize_1f     = Vec2f(windowSize.x,windowSize.y);
+        mFboSize_1f     = Vec2f(stageSize.x,stageSize.y);
         mFboSize_2      = mFboSize_1 / 2;
-        mFboBounds_1    = app::getWindowBounds();
+        mFboBounds_1    = STAGE_BOUNDS;
         mFboBounds_2    = Area(Vec2i::zero(), mFboSize_2);
         mFboTexelSize_1 = Vec2f(1.0f / float(mFboSize_1.x), 1.0f / float(mFboSize_1.y));
         mFboTexelSize_2 = Vec2f(1.0f / float(mFboSize_2.x), 1.0f / float(mFboSize_2.y));
@@ -426,7 +426,7 @@ namespace next{
         mShaderMixRadial.bind();
         mShaderMixRadial.uniform("uTexture0", 0);
         mShaderMixRadial.uniform("uTexture1", 1);
-        mShaderMixRadial.uniform("uScreenSize", Vec2f(app::getWindowWidth(),app::getWindowHeight()));
+        mShaderMixRadial.uniform("uScreenSize", STAGE_SIZE);
         mShaderMixRadial.uniform("uScaleGradient", STAGE_FX_SHADER_BLUR_RADIAL_RADIUS_SCALE);
         util::drawClearedScreenRect(mFboThemeViewFinal.getSize());
         mShaderMixRadial.unbind();
@@ -482,7 +482,7 @@ namespace next{
         //  Draw Scene
         gl::pushMatrices();
         
-            gl::setMatricesWindow(app::getWindowSize(),false);
+            gl::setMatricesWindow(STAGE_SIZE,false);
             gl::draw(mFboThemeViewFinal.getTexture(), mFboThemeViewSSAO.getBounds());
             
             gl::pushMatrices();
@@ -494,7 +494,7 @@ namespace next{
                 mSessionView->drawLabelsSpeaker();
             gl::popMatrices();
         
-            gl::setMatricesWindow(app::getWindowSize(),true);
+            gl::setMatricesWindow(STAGE_SIZE,true);
             mSessionView->drawLabels();
             mLogoNEXT->draw();
             gl::disableAlphaBlending();

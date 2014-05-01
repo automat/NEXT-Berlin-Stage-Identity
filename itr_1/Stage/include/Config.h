@@ -10,6 +10,7 @@
 
 #include "cinder/Color.h"
 #include "cinder/Vector.h"
+#include "cinder/Area.h"
 #include "cinder/CinderResources.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -22,10 +23,11 @@
 // Stage
 /*--------------------------------------------------------------------------------------------*/
 
-#define STAGE_WIDTH  3552
-#define STAGE_HEIGHT 1105
-#define STAGE_SCALE  1
-#define STAGE_SIZE   ci::Vec2f(STAGE_WIDTH,STAGE_HEIGHT)
+#define STAGE_WIDTH        3552
+#define STAGE_HEIGHT       1105
+#define STAGE_SCALE        1
+#define STAGE_SIZE         ci::Vec2f(STAGE_WIDTH,STAGE_HEIGHT)
+#define STAGE_BOUNDS       ci::Area(0,0,STAGE_WIDTH,STAGE_HEIGHT)
 
 /*--------------------------------------------------------------------------------------------*/
 // App

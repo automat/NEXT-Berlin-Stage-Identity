@@ -30,7 +30,7 @@ namespace next {
         NEXTLogo(){
             mImage = gl::Texture(loadImage(app::loadResource(RES_NEXT_LOGO)));
             mTransform.setToIdentity();
-            mTransform.translate(Vec3f(app::getWindowWidth() - LOGO_MARGIN_RIGHT, LOGO_MARGIN_TOP, 0));
+            mTransform.translate(Vec3f(STAGE_WIDTH - LOGO_MARGIN_RIGHT, LOGO_MARGIN_TOP, 0));
         }
         
         inline void draw(){
