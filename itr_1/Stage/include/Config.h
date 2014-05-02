@@ -372,7 +372,7 @@ extern ci::ColorAf PATH_SURFACE_COLOR;
 /*--------------------------------------------------------------------------------------------*/
 
 #define DIVER_FIELD_NUM_DIVERS_MIN 10
-#define DIVER_FIELD_NUM_DIVERS_MAX 40
+#define DIVER_FIELD_NUM_DIVERS_MAX 35
 #define DIVER_FIELD_SURFACE_PATH_DENSITY 1.25f
 #define DIVER_FIELD_SURFACE_PATH_OFFSET_SPEED  0.001f //0.0125f
 #define DIVER_FIELD_SURFACE_PATH_AMPLITUDE 0.65f//0.325f
