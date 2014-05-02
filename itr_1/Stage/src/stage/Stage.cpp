@@ -497,20 +497,24 @@ namespace next{
             gl::setMatricesWindow(STAGE_SIZE,true);
             gl::draw(mFboThemeViewFinal.getTexture(), mFboThemeViewSSAO.getBounds());
         
+        if(mSessionView->isActive()){
             gl::setMatrices(mCamera);
-        
+            
             gl::enableDepthRead();
             mSessionView->draw(mCamera);
             gl::disableDepthRead();
-        
+            
             gl::enableAlphaBlending();
             mSessionView->drawLabelsSpeaker();
-       
+            
             gl::setMatricesWindow(STAGE_SIZE,true);
             mSessionView->drawLabels();
             mLogoNEXT->draw();
-        
+            
             gl::disableAlphaBlending();
+        }
+        
+        
         
         gl::popMatrices();
         mFboFinal.unbindFramebuffer();
