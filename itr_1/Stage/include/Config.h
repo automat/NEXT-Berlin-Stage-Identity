@@ -38,6 +38,7 @@ extern bool      APP_FIXED_POSITION;
 extern ci::Vec2i APP_POSITION;
 extern float     APP_FPS;
 extern bool      APP_HIDE_MOUSE;
+extern bool      APP_USE_V_SYNC;
 
 
 /*--------------------------------------------------------------------------------------------*/

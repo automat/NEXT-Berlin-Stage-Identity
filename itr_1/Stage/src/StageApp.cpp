@@ -138,6 +138,11 @@ void StageApp::setup(){
     //  Hit it (hard)
     //
     mStage = new next::Stage(mDataQuotes, mDataSession, mDataSpeakers);
+    
+    if(APP_USE_V_SYNC){
+        gl::enableVerticalSync();
+    }
+    
 }
 
 /*--------------------------------------------------------------------------------------------*/

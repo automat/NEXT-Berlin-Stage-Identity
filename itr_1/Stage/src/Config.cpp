@@ -2,13 +2,14 @@
 
 #include "util/FileWatcher.h"
 
-bool      APP_BORDERLESS(false);
-int       APP_DISPLAY(0);
-bool      APP_ALWAYS_ON_TOP(false);
-bool      APP_FIXED_POSITION(false);
-ci::Vec2i APP_POSITION(0,0);
-float     APP_FPS(60.0f);
-bool      APP_HIDE_MOUSE(true);
+bool      APP_BORDERLESS;
+int       APP_DISPLAY;
+bool      APP_ALWAYS_ON_TOP;
+bool      APP_FIXED_POSITION;
+ci::Vec2i APP_POSITION;
+float     APP_FPS;
+bool      APP_HIDE_MOUSE;
+bool      APP_USE_V_SYNC;
 
 bool  PROJECTION_BLEND;
 int   PROJECTION_BLEND_EDGE;
@@ -274,6 +275,7 @@ namespace next{
                 !Parse(nodeApp, "position", &APP_POSITION, msg) ||
                 !Parse(nodeApp, "fps", &APP_FPS, msg) ||
                 !Parse(nodeApp, "hide_mouse", &APP_HIDE_MOUSE, msg) ||
+                !Parse(nodeApp, "use_v_sync", &APP_USE_V_SYNC, msg) ||
 
                 /*--------------------------------------------------------------------------------------------*/
                 //	Projection
