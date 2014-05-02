@@ -319,11 +319,11 @@ namespace next{
         mFboPingPong_2.unbindFramebuffer();
         mFboPingPong_2.swap();
 
-
+        
         /*--------------------------------------------------------------------------------------------*/
         //  Blur ssao horizontal
         /*--------------------------------------------------------------------------------------------*/
-
+        
         mFboPingPong_2.bindFramebuffer();
         mFboPingPong_2.bindSourceTexture(0);
         mShaderBlurHRef->bind();

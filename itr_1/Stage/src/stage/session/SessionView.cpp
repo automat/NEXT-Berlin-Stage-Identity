@@ -154,7 +154,7 @@ namespace next {
     
     void SessionView::turnOffSessionLabels(){
         mLabelMeta->off();
-        mLabelTitle->off();
+        mLabelTitle->off(std::bind(&SessionView::onFinish, this));
     }
     
     void SessionView::updateSpeakerLabel(int index){
@@ -263,7 +263,7 @@ namespace next {
             tween(&view->mPositionState,mEventViewSlots[mEventViewSlotEnd], // skip one, and proceed to last
                   SESSION_EVENT_ANIM_TIME_OFF,
                   ViewInOutEasing(),
-                  NULL,std::bind(&SessionView::finish, this));
+                  NULL,NULL);
         
             view->unfocusOut();
             

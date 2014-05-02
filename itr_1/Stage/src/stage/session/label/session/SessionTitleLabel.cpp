@@ -153,12 +153,17 @@ namespace next {
         }
     }
     
-    void SessionTitleLabel::off(){
-        for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end(); ++itr) {
+    void SessionTitleLabel::off(const std::function<void()>& callback){
+        for (vector<LineQuad>::iterator itr = mLineQuads.begin(); itr != mLineQuads.end() - 1; ++itr) {
             tween(&itr->alphaState, 1.0f, 0.0f,
                   SESSION_LABEL_SESSION_TITLE_ANIM_TIME_ALPHA_OFF,
                   AnimEaseInOut());
         }
+        
+        tween(&mLineQuads.back().alphaState, 1.0f, 0.0f, SESSION_LABEL_SESSION_TITLE_ANIM_TIME_ALPHA_OFF,
+              AnimEaseInOut(),NULL,callback);
+        
+        
     }
     
 

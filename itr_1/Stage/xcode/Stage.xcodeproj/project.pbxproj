@@ -228,6 +228,7 @@
 		CDAC7AF1190AF69F00430DCF /* LayoutArea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutArea.cpp; sourceTree = "<group>"; };
 		CDAC7AF3190AF6A900430DCF /* LayoutArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutArea.h; sourceTree = "<group>"; };
 		CDAC7B00190AF6F500430DCF /* LayoutArea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutArea.cpp; sourceTree = "<group>"; };
+		CDCEADE919142914001DF160 /* TwitterCTA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterCTA.h; sourceTree = "<group>"; };
 		CDDEAAB5190EEF93004FE6D0 /* akkurat_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = akkurat_bold.ttf; sourceTree = "<group>"; };
 		CDECFA76190C370E006B8079 /* Offset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Offset.h; sourceTree = "<group>"; };
 		CDECFA77190C3748006B8079 /* Offset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Offset.cpp; sourceTree = "<group>"; };
@@ -365,6 +366,7 @@
 				CD40A272190AAC45003F790B /* bg */,
 				CD40A274190AAC45003F790B /* env */,
 				CD40A276190AAC45003F790B /* grid */,
+				CDFB0AF1190B0AB2008A75DF /* overlay */,
 				CD40A289190AAC45003F790B /* theme */,
 				CDA69B87190FCF4F0087ADA1 /* session */,
 				CD6DD163190DBE8C00005D56 /* AbstractAnimBase.h */,
@@ -405,7 +407,6 @@
 		CD40A289190AAC45003F790B /* theme */ = {
 			isa = PBXGroup;
 			children = (
-				CDFB0AF1190B0AB2008A75DF /* overlay */,
 				CD40A28A190AAC45003F790B /* diver */,
 				CD40A28C190AAC45003F790B /* field */,
 				CD40A290190AAC45003F790B /* path */,
@@ -867,9 +868,9 @@
 			isa = PBXGroup;
 			children = (
 				CDFB0AF2190B0AB2008A75DF /* NEXTLogo.h */,
+				CDCEADE919142914001DF160 /* TwitterCTA.h */,
 			);
-			name = overlay;
-			path = ../overlay;
+			path = overlay;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

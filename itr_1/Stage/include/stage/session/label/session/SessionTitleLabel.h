@@ -24,7 +24,7 @@ namespace next {
         void draw();
         
         void on();
-        void off();
+        void off(const std::function<void()>& callback);
     };
 }
 
