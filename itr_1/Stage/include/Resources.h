@@ -20,7 +20,6 @@
 #define RES_TEXTURE_RANDOM CINDER_RESOURCE( ../resources/texture, random.png, 136, DATA )
 #define RES_JSON_TEST      CINDER_RESOURCE( ../resources/, test.json, 137, DATA );
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //  Abs
@@ -130,4 +129,5 @@
 #define RES_GLSL_WORLD_NORMAL_VERT          CINDER_RESOURCE( ../resources/glsl/material, normal_vert.glsl, 161, GLSL )
 #define RES_GLSL_WORLD_NORMAL_FRAG          CINDER_RESOURCE( ../resources/glsl/material, normal_frag.glsl, 162, GLSL )
 
-
+#define RES_IMAGE_TWITTER  CINDER_RESOURCE( ../resources/image/, twitter_120x120.png, 163, IMAGE )
+#define RES_IMAGE_TWITTER_REF CINDER_RESOURCE( ../resources/image/, twitter_ref.png, 164, IMAGE )

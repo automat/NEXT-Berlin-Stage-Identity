@@ -154,7 +154,7 @@ namespace next {
     
     void SessionView::turnOffSessionLabels(){
         mLabelMeta->off();
-        mLabelTitle->off(std::bind(&SessionView::onFinish, this));
+        mLabelTitle->off(std::bind(&SessionView::finish, this));
     }
     
     void SessionView::updateSpeakerLabel(int index){

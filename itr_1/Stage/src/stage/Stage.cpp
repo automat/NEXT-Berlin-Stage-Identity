@@ -32,7 +32,7 @@ namespace next{
         mCameraAspectRatio = static_cast<float>(STAGE_WIDTH) / static_cast<float>(STAGE_HEIGHT);
         mCamera.setOrtho(-mCameraAspectRatio * STAGE_MODEL_CAM_ZOOM, mCameraAspectRatio * STAGE_MODEL_CAM_ZOOM,
                          -STAGE_MODEL_CAM_ZOOM, STAGE_MODEL_CAM_ZOOM, STAGE_MODEL_CAM_NEAR_CLIP, STAGE_MODEL_CAM_FAR_CLIP);
-        viewOrtho();
+        mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
 
         mModelScale = STAGE_MODEL_SCALE;
         mTransform  = Matrix44f::createScale(Vec3f(mModelScale,mModelScale,mModelScale));
@@ -91,7 +91,8 @@ namespace next{
         mThemeView    = new ThemeView(mGrid, areaScaled, mOscillator, &mQuotes);
         mSessionView  = new SessionView(sessionData,speakersData);
 
-        mLogoNEXT = new NEXTLogo();
+        mLogoNEXT   = new NEXTLogo();
+        mTwitterCTA = new TwitterCTA();
 
         /*--------------------------------------------------------------------------------------------*/
         //  Fbo + Post Process
@@ -156,16 +157,18 @@ namespace next{
                            &mShaderMixRadial);
 #endif
   
-        playSessionView();
-        //playThemeView();
+        //playSessionView();
+        playThemeView();
     }
     
     void Stage::playThemeView(){
-        mThemeView->play(3, std::bind(&Stage::playSessionView, this));
+        mThemeView->play(1, std::bind(&Stage::playSessionView, this));
+        mTwitterCTA->on();  //test
     }
     
     void Stage::playSessionView(){
         mSessionView->play(std::bind(&Stage::playThemeView,this));
+        mTwitterCTA->off(); //test
         
     }
 
@@ -180,6 +183,8 @@ namespace next{
         delete mOscillator;
         delete mTypesetter;
         delete mGrid;
+        delete mLogoNEXT;
+        delete mTwitterCTA;
 
         cout << "World destructed." << endl;
     }
@@ -517,6 +522,7 @@ namespace next{
             }
         
         gl::enableAlphaBlending();
+        mTwitterCTA->draw();
         mLogoNEXT->draw();
         gl::disableAlphaBlending();
         
@@ -530,29 +536,6 @@ namespace next{
     const gl::Texture& Stage::getTexture(){
         return mFboFinal.getTexture();
     }
-
-    /*--------------------------------------------------------------------------------------------*/
-    //  View
-    /*--------------------------------------------------------------------------------------------*/
-
-    void Stage::zoomModelIn(){
-        mModelScale = MIN(STAGE_MODEL_SCALE_MIN, mModelScale * 2);
-        mTransform = Matrix44f::createScale(Vec3f(mModelScale,mModelScale,mModelScale));
-    }
-
-    void Stage::zoomModelOut(){
-        mModelScale = MIN(mModelScale / 2, STAGE_MODEL_SCALE_MAX);
-        mTransform = Matrix44f::createScale(Vec3f(mModelScale,mModelScale,mModelScale));
-    }
-
-    void Stage::viewTop(){
-        mCamera.lookAt(Vec3f(0,1,0), Vec3f::zero());
-    }
-
-    void Stage::viewOrtho(){
-        mCamera.lookAt(Vec3f(1,1,1), Vec3f::zero());
-    }
-
 
     /*--------------------------------------------------------------------------------------------*/
     //  Control

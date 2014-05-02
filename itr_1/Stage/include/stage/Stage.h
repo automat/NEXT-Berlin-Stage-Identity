@@ -38,6 +38,7 @@
 #include "stage/theme/ThemeView.h"
 #include "stage/session/SessionView.h"
 #include "stage/overlay/NEXTLogo.h"
+#include "stage/overlay/TwitterCTA.h"
 
 #include "data/session/Session.h"
 
@@ -72,7 +73,8 @@ namespace next{
         
         
 
-        NEXTLogo*   mLogoNEXT;
+        NEXTLogo*    mLogoNEXT;
+        TwitterCTA*  mTwitterCTA;
 
 #if defined(STAGE_LIVE_EDIT_FX_SHADER) && !defined(STAGE_SKIP_FX_SHADER)
         FileWatcherRef mFileWatcher;
@@ -117,11 +119,6 @@ namespace next{
         void update();
         void draw();
 
-        void zoomModelIn();
-        void zoomModelOut();
-
-        void viewTop();
-        void viewOrtho();
         void onConfigDidChange();
         
         const gl::Texture& getTexture();
