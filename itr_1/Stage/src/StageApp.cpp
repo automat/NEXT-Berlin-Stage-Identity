@@ -84,6 +84,7 @@ StageApp::~StageApp(){
 void StageApp::prepareSettings(Settings* settings){
     mInitialConfigIsValid = next::Config::LoadJson(pathFileConfigJson, &mInitialConfigExcMsg);
 
+    settings->setDisplay(Display::getDisplays()[APP_DISPLAY]);
     settings->setWindowPos(APP_POSITION.x, APP_POSITION.y);
     settings->setWindowSize(APP_WIDTH, APP_HEIGHT);
     settings->setFrameRate(APP_FPS);
@@ -119,7 +120,7 @@ void StageApp::setup(){
     mDataSpeakers   = nullptr;
     mDataEvents     = nullptr;
     mDataSession    = nullptr;
-    //3562 //3559
+
     next::Mapping::Get(pathFileDataJson, pathFolderImagesSpeaker, pathFolderImagesClocks,
                        session_id, mImagesClocks, mImagesSpeakers,
                        mDataSpeakers, mDataEvents, mDataSession);
@@ -190,37 +191,42 @@ void StageApp::updateDisplayBlending(){
 void StageApp::draw(){
     gl::clear( Color( 0, 0, 0 ) );
  
-    //
-    //  Display err
-    //
-    if(!next::Config::IsValid()){
-        mExcPanel->draw();
-        return;
-    }
-    
-    //
-    //  Update fbo stage
-    //
-    mStage->draw();
-    
-    
-    //
-    //  Split stage according to projection blending edge
-    //
-    const gl::Texture& stageTexture = mStage->getTexture();
-    
-    gl::setMatricesWindow(APP_SIZE,false);
-    
     glPushMatrix();
-    glColor3f(1, 1, 1);
-    gl::draw(stageTexture, mDisplay0Area, mDisplay0Rect);
-    gl::draw(stageTexture, mDisplay1Area, mDisplay1Rect);
+        glScalef(APP_SCALE_INV, APP_SCALE_INV, 0);
     
-    if(PROJECTION_BLEND_DEBUG){
-        glColor3f(0, 0, 1);
-        gl::drawStrokedRect(mDisplay0Rect);
-        glColor3f(1, 1, 1);
-    }
+        //
+        //  Display err
+        //
+        if(!next::Config::IsValid()){
+            mExcPanel->draw();
+            return;
+        }
+        
+        //
+        //  Update fbo stage
+        //
+        mStage->draw();
+        
+        
+        //
+        //  Split stage according to projection blending edge
+        //
+        const gl::Texture& stageTexture = mStage->getTexture();
+        
+        gl::setMatricesWindow(APP_SIZE,false);
+        
+        glPushMatrix();
+            glColor3f(1, 1, 1);
+            gl::draw(stageTexture, mDisplay0Area, mDisplay0Rect);
+            gl::draw(stageTexture, mDisplay1Area, mDisplay1Rect);
+            
+            if(PROJECTION_BLEND_DEBUG){
+                glColor3f(0, 0, 1);
+                gl::drawStrokedRect(mDisplay0Rect);
+                glColor3f(1, 1, 1);
+            }
+        
+        glPopMatrix();
     
     glPopMatrix();
     

@@ -20,23 +20,16 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*--------------------------------------------------------------------------------------------*/
-// Stage
-/*--------------------------------------------------------------------------------------------*/
-
-#define STAGE_WIDTH        3552
-#define STAGE_HEIGHT       1105
-#define STAGE_SIZE         ci::Vec2f(STAGE_WIDTH,STAGE_HEIGHT)
-#define STAGE_BOUNDS       ci::Area(0,0,STAGE_WIDTH,STAGE_HEIGHT)
-
-/*--------------------------------------------------------------------------------------------*/
 // App
 /*--------------------------------------------------------------------------------------------*/
 
-#define          APP_WIDTH   3840       // 2x Full HD
-#define          APP_WIDTH_2 3840 / 2   // 1x Full HD
-#define          APP_HEIGHT  1105
-#define          APP_SIZE    ci::Vec2f(APP_WIDTH, APP_HEIGHT)
+#define          APP_SCALE     1.0f
+#define          APP_SCALE_INV 1.0f / APP_SCALE
 
+#define          APP_WIDTH     3840 / APP_SCALE   // 2x Full HD
+#define          APP_WIDTH_2   APP_WIDTH / 2.0f   // 1x Full HD
+#define          APP_HEIGHT    1105 / APP_SCALE
+#define          APP_SIZE      ci::Vec2f(APP_WIDTH, APP_HEIGHT)
 
 extern bool      APP_BORDERLESS;
 extern int       APP_DISPLAY;
@@ -45,6 +38,16 @@ extern bool      APP_FIXED_POSITION;
 extern ci::Vec2i APP_POSITION;
 extern float     APP_FPS;
 extern bool      APP_HIDE_MOUSE;
+
+
+/*--------------------------------------------------------------------------------------------*/
+// Stage
+/*--------------------------------------------------------------------------------------------*/
+
+#define STAGE_WIDTH        3552 / APP_SCALE
+#define STAGE_HEIGHT       1105 / APP_SCALE
+#define STAGE_SIZE         ci::Vec2f(STAGE_WIDTH,STAGE_HEIGHT)
+#define STAGE_BOUNDS       ci::Area(0,0,STAGE_WIDTH,STAGE_HEIGHT)
 
 /*--------------------------------------------------------------------------------------------*/
 // Projection
