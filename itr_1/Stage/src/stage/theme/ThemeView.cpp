@@ -27,7 +27,8 @@ namespace next{
     /*--------------------------------------------------------------------------------------------*/
 
     ThemeView::ThemeView(Grid* grid, const LayoutArea& area, Oscillator* oscillator, vector<Quote>* quotes) :
-    AbstractView(grid,area),
+    AbstractView(),
+    mGrid(grid), mArea(area),
     mOscillator(oscillator),
     mQuotes(quotes){
 
