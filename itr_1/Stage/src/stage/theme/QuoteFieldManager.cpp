@@ -194,10 +194,10 @@ namespace next {
     void QuoteFieldManager::onQuoteAtEnd(){
         if(mIndexQuoteFields == mOffsetsSelected->size() - 1){
             if(mPlayCount == mMaxPlays){
+                mActive = false;
                 if(mCallback){
                     mCallback();
                 }
-                mActive = false;
                 return;
             }
             nextQuote();
