@@ -29,6 +29,7 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     SessionView::SessionView(Session* data, map<uint32_t, Speaker>* speakerData) :
+        AbstractView(),
         AbstractAnimBase(),
             mEventViewStep(0),
             mEventViewFront(0),

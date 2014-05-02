@@ -17,18 +17,8 @@ using namespace ci;
 
 namespace next{
     class AbstractView {
-    protected:
-        LayoutArea mArea;
-        Grid*      mGrid;
-
-
-    public:
-        AbstractView(Grid* grid, const LayoutArea& area) :
-        mGrid(grid), mArea(area){}
-
+     public:
         virtual void onConfigDidChange() = 0;
-        virtual void draw(const CameraOrtho& cmaera, bool useMaterialShader) = 0;
-        virtual void update() = 0;
     };
 }
 

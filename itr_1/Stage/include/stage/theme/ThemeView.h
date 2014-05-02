@@ -33,6 +33,9 @@ namespace next{
     using namespace ci;
 
     class ThemeView : public AbstractView {
+        LayoutArea mArea;
+        Grid*      mGrid;
+        
         vector<DiverField*> mDiverFields;
 
         vector<Quote>*      mQuotes;        //  quote data
