@@ -20,6 +20,8 @@
 #include "stage/session/label/speaker/PingPongSpeakerLabel.h"
 
 #include "cinder/Vector.h"
+#include "cinder/gl/Light.h"
+#include "cinder/gl/Material.h"
 
 namespace next {
     using namespace ci;
@@ -48,6 +50,9 @@ namespace next {
         const int mEventViewSlotIn;
         
         Vec3f mSpeakerLabelPos;
+        
+        gl::Light*   mLight;
+        gl::Material mMaterial;
 
         //! clear all views
         void deleteEventViews();
@@ -81,6 +86,7 @@ namespace next {
         
         void updateSpeakerLabel(int index = 0);
         
+        void loadLightProperties();
         
     public:
         SessionView(Session* data, map<uint32_t, Speaker>* speakerData);
@@ -90,7 +96,7 @@ namespace next {
         void play(const std::function<void()>& callback);               //  start animation
 
 
-        void draw();
+        void draw(const CameraOrtho& camera);
         void drawLabels();
         void drawLabelsSpeaker();
         
@@ -98,6 +104,8 @@ namespace next {
         void update();
 
         bool isActive();
+        
+        void onConfigDidChange();
     };
 }
 

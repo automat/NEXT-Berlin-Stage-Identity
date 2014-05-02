@@ -14,6 +14,7 @@
 #include "stage/session/SpeakerStackView.h"
 #include "cinder/Timeline.h"
 #include "cinder/Vector.h"
+#include "cinder/gl/Material.h"
 
 namespace next {
     using namespace ci;
@@ -42,6 +43,8 @@ namespace next {
         
         void focusIn();
         void unfocusOut();
+        
+        void loadMaterialProperties();
     };
 }
 

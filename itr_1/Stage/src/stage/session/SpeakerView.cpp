@@ -53,9 +53,9 @@ namespace next {
         sCubeVertices[0],
         sCubeVertices[1],
         sCubeVertices[3],
-        sCubeVertices[3],
-        sCubeVertices[0],
-        sCubeVertices[2],
+        sCubeVertices[3], //3
+        sCubeVertices[0], //0
+        sCubeVertices[2], //2
         
         //  right
         sCubeVertices[3],
@@ -149,6 +149,8 @@ namespace next {
             mTexcoords[16] = mTexcoordsNorm[2];
             mTexcoords[17] = mTexcoordsNorm[2];
             
+            loadMaterialProperties();
+            
             clearStates();
             
             beginPaint();
@@ -231,51 +233,48 @@ namespace next {
         
         float focusColor    = mFocusColorState();
         float focusColorInv = 1.0f - focusColor;
-
+       
+        ColorAf color(SESSION_SPEAKER_VIEW_COLOR_ACTIVE * focusColor +
+                      SESSION_SPEAKER_VIEW_COLOR_INACTIVE * focusColorInv, alpha);
+        
         const gl::Texture& image = mFbo0.getTexture();
         
         if(useBlending){
-            gl::enableAlphaBlending(); // i know, but so i dont have to sort them by depth
+           gl::enableAlphaBlending(); // i know, but so i dont have to sort them by depth
         }
         
         glPushMatrix();
             glTranslatef(pos.x,pos.y,pos.z);
             glScalef(scale,scale,scale);
         
-            glColor4f(SESSION_SPEAKER_VIEW_COLOR_ACTIVE.r * focusColor + SESSION_SPEAKER_VIEW_COLOR_INACTIVE.r * focusColorInv,
-                      SESSION_SPEAKER_VIEW_COLOR_ACTIVE.g * focusColor + SESSION_SPEAKER_VIEW_COLOR_INACTIVE.g * focusColorInv,
-                      SESSION_SPEAKER_VIEW_COLOR_ACTIVE.b * focusColor + SESSION_SPEAKER_VIEW_COLOR_INACTIVE.b * focusColorInv, alpha);
-        
+            mMaterial.setAmbient(Color::black());
+            mMaterial.setDiffuse(color);
+            mMaterial.setSpecular(color);
+            
+            mMaterial.apply();
             image.enableAndBind();
-        
+
             glEnableClientState(GL_VERTEX_ARRAY);
-            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
             glEnableClientState(GL_NORMAL_ARRAY);
-        
-            glNormalPointer(   3, GL_FLOAT,    &sCardNormals[0]);
-            glTexCoordPointer( 2, GL_FLOAT, 0, &mTexcoords[0]);
+            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            
+            glNormalPointer(   GL_FLOAT, 0,    &sCardNormals[0]);
             glVertexPointer(   3, GL_FLOAT, 0, &sCardVertices[0]);
-        
+            glTexCoordPointer( 2, GL_FLOAT, 0, &mTexcoords[0]);
+
             glDrawArrays(GL_TRIANGLES, 0,sCardVerticesLen);
-        
+            
             glDisableClientState(GL_NORMAL_ARRAY);
             glDisableClientState(GL_TEXTURE_COORD_ARRAY);
             glDisableClientState(GL_VERTEX_ARRAY);
-        
+            
             image.unbind();
             image.disable();
-            /*
-            glColor4f(1,1,1,mColorState * 0.135f);
-            static int indices[3] = {1,3,2};
-            
-            glVertexPointer(3, GL_FLOAT, 0, &sCubeVertices[0]);
-            glDrawElements(GL_LINE_STRIP, 3, GL_UNSIGNED_INT, &indices[0]);
-            glDisableClientState(GL_VERTEX_ARRAY);
-            */
+
         glPopMatrix();
         
         if(useBlending){
-            gl::disableAlphaBlending();
+             gl::disableAlphaBlending();
         }
         
     }
@@ -324,6 +323,11 @@ namespace next {
         mFocusBlurState  = 0.0f;
         mAlphaState      = 1.0f;
         mScaleState      = 1.0f;
+    }
+    
+    
+    void SpeakerView::loadMaterialProperties(){
+        mMaterial.setShininess(SESSION_SPEAKER_VIEW_MATERIAL_SHININESS);
     }
     
 }

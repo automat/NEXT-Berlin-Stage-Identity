@@ -73,6 +73,8 @@ namespace next {
         void draw();
         
         void update();
+        
+        void loadMaterialProperties();
 
     };
 }

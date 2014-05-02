@@ -106,6 +106,15 @@ extern bool  PROJECTION_BLEND_DEBUG;
 #define SESSION_VIEW_START_DELAY 0.5f
 #define SESSION_VIEW_ON_FINISH_DELAY 1.0f
 
+extern ci::Vec3f  SESSION_VIEW_LIGHT_EYE;
+extern ci::Vec3f  SESSION_VIEW_LIGHT_TARGET;
+extern ci::Colorf SESSION_VIEW_LIGHT_COLOR_AMBIENT;
+extern ci::Colorf SESSION_VIEW_LIGHT_COLOR_DIFFUSE;
+extern ci::Colorf SESSION_VIEW_LIGHT_COLOR_SPECULAR;
+extern float      SESSION_VIEW_LIGHT_LINEAR_ATTENUATION;
+extern float      SESSION_VIEW_LIGHT_QUADRIC_ATTENUATION;
+extern bool       SESSION_VIEW_LIGHT_DEBUG_DRAW;
+
 //
 //  SpeakerStack
 //
@@ -128,6 +137,8 @@ extern bool  PROJECTION_BLEND_DEBUG;
 #define SESSION_SPEAKER_VIEW_ANIM_SHOW          8.0f
 #define SESSION_SPEAKER_VIEW_ANIM_HIDE          0.35f
 #define SESSION_SPEAKER_VIEW_ANIM_UNFOCUS_IMAGE 0.35f
+
+extern float SESSION_SPEAKER_VIEW_MATERIAL_SHININESS;
 
 /*--------------------------------------------------------------------------------------------*/
 //  Title Labels

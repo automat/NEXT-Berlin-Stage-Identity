@@ -500,7 +500,7 @@ namespace next{
             gl::setMatrices(mCamera);
         
             gl::enableDepthRead();
-            mSessionView->draw();
+            mSessionView->draw(mCamera);
             gl::disableDepthRead();
         
             gl::enableAlphaBlending();
@@ -552,6 +552,7 @@ namespace next{
     void Stage::onConfigDidChange(){
         loadLightProperties();
         mThemeView->onConfigDidChange();
+        mSessionView->onConfigDidChange();
     }
 }
 

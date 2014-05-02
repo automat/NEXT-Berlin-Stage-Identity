@@ -64,6 +64,9 @@ namespace next {
                 
                 mPingPongLabelSpeaker->setPosition(mEventViewSlots[2] + offset);
                 
+                mLight = new gl::Light(gl::Light::POINT,3);
+                loadLightProperties();
+                
                 reset(data);
     }
     
@@ -74,6 +77,18 @@ namespace next {
         delete mPingPongLabelEventTitle;
         delete mLabelEventMeta;
         delete mPingPongLabelSpeaker;
+        delete mLight;
+    }
+    
+    void SessionView::loadLightProperties(){
+        mLight->setAmbient( SESSION_VIEW_LIGHT_COLOR_AMBIENT);
+        mLight->setDiffuse( SESSION_VIEW_LIGHT_COLOR_DIFFUSE);
+        mLight->setSpecular(SESSION_VIEW_LIGHT_COLOR_SPECULAR);
+        mLight->setLinearAttenuation(   SESSION_VIEW_LIGHT_LINEAR_ATTENUATION);
+        mLight->setQuadraticAttenuation(SESSION_VIEW_LIGHT_QUADRIC_ATTENUATION);
+        
+        mLight->lookAt(SESSION_VIEW_LIGHT_EYE, SESSION_VIEW_LIGHT_TARGET);
+
     }
     
     /*--------------------------------------------------------------------------------------------*/
@@ -347,13 +362,28 @@ namespace next {
     //  Draw / Update
     /*--------------------------------------------------------------------------------------------*/
     
-    void SessionView::draw(){
+    void SessionView::draw(const CameraOrtho& camera){
         if(!mActive){
             return;
         }
+       
+        if(SESSION_VIEW_LIGHT_DEBUG_DRAW){
+            glColor3f(1,1,1);
+            gl::drawSphere(mLight->getPosition(), 0.125f);
+            gl::drawLine(Vec3f::zero(), mLight->getPosition());
+        }
+        
+        
+        glEnable(GL_LIGHTING);
+        mLight->enable();
+        mLight->update(camera);
+        
         for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
             (*itr)->draw();
         }
+        
+        mLight->disable();
+        glDisable(GL_LIGHTING);
     }
     
     void SessionView::drawLabelsSpeaker(){
@@ -423,5 +453,12 @@ namespace next {
     
     bool SessionView::isActive(){
         return mActive;
+    }
+    
+    void SessionView::onConfigDidChange(){
+        loadLightProperties();
+        for(vector<EventView*>::iterator itr = mEventViews.begin(); itr != mEventViews.end(); ++itr){
+            (*itr)->loadMaterialProperties();
+        }
     }
 }

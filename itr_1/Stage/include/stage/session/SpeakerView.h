@@ -14,6 +14,7 @@
 #include "cinder/gl/GlslProg.h"
 #include "cinder/gl/Texture.h"
 #include "cinder/gl/Fbo.h"
+#include "cinder/gl/Material.h"
 
 #include "cinder/Timeline.h"
 
@@ -55,6 +56,8 @@ namespace next {
         Anim<float> mFocusColorState;
         Anim<float> mFocusBlurState;
         
+        gl::Material mMaterial;
+        
         bool mFboDirty;
         
         void activate();
@@ -82,6 +85,8 @@ namespace next {
         void unfocusOut();
         
         void clearStates();
+        
+        void loadMaterialProperties();
     };
 }
 

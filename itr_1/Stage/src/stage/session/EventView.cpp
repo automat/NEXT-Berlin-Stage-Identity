@@ -19,7 +19,6 @@ namespace next {
     void EventView::draw(){
         Vec3f pos = mPositionState();
 
-        
         glPushMatrix();
             glTranslatef(pos.x, pos.y, pos.z);
             mSpeakerStackView->draw();
@@ -53,5 +52,9 @@ namespace next {
     
     void EventView::focusIn(){
         mSpeakerStackView->focusIn();
+    }
+    
+    void EventView::loadMaterialProperties(){
+        mSpeakerStackView->loadMaterialProperties();
     }
 }

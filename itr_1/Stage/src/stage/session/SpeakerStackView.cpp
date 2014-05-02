@@ -198,4 +198,11 @@ namespace next {
                               callbackUpdate,
                               callbackFinish));
     }
+    
+    
+    void SpeakerStackView::loadMaterialProperties(){
+        for(vector<SpeakerView*>::iterator itr = mViews.begin(); itr != mViews.end(); itr++){
+            (*itr)->loadMaterialProperties();
+        }
+    }
 }
