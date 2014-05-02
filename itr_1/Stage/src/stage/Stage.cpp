@@ -265,7 +265,8 @@ namespace next{
 /*--------------------------------------------------------------------------------------------*/
 
     void Stage::processThemeScene(){
-
+        glPushAttrib(GL_VIEWPORT_BIT);
+        gl::setViewport(STAGE_BOUNDS);
         ////////////////////////////////////////////////////////////////////////////////////////////////
         //
         //  Render View
@@ -444,6 +445,7 @@ namespace next{
 
 
         gl::popMatrices();
+        glPopAttrib();
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -476,6 +478,8 @@ namespace next{
         mBackground->update(mOscillator,app::getElapsedSeconds());
         mThemeView->update();
         mSessionView->update();
+        
+        processThemeScene();
     }
 
 
@@ -487,8 +491,6 @@ namespace next{
         glPushAttrib(GL_VIEWPORT_BIT);
         gl::setViewport(STAGE_BOUNDS);
         
-        processThemeScene();
-
         mFboFinal.bindFramebuffer();
         gl::clear( ColorA(0,0,0,1));
         gl::pushMatrices();
@@ -497,23 +499,26 @@ namespace next{
             gl::setMatricesWindow(STAGE_SIZE,true);
             gl::draw(mFboThemeViewFinal.getTexture(), mFboThemeViewSSAO.getBounds());
         
-        if(mSessionView->isActive()){
-            gl::setMatrices(mCamera);
-            
-            gl::enableDepthRead();
-            mSessionView->draw(mCamera);
-            gl::disableDepthRead();
-            
-            gl::enableAlphaBlending();
-            mSessionView->drawLabelsSpeaker();
-            
-            gl::setMatricesWindow(STAGE_SIZE,true);
-            mSessionView->drawLabels();
-            mLogoNEXT->draw();
-            
-            gl::disableAlphaBlending();
-        }
+            if(mSessionView->isActive()){
+                gl::pushMatrices();
+                    gl::setMatrices(mCamera);
+                    
+                    gl::enableDepthRead();
+                    mSessionView->draw(mCamera);
+                    gl::disableDepthRead();
+                    
+                    gl::enableAlphaBlending();
+                    mSessionView->drawLabelsSpeaker();
+                    
+                    gl::setMatricesWindow(STAGE_SIZE,true);
+                    mSessionView->drawLabels();
+                
+                gl::popMatrices();
+            }
         
+        gl::enableAlphaBlending();
+        mLogoNEXT->draw();
+        gl::disableAlphaBlending();
         
         
         gl::popMatrices();

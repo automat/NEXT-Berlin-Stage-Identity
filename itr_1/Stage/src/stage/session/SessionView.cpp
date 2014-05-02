@@ -374,17 +374,21 @@ namespace next {
             gl::drawLine(Vec3f::zero(), mLight->getPosition());
         }
         
+        if(SESSION_VIEW_USE_DYNAMIC_LIGHTING){
+            glEnable(GL_LIGHTING);
+            mLight->enable();
+            mLight->update(camera);
+        }
         
-        glEnable(GL_LIGHTING);
-        mLight->enable();
-        mLight->update(camera);
         
         for (vector<EventView*>::const_iterator itr = mEventViews.begin(); itr != mEventViews.end(); itr++) {
             (*itr)->draw();
         }
         
-        mLight->disable();
-        glDisable(GL_LIGHTING);
+        if(SESSION_VIEW_USE_DYNAMIC_LIGHTING){
+            mLight->disable();
+            glDisable(GL_LIGHTING);
+        }
     }
     
     void SessionView::drawLabelsSpeaker(){

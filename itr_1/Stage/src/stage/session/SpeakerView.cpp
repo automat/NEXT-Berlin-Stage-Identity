@@ -234,6 +234,7 @@ namespace next {
         float focusColor    = mFocusColorState();
         float focusColorInv = 1.0f - focusColor;
        
+        static const Colorf black(Colorf::black());
         ColorAf color(SESSION_SPEAKER_VIEW_COLOR_ACTIVE * focusColor +
                       SESSION_SPEAKER_VIEW_COLOR_INACTIVE * focusColorInv, alpha);
         
@@ -247,11 +248,15 @@ namespace next {
             glTranslatef(pos.x,pos.y,pos.z);
             glScalef(scale,scale,scale);
         
-            mMaterial.setAmbient(Color::black());
-            mMaterial.setDiffuse(color);
-            mMaterial.setSpecular(color);
-            
-            mMaterial.apply();
+            if(SESSION_VIEW_USE_DYNAMIC_LIGHTING){
+                mMaterial.setAmbient(black);
+                mMaterial.setDiffuse(color);
+                mMaterial.setSpecular(color);
+                mMaterial.apply();
+            } else {
+                glColor4f(color.r,color.g,color.b,color.a);
+            }
+        
             image.enableAndBind();
 
             glEnableClientState(GL_VERTEX_ARRAY);

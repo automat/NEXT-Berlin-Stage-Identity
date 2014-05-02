@@ -10,7 +10,7 @@
     /*--------------------------------------------------------------------------------------------*/
     
 	"app" : {
-		"borderless"     : true,
+		"borderless"     : false,
 		"display" 	     : 0,
 		"always_on_top"  : false,
 		"fixed_position" : false,
@@ -120,6 +120,8 @@
         //
 
         "session" : {
+            "use_dynamic_lighting" : true,
+
             "light" : {
                 "eye"      : [-1,2,5],
                 "target"   : [0,0,0],

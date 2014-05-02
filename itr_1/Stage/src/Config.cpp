@@ -24,6 +24,8 @@ float      SESSION_VIEW_LIGHT_LINEAR_ATTENUATION;
 float      SESSION_VIEW_LIGHT_QUADRIC_ATTENUATION;
 bool       SESSION_VIEW_LIGHT_DEBUG_DRAW;
 
+bool       SESSION_VIEW_USE_DYNAMIC_LIGHTING;
+
 float      SESSION_SPEAKER_VIEW_MATERIAL_SHININESS;
 
 
@@ -291,6 +293,8 @@ namespace next{
                 !Parse(nodeSession, "light.linear_attenuation", &SESSION_VIEW_LIGHT_LINEAR_ATTENUATION, msg) ||
                 !Parse(nodeSession, "light.quadric_attenuation", &SESSION_VIEW_LIGHT_QUADRIC_ATTENUATION, msg) ||
                 !Parse(nodeSession, "light.debug", &SESSION_VIEW_LIGHT_DEBUG_DRAW, msg) ||
+           
+                !Parse(nodeSession, "use_dynamic_lighting", &SESSION_VIEW_USE_DYNAMIC_LIGHTING, msg) ||
            
            
                 !Parse(nodeSession, "speaker_view.material.shininess", &SESSION_SPEAKER_VIEW_MATERIAL_SHININESS, msg) ||
