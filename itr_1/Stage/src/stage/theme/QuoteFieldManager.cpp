@@ -39,7 +39,7 @@ namespace next {
                 vector<QuoteField*>& quoteFieldsBack = mQuoteFields.back();
                 vector<Offset>&      offsetsBack     = mOffsets.back();
                 
-                const vector<QuoteLine>& lines = itr->getLines();
+                const vector<QuoteLine>& lines = itr->lines;
                 for(vector<QuoteLine>::const_iterator _itr = lines.begin(); _itr != lines.end(); ++_itr){
                     quoteFieldsBack += new QuoteField(grid->getCell(_itr->getIndicesFront())->getCenter(),
                                                       Rand::randInt(QUOTE_FIELD_NUM_DIVERS_MIN, QUOTE_FIELD_NUM_DIVERS_MAX),
@@ -229,7 +229,7 @@ namespace next {
         bool  offsetInNormRange; // offset >= 0 && offset <= 1
         
         vector<QuoteField*>& quoteFields = *mQuoteFieldsSelected;
-        const gl::Texture&   texture     = mQuoteSelected->getTexture();
+        const gl::Texture&   texture     = mQuoteSelected->texture;
         //
         
         glPushMatrix();
@@ -332,7 +332,7 @@ namespace next {
     /*--------------------------------------------------------------------------------------------*/
     
     const gl::Texture& QuoteFieldManager::getTexture(){
-        return mQuoteSelected->getTexture();
+        return mQuoteSelected->texture;
     }
 
     

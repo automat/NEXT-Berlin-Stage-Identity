@@ -10,6 +10,8 @@
 #define grid_00_Quote_h
 
 #include <vector>
+#include <string>
+
 #include "cinder/Vector.h"
 #include "cinder/gl/Texture.h"
 
@@ -22,38 +24,14 @@ namespace next{
     using namespace std;
     using namespace ci;
 
-    typedef std::shared_ptr<class Quote> QuoteRef;
-
-    class Quote {
-    private:
-        vector<QuoteLine> mLines;    // quote lines spanning across cells
-        gl::Texture       mTexture;  // src texture
-
-    public:
-        Quote(){}
+    struct Quote{
+        vector<QuoteLine> lines;
+        gl::Texture       texture;
+        string            author;
         
-        Quote(const vector<QuoteLine>& lines, const gl::Texture& texture) :
-        mLines(lines), mTexture(texture){}
-
-        inline static QuoteRef create(const vector<QuoteLine>& lines, const gl::Texture& texture){
-            return std::make_shared<Quote>(lines, texture);
-        }
-
-        inline const vector<QuoteLine>& getLines() const{
-            return mLines;
-        }
-
-        inline const vector<QuoteLine>& getLines(){
-            return mLines;
-        }
-
-        inline const gl::Texture& getTexture() const{
-            return mTexture;
-        }
-
-        inline bool isEmpty(){
-            return mLines.empty();
-        }
+        Quote(){};
+        Quote(const vector<QuoteLine>& lines, const gl::Texture& texture, const string& author = "") : lines(lines), texture(texture), author(author){}
+        
     };
 }
 
