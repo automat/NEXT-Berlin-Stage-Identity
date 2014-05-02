@@ -25,7 +25,8 @@
 	
 	"projection" : {
 		"blend_edge" : 288,
-		"blend"      : false
+		"blend"      : false,
+        "debug"      : true
         
 	},
     
@@ -109,7 +110,7 @@
             },
 
             "session" : {
-                
+
             }
         }
 	}		

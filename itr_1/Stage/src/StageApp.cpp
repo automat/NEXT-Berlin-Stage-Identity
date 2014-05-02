@@ -46,6 +46,8 @@ public:
     void update();
 	void draw();
     
+    void updateDisplayBlending();
+    
     bool    mInitialConfigIsValid;
     string  mInitialConfigExcMsg;
     
@@ -59,6 +61,11 @@ public:
     
     next::util::ExcInfoPanel* mExcPanel;
     next::Stage*              mStage;
+    
+    Rectf mDisplay0Rect;
+    Rectf mDisplay1Rect;
+    Area  mDisplay0Area;
+    Area  mDisplay1Area;
 };
 
 StageApp::~StageApp(){
@@ -77,11 +84,12 @@ StageApp::~StageApp(){
 void StageApp::prepareSettings(Settings* settings){
     mInitialConfigIsValid = next::Config::LoadJson(pathFileConfigJson, &mInitialConfigExcMsg);
 
-    settings->setWindowPos(0, 0);
+    settings->setWindowPos(APP_POSITION.x, APP_POSITION.y);
     settings->setWindowSize(APP_WIDTH, APP_HEIGHT);
     settings->setFrameRate(APP_FPS);
     settings->setResizable(false);
-    //settings->setBorderless(true);
+    settings->setBorderless(APP_BORDERLESS);
+    settings->setAlwaysOnTop(APP_ALWAYS_ON_TOP);
 }
 
 void StageApp::setup(){
@@ -115,14 +123,20 @@ void StageApp::setup(){
     next::Mapping::Get(pathFileDataJson, pathFolderImagesSpeaker, pathFolderImagesClocks,
                        session_id, mImagesClocks, mImagesSpeakers,
                        mDataSpeakers, mDataEvents, mDataSession);
+   
+    //
+    //  Init Display blendig
+    //
+    
+    mDisplay0Rect  = Rectf(0,0,APP_WIDTH_2, APP_HEIGHT);
+    mDisplay1Rect  = Rectf(APP_WIDTH_2, 0, APP_WIDTH, APP_HEIGHT);
+    mDisplay0Area  = Area(0,0,APP_WIDTH_2,APP_HEIGHT);
+    updateDisplayBlending();
     
     //
-    //  Init
+    //  Hit it (hard)
     //
     mStage = new next::Stage(mDataQuotes, mDataSession, mDataSpeakers);
-    
-    
-    
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -144,15 +158,16 @@ void StageApp::keyDown( KeyEvent event ){
 /*--------------------------------------------------------------------------------------------*/
 
 void StageApp::update(){
-#ifdef APP_HIDE_CURSOR
-    hideCursor();
-#endif
+    if(APP_HIDE_MOUSE){
+        hideCursor();
+    }
     
     if(next::Config::DidChange()){
         next::Config::Reload(&excCatch);
         if(next::Config::IsValid()){
             mStage->onConfigDidChange();
             mExcPanel->clear();
+            updateDisplayBlending();
         } else {
             mExcPanel->setString(excCatch);
         }
@@ -162,6 +177,10 @@ void StageApp::update(){
     }
     
     mStage->update();
+}
+
+void StageApp::updateDisplayBlending(){
+    mDisplay1Area = Area(APP_WIDTH_2 - PROJECTION_BLEND_EDGE ,0,APP_WIDTH_2 + APP_WIDTH_2 - PROJECTION_BLEND_EDGE,APP_HEIGHT);
 }
 
 /*--------------------------------------------------------------------------------------------*/
@@ -188,11 +207,22 @@ void StageApp::draw(){
     //
     //  Split stage according to projection blending edge
     //
-    gl::setMatricesWindow(APP_SIZE,false);
     const gl::Texture& stageTexture = mStage->getTexture();
+    
+    gl::setMatricesWindow(APP_SIZE,false);
+    
+    glPushMatrix();
     glColor3f(1, 1, 1);
-    gl::draw(stageTexture);
-
+    gl::draw(stageTexture, mDisplay0Area, mDisplay0Rect);
+    gl::draw(stageTexture, mDisplay1Area, mDisplay1Rect);
+    
+    if(PROJECTION_BLEND_DEBUG){
+        glColor3f(0, 0, 1);
+        gl::drawStrokedRect(mDisplay0Rect);
+        glColor3f(1, 1, 1);
+    }
+    
+    glPopMatrix();
     
 }
 

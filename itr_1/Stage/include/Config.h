@@ -32,9 +32,11 @@
 // App
 /*--------------------------------------------------------------------------------------------*/
 
-#define          APP_WIDTH  3840
-#define          APP_HEIGHT 1105
-#define          APP_SIZE   ci::Vec2f(APP_WIDTH, APP_HEIGHT)
+#define          APP_WIDTH   3840       // 2x Full HD
+#define          APP_WIDTH_2 3840 / 2   // 1x Full HD
+#define          APP_HEIGHT  1105
+#define          APP_SIZE    ci::Vec2f(APP_WIDTH, APP_HEIGHT)
+
 
 extern bool      APP_BORDERLESS;
 extern int       APP_DISPLAY;
@@ -50,6 +52,7 @@ extern bool      APP_HIDE_MOUSE;
 
 extern bool  PROJECTION_BLEND;
 extern int   PROJECTION_BLEND_EDGE;
+extern bool  PROJECTION_BLEND_DEBUG;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

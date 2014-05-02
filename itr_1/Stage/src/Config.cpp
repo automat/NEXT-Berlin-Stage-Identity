@@ -13,6 +13,7 @@ bool      APP_HIDE_MOUSE(true);
 
 bool  PROJECTION_BLEND;
 int   PROJECTION_BLEND_EDGE;
+bool  PROJECTION_BLEND_DEBUG;
 
 float STAGE_FX_SHADER_BLUR_SCALE;
 float STAGE_FX_SHADER_BLUR_RADIAL_SCALE;
@@ -267,6 +268,7 @@ namespace next{
                 /*--------------------------------------------------------------------------------------------*/
                 !Parse(nodeProjection, "blend", &PROJECTION_BLEND, msg) ||
                 !Parse(nodeProjection, "blend_edge", &PROJECTION_BLEND_EDGE, msg) ||
+                !Parse(nodeProjection, "debug", &PROJECTION_BLEND_DEBUG, msg) ||
 
                 /*--------------------------------------------------------------------------------------------*/
                 //	World
