@@ -17,9 +17,14 @@
 
 #include "stage/theme/path/PathSurface.h"
 
+
+
 namespace next{
     using namespace boost::assign;
-
+    
+    int ID_THEME_VIEW(0);
+    int ID_SESSION_VIEW(1);
+    
     Stage::Stage(vector<QuoteJson>* quoteData, Session* sessionData, map<uint32_t,Speaker>* speakersData){
         //
         //
@@ -90,6 +95,7 @@ namespace next{
         mBackground   = new Background(mGrid, areaScaled, mOscillator, stageSize.x, stageSize.y);
         mThemeView    = new ThemeView(mGrid, areaScaled, mOscillator, &mQuotes);
         mSessionView  = new SessionView(sessionData,speakersData);
+        
 
         mLogoNEXT   = new NEXTLogo();
         mTwitterCTA = new TwitterCTA();
@@ -156,7 +162,7 @@ namespace next{
                            app::loadResource(RES_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
                            &mShaderMixRadial);
 #endif
-        if(STAGE_PLAY_FIRST == 0){
+        if(STAGE_PLAY_FIRST == ID_THEME_VIEW){
             playThemeView();
         } else {
             playSessionView();
@@ -164,11 +170,19 @@ namespace next{
     }
     
     void Stage::playThemeView(){
-        mThemeView->play(3, std::bind(&Stage::onThemeViewQuoteChange, this), std::bind(&Stage::playSessionView, this));
+        if(STAGE_PLAY_FIRST == ID_THEME_VIEW && STAGE_LOOP_FIRST){
+            mThemeView->play(3, std::bind(&Stage::onThemeViewQuoteChange, this), std::bind(&Stage::playThemeView, this));
+        } else {
+            mThemeView->play(3, std::bind(&Stage::onThemeViewQuoteChange, this), std::bind(&Stage::playSessionView, this));
+        }
     }
     
     void Stage::playSessionView(){
-        mSessionView->play(std::bind(&Stage::playThemeView,this));
+        if(STAGE_PLAY_FIRST == ID_SESSION_VIEW && STAGE_LOOP_FIRST){
+            mSessionView->play(std::bind(&Stage::playSessionView,this));
+        } else {
+            mSessionView->play(std::bind(&Stage::playThemeView,this));
+        }
     }
     
     void Stage::onThemeViewQuoteChange(){

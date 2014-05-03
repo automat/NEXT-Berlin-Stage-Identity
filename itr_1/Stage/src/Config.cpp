@@ -15,9 +15,6 @@ bool  PROJECTION_BLEND;
 int   PROJECTION_BLEND_EDGE;
 bool  PROJECTION_BLEND_DEBUG;
 
-int   STAGE_PLAY_FIRST;
-
-
 ci::Vec3f  SESSION_VIEW_LIGHT_EYE;
 ci::Vec3f  SESSION_VIEW_LIGHT_TARGET;
 ci::Colorf SESSION_VIEW_LIGHT_COLOR_AMBIENT;
@@ -288,12 +285,6 @@ namespace next{
                 !Parse(nodeProjection, "blend", &PROJECTION_BLEND, msg) ||
                 !Parse(nodeProjection, "blend_edge", &PROJECTION_BLEND_EDGE, msg) ||
                 !Parse(nodeProjection, "debug", &PROJECTION_BLEND_DEBUG, msg) ||
-           
-                /*--------------------------------------------------------------------------------------------*/
-                //	Stage
-                /*--------------------------------------------------------------------------------------------*/
-           
-                !Parse(nodeStage, "play_first", &STAGE_PLAY_FIRST, msg) ||
 
                 /*--------------------------------------------------------------------------------------------*/
                 //	Session

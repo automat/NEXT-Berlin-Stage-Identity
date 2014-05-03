@@ -33,6 +33,13 @@ string pathFolderImagesClocks;
 string pathFileQuoteJson;
 string pathFileDataJson;
 int    session_id(-1);
+int    playFirst(1);
+bool   loopPlayFirst(false);
+
+
+// config.h extern
+int  STAGE_PLAY_FIRST;
+bool STAGE_LOOP_FIRST;
 
 /*--------------------------------------------------------------------------------------------*/
 
@@ -259,12 +266,17 @@ int main( int argc, char * const argv[] ) {
     //  -i  :   path folder speaker images
     //  -h  :   path folder clock images
     //  -s  :   session id
+    //  -f  :   play first: 0 = theme view, 1 = session view
+    //  -l  :   loops the play_first view
 
-    char args[] = ":c:i:h:d:q:s:";
+    char args[] = ":c:i:h:d:q:s:f:l:";
     
     int oc;
     while ((oc = getopt(argc_, argv_, args)) != -1) {
         if(optarg[0] == '-'){ // arg value not supplied
+            if(oc == 'f'){
+                playFirst = -1;
+            }
             break;
         }
         switch (oc) {
@@ -291,6 +303,22 @@ int main( int argc, char * const argv[] ) {
                 }
                 session_id = session_id < -1 ? -1 : session_id;
                 break;
+            case 'f':
+                try {
+                    playFirst = boost::lexical_cast<int>(optarg);
+                } catch (boost::bad_lexical_cast& exc) {
+                    playFirst = -1;
+                }
+                playFirst = playFirst < 0 ? -1 : playFirst;
+                break;
+            case 'l':{
+                try {
+                    loopPlayFirst = boost::lexical_cast<bool>(optarg);
+                } catch (boost::bad_lexical_cast& exc){
+                    loopPlayFirst = false;
+                }
+                break;
+            }
             case '?':
                 break;
             default:
@@ -327,6 +355,16 @@ int main( int argc, char * const argv[] ) {
         printf("session id missing\n");
         return 1;
     }
+    
+    if(playFirst < 0 || playFirst > 1){
+        printf("play first must be 0 == theme view or 1 == session view");
+        return 1;
+    }
+    
+    STAGE_PLAY_FIRST = playFirst;
+    STAGE_LOOP_FIRST = loopPlayFirst;
+    
+    //cout << STAGE_PLAY_FIRST << endl;
     
     cinder::app::AppBasic::prepareLaunch();
     cinder::app::AppBasic *app = new StageApp();

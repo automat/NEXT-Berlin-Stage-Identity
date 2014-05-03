@@ -3,4 +3,4 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 source "$DIR"/config.sh
 
-OPEN_SESSION 3556
+OPEN_SESSION 3556 1 0
