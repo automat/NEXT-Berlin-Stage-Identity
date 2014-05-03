@@ -45,17 +45,17 @@ namespace next{
         while (++i < mNumDivers) {
             j = 0;
             while(j < mDiverNumPoints){
-                meshColors += white,white;
-                meshColors += white,white;
-                meshColors += white,white;
-                meshColors += white,white;
+                meshColors += util::toColor(down), util::toColor(down);
+                meshColors += util::toColor(  up), util::toColor(  up);
+                meshColors += util::toColor(right),util::toColor(left);
+                meshColors += util::toColor(right),util::toColor(left);
                 ++j;
             }
 
-            meshColors += white,white;
-            meshColors += white,white;
-            meshColors += white,white;
-            meshColors += white,white;
+            meshColors += util::toColor(front),util::toColor(front);
+            meshColors += util::toColor(front),util::toColor(front);
+            meshColors += util::toColor( back),util::toColor( back);
+            meshColors += util::toColor( back),util::toColor( back);
         }
 
         mMesh.bufferColorsRGB(meshColors);
