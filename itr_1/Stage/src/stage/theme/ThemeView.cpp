@@ -204,7 +204,15 @@ namespace next{
     // get
     /*--------------------------------------------------------------------------------------------*/
 
-    void ThemeView::play(int num, const std::function<void()>& callback){
-        mQuoteFieldManager->play(num, callback);
+    void ThemeView::play(int num, const std::function<void()>& callbackUpdate, const std::function<void()>& callbackFinish){
+        mQuoteFieldManager->play(num, callbackUpdate, callbackFinish);
+    }
+    
+    int ThemeView::getQuoteIndex(){
+        return mQuoteFieldManager->getQuoteIndex();
+    }
+    
+    size_t ThemeView::getNumQuotes(){
+        return mQuoteFieldManager->getNumQuotes();
     }
 }

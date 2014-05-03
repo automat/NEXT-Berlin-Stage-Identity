@@ -41,7 +41,8 @@ namespace next {
         bool                  mActive;
         int                   mPlayCount;
         int                   mMaxPlays;
-        std::function<void()> mCallback;
+        std::function<void()> mCallbackUpdate;
+        std::function<void()> mCallbackFinish;
         
         
         Quote*                       mQuoteSelected;
@@ -70,9 +71,12 @@ namespace next {
         
         const gl::Texture& getTexture();
         
-        void play(int num, std::function<void()> callback);
+        void play(int num,const std::function<void ()>& callbackUpdate, const std::function<void()>& callbackFinish);
         
         bool isActive();
+        
+        int getQuoteIndex();
+        size_t getNumQuotes();
     };
 }
 

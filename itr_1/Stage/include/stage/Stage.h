@@ -68,6 +68,8 @@ namespace next{
         ThemeView*       mThemeView;
         SessionView*     mSessionView;
         
+        void onThemeViewQuoteChange();
+        
         void playThemeView();
         void playSessionView();
         

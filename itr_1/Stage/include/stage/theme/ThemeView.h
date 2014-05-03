@@ -68,7 +68,10 @@ namespace next{
         
         void debugDrawQuoteManager();
         
-        void play(int num, const std::function<void()>& callback);
+        void play(int num, const std::function<void()>& callbackUpdate, const std::function<void()>& callbackFinish);
+       
+        int    getQuoteIndex();
+        size_t getNumQuotes();
     };
 }
 

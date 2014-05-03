@@ -73,15 +73,16 @@ namespace next {
         return mRandomIndicesQuotes[index];
     }
     
-    void QuoteFieldManager::play(int num, std::function<void ()> callback){
+    void QuoteFieldManager::play(int num,const std::function<void ()>& callbackUpdate, const std::function<void()>& callbackFinish){
         if(mActive){
             return;
         }
         
-        mActive    = true;
-        mMaxPlays  = num;
-        mPlayCount = 0;
-        mCallback  = callback;
+        mActive         = true;
+        mMaxPlays       = num;
+        mPlayCount      = 0;
+        mCallbackUpdate = callbackUpdate;
+        mCallbackFinish = callbackFinish;
         nextQuote();
     }
     
@@ -195,11 +196,16 @@ namespace next {
         if(mIndexQuoteFields == mOffsetsSelected->size() - 1){
             if(mPlayCount == mMaxPlays){
                 mActive = false;
-                if(mCallback){
-                    mCallback();
+                if(mCallbackFinish){
+                    mCallbackFinish();
                 }
                 return;
             }
+            
+            if(mCallbackUpdate){
+                mCallbackUpdate();
+            }
+            
             nextQuote();
         }
         mIndexQuoteFields++;
@@ -333,6 +339,14 @@ namespace next {
     
     const gl::Texture& QuoteFieldManager::getTexture(){
         return mQuoteSelected->texture;
+    }
+    
+    int QuoteFieldManager::getQuoteIndex(){
+        return mIndexQuotes;
+    }
+    
+    size_t QuoteFieldManager::getNumQuotes(){
+        return mNumQuotes;
     }
 
     

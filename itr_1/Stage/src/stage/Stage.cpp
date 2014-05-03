@@ -156,20 +156,29 @@ namespace next{
                            app::loadResource(RES_GLSL_WORLD_FX_RADIAL_MIX_FRAG),
                            &mShaderMixRadial);
 #endif
-  
-        //playSessionView();
-        playThemeView();
+        if(STAGE_PLAY_FIRST == 0){
+            playThemeView();
+        } else {
+            playSessionView();
+        }
     }
     
     void Stage::playThemeView(){
-        mThemeView->play(1, std::bind(&Stage::playSessionView, this));
-        mTwitterCTA->on();  //test
+        mThemeView->play(3, std::bind(&Stage::onThemeViewQuoteChange, this), std::bind(&Stage::playSessionView, this));
     }
     
     void Stage::playSessionView(){
         mSessionView->play(std::bind(&Stage::playThemeView,this));
-        mTwitterCTA->off(); //test
-        
+    }
+    
+    void Stage::onThemeViewQuoteChange(){
+        if (mThemeView->getNumQuotes() >= 3) {
+            if(mThemeView->getQuoteIndex() % 2 == 0){
+                mTwitterCTA->on();
+            } else {
+                mTwitterCTA->off();
+            }
+        }
     }
 
 /*--------------------------------------------------------------------------------------------*/

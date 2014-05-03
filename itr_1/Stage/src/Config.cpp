@@ -15,6 +15,8 @@ bool  PROJECTION_BLEND;
 int   PROJECTION_BLEND_EDGE;
 bool  PROJECTION_BLEND_DEBUG;
 
+int   STAGE_PLAY_FIRST;
+
 
 ci::Vec3f  SESSION_VIEW_LIGHT_EYE;
 ci::Vec3f  SESSION_VIEW_LIGHT_TARGET;
@@ -247,14 +249,17 @@ namespace next{
 
         JsonTree nodeApp;
         JsonTree nodeProjection;
+        JsonTree nodeStage;
         JsonTree nodeTheme;
         JsonTree nodeSession;
+        
 
         try {
             nodeApp        = configJson.getChild("app");
             nodeProjection = configJson.getChild("projection");
-            nodeTheme      = configJson.getChild("stage.theme");
-            nodeSession    = configJson.getChild("stage.session");
+            nodeStage      = configJson.getChild("stage");
+            nodeTheme      = nodeStage.getChild( "theme");
+            nodeSession    = nodeStage.getChild( "session");
         } catch (JsonTree::Exception& exc) {
             *msg = exc.what();
             __isValid = false;
@@ -283,6 +288,12 @@ namespace next{
                 !Parse(nodeProjection, "blend", &PROJECTION_BLEND, msg) ||
                 !Parse(nodeProjection, "blend_edge", &PROJECTION_BLEND_EDGE, msg) ||
                 !Parse(nodeProjection, "debug", &PROJECTION_BLEND_DEBUG, msg) ||
+           
+                /*--------------------------------------------------------------------------------------------*/
+                //	Stage
+                /*--------------------------------------------------------------------------------------------*/
+           
+                !Parse(nodeStage, "play_first", &STAGE_PLAY_FIRST, msg) ||
 
                 /*--------------------------------------------------------------------------------------------*/
                 //	Session

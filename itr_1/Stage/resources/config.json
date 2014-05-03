@@ -10,9 +10,9 @@
     /*--------------------------------------------------------------------------------------------*/
     
 	"app" : {
-		"borderless"     : false,
+		"borderless"     : true,
 		"display" 	     : 0,
-		"always_on_top"  : false,
+		"always_on_top"  : true,
 		"fixed_position" : false,
 		"position"       : [0,0],
         "fps"            : 100.0,
@@ -36,6 +36,8 @@
     /*--------------------------------------------------------------------------------------------*/
     
     "stage" : {
+
+        "play_first" : 1, // 0 = theme view, 1 = session view
         
         //
         //
