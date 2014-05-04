@@ -137,16 +137,16 @@
     }, 
     "27135": {
       "description": "An explanation of the technologies used in the Oculus skydive experience and a brief introduction to new interaction models for Virtual Reality worlds.", 
-      "endHourString": "15:30", 
-      "endTimestamp": 1399383000, 
+      "endHourString": "15:05", 
+      "endTimestamp": 1399381500, 
       "id": 27135, 
       "person_ids": [
         26704
       ], 
       "session_id": 3560, 
-      "startHourClockFile": "15-00.png", 
-      "startHourString": "15:00", 
-      "startTimestamp": 1399381200, 
+      "startHourClockFile": "14-55.png", 
+      "startHourString": "14:55", 
+      "startTimestamp": 1399380900, 
       "title": "Interacting in virtual reality", 
       "type": "Demo"
     }, 
@@ -211,7 +211,7 @@
       "type": "Talk"
     }, 
     "27275": {
-      "description": "For the ninth time NEXT Chairman Matthias Schrader will open the conference for digital business. Nils Wollny, Managing Director Strategy of SinnerSchrader, will join him to illustrate how the \u201cNew User\u201d influences the way brands should be managed in the future.\r\n\r\nMonique van Dusseldorp, one of NEXT's conference curators, and Jochen Wegner, Editor in Chief of Zeit online, will guide you through the two conference days on our Dome Stage.", 
+      "description": "For the ninth time NEXT Chairmen Matthias Schrader and Volker Sch\u00fctz will open the conference for digital business. Nils Wollny, Managing Director Strategy of SinnerSchrader, will join him to illustrate how the \u201cNew User\u201d influences the way brands should be managed in the future.\r\n\r\nMonique van Dusseldorp, one of NEXT's conference curators, and Jochen Wegner, Editor in Chief of Zeit online, will guide you through the two conference days on our Dome Stage.", 
       "endHourString": "13:45", 
       "endTimestamp": 1399290300, 
       "id": 27275, 
@@ -219,12 +219,13 @@
         6893, 
         24350, 
         17913, 
-        6970
+        6970, 
+        27970
       ], 
       "session_id": 3615, 
-      "startHourClockFile": "13-30.png", 
-      "startHourString": "13:30", 
-      "startTimestamp": 1399289400, 
+      "startHourClockFile": "13-00.png", 
+      "startHourString": "13:00", 
+      "startTimestamp": 1399287600, 
       "title": "Welcome to NEXT Berlin 2014!", 
       "type": "Talk"
     }, 
@@ -269,7 +270,7 @@
       "startHourClockFile": "18-45.png", 
       "startHourString": "18:45", 
       "startTimestamp": 1399308300, 
-      "title": "Opening keynote", 
+      "title": "Opening Keynote", 
       "type": "Keynote"
     }, 
     "27285": {
@@ -319,17 +320,17 @@
     }, 
     "27295": {
       "description": "There is no doubt that the Oculus Rift headset has reinvigorated the world of Virtual Reality and with the recent news of Facebook\u2019s acquisition, interest in this new technology has reached fever pitch. While not yet released to the general public, the developer community has been enthusiastically experimenting with preview versions of the headset. Including us, Random Studio, we will present our art project created for the Oculus Rift, in collaboration with Geoffrey Lillemon, entitled \"The Nail Polish Inferno.\" We will also provide an overview of some of the most interesting and inventive projects from other studios that are helping to shape the future of virtual reality.", 
-      "endHourString": "15:00", 
-      "endTimestamp": 1399381200, 
+      "endHourString": "14:55", 
+      "endTimestamp": 1399380900, 
       "id": 27295, 
       "person_ids": [
         27263, 
         26860
       ], 
       "session_id": 3560, 
-      "startHourClockFile": "14-50.png", 
-      "startHourString": "14:50", 
-      "startTimestamp": 1399380600, 
+      "startHourClockFile": "14-45.png", 
+      "startHourString": "14:45", 
+      "startTimestamp": 1399380300, 
       "title": "The Oculus Rift and virtual reality", 
       "type": "Demo"
     }, 
@@ -381,7 +382,8 @@
       "endTimestamp": 1399390200, 
       "id": 27306, 
       "person_ids": [
-        6893
+        6893, 
+        27970
       ], 
       "session_id": 3562, 
       "startHourClockFile": "17-15.png", 
@@ -540,6 +542,20 @@
       "startTimestamp": 1399307400, 
       "title": "The new normal in a digital society", 
       "type": "Talk"
+    }, 
+    "28183": {
+      "endHourString": "15:30", 
+      "endTimestamp": 1399383000, 
+      "id": 28183, 
+      "person_ids": [
+        25340
+      ], 
+      "session_id": 3560, 
+      "startHourClockFile": "15-05.png", 
+      "startHourString": "15:05", 
+      "startTimestamp": 1399381500, 
+      "title": "Performance by Peter Kirn", 
+      "type": "Demo"
     }
   }, 
   "persons": {
@@ -614,7 +630,7 @@
       "sort_name": "Hegge, Ulrich"
     }, 
     "11096": {
-      "bio": "Alexander Oelling is co-founder and manager of 2013 founded Start-Up Sensorberg GmbH. He was between 2005 and 2011 one of the founders and managers of a software technology company which developed one of the first \u201eNoSQL/BigData\u201c- Database-systems. \r\n\r\nSensorberg is extending the web to the real world on top of the new iBeacon Bluetooth Technology. With Sensorbergs App/SDK and Web-Content-Dashboard, they are enabling Retailer and Brands to link any Web Content to their existing venues. Product information, offers, reviews or indoor navigation information then are being transmitted via iBeacons in real-time to nearby smartphones.\r\n", 
+      "bio": "Alexander Oelling is co-founder and manager of 2013 founded Start-Up Sensorberg GmbH. He was between 2005 and 2011 one of the founders and managers of a software technology company which developed one of the first \u201eNoSQL/BigData\u201c- Database-systems. \r\n\r\nSensorberg is extending the web to the real world on top of the new iBeacon Bluetooth Technology. With Sensorbergs App/SDK and Web-Content-Dashboard, they are enabling Retailer and Brands to link any Web Content to their existing venues. Product information, offers, reviews or indoor navigation information then are being transmitted via iBeacons in real-time to nearby smartphones.", 
       "companyName": "Sensorberg", 
       "companyRole": "Founder & CEO", 
       "companyUrl": "http://www.sensorberg.com/de/", 
@@ -720,11 +736,26 @@
       "companyRole": "Managing Director Strategy", 
       "companyUrl": "http://www.sinnerschrader.com", 
       "event_ids": [
-        27275
+        27275, 
+        28196
       ], 
       "id": 24350, 
       "name": "Nils Wollny", 
+      "profileTwitter": "http://twitter.com/Nils_Wollny", 
+      "profileTwitterHandle": "@Nils_Wollny", 
       "sort_name": "Wollny, Nils"
+    }, 
+    "25340": {
+      "bio": "Peter Kirn is an audiovisual artist, journalist, and technologist. Classically trained in composition and piano, he now focuses on live electronic performance. He is the founder of CDM (createdigitalmusic.com), a widely-read daily site that explores creative technology, and has contributed to Macworld, Popular Science, De:Bug, Keyboard, and others. He teaches and develops open creative tools, including co-creating the open source MeeBlip synthesizer. Born in Kentucky, he is now based in Berlin.\r\n\r\nHe is a PhD Candidate in Music Composition at The City University of New York Graduate Center.\r\n\r\nPerformance presentations include B-Seite (Mannheim), Live Performers Meeting (LPM, Rome, IT), Patch A/V Festival (Krakow, PL), Frequency Festival (Lincoln, UK) CommuniKey Festival (Boulder, CO), Devotion Gallery (New York), In/Out Festival (New York), InterAccess Gallery (Toronto), the Lab for Electronic Arts and Performance (LEAP, Berlin), Dance Theater Workshop (New York), Boston CyberArts Festival Ideas in Motion (Boston, MA), Vorspiel at Supermarkt (Berlin), Silo Sessions at Mindpirates (Berlin), Krautok at about:blank (Berlin), and others.\r\n\r\nLectures and workshops include Resonate (Belgrade), OFFF (Lisbon), re:publica (Berlin), Campus Party (Berlin), SONAR (Barcelona), and others.", 
+      "companyName": "Freelance", 
+      "companyRole": "Audiovisual Artist & Journalist", 
+      "companyUrl": "http://pkirn.com/", 
+      "event_ids": [
+        28183
+      ], 
+      "id": 25340, 
+      "name": "Peter Kirn", 
+      "sort_name": "Kirn, Peter"
     }, 
     "26020": {
       "bio": "Jessi Baker is a Designer & Creative Technologist exploring concepts for the future of the Internet, particularly pervasive computing and open data and how a union of the two can inform citizen choices. A true blend of art and science, Jessi has a Masters in Engineering from Cambridge University and a Masters in Design from the Royal College of Art. She is co-founder and CEO of Provenance (www.provenance.it) and a PhD researcher at the Intel Institute for Sustainable Cities.", 
@@ -786,6 +817,7 @@
       "companyRole": "Author, Activist, Journalist and Blogger", 
       "companyUrl": "http://craphound.com", 
       "event_ids": [
+        28201, 
         26825
       ], 
       "id": 26065, 
@@ -804,6 +836,8 @@
       ], 
       "id": 26066, 
       "name": "Tanya Vlach", 
+      "profileFacebook": "http://www.facebook.com/EyeTanya", 
+      "profileFacebookHandle": 387927561243756, 
       "profileLinkedin": "http://www.linkedin.com/in/tanyavlach", 
       "profileLinkedinHandle": 12147640, 
       "profileTwitter": "http://twitter.com/tanyavlach", 
@@ -832,7 +866,8 @@
       "companyRole": "Director", 
       "companyUrl": "http://singularityu.org/", 
       "event_ids": [
-        27283
+        27283, 
+        28196
       ], 
       "id": 26262, 
       "name": "Brad Templeton", 
@@ -846,7 +881,8 @@
       "companyRole": "Entrepreneur, Lecturer & Writer", 
       "companyUrl": null, 
       "event_ids": [
-        26292
+        26292, 
+        28199
       ], 
       "id": 26273, 
       "name": "Peter Hinssen", 
@@ -921,7 +957,7 @@
       "blogName": "blogs.t-systems.de", 
       "blogUrl": "http://blogs.t-systems.de/zerodistance/", 
       "companyName": "T-Systems International", 
-      "companyRole": "SVP Marketing", 
+      "companyRole": "CMO T-Systems", 
       "companyUrl": "http://www.t-systems.com/", 
       "event_ids": [
         27541
@@ -1024,10 +1060,10 @@
       "sort_name": "Zypries, Brigitte"
     }, 
     "26994": {
-      "bio": "Since May 2014 Anita is the representative chief editor of \"Stern\" magazine in Hamburg. Before that, from 2007 until 2011 she was in charge of the fields domestic policy and education at the Austrian newspaper \"derStandard.at\". In 2012, Anita, as the first Austrian, she was chosen for the honorable \"Knight Journalism Fellowship\" from Stanford University (Palo Alto, California). \r\nBetween 1998 and 2006 she studied law & political sciences and graduated with a master's degree. During this time she also worked as a freelance journalist.\r\nAnita has great passion for digital, tech and media innovation.", 
+      "bio": "Anita Zielina is Deputy Editor-in-Chief at Stern, the German weekly news magazine published by Gruner+Jahr. She is responsible for all digital products. Anita was a Knight Journalism Fellow \u201912 at Stanford University, Palo Alto, doing research on User Engagement and media innovation.", 
       "companyName": "Gruner + Jahr", 
       "companyRole": "Deputy Editor-in-Chief Stern", 
-      "companyUrl": "http://www.guj.de/en/", 
+      "companyUrl": "http://www.stern.de", 
       "event_ids": [
         27541
       ], 
@@ -1165,7 +1201,6 @@
       "profileLinkedinHandle": 2844097, 
       "profileTwitter": "http://twitter.com/fhg_comedd", 
       "profileTwitterHandle": "@fhg_comedd", 
-      "profileXing": "http://www.xing.com/companies/fraunhofercomedd", 
       "sort_name": "Vogel, Uwe"
     }, 
     "27689": {
@@ -1209,12 +1244,14 @@
       ], 
       "id": 27807, 
       "name": "Isidro Laso", 
-      "profileFacebook": "http://www.facebook.com/groups/startupeurope/", 
+      "profileFacebook": "http://www.facebook.com/isidro.laso?fref=ts", 
+      "profileFacebookHandle": 675793067, 
       "profileTwitter": "http://twitter.com/isidrolaso", 
       "profileTwitterHandle": "@isidrolaso", 
       "sort_name": "Laso, Isidro"
     }, 
     "27808": {
+      "bio": "Vincent DUCREY is co-founder and CEO of HUB Institute - Digital Think Tank. Vincent\u2019s expertise stems from his 15 year career in all areas of innovation, marketing, communications: as entrepreneur, as digital strategy consultant and as a digital communication adviser for the French Government. His governmental and business experiences extend to missions in Brazil, Russia, Africa, the Middle East, USA and Europe.\r\n\r\nAt NextBerlin, Vincent from HUB Institute,  Kumardev Chatterjee from EYIF and Bj\u00f6rn Willemsens from Deloitte will participate in the launch of the Europioneers competition wich reward European Web Entrepreneurs. Over 1 200 nominations and 5600 votes involving 27 European countries have been registered for the first 2013 edition.  The objectives of the award are to identify and recognise successful European web initiatives to promote the role web entrepreneurs play in European society and to encourage and inspire potential entrepreneurs.", 
       "companyName": "Hub Institute", 
       "companyRole": null, 
       "companyUrl": "http://www.hubinstitute.com/en", 
@@ -1223,6 +1260,8 @@
       ], 
       "id": 27808, 
       "name": "Vincent Ducrey", 
+      "profileTwitter": "http://twitter.com/vincent_ducrey", 
+      "profileTwitterHandle": "@vincent_ducrey", 
       "sort_name": "Ducrey, Vincent"
     }, 
     "27864": {
@@ -1244,6 +1283,19 @@
       "profileXing": "http://www.xing.com/profile/Luisa_Maier6?sc_o=mxb_p", 
       "profileXingHandle": "Luisa_Maier6", 
       "sort_name": "Maier, Luisa"
+    }, 
+    "27970": {
+      "bio": "Volker Sch\u00fctz is chief editor of HORIZONT - a specialist journal for marketing, advertising and media. He has also worked for companies such as Leipziger + Partner and B2B Online.", 
+      "companyName": "Horizont", 
+      "companyRole": "Editor-in-chief", 
+      "companyUrl": "http://www.horizont.net/", 
+      "event_ids": [
+        27275, 
+        27306
+      ], 
+      "id": 27970, 
+      "name": "Volker Sch\u00fctz", 
+      "sort_name": "Sch\u00fctz, Volker"
     }
   }, 
   "sessions": {
@@ -1410,7 +1462,7 @@
       "webUrl": "http://nextberlin.eu/session/27291/"
     }, 
     "3560": {
-      "allPersonNames": "Thomas Bendig, Elisabet Stig\u00e5rd, Anders Bo Pedersen, Tanya Vlach, Michael Pelletier, Daan Lucas, Pascal Auberson", 
+      "allPersonNames": "Thomas Bendig, Elisabet Stig\u00e5rd, Anders Bo Pedersen, Tanya Vlach, Michael Pelletier, Daan Lucas, Pascal Auberson, Peter Kirn", 
       "allPerson_ids": [
         26021, 
         27689, 
@@ -1418,19 +1470,21 @@
         26066, 
         27263, 
         26860, 
-        26704
+        26704, 
+        25340
       ], 
       "description": "Think beyond touch screens: In this session we\u2019ll explore what to expect in the future, when innovations like shapeshifting displays and wearable interfaces will be highly developed.", 
       "endHourString": "15:30", 
       "endTimestamp": 1399383000, 
-      "eventTypes": "Talk, Talk, Demo, Talk, Demo, Demo", 
+      "eventTypes": "Talk, Talk, Demo, Talk, Demo, Demo, Demo", 
       "event_ids": [
         26875, 
         26399, 
         27754, 
         27546, 
         27295, 
-        27135
+        27135, 
+        28183
       ], 
       "id": 3560, 
       "stage_id": 20213, 
@@ -1442,7 +1496,7 @@
       "webUrl": "http://nextberlin.eu/session/26875/"
     }, 
     "3562": {
-      "allPersonNames": "Thomas de Maizi\u00e8re, Morten Lund, Isidro Laso, Luisa Maier, Vincent Ducrey, Cory Doctorow, Matthias Schrader", 
+      "allPersonNames": "Thomas de Maizi\u00e8re, Morten Lund, Isidro Laso, Luisa Maier, Vincent Ducrey, Cory Doctorow, Matthias Schrader, Volker Sch\u00fctz", 
       "allPerson_ids": [
         26925, 
         27217, 
@@ -1450,7 +1504,8 @@
         27864, 
         27808, 
         26065, 
-        6893
+        6893, 
+        27970
       ], 
       "description": "Join us in this session for a keynote by Federal Minister Thomas de Maizi\u00e8re, who will outline the ever growing significance of the digital economy. Also don't miss the finale of our Start-up Pitch - the 4 finalists will be pitch live again and, moderated by Serial Entrepreneur Morten Lund, you will get to pick this year's winner! \r\nThe grand finale of this session and NEXT Berlin 2014 will be the keynote by SciFi author Cori Doctorow.", 
       "endHourString": "17:30", 
@@ -1473,12 +1528,13 @@
       "webUrl": "http://nextberlin.eu/session/27304/"
     }, 
     "3615": {
-      "allPersonNames": "Matthias Schrader, Nils Wollny, Jochen Wegner, Monique van Dusseldorp, Brigitte Zypries", 
+      "allPersonNames": "Matthias Schrader, Nils Wollny, Jochen Wegner, Monique van Dusseldorp, Volker Sch\u00fctz, Brigitte Zypries", 
       "allPerson_ids": [
         6893, 
         24350, 
         17913, 
         6970, 
+        27970, 
         26926
       ], 
       "description": "Welcome to NEXT Berlin 2014 - join our Chairmen Matthias Schrader and Volker Sch\u00fctz and meet the moderators Monique van Dusseldorp. The icing on the cake will be Brigitte Zypries, who will talk about the new German dreams and the importance of start-ups & innovation. ", 
@@ -1491,9 +1547,9 @@
       ], 
       "id": 3615, 
       "stage_id": 20213, 
-      "startHourClockFile": "13-30.png", 
-      "startHourString": "13:30", 
-      "startTimestamp": 1399289400, 
+      "startHourClockFile": "13-00.png", 
+      "startHourString": "13:00", 
+      "startTimestamp": 1399287600, 
       "title": "Opening Session", 
       "type": "session", 
       "webUrl": "http://nextberlin.eu/session/27275/"
