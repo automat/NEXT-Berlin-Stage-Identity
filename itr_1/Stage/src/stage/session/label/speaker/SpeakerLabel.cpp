@@ -24,7 +24,7 @@ namespace next {
         TextBox textBoxName;
         TextBox textBoxCompany;
         
-        string supportedChars = gl::TextureFont::defaultChars() + "å";
+        string supportedChars = gl::TextureFont::defaultChars() + "åü";
         
         textBoxName.setFont(      fontName, supportedChars);
         textBoxName.setWidth(     SESSION_LABEL_SPEAKER_BOX_WIDTH);
