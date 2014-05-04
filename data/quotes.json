@@ -1,6 +1,42 @@
 {
    "quotes" : [
-   {
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 0.7
+               },
+               "string" : "Business transactions on the Internet will reach 450 billion by 2018."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 0.7
+               },
+               "string" : "Your body is a project - always analysed, controlled, optimised."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 0.81
+               },
+               "string" : "Number of mobile devices exceeds Earth population."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 0.9
+               },
+               "string" : "Almost\n every car\n will be connected in ten years."
+      },
+      {
                "format" : {
                "align" : "center",
                "balance" : true,
@@ -52,7 +88,7 @@
                "padding" : [ 0, 0, 0, 0 ],
                "scale" : 1.0
                },
-               "string" : "You\n will be\n disrupted soon"
+               "string" : "You\n will be\n disrupted soon."
       },
       
       {
@@ -62,7 +98,7 @@
                "padding" : [ 1, 0, 0, 0 ],
                "scale" : 0.9
                },
-               "string" : "Alghoritms are the new Art Direction."
+               "string" : "Algorithms are the new Art Direction."
       },
 
                
