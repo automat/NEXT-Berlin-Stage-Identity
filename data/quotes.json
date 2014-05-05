@@ -7,7 +7,7 @@
                "padding" : [ 0, 0, 0, 0 ],
                "scale" : 0.7
                },
-               "string" : "Business transactions on the Internet will reach 450 billion by 2018."
+               "string" : "Business transactions on the Internet will reach 450 billion per day."
       },
       {
                "format" : {
@@ -52,7 +52,7 @@
                "padding" : [ 0, 0, 0, 0 ],
                "scale" : 1.0
                },
-               "string" : "Robots autonomously optimizing supply chains."
+               "string" : "Robots autonomously optimising supply chains."
       },
       {
                "format" : {
@@ -109,7 +109,7 @@
                "padding" : [ 0, 0, 0, 0 ],
                "scale" : 1.0
                },
-               "string" : "You cant\n choose\n not to support one device."
+               "string" : "You cannot\n choose\n not to support one device."
       },
       {
                "format" : {
