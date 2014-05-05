@@ -28,7 +28,7 @@
 
 #define          APP_WIDTH     3840 / APP_SCALE   // 2x Full HD
 #define          APP_WIDTH_2   APP_WIDTH / 2.0f   // 1x Full HD
-#define          APP_HEIGHT    1105 / APP_SCALE
+#define          APP_HEIGHT    1200 / APP_SCALE
 #define          APP_SIZE      ci::Vec2f(APP_WIDTH, APP_HEIGHT)
 
 extern bool      APP_BORDERLESS;
@@ -46,7 +46,7 @@ extern bool      APP_USE_V_SYNC;
 /*--------------------------------------------------------------------------------------------*/
 
 #define STAGE_WIDTH        3552 / APP_SCALE
-#define STAGE_HEIGHT       1105 / APP_SCALE
+#define STAGE_HEIGHT       1200 / APP_SCALE
 #define STAGE_SIZE         ci::Vec2f(STAGE_WIDTH,STAGE_HEIGHT)
 #define STAGE_BOUNDS       ci::Area(0,0,STAGE_WIDTH,STAGE_HEIGHT)
 
@@ -86,7 +86,7 @@ extern bool  PROJECTION_BLEND_DEBUG;
 #define TWITTER_CTA_TEXT_HASHTAG_MARGIN_LEFT 5
 #define TWITTER_CTA_TEXT_STRING_0 "What is your New Normal?"
 #define TWITTER_CTA_TEXT_STRING_1 "Selected tweets from"
-#define TWITTER_CTA_TEXT_STRING_2 "#newnormal #next14"
+#define TWITTER_CTA_TEXT_STRING_2 "#next14"
 
 
 
