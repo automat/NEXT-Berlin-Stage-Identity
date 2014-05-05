@@ -12,11 +12,11 @@
 	"app" : {
 		"borderless"     : true,
 		"display" 	     : 0,
-		"always_on_top"  : false,
+		"always_on_top"  : true,
 		"fixed_position" : false,
 		"position"       : [0,0],
         "fps"            : 100.0,
-        "hide_mouse"     : false,
+        "hide_mouse"     : true,
         "use_v_sync"     : true  //set fps greate than 60.
 	},
     
