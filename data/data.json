@@ -1,7 +1,7 @@
 {
   "events": {
     "19388": {
-      "description": "Chris strongly believes that combining efficient use of energy seamlessly into our lifestyle will enable a more comfortable, efficient, and sustainable world. The power of web interconnectivity is currently on the cusp of going beyond the Internet as we experience it every day.\r\n \r\nIn this talk Chris will showcase his IoT product: tado\u00b0 The heating app detects where residents are, sets the temperature accordingly, and saves up to 26% on heating costs. Chris will transform Next into a Home. Every attendee will become a resident and experience real IoT with their own smartphones. The influence of other residents who are roaming outside will be followed live on-screen.  \r\nJoin this session to get a grasp on a virtual assistant for your daily life powered by the Internet of Things.\r\n \r\nLearn about the Internet of Things in practice. See how tado\u00b0 created a useful and desirable Internet of Things service for everyone's daily life. Experience tado\u00b0 on your own phone in a live demo.", 
+      "description": "Chris strongly believes that combining efficient use of energy seamlessly into our lifestyle will enable a more comfortable, efficient, and sustainable world. The power of web interconnectivity is currently on the cusp of going beyond the Internet as we experience it every day.\r\n\r\nIn this talk Chris will showcase his IoT product: tado\u00b0 The heating app detects where residents are, sets the temperature accordingly, and saves up to 26% on heating costs.\r\n\r\nLearn about the Internet of Things in practice. See how tado\u00b0 created a useful and desirable Internet of Things service for everyone's daily life.", 
       "endHourString": "12:30", 
       "endTimestamp": 1399372200, 
       "id": 19388, 
@@ -31,7 +31,7 @@
       "type": "Keynote"
     }, 
     "26399": {
-      "description": "Wearable tech is the term of everyone's lips now. The supposed snake-oil like benefits coming from wearing devices on your face and your wrists are endless. But none of them will happen if you don't want to or can not wear the devices. You don't want to look like a cyborg. You don't want your gadgetry to intrude on people's integrity. Oskar will share his insights from the design process of the Narrative Clip - the world's smallest wearable camera.", 
+      "description": "Wearable tech is the term of everyone's lips now. The supposed snake-oil like benefits coming from wearing devices on your face and your wrists are endless. But none of them will happen if you don't want to or can not wear the devices. You don't want to look like a cyborg. You don't want your gadgetry to intrude on people's integrity. Elisabet will share her insights from the design process of the Narrative Clip - the world's smallest wearable camera.", 
       "endHourString": "14:25", 
       "endTimestamp": 1399379100, 
       "id": 26399, 
@@ -245,7 +245,7 @@
       "type": "Talk"
     }, 
     "27280": {
-      "description": "iBeacon is the first global standard for micro location based services. Indoor, where GPS is too inaccurate, NFC and QR-Codes are only offering a bad user experience, is the Bluetooth Low Energy based iBeacon the next big wave. The NEXT Conference App connects speaker in a new and intuitive way to their audience. Get the program, floor plan and presentation based on you indoor location directly to your palm. This talk gives world class insights about how people used the new location based standard on the NEXT14.", 
+      "description": "Beacon is the first global standard for micro location based services. Indoor - where GPS is too inaccurate, NFC and QR-Codes are only offering a bad user experience is the Bluetooth Low Energy based iBeacon the next big wave of the digital value chain. \r\n95% of all business transactions are still taking place in the physical world. Apples new protocol bridges the last gap of accurate indoor positioning. This talk gives world class insights about how Users, Businesses and Brands take place in a new world.", 
       "endHourString": "15:20", 
       "endTimestamp": 1399296000, 
       "id": 27280, 
@@ -256,7 +256,7 @@
       "startHourClockFile": "15-10.png", 
       "startHourString": "15:10", 
       "startTimestamp": 1399295400, 
-      "title": "Results and usage iBeacon conference app", 
+      "title": "iBeacon How To: The connection between Online and Offline World", 
       "type": "Demo"
     }, 
     "27283": {
@@ -279,7 +279,7 @@
       "endTimestamp": 1399300800, 
       "id": 27285, 
       "person_ids": [
-        27362
+        27755
       ], 
       "session_id": 3555, 
       "startHourClockFile": "16-20.png", 
@@ -464,7 +464,7 @@
       "startHourClockFile": "14-35.png", 
       "startHourString": "14:35", 
       "startTimestamp": 1399379700, 
-      "title": "Talk by Tanya Vlach", 
+      "title": "Eye, Camera: Extension of Self", 
       "type": "Talk"
     }, 
     "27621": {
@@ -519,6 +519,7 @@
       "person_ids": [
         27807, 
         27864, 
+        28300, 
         27808
       ], 
       "session_id": 3562, 
@@ -544,6 +545,7 @@
       "type": "Talk"
     }, 
     "28183": {
+      "description": "Electronic musician and creative technologist Peter Kirn will show how computers allow us to imagine fluid interfaces by using one -- performing music live. First playing, then demonstrating, he'll explain how the interfaces of the future may build on decades of experimentation from musicians and artists. He'll make music with the Kinect camera and turn NEXT14's Twitter activity into ambient music.", 
       "endHourString": "15:30", 
       "endTimestamp": 1399383000, 
       "id": 28183, 
@@ -746,15 +748,23 @@
       "sort_name": "Wollny, Nils"
     }, 
     "25340": {
-      "bio": "Peter Kirn is an audiovisual artist, journalist, and technologist. Classically trained in composition and piano, he now focuses on live electronic performance. He is the founder of CDM (createdigitalmusic.com), a widely-read daily site that explores creative technology, and has contributed to Macworld, Popular Science, De:Bug, Keyboard, and others. He teaches and develops open creative tools, including co-creating the open source MeeBlip synthesizer. Born in Kentucky, he is now based in Berlin.\r\n\r\nHe is a PhD Candidate in Music Composition at The City University of New York Graduate Center.\r\n\r\nPerformance presentations include B-Seite (Mannheim), Live Performers Meeting (LPM, Rome, IT), Patch A/V Festival (Krakow, PL), Frequency Festival (Lincoln, UK) CommuniKey Festival (Boulder, CO), Devotion Gallery (New York), In/Out Festival (New York), InterAccess Gallery (Toronto), the Lab for Electronic Arts and Performance (LEAP, Berlin), Dance Theater Workshop (New York), Boston CyberArts Festival Ideas in Motion (Boston, MA), Vorspiel at Supermarkt (Berlin), Silo Sessions at Mindpirates (Berlin), Krautok at about:blank (Berlin), and others.\r\n\r\nLectures and workshops include Resonate (Belgrade), OFFF (Lisbon), re:publica (Berlin), Campus Party (Berlin), SONAR (Barcelona), and others.", 
-      "companyName": "Freelance", 
-      "companyRole": "Audiovisual Artist & Journalist", 
-      "companyUrl": "http://pkirn.com/", 
+      "bio": "PETER KIRN is editor of CDM (createdigitalmusic.com), for nearly ten years an online resource for music and live visual technology, and a journalist, musician, and media artist. He is also co-creator of the MeeBlip, open-source electronic musical instrument hardware. Classically trained in composition, he produces electronic music and visual performances ranging from experimental to techno, as well as making music as half of NERK/KIRN (V-Records). His work is especially focused on live and real-time performance, drawing heavily from custom-built software and tools, and connections between music and other media, from dance to visual abstraction.\r\n\r\nBorn in Kentucky, he now lives in Berlin, Germany, and performs and teaches, consults and speaks about creative technology internationally.", 
+      "blogName": "pkirn.com", 
+      "blogUrl": "http://pkirn.com", 
+      "companyName": "Create Digital Media, GmbH", 
+      "companyRole": "Audiovisual Artist, Journalist, Consultant", 
+      "companyUrl": "http://createdigitalmusic.com", 
       "event_ids": [
         28183
       ], 
       "id": 25340, 
       "name": "Peter Kirn", 
+      "profileFacebook": "http://www.facebook.com/peterkirn", 
+      "profileFacebookHandle": 900580197, 
+      "profileLinkedin": "http://de.linkedin.com/in/peterkirn", 
+      "profileLinkedinHandle": 615132, 
+      "profileTwitter": "http://twitter.com/peterkirn", 
+      "profileTwitterHandle": "@peterkirn", 
       "sort_name": "Kirn, Peter"
     }, 
     "26020": {
@@ -763,7 +773,8 @@
       "companyRole": "Designer & Technologist", 
       "companyUrl": "http://www.provenance.it", 
       "event_ids": [
-        27212
+        27212, 
+        28344
       ], 
       "id": 26020, 
       "name": "Jessi Baker", 
@@ -799,7 +810,8 @@
       "companyRole": "Principal", 
       "companyUrl": "http://changeist.com", 
       "event_ids": [
-        27278
+        27278, 
+        28344
       ], 
       "id": 26038, 
       "name": "Scott Smith", 
@@ -832,6 +844,7 @@
       "companyRole": "Creator", 
       "companyUrl": "http://EyeTanya.com", 
       "event_ids": [
+        28342, 
         27546
       ], 
       "id": 26066, 
@@ -943,7 +956,7 @@
         27528
       ], 
       "id": 26639, 
-      "name": "Carlo de Micheli", 
+      "name": "Carlo De Micheli", 
       "profileFacebook": "http://www.facebook.com/osvehicle", 
       "profileFacebookHandle": 504408636301762, 
       "profileLinkedin": "http://www.linkedin.com/company/osvehicle", 
@@ -1142,18 +1155,6 @@
       "profileTwitterHandle": "@random_studio", 
       "sort_name": "Pelletier, Michael"
     }, 
-    "27362": {
-      "bio": "Horst Leonberger studied engineering cybernetics at the University of Stuttgart. \r\nAfter holding several posts in the IT and telecommunications industry, he moved to the Deutsche Telekom Group as Senior Key Account Manager, heading up various sales teams. \r\nSoon Horst Leonberger took over as Global Account Executive for Daimler as well as Volkswagen Group. Over the next few years, he was also responsible for the global T-Systems automotive business including  steering projects such as the launch of T-Systems in China and Japan. \r\nIn September 2010, Horst Leonberger was announced by Ren\u00e9 Obermann as one of the three top managers for the new strategic growth area of \u201cIntelligent networks\u201d within Deutsche Telekom. Since then, he leads the group-wide activities in the field of Connected Car and directly reports to Reinhard Clemens, board member of Deutsche Telekom and CEO T-Systems.", 
-      "companyName": "Deutsche Telekom", 
-      "companyRole": "Senior Vice President Strategic Business Area Connected Car", 
-      "companyUrl": "http://www.telekom.com/home", 
-      "event_ids": [
-        27285
-      ], 
-      "id": 27362, 
-      "name": "Horst Leonberger", 
-      "sort_name": "Leonberger, Horst"
-    }, 
     "27419": {
       "bio": "Kay Schwabedal has been Chief Commercial Officer since September 2011, responsible for all of the E-Plus Group\u2019s sales divisions excluding the wholesale business, taking on the responsibility for the entire customer business. Schwabedal has extensive experience in managing large organisations in the ITC sector. After working at Procter & Gamble and McKinsey, the industrial engineer held various roles at CC Compunet, including CEO, and later became COO on the board of directors for the fixed-line network provider Arcor.", 
       "companyName": "E-Plus Mobilfunk", 
@@ -1234,6 +1235,27 @@
       "profileTwitterHandle": "@TheEyeTribe", 
       "sort_name": "Pedersen, Anders Bo"
     }, 
+    "27755": {
+      "bio": "After studying at Bonn University & UCLA, Sven graduated with a Master\u00b4s degree in Art History, English, and Political Science. He started his career as press officer for CIEE Germany. In 1998 he founded a pr & web design agency and worked for five years consulting in strategic management & reorganization projects for customers as Tarkett Sommer or Deutsche Telekom.\r\n2002 Kr\u00fcger accepted an offer from T-Com, being responsible for their business marketing strategy & planning.\r\nSince June 2005 he held various management positions with T-Systems, Europe\u00b4s leading ICT-provider. In his actual role, Sven is responsible for global advertising and media, sponsoring, corporate events and trade shows, as well as the corporate image & design worldwide.", 
+      "companyName": "Deutsche Telekom, T-Systems", 
+      "companyRole": "Vice President Brand Communications", 
+      "companyUrl": "http://www.t-systems.com/zerodistance", 
+      "event_ids": [
+        27285, 
+        27820
+      ], 
+      "id": 27755, 
+      "name": "Sven Kr\u00fcger", 
+      "profileFacebook": "http://www.facebook.com/svnkrgr", 
+      "profileFacebookHandle": 1597672536, 
+      "profileLinkedin": "http://de.linkedin.com/in/svenkrueger", 
+      "profileLinkedinHandle": 57922429, 
+      "profileTwitter": "http://twitter.com/svnkrgr", 
+      "profileTwitterHandle": "@svnkrgr", 
+      "profileXing": "http://www.xing.com/profile/Sven_Krueger2", 
+      "profileXingHandle": "Sven_Krueger2", 
+      "sort_name": "Kr\u00fcger, Sven"
+    }, 
     "27807": {
       "bio": "Isidro Laso Ballesteros is head of Sector and leads the Startup Europe Initiative at the European Commission.\r\n\r\nIsidro had his first taste of entrepreneurship at university, where he created a junior enterprise. After graduating as an Engineer from the Universidad Politecnica de Madrid, he moved into engineering activities, working with Geographic Information Systems and design tools before becoming a strategic consultant to high-level executives (CEOs of large corporations), mainly in the telco and media sector.\r\n\r\nHe then moved to the ICT sector where he worked on research projects related to Workflow Management Systems and Internet Collaboration Systems. This gave him the opportunity to create a new department within his company offering change management projects to customers, to complement traditional ICT projects. Subsequently he spent five months working for one of the Ministries in Spain before being seconded to the European Commission as a National Expert.\r\n\r\nSince becoming a Commission official he has managed research projects and drafted research strategy objectives. From 2010 onwards he has been focused on creating a new endeavour within the EU institutions related to tech start-ups; the first output of this latest work is the Startup Europe initiative. Isidro has written several books and papers, some of which have been translated into other languages, including Japanese.\r\n\r\nIsidro\u2019s objectives for the Policy Fellowship are to share views on policy measures to strengthen the environment for web entrepreneurs in Europe; to learn new ways of policy making better adapted to an era of extremely rapid change that characterise the web startups; and to access international knowledge and best practices related to policies for web startups.", 
       "companyName": "European Commission", 
@@ -1296,6 +1318,17 @@
       "id": 27970, 
       "name": "Volker Sch\u00fctz", 
       "sort_name": "Sch\u00fctz, Volker"
+    }, 
+    "28300": {
+      "companyName": "European Young Innvovators Forum", 
+      "companyRole": "Founder & President", 
+      "companyUrl": "http://younginnovator.eu/", 
+      "event_ids": [
+        28005
+      ], 
+      "id": 28300, 
+      "name": "Kumar Chatterjee", 
+      "sort_name": "Chatterjee, Kumar"
     }
   }, 
   "sessions": {
@@ -1329,10 +1362,10 @@
       "webUrl": "http://nextberlin.eu/session/26432/"
     }, 
     "3555": {
-      "allPersonNames": "Tony Douglas, Horst Leonberger, Peter Skillman, Carlo de Micheli, Sarah Willis, Monique van Dusseldorp", 
+      "allPersonNames": "Tony Douglas, Sven Kr\u00fcger, Peter Skillman, Carlo De Micheli, Sarah Willis, Monique van Dusseldorp", 
       "allPerson_ids": [
         27236, 
-        27362, 
+        27755, 
         27200, 
         26639, 
         27605, 
@@ -1496,12 +1529,13 @@
       "webUrl": "http://nextberlin.eu/session/26875/"
     }, 
     "3562": {
-      "allPersonNames": "Thomas de Maizi\u00e8re, Morten Lund, Isidro Laso, Luisa Maier, Vincent Ducrey, Cory Doctorow, Matthias Schrader, Volker Sch\u00fctz", 
+      "allPersonNames": "Thomas de Maizi\u00e8re, Morten Lund, Isidro Laso, Luisa Maier, Kumar Chatterjee, Vincent Ducrey, Cory Doctorow, Matthias Schrader, Volker Sch\u00fctz", 
       "allPerson_ids": [
         26925, 
         27217, 
         27807, 
         27864, 
+        28300, 
         27808, 
         26065, 
         6893, 
