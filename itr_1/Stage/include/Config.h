@@ -288,7 +288,7 @@ extern float SESSION_SPEAKER_VIEW_MATERIAL_SHININESS;
 //  Speaker Labels
 /*--------------------------------------------------------------------------------------------*/
 
-#define SESSION_LABEL_SPEAKER_BOX_WIDTH 2048
+#define SESSION_LABEL_SPEAKER_BOX_WIDTH 1500
 #define SESSION_LABEL_SPEAKER_BOX_HEIGHT 512
 #define SESSION_LABEL_SPEAKER_FONT_SIZE SESSION_LABEL_TITLE_DEFAULT_FONT_SIZE
 #define SESSION_LABEL_SPEAKER_FONT_SCALE 6

@@ -5,9 +5,36 @@
                "align" : "center",
                "balance" : true,
                "padding" : [ 0, 0, 0, 0 ],
-               "scale" : 0.7
+               "scale" : 0.9
                },
-               "string" : "Business transactions on the Internet will reach 450 billion per day."
+               "string" : "In\n 20 years, doctors will be data scientists."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 1, 0, 0, 0 ],
+               "scale" : 1.0
+               },
+               "string" : "Amazon URLs on Christmas wish lists."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 1.0
+               },
+               "string" : "Procucts\n soon will watch you from the\n shelf."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 1, 0, 0, 0 ],
+               "scale" : 0.8
+               },
+               "string" : "We will see infected toasters."
       },
       {
                "format" : {
