@@ -171,7 +171,7 @@ namespace next{
     
     void Stage::playThemeView(){
         if(STAGE_PLAY_FIRST == ID_THEME_VIEW && STAGE_LOOP_FIRST){
-            mThemeView->play(3, std::bind(&Stage::onThemeViewQuoteChange, this), std::bind(&Stage::playThemeView, this));
+            mThemeView->play(15, std::bind(&Stage::onThemeViewQuoteChange, this), std::bind(&Stage::playThemeView, this));
         } else {
             mThemeView->play(3, std::bind(&Stage::onThemeViewQuoteChange, this), std::bind(&Stage::playSessionView, this));
         }

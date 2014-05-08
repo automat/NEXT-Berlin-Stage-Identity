@@ -101,7 +101,7 @@ void Stage_qtApp::prepareSettings(Settings* settings){
     settings->setDisplay(Display::getDisplays()[APP_DISPLAY]);
     settings->setWindowPos(APP_POSITION.x, APP_POSITION.y);
     settings->setWindowSize(APP_WIDTH, APP_HEIGHT);
-    settings->setFrameRate(30.0f);
+    settings->setFrameRate(APP_FPS);
     settings->setResizable(false);
     settings->setBorderless(APP_BORDERLESS);
     settings->setAlwaysOnTop(APP_ALWAYS_ON_TOP);
@@ -152,10 +152,10 @@ void Stage_qtApp::setup(){
     //  Hit it (hard)
     //
     mStage = new next::Stage(mDataQuotes, mDataSession, mDataSpeakers);
-    /*
+    
     if(APP_USE_V_SYNC){
         gl::enableVerticalSync();
-    }*/
+    }
     
     fs::path path = getSaveFilePath();
 	if( path.empty() )
@@ -176,7 +176,7 @@ void Stage_qtApp::setup(){
 void Stage_qtApp::keyDown( KeyEvent event ){
     switch (event.getCode()) {
         case KeyEvent::KEY_ESCAPE:
-            quit();
+            //quit();
             break;
         default:
             break;
