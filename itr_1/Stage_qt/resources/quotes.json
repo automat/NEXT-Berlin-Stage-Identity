@@ -1,0 +1,151 @@
+{
+   "quotes" : [
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 0.9
+               },
+               "string" : "In\n 20 years, doctors will be data scientists."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 1, 0, 0, 0 ],
+               "scale" : 1.0
+               },
+               "string" : "Amazon URLs on Christmas wish lists."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 1.0
+               },
+               "string" : "Procucts\n soon will watch you from the\n shelf."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 1, 0, 0, 0 ],
+               "scale" : 0.8
+               },
+               "string" : "We will see infected toasters."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 0.7
+               },
+               "string" : "Your body is a project - always analysed, controlled, optimised."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 0.81
+               },
+               "string" : "Number of mobile devices exceeds Earth population."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 0.9
+               },
+               "string" : "Almost\n every car\n will be connected in ten years."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 1.0
+               },
+               "string" : "Your\n car might\n bar you\n from driving soon."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 1.0
+               },
+               "string" : "Robots autonomously optimising supply chains."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 1.0
+               },
+               "string" : "Objects talking to people talking to objects."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 1.0
+               },
+               "string" : "A\n prototype says more than 1000 images."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 0.8
+               },
+               "string" : "100h\n of video uploaded every minute at YouTube."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 1.0
+               },
+               "string" : "You\n will be\n disrupted soon."
+      },
+      
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 1, 0, 0, 0 ],
+               "scale" : 0.9
+               },
+               "string" : "Algorithms are the new Art Direction."
+      },
+
+               
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 1.0
+               },
+               "string" : "You cannot\n choose\n not to support one device."
+      },
+      {
+               "format" : {
+               "align" : "center",
+               "balance" : true,
+               "padding" : [ 0, 0, 0, 0 ],
+               "scale" : 1
+               },
+               "string" : "Knowing what your customers want before they do."
+      }  
+   ]
+}

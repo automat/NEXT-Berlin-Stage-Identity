@@ -1,0 +1,1612 @@
+{
+  "events": {
+    "19388": {
+      "description": "Chris strongly believes that combining efficient use of energy seamlessly into our lifestyle will enable a more comfortable, efficient, and sustainable world. The power of web interconnectivity is currently on the cusp of going beyond the Internet as we experience it every day.\r\n\r\nIn this talk Chris will showcase his IoT product: tado\u00b0 The heating app detects where residents are, sets the temperature accordingly, and saves up to 26% on heating costs.\r\n\r\nLearn about the Internet of Things in practice. See how tado\u00b0 created a useful and desirable Internet of Things service for everyone's daily life.", 
+      "endHourString": "12:30", 
+      "endTimestamp": 1399372200, 
+      "id": 19388, 
+      "person_ids": [
+        19385
+      ], 
+      "session_id": 3559, 
+      "startHourClockFile": "12-20.png", 
+      "startHourString": "12:20", 
+      "startTimestamp": 1399371600, 
+      "title": "tado - a new paradigm of interconnectivity", 
+      "type": "Demo"
+    }, 
+    "26292": {
+      "description": "The New Normal has arrived: technology is not 'special' anymore, and digital has become normal. The shift to the New Normal has nothing to do with technology, but the effect of the Network. Digital was just an appetizer. The future has become unpredictable. The new model is VUCA: Volatility, Uncertainty, Complexity and Ambiguity. The age of Networks only fuels the aspect of VUCA. Networks set the world of VUCA on fire. When we enter the Networked Age of VUCA, company have a Fluid Strategy: the two crucial elements are Speed and Agility. The age of Networks is the age of Information: information has become the new oil in this new era. Information becomes core, Information becomes valuable. Everyone is in the information business. Core result #1: Markets disappear and become Networks of Information. Marketing becomes learning how to influence networks. Core result #1: When the outside world becomes a Network, the inside of companies has to behave as a Network as well. It takes a Network to Serve a Network. Innovation propagates faster than ever before. Silicon Valley WAS the high-tech capital of the world. It has now become the Industry-Disruption-Capital of the world. The question is NOT 'Are you built to last?'. The question in the age of networks is: \"Can you Adapt and Leverage?\"", 
+      "endHourString": "10:30", 
+      "endTimestamp": 1399365000, 
+      "id": 26292, 
+      "person_ids": [
+        26273
+      ], 
+      "session_id": 3558, 
+      "startHourClockFile": "09-30.png", 
+      "startHourString": "09:30", 
+      "startTimestamp": 1399361400, 
+      "title": "The network always wins", 
+      "type": "Keynote"
+    }, 
+    "26399": {
+      "description": "Wearable tech is the term of everyone's lips now. The supposed snake-oil like benefits coming from wearing devices on your face and your wrists are endless. But none of them will happen if you don't want to or can not wear the devices. You don't want to look like a cyborg. You don't want your gadgetry to intrude on people's integrity. Elisabet will share her insights from the design process of the Narrative Clip - the world's smallest wearable camera.", 
+      "endHourString": "14:25", 
+      "endTimestamp": 1399379100, 
+      "id": 26399, 
+      "person_ids": [
+        27689
+      ], 
+      "session_id": 3560, 
+      "startHourClockFile": "14-15.png", 
+      "startHourString": "14:15", 
+      "startTimestamp": 1399378500, 
+      "title": "Designing wearable tech", 
+      "type": "Talk"
+    }, 
+    "26420": {
+      "description": "The goal of the TUDelft micro aerial vehicle lab is to bring drones straight to your pocket. Everybody will have their personal drone and use it in daily life.", 
+      "endHourString": "12:40", 
+      "endTimestamp": 1399372800, 
+      "id": 26420, 
+      "person_ids": [
+        26396
+      ], 
+      "session_id": 3559, 
+      "startHourClockFile": "12-30.png", 
+      "startHourString": "12:30", 
+      "startTimestamp": 1399372200, 
+      "title": "The pocket drone", 
+      "type": "Demo"
+    }, 
+    "26432": {
+      "description": "The online threat landscape does not stand still. One of the best ways to understand the threats is to understand the attackers and their motives. What are the criminals attackers doing today? What about the hactivists? And why do we see more and more malware written and attacks launched by democratic Western governments? Indeed - where are we going?", 
+      "endHourString": "14:25", 
+      "endTimestamp": 1399292700, 
+      "id": 26432, 
+      "person_ids": [
+        26312
+      ], 
+      "session_id": 3554, 
+      "startHourClockFile": "14-00.png", 
+      "startHourString": "14:00", 
+      "startTimestamp": 1399291200, 
+      "title": "Arms race", 
+      "type": "Talk"
+    }, 
+    "26825": {
+      "description": "The important question isn't \"Does the Internet make us more free or\r\nless free?\" the question is \"How can we make an Internet that frees us?\"", 
+      "endHourString": "17:15", 
+      "endTimestamp": 1399389300, 
+      "id": 26825, 
+      "person_ids": [
+        26065
+      ], 
+      "session_id": 3562, 
+      "startHourClockFile": "16-45.png", 
+      "startHourString": "16:45", 
+      "startTimestamp": 1399387500, 
+      "title": "The Internet as a force for liberation, not enslavement", 
+      "type": "Keynote"
+    }, 
+    "26875": {
+      "description": "The next generation of user interfaces will combine traditional input devices with new perceptual and contextual inputs. By melting a lot of very different inputs and outputs that reflect human communication and interaction into a single omnimodal user experience, we will see a really intuitive and natural human machine interaction for the first time.", 
+      "endHourString": "14:15", 
+      "endTimestamp": 1399378500, 
+      "id": 26875, 
+      "person_ids": [
+        26021
+      ], 
+      "session_id": 3560, 
+      "startHourClockFile": "14-00.png", 
+      "startHourString": "14:00", 
+      "startTimestamp": 1399377600, 
+      "title": "Next generation user interfaces", 
+      "type": "Talk"
+    }, 
+    "26884": {
+      "description": "Smart Sensors needs to be embedded into lifestyle products in order to drive behavioral change and increase our wellness. Beyond the Quantified Self movement, Consumer products will play a dramatic role in the Connected Health revolution", 
+      "endHourString": "12:20", 
+      "endTimestamp": 1399371600, 
+      "id": 26884, 
+      "person_ids": [
+        26881
+      ], 
+      "session_id": 3559, 
+      "startHourClockFile": "12-10.png", 
+      "startHourString": "12:10", 
+      "startTimestamp": 1399371000, 
+      "title": "Beyond quantified self: the connected health revolution", 
+      "type": "Demo"
+    }, 
+    "26901": {
+      "description": "Industry 4.0, Smart Factory, and Industrial Internet \u2013 these are some of the terms used to describe the social and technological revolution that promises to change the current industrial landscape. We will start off by looking at the key drivers and the broader vision for the transformation of the entire global value chain, including communication, planning, logistics, and production. Next, we will look at some concrete business cases as well as potential obstacles on the way. Finally, we will describe some current ongoing projects in the Bosch ecosystem and discuss what they can teach us on the way towards the next generation of production systems.", 
+      "endHourString": "18:15", 
+      "endTimestamp": 1399306500, 
+      "id": 26901, 
+      "person_ids": [
+        26415
+      ], 
+      "session_id": 3556, 
+      "startHourClockFile": "18-00.png", 
+      "startHourString": "18:00", 
+      "startTimestamp": 1399305600, 
+      "title": "Industry 4.0 \u2013 from vision to implementation", 
+      "type": "Talk"
+    }, 
+    "27135": {
+      "description": "An explanation of the technologies used in the Oculus skydive experience and a brief introduction to new interaction models for Virtual Reality worlds.", 
+      "endHourString": "15:05", 
+      "endTimestamp": 1399381500, 
+      "id": 27135, 
+      "person_ids": [
+        26704
+      ], 
+      "session_id": 3560, 
+      "startHourClockFile": "14-55.png", 
+      "startHourString": "14:55", 
+      "startTimestamp": 1399380900, 
+      "title": "Interacting in virtual reality", 
+      "type": "Demo"
+    }, 
+    "27197": {
+      "description": "Smartphones hold a fascinating paradox. It is the hyper symbol of connectivity, but we've lost any connection with the source of how it is made and the social consequences attached to it during the production process. \r\n\r\nEvery pixel you see, every byte you send has a whole world of minerals, factories, recycling and distribution behind it. Now it is time to start closing the gap between the connected world of our communication systems and the disconnected ancient world of our production systems. \r\n\r\nThe same beautiful possibilities smartphones give us to share information, solve problems together and create shared value can actually be a driver to make people relate again to the geology of our digital systems.", 
+      "endHourString": "18:30", 
+      "endTimestamp": 1399307400, 
+      "id": 27197, 
+      "person_ids": [
+        26092
+      ], 
+      "session_id": 3556, 
+      "startHourClockFile": "18-12.png", 
+      "startHourString": "18:12", 
+      "startTimestamp": 1399306320, 
+      "title": "This is not about a phone", 
+      "type": "Talk"
+    }, 
+    "27212": {
+      "description": "Every product has a story. A journey of people, places and raw materials. This story of design and making is often missing when we buy a product. The story of ownership is often unknown when we inherit one. This talk looks at how we might start to embed physical objects with meaning by joining them with their digital story. It looks at the rise of open product data, the Internet of Things and small scale manufacturing and how all these movements might change the way with create and own things forever.", 
+      "endHourString": "15:10", 
+      "endTimestamp": 1399295400, 
+      "id": 27212, 
+      "person_ids": [
+        26020
+      ], 
+      "session_id": 3554, 
+      "startHourClockFile": "14-50.png", 
+      "startHourString": "14:50", 
+      "startTimestamp": 1399294200, 
+      "title": "Joining the physical with the digital: the future of creating, selling and owning things", 
+      "type": "Talk"
+    }, 
+    "27241": {
+      "description": "From CarSharing to location sharing / from DriveNow through to Life 360. From build your own, Joint Ventures through to investments. BMW i delivers innovative mobile solutions that improve urban mobility \u2013 inside and outside of the car. In a quest to help shape the cities of the future, we aim to deliver smart services and seamless mobile experiences.", 
+      "endHourString": "16:20", 
+      "endTimestamp": 1399299600, 
+      "id": 27241, 
+      "person_ids": [
+        27236
+      ], 
+      "session_id": 3555, 
+      "startHourClockFile": "16-00.png", 
+      "startHourString": "16:00", 
+      "startTimestamp": 1399298400, 
+      "title": "BMW i, the urban mobility revolution", 
+      "type": "Talk"
+    }, 
+    "27249": {
+      "description": "Today the automotive business is arguably facing the biggest disruption since the invention of lean manufacturing. Connectivity is fundamentally transforming the whole industry. Currently, there is a major disconnect between the multi-year development cycles of automakers and consumer expectations for smart devices. Automakers have challenges to keep pace with the fast-moving software updates brought about by tech companies and the result is a user experience that is vastly outdated for drivers that use a number of smart devices day-to-day. However, while connecting the driver to the cloud is one of the most complex yet thrilling tasks, it won\u2019t be just about recreating or bringing today\u2019s smartphone experience into the car. It will be about fundamentally rethinking what\u2019s possible in the automotive environment. In his talk Peter will discuss how people\u2019s expectations for car connectivity can be satisfied in new and smart ways and how location, combined with connectivity and powerful sensor data and fueled by love and design, has the potential to completely transform what is possible in the car.", 
+      "endHourString": "17:00", 
+      "endTimestamp": 1399302000, 
+      "id": 27249, 
+      "person_ids": [
+        27200
+      ], 
+      "session_id": 3555, 
+      "startHourClockFile": "16-40.png", 
+      "startHourString": "16:40", 
+      "startTimestamp": 1399300800, 
+      "title": "All you need is love: a design perspective on connected cars", 
+      "type": "Talk"
+    }, 
+    "27275": {
+      "description": "For the ninth time NEXT Chairmen Matthias Schrader and Volker Sch\u00fctz will open the conference for digital business. Nils Wollny, Managing Director Strategy of SinnerSchrader, will join him to illustrate how the \u201cNew User\u201d influences the way brands should be managed in the future.\r\n\r\nMonique van Dusseldorp, one of NEXT's conference curators, and Jochen Wegner, Editor in Chief of Zeit online, will guide you through the two conference days on our Dome Stage.", 
+      "endHourString": "13:45", 
+      "endTimestamp": 1399290300, 
+      "id": 27275, 
+      "person_ids": [
+        6893, 
+        24350, 
+        17913, 
+        6970, 
+        27970
+      ], 
+      "session_id": 3615, 
+      "startHourClockFile": "13-00.png", 
+      "startHourString": "13:00", 
+      "startTimestamp": 1399287600, 
+      "title": "Welcome to NEXT Berlin 2014!", 
+      "type": "Talk"
+    }, 
+    "27278": {
+      "description": "In the past hundred years, we\u2019ve been trying to domesticate data as a kind of working animal. Increasingly, as we drown ourselves in data\u2014and surround ourselves with computing systems\u2014they appear to be domesticating us, as algorithms spread a kind of behavioral pidgin language the average person must discover and interpret, from banks to stock exchanges to newspapers to city streets. The implications of this human domestication by data are only just becoming visible, but could have a profound impact on how we interact with technology in the near future, and what technology does to and for us as a society.", 
+      "endHourString": "14:50", 
+      "endTimestamp": 1399294200, 
+      "id": 27278, 
+      "person_ids": [
+        26038
+      ], 
+      "session_id": 3554, 
+      "startHourClockFile": "14-25.png", 
+      "startHourString": "14:25", 
+      "startTimestamp": 1399292700, 
+      "title": "Domesticated by data", 
+      "type": "Talk"
+    }, 
+    "27280": {
+      "description": "Beacon is the first global standard for micro location based services. Indoor - where GPS is too inaccurate, NFC and QR-Codes are only offering a bad user experience is the Bluetooth Low Energy based iBeacon the next big wave of the digital value chain. \r\n95% of all business transactions are still taking place in the physical world. Apples new protocol bridges the last gap of accurate indoor positioning. This talk gives world class insights about how Users, Businesses and Brands take place in a new world.", 
+      "endHourString": "15:20", 
+      "endTimestamp": 1399296000, 
+      "id": 27280, 
+      "person_ids": [
+        11096
+      ], 
+      "session_id": 3554, 
+      "startHourClockFile": "15-10.png", 
+      "startHourString": "15:10", 
+      "startTimestamp": 1399295400, 
+      "title": "iBeacon How To: The connection between Online and Offline World", 
+      "type": "Demo"
+    }, 
+    "27283": {
+      "endHourString": "19:30", 
+      "endTimestamp": 1399311000, 
+      "id": 27283, 
+      "person_ids": [
+        26262
+      ], 
+      "session_id": 3557, 
+      "startHourClockFile": "18-45.png", 
+      "startHourString": "18:45", 
+      "startTimestamp": 1399308300, 
+      "title": "Opening Keynote", 
+      "type": "Keynote"
+    }, 
+    "27285": {
+      "description": "How can the automotive industry keep their product attractive for the \u201cgeneration share\u201d - without being conquered by Google and Apple? And who wins the race for the best business models? \r\n\r\nVehicle-related services such as Car2X, dynamic routing assistance, remote diagnostics and preventive maintenance are the fields in which the automotive industry can defend their cutting edge and differentiate from the internet industry. The field of consumer-related services is long lost to the smartphone world and just needs to be integrated into the car in the most convenient and intuitive way. \r\n\r\nIn the near future, automated driving will offer new possibilities to use the drive time more efficiently. Cars become mobile homes and offices. To prevent from being reduced to the role of mere \u201cproducers\u201d, OEMs need to establish their own ecosystem based on vehicle-related data and services. And they need a partner who enables them to develop new business models together with other, non-automotive market players such as mobility providers, insurances and location-based services.\r\n\r\nThe prerequisite is a vendor-independent data aggregator, capable to securely handle and process complex data.  And an open, standardized platform to easily connect and administer new partners and services. This is, where Deutsche Telekom comes into action. Our standardized platform enables service providers to connect to nearly each and every vehicle on the road. Instead of dealing with OEMs one by one, we provide a one stop solution across most manufacturers. The more attractive services are available and the more vehicles are connected, the better business models are possible for all partners. Join our mobility ecosystem!", 
+      "endHourString": "16:40", 
+      "endTimestamp": 1399300800, 
+      "id": 27285, 
+      "person_ids": [
+        27755
+      ], 
+      "session_id": 3555, 
+      "startHourClockFile": "16-20.png", 
+      "startHourString": "16:20", 
+      "startTimestamp": 1399299600, 
+      "title": "Business-2-Car \u2013 who to connect services and vehicles?", 
+      "type": "Talk"
+    }, 
+    "27291": {
+      "description": "The Internet of Things is already one of the hottest topics of 2014, and everyone's thinking about what kinds of connected products they want to make. But what will this really mean for the people at the other end, for society and for business? How can we make sure we actually benefit from all this shiny new technology, instead of being crippled or enslaved by it?\r\n\r\nWe'll look at some of the real possibilities and pitfalls  we will encounter in our quest for a connected world.", 
+      "endHourString": "11:50", 
+      "endTimestamp": 1399369800, 
+      "id": 27291, 
+      "person_ids": [
+        6735
+      ], 
+      "session_id": 3559, 
+      "startHourClockFile": "11-30.png", 
+      "startHourString": "11:30", 
+      "startTimestamp": 1399368600, 
+      "title": "Where the brick breaks: augmented humans and the Internet of things", 
+      "type": "Talk"
+    }, 
+    "27292": {
+      "description": "The Internet of Things is on you. It's around you. It's collecting data. It's doin' stuff. But, what is it doing to help us live better? Can it be used to tackle the biggest problem: reverse the trends that are causing the US to be 52% prediabetic by 2020.", 
+      "endHourString": "12:10", 
+      "endTimestamp": 1399371000, 
+      "id": 27292, 
+      "person_ids": [
+        26710
+      ], 
+      "session_id": 3559, 
+      "startHourClockFile": "11-50.png", 
+      "startHourString": "11:50", 
+      "startTimestamp": 1399369800, 
+      "title": "On you. Around you. And the very big problem", 
+      "type": "Talk"
+    }, 
+    "27295": {
+      "description": "There is no doubt that the Oculus Rift headset has reinvigorated the world of Virtual Reality and with the recent news of Facebook\u2019s acquisition, interest in this new technology has reached fever pitch. While not yet released to the general public, the developer community has been enthusiastically experimenting with preview versions of the headset. Including us, Random Studio, we will present our art project created for the Oculus Rift, in collaboration with Geoffrey Lillemon, entitled \"The Nail Polish Inferno.\" We will also provide an overview of some of the most interesting and inventive projects from other studios that are helping to shape the future of virtual reality.", 
+      "endHourString": "14:55", 
+      "endTimestamp": 1399380900, 
+      "id": 27295, 
+      "person_ids": [
+        27263, 
+        26860
+      ], 
+      "session_id": 3560, 
+      "startHourClockFile": "14-45.png", 
+      "startHourString": "14:45", 
+      "startTimestamp": 1399380300, 
+      "title": "The Oculus Rift and virtual reality", 
+      "type": "Demo"
+    }, 
+    "27303": {
+      "description": "The Digital Champions on European Level shall help every citizen become digital. Will this be the \"New Normal\"? How do we bridge the digital divide that excludes many people from participating in a digital society? How do we provide knowledge and skills that are crucial for people to engage in the digital age? Collective efforts are needed from Politics, Industry and Society to cope with these challenges. This talk will reflect on the European Digital Agenda and its social and political implications for all of us.", 
+      "endHourString": "13:00", 
+      "endTimestamp": 1399374000, 
+      "id": 27303, 
+      "person_ids": [
+        22339
+      ], 
+      "session_id": 3559, 
+      "startHourClockFile": "12-40.png", 
+      "startHourString": "12:40", 
+      "startTimestamp": 1399372800, 
+      "title": "Smartphone zombies", 
+      "type": "Talk"
+    }, 
+    "27304": {
+      "endHourString": "16:15", 
+      "endTimestamp": 1399385700, 
+      "id": 27304, 
+      "person_ids": [
+        26925
+      ], 
+      "session_id": 3562, 
+      "startHourClockFile": "16-00.png", 
+      "startHourString": "16:00", 
+      "startTimestamp": 1399384800, 
+      "title": "Keynote by Thomas de Maizi\u00e8re", 
+      "type": "Keynote"
+    }, 
+    "27305": {
+      "endHourString": "16:35", 
+      "endTimestamp": 1399386900, 
+      "id": 27305, 
+      "person_ids": [
+        27217
+      ], 
+      "session_id": 3562, 
+      "startHourClockFile": "16-15.png", 
+      "startHourString": "16:15", 
+      "startTimestamp": 1399385700, 
+      "title": "Start-up Pitch Award Ceremony", 
+      "type": "Award Ceremony"
+    }, 
+    "27306": {
+      "endHourString": "17:30", 
+      "endTimestamp": 1399390200, 
+      "id": 27306, 
+      "person_ids": [
+        6893, 
+        27970
+      ], 
+      "session_id": 3562, 
+      "startHourClockFile": "17-15.png", 
+      "startHourString": "17:15", 
+      "startTimestamp": 1399389300, 
+      "title": "Farewell", 
+      "type": "Talk"
+    }, 
+    "27511": {
+      "endHourString": "14:00", 
+      "endTimestamp": 1399291200, 
+      "id": 27511, 
+      "person_ids": [
+        26926
+      ], 
+      "session_id": 3615, 
+      "startHourClockFile": "13-45.png", 
+      "startHourString": "13:45", 
+      "startTimestamp": 1399290300, 
+      "title": "The new German dream: start-ups in the digital economy", 
+      "type": "Talk"
+    }, 
+    "27528": {
+      "description": "It was 1969, open standards were beginning to be introduced in what today we call the Internet. There are over 1 million unique open source software projects where people have come together to work for a better future. In the meantime, a second movement started: open source hardware. Just like open platforms have shaped the web, open source hardware has already taken over the small to medium electronics development. In October we announced OSVehicle's TABBY, the first open source framework for the creation of vehicles. How will it change the assumptions in the automotive industry? Why is \"open and distributed\" the new business model, that will inevitably overcome the old centralized approach? The world is changing and for the first time it's truly in our own hands. We'll cover how the automotive industry is evolving and understand where we can play an active role in it.", 
+      "endHourString": "17:15", 
+      "endTimestamp": 1399302900, 
+      "id": 27528, 
+      "person_ids": [
+        26639
+      ], 
+      "session_id": 3555, 
+      "startHourClockFile": "17-00.png", 
+      "startHourString": "17:00", 
+      "startTimestamp": 1399302000, 
+      "title": "Enabling a hybrid economy in smart mobility", 
+      "type": "Talk"
+    }, 
+    "27537": {
+      "endHourString": "10:15", 
+      "endTimestamp": 1399364100, 
+      "id": 27537, 
+      "person_ids": [
+        27419
+      ], 
+      "session_id": 3558, 
+      "startHourClockFile": "10-00.png", 
+      "startHourString": "10:00", 
+      "startTimestamp": 1399363200, 
+      "title": "Talk by E-Plus", 
+      "type": "Talk"
+    }, 
+    "27541": {
+      "description": "In this top-class panel C-Level Executives will discuss the question, how European and German corporations reposition to take the opportunities and challenges of the digital revolution and transformation: Who will push digital projects and make corresponding decisions? Which skills will tomorrow\u2019s leaders need to navigate companies successfully through these turbulent times?", 
+      "endHourString": "11:00", 
+      "endTimestamp": 1399366800, 
+      "id": 27541, 
+      "person_ids": [
+        27419, 
+        26994, 
+        26655, 
+        10663
+      ], 
+      "session_id": 3558, 
+      "startHourClockFile": "10-15.png", 
+      "startHourString": "10:15", 
+      "startTimestamp": 1399364100, 
+      "title": "Panel \"The New Leaders\"", 
+      "type": "Panel Discussion"
+    }, 
+    "27546": {
+      "endHourString": "14:45", 
+      "endTimestamp": 1399380300, 
+      "id": 27546, 
+      "person_ids": [
+        26066
+      ], 
+      "session_id": 3560, 
+      "startHourClockFile": "14-35.png", 
+      "startHourString": "14:35", 
+      "startTimestamp": 1399379700, 
+      "title": "Eye, Camera: Extension of Self", 
+      "type": "Talk"
+    }, 
+    "27621": {
+      "endHourString": "15:30", 
+      "endTimestamp": 1399296600, 
+      "id": 27621, 
+      "person_ids": [
+        27617
+      ], 
+      "session_id": 3554, 
+      "startHourClockFile": "15-20.png", 
+      "startHourString": "15:20", 
+      "startTimestamp": 1399296000, 
+      "title": "Demo of Fraunhofer COMEDD\u2019s Data Glasses", 
+      "type": "Demo"
+    }, 
+    "27629": {
+      "endHourString": "17:30", 
+      "endTimestamp": 1399303800, 
+      "id": 27629, 
+      "person_ids": [
+        27605, 
+        6970
+      ], 
+      "session_id": 3555, 
+      "startHourClockFile": "17-15.png", 
+      "startHourString": "17:15", 
+      "startTimestamp": 1399302900, 
+      "title": "Interview with Glass explorer & musician Sarah Willis", 
+      "type": "Interview"
+    }, 
+    "27754": {
+      "description": "Most professionals within the field of interaction design have at some point heard of \u2018eye tracking\u2019. Not all are aware that the technology have now moved into the mainstream. In this talk, Anders of The Eye Tribe will give an introduction to the interaction principles of eye controlled user interfaces and explain how eye tracking in combination with other input-modalities can create a unique and truly effortless user experience.", 
+      "endHourString": "14:35", 
+      "endTimestamp": 1399379700, 
+      "id": 27754, 
+      "person_ids": [
+        27690
+      ], 
+      "session_id": 3560, 
+      "startHourClockFile": "14-25.png", 
+      "startHourString": "14:25", 
+      "startTimestamp": 1399379100, 
+      "title": "Effortless Interaction using eye tracking", 
+      "type": "Demo"
+    }, 
+    "28005": {
+      "description": "At NEXT14, the European Commission and their partners Startupbootcamp & Hub Institute will announce the launch of two European start-up initiatives!\r\n\r\nIsidro Laso Ballesteros is head of Sector and leads the Startup Europe Initiative at the European Commission.\r\nIsidro will present the Startup Europe initiative, the action plan from DG CONNECT that aims at strengthening the business environment for web and ICT entrepreneurs in Europe.\r\nMore specifically, he will announce the launch of three new actions that are part of this initiative: the Dynamic Mapping of the European web startups that will feature a dynamic visual map of 20 local ecosystems; the Tech All Stars competition that will invite 12 of the best young European startups to compete and connect with top EU funding sources, successful entrepreneurs and other influential individuals; and EuroPioneers that will award 4 categories of web entrepreneurs for the year 2014.\r\n\r\nLuisa Maier is the lead project manager of the annual Tech All Stars Competition. \r\nTech All Stars is one of the six Startup Europe initiatives launched by the European Commission. The Competition provides a one of a kind exposure and networking opportunities for young European Start ups, connecting them to the most high profile angel investors, VCs and entrepreneurs. \r\nWhy is this competition awesome? Who can be part of it? And why is the European Commission driving this? Luisa will tell.", 
+      "endHourString": "16:45", 
+      "endTimestamp": 1399387500, 
+      "id": 28005, 
+      "person_ids": [
+        27807, 
+        27864, 
+        28300, 
+        27808
+      ], 
+      "session_id": 3562, 
+      "startHourClockFile": "16-35.png", 
+      "startHourString": "16:35", 
+      "startTimestamp": 1399386900, 
+      "title": "Big news from the European Commission!", 
+      "type": "Talk"
+    }, 
+    "28007": {
+      "description": "The Digital Champions on European Level shall help every citizen become digital. Will this be the \"New Normal\"? How do we bridge the digital divide that excludes many people from participating in a digital society? How do we provide knowledge and skills that are crucial for people to engage in the digital age? Collective efforts are needed from Politics, Industry and Society to cope with these challenges. This talk will reflect on the European Digital Agenda and its social and political implications for all of us.", 
+      "endHourString": "18:45", 
+      "endTimestamp": 1399308300, 
+      "id": 28007, 
+      "person_ids": [
+        22341
+      ], 
+      "session_id": 3556, 
+      "startHourClockFile": "18-30.png", 
+      "startHourString": "18:30", 
+      "startTimestamp": 1399307400, 
+      "title": "The new normal in a digital society", 
+      "type": "Talk"
+    }, 
+    "28183": {
+      "description": "Electronic musician and creative technologist Peter Kirn will show how computers allow us to imagine fluid interfaces by using one -- performing music live. First playing, then demonstrating, he'll explain how the interfaces of the future may build on decades of experimentation from musicians and artists. He'll make music with the Kinect camera and turn NEXT14's Twitter activity into ambient music.", 
+      "endHourString": "15:30", 
+      "endTimestamp": 1399383000, 
+      "id": 28183, 
+      "person_ids": [
+        25340
+      ], 
+      "session_id": 3560, 
+      "startHourClockFile": "15-05.png", 
+      "startHourString": "15:05", 
+      "startTimestamp": 1399381500, 
+      "title": "Performance by Peter Kirn", 
+      "type": "Demo"
+    }
+  }, 
+  "persons": {
+    "6735": {
+      "bio": "Louisa is passionate about making connections for humans, . Her company, Superhuman Limited, works with startups, established businesses and governments to design strategies, products, services and organisational structures that use digital technology to improve individual lives, make a positive contribution to society, and achieve sustainable commercial results. \r\n\r\nOver the past 20 years, Louisa has worked with a broad variety of clients across most industry sectors, including Nokia, Volksbank, Ericsson, Voddler, Procter & Gamble, Eli Lilly, Citibank, United Airlines and the BBC. She's led teams for multinational companies and is a highly regarded thought leader and speaker on various topics around the intersection of people, technology and business.", 
+      "blogName": "louisaheinrich.com", 
+      "blogUrl": "http://louisaheinrich.com", 
+      "companyName": "Superhuman Limited", 
+      "companyRole": "Founder", 
+      "companyUrl": "http://weareallsuperhuman.com", 
+      "event_ids": [
+        27312, 
+        27291
+      ], 
+      "id": 6735, 
+      "name": "Louisa Heinrich", 
+      "profileLinkedin": "http://uk.linkedin.com/in/louisaheinrich/", 
+      "profileLinkedinHandle": 2153890, 
+      "profileTwitter": "http://twitter.com/customdeluxe", 
+      "profileTwitterHandle": "@customdeluxe", 
+      "sort_name": "Heinrich, Louisa"
+    }, 
+    "6893": {
+      "bio": "Matthias Schrader is CEO of <a href=\"http://sinnerschrader.de/\" target=\"_blank\">SinnerSchrader</a>, one of Europe\u2019s leading digital agency groups. Since the early 80\u2032s he has specialised in the world of technology and Internet. During this time, the IT industry has experienced much change and development, which Matthias excitingly witnessed and experienced himself.\r\n\r\nThis fast growing industry so inspired and captivated him that, in conjunction with Oliver Sinner, he founded SinnerSchrader in 1996.   \r\n\r\nSince 2006 Matthias has been Chairman of the annual NEXT event, which is the leading networking platform and foremost Internet conference of the digital scene in Europe.", 
+      "companyName": "SinnerSchrader", 
+      "companyRole": "CEO & Chairman NEXT Berlin", 
+      "companyUrl": "http://www.sinnerschrader.com/", 
+      "event_ids": [
+        27275, 
+        27306
+      ], 
+      "id": 6893, 
+      "name": "Matthias Schrader", 
+      "profileTwitter": "http://twitter.com/mattesmattes", 
+      "profileTwitterHandle": "@mattesmattes", 
+      "sort_name": "Schrader, Matthias"
+    }, 
+    "6970": {
+      "bio": "Monique van Dusseldorp has been involved as the international Program Director of NEXT Berlin since 2010, since 2012 working alongside Peter Bihr to define themes and speakers for the event. Monique van Dusseldorp (48) is a well-known curator of seminars and conferences on creativity, innovation, and technology. Over the last ten years she initiated and organised a series of internationally renowned events, all with a top line of speakers. She was the Program Director of PICNIC, an Amsterdam cross media festival, from 2006 to 2008, and since 2009 has been the Program Director for the Dutch iMMovator Cross Media Network, focused on changes in the broadcasting industry. She helped launch the first Wired Event in London, and she is on the board of TEDxAmsterdam and a number of other industry events, mostly in the field of media and technology.", 
+      "companyName": "Van Dusseldorp BV", 
+      "companyRole": "Conference curator", 
+      "companyUrl": "http://www.vandusseldorp.com/", 
+      "event_ids": [
+        27986, 
+        27275, 
+        27629
+      ], 
+      "id": 6970, 
+      "name": "Monique van Dusseldorp", 
+      "profileLinkedin": "http://www.linkedin.com/in/vandusseldorp", 
+      "profileLinkedinHandle": 49642, 
+      "profileTwitter": "http://twitter.com/dusseldorp", 
+      "profileTwitterHandle": "@dusseldorp", 
+      "sort_name": "van Dusseldorp, Monique"
+    }, 
+    "10663": {
+      "bio": "Uli Hegge (born '66) started, while attending Law School in Muenster, in 1991 \"DaWIN\", back then one of the biggest European Internet projects with the German Scientific Network DFN, and founded with other partners the computer trade magazine \"UpToDate\" (80,000 circulation). After finishing his law studies he was co-responsible for setting up online activities with both the German newspaper \u201cSchweriner Zeitung\u201d (Burda) in 1994 and with Gruner & Jahr from 1995, starting stern.de and conceptualizing Fireball (leading German Web search engine, became part of Lycos Europe). In 1997 he was appointed member of Management Board at G+J EMS. In 1998 Hegge co-founded and lead e-dict (eCommerce entertainment applications) as Managing Partner. In 1999 he co-founded wunderloop and headed the company as CEO until 2008. At the time of his departure wunderloop was the European market leader for online marketing targeting technologies (wunderloop was sold to AudienceScience in 2010). He continued his career as Managing Director of Hubert Burda Media\u2019s \"Media Innovation Lab\" and \"Burda Information Services\" until 2010.\r\n\r\nHe's currently busy on an international level helping start-ups to grow as quickly as possible, and occasionally established companies developing their digital products & services.", 
+      "companyName": "comdirect bank", 
+      "companyRole": "General Manager", 
+      "companyUrl": "http://www.comdirect.de/", 
+      "event_ids": [
+        27541
+      ], 
+      "id": 10663, 
+      "name": "Ulrich Hegge", 
+      "profileFacebook": "http://www.facebook.com/uhegge", 
+      "profileFacebookHandle": 1016416742, 
+      "profileTwitter": "http://twitter.com/ulihegge", 
+      "profileTwitterHandle": "@ulihegge", 
+      "profileXing": "http://www.xing.com/profile/Ulrich_Hegge?key=0.0", 
+      "profileXingHandle": "Ulrich_Hegge", 
+      "sort_name": "Hegge, Ulrich"
+    }, 
+    "11096": {
+      "bio": "Alexander Oelling is co-founder and manager of 2013 founded Start-Up Sensorberg GmbH. He was between 2005 and 2011 one of the founders and managers of a software technology company which developed one of the first \u201eNoSQL/BigData\u201c- Database-systems. \r\n\r\nSensorberg is extending the web to the real world on top of the new iBeacon Bluetooth Technology. With Sensorbergs App/SDK and Web-Content-Dashboard, they are enabling Retailer and Brands to link any Web Content to their existing venues. Product information, offers, reviews or indoor navigation information then are being transmitted via iBeacons in real-time to nearby smartphones.", 
+      "companyName": "Sensorberg", 
+      "companyRole": "Founder & CEO", 
+      "companyUrl": "http://www.sensorberg.com/de/", 
+      "event_ids": [
+        27913, 
+        27280
+      ], 
+      "id": 11096, 
+      "name": "Alex Oelling", 
+      "profileFacebook": "http://www.facebook.com/alexoelling", 
+      "profileFacebookHandle": 557082895, 
+      "profileLinkedin": "http://de.linkedin.com/in/alexanderoelling", 
+      "profileLinkedinHandle": 10847239, 
+      "profileTwitter": "http://twitter.com/alexoelling", 
+      "profileTwitterHandle": "@alexoelling", 
+      "profileXing": "http://www.xing.com/profile/Alexander_Oelling", 
+      "profileXingHandle": "Alexander_Oelling", 
+      "sort_name": "Oelling, Alex"
+    }, 
+    "17913": {
+      "bio": "Jochen Wegner is Editor-in-Chief of ZEIT ONLINE, one of the leading German news sites. \r\n\r\nBefore that, Jochen worked as a consultant for major media companies. He has been been editor-in-chief of the news site focus.de and developed it into one of the largest and fastest growing news outlets in Germany. \r\n\r\nAs Managing Director of TOMORROW FOCUS Media, the largest digital advertising firm in Germany, he was responsible for innovative media projects like the aggregator nachrichten.de. He founded mag10, an ecosystem for the creation, distribution and marketing of tablet media.\r\n\r\nJochen founded jonet, the largest German-speaking journalism community, in 1994.", 
+      "companyName": "ZEIT ONLINE", 
+      "companyRole": "Editor-in-Chief", 
+      "companyUrl": "http://www.zeit.de", 
+      "event_ids": [
+        27275
+      ], 
+      "id": 17913, 
+      "name": "Jochen Wegner", 
+      "profileFacebook": "http://www.facebook.com/jochen.wegner", 
+      "profileFacebookHandle": 633931699, 
+      "profileLinkedin": "http://www.linkedin.com/in/jochenwegner", 
+      "profileLinkedinHandle": 982988, 
+      "profileTwitter": "http://twitter.com/jochenjochen", 
+      "profileTwitterHandle": "@jochenjochen", 
+      "profileXing": "http://www.xing.com/profile/Jochen_Wegner2", 
+      "profileXingHandle": "Jochen_Wegner2", 
+      "sort_name": "Wegner, Jochen"
+    }, 
+    "19385": {
+      "bio": "Christian co-founded tado\u00b0 in 2011 together with Johannes and Valentin. Prior he worked with the venture capital firm Target Partners, co-founded the mobile telecommunication company BellPepper mobile AG and worked with the consulting firm A.T. Kearney. Christian holds a M.Sc. in mechanical engineering from MIT (Cambridge, MA) as well as a Dipl.-Ing. in engineering & management from Technical University of Munich. At tado\u00b0 Christian is in charge of product, production, financing, sales and partnerships. His passion is cutting edge energy technology and its application in successful products.", 
+      "blogName": "tado.com", 
+      "blogUrl": "http://www.tado.com/en/blog-overview.html", 
+      "companyName": "tado GmbH", 
+      "companyRole": "Founder & CEO", 
+      "companyUrl": "http://www.tado.com", 
+      "event_ids": [
+        19388
+      ], 
+      "id": 19385, 
+      "name": "Christian Deilmann", 
+      "profileFacebook": "http://www.facebook.com/christian.deilmann", 
+      "profileFacebookHandle": 533899348, 
+      "profileLinkedin": "http://www.linkedin.com/profile/view?id=24493971&trk=hb_tab_pro_top", 
+      "profileLinkedinHandle": 24493971, 
+      "profileTwitter": "http://twitter.com/tado", 
+      "profileTwitterHandle": "@tado", 
+      "profileXing": "http://www.xing.com/profile/Christian_Deilmann?sc_o=mxb_p", 
+      "profileXingHandle": "Christian_Deilmann", 
+      "sort_name": "Deilmann, Christian"
+    }, 
+    "22339": {
+      "bio": "Fabian Hemmert is a design researcher, born and raised in Germany. During his studies towards an M.A. degree in Interface Design, he worked for Nintendo of Europe and Marvel Comics.\r\n\r\nHe currently finishes his PhD at the the Design Research Lab at the Berlin University of the Arts and is a guest professor for interface design at Muthesius Kunsthochschule in Kiel, Germany.\r\n\r\nFabian is considered one of the leading experts for new ways of mobile telecommunication, having presented his work at multiple visionary events, including TED Global, CeBIT, TEDxBerlin, TEDxSalzburg, Lift Conference, the EuroVision TV Summit, the Chaos Communication Congress, and SXSW.\r\n\r\nFabian's TED talk on mobile phones of the future has been viewed more than 700.000 times and translated into 29 languages. It can be watched here: http://on.ted.com/9Czr\r\n\r\nFurther information: http://www.fabianhemmert.com", 
+      "blogName": "fabianhemmert.com", 
+      "blogUrl": "http://www.fabianhemmert.com", 
+      "companyName": "Muthesius Kunsthochschule", 
+      "companyRole": "Guest Professor", 
+      "companyUrl": "http://www.muthesius-kunsthochschule.de/", 
+      "event_ids": [
+        27303
+      ], 
+      "id": 22339, 
+      "name": "Fabian Hemmert", 
+      "profileFacebook": "http://www.facebook.com/fabianhemmert", 
+      "profileFacebookHandle": 629894509, 
+      "profileLinkedin": "http://www.linkedin.com/profile/view?id=11691037", 
+      "profileLinkedinHandle": 11691037, 
+      "profileTwitter": "http://www.twitter.com/fabianhemmert", 
+      "profileTwitterHandle": "@fabianhemmert", 
+      "profileXing": "http://www.xing.com/profile/Fabian_Hemmert", 
+      "profileXingHandle": "Fabian_Hemmert", 
+      "sort_name": "Hemmert, Fabian"
+    }, 
+    "22341": {
+      "bio": "Gesche Joost is Professor for Design Research at the University of the Arts Berlin. Since 2005 she has headed the Design Research Lab in cooperation with Telekom Innovation Laboratories, an institute affiliated with TU Berlin. With international partners, she developes research and teaching projects in the areas of human-computer interaction, gender and diversity aspects in technological development,\r\nas well as social sustainability and participation. Since 2014, she is Germany's Digital Champion within the European Commission shaping the Digital Agenda.", 
+      "blogName": "blog.geschejoost.org", 
+      "blogUrl": "http://blog.geschejoost.org/", 
+      "companyName": "Design Research Lab", 
+      "companyRole": "Professor and Head of Research", 
+      "companyUrl": "http://www.drlab.org", 
+      "event_ids": [
+        28007
+      ], 
+      "id": 22341, 
+      "name": "Gesche Joost", 
+      "profileTwitter": "http://twitter.com/GescheJoost", 
+      "profileTwitterHandle": "@GescheJoost", 
+      "sort_name": "Joost, Gesche"
+    }, 
+    "24350": {
+      "bio": "Nils Wollny is Managing Director Strategy at SinnerSchrader. Nils holds a degree in Foreign Trade and International Management and has an extensive experience in brand and communications strategy. He helps companies from a variety of industries to innovate and digitize.", 
+      "companyName": "SinnerSchrader", 
+      "companyRole": "Managing Director Strategy", 
+      "companyUrl": "http://www.sinnerschrader.com", 
+      "event_ids": [
+        27275, 
+        28196
+      ], 
+      "id": 24350, 
+      "name": "Nils Wollny", 
+      "profileTwitter": "http://twitter.com/Nils_Wollny", 
+      "profileTwitterHandle": "@Nils_Wollny", 
+      "sort_name": "Wollny, Nils"
+    }, 
+    "25340": {
+      "bio": "PETER KIRN is editor of CDM (createdigitalmusic.com), for nearly ten years an online resource for music and live visual technology, and a journalist, musician, and media artist. He is also co-creator of the MeeBlip, open-source electronic musical instrument hardware. Classically trained in composition, he produces electronic music and visual performances ranging from experimental to techno, as well as making music as half of NERK/KIRN (V-Records). His work is especially focused on live and real-time performance, drawing heavily from custom-built software and tools, and connections between music and other media, from dance to visual abstraction.\r\n\r\nBorn in Kentucky, he now lives in Berlin, Germany, and performs and teaches, consults and speaks about creative technology internationally.", 
+      "blogName": "pkirn.com", 
+      "blogUrl": "http://pkirn.com", 
+      "companyName": "Create Digital Media, GmbH", 
+      "companyRole": "Audiovisual Artist, Journalist, Consultant", 
+      "companyUrl": "http://createdigitalmusic.com", 
+      "event_ids": [
+        28183
+      ], 
+      "id": 25340, 
+      "name": "Peter Kirn", 
+      "profileFacebook": "http://www.facebook.com/peterkirn", 
+      "profileFacebookHandle": 900580197, 
+      "profileLinkedin": "http://de.linkedin.com/in/peterkirn", 
+      "profileLinkedinHandle": 615132, 
+      "profileTwitter": "http://twitter.com/peterkirn", 
+      "profileTwitterHandle": "@peterkirn", 
+      "sort_name": "Kirn, Peter"
+    }, 
+    "26020": {
+      "bio": "Jessi Baker is a Designer & Creative Technologist exploring concepts for the future of the Internet, particularly pervasive computing and open data and how a union of the two can inform citizen choices. A true blend of art and science, Jessi has a Masters in Engineering from Cambridge University and a Masters in Design from the Royal College of Art. She is co-founder and CEO of Provenance (www.provenance.it) and a PhD researcher at the Intel Institute for Sustainable Cities.", 
+      "companyName": "The Provenance Project", 
+      "companyRole": "Designer & Technologist", 
+      "companyUrl": "http://www.provenance.it", 
+      "event_ids": [
+        27212, 
+        28344
+      ], 
+      "id": 26020, 
+      "name": "Jessi Baker", 
+      "profileTwitter": "http://twitter.com/jessibaker", 
+      "profileTwitterHandle": "@jessibaker", 
+      "sort_name": "Baker, Jessi"
+    }, 
+    "26021": {
+      "bio": "Thomas Bendig is CEO of the Fraunhofer Group Information and Communication Technology, Europe\u2018s largest organisation for IT research. With its 19 institutes and 5500 experts, the group provides applied R&D in almost all IT sectors and for a broad range of industries. He has been working as developer with a focus on user interfaces and user experience in several companies and research projects. Today he\u2019s responsible for strategic foresight projects and research coordination between the institutes and the industries.", 
+      "blogName": "innovisions.de", 
+      "blogUrl": "http://www.innovisions.de", 
+      "companyName": "Fraunhofer ICT-Group", 
+      "companyRole": "CEO", 
+      "companyUrl": "http://www.iuk.fraunhofer.de", 
+      "event_ids": [
+        26875
+      ], 
+      "id": 26021, 
+      "name": "Thomas Bendig", 
+      "profileLinkedin": "http://www.linkedin.com/pub/thomas-bendig/51/798/6a9", 
+      "profileLinkedinHandle": 184088289, 
+      "profileTwitter": "http://twitter.com/ThBendig", 
+      "profileTwitterHandle": "@ThBendig", 
+      "profileXing": "http://www.xing.com/profile/Thomas_Bendig", 
+      "profileXingHandle": "Thomas_Bendig", 
+      "sort_name": "Bendig, Thomas"
+    }, 
+    "26038": {
+      "bio": "Scott Smith is a critical futurist from the USA. He is the founder of Changeist, a lab, research tank and studio created to identify and make sense of weak signals of change. His work is built on over 20 years\u2019 experience studying the development of technology and tracking social and cultural evolution around it. His main focus is exploring how we perceive and construct futures.\r\n\r\nPrior to this role, Scott was a consulting futurist, research director and analyst for several international research firms in the US and UK, focusing on media and technology. He is also a visiting professor on foresight, innovation and design at various institutions, and is a commentary writer for Quartz.", 
+      "blogName": "changeist.com", 
+      "blogUrl": "http://changeist.com", 
+      "companyName": "Changeist, LLC", 
+      "companyRole": "Principal", 
+      "companyUrl": "http://changeist.com", 
+      "event_ids": [
+        27278, 
+        28344
+      ], 
+      "id": 26038, 
+      "name": "Scott Smith", 
+      "profileLinkedin": "http://www.linkedin.com/in/cssmith/", 
+      "profileLinkedinHandle": 16970, 
+      "profileTwitter": "http://twitter.com/changeist", 
+      "profileTwitterHandle": "@changeist", 
+      "sort_name": "Smith, Scott"
+    }, 
+    "26065": {
+      "bio": "Cory Doctorow (craphound.com) is a science fiction\r\nauthor, activist, journalist and blogger -- the co-editor of Boing\r\nBoing (boingboing.net) and the author of young adult novels like\r\nHOMELAND, PIRATE CINEMA and LITTLE BROTHER and novels for adults like RAPTURE OF THE NERDS and MAKERS. He is the former European director of the Electronic Frontier Foundation and co-founded the UK Open Rights\r\nGroup. Born in Toronto, Canada, he now lives in London.", 
+      "blogName": "Boing Boing", 
+      "blogUrl": "http://boingboing.net", 
+      "companyName": "craphound.com", 
+      "companyRole": "Author, Activist, Journalist and Blogger", 
+      "companyUrl": "http://craphound.com", 
+      "event_ids": [
+        28201, 
+        26825
+      ], 
+      "id": 26065, 
+      "name": "Cory Doctorow", 
+      "sort_name": "Doctorow, Cory"
+    }, 
+    "26066": {
+      "bio": "Trans-disciplinary artist, Tanya has an extensive background in dance, theater, media, and literary arts. In 2005 she was found on the side of the road unconscious from a severe car-accident. Since losing her left eye and her brush with death, Tanya changed the direction of her work to the fragility of life. Besides writing and creating multimedia pieces exploring these themes, it led to the the sci-fi idea of an augmented technological upgrade of her prosthetic eye. An artistic experiment in building a miniature recording wireless device to be implanted in her prosthetic eye, Tanya is currently in development to build a prototype. Not only a way for her to transform her lost eye from a traumatic car accident bionically, but a conceptual experiment merging media and performance.", 
+      "blogName": "tanyavlach.wordpress.com", 
+      "blogUrl": "http://tanyavlach.wordpress.com", 
+      "companyName": "EyeTanya", 
+      "companyRole": "Creator", 
+      "companyUrl": "http://EyeTanya.com", 
+      "event_ids": [
+        28342, 
+        27546
+      ], 
+      "id": 26066, 
+      "name": "Tanya Vlach", 
+      "profileFacebook": "http://www.facebook.com/EyeTanya", 
+      "profileFacebookHandle": 387927561243756, 
+      "profileLinkedin": "http://www.linkedin.com/in/tanyavlach", 
+      "profileLinkedinHandle": 12147640, 
+      "profileTwitter": "http://twitter.com/tanyavlach", 
+      "profileTwitterHandle": "@tanyavlach", 
+      "sort_name": "Vlach, Tanya"
+    }, 
+    "26092": {
+      "bio": "Bas van Abel (1977), Founder of Fairphone, is passionate about changing the relationship between people and products. He believes that by opening up the design processes behind everyday thing people can re-engage and become active owners of their stuff. This was the inspiration on which he based the model for his social enterprise Fairphone, which is opening up systems on a step-by-step journey to making the world\u2019s first fairly designed and produced smartphone.\r\n\r\nWith a background in interaction design and a personal interest in electronics, Open Design has been a driving force behind Bas van Abel\u2019s many initiatives. As Head of Waag Society\u2019s Open Design Lab (1995 \u2013 2012), he established FABLab Amsterdam, a community maker space and as co-founder of the Instructables Restaurant, he initiated the world\u2019s first open source restaurant. Bas is co-author of  \u201cOpen Design Now\u201d, a book on the transformation of design into an open discipline.", 
+      "blogName": "fairphone.com", 
+      "blogUrl": "http://fairphone.com/blog", 
+      "companyName": "Fairphone", 
+      "companyRole": "Founder & CEO", 
+      "companyUrl": "http://www.fairphone.com", 
+      "event_ids": [
+        27197
+      ], 
+      "id": 26092, 
+      "name": "Bas van Abel", 
+      "profileTwitter": "http://twitter.com/basvanabel", 
+      "profileTwitterHandle": "@basvanabel", 
+      "sort_name": "van Abel, Bas"
+    }, 
+    "26262": {
+      "bio": "Brad Templeton is board member of the Electronic Frontier Foundation, a director of the Singularity University faculty and has been a consultant on Google\u2019s team designing a self-driving car. Templeton, active in the computer network community since 1979, was founder and publisher at ClariNet Communications Corp., the electronic newspaper that was perhaps the earliest dot-com company. Additionally he is software architect and internet entrepreneur, futurist lecturer, hobby photographer and an artist.", 
+      "companyName": "Singularity University", 
+      "companyRole": "Director", 
+      "companyUrl": "http://singularityu.org/", 
+      "event_ids": [
+        27283, 
+        28196
+      ], 
+      "id": 26262, 
+      "name": "Brad Templeton", 
+      "profileTwitter": "http://twitter.com/bradtem", 
+      "profileTwitterHandle": "@bradtem", 
+      "sort_name": "Templeton, Brad"
+    }, 
+    "26273": {
+      "bio": "Peter Hinssen is one of Europe's esteemed thought leaders in the field of technology and its impact on business life and society. \r\nPeter lectures at various business schools in Europe such as London Business School (UK) and Antwerp Management School (Belgium). Peter is a passionate keynote speaker who is frequently welcomed at forums and conferences around the world.\r\nPeter is the author of Business/IT Fusion (2009) and The New Normal (2011).\r\nIn September 2013, Peter launched his third book The Network Always Wins.\r\nwww.peterhinssen.com", 
+      "companyName": "Freelance", 
+      "companyRole": "Entrepreneur, Lecturer & Writer", 
+      "companyUrl": null, 
+      "event_ids": [
+        26292, 
+        28199
+      ], 
+      "id": 26273, 
+      "name": "Peter Hinssen", 
+      "profileLinkedin": "http://www.linkedin.com/in/phinssen", 
+      "profileLinkedinHandle": 52906, 
+      "profileTwitter": "http://twitter.com/hinssen", 
+      "profileTwitterHandle": "@hinssen", 
+      "sort_name": "Hinssen, Peter"
+    }, 
+    "26312": {
+      "bio": "Mikko Hypponen is the Chief Research Officer of F-Secure in Finland. He has been working with computer security for over 20 years and has fought the biggest virus outbreaks in the net. His TED Talk on computer security has been seen by over a million people and has been translated to over 35 languages. He has addressed the EU Parliament and his columns have been published in the New York Times, Wired, CNN and BBC.", 
+      "blogName": "f-secure.com", 
+      "blogUrl": "http://www.f-secure.com/weblog", 
+      "companyName": "F-Secure", 
+      "companyRole": "CRO", 
+      "companyUrl": "http://www.f-secure.com", 
+      "event_ids": [
+        26432
+      ], 
+      "id": 26312, 
+      "name": "Mikko Hypponen", 
+      "profileTwitter": "http://twitter.com/mikko", 
+      "profileTwitterHandle": "@mikko", 
+      "sort_name": "Hypponen, Mikko"
+    }, 
+    "26396": {
+      "bio": "Since 2003 Bart Remes is project manager for the micro aerial vehicle lab at the aerospace faculty of the TuDelft. When it began, 11 years ago, nobody believed in the future of this small devices. Now the micro aerial vehicle lab of the TuDelft has a central spot in the activities of the aerospace faculty. The prestigious research done at the lab is unique in the world. It ranges from flapping wing vehicles, to hybrids aerial vehicles as well as the smallest open source autopilot in the world, a 2 by 2 cm device.", 
+      "companyName": "TUDelft MAVlab", 
+      "companyRole": "Project manager", 
+      "companyUrl": "http://mavlab.lr.tudelft.nl", 
+      "event_ids": [
+        26420
+      ], 
+      "id": 26396, 
+      "name": "Bart Remes", 
+      "sort_name": "Remes, Bart"
+    }, 
+    "26415": {
+      "bio": "Dirk is Director of Business Development at Bosch Software Innovations. Bosch Software Innovations is spearheading the Internet of Things (IoT) activities of Bosch, the global engineering group. As Conference Chair of the Bosch ConnectedWorld 2014, Dirk helped shaping the IoT strategy of Bosch. Dirk has over 20 years experience in very large-scale application projects, system integration and Business Process Management (BPM). His international work experience includes projects for Lufthansa Systems, Boeing, AT&T, NTT DoCoMo, HBOS and others. Dirk is a frequent speaker at conferences, as well as co-author of three successful books: Enterprise BPM, Enterprise SOA and Enterprise CORBA. He holds an MBA from IMD Lausanne as well as a Diploma (MSc equivalent) in Computer Science from TU Berlin.\r\n<br><br>\r\nMore about Bosch's <a href=\"https://www.youtube.com/watch?v=lVP6vHFXWqo\">vision of a connected World</a>.", 
+      "blogName": "Bosch SI Blog", 
+      "blogUrl": "http://blog.bosch-si.com", 
+      "companyName": "Bosch Software Innovations GmbH", 
+      "companyRole": "Director of Business Development", 
+      "companyUrl": "http://www.bosch-si.com", 
+      "event_ids": [
+        26901
+      ], 
+      "id": 26415, 
+      "name": "Dirk Slama", 
+      "sort_name": "Slama, Dirk"
+    }, 
+    "26639": {
+      "bio": "Born in a small town on the coast of Liguria, Italy, Carlo De Micheli grew up attending the American school in Genoa. At the age of 17 he moved to Turin for university. After a BSc in Aerospace Engineering, he\u2019s currently attending the last year of a master in Aerospace Systems, at the Polytechnic University of Turin. He worked as web and backend developer since 2005, developing expertise in web security and the wireless sector, winning a few competitions along the way. He then worked and taught as ethical hacker in the past two years. In 2011 he co-founded a civic engagement project in Italy, which was awarded a prize as best citizen initiative by the President of the Republic. From April 2013 he published articles and research on social media that have made the headlines on The New York Times, The Wall Street Journal, The Guardian, CNN, and Bloomberg TV amongst others. He is an active blogger on the tech, startup, and infosecurity scenes for Huffington Post and Wired. This year he founded a company called Savesquared which offers battery charging solutions for smartphones during conferences and events. \r\n\r\nThe latest project he is working on is OSVehicle, contributing to the digital, marketing, and web aspects. OSVehicle is a new mindset in the automotive industry: a process that gives everyone the tools to develop his or her own vehicle. From a single prototype to a full scale production, open source methodologies and simplicity of construction are the principles behind the OSV magic. Collaborative online work to create eco-friendly vehicles that can be built in less than an hour is just the beginning!", 
+      "companyName": "OSVehicle", 
+      "companyRole": "Digital & Media", 
+      "companyUrl": "http://www.osvehicle.com/", 
+      "event_ids": [
+        27528
+      ], 
+      "id": 26639, 
+      "name": "Carlo De Micheli", 
+      "profileFacebook": "http://www.facebook.com/osvehicle", 
+      "profileFacebookHandle": 504408636301762, 
+      "profileLinkedin": "http://www.linkedin.com/company/osvehicle", 
+      "profileLinkedinHandle": 3494883, 
+      "profileTwitter": "http://twitter.com/osvehicle", 
+      "profileTwitterHandle": "@osvehicle", 
+      "sort_name": "De Micheli, Carlo"
+    }, 
+    "26655": {
+      "bio": "In 2009, Thomas Spreitzer was appointed Chief Marketing Officer at T-Systems International \r\nGmbH, one of the three biggest European IT Service Providers and part of Deutsche \r\nTelekom. Under his leadership, Marketing has developed into a global centralized \r\norganization characterized by its integrated, sales-oriented marketing approach driving both \r\nefficiencies and impact. \r\n \r\nSpreitzer\u2019s focus on brand management and positioning, tightly integrates both economical \r\nand technological trends, their impact on customers and relevance of ICT solutions. \r\n \r\nPrior to this role he has held different VP positions in Business Development, Strategy and \r\nMarketing at T-Systems. He started his career in Product Management for PC-based Server \r\nat Siemens-Nixdorf in Augsburg (Germany) and Siemens Pyramid in San Jose (USA). In \r\n1999, Spreitzer joined debis IT Services (DaimlerChrysler IT Services) as International Sales \r\nManager responsible for Business Development in Italy and Spain. He graduated with a \r\nmaster degree in International Management at the University of Augsburg and the University \r\nof Modena (Italy). \r\n \r\nSpreitzer has been a recipient of several awards most notably Superbrand Winner in the \r\nCategory IT, best b2b customer magazine, Sales Enablement and customer portal. \r\n \r\nHe is married, has two daughters and is author of several publications regarding ICT trends \r\nand innovations, ICT marketing and change management & communications.", 
+      "blogName": "blogs.t-systems.de", 
+      "blogUrl": "http://blogs.t-systems.de/zerodistance/", 
+      "companyName": "T-Systems International", 
+      "companyRole": "CMO T-Systems", 
+      "companyUrl": "http://www.t-systems.com/", 
+      "event_ids": [
+        27541
+      ], 
+      "id": 26655, 
+      "name": "Thomas Spreitzer", 
+      "profileXing": "http://www.xing.com/profile/Thomas_Spreitzer", 
+      "profileXingHandle": "Thomas_Spreitzer", 
+      "sort_name": "Spreitzer, Thomas"
+    }, 
+    "26704": {
+      "bio": "Pascal is a consultant, technical lead and developer working with interactive creative technologies. For 14 years he was co-founder and technical director at Specialmoves, a high-end interactive production company based in London. He\u2019s worked with big global brands, advertising agencies, universities, charities and artists. His strong attention to detail and in-depth technical know-how helped him to make ambitious creative ideas happen.\r\n\r\nHis new company Lumacode allows him to focus on making great interactive experiences with new technologies and currently he\u2019s on pre-release programmes for Oculus, Kinect for Windows 2, Myo and LEAP.", 
+      "companyName": "Lumacode", 
+      "companyRole": "Director", 
+      "companyUrl": "http://www.lumacode.com", 
+      "event_ids": [
+        27135
+      ], 
+      "id": 26704, 
+      "name": "Pascal Auberson", 
+      "profileTwitter": "http://twitter.com/pauberson", 
+      "profileTwitterHandle": "@pauberson", 
+      "sort_name": "Auberson, Pascal"
+    }, 
+    "26710": {
+      "bio": "Named a Master of Design by Fast Company and a 30-under-30 entrepreneur by both Inc and Forbes magazines, Aza is currently VP of Innovation at Jawbone, an industry leader and innovator in the wearable technology space. In early 2013, Jawbone acquired Massive Health, which Aza founded. Previously, he was Creative Lead for Firefox and a founding member of Mozilla Labs.  Even more previously he founded Songza.com which is still a top music app. He also creates modular cardboard furniture called Bloxes which are used everywhere from Google to Twitter. In another life, Aza has done Dark Matter research at both Tokyo University and the University of Chicago, from where he graduated in math and physics.", 
+      "blogName": "azarask.in", 
+      "blogUrl": "http://azarask.in", 
+      "companyName": "Jawbone", 
+      "companyRole": "VP Innovation", 
+      "companyUrl": "http://jawbone.com/", 
+      "event_ids": [
+        27292
+      ], 
+      "id": 26710, 
+      "name": "Aza Raskin", 
+      "profileTwitter": "http://twitter.com/aza", 
+      "profileTwitterHandle": "@aza", 
+      "sort_name": "Raskin, Aza"
+    }, 
+    "26860": {
+      "bio": "Daan Lucas is the Managing Director of Random Studio.", 
+      "blogName": "randomstudio.tumblr.com", 
+      "blogUrl": "http://randomstudio.tumblr.com", 
+      "companyName": "Random Studio", 
+      "companyRole": "Managing Director", 
+      "companyUrl": "http://www.random.nu", 
+      "event_ids": [
+        27295
+      ], 
+      "id": 26860, 
+      "name": "Daan Lucas", 
+      "profileFacebook": "http://www.facebook.com/RandomStudio", 
+      "profileFacebookHandle": 124590364259654, 
+      "profileLinkedin": "http://www.linkedin.com/company/random-studio", 
+      "profileLinkedinHandle": 611850, 
+      "profileTwitter": "http://twitter.com/random_studio", 
+      "profileTwitterHandle": "@random_studio", 
+      "sort_name": "Lucas, Daan"
+    }, 
+    "26881": {
+      "bio": "Driver of the connected-health revolution\r\nPlaying a vital role in the birth and growth of the connected-health revolution, C\u00e9dric\u2019s expertise in this field is also demonstrated in the constant evolution of Withings. Armed with an engineering degree from Ecole Centrale and masters from MIT, C\u00e9dric first worked as product manager at Inventel, overseeing the launch of residential wireless gateways. Here,  he first met Eric Carreel before they both went on to Thompson; C\u00e9dric working as marketing director of domestic products. This accumulation of experience gave C\u00e9dric the knowledge and passion that drove him to co-found Withings.", 
+      "companyName": "Withings", 
+      "companyRole": "Founder & CEO", 
+      "companyUrl": "http://www.withings.com", 
+      "event_ids": [
+        26884, 
+        27515
+      ], 
+      "id": 26881, 
+      "name": "Cedric Hutchings", 
+      "profileFacebook": "http://www.facebook.com/withings", 
+      "profileFacebookHandle": 111046008981029, 
+      "profileTwitter": "http://twitter.com/withings", 
+      "profileTwitterHandle": "@withings", 
+      "sort_name": "Hutchings, Cedric"
+    }, 
+    "26925": {
+      "bio": "Thomas de Maizi\u00e8re is Federal Minister of the Interior. Before moving into federal politics, de Maizi\u00e8re, who has a PhD in Law and was born in Bonn, was head of various ministries in Saxony. Since 2005 he has held various posts in the federal government.\r\n\r\nPhoto and Biography by <a href=\"http://www.bundesregierung.de/Webs/Breg/EN/FederalGovernment/Cabinet/ThomasdeMaiziere/_node.html\">Bundesregierung/Chaperon</a>", 
+      "companyName": "Federal Ministry of the Interior", 
+      "companyRole": "Federal Minister of the Interior", 
+      "companyUrl": "http://www.bmi.bund.de", 
+      "event_ids": [
+        27304
+      ], 
+      "id": 26925, 
+      "name": "Thomas de Maizi\u00e8re", 
+      "sort_name": "de Maizi\u00e8re, Thomas"
+    }, 
+    "26926": {
+      "bio": "In her function as Parliamentary State Secretary at the Federal Ministry for Economic Affairs and Energy, Brigitte Zypries, is responsible for the \u201eDigital Agenda\u201c and Foreign Trade. Additionally, she is the Federal Government's coordinator of aerospace. From 2002 to 2009 she was the Federal Minister of Justice and is since 2005 directly elected Member of the German Parliament.\r\n\r\n\r\nPhoto and Biography by <a href=\"http://www.bmwi.de/DE/Ministerium/Minister-und-Staatssekretaere/Visitenkarten/Visitenkarte-Zypries/lebenslauf-brigitte-zypries,did=612646.html\">Bundesregierung/Bergmann</a>", 
+      "companyName": "Federal Ministry for Economic Affairs and Energy", 
+      "companyRole": "Parliamentary State Secretary", 
+      "companyUrl": "http://www.bmwi.de", 
+      "event_ids": [
+        27511
+      ], 
+      "id": 26926, 
+      "name": "Brigitte Zypries", 
+      "sort_name": "Zypries, Brigitte"
+    }, 
+    "26994": {
+      "bio": "Anita Zielina is Deputy Editor-in-Chief at Stern, the German weekly news magazine published by Gruner+Jahr. She is responsible for all digital products. Anita was a Knight Journalism Fellow \u201912 at Stanford University, Palo Alto, doing research on User Engagement and media innovation.", 
+      "companyName": "Gruner + Jahr", 
+      "companyRole": "Deputy Editor-in-Chief Stern", 
+      "companyUrl": "http://www.stern.de", 
+      "event_ids": [
+        27541
+      ], 
+      "id": 26994, 
+      "name": "Anita Zielina", 
+      "profileTwitter": "http://twitter.com/Zielina", 
+      "profileTwitterHandle": "@Zielina", 
+      "sort_name": "Zielina, Anita"
+    }, 
+    "27200": {
+      "bio": "Peter Skillman is head of Design for HERE, a Nokia business. Previously, Peter led the Nokia Mobile Phones user interface and service design team. Under his leadership, the MP design team developed UI and services for the successful Asha range. In his first Nokia role leading Meego Ux design, Peter and team delivered the Nokia N9 swipe-enabled Ux.\r\n\r\nPrior to Nokia, Peter led User Experience for many years at Palm, where he also managed industrial design for a variety of mobile phones including the Palm Pre. Before Palm, he drove consumer electronic product design at IDEO, an internationally-recognized design firm. Peter is a passionate promoter of sustainable architecture and design.", 
+      "blogName": "360.here.com", 
+      "blogUrl": "http://360.here.com/", 
+      "companyName": "HERE, a Nokia business", 
+      "companyRole": "VP Design", 
+      "companyUrl": "http://www.here.com", 
+      "event_ids": [
+        27249
+      ], 
+      "id": 27200, 
+      "name": "Peter Skillman", 
+      "profileTwitter": "http://twitter.com/peterskillman", 
+      "profileTwitterHandle": "@peterskillman", 
+      "sort_name": "Skillman, Peter"
+    }, 
+    "27217": {
+      "bio": "Morten\u2019s journey as an entrepreneur has seen him reach great highs and lows. The pinnacle of\r\n\r\nSkype\u2019s sale to eBay in September 2007 for $2.5 billion (again in May 2011 to Microsoft for $8.5\r\n\r\nbillion), and the low of personal bankruptcy in January 2009 following a disastrous end to his free\r\n\r\nnewspaper venture Nyhedsavisen.\r\n\r\nThe intrigue surrounding Morten and his current projects can be seen on his Twitter account, where\r\n\r\nhe has the highest number of followers of any entrepreneur in Denmark. The focus of his varied and \r\n\r\nunorthodox career has tended to shift with each decade. For example, in his 20s, he moved \r\n\r\nin the advertising business, selling his web design agency to Leo Burnett at the age of 27. In \r\n\r\nhis 30s, Morten created Denmark\u2019s first incubator, active in Skype, ZYB, Polar Rose, Zecco \r\n\r\nand 80 other startups. A recent smash hit was Tradeshift, a digital invoicing group founded\r\n\r\nin his basement in November 2009. Some years later (in March 2014), the company closed \r\n\r\na $75 million investment, driving it into the Asian market with PayPal and Intuit as fellow\r\n\r\ninvestors.\r\n\r\nNow in his 40s, he is concentrating on financial technology companies linked to Tradeshift, \r\n\r\nwith Capital Aid as the star project. Morten is also building a portfolio of startups that match \r\n\r\nhis needs as a serial entrepreneur such as pitchXO, Tofte Company and Sharkboard.", 
+      "blogName": "lundxy.com", 
+      "blogUrl": "http://lundxy.com/", 
+      "companyName": "CapitalAid, Itembase, Airhelp, OpenXO, Sharboard, SunnyRentals", 
+      "companyRole": "Serial entrepreneur", 
+      "companyUrl": "http://onlyxo.com", 
+      "event_ids": [
+        27543, 
+        27305
+      ], 
+      "id": 27217, 
+      "name": "Morten Lund", 
+      "profileFacebook": "http://www.facebook.com/mortenlundxy", 
+      "profileFacebookHandle": 516818690, 
+      "profileLinkedin": "http://www.linkedin.com/in/mortenlund", 
+      "profileLinkedinHandle": 66296, 
+      "profileTwitter": "http://twitter.com/ml", 
+      "profileTwitterHandle": "@ml", 
+      "sort_name": "Lund, Morten"
+    }, 
+    "27236": {
+      "bio": "Tony Douglas is responsible for the marketing and sales of BMW i Mobility Services. The goal of the BMW Groups new brand is to provide sustainable innovative mobile solutions that improve urban mobility inside and outside of the car. The current portfolio includes DriveNow, ParkNow and ChargeNow as well as a number of strategic investments made via BMW i Ventures. As Marketing Innovation Manager at BMW he was previously responsible for emerging media innovations such as blogs, communities, search, bmw.tv and most recently social media boosting and nurturing the millions of BMW Facebook fans. Before joining the BMW Group he worked as a Product Manager on advanced user experiences for Vodafone and spent eight years in the mobile industry designing and developing mobile phones and services. He started his career as a Product Design Consultant working in the UK and Germany. Educated in Edinburgh Scotland he now lives in Munich Germany.", 
+      "companyName": "BMW Group", 
+      "companyRole": "Head of Marketing, Communications and Sales Services. BMW Mobility Services", 
+      "companyUrl": "http://www.bmwgroup.com", 
+      "event_ids": [
+        27241
+      ], 
+      "id": 27236, 
+      "name": "Tony Douglas", 
+      "sort_name": "Douglas, Tony"
+    }, 
+    "27263": {
+      "bio": "Mike Pelletier is an digital artist who works in the realms of digital fabrication, interactive installations, game modifications and 3d animation. He has participated and hosted a number of creative technology workshops and his work has been featured in festivals and exhibitions around the world.\r\n\r\nIn addition to his artistic practice he has extensive experience working with artists, designers and directors in creative environments. He has previously worked at the Banff Centre, Fablab Amsterdam and currently at Random Studio Amsterdam.Some of his experience includes creating interactive installations for bands such as Nike, Viktor & Rolf and Diesel.\r\n\r\nMike is originally from Prince Albert, Saskatchewan, Canada. He lives and works in Amsterdam, Netherlands.", 
+      "blogName": "randomstudio.tumblr.com", 
+      "blogUrl": "http://randomstudio.tumblr.com", 
+      "companyName": "Random Studio", 
+      "companyRole": "Creative Technologist", 
+      "companyUrl": "http://Random.nu", 
+      "event_ids": [
+        27295
+      ], 
+      "id": 27263, 
+      "name": "Michael Pelletier", 
+      "profileFacebook": "http://www.facebook.com/RandomStudio", 
+      "profileFacebookHandle": 124590364259654, 
+      "profileLinkedin": "http://www.linkedin.com/company/random-studio", 
+      "profileLinkedinHandle": 611850, 
+      "profileTwitter": "http://twitter.com/random_studio", 
+      "profileTwitterHandle": "@random_studio", 
+      "sort_name": "Pelletier, Michael"
+    }, 
+    "27419": {
+      "bio": "Kay Schwabedal has been Chief Commercial Officer since September 2011, responsible for all of the E-Plus Group\u2019s sales divisions excluding the wholesale business, taking on the responsibility for the entire customer business. Schwabedal has extensive experience in managing large organisations in the ITC sector. After working at Procter & Gamble and McKinsey, the industrial engineer held various roles at CC Compunet, including CEO, and later became COO on the board of directors for the fixed-line network provider Arcor.", 
+      "companyName": "E-Plus Mobilfunk", 
+      "companyRole": "Chief Commercial Officer", 
+      "companyUrl": "http://eplus-gruppe.de/english/", 
+      "event_ids": [
+        27537, 
+        27541
+      ], 
+      "id": 27419, 
+      "name": "Kay Schwabedal", 
+      "sort_name": "Schwabedal, Kay"
+    }, 
+    "27605": {
+      "bio": "Sarah Willis was born in Maryland, USA and holds dual citizenship, British and American.\r\n\r\nHer father was a foreign correspondent and her family lived in the USA, Tokyo and Moscow before moving to England when she was 13. She began playing the horn aged 14 at school and then attended the Royal College of Music Junior Department. She went on to study full time at the Guildhall School of Music and Drama, where her teachers included Anthony Halstead and Jeff Bryant.\r\n\r\nShe later studied with Fergus McWilliam in Berlin, where she became 2nd Horn in the Berlin State Opera under Daniel Barenboim in 1991. During this time, Sarah played as a guest with many top orchestras such as Chicago Symphony, London Symphony and the Sydney Symphony Orchestra and performed worldwide as a soloist and in various chamber music ensembles.\r\n\r\nIn 2001 Sarah Willis joined the Berlin Philharmonic, becoming the first female member of the brass section. She has recorded various acclaimed CDs including works such as the Brahms Horn Trio and the Rosetti Double Horn Concertos as well as the much celebrated CDs Opera! and Four Corners! with the Berlin Philharmonic Horns.\r\n\r\nSarah is involved in Zukunft@BerlinPhil Education projects and enjoys creating and presenting BPh concerts for children. She also interviews conductors and soloists for the BPh\u00b4s Digital Concert Hall and in 2011 she presented live to 33 million viewers during the Final Concert of the YouTube Symphony Orchestra.", 
+      "blogName": "sarah-willis.com", 
+      "blogUrl": "http://www.sarah-willis.com", 
+      "companyName": "Berlin Philharmonic Orchestra", 
+      "companyRole": "Musician- french horn player", 
+      "companyUrl": "http://www.berliner-philharmoniker.de", 
+      "event_ids": [
+        27629
+      ], 
+      "id": 27605, 
+      "name": "Sarah Willis", 
+      "profileFacebook": "http://www.facebook.com/sarah.willis.39750", 
+      "profileFacebookHandle": 1255467682, 
+      "profileTwitter": "http://twitter.com/hornsarahberlin", 
+      "profileTwitterHandle": "@hornsarahberlin", 
+      "sort_name": "Willis, Sarah"
+    }, 
+    "27617": {
+      "bio": "Uwe Vogel became skilled worker in semiconductor microelectronics (Funkwerk Erfurt) in 1983, received diploma in information technology (TU Chemnitz) in 1991, doctoral degree in biomedical engineering in 1999 (TU Dresden). After visiting Center for Applied Optics Studies at Rose-Hulman Institute of Technology (Terre Haute/Indiana, 1992) and a position in hearing research at Dresden University hospital (1995-1998) he has been with Fraunhofer Institute for Photonic Microsystems (IPMS) in Dresden/Germany since 1998, starting there as analog IC designer. Since 2000 he has managed the Analog/Mixed-Signal IC design group, and later on has founded and developed OLED-on-Silicon activities mainly focusing on the design of process technology (Silicon-OLED integration), devices and applications. Beside that, he has gained experience in active-matrix backplanes, \r\nOLED displays (microdisplay and 3D displays), OLED display driver IC, high-speed data transmission, and MEMS-CMOS integration. In 2010 he has been appointed head of the newly formed business unit \"OLED microdisplays and sensors\", which has continued inside Fraunhofer Institution for Organics, Materials and Electronic Devices Dresden (COMEDD), spun out in 2012. He has been coordinator of several collaborative projects on OLED microdisplays at European and national levels.", 
+      "companyName": "Fraunhofer COMEDD", 
+      "companyRole": "Head of Division Microdisplays & Sensorics", 
+      "companyUrl": "http://www.comedd.fraunhofer.de/en.html", 
+      "event_ids": [
+        27621
+      ], 
+      "id": 27617, 
+      "name": "Uwe Vogel", 
+      "profileFacebook": "http://www.facebook.com/pages/Fraunhofer-COMEDD/122748211227062", 
+      "profileFacebookHandle": 122748211227062, 
+      "profileLinkedin": "http://www.linkedin.com/company/fraunhofer-comedd", 
+      "profileLinkedinHandle": 2844097, 
+      "profileTwitter": "http://twitter.com/fhg_comedd", 
+      "profileTwitterHandle": "@fhg_comedd", 
+      "sort_name": "Vogel, Uwe"
+    }, 
+    "27689": {
+      "companyName": null, 
+      "companyRole": null, 
+      "companyUrl": null, 
+      "event_ids": [
+        26399
+      ], 
+      "id": 27689, 
+      "name": "Elisabet Stig\u00e5rd", 
+      "sort_name": "Stig\u00e5rd, Elisabet"
+    }, 
+    "27690": {
+      "bio": "Mobile dev specialist, professional mobile software & business developer since 2005.\r\n\r\nExpert in multiple mobile platforms and skilled in all phases of mobile development. Several award winning app productions in portfolio. Founder of several successful start-ups and passionate about the art of building healthy companies.\r\n\r\nSpeaker, spokesperson, expert, organizer and in general open to sharing knowledge and meeting new people.", 
+      "blogName": "theeyetribe.com", 
+      "blogUrl": "http://theeyetribe.com/blog/", 
+      "companyName": "The Eye Tribe", 
+      "companyRole": "Mobile Lead & partner", 
+      "companyUrl": "http://theeyetribe.com/", 
+      "event_ids": [
+        27754
+      ], 
+      "id": 27690, 
+      "name": "Anders Bo Pedersen", 
+      "profileFacebook": "http://www.facebook.com/theeyetribe", 
+      "profileFacebookHandle": 316708181683801, 
+      "profileLinkedin": "http://www.linkedin.com/company/the-eye-tribe", 
+      "profileLinkedinHandle": 2423549, 
+      "profileTwitter": "http://twitter.com/TheEyeTribe", 
+      "profileTwitterHandle": "@TheEyeTribe", 
+      "sort_name": "Pedersen, Anders Bo"
+    }, 
+    "27755": {
+      "bio": "After studying at Bonn University & UCLA, Sven graduated with a Master\u00b4s degree in Art History, English, and Political Science. He started his career as press officer for CIEE Germany. In 1998 he founded a pr & web design agency and worked for five years consulting in strategic management & reorganization projects for customers as Tarkett Sommer or Deutsche Telekom.\r\n2002 Kr\u00fcger accepted an offer from T-Com, being responsible for their business marketing strategy & planning.\r\nSince June 2005 he held various management positions with T-Systems, Europe\u00b4s leading ICT-provider. In his actual role, Sven is responsible for global advertising and media, sponsoring, corporate events and trade shows, as well as the corporate image & design worldwide.", 
+      "companyName": "Deutsche Telekom, T-Systems", 
+      "companyRole": "Vice President Brand Communications", 
+      "companyUrl": "http://www.t-systems.com/zerodistance", 
+      "event_ids": [
+        27285, 
+        27820
+      ], 
+      "id": 27755, 
+      "name": "Sven Kr\u00fcger", 
+      "profileFacebook": "http://www.facebook.com/svnkrgr", 
+      "profileFacebookHandle": 1597672536, 
+      "profileLinkedin": "http://de.linkedin.com/in/svenkrueger", 
+      "profileLinkedinHandle": 57922429, 
+      "profileTwitter": "http://twitter.com/svnkrgr", 
+      "profileTwitterHandle": "@svnkrgr", 
+      "profileXing": "http://www.xing.com/profile/Sven_Krueger2", 
+      "profileXingHandle": "Sven_Krueger2", 
+      "sort_name": "Kr\u00fcger, Sven"
+    }, 
+    "27807": {
+      "bio": "Isidro Laso Ballesteros is head of Sector and leads the Startup Europe Initiative at the European Commission.\r\n\r\nIsidro had his first taste of entrepreneurship at university, where he created a junior enterprise. After graduating as an Engineer from the Universidad Politecnica de Madrid, he moved into engineering activities, working with Geographic Information Systems and design tools before becoming a strategic consultant to high-level executives (CEOs of large corporations), mainly in the telco and media sector.\r\n\r\nHe then moved to the ICT sector where he worked on research projects related to Workflow Management Systems and Internet Collaboration Systems. This gave him the opportunity to create a new department within his company offering change management projects to customers, to complement traditional ICT projects. Subsequently he spent five months working for one of the Ministries in Spain before being seconded to the European Commission as a National Expert.\r\n\r\nSince becoming a Commission official he has managed research projects and drafted research strategy objectives. From 2010 onwards he has been focused on creating a new endeavour within the EU institutions related to tech start-ups; the first output of this latest work is the Startup Europe initiative. Isidro has written several books and papers, some of which have been translated into other languages, including Japanese.\r\n\r\nIsidro\u2019s objectives for the Policy Fellowship are to share views on policy measures to strengthen the environment for web entrepreneurs in Europe; to learn new ways of policy making better adapted to an era of extremely rapid change that characterise the web startups; and to access international knowledge and best practices related to policies for web startups.", 
+      "companyName": "European Commission", 
+      "companyRole": "Head of Sector", 
+      "companyUrl": "http://ec.europa.eu/", 
+      "event_ids": [
+        28005
+      ], 
+      "id": 27807, 
+      "name": "Isidro Laso", 
+      "profileFacebook": "http://www.facebook.com/isidro.laso?fref=ts", 
+      "profileFacebookHandle": 675793067, 
+      "profileTwitter": "http://twitter.com/isidrolaso", 
+      "profileTwitterHandle": "@isidrolaso", 
+      "sort_name": "Laso, Isidro"
+    }, 
+    "27808": {
+      "bio": "Vincent DUCREY is co-founder and CEO of HUB Institute - Digital Think Tank. Vincent\u2019s expertise stems from his 15 year career in all areas of innovation, marketing, communications: as entrepreneur, as digital strategy consultant and as a digital communication adviser for the French Government. His governmental and business experiences extend to missions in Brazil, Russia, Africa, the Middle East, USA and Europe.\r\n\r\nAt NextBerlin, Vincent from HUB Institute,  Kumardev Chatterjee from EYIF and Bj\u00f6rn Willemsens from Deloitte will participate in the launch of the Europioneers competition wich reward European Web Entrepreneurs. Over 1 200 nominations and 5600 votes involving 27 European countries have been registered for the first 2013 edition.  The objectives of the award are to identify and recognise successful European web initiatives to promote the role web entrepreneurs play in European society and to encourage and inspire potential entrepreneurs.", 
+      "companyName": "Hub Institute", 
+      "companyRole": null, 
+      "companyUrl": "http://www.hubinstitute.com/en", 
+      "event_ids": [
+        28005
+      ], 
+      "id": 27808, 
+      "name": "Vincent Ducrey", 
+      "profileTwitter": "http://twitter.com/vincent_ducrey", 
+      "profileTwitterHandle": "@vincent_ducrey", 
+      "sort_name": "Ducrey, Vincent"
+    }, 
+    "27864": {
+      "bio": "Proud kraut*. Prouder saffer**. Business Founder & CEO in marketing and recruitment. Social Entrepreneur. Now building the tech ecosystem alongside Startupbootcamp (COO) and the European Commission with Tech All Stars. \r\n\r\n<3: People. Culture. Nature. Travel. Adventure. Learning. Loving. Sport. Art. Living Green. Living Large. Pushing Boundaries. Cooking. Shoes. Sun. Beach. Mostly Friends & Family.\r\n\r\nPhilosophy: Sunshine yellow. Open heart. Open mind. Embrace.\r\n\r\n*People who are German or have German heritage. It comes from the Germans eating a German dish called Sauerkraut\r\n\r\n**South African. Originates from the way some Londoners pronounce \"Saff Africa\" Source: Urban Dictionary", 
+      "companyName": "Tech All Stars", 
+      "companyRole": "Project Manager", 
+      "companyUrl": "http://www.techallstars.eu", 
+      "event_ids": [
+        28005
+      ], 
+      "id": 27864, 
+      "name": "Luisa Maier", 
+      "profileFacebook": "http://www.facebook.com/luisa.maier", 
+      "profileFacebookHandle": 731550225, 
+      "profileLinkedin": "http://za.linkedin.com/pub/luisa-maier/8/508/605/", 
+      "profileLinkedinHandle": 25146725, 
+      "profileTwitter": "http://twitter.com/LaLashling", 
+      "profileTwitterHandle": "@LaLashling", 
+      "profileXing": "http://www.xing.com/profile/Luisa_Maier6?sc_o=mxb_p", 
+      "profileXingHandle": "Luisa_Maier6", 
+      "sort_name": "Maier, Luisa"
+    }, 
+    "27970": {
+      "bio": "Volker Sch\u00fctz is chief editor of HORIZONT - a specialist journal for marketing, advertising and media. He has also worked for companies such as Leipziger + Partner and B2B Online.", 
+      "companyName": "Horizont", 
+      "companyRole": "Editor-in-chief", 
+      "companyUrl": "http://www.horizont.net/", 
+      "event_ids": [
+        27275, 
+        27306
+      ], 
+      "id": 27970, 
+      "name": "Volker Sch\u00fctz", 
+      "sort_name": "Sch\u00fctz, Volker"
+    }, 
+    "28300": {
+      "companyName": "European Young Innvovators Forum", 
+      "companyRole": "Founder & President", 
+      "companyUrl": "http://younginnovator.eu/", 
+      "event_ids": [
+        28005
+      ], 
+      "id": 28300, 
+      "name": "Kumar Chatterjee", 
+      "sort_name": "Chatterjee, Kumar"
+    }
+  }, 
+  "sessions": {
+    "3554": {
+      "allPersonNames": "Mikko Hypponen, Scott Smith, Jessi Baker, Alex Oelling, Uwe Vogel", 
+      "allPerson_ids": [
+        26312, 
+        26038, 
+        26020, 
+        11096, 
+        27617
+      ], 
+      "description": "How do we unleash the wisdom within the statistics? And where is the line one shouldn\u2019t cross? At NEXT Berlin we will learn from experts whose approach on Big Data couldn\u2019t be more diverse: a NSA critique, a transparency evangelist and an e-commerce expert.", 
+      "endHourString": "15:30", 
+      "endTimestamp": 1399296600, 
+      "eventTypes": "Talk, Talk, Talk, Demo, Demo", 
+      "event_ids": [
+        26432, 
+        27278, 
+        27212, 
+        27280, 
+        27621
+      ], 
+      "id": 3554, 
+      "stage_id": 20213, 
+      "startHourClockFile": "14-00.png", 
+      "startHourString": "14:00", 
+      "startTimestamp": 1399291200, 
+      "title": "The New Data", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/26432/"
+    }, 
+    "3555": {
+      "allPersonNames": "Tony Douglas, Sven Kr\u00fcger, Peter Skillman, Carlo De Micheli, Sarah Willis, Monique van Dusseldorp", 
+      "allPerson_ids": [
+        27236, 
+        27755, 
+        27200, 
+        26639, 
+        27605, 
+        6970
+      ], 
+      "description": "High speed connectivity in cars heralds a new generation of automobiles. Apart from providing video streaming or traffic information, it is the prerequisite for completely new services and the self-driving car. Fasten your seatbelts.", 
+      "endHourString": "17:30", 
+      "endTimestamp": 1399303800, 
+      "eventTypes": "Talk, Talk, Talk, Talk, Interview", 
+      "event_ids": [
+        27241, 
+        27285, 
+        27249, 
+        27528, 
+        27629
+      ], 
+      "id": 3555, 
+      "stage_id": 20213, 
+      "startHourClockFile": "16-00.png", 
+      "startHourString": "16:00", 
+      "startTimestamp": 1399298400, 
+      "title": "The New Mobility", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/27241/"
+    }, 
+    "3556": {
+      "allPersonNames": "Dirk Slama, Bas van Abel, Gesche Joost", 
+      "allPerson_ids": [
+        26415, 
+        26092, 
+        22341
+      ], 
+      "description": "As machines and factories get connected to the Internet and one another, we see whole industries change towards agility in production. This will impact strongly all the way up and down the supply chain, from sourcing to design and production to strategy and marketing.", 
+      "endHourString": "18:45", 
+      "endTimestamp": 1399308300, 
+      "eventTypes": "Talk, Talk, Talk", 
+      "event_ids": [
+        26901, 
+        27197, 
+        28007
+      ], 
+      "id": 3556, 
+      "stage_id": 20213, 
+      "startHourClockFile": "18-00.png", 
+      "startHourString": "18:00", 
+      "startTimestamp": 1399305600, 
+      "title": "The New Industry", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/26901/"
+    }, 
+    "3557": {
+      "allPersonNames": "Brad Templeton", 
+      "allPerson_ids": [
+        26262
+      ], 
+      "endHourString": "19:30", 
+      "endTimestamp": 1399311000, 
+      "eventTypes": "Keynote", 
+      "event_ids": [
+        27283
+      ], 
+      "id": 3557, 
+      "stage_id": 20213, 
+      "startHourClockFile": "18-45.png", 
+      "startHourString": "18:45", 
+      "startTimestamp": 1399308300, 
+      "title": "Opening Keynote", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/27283/"
+    }, 
+    "3558": {
+      "allPersonNames": "Peter Hinssen, Kay Schwabedal, Anita Zielina, Thomas Spreitzer, Ulrich Hegge", 
+      "allPerson_ids": [
+        26273, 
+        27419, 
+        26994, 
+        26655, 
+        10663
+      ], 
+      "description": "Flexible structures and new C-Level positions mirror the ongoing leadership transformation in companies around the globe. NEXT attendees will experience how organisations can adapt to gain from the changing tides.", 
+      "endHourString": "11:00", 
+      "endTimestamp": 1399366800, 
+      "eventTypes": "Keynote, Talk, Panel Discussion", 
+      "event_ids": [
+        26292, 
+        27537, 
+        27541
+      ], 
+      "id": 3558, 
+      "stage_id": 20213, 
+      "startHourClockFile": "09-30.png", 
+      "startHourString": "09:30", 
+      "startTimestamp": 1399361400, 
+      "title": "The New Leaders", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/26292/"
+    }, 
+    "3559": {
+      "allPersonNames": "Louisa Heinrich, Aza Raskin, Cedric Hutchings, Christian Deilmann, Bart Remes, Fabian Hemmert", 
+      "allPerson_ids": [
+        6735, 
+        26710, 
+        26881, 
+        19385, 
+        26396, 
+        22339
+      ], 
+      "description": "With all kinds of machines and devices getting connected, this industry branch is expected to be one of the fastest growing in the next few years. Our speakers know why and will outline some of the endless business opportunities.", 
+      "endHourString": "13:00", 
+      "endTimestamp": 1399374000, 
+      "eventTypes": "Talk, Talk, Demo, Demo, Demo, Talk", 
+      "event_ids": [
+        27291, 
+        27292, 
+        26884, 
+        19388, 
+        26420, 
+        27303
+      ], 
+      "id": 3559, 
+      "stage_id": 20213, 
+      "startHourClockFile": "11-30.png", 
+      "startHourString": "11:30", 
+      "startTimestamp": 1399368600, 
+      "title": "The New Internet (of Things)", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/27291/"
+    }, 
+    "3560": {
+      "allPersonNames": "Thomas Bendig, Elisabet Stig\u00e5rd, Anders Bo Pedersen, Tanya Vlach, Michael Pelletier, Daan Lucas, Pascal Auberson, Peter Kirn", 
+      "allPerson_ids": [
+        26021, 
+        27689, 
+        27690, 
+        26066, 
+        27263, 
+        26860, 
+        26704, 
+        25340
+      ], 
+      "description": "Think beyond touch screens: In this session we\u2019ll explore what to expect in the future, when innovations like shapeshifting displays and wearable interfaces will be highly developed.", 
+      "endHourString": "15:30", 
+      "endTimestamp": 1399383000, 
+      "eventTypes": "Talk, Talk, Demo, Talk, Demo, Demo, Demo", 
+      "event_ids": [
+        26875, 
+        26399, 
+        27754, 
+        27546, 
+        27295, 
+        27135, 
+        28183
+      ], 
+      "id": 3560, 
+      "stage_id": 20213, 
+      "startHourClockFile": "14-00.png", 
+      "startHourString": "14:00", 
+      "startTimestamp": 1399377600, 
+      "title": "The New Interfaces", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/26875/"
+    }, 
+    "3562": {
+      "allPersonNames": "Thomas de Maizi\u00e8re, Morten Lund, Isidro Laso, Luisa Maier, Kumar Chatterjee, Vincent Ducrey, Cory Doctorow, Matthias Schrader, Volker Sch\u00fctz", 
+      "allPerson_ids": [
+        26925, 
+        27217, 
+        27807, 
+        27864, 
+        28300, 
+        27808, 
+        26065, 
+        6893, 
+        27970
+      ], 
+      "description": "Join us in this session for a keynote by Federal Minister Thomas de Maizi\u00e8re, who will outline the ever growing significance of the digital economy. Also don't miss the finale of our Start-up Pitch - the 4 finalists will be pitch live again and, moderated by Serial Entrepreneur Morten Lund, you will get to pick this year's winner! \r\nThe grand finale of this session and NEXT Berlin 2014 will be the keynote by SciFi author Cori Doctorow.", 
+      "endHourString": "17:30", 
+      "endTimestamp": 1399390200, 
+      "eventTypes": "Keynote, Award Ceremony, Talk, Keynote, Talk", 
+      "event_ids": [
+        27304, 
+        27305, 
+        28005, 
+        26825, 
+        27306
+      ], 
+      "id": 3562, 
+      "stage_id": 20213, 
+      "startHourClockFile": "16-00.png", 
+      "startHourString": "16:00", 
+      "startTimestamp": 1399384800, 
+      "title": "Closing Session", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/27304/"
+    }, 
+    "3615": {
+      "allPersonNames": "Matthias Schrader, Nils Wollny, Jochen Wegner, Monique van Dusseldorp, Volker Sch\u00fctz, Brigitte Zypries", 
+      "allPerson_ids": [
+        6893, 
+        24350, 
+        17913, 
+        6970, 
+        27970, 
+        26926
+      ], 
+      "description": "Welcome to NEXT Berlin 2014 - join our Chairmen Matthias Schrader and Volker Sch\u00fctz and meet the moderators Monique van Dusseldorp. The icing on the cake will be Brigitte Zypries, who will talk about the new German dreams and the importance of start-ups & innovation. ", 
+      "endHourString": "14:00", 
+      "endTimestamp": 1399291200, 
+      "eventTypes": "Talk, Talk", 
+      "event_ids": [
+        27275, 
+        27511
+      ], 
+      "id": 3615, 
+      "stage_id": 20213, 
+      "startHourClockFile": "13-00.png", 
+      "startHourString": "13:00", 
+      "startTimestamp": 1399287600, 
+      "title": "Opening Session", 
+      "type": "session", 
+      "webUrl": "http://nextberlin.eu/session/27275/"
+    }
+  }, 
+  "stages": {
+    "20213": {
+      "content": "", 
+      "id": 20213, 
+      "name": "Dome Stage C01", 
+      "session_ids": [
+        3560, 
+        3562, 
+        3558, 
+        3559, 
+        3615, 
+        3556, 
+        3554, 
+        3557, 
+        3555
+      ], 
+      "type": "track"
+    }
+  }, 
+  "timeline": []
+}

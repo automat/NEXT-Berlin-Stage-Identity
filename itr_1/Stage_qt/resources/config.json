@@ -1,0 +1,147 @@
+{
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    //	NEXT 14 / STAGE CONFIG
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    /*--------------------------------------------------------------------------------------------*/
+    //  window	(Set on application start)
+    /*--------------------------------------------------------------------------------------------*/
+    
+	"app" : {
+		"borderless"     : false,
+		"display" 	     : 0,
+		"always_on_top"  : false,
+		"fixed_position" : false,
+		"position"       : [0,0],
+        "fps"            : 30.0,
+        "hide_mouse"     : false,
+        "use_v_sync"     : false  //set fps greate than 60.
+	},
+    
+    /*--------------------------------------------------------------------------------------------*/
+    //	Projection
+    /*--------------------------------------------------------------------------------------------*/
+	
+	"projection" : {
+		"blend_edge" : 288, //288
+		"blend"      : true,
+        "debug"      : false
+        
+	},
+    
+    /*--------------------------------------------------------------------------------------------*/
+    //	scene  (Set during application lifetime)
+    /*--------------------------------------------------------------------------------------------*/
+    
+    "stage" : {
+
+        //
+        //
+        //	Theme
+        //
+        //
+
+        "theme" : {
+            //
+            //  Shader FX
+            //
+            "shader_fx" : {
+                "live_edit"                : false,
+                "blur_scale"               : 0.45,
+                "blur_scale_radial"        : 2.25,
+                "blur_radial_radius_scale" : 0.75
+            },
+        
+            //
+            //  Light
+            //
+            "light" : {
+                "lantern_0" : {
+                    "direction"  : [-1,0,-1],//[-6,1,4], //[-2,2,2]
+                    "ambient"    : [1,1,1],
+                    "diffuse"    : [1,1,1],
+                    "specular"   : [1,1,1],
+                    "attenuation"          : 1.0,
+                    "constant_attenuation" : 0.03,
+                    "linear_attenuation"   : 0.224,
+                    "quadric_attenuation"  : 0.123
+                },
+            
+                "lantern_1" : {
+                    "direction"  : [-1,2,-1],//[-6,1,4], //[-2,2,2]
+                    "ambient"    : [1,1,1],
+                    "diffuse"    : [1,1,1],
+                    "specular"   : [1,1,1],
+                    "attenuation"          : 1.0,
+                    "constant_attenuation" : 0.03,
+                    "linear_attenuation"   : 0.224,
+                    "quadric_attenuation"  : 0.123
+                }
+            },
+
+
+
+            "live_edit_material_shader" : false,
+            
+            "path_surface" : {
+                "color" : [0.675,0,0.675,1.0]
+            },
+            
+            //
+            //	Diver Field
+            //
+            "diver_field" : {
+                "material" : {
+                    "ambient"   : [0,0,0,1],//[0.35,0,0.35,1],
+                    "diffuse"   : [0.75,0,0.55,1],//[1,0,1,1]
+                    "specular"  : [1.0,0,0,1],
+                    "shininess" : 1.0
+                }
+            },
+            
+            //
+            //	Quote Field
+            //
+            "quote_field" : {
+                "material" : {
+                    "ambient"   : [0.0,0.0,0.12,1],
+                    "diffuse"   : [0.0125,0.0125,0.025,1],
+                    "specular"  : [0.45,0,0,1],
+                    "shininess" : 0.75
+                }
+            }
+        },
+
+        //
+        //
+        //  Session
+        //
+        //
+
+        "session" : {
+            "use_dynamic_lighting" : true,
+
+            "light" : {
+                "eye"      : [-1,2,5],
+                "target"   : [0,0,0],
+                "ambient"  : [1,1,1],
+                "diffuse"  : [1,1,1],
+                "specular" : [1,1,1],
+                "linear_attenuation"  : 0.1,
+                "quadric_attenuation" : 0.001,
+                "debug" : false
+
+            }, 
+
+            "speaker_view" : {
+                "material" : {
+                    "shininess" : 1.0
+                }
+            }
+
+
+        }
+    }
+}
