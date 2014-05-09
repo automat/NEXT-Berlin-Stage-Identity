@@ -546,7 +546,7 @@ namespace next{
         
         gl::enableAlphaBlending();
         mTwitterCTA->draw();
-        mLogoNEXT->draw();
+        //mLogoNEXT->draw();
         gl::disableAlphaBlending();
         
         

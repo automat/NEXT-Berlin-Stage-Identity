@@ -86,7 +86,7 @@
             "live_edit_material_shader" : false,
             
             "path_surface" : {
-                "color" : [0.975,0,0.975,1.0]
+                "color" : [0.875,0,0.875,1.0]
             },
             
             //

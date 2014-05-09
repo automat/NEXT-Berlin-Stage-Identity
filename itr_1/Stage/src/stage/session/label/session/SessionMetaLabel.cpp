@@ -95,7 +95,7 @@ namespace next {
         mTimeFrame.topleft        = textbox.getTopLeft();
         mTimeFrame.texture        = gl::Texture(Surface(textbox.getTexture()));
         
-        mTargetTimestamp = timestamp;
+        mTargetTimestamp = time(0) + 10 * 60.0f; //timestamp;
         mClockImageRef   = clockImageRef.weakClone();
         
         mTextBoxTimeWidth = mTimeFrame.calculatedSize.x + SESSION_LABEL_EVENT_META_TYPE_INDEX_SPACING;
