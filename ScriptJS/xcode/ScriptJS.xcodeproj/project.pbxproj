@@ -79,7 +79,7 @@
 		CD72A89818CA20D90079722E /* v8config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = v8config.h; path = ../../../v8/include/v8config.h; sourceTree = "<group>"; };
 		CD72A89918CA20D90079722E /* v8stdint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = v8stdint.h; path = ../../../v8/include/v8stdint.h; sourceTree = "<group>"; };
 		CD9C09DA18A27EDD007516AF /* ModuleClassCpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ModuleClassCpp.cpp; path = ../src/ModuleClassCpp.cpp; sourceTree = "<group>"; };
-		CD9C0A0918A2D8DC007516AF /* liblibScriptJS_d.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibScriptJS_d.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD9C0A0918A2D8DC007516AF /* libScriptJS_d.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libScriptJS_d.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDC9679918A97024000C50A7 /* gl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gl.h; sourceTree = "<group>"; };
 		CDC9679B18A97113000C50A7 /* gl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gl.cpp; sourceTree = "<group>"; };
 		CDC9679E18AA3A50000C50A7 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* ScriptJS.app */,
-				CD9C0A0918A2D8DC007516AF /* liblibScriptJS_d.a */,
+				CD9C0A0918A2D8DC007516AF /* libScriptJS_d.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -335,7 +335,7 @@
 			);
 			name = libScriptJS;
 			productName = libScriptJS;
-			productReference = CD9C0A0918A2D8DC007516AF /* liblibScriptJS_d.a */;
+			productReference = CD9C0A0918A2D8DC007516AF /* libScriptJS_d.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
